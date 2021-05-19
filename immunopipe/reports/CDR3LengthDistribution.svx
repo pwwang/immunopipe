@@ -1,0 +1,77 @@
+<script>
+import { Tabs, Tab, Image } from 'pipen-smelte'
+</script>
+
+# All samples
+
+<Tabs
+    selected="all-samples-nt"
+    class="bg-gray-800 elevation-4 text-white "
+    tabButtonClasses="p-2"
+    color="yellow-a200"
+    let:selected={selected}
+    items={ [
+        {"id": "all-samples-nt", "text": "CDR3 nt length distribution"},
+        {"id": "all-samples-aa", "text": "CDR3 aa length distribution"}
+    ] }>
+    <div
+      slot="content"
+      class="flex items-center content-center overflow-hidden p-5 w-full h-full border-2 border-gray-600 border-t-0"
+    >
+      <Tab id="all-samples-nt" {selected}>
+        <Image
+            alt="CDR3 nt length distribution"
+            src="{{ job0.out.outdir + '/All_samples/all_samples.nt.png' }}"
+            class="w-2/3"
+            />
+      </Tab>
+      <Tab id="all-samples-aa" {selected}>
+        <Image
+            alt="CDR3 aa length distribution"
+            src="{{ job0.out.outdir + '/All_samples/all_samples.aa.png' }}"
+            class="w-2/3"
+            />
+      </Tab>
+    </div>
+  </Tabs>
+
+{% from glob import glob %}
+{% from os import path %}
+{% for sampledir in glob(job0.out.outdir + "/*") %}
+{%  assign sample = path.basename(sampledir) %}
+{%  if sample == "All_samples" %}
+{%    continue %}
+{%  endif %}
+# {{ sample }}
+
+<Tabs
+    selected="{{sample}}-nt"
+    class="bg-gray-800 elevation-4 text-white "
+    tabButtonClasses="p-2"
+    color="yellow-a200"
+    let:selected={selected}
+    items={ [
+        {"id": "{{sample}}-nt", "text": "CDR3 nt length distribution"},
+        {"id": "{{sample}}-aa", "text": "CDR3 aa length distribution"}
+    ] }>
+    <div
+      slot="content"
+      class="flex items-center content-center overflow-hidden p-5 w-full h-full border-2 border-gray-600 border-t-0"
+    >
+      <Tab id="{{sample}}-nt" {selected}>
+        <Image
+            alt="CDR3 nt length distribution"
+            src="{{ sampledir + '/nt.png' }}"
+            class="w-2/3"
+            />
+      </Tab>
+      <Tab id="{{sample}}-aa" {selected}>
+        <Image
+            alt="CDR3 aa length distribution"
+            src="{{ sampledir + '/aa.png' }}"
+            class="w-2/3"
+            />
+      </Tab>
+    </div>
+  </Tabs>
+{% endfor %}

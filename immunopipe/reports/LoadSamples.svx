@@ -1,0 +1,11 @@
+<script>
+import { DataTable } from 'pipen-smelte'
+</script>
+
+# Sample Information
+
+{% assign samplefile = job.outdir + "/samples.txt"  %}
+
+<DataTable
+    data="{{ samplefile | @report.datatable: delimiter='\t' }}"
+    datafile="{{ samplefile }}" />
