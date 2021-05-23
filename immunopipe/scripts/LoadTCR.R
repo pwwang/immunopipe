@@ -6,23 +6,21 @@ outfile = "{{ out.outfile }}"
 outdir = normalizePath("{{ job.outdir }}") # to absolute
 
 load(samples)
-all_sample_dir = file.path(outdir, "all_samples")
-unlink(all_sample_dir, recursive = TRUE)
-dir.create(all_sample_dir)
 
-paths = samples %>% filter(Type == 'scTCR') %>% pull('Path')
-for (sample in paths) {
-    destfile = file.path(all_sample_dir, basename(sample))
-    file.symlink(sample, destfile)
-}
-
-immdata = repLoad(all_sample_dir)
-names(immdata$meta) = "File"
-immdata$meta = immdata$meta %>% left_join(
-    select(samples, c(1, 4:ncol(samples))) %>% mutate(
-        File=tools::file_path_sans_ext(basename(Path))
-    )
-) %>% select(!c("File", "Path"))
+immdata = repLoad(tcrdir)
+immdata$meta$Sample = gsub(
+    '.filtered_contig_annotations',
+    '',
+    immdata$meta$Sample,
+    fixed=TRUE
+)
 names(immdata$data) = immdata$meta$Sample
+# add Source to immdata$meta
+immdata$meta = left_join(
+        immdata$meta,
+        samples %>% filter(Type == 'scTCR') %>% select(Sample, Source)
+    )  %>% left_join(
+        metadata %>% select(-"Patient")
+    )
 
 save(immdata, file=outfile)

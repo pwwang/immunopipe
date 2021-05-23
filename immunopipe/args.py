@@ -45,6 +45,27 @@ params.add_param(
     required=True
 )
 params.add_param(
+    'meta',
+    type='path',
+    desc=(
+        'The meta information about the patients, '
+        'using `Patient` from `samples` as key.'
+    ),
+    required=True
+)
+params.add_param(
+    'perl',
+    type=str,
+    default='perl',
+    desc='Path to perl'
+)
+params.add_param(
+    'meta_excl',
+    type=str,
+    default='',
+    desc='Values to be excluded in metadata grouping analysis (i.e. controls)'
+)
+params.add_param(
     'datadir',
     type='path',
     desc=(

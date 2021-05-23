@@ -1,0 +1,48 @@
+{% from glob import glob %}
+{% from os import path %}
+<script>
+import { Tabs, Tab, Image } from 'pipen-smelte'
+</script>
+
+# Number of clonotypes
+
+{% for fig in glob(job0.out.outdir + "/Number_of_clonotypes/*.png") %}
+{%  assign name = path.basename(fig)[:-4] %}
+
+## {{name}}
+
+<Image alt="{{name}}" src="{{fig}}" class="w-2/3" />
+{% endfor %}
+
+# Distribution of clonotype abundance
+
+<Image alt="distribution of clonotype abundance"
+    src="{{job0.out.outdir}}/Distribution_of_clonotype_abundance/Distribution_of_clonotype_abundance.png"
+    class="w-2/3" />
+
+# Top clonal proportion
+{% for fig in glob(job0.out.outdir + "/Top_clonal_proportion/*.png") %}
+{%  assign name = path.basename(fig)[:-4] %}
+
+## {{name}}
+
+<Image alt="{{name}}" src="{{fig}}" class="w-2/3" />
+{% endfor %}
+
+# Rare clonal proportion
+{% for fig in glob(job0.out.outdir + "/Rare_clonal_proportion/*.png") %}
+{%  assign name = path.basename(fig)[:-4] %}
+
+## {{name}}
+
+<Image alt="{{name}}" src="{{fig}}" class="w-2/3" />
+{% endfor %}
+
+# Relative clonal proportion
+{% for fig in glob(job0.out.outdir + "/Relative_clonal_abundance/*.png") %}
+{%  assign name = path.basename(fig)[:-4] %}
+
+## {{name}}
+
+<Image alt="{{name}}" src="{{fig}}" class="w-2/3" />
+{% endfor %}
