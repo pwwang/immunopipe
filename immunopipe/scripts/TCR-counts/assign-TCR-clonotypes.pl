@@ -163,6 +163,8 @@ $nfields = $#header + 1;
 $samplei = 1;
 foreach $sample (@vdj_samples) {
     $prefix = shift(@prefixes);
+	$source = $prefix;
+	$source =~ s/\.\d+$//;
 
     # Gather
     $last_barcode = "";
@@ -291,7 +293,7 @@ foreach $sample (@vdj_samples) {
 
 
     # Print
-    $OUT = new IO::File(">$outdir/$output.pheno$samplei");
+    $OUT = new IO::File(">$outdir/$output.pheno.$source");
     print $OUT "barcode" . "\t";
     print $OUT join("\t",@header) . "\n";
 

@@ -1,6 +1,8 @@
 library(dplyr)
 library(tidyr)
 library(stringr)
+library(foreach)
+library(doParallel)
 
 samples = "{{ in.samples }}"
 immdata = "{{ in.immdata }}"
@@ -8,6 +10,9 @@ outdir = "{{ out.outdir }}"
 vdjtools_dir = file.path(outdir, 'vdj_tools')
 vdjtools_patch = "{{ args.vdjtools_patch }}"
 vdjtools = "{{ args.vdjtools }}"
+ncores = {{ args.ncores }}
+
+registerDoParallel(ncores)
 
 dir.create(outdir, showWarnings = FALSE)
 dir.create(vdjtools_dir, showWarnings = FALSE)
@@ -22,7 +27,7 @@ paths = samples %>%
 rawfiles = as.list(paths$Path)
 names(rawfiles) = paths$Sample
 
-for (sample in names(rawfiles)) {
+foreach(sample=names(rawfiles)) %dopar% {
     print(paste("Handling", sample))
     rawfile = rawfiles[[sample]]
     rawdata = read.table(rawfile, sep=",", header=T, row.names=NULL) %>%

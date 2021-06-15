@@ -56,7 +56,19 @@ class VJUsage(Proc):
     }
     args = {
         'vdjtools_patch': f'{SCRIPT_DIR}/vdjtools-patch.sh',
-        'vdjtools': 'vdjtools'
+        'vdjtools': 'vdjtools',
+        'ncores': args.ncores
+    }
+
+class RepertoireOverlap(Proc):
+    """Repertorie overlaps between samples"""
+    requires = LoadTCR
+    input_keys = 'immdata:file'
+    output = 'outdir:file:RepertoireOverlap'
+    lang = args.rscript
+    script = f'file://{SCRIPT_DIR}/RepertoireOverlap.R'
+    plugin_opts = {
+        'report': f'file://{REPORT_DIR}/RepertoireOverlap.svx'
     }
 
 class BasicStatistics(Proc):
@@ -85,6 +97,22 @@ class LoadTCRForIntegration(Proc):
         'count_loader': f'{SCRIPT_DIR}/TCR-counts/TCR-counts.R',
     }
 
+class ResidencyColors(Proc):
+    """Define residency colors"""
+    requires = LoadSamples, LoadTCRForIntegration
+    input_keys = 'samples:file, tcr_counts:file'
+    output = 'outdir:file:ResidencyColors'
+    lang = args.rscript
+    script = f'file://{SCRIPT_DIR}/ResidencyColors.R'
+    args = {'colpat': f'{SCRIPT_DIR}/utils/color-palettes.R'}
+
 class ResidencyPlots(Proc):
     """Clonotype residency plots"""
-    # requires = LoadTCRForIntegration
+    requires = LoadSamples, LoadTCRForIntegration, ResidencyColors
+    input_keys = 'samples:file, tcr_counts:file, rc_colors:file'
+    output = 'outdir:file:ResidencyPlots'
+    lang = args.rscript
+    script = f'file://{SCRIPT_DIR}/ResidencyPlots.R'
+    plugin_opts = {
+        'report': f'file://{REPORT_DIR}/ResidencyPlots.svx'
+    }

@@ -5,7 +5,7 @@
 import { Tabs, Tab, Image } from 'pipen-smelte'
 </script>
 
-{% for patdir in glob(job0.out.outdir + "/*") %}
+{% for patdir in sorted(glob(job0.out.outdir + "/*")) %}
 {%  assign patient = path.basename(patdir) %}
 {%  if patient == "vdj_tools" %}
 {%      continue %}

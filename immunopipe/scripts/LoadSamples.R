@@ -91,3 +91,12 @@ write.table(
     sep="\t",
     quote=FALSE
 )
+
+write.table(
+    metadata,
+    file.path(outdir, 'metadata.txt'),
+    row.names=FALSE,
+    col.names=TRUE,
+    sep="\t",
+    quote=FALSE
+)

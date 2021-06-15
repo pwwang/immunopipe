@@ -42,11 +42,12 @@ for i, sdata in enumerate(
         _=[*vdj_samples, *rna_samples],
         o=outdir,
         s=patient,
-        p=','.join((f'{pref}{i+1}' for pref in prefixes))
+        p=','.join((f'{pref}.{i+1}' for pref in prefixes))
     ).fg
 
     rscript(
         count_loader,
         patient,
+        *prefixes,
         outdir
     )

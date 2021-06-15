@@ -9,3 +9,11 @@ import { DataTable } from 'pipen-smelte'
 <DataTable
     data="{{ samplefile | @report.datatable: delimiter='\t' }}"
     datafile="{{ samplefile }}" />
+
+# Meta Information
+
+{% assign metafile = job.outdir + "/metadata.txt"  %}
+
+<DataTable
+    data="{{ metafile | @report.datatable: delimiter='\t' }}"
+    datafile="{{ metafile }}" />

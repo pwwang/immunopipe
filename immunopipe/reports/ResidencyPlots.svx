@@ -1,0 +1,29 @@
+{% from os import path %}
+<script>
+import { Image, DataTable } from 'pipen-smelte'
+</script>
+
+# Residency Table
+
+{% assign restable = job0.out.outdir | @path.join: "residency_table.txt" %}
+<DataTable
+    data="{{ restable | @report.datatable: delimiter='\t' }}"
+    datafile="{{ restable }}" />
+
+# Venn Diagrams
+
+<Image alt="Residency Venn Diagrams"
+    src="{{job0.out.outdir}}/Venn.png"
+     />
+
+# Pie Charts
+
+<Image alt="Residency Pie Charts"
+    src="{{job0.out.outdir}}/Pie.png"
+     />
+
+# Scatter Plots
+
+<Image alt="Residency Scatter Plots"
+    src="{{job0.out.outdir}}/Scatter.png"
+     />

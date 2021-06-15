@@ -1,0 +1,19 @@
+<script>
+import { Image } from 'pipen-smelte'
+</script>
+
+# Repertoire overlap
+
+## By number
+
+<Image alt="Repertoire overlap by number"
+    src="{{job0.out.outdir}}/repOverlap.overlap.png"
+    class="w-2/3" />
+
+## By Jaccard index
+
+Jaccard index measures similarity between finite sample sets, and is defined as the size of the intersection divided by the size of the union of the sample sets.
+
+<Image alt="Repertoire overlap by Jaccard index"
+    src="{{job0.out.outdir}}/repOverlap.jaccard.png"
+    class="w-2/3" />
