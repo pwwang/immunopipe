@@ -164,7 +164,7 @@ $samplei = 1;
 foreach $sample (@vdj_samples) {
     $prefix = shift(@prefixes);
 	$source = $prefix;
-	$source =~ s/\.\d+$//;
+	$source =~ s/\-\d+$//;
 
     # Gather
     $last_barcode = "";

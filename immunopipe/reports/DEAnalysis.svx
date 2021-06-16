@@ -1,0 +1,33 @@
+{% from glob import glob %}
+{% from os import path %}
+
+<script>
+import { Image, DataTable } from 'pipen-smelte'
+</script>
+
+{% for casedir in glob(job0.out.outdir + '/*') %}
+{%  assign case = path.basename(casedir) %}
+
+# {{case}}
+
+## Differential expressed genes
+
+{% assign markerfile = path.join(casedir, 'markers.txt') %}
+<DataTable
+    data="{{ markerfile | @report.datatable: delimiter='\t' }}"
+    datafile="{{ markerfile }}" />
+
+## Pathway enrichment analysis
+
+{%  for pwfile in glob(casedir + '/enrichr_*.txt') %}
+<DataTable
+    data="{{ pwfile | @report.datatable: delimiter='\t' }}"
+    datafile="{{ pwfile }}" />
+
+{%  assign pwfig = path.join(casedir, path.basename(pwfile))[:-4] + '.png' %}
+<Image alt="Pathway enrichment analysis"
+    src="{{pwfig}}" />
+
+{%  endfor %}
+
+{% endfor %}

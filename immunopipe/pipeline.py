@@ -2,7 +2,7 @@ from pipen import Pipen
 
 from .defaults import PIPELINE_DESCRIPTION
 from .args import args
-from .processes import LoadSamples
+from .processes import SampleInfo
 
 def pipeline():
     """Get the pipeline object"""
@@ -11,4 +11,4 @@ def pipeline():
         'immunopipe',
         desc=PIPELINE_DESCRIPTION,
         # plugin_opts={'report_debug': True}
-    ).starts(LoadSamples)
+    ).starts(SampleInfo)

@@ -34,7 +34,7 @@ for i, sdata in enumerate(
     patient = sdata.Patient.values[0]
     print(f'Doing patient: {patient} ...')
 
-    prefixes = sdata >> distinct(f.Source) >> pull(f.Source, to='list')
+    prefixes = sdata >> distinct(f.Prefix) >> pull(f.Prefix, to='list')
     vdj_samples = sdata >> filter(f.Type == 'scTCR') >> pull(f.Path, to='list')
     rna_samples = sdata >> filter(f.Type == 'scRNA') >> pull(f.Path, to='list')
     perl(
@@ -42,12 +42,12 @@ for i, sdata in enumerate(
         _=[*vdj_samples, *rna_samples],
         o=outdir,
         s=patient,
-        p=','.join((f'{pref}.{i+1}' for pref in prefixes))
+        p=','.join(prefixes)
     ).fg
 
     rscript(
         count_loader,
         patient,
-        *prefixes,
+        *[prefix.split('-')[0] for prefix in prefixes],
         outdir
     )

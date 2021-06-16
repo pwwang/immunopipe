@@ -4,7 +4,7 @@ from pipen import Proc
 from .args import args
 from .defaults import SCRIPT_DIR, REPORT_DIR
 
-class LoadSamples(Proc):
+class SampleInfo(Proc):
     """List sample information
 
     Output file has 4 variables:
@@ -16,18 +16,18 @@ class LoadSamples(Proc):
     input_keys = 'samplefile:file, metafile:file'
     input = [(args.samples, args.meta)]
     output = 'outfile:file:samples.RData'
-    script = f'file://{SCRIPT_DIR}/LoadSamples.R'
+    script = f'file://{SCRIPT_DIR}/SampleInfo.R'
     lang = args.rscript
     args = dict(
         datadir=args.datadir
     )
     plugin_opts = {
-        'report': f'file://{REPORT_DIR}/LoadSamples.svx'
+        'report': f'file://{REPORT_DIR}/SampleInfo.svx'
     }
 
 class LoadTCR(Proc):
     """Load TCR data into immunarch object"""
-    requires = LoadSamples
+    requires = SampleInfo
     input_keys = 'samples:file'
     output = 'outfile:file:immunarch.RData'
     script = f'file://{SCRIPT_DIR}/LoadTCR.R'
@@ -46,7 +46,7 @@ class CDR3LengthDistribution(Proc):
 
 class VJUsage(Proc):
     """V-J usage in circular plot"""
-    requires = LoadSamples, LoadTCR
+    requires = SampleInfo, LoadTCR
     input_keys = 'samples:file, immdata:file'
     output = 'outdir:file:VJUsage'
     lang = args.rscript
@@ -73,7 +73,7 @@ class RepertoireOverlap(Proc):
 
 class BasicStatistics(Proc):
     """Basic statistics and clonality"""
-    requires = LoadSamples, LoadTCR
+    requires = SampleInfo, LoadTCR
     input_keys = 'samples:file, immdata:file'
     output = 'outdir:file:BasicStats'
     lang = args.rscript
@@ -85,7 +85,7 @@ class BasicStatistics(Proc):
 
 class LoadTCRForIntegration(Proc):
     """Load TCR data into R object for futher RNA data integration"""
-    requires = LoadSamples
+    requires = SampleInfo
     input_keys = 'samples:file'
     output = 'outdir:file:TCR-counts'
     lang = sys.executable
@@ -99,7 +99,7 @@ class LoadTCRForIntegration(Proc):
 
 class ResidencyColors(Proc):
     """Define residency colors"""
-    requires = LoadSamples, LoadTCRForIntegration
+    requires = SampleInfo, LoadTCRForIntegration
     input_keys = 'samples:file, tcr_counts:file'
     output = 'outdir:file:ResidencyColors'
     lang = args.rscript
@@ -108,11 +108,33 @@ class ResidencyColors(Proc):
 
 class ResidencyPlots(Proc):
     """Clonotype residency plots"""
-    requires = LoadSamples, LoadTCRForIntegration, ResidencyColors
+    requires = SampleInfo, LoadTCRForIntegration, ResidencyColors
     input_keys = 'samples:file, tcr_counts:file, rc_colors:file'
     output = 'outdir:file:ResidencyPlots'
     lang = args.rscript
     script = f'file://{SCRIPT_DIR}/ResidencyPlots.R'
     plugin_opts = {
         'report': f'file://{REPORT_DIR}/ResidencyPlots.svx'
+    }
+
+class LoadExprData(Proc):
+    """Load expression data"""
+    requires = SampleInfo
+    input_keys = 'samples:file'
+    output = 'outdir:file:LoadExprData'
+    lang = args.rscript
+    script = f'file://{SCRIPT_DIR}/LoadExprData.R'
+    args = {'ncores': args.ncores}
+
+class DEAnalysis(Proc):
+    """Differential gene expression analysis between different groups"""
+    if args.de_config:
+        requires = SampleInfo, LoadExprData
+    input_keys = 'samples:file, exprdir:file'
+    output = 'outdir:file:DEAnalysis'
+    lang = args.rscript
+    script = f'file://{SCRIPT_DIR}/DEAnalysis.R'
+    args = {'ncores': args.ncores, 'config': args.de_config}
+    plugin_opts = {
+        'report': f'file://{REPORT_DIR}/DEAnalysis.svx'
     }

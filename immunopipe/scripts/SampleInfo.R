@@ -14,6 +14,10 @@ samples = read.table(
     sep="\t",
     check.names=FALSE
 )
+if ('End' %in% names(samples)) {
+    samples = samples %>% select(-End)
+}
+
 # Sample	Patient	...
 metadata = read.table(
     metafile,
@@ -48,7 +52,19 @@ if (!datadir %in% c("None", "")) {
     datadir = normalizePath(datadir)
     samples = samples %>% mutate(
         Path=as.character(Path),
-        Path=if_else(startsWith(Path, "/"), Path, file.path(datadir, Path))
+        Path=if_else(startsWith(Path, "/"), Path, file.path(datadir, Path)),
+        Genes=as.character(Genes),
+        Genes=if_else(
+            startsWith(Genes, "/"),
+            Genes,
+            if (nchar(Genes) == 0) "" else file.path(datadir, Genes)
+        ),
+        Matrix=as.character(Matrix),
+        Matrix=if_else(
+            startsWith(Matrix, "/"),
+            Matrix,
+            if (nchar(Matrix) == 0) "" else file.path(datadir, Matrix)
+        )
     )
 }
 
@@ -56,6 +72,20 @@ if (!datadir %in% c("None", "")) {
 for (path in samples$Path) {
     if (!file.exists(path)) {
         stop(paste(path, "does not exist!"))
+    }
+}
+
+# check if files exist
+for (genes in samples$Genes) {
+    if (nchar(genes) > 0 && !file.exists(genes)) {
+        stop(paste(genes, "does not exist!"))
+    }
+}
+
+# check if files exist
+for (mat in samples$Matrix) {
+    if (nchar(mat) > 0 && !file.exists(mat)) {
+        stop(paste(mat, "does not exist!"))
     }
 }
 
@@ -80,11 +110,16 @@ for (i in seq_len(nrow(samples))) {
 }
 samples$Path = new_paths
 
+# Add prefixes
+samples = samples %>%
+    group_by(Patient) %>%
+    mutate(Prefix=paste(Source, cur_group_id(), sep='-'))
+
 save(samples, metadata, tcrdir, metagroups, file=outfile)
 
 # export sample table
 write.table(
-    samples %>% mutate(File=basename(Path)) %>% select(-ncol(samples)),
+    samples %>% mutate(Path=basename(Path)) %>% select(1:5),
     file.path(outdir, 'samples.txt'),
     row.names=FALSE,
     col.names=TRUE,

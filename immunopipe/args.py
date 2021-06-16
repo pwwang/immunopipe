@@ -85,6 +85,13 @@ params.add_param(
     default='Rscript',
     desc='The path to Rscript to run processes with scripts in R.'
 )
+params.add_param(
+    'de_config',
+    type='file',
+    show=True,
+    required=False,
+    desc='Configuration file for DEAnalysis.'
+)
 
 params.param_groups[PIPELINE_OPTION_TITLE] = params.param_groups.pop(
     PIPELINE_OPTION_TITLE
