@@ -7,7 +7,15 @@ import { Image, DataTable } from 'pipen-smelte'
 
 {% assign restable = job0.out.outdir | @path.join: "residency_table.txt" %}
 <DataTable
-    data="{{ restable | @report.datatable: delimiter='\t' }}"
+    class="break-all"
+    data="{{ restable | @report.datatable:
+        delimiter='\t',
+        fmtcols={
+            7: [float, '{:.3f}'],
+            8: [float, '{:.3f}'],
+            9: [float, '{:.3f}'],
+        }
+    }}"
     datafile="{{ restable }}" />
 
 # Venn Diagrams

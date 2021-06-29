@@ -128,13 +128,47 @@ class LoadExprData(Proc):
 
 class DEAnalysis(Proc):
     """Differential gene expression analysis between different groups"""
-    if args.de_config:
+    if args.extra_config.DE:
         requires = SampleInfo, LoadExprData
+
     input_keys = 'samples:file, exprdir:file'
     output = 'outdir:file:DEAnalysis'
     lang = args.rscript
     script = f'file://{SCRIPT_DIR}/DEAnalysis.R'
-    args = {'ncores': args.ncores, 'config': args.de_config}
+    args = {'ncores': args.ncores, 'config': args.extra_config.DE}
     plugin_opts = {
         'report': f'file://{REPORT_DIR}/DEAnalysis.svx'
+    }
+
+class CrossSampleClonotypeComparison(Proc):
+    """Clonetype changes across samples of the same patient"""
+    if args.extra_config.PatientSamples:
+        requires = LoadTCR
+
+    input_keys = 'immdata:file'
+    output = 'outdir:file:CrossSampleClonotypeComparison'
+    lang = args.rscript
+    script = f'file://{SCRIPT_DIR}/CrossSampleClonotypeComparison.R'
+    args = {'ncores': args.ncores, 'config': args.extra_config.PatientSamples}
+    plugin_opts = {
+        'report': f'file://{REPORT_DIR}/CrossSampleClonotypeComparison.svx'
+    }
+
+class DEAnalysisChangedClonotypes(Proc):
+    """Differential expression analysis for changed clonotypes"""
+    if args.extra_config.PatientSamples:
+        requires = (
+            SampleInfo, LoadTCR, LoadExprData, CrossSampleClonotypeComparison
+        )
+
+    input_keys = 'samples:file, immdata:file, exprdir:file, ccdir:file'
+    output = 'outdir:file:DEAnalysisChangedClonotypes'
+    lang = args.rscript
+    script = f'file://{SCRIPT_DIR}/DEAnalysisChangedClonotypes.R'
+    args = {
+        'ncores': args.ncores,
+        'config': args.extra_config.PatientSamples
+    }
+    plugin_opts = {
+        'report': f'file://{REPORT_DIR}/DEAnalysisChangedClonotypes.svx'
     }

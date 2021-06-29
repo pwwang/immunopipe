@@ -7,14 +7,14 @@ library(enrichR)
 samples = "{{ in.samples }}"
 exprdir = "{{ in.exprdir }}"
 outdir = "{{ out.outdir }}"
-config = "{{ args.config }}"
+config = '{{ args.config }}'
 ncores = {{ args.ncores }}
 
 setEnrichrSite("Enrichr")
 plan(strategy = "multicore", workers = ncores)
 dir.create(outdir, showWarnings = FALSE)
 load(samples) # samples, metadata
-config = parseTOML(config)
+config = parseTOML(config, fromFile=FALSE)
 
 # load all matrix and create seurat object for each sample
 data = samples %>%

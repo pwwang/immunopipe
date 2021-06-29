@@ -14,14 +14,32 @@ import { Image, DataTable } from 'pipen-smelte'
 
 {% assign markerfile = path.join(casedir, 'markers.txt') %}
 <DataTable
-    data="{{ markerfile | @report.datatable: delimiter='\t' }}"
+    data="{{ markerfile | @report.datatable:
+        delimiter='\t',
+        rownames=True,
+        fmtcols={
+            1: [float, '{:.3e}'],
+            2: [float, '{:.3f}'],
+            3: [float, '{:.3f}'],
+            4: [float, '{:.3f}'],
+            5: [float, '{:.3e}']
+        }
+    }}"
     datafile="{{ markerfile }}" />
 
 ## Pathway enrichment analysis
 
 {%  for pwfile in glob(casedir + '/enrichr_*.txt') %}
 <DataTable
-    data="{{ pwfile | @report.datatable: delimiter='\t' }}"
+    data="{{ pwfile | @report.datatable:
+        delimiter='\t',
+        fmtcols={
+            2: [float, '{:.3e}'],
+            3: [float, '{:.3e}'],
+            6: [float, '{:.3f}'],
+            7: [float, '{:.3f}']
+        }
+    }}"
     datafile="{{ pwfile }}" />
 
 {%  assign pwfig = path.join(casedir, path.basename(pwfile))[:-4] + '.png' %}

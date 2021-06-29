@@ -1,0 +1,83 @@
+{% from glob import glob %}
+{% from os import path %}
+
+<script>
+import { Image, DataTable, Tab } from 'pipen-smelte'
+</script>
+
+{% for patdir in glob(job0.out.outdir + '/*') %}
+
+{%  assign patient = path.basename(patdir) %}
+
+# {{ patdir | @path.basename }}
+
+## Clonotype composition
+{%  assign nttable = path.join(patdir, "clonotypes.nt.txt") %}
+{%  assign ntfig = path.join(patdir, "clonotypes.nt.png") %}
+{%  assign aatable = path.join(patdir, "clonotypes.aa.txt") %}
+{%  assign aafig = path.join(patdir, "clonotypes.aa.png") %}
+
+### CDR3.nt
+
+<DataTable
+    class="break-all"
+    data="{{ nttable | @report.datatable: delimiter='\t', rows=100 }}"
+    datafile="{{ nttable }}" />
+
+<p></p>
+<Image
+    alt="Clonotype composition"
+    src="{{ ntfig }}"
+    />
+
+### CDR3.aa
+
+<DataTable
+    data="{{ aatable | @report.datatable: delimiter='\t', rows=100 }}"
+    datafile="{{ aatable }}" />
+
+<p></p>
+<Image
+    alt="Clonotype composition"
+    src="{{ aafig }}"
+    />
+
+
+## Clonotype changes
+
+{%  for compfile in glob(path.join(patdir, 'gainloss_*.txt')) %}
+{%      assign comp = path.basename(compfile)[9:-4] %}
+{%      assign compfig = compfile[:-4] + '.png' %}
+{%      assign countfile = path.join(path.dirname(compfile), 'glcount_' + comp + '.txt') %}
+
+### {{comp}}
+
+#### Counts
+
+<DataTable data="{{ countfile | @report.datatable: delimiter='\t' }}" />
+
+#### Proportion changes
+
+<DataTable
+    class="break-all"
+    data="{{ compfile | @report.datatable:
+        delimiter='\t',
+        rows=100,
+        fmtcols={
+            1: [float, '{:.3e}'],
+            2: [float, '{:.3e}'],
+            3: [float, '{:.3e}'],
+        }
+    }}"
+    datafile="{{ compfile }}" />
+
+#### Top vanished and emerged clonotypes
+
+<Image
+    alt="Clonotype composition"
+    src="{{ compfig }}"
+    />
+
+{%  endfor %}
+
+{% endfor %}

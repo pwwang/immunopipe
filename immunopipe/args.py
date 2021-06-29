@@ -1,6 +1,8 @@
 """A pipeline for integrative analysis for scTCR- and scRNA-seq data"""
 import sys
 
+import toml
+from diot import Diot
 from pipen_args import Args
 
 from .defaults import PIPELINE_OPTION_TITLE, PIPELINE_DESCRIPTION
@@ -86,11 +88,11 @@ params.add_param(
     desc='The path to Rscript to run processes with scripts in R.'
 )
 params.add_param(
-    'de_config',
+    'extra_config',
     type='file',
     show=True,
     required=False,
-    desc='Configuration file for DEAnalysis.'
+    desc='Extra configurations in TOML for individual processes.'
 )
 
 params.param_groups[PIPELINE_OPTION_TITLE] = params.param_groups.pop(
@@ -106,3 +108,15 @@ else:
     if args.config and args.config.is_file():
         params.from_file(args.config, force=True)
     args = params.parse()
+
+# parse extra config
+extra_config = Diot(DE=None, PatientSamples=None)
+if args.extra_config and args.extra_config.is_file():
+    with open(args.extra_config):
+        xconfig = toml.load(args.extra_config)
+    if 'DE' in xconfig:
+        extra_config['DE'] = toml.dumps(xconfig['DE'])
+    if 'PatientSamples' in xconfig:
+        extra_config['PatientSamples'] = toml.dumps(xconfig['PatientSamples'])
+
+args.extra_config = extra_config

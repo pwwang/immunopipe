@@ -1,0 +1,67 @@
+{% from glob import glob %}
+{% from os import path %}
+
+<script>
+import { Image, DataTable } from 'pipen-smelte'
+</script>
+
+{% for patdir in glob(path.join(job0.out.outdir, '*')) %}
+{%  assign patient = path.basename(patdir) %}
+
+# {{ patient}}
+{%  for compdir in glob(path.join(patdir, '*')) %}
+{%      assign comp = path.basename(compdir) %}
+
+## {{ comp }}
+
+{%      for clonedir in glob(path.join(compdir, '*')) %}
+{%          assign clone = path.basename(clonedir) %}
+{%          assign infofile = path.join(clonedir, 'info.txt') %}
+{%          assign degfile = path.join(clonedir, 'markers.txt') %}
+{%          assign pwfile = path.join(clonedir, 'enrichr_KEGG_2021_Human.txt') %}
+{%          assign pwfig = path.join(clonedir, 'enrichr_KEGG_2021_Human.png') %}
+
+### {{ clone }}
+
+#### Proportion
+
+<DataTable data="{{infofile | @report.datatable: delimiter='\t'}}" />
+
+#### Markers (Differentially-expressed genes)
+
+<DataTable
+    data="{{degfile | @report.datatable:
+        delimiter='\t',
+        rownames=True,
+        fmtcols={
+            1: [float, '{:.3e}'],
+            2: [float, '{:.3f}'],
+            3: [float, '{:.3f}'],
+            4: [float, '{:.3f}'],
+            5: [float, '{:.3e}'],
+        }
+    }}"
+    datafile="{{degfile}}" />
+
+#### Pathway enrichment analysis
+
+<DataTable
+    data="{{ pwfile | @report.datatable:
+        delimiter='\t',
+        fmtcols={
+            2: [float, '{:.3e}'],
+            3: [float, '{:.3e}'],
+            6: [float, '{:.3f}'],
+            7: [float, '{:.3f}']
+        }
+    }}"
+    datafile="{{ pwfile }}" />
+
+<p />
+<p />
+
+<Image alt="Pathway enrichment analysis" src="{{pwfig}}" />
+
+{%      endfor %}
+{%  endfor %}
+{% endfor %}
