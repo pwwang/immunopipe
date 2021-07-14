@@ -1,0 +1,10 @@
+{% from os import path %}
+
+<script>
+import { Image } from 'pipen-smelte'
+</script>
+
+# Gene expressions
+
+<Image alt="Gene expressions"
+    src="{{ job0.out.outdir | @path.join: 'biomarker-boxplots.png' }}" />

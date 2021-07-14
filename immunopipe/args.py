@@ -118,5 +118,13 @@ if args.extra_config and args.extra_config.is_file():
         extra_config['DE'] = toml.dumps(xconfig['DE'])
     if 'PatientSamples' in xconfig:
         extra_config['PatientSamples'] = toml.dumps(xconfig['PatientSamples'])
+    if 'TCellClusterGeneExprs' in xconfig:
+        extra_config['TCellClusterGeneExprs'] = toml.dumps(
+            xconfig['TCellClusterGeneExprs']
+        )
+    if 'TCellClusters' in xconfig:
+        extra_config['TCellClusters'] = toml.dumps(
+            xconfig['TCellClusters']
+        )
 
 args.extra_config = extra_config

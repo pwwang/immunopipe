@@ -1,0 +1,23 @@
+{% from glob import glob %}
+{% from os import path %}
+
+<script>
+import { Image, DataTable } from 'pipen-smelte'
+</script>
+
+# Clusters
+
+<DataTable
+    data="{{ job0.out.outdir | @path.join: 'clusters.txt' | @report.datatable:
+        delimiter='\t',
+        fmtcols={
+            0: [float, '{:.3f}'],
+            1: [float, '{:.3f}']
+        }
+    }}"
+    datafile="{{ job0.out.outdir | @path.join: 'clusters.txt' }}" />
+
+# CD3E-expression vs. Clonotype composition
+
+<Image alt="subdivision-rationale.png"
+    src="{{job0.out.outdir | @path.join: 'subdivision-rationale.png'}}" />

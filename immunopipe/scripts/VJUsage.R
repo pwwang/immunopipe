@@ -12,6 +12,8 @@ vdjtools_patch = "{{ args.vdjtools_patch }}"
 vdjtools = "{{ args.vdjtools }}"
 ncores = {{ args.ncores }}
 
+# ncores > 4 causing problems
+ncores = min(ncores, 4)
 registerDoParallel(ncores)
 
 dir.create(outdir, showWarnings = FALSE)

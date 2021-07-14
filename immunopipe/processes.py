@@ -119,6 +119,7 @@ class ResidencyPlots(Proc):
 
 class LoadExprData(Proc):
     """Load expression data"""
+    # Matrix-0 directory
     requires = SampleInfo
     input_keys = 'samples:file'
     output = 'outdir:file:LoadExprData'
@@ -171,4 +172,60 @@ class DEAnalysisChangedClonotypes(Proc):
     }
     plugin_opts = {
         'report': f'file://{REPORT_DIR}/DEAnalysisChangedClonotypes.svx'
+    }
+
+class IntegrateTCRExprData(Proc):
+    """Integrate TCR and Expre data"""
+    # Directories: ,TCR-counts, Matrices-0
+    requires = SampleInfo, LoadTCRForIntegration, LoadExprData
+    input_keys = 'samples:file, tcr_counts:file, exprdir:file'
+    output = 'outdir:file:IntegrateTCRExprData'
+    lang = args.rscript
+    script = f'file://{SCRIPT_DIR}/Seurat-0/IntegrateTCRExprData.R'
+    args = {
+        'ncores': args.ncores,
+        'seurate_source': f'{SCRIPT_DIR}/Seurat-0/seurate-source.R',
+    }
+
+class SeparateTnonTCells(Proc):
+    """Separate T and non-T cells"""
+    requires = IntegrateTCRExprData
+    input_keys = 'itgdir:file'
+    output = 'outdir:file:SeparateTnonTCells'
+    lang = args.rscript
+    script = f'file://{SCRIPT_DIR}/SeparateTnonTCells.R'
+    plugin_opts = {
+        'report': f'file://{REPORT_DIR}/SeparateTnonTCells.svx'
+    }
+
+class ClusterTCells(Proc):
+    """Cluster T cells"""
+    requires = SampleInfo, LoadTCRForIntegration, LoadExprData, SeparateTnonTCells
+    input_keys = 'samples:file, tcr_counts:file, exprdir:file, septdir:file'
+    output = 'outdir:file:ClusterTCells'
+    lang = args.rscript
+    script = f'file://{SCRIPT_DIR}/ClusterTCells.R'
+    args = {
+        'ncores': args.ncores,
+        'seurate_source': f'{SCRIPT_DIR}/Seurat-0/seurate-source.R',
+    }
+    plugin_opts = {
+        'report': f'file://{REPORT_DIR}/ClusterTCells.svx'
+    }
+
+class TCellClusterGeneExprs(Proc):
+    """Expressions in different T-cell clusters for genes of interest"""
+    if args.extra_config.TCellClusterGeneExprs:
+        requires = ClusterTCells
+
+    input_keys = 'cldir:file'
+    output = 'outdir:file:TCellClusterGeneExprs'
+    lang = args.rscript
+    script = f'file://{SCRIPT_DIR}/TCellClusterGeneExprs.R'
+    args = {
+        'genes': args.extra_config.TCellClusterGeneExprs,
+        'tclusters': args.extra_config.TCellClusters
+    }
+    plugin_opts = {
+        'report': f'file://{REPORT_DIR}/TCellClusterGeneExprs.svx'
     }
