@@ -183,7 +183,7 @@ class IntegrateTCRExprData(Proc):
     requires = SampleInfo, LoadTCRForIntegration, LoadExprData
     input_keys = 'samples:file, tcr_counts:file, exprdir:file'
     output = 'outdir:file:IntegrateTCRExprData'
-    # cache = 'force'
+    cache = 'force'
     lang = args.rscript
     script = f'file://{SCRIPT_DIR}/Seurat-0/IntegrateTCRExprData.R'
     args = {
@@ -198,6 +198,7 @@ class SeparateTnonTCells(Proc):
     output = 'outdir:file:SeparateTnonTCells'
     lang = args.rscript
     script = f'file://{SCRIPT_DIR}/SeparateTnonTCells.R'
+    args = { 'ncores': args.ncores }
     plugin_opts = {
         'report': f'file://{REPORT_DIR}/SeparateTnonTCells.svx'
     }
@@ -207,7 +208,7 @@ class ClusterTCells(Proc):
     requires = SampleInfo, LoadTCRForIntegration, LoadExprData, SeparateTnonTCells
     input_keys = 'samples:file, tcr_counts:file, exprdir:file, septdir:file'
     output = 'outdir:file:ClusterTCells'
-    # cache = 'force'
+    cache = 'force'
     lang = args.rscript
     script = f'file://{SCRIPT_DIR}/ClusterTCells.R'
     args = {

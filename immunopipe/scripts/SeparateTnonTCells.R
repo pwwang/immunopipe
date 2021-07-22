@@ -3,9 +3,14 @@ library(tibble)
 library(ggplot2)
 library(ggprism)
 library(ggrepel)
+library(doParallel)
+library(Seurat)
 
 itgdir = "{{ in.itgdir }}"
 outdir = "{{ out.outdir }}"
+ncores = {{ args.ncores }}
+
+registerDoParallel(ncores)
 
 dir.create(outdir, showWarnings = FALSE)
 
@@ -80,3 +85,24 @@ write.table(p2[which(p2$ident %in% tcell.ident),],
 write.table(p2[which(p2$ident %in% nont.ident),],
             file=file.path(outdir, "nont.main.xls"),
             quote=F, sep="\t", row.names=T, col.names=NA)
+
+
+# Markers
+markers_dir = file.path(outdir, "Markers")
+dir.create(markers_dir, showWarnings = FALSE)
+
+foreach (markfile = Sys.glob(file.path(itgdir, "Markers", "*.markers.RData"))) %dopar% {
+    print(paste("* For ident", basename(markfile), "..."))
+    load(markfile)
+    write.table(
+        markers,
+        file.path(
+            markers_dir,
+            sub(".RData", ".txt", basename(markfile), fixed=T)
+        ),
+        col.names = TRUE,
+        row.names = TRUE,
+        sep="\t",
+        quote = FALSE
+    )
+}

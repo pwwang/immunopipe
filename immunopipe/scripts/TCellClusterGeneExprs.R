@@ -1,16 +1,20 @@
 library(Seurat)
 library(dplyr)
+library(tidyr)
+library(tibble)
 library(RcppTOML)
 library(RColorBrewer)
+library(ComplexHeatmap)
 
 cldir = "{{ in.cldir }}"
 outdir = "{{ out.outdir }}"
-genes = '{{ args.genes }}'
+plotgenes = '{{ args.genes }}'
 tclusters = '{{ args.tclusters }}'
 
 dir.create(outdir, showWarnings = FALSE)
-genes = parseTOML(genes, fromFile=FALSE)
+plotgenes = parseTOML(plotgenes, fromFile=FALSE)
 tclusters = parseTOML(tclusters, fromFile=FALSE)
+genes = plotgenes$boxplots
 
 idents.tcell.ordered = names(tclusters)
 idents.tcell.labels = unname(unlist(tclusters))
@@ -93,4 +97,33 @@ mtext("Expression level (log scaled value)",
     at=(ngenes-(ngenes-2)/2)/ngenes,
     outer=T, cex=0.6)
 
+dev.off()
+
+
+## Heatmap
+hmgenes = plotgenes$heatmap
+longexprs = scale.data[unlist(hmgenes),] %>%
+    as.data.frame() %>%
+    rownames_to_column('Gene') %>%
+    pivot_longer(-Gene, names_to='Clone', values_to='Expr') %>%
+    left_join(rownames_to_column(as.data.frame(idents), 'Clone'))
+
+hmexprs = longexprs %>%
+    group_by(Gene, idents) %>%
+    summarise(Expr=mean(Expr)) %>%
+    pivot_wider(names_from=idents, values_from=Expr) %>%
+    column_to_rownames('Gene')
+
+png(file.path(outdir, "heatmap.png"), res=100, width=1000, height=1000)
+ha_row = rowAnnotation(" " = anno_boxplot(t(hmexprs)))
+ha_col = HeatmapAnnotation(" " = anno_boxplot(hmexprs))
+Heatmap(
+    hmexprs,
+    rect_gp = gpar(col = "white", lwd = 2),
+    row_names_side = "left",
+    top_annotation = ha_col,
+    column_names_rot = 60,
+    column_dend_height = unit(2, "cm"),
+    name = "Log scaled expr."
+) + ha_row
 dev.off()

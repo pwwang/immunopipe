@@ -43,7 +43,8 @@ clonotypes_composition = function(patient, patdir, pdata, meta, type) {
         clonotypes[[paste("CDR3", type, sep=".")]] %>% head(10),
         .col = type
     )
-    p = vis(tc) + ggtitle(paste0(patient, " top 10 shared clonotype composition (CDR3.", type, ")"))
+    p = vis(tc) +
+        ggtitle(paste0(patient, " Top 10 shared clonotype composition (CDR3.", type, ")"))
 
     png(file.path(patdir, paste('clonotypes', type, 'png', sep='.')),
         width=1800, height=1000, res=100)
@@ -103,13 +104,16 @@ for (patient in names(config))  {
     meta = immdata$meta %>%
         filter(Patient %in% config[[patient]])
 
+    metanames = c()
     for (metaname in names(config$COMPARING)) {
         if (metaname %in% c('ORDER', 'DE_DBS', 'DE_TOP_CLONOTYPES')) next
         meta[[metaname]] = factor(
             meta[[metaname]],
             levels = config$COMPARING[[metaname]]
         )
+        metanames = c(metanames, metaname)
     }
+    meta = arrange(meta, meta[, metanames])
 
     # nt
     pdata = immdata$data[meta$Sample]

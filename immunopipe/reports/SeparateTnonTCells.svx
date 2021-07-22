@@ -21,3 +21,27 @@ import { Image, DataTable } from 'pipen-smelte'
 
 <Image alt="subdivision-rationale.png"
     src="{{job0.out.outdir | @path.join: 'subdivision-rationale.png'}}" />
+
+# Markers for each cluster
+{% assign mdir = job0.out.outdir | @path.join: 'Markers' %}
+{% for mfile in mdir | @path.join: '*.txt' | @glob | @sorted %}
+{%  assign ident = mfile | @path.basename | .split: '.' | getitem: 1 %}
+## Cluster #{{ident}}
+
+<DataTable
+    data="{{mfile | @report.datatable:
+        delimiter='\t',
+        rows=100,
+        rownames=True,
+        fmtcols={
+            1: [float, '{:.3e}'],
+            2: [float, '{:.3f}'],
+            3: [float, '{:.3f}'],
+            4: [float, '{:.3f}'],
+            5: [float, '{:.3e}'],
+        }
+    }}"
+    datafile="{{ mfile }}"
+    />
+
+{% endfor %}
