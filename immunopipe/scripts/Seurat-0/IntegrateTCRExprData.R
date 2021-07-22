@@ -20,21 +20,23 @@ dir.create(outdir, showWarnings = FALSE)
 load(samples) #samples
 
 # get paired tumor-normal patients
-samples = samples %>%
-    filter(Type=='scRNA') %>%
-    group_by(Patient) %>%
-    filter(n() == 2)
+# samples = samples %>%
+#     # filter(Type=='scRNA') %>%
+#     group_by(Patient) %>%
+#     filter(n() == 2)
+
+# samples have scRNA/scTCR paired samples
 
 # Sample   Type  Patient  Source Path        Genes         Matrix        Prefix
 # <fct>    <fct> <fct>    <fct>  <chr>       <chr>         <chr>         <chr>
 # 1 MM003BM… scRNA MM003-e… BM     .pipen/sam… /research/la… /research/la… BM-9
 # 2 MM003WB… scRNA MM003-e… WBC    .pipen/sam… /research/la… /research/la… WBC-9
-# 3 MM005BM… scRNA MM005-e… BM     .pipen/sam… /research/la… /research/la… BM-12
-# 4 MM005WB… scRNA MM005-e… WBC    .pipen/sam… /research/la… /research/la… WBC-12
 
 print("Processing expression matrices ...")
-foreach (i=seq_len(nrow(samples))) %dopar% {
-    row = samples[i, ]
+rna_samples = samples %>% filter(Type=='scRNA')
+foreach (i=seq_len(nrow(rna_samples))) %dopar% {
+    row = rna_samples[i, ]
+    # Puts results into SCT assay
     process.mat(
         row$Prefix,
         row$Source,
@@ -45,18 +47,19 @@ foreach (i=seq_len(nrow(samples))) %dopar% {
     )
 }
 
-print("Combining samples from the same patient ...")
-foreach (group=group_split(samples)) %dopar% {
-    combine2(
-        unlist(group$Patient)[1],
-        unlist(group$Prefix),
-        outdir
-    )
-}
+# print("Combining samples from the same patient ...")
+# foreach (group=group_split(samples)) %dopar% {
+#     combine2(
+#         unlist(group$Patient)[1],
+#         unlist(group$Prefix),
+#         outdir
+#     )
+# }
 
-print("Merging all patients ...")
-global.obj = combine_all_patients(
-    samples %>% pull(Patient) %>% unique() %>% as.character(),
+print("Merging all samples ...")
+global.obj = combine_all_samples(
+    samples %>% pull(Sample) %>% unique() %>% as.character(),
+    samples %>% pull(Prefix) %>% unique() %>% as.character(),
     outdir
 )
 

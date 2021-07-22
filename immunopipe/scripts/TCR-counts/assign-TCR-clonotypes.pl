@@ -301,7 +301,7 @@ foreach $sample (@vdj_samples) {
 
     # $file = "$expr_dir/$sample.barcodes.tsv.gz";
     $file = @rna_samples[$samplei-1];
-    $FP = new IO::File("gunzip -f -c $file |") or warn "No barcodes.tsv file for $sample.  Cannot combine with expression data";
+    $FP = new IO::File("gunzip -f -c $file/barcodes.tsv.gz |") or warn "No barcodes.tsv file for $sample.  Cannot combine with expression data";
     if (!defined($FP)) {
 	foreach $barcode (keys % {$clonotype_info{$sample}}) {
 	    print $OUT $prefix . "_" . $barcode . "\t";   # Add prefix to match barcodes in Seurat
@@ -344,11 +344,11 @@ $OUT = new IO::File(">$outdir/$output.counts");
 foreach $clonotype_id (@clonotype_ids) {
     print $OUT $clonotype_id;
     for ($samplei = 1; $samplei <= $#samples + 1; $samplei++) {
-	if (!defined($count = $ {$counts[$samplei]}{$clonotype_id})) {
-	    print $OUT "\t" . "0";
-	} else {
-	    print $OUT "\t" . $count;
-	}
+		if (!defined($count = $ {$counts[$samplei]}{$clonotype_id})) {
+			print $OUT "\t" . "0";
+		} else {
+			print $OUT "\t" . $count;
+		}
     }
     print $OUT "\n";
 }

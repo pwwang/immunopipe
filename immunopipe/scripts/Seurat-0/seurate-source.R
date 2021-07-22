@@ -16,6 +16,12 @@ process.mat <- function (
     } else {
         suf = ""
     }
+    print(paste("Processing", prefix, suf, "..."))
+    outfile = file.path(outdir, paste0(prefix, suf, ".obj.rds"))
+    if (file.exists(outfile)) {
+        return(NULL)
+    }
+
     matfile = paste0(prefix, suf, ".mat.rds")
     mat <- readRDS(file.path(exprdir, matfile))
     clonotypes.file = paste0(patient, ".pheno.", source)
@@ -38,7 +44,6 @@ process.mat <- function (
     # Puts results into SCT assay.  Trying to regress nUMI fails
     # vars.to.regress="source" -- we are processing each source separately
     obj <- SCTransform(object=obj, return.only.var.genes=FALSE, verbose=FALSE)
-    outfile = file.path(outdir, paste0(prefix, suf, ".obj.rds"))
     saveRDS(obj, file=outfile)
 }
 
@@ -138,6 +143,109 @@ combine_all_patients = function(samples, outdir, cell="", outpref="global.1.6") 
     #saveRDS(global.obj@assays$integrated@scale.data, "all_integrated.rds")
 
     p2 <- DimPlot(global.obj, reduction="umap", label=FALSE)
+    write.table(
+        cbind(
+            p2$data,
+            patient=global.obj$patient,
+            sample=global.obj$sample,
+            source=global.obj$source,
+            clonotype=global.obj$clonotype
+        ),
+        file=file.path(outdir, paste0(outpref, ".umap")),
+        quote=FALSE,
+        sep="\t",
+        col.names=NA,
+        row.names=TRUE
+    )
+
+    global.obj
+}
+
+combine_all_samples = function(samples, prefices, outdir, cell="", outpref="global.0.8") {
+    if (nzchar(cell)) {
+        suf = paste0(".", cell)
+    } else {
+        suf = ""
+    }
+    print('- Reading reference lists ...')
+    reference.list <- list()
+    i <- 1
+    for (prefix in prefices) {
+        print(paste('  Reading', prefix, suf, '...', i, '/', length(prefices)))
+        file <- file.path(outdir, paste0(prefix, suf, ".obj.rds"))
+        reference.list[[i]] <- readRDS(file)
+        i <- i + 1
+    }
+
+    print('- PrepSCTIntegration ...')
+    # See: https://satijalab.org/seurat/articles/integration_rpca.html
+    # for Fast integration using reciprocal PCA
+    features <- SelectIntegrationFeatures(
+        object.list = reference.list,
+        nfeatures = 3000
+    )
+    reference.list <- PrepSCTIntegration(
+        object.list = reference.list,
+        anchor.features = features
+    )
+    reference.list <- lapply(
+        X = reference.list,
+        FUN = RunPCA,
+        features = features
+    )
+
+    print('- FindIntegrationAnchors ...')
+    # combined.anchors <- FindIntegrationAnchors(reference.list, dims=1:30)
+    # "long vectors not supported yet"
+    # global.obj <- IntegrateData(combined.anchors, dims=1:30)
+
+    combined.anchors <- FindIntegrationAnchors(
+        reference.list,
+        normalization.method = "SCT",
+        anchor.features = features,
+        k.anchor = 20,
+        reduction = "rpca",
+        reference = 1,
+        dims=1:30
+    )
+
+    print('- IntegrateData ...')
+    global.obj <- IntegrateData(
+        combined.anchors,
+        normalization.method = "SCT",
+        dims=1:30
+    )
+    rm(combined.anchors)
+
+    # source("./samples.R")
+    patient <- factor(global.obj$patient, levels=samples)
+    # levels(patient) <- patient.levels
+    global.obj@meta.data$patient <- patient
+    #saveRDS(global.obj, file="global.integrated.rds")
+
+    # print('- ScaleData ...')
+    # global.obj <- ScaleData(global.obj, verbose=FALSE)
+
+    print('- RunPCA ...')
+    global.obj <- RunPCA(global.obj, npcs=30, verbose=FALSE)
+
+    print('- RunUMAP ...')
+    global.obj <- RunUMAP(global.obj, reduction="pca", dims=1:30)
+    #global.obj <- RunTSNE(global.obj, reduction="pca", dims=1:30)
+
+    print('- FindNeighbors ...')
+    global.obj <- FindNeighbors(global.obj)
+    #saveRDS(global.obj, file="global.precluster.rds")
+
+    print('- FindClusters ...')
+    global.obj <- FindClusters(global.obj, resolution=.8)
+    save(global.obj, file=file.path(outdir, paste0(outpref, ".RData")))
+    #saveRDS(global.obj@assays$integrated@scale.data, "all_integrated.rds")
+
+    print('- DimPlot ...')
+    p2 <- DimPlot(global.obj, reduction="umap", label=FALSE)
+
+    print('- Saving ...')
     write.table(
         cbind(
             p2$data,

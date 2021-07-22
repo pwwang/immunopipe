@@ -14,6 +14,7 @@ import { DataTable } from 'pipen-smelte'
 <DataTable
     data="{{mfile | @report.datatable:
         delimiter='\t',
+        rows=100,
         rownames=True,
         fmtcols={
             1: [float, '{:.3e}'],

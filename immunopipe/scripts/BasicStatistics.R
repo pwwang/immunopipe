@@ -1,10 +1,13 @@
 library(immunarch)
+library(RcppTOML)
 
 samples = "{{ in.samples }}"
 immdata = "{{ in.immdata }}"
 outdir = "{{ out.outdir }}"
+config = '{{ args.config }}'
 
 dir.create(outdir, showWarnings = FALSE)
+grouping = parseTOML(config, fromFile=FALSE)$grouping
 
 load(samples)
 load(immdata)
@@ -24,17 +27,20 @@ p = vis(exp_vol)
 print(p)
 dev.off()
 
-sourcefig = file.path(ov_noc_dir, 'Number_of_clonotypes-Source.png')
-png(overallfig, width=1200, height=1000, res=100)
-p = vis(exp_vol, .by='Source', .meta=immdata$meta)
-print(p)
-dev.off()
+# sourcefig = file.path(ov_noc_dir, 'Number_of_clonotypes-Source.png')
+# png(overallfig, width=1200, height=1000, res=100)
+# p = vis(exp_vol, .by='Source', .meta=immdata$meta)
+# print(p)
+# dev.off()
 
 # todo: 1-group, 2-groups, etc...
-for (group in unlist(metagroups)) {
-    groupfig = file.path(noc_dir, paste0('Number_of_clonotypes-',group,'.png'))
+for (groups in grouping) {
+    groupfig = file.path(
+        noc_dir,
+        paste0('Number_of_clonotypes-',paste(groups, collapse='.vs.'),'.png')
+    )
     png(groupfig, width=1200, height=1000, res=100)
-    p = vis(exp_vol, .by=group, .meta=immdata$meta)
+    p = vis(exp_vol, .by=groups, .meta=immdata$meta)
     print(p)
     dev.off()
 }
@@ -61,11 +67,13 @@ p = vis(imm_top, .meta=immdata$meta)
 print(p)
 dev.off()
 
-for (group in c('Source', unlist(metagroups))) {
-
-    groupfig = file.path(top_dir, paste0('Top_clonal_proportion-',group,'.png'))
+for (groups in grouping) {
+    groupfig = file.path(
+        top_dir,
+        paste0('Top_clonal_proportion-',paste(groups, collapse='.vs.'),'.png')
+    )
     png(groupfig, width=1200, height=1000, res=100)
-    p = vis(imm_top, .by=group, .meta=immdata$meta)
+    p = vis(imm_top, .by=groups, .meta=immdata$meta)
     print(p)
     dev.off()
 }
@@ -81,11 +89,13 @@ p = vis(imm_rare, .meta=immdata$meta)
 print(p)
 dev.off()
 
-for (group in c('Source', unlist(metagroups))) {
-
-    groupfig = file.path(rare_dir, paste0('Rare_clonal_proportion-',group,'.png'))
+for (groups in grouping) {
+    groupfig = file.path(
+        rare_dir,
+        paste0('Rare_clonal_proportion-',paste(groups, collapse='.vs.'),'.png')
+    )
     png(groupfig, width=1200, height=1000, res=100)
-    p = vis(imm_rare, .by=group, .meta=immdata$meta)
+    p = vis(imm_rare, .by=groups, .meta=immdata$meta)
     print(p)
     dev.off()
 }
@@ -102,11 +112,14 @@ p = vis(imm_hom, .meta=immdata$meta)
 print(p)
 dev.off()
 
-for (group in c('Source', unlist(metagroups))) {
+for (groups in grouping) {
+    groupfig = file.path(
+        hom_dir,
+        paste0('Relative_clonal_abundance-',paste(groups, collapse='.vs.'),'.png')
+    )
 
-    groupfig = file.path(hom_dir, paste0('Relative_clonal_abundance-',group,'.png'))
     png(groupfig, width=1200, height=1000, res=100)
-    p = vis(imm_hom, .by=group, .meta=immdata$meta)
+    p = vis(imm_hom, .by=groups, .meta=immdata$meta)
     print(p)
     dev.off()
 }

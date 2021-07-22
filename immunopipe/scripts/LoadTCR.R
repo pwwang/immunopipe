@@ -18,9 +18,7 @@ names(immdata$data) = immdata$meta$Sample
 # add Source to immdata$meta
 immdata$meta = left_join(
         immdata$meta,
-        samples %>% filter(Type == 'scTCR') %>% select(Sample, Source)
-    )  %>% left_join(
-        metadata %>% select(-"Patient")
+        samples %>% filter(Type == 'scTCR')
     )
 
 save(immdata, file=outfile)

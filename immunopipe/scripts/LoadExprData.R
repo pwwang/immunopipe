@@ -65,10 +65,11 @@ foreach(patient=unique(samples$Patient)) %dopar% {
         sample = as.character(sdata[j, 'Sample'])
         prefix = as.character(sdata[j, 'Prefix'])
         path = as.character(sdata[j, 'Path'])
-        genes = as.character(sdata[j, 'Genes'])
-        matfile = as.character(sdata[j, 'Matrix'])
+        barcode = file.path(path, 'barcodes.tsv.gz')
+        genes = file.path(path, 'features.tsv.gz')
+        matfile = file.path(path, 'matrix.mtx.gz')
 
-        mat = get.cellranger(sample, prefix, path, genes, matfile)
+        mat = get.cellranger(sample, prefix, barcode, genes, matfile)
         saveRDS(mat, file=file.path(outdir, paste0(prefix,".mat.rds")))
     }
 }

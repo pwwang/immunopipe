@@ -13,15 +13,15 @@ ncores = {{ args.ncores }}
 setEnrichrSite("Enrichr")
 plan(strategy = "multicore", workers = ncores)
 dir.create(outdir, showWarnings = FALSE)
-load(samples) # samples, metadata
+load(samples) # samples
 config = parseTOML(config, fromFile=FALSE)
 
 # load all matrix and create seurat object for each sample
 data = samples %>%
     filter(Type == 'scRNA') %>%
-    mutate(Mat = file.path(exprdir, paste0(Prefix, ".mat.rds"))) %>%
-    filter(file.exists(Mat)) %>%
-    right_join(metadata, by = c("Sample", "Patient"), suffix = c(".x", ""))
+    mutate(Mat = file.path(exprdir, paste0(Prefix, ".mat.rds"))) #%>%
+    # filter(file.exists(Mat)) %>%
+    # right_join(metadata, by = c("Sample", "Patient"), suffix = c(".x", ""))
 
 # Load all counts to seurat object for each sample
 sample_names = as.character(data$Sample)

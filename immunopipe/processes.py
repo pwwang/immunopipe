@@ -78,7 +78,10 @@ class BasicStatistics(Proc):
     output = 'outdir:file:BasicStats'
     lang = args.rscript
     script = f'file://{SCRIPT_DIR}/BasicStatistics.R'
-    args = {'exclude': args.meta_excl}
+    args = {
+        'exclude': args.meta_excl,
+        'config': args.extra_config.BasicStatistics
+    }
     plugin_opts = {
         'report': f'file://{REPORT_DIR}/BasicStatistics.svx'
     }
@@ -175,11 +178,12 @@ class DEAnalysisChangedClonotypes(Proc):
     }
 
 class IntegrateTCRExprData(Proc):
-    """Integrate TCR and Expre data"""
+    """Integrate TCR and Expression data"""
     # Directories: ,TCR-counts, Matrices-0
     requires = SampleInfo, LoadTCRForIntegration, LoadExprData
     input_keys = 'samples:file, tcr_counts:file, exprdir:file'
     output = 'outdir:file:IntegrateTCRExprData'
+    # cache = 'force'
     lang = args.rscript
     script = f'file://{SCRIPT_DIR}/Seurat-0/IntegrateTCRExprData.R'
     args = {
@@ -203,6 +207,7 @@ class ClusterTCells(Proc):
     requires = SampleInfo, LoadTCRForIntegration, LoadExprData, SeparateTnonTCells
     input_keys = 'samples:file, tcr_counts:file, exprdir:file, septdir:file'
     output = 'outdir:file:ClusterTCells'
+    # cache = 'force'
     lang = args.rscript
     script = f'file://{SCRIPT_DIR}/ClusterTCells.R'
     args = {

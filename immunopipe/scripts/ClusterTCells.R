@@ -28,16 +28,18 @@ foreach (prefmat = Sys.glob(file.path(exprdir, "*.mat.rds"))) %dopar% {
 }
 
 # get paired tumor-normal patients
-samples = samples %>%
-    filter(Type=='scRNA') %>%
-    group_by(Patient) %>%
-    filter(n() == 2)
+# samples = samples %>%
+#     filter(Type=='scRNA') %>%
+#     group_by(Patient) %>%
+#     filter(n() == 2)
 
 # Seurat-1
 seurat_1 = file.path(outdir, "Seurat-1")
 dir.create(seurat_1, showWarnings = FALSE)
-foreach (i=seq_len(nrow(samples))) %dopar% {
-    row = samples[i, ]
+
+rna_samples = samples %>% filter(Type=='scRNA')
+foreach (i=seq_len(nrow(rna_samples))) %dopar% {
+    row = rna_samples[i, ]
     process.mat(
         row$Prefix,
         row$Source,
@@ -49,23 +51,24 @@ foreach (i=seq_len(nrow(samples))) %dopar% {
     )
 }
 
-foreach (group=group_split(samples)) %dopar% {
-    combine2(
-        unlist(group$Patient)[1],
-        unlist(group$Prefix),
-        seurat_1,
-        cell="tcell"
-    )
-}
+# foreach (group=group_split(samples)) %dopar% {
+#     combine2(
+#         unlist(group$Patient)[1],
+#         unlist(group$Prefix),
+#         seurat_1,
+#         cell="tcell"
+#     )
+# }
 
 # Combine-1
 # combine_1 = file.path(outdir, "Combine-1")
 # dir.create(combine_1, showWarnings = FALSE)
-global.obj = combine_all_patients(
+global.obj = combine_all_samples(
     samples %>% pull(Patient) %>% unique() %>% as.character(),
+    samples %>% pull(Prefix) %>% unique() %>% as.character(),
     seurat_1,
     cell="tcell",
-    outpref="global.tnb.tcell"
+    outpref="global.tcell"
 )
 
 # Markers
@@ -74,6 +77,7 @@ dir.create(markers_dir, showWarnings = FALSE)
 idents = names(table(Idents(global.obj)))
 foreach (ident = idents) %dopar% {
     print(paste("* For ident", ident, "..."))
+    # "No features pass min.pct threshold"
     markers <- FindMarkers(global.obj, ident.1=ident)
     save(
         markers,

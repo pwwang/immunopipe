@@ -126,5 +126,9 @@ if args.extra_config and args.extra_config.is_file():
         extra_config['TCellClusters'] = toml.dumps(
             xconfig['TCellClusters']
         )
+    if 'BasicStatistics' in xconfig:
+        extra_config['BasicStatistics'] = toml.dumps(
+            xconfig['BasicStatistics']
+        )
 
 args.extra_config = extra_config

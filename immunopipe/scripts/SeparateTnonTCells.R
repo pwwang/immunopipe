@@ -10,9 +10,9 @@ outdir = "{{ out.outdir }}"
 dir.create(outdir, showWarnings = FALSE)
 
 # plot CD3E/clonotype proportion to separate T and non-T cells
-load(file.path(itgdir, "global.1.6.RData"))
+load(file.path(itgdir, "global.0.8.RData"))
 cd3e.expr <- as.matrix(global.obj@assays$integrated@data)["CD3E",]
-p2 <- read.csv(file.path(itgdir, "global.1.6.umap"), row.names=1, sep="\t")
+p2 <- read.csv(file.path(itgdir, "global.0.8.umap"), row.names=1, sep="\t")
 
 oo <- sample(nrow(p2))
 print(table(p2$ident)) # print to stdout
@@ -30,7 +30,7 @@ names(cd3e.means) <- names(table(p2$ident))
 
 # plot
 
-tcell.ident <- names((which(clonotype.pct > .2)))
+tcell.ident <- names((which(clonotype.pct > .2 & cd3e.means > 0)))
 nont.ident <- setdiff(names(cd3e.means), tcell.ident)
 
 col <- rep(NA,length(cd3e.means))

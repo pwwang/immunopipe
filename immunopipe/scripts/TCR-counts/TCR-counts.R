@@ -9,7 +9,63 @@
 # clonotype.ncounts is a vector of length(nclonotypes) -> count of cells
 
 
+compute.counts.1 <- function (sample, source, outdir) {
+
+    pheno <- read.table(file.path(outdir, paste0(sample,".pheno.",source)),header=TRUE)
+    cell.source <- rep(source,nrow(pheno))
+
+    clonotypes <- as.character(pheno$clonotype)
+
+    pheno.all <- clonotypes[!is.na(clonotypes)]
+    names.presort <- unique(pheno.all)
+    length(names.presort)
+
+    oo <- order(as.numeric(sub(".*[.]C","",names.presort)))
+    names.all <- names.presort[oo]
+
+    table.1 <- table(pheno$clonotype)
+    names.1 <- names(table.1)[table.1 > 0]
+    clonotype.counts <- numeric(length(names.all))
+    names(clonotype.counts) <- names.all
+    clonotype.counts[match(names.1,names.all)] <- table.1[table.1 > 0]
+
+    # table.i <- table(pheno.2$clonotype)
+    # names.i <- names(table.i)[table.i > 0]
+    # clonotype.counts2 <- numeric(length(names.all))
+    # names(clonotype.counts2) <- names.all
+    # clonotype.counts2[match(names.i,names.all)] <- table.i[table.i > 0]
+
+    # clonotype.bcounts <- rep(0, length(clonotype.tcounts))
+
+    # clonotype.residency <- character(length(names.all))
+    # names(clonotype.residency) <- names.all
+    # clonotype.residency[clonotype.counts2 == 1 & clonotype.counts1 == 0] <- paste(source2, "singletons")
+    # clonotype.residency[clonotype.counts1 == 1 & clonotype.counts2 == 0] <- paste(source1, "singletons")
+    # clonotype.residency[clonotype.counts2 > 1 & clonotype.counts1 == 0] <- paste(source2, "multiplets")
+    # clonotype.residency[clonotype.counts1 > 1 & clonotype.counts2 == 0] <- paste(source1, "multiplets")
+    # clonotype.residency[clonotype.counts1 >= 1 & clonotype.counts2 >= 1] <- "Dual resident"
+    # clonotype.residency <- factor(clonotype.residency, levels=c(
+    #     paste(source2, "singletons"),
+    #     paste(source1, "singletons"),
+    #     paste(source2, "multiplets"),
+    #     paste(source1, "multiplets"),
+    #     "Dual resident"
+    # ), labels=c(tolower(source2), tolower(source1), toupper(source2), toupper(source1), "Dual"))
+
+    # cell.residency <- clonotype.residency[clonotypes]
+    # sources = c(source1, source2)
+    clonotype.residency = NULL
+    cell.residency = NULL
+    clonotype.counts1 = clonotype.counts
+    clonotype.counts2 = NULL
+    sources = source
+    save(clonotypes, clonotype.counts1, clonotype.counts2, sources,
+         clonotype.residency, cell.residency, cell.source,
+         file=file.path(outdir, paste0(sample,".clonotype.counts.RData")))
+}
+
 compute.counts.2 <- function (sample, source1, source2, outdir) {
+
     pheno.1 <- read.table(file.path(outdir, paste0(sample,".pheno.",source1)),header=TRUE)
     pheno.2 <- read.table(file.path(outdir, paste0(sample,".pheno.",source2)),header=TRUE)
     cell.source <- c(rep(source1,nrow(pheno.1)), rep(source2,nrow(pheno.2)))
@@ -116,10 +172,27 @@ compute.counts.2 <- function (sample, source1, source2, outdir) {
 #          file=paste0(sample,".clonotype.counts.RData"))
 # }
 
-args <- commandArgs()
-compute.counts.2(
-    args[length(args)-3], # patient
-    args[length(args)-2], # source1
-    args[length(args)-1], # source2
-    args[length(args)] # outdir
-)
+args <- commandArgs(trailingOnly=TRUE)
+print(args)
+patient = args[1]
+outdir = args[2]
+sources = args[3:length(args)]
+
+if (length(sources) == 2) {
+    compute.counts.2(
+        patient,
+        sources[1],
+        sources[2],
+        outdir
+        # args[length(args)-3], # patient
+        # args[length(args)-2], # source1
+        # args[length(args)-1], # source2
+        # args[length(args)] # outdir
+    )
+} else {
+    compute.counts.1(
+        patient,
+        sources[1],
+        outdir
+    )
+}

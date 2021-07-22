@@ -27,9 +27,7 @@ for i, sdata in enumerate(
     # Sample	Type	Patient	Source	Path
     # MM003BM-earlier	scRNA	MM003-earlier	BM	...
     # MM003BM-earlier	scTCR	MM003-earlier	BM	...
-    # MM003WBC-earlier	scRNA	MM003-earlier	WBC	...
-    # MM003WBC-earlier	scTCR	MM003-earlier	WBC	...
-    if nrow(sdata) < 4:
+    if nrow(sdata) < 2:
         continue
     patient = sdata.Patient.values[0]
     print(f'Doing patient: {patient} ...')
@@ -48,6 +46,6 @@ for i, sdata in enumerate(
     rscript(
         count_loader,
         patient,
-        *[prefix.split('-')[0] for prefix in prefixes],
-        outdir
+        outdir,
+        *[prefix.split('-')[0] for prefix in prefixes]
     )

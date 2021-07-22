@@ -19,7 +19,7 @@ idents.tcell.pal <- c(brewer.pal(12,"Paired"), brewer.pal(8, "Dark2"))[
     1:length(idents.tcell.ordered)
 ]
 
-load(file.path(cldir, "Seurat-1", 'global.tnb.tcell.RData'))
+load(file.path(cldir, "Seurat-1", 'global.tcell.RData'))
 # Scale the RNA assay so we can have all genes
 integrated.features = rownames(global.obj@assays$integrated@scale.data)
 integrated.features = unique(c(integrated.features, unlist(genes)))
