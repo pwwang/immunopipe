@@ -106,7 +106,7 @@ for (patient in names(config))  {
 
     metanames = c()
     for (metaname in names(config$COMPARING)) {
-        if (metaname %in% c('ORDER', 'DE_DBS', 'DE_TOP_CLONOTYPES')) next
+        if (metaname %in% c('ORDER', 'DE_TOP_CLONOTYPES')) next
         meta[[metaname]] = factor(
             meta[[metaname]],
             levels = config$COMPARING[[metaname]]

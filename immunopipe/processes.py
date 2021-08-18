@@ -138,8 +138,13 @@ class DEAnalysis(Proc):
     input_keys = 'samples:file, exprdir:file'
     output = 'outdir:file:DEAnalysis'
     lang = args.rscript
+    error_strategy = 'retry'
     script = f'file://{SCRIPT_DIR}/DEAnalysis.R'
-    args = {'ncores': args.ncores, 'config': args.extra_config.DE}
+    args = {
+        'ncores': args.ncores,
+        'config': args.extra_config.DE,
+        'commoncfg': args.extra_config.COMMON,
+    }
     plugin_opts = {
         'report': f'file://{REPORT_DIR}/DEAnalysis.svx'
     }
@@ -153,7 +158,10 @@ class CrossSampleClonotypeComparison(Proc):
     output = 'outdir:file:CrossSampleClonotypeComparison'
     lang = args.rscript
     script = f'file://{SCRIPT_DIR}/CrossSampleClonotypeComparison.R'
-    args = {'ncores': args.ncores, 'config': args.extra_config.PatientSamples}
+    args = {
+        'ncores': args.ncores,
+        'config': args.extra_config.PatientSamples,
+    }
     plugin_opts = {
         'report': f'file://{REPORT_DIR}/CrossSampleClonotypeComparison.svx'
     }
@@ -168,10 +176,12 @@ class DEAnalysisChangedClonotypes(Proc):
     input_keys = 'samples:file, immdata:file, exprdir:file, ccdir:file'
     output = 'outdir:file:DEAnalysisChangedClonotypes'
     lang = args.rscript
+    error_strategy = 'retry'
     script = f'file://{SCRIPT_DIR}/DEAnalysisChangedClonotypes.R'
     args = {
         'ncores': args.ncores,
-        'config': args.extra_config.PatientSamples
+        'config': args.extra_config.PatientSamples,
+        'commoncfg': args.extra_config.COMMON,
     }
     plugin_opts = {
         'report': f'file://{REPORT_DIR}/DEAnalysisChangedClonotypes.svx'
@@ -197,27 +207,47 @@ class SeparateTnonTCells(Proc):
     input_keys = 'itgdir:file'
     output = 'outdir:file:SeparateTnonTCells'
     lang = args.rscript
+    error_strategy = 'retry'
     script = f'file://{SCRIPT_DIR}/SeparateTnonTCells.R'
-    args = { 'ncores': args.ncores }
+    args = {
+        'ncores': args.ncores,
+        'commoncfg': args.extra_config.COMMON,
+    }
     plugin_opts = {
         'report': f'file://{REPORT_DIR}/SeparateTnonTCells.svx'
     }
 
 class ClusterTCells(Proc):
     """Cluster T cells"""
-    requires = SampleInfo, LoadTCRForIntegration, LoadExprData, SeparateTnonTCells
+    requires = (
+        SampleInfo, LoadTCRForIntegration, LoadExprData, SeparateTnonTCells
+    )
     input_keys = 'samples:file, tcr_counts:file, exprdir:file, septdir:file'
     output = 'outdir:file:ClusterTCells'
     cache = 'force'
+    error_strategy = 'retry'
     lang = args.rscript
     script = f'file://{SCRIPT_DIR}/ClusterTCells.R'
     args = {
         'ncores': args.ncores,
         'seurate_source': f'{SCRIPT_DIR}/Seurat-0/seurate-source.R',
+        'commoncfg': args.extra_config.COMMON,
     }
     plugin_opts = {
         'report': f'file://{REPORT_DIR}/ClusterTCells.svx'
     }
+
+# class TCellClusterGSEA(Proc):
+#     """GSEA on T-cell clusters"""
+#     # # merged into ClusterTCells
+#     # requires = ClusterTCells
+#     input_keys = 'ctdir:file'
+#     output = 'outdir:file:TCellClusterGSEA'
+#     lang = args.rscript
+#     script = f'file://{SCRIPT_DIR}/TCellClusterGSEA.R'
+#     plugin_opts = {
+#         'report': f'file://{REPORT_DIR}/TCellClusterGSEA.svx'
+#     }
 
 class TCellClusterGeneExprs(Proc):
     """Expressions in different T-cell clusters for genes of interest"""
@@ -235,3 +265,47 @@ class TCellClusterGeneExprs(Proc):
     plugin_opts = {
         'report': f'file://{REPORT_DIR}/TCellClusterGeneExprs.svx'
     }
+
+class PrepareClonalComposition(Proc):
+    """Prepare data for clonnal composition analysis"""
+    requires = LoadTCRForIntegration, ClusterTCells, IntegrateTCRExprData
+    input_keys = 'tcrdir:file, tcdir:file, itdir:file'
+    # global.clonotype.ident.RData
+    # global.counts.RData
+    # global.residency.RData
+    output = 'outdir:file:PrepareClonalComposition'
+    lang = args.rscript
+    script = f'file://{SCRIPT_DIR}/PrepareClonalComposition.R'
+    args = {
+        'tclusters': args.extra_config.TCellClusters
+    }
+
+class ClonalComposition(Proc):
+    """Sample clonal composition in each cluster"""
+    requires = PrepareClonalComposition, LoadTCRForIntegration
+    input_keys = 'pccdir:file, tcrdir:file'
+    output = 'outdir:file:ClonalComposition'
+    lang = args.rscript
+    script = f'file://{SCRIPT_DIR}/ClonalComposition.R'
+    args = {
+        'tclusters': args.extra_config.TCellClusters,
+        'multipt_samples': args.extra_config.PatientSamples,
+    }
+    plugin_opts = {
+        'report': f'file://{REPORT_DIR}/ClonalComposition.svx'
+    }
+
+# class ClinicalClonalComposition(Proc):
+#     """Differential expression analysis for clinic groups in different clusters
+#     """
+#     requires = PrepareClonalComposition
+#     input_keys = 'pccdir:file'
+#     output = 'outdir:file:ClinicalClonalComposition'
+#     lang = args.rscript
+#     script = f'file://{SCRIPT_DIR}/ClinicalClonalComposition.R'
+#     args = {
+#         'tclusters': args.extra_config.TCellClusters
+#     }
+#     plugin_opts = {
+#         'report': f'file://{REPORT_DIR}/ClinicalClonalComposition.svx'
+#     }

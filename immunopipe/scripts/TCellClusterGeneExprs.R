@@ -3,7 +3,6 @@ library(dplyr)
 library(tidyr)
 library(tibble)
 library(RcppTOML)
-library(RColorBrewer)
 library(ComplexHeatmap)
 
 cldir = "{{ in.cldir }}"
@@ -16,12 +15,10 @@ plotgenes = parseTOML(plotgenes, fromFile=FALSE)
 tclusters = parseTOML(tclusters, fromFile=FALSE)
 genes = plotgenes$boxplots
 
-idents.tcell.ordered = names(tclusters)
-idents.tcell.labels = unname(unlist(tclusters))
+idents.tcell.ordered = names(tclusters$names)
+idents.tcell.labels = unname(unlist(tclusters$names))
 # colors configurable?
-idents.tcell.pal <- c(brewer.pal(12,"Paired"), brewer.pal(8, "Dark2"))[
-    1:length(idents.tcell.ordered)
-]
+idents.tcell.pal <- tclusters$colors
 
 load(file.path(cldir, "Seurat-1", 'global.tcell.RData'))
 # Scale the RNA assay so we can have all genes
@@ -112,7 +109,8 @@ hmexprs = longexprs %>%
     group_by(Gene, idents) %>%
     summarise(Expr=mean(Expr)) %>%
     pivot_wider(names_from=idents, values_from=Expr) %>%
-    column_to_rownames('Gene')
+    column_to_rownames('Gene') %>%
+    as.matrix()
 
 png(file.path(outdir, "heatmap.png"), res=100, width=1000, height=1000)
 ha_row = rowAnnotation(" " = anno_boxplot(t(hmexprs)))

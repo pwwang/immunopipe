@@ -1,0 +1,116 @@
+{% from os import path %}
+{% from glob import glob %}
+
+<script>
+import { Image, DataTable } from 'pipen-smelte'
+</script>
+
+# Clonal composition for top clones
+
+## Tumor samples
+
+(Top clones)
+
+<Image
+    alt="Clonal composition for top clones"
+    src="{{ job0.out.outdir + '/clonal-pies.tumor.png' }}"
+    class="w-2/3"
+    />
+
+## Normal samples
+
+(Top clones)
+
+<Image
+    alt="Clonal composition for top clones"
+    src="{{ job0.out.outdir + '/clonal-pies.normal.png' }}"
+    class="w-2/3"
+    />
+
+## Patient with multiple/paired samples
+
+{% for msp_dir in glob(job0.out.outdir + '/MultiPatient-Samples/*') %}
+{% assign patient = path.basename(msp_dir) %}
+
+### {{patient}}
+
+<DataTable
+    data="{{ msp_dir | @path.join: 'Shared_Clones.txt' | @report.datatable:
+        delimiter='\t',
+        rows=100,
+        cols=9
+    }}"
+    datafile="{{ msp_dir | @path.join: 'Shared_Clones.txt' }}"
+    class="mb-5"
+    />
+
+#### Merged (tumor + normal) clonal composition
+
+{% assign plots = list(glob(msp_dir + '/Clonal_Composition_Merged_OrderBy.*.png')) %}
+<table class="my-5 w-4/5 leading-loose" style="text-align: center !important">
+    <thead>
+        <tr>
+        {% for plot in plots %}
+            <th>Ordered by {{plot | @path.basename | .split: '.' | getitem: 1}} counts</th>
+        {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        {% for plot in plots %}
+            <th><Image alt="" src="{{plot}}" /></th>
+        {% endfor %}
+        </tr>
+    </tbody>
+</table>
+
+
+#### Tumor clonal composition
+
+{% assign plots = list(glob(msp_dir + '/Clonal_Composition_Tumor_OrderBy.*.png')) %}
+<table class="my-5 w-4/5 leading-loose" style="text-align: center !important">
+    <thead>
+        <tr>
+        {% for plot in plots %}
+            <th>Ordered by {{plot | @path.basename | .split: '.' | getitem: 1}} counts</th>
+        {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        {% for plot in plots %}
+            <th><Image alt="" src="{{plot}}" /></th>
+        {% endfor %}
+        </tr>
+    </tbody>
+</table>
+
+#### Normal clonal composition
+
+{% assign plots = list(glob(msp_dir + '/Clonal_Composition_Normal_OrderBy.*.png')) %}
+<table class="my-5 w-4/5 leading-loose" style="text-align: center !important">
+    <thead>
+        <tr>
+        {% for plot in plots %}
+            <th>Ordered by {{plot | @path.basename | .split: '.' | getitem: 1}} counts</th>
+        {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        {% for plot in plots %}
+            <th><Image alt="" src="{{plot}}" /></th>
+        {% endfor %}
+        </tr>
+    </tbody>
+</table>
+
+#### Clones shared across all samples
+
+Samples are: Tumor | Normal | Tumor | Normal
+
+<Image alt=""
+    src="{{msp_dir | @path.join: 'Clonal_Composition_Across_OrderBy.Total.png'}}"
+    class="w-4/5 my-3" />
+
+{% endfor %}

@@ -8,6 +8,7 @@ samples = "{{ in.samples }}"
 exprdir = "{{ in.exprdir }}"
 outdir = "{{ out.outdir }}"
 config = '{{ args.config }}'
+commoncfg = '{{ args.commoncfg }}'
 ncores = {{ args.ncores }}
 
 setEnrichrSite("Enrichr")
@@ -15,6 +16,7 @@ plan(strategy = "multicore", workers = ncores)
 dir.create(outdir, showWarnings = FALSE)
 load(samples) # samples
 config = parseTOML(config, fromFile=FALSE)
+gsea_dbs = parseTOML(commoncfg, fromFile=FALSE)$GSEA_DBs
 
 # load all matrix and create seurat object for each sample
 data = samples %>%
@@ -84,9 +86,9 @@ do_one_case = function(name) {
     )
 
     genes = rownames(sig_markers)
-    enriched = enrichr(genes, config[[name]]$dbs)
+    enriched = enrichr(genes, gsea_dbs)
 
-    for (db in config[[name]]$dbs) {
+    for (db in gsea_dbs) {
         outtable = file.path(casedir, paste0('enrichr_', db, '.txt'))
         outfig = file.path(casedir, paste0('enrichr_', db, '.png'))
 

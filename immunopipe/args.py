@@ -110,25 +110,12 @@ else:
     args = params.parse()
 
 # parse extra config
-extra_config = Diot(DE=None, PatientSamples=None)
+extra_config = Diot()
 if args.extra_config and args.extra_config.is_file():
     with open(args.extra_config):
         xconfig = toml.load(args.extra_config)
-    if 'DE' in xconfig:
-        extra_config['DE'] = toml.dumps(xconfig['DE'])
-    if 'PatientSamples' in xconfig:
-        extra_config['PatientSamples'] = toml.dumps(xconfig['PatientSamples'])
-    if 'TCellClusterGeneExprs' in xconfig:
-        extra_config['TCellClusterGeneExprs'] = toml.dumps(
-            xconfig['TCellClusterGeneExprs']
-        )
-    if 'TCellClusters' in xconfig:
-        extra_config['TCellClusters'] = toml.dumps(
-            xconfig['TCellClusters']
-        )
-    if 'BasicStatistics' in xconfig:
-        extra_config['BasicStatistics'] = toml.dumps(
-            xconfig['BasicStatistics']
-        )
+
+    for key, val in xconfig.items():
+        extra_config[key] = toml.dumps(val)
 
 args.extra_config = extra_config

@@ -11,6 +11,7 @@ exprdir = "{{ in.exprdir }}"
 ccdir = "{{ in.ccdir }}"
 outdir = "{{ out.outdir }}"
 config = '{{ args.config }}'
+commoncfg = '{{ args.commoncfg }}'
 ncores = {{ args.ncores }}
 
 registerDoParallel(ncores)
@@ -27,6 +28,7 @@ load(samples) # samples, metadata
 #     Type = ["BM", "WBC"]
 #     Status = ["Pre", "Post"]
 config = parseTOML(config, fromFile=FALSE)
+gsea_dbs = parseTOML(commoncfg, fromFile=FALSE)$GSEA_DBs
 top = config$COMPARING$DE_TOP_CLONOTYPES
 
 create_seurat_objs = function(prefix, clones) {
@@ -130,9 +132,9 @@ do_pref = function(pref, casedir, clone, clonotypes, sams, props) {
     )
 
     genes = rownames(sig_markers)
-    enriched = enrichr(genes, config$COMPARING$DE_DBS)
+    enriched = enrichr(genes, gsea_dbs)
 
-    for (db in config$COMPARING$DE_DBS) {
+    for (db in gsea_dbs) {
         outtable = file.path(clonedir, paste0('enrichr_', db, '.txt'))
         outfig = file.path(clonedir, paste0('enrichr_', db, '.png'))
 

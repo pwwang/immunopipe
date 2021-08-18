@@ -16,6 +16,7 @@ import { Image, DataTable } from 'pipen-smelte'
 <DataTable
     data="{{ markerfile | @report.datatable:
         delimiter='\t',
+        rows=100,
         rownames=True,
         fmtcols={
             1: [float, '{:.3e}'],
@@ -30,9 +31,13 @@ import { Image, DataTable } from 'pipen-smelte'
 ## Pathway enrichment analysis
 
 {%  for pwfile in glob(casedir + '/enrichr_*.txt') %}
+
+### {{ pwfile | @path.basename | .replace: "enrichr_", "" | .replace: ".txt", "" }}
+
 <DataTable
     data="{{ pwfile | @report.datatable:
         delimiter='\t',
+        rows=100,
         fmtcols={
             2: [float, '{:.3e}'],
             3: [float, '{:.3e}'],

@@ -3,14 +3,19 @@ library(tibble)
 library(ggplot2)
 library(ggprism)
 library(ggrepel)
+library(RcppTOML)
 library(doParallel)
 library(Seurat)
+library(enrichR)
 
 itgdir = "{{ in.itgdir }}"
 outdir = "{{ out.outdir }}"
 ncores = {{ args.ncores }}
+commoncfg = '{{ args.commoncfg }}'
 
-registerDoParallel(ncores)
+setEnrichrSite("Enrichr")
+registerDoParallel(min(2, ncores))
+gsea_dbs = parseTOML(commoncfg, fromFile=FALSE)$GSEA_DBs
 
 dir.create(outdir, showWarnings = FALSE)
 
@@ -90,6 +95,8 @@ write.table(p2[which(p2$ident %in% nont.ident),],
 # Markers
 markers_dir = file.path(outdir, "Markers")
 dir.create(markers_dir, showWarnings = FALSE)
+markers_gsea_dir = file.path(outdir, "Markers-GSEA")
+dir.create(markers_gsea_dir, showWarnings = FALSE)
 
 foreach (markfile = Sys.glob(file.path(itgdir, "Markers", "*.markers.RData"))) %dopar% {
     print(paste("* For ident", basename(markfile), "..."))
@@ -105,4 +112,22 @@ foreach (markfile = Sys.glob(file.path(itgdir, "Markers", "*.markers.RData"))) %
         sep="\t",
         quote = FALSE
     )
+
+    # GSEA
+    ident = unlist(strsplit(basename(markfile), ".", fixed=TRUE))[2]
+    ident_gsea_dir = file.path(markers_gsea_dir, ident)
+    dir.create(ident_gsea_dir, showWarnings = FALSE)
+    genes = markers %>% filter(p_val_adj < 0.05) %>% rownames()
+    enriched = enrichr(genes, gsea_dbs)
+
+    for (db in gsea_dbs) {
+        outtable = file.path(ident_gsea_dir, paste0('enrichr_', db, '.txt'))
+        outfig = file.path(ident_gsea_dir, paste0('enrichr_', db, '.png'))
+
+        write.table(enriched[[db]], outtable, col.names=T, row.names=F, sep="\t", quote=F)
+
+        png(outfig, width=1000, height=1000, res=100)
+        print(plotEnrich(enriched[[db]], title=db))
+        dev.off()
+    }
 }
