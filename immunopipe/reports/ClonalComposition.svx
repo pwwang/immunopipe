@@ -1,5 +1,5 @@
-{% from os import path %}
-{% from glob import glob %}
+{% from_ os import path %}
+{% from_ glob import glob %}
 
 <script>
 import { Image, DataTable } from 'pipen-smelte'
@@ -35,12 +35,13 @@ import { Image, DataTable } from 'pipen-smelte'
 ### {{patient}}
 
 <DataTable
-    data="{{ msp_dir | @path.join: 'Shared_Clones.txt' | @report.datatable:
+    data="{{ report.datatable(
+        path.join(msp_dir, 'Shared_Clones.txt'),
         delimiter='\t',
         rows=100,
         cols=9
-    }}"
-    datafile="{{ msp_dir | @path.join: 'Shared_Clones.txt' }}"
+    )}}"
+    datafile="{{ path.join(msp_dir, 'Shared_Clones.txt') }}"
     class="mb-5"
     />
 
@@ -51,7 +52,7 @@ import { Image, DataTable } from 'pipen-smelte'
     <thead>
         <tr>
         {% for plot in plots %}
-            <th>Ordered by {{plot | @path.basename | .split: '.' | getitem: 1}} counts</th>
+            <th>Ordered by {{ path.basename(plot).split('.')[1] }} counts</th>
         {% endfor %}
         </tr>
     </thead>
@@ -72,7 +73,7 @@ import { Image, DataTable } from 'pipen-smelte'
     <thead>
         <tr>
         {% for plot in plots %}
-            <th>Ordered by {{plot | @path.basename | .split: '.' | getitem: 1}} counts</th>
+            <th>Ordered by {{ path.basename(plot).split('.')[1] }} counts</th>
         {% endfor %}
         </tr>
     </thead>
@@ -92,7 +93,7 @@ import { Image, DataTable } from 'pipen-smelte'
     <thead>
         <tr>
         {% for plot in plots %}
-            <th>Ordered by {{plot | @path.basename | .split: '.' | getitem: 1}} counts</th>
+            <th>Ordered by {{ path.basename(plot).split('.')[1] }} counts</th>
         {% endfor %}
         </tr>
     </thead>
@@ -110,7 +111,7 @@ import { Image, DataTable } from 'pipen-smelte'
 Samples are: Tumor | Normal | Tumor | Normal
 
 <Image alt=""
-    src="{{msp_dir | @path.join: 'Clonal_Composition_Across_OrderBy.Total.png'}}"
+    src="{{ path.join(msp_dir, 'Clonal_Composition_Across_OrderBy.Total.png') }}"
     class="w-4/5 my-3" />
 
 {% endfor %}

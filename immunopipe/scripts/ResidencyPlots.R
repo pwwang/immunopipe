@@ -82,7 +82,7 @@ plotlist = list()
 for (patient in patients) {
     sources = residency_table %>%
         filter(Subject == patient) %>%
-        select(matches('Source\\\\d+$')) %>%
+        select(matches('Source\\d+$')) %>%
         unlist()
 
     ndata = residency_table %>%

@@ -1,4 +1,4 @@
-{% from os import path %}
+{% from_ os import path %}
 
 <script>
 import { Image } from 'pipen-smelte'
@@ -7,10 +7,10 @@ import { Image } from 'pipen-smelte'
 # Gene expressions / boxplots
 
 <Image alt="Gene expressions"
-    src="{{ job0.out.outdir | @path.join: 'biomarker-boxplots.png' }}" />
+    src="{{ path.join(job0.out.outdir, 'biomarker-boxplots.png') }}" />
 
 
 # Gene expressions / heatmap
 
 <Image alt="Gene expressions"
-    src="{{ job0.out.outdir | @path.join: 'heatmap.png' }}" />
+    src="{{ path.join(job0.out.outdir, 'heatmap.png') }}" />

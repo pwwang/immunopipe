@@ -2,10 +2,14 @@
 from setuptools import setup
 
 packages = \
-['immunopipe']
+['immunopipe', 'immunopipe.scripts.TCR-counts']
 
 package_data = \
-{'': ['*'], 'immunopipe': ['reports/*', 'scripts/*']}
+{'': ['*'],
+ 'immunopipe': ['reports/*',
+                'scripts/*',
+                'scripts/Seurat-0/*',
+                'scripts/utils/*']}
 
 install_requires = \
 ['pipen',

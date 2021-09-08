@@ -1,0 +1,64 @@
+{% import_ json %}
+{% from_ os import path %}
+{% from_ glob import glob %}
+{% from_ slugify import slugify %}
+
+{% python %}
+def both_empty(cldir, path):
+    expandfile = path.join(cldir, "Expanded.txt")
+    contractfile = path.join(cldir, "Contracted.txt")
+    with open(expandfile) as fex, open(contractfile) as fcon:
+        return len(fex.readlines()) <= 1 and len(fcon.readlines()) <= 1
+{% endpython %}
+
+<script>
+import { Tab, Tabs, DataTable } from 'pipen-smelte'
+</script>
+
+{% for patdir in sorted(glob(path.join(job0.out.outdir, "*"))) %}
+
+# {{path.basename(patdir)}}
+
+`abs(diff) > 3`
+
+{%  for srcdir in sorted(glob(path.join(patdir, "*"))) %}
+## {{ path.basename(srcdir) }}
+{%      for cldir in sorted(glob(path.join(srcdir, "*"))) %}
+{%          if both_empty(cldir, path) %}
+{%              continue %}
+{%          endif %}
+### {{path.basename(srcdir)}}
+
+{% python %}
+def get_tabdata(cldir, patdir, srcdir):
+    tabdata = []
+    for i, clfile in enumerate(glob(path.join(cldir, "*.txt"))):
+        tabdata.append({
+            "id": slugify(path.basename(patdir) + "-" + path.basename(srcdir) + "-" + path.basename(clfile)[:-4] + "-" + str(i)),
+            "text": path.basename(clfile)[:-4],
+            "tbfile": clfile
+        })
+    return tabdata
+{% endpython %}
+
+{% assign tabdata = get_tabdata(cldir, patdir, srcdir) %}
+
+    {% for tdata in tabdata %}
+        <div class="p-4">
+            <div class="py-2 font-bold">{{ path.basename(tdata['tbfile']) | replace: ".txt", ""}}</div>
+            <DataTable
+                data="{{ report.datatable(
+                    tdata['tbfile'],
+                    delimiter='\t'
+                ) }}"
+                datafile="{{ tdata['tbfile'] }}"
+            />
+        </div>
+
+    {% endfor %}
+
+
+{%      endfor %}
+{%  endfor %}
+
+{% endfor %}

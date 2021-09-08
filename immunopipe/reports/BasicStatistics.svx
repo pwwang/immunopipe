@@ -1,5 +1,5 @@
-{% from glob import glob %}
-{% from os import path %}
+{% from_ glob import glob %}
+{% from_ os import path %}
 <script>
 import { Tabs, Tab, Image } from 'pipen-smelte'
 </script>

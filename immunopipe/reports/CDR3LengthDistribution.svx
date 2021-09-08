@@ -35,8 +35,8 @@ import { Tabs, Tab, Image } from 'pipen-smelte'
     </div>
   </Tabs>
 
-{% from glob import glob %}
-{% from os import path %}
+{% from_ glob import glob %}
+{% from_ os import path %}
 {% for sampledir in sorted(glob(job0.out.outdir + "/*")) %}
 {%  assign sample = path.basename(sampledir) %}
 {%  if sample == "All_samples" %}

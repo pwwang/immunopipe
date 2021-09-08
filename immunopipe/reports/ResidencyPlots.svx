@@ -1,21 +1,22 @@
-{% from os import path %}
+{% from_ os import path %}
 <script>
 import { Image, DataTable } from 'pipen-smelte'
 </script>
 
 # Residency Table
 
-{% assign restable = job0.out.outdir | @path.join: "residency_table.txt" %}
+{% assign restable = path.join(job0.out.outdir, "residency_table.txt") %}
 <DataTable
     class="break-all"
-    data="{{ restable | @report.datatable:
+    data="{{ report.datatable(
+        restable,
         delimiter='\t',
         fmtcols={
             7: [float, '{:.3f}'],
             8: [float, '{:.3f}'],
             9: [float, '{:.3f}'],
         }
-    }}"
+    )}}"
     datafile="{{ restable }}" />
 
 # Venn Diagrams

@@ -1,5 +1,5 @@
-{% from glob import glob %}
-{% from os import path %}
+{% from_ glob import glob %}
+{% from_ os import path %}
 
 <script>
 import { Image, DataTable } from 'pipen-smelte'
@@ -14,7 +14,8 @@ import { Image, DataTable } from 'pipen-smelte'
 
 {% assign markerfile = path.join(casedir, 'markers.txt') %}
 <DataTable
-    data="{{ markerfile | @report.datatable:
+    data="{{ report.datatable(
+        markerfile,
         delimiter='\t',
         rows=100,
         rownames=True,
@@ -25,17 +26,18 @@ import { Image, DataTable } from 'pipen-smelte'
             4: [float, '{:.3f}'],
             5: [float, '{:.3e}']
         }
-    }}"
+    ) }}"
     datafile="{{ markerfile }}" />
 
 ## Pathway enrichment analysis
 
 {%  for pwfile in glob(casedir + '/enrichr_*.txt') %}
 
-### {{ pwfile | @path.basename | .replace: "enrichr_", "" | .replace: ".txt", "" }}
+### {{ path.basename(pwfile) | replace: "enrichr_", "" | replace: ".txt", "" }}
 
 <DataTable
-    data="{{ pwfile | @report.datatable:
+    data="{{ report.datatable(
+        pwfile,
         delimiter='\t',
         rows=100,
         fmtcols={
@@ -44,7 +46,7 @@ import { Image, DataTable } from 'pipen-smelte'
             6: [float, '{:.3f}'],
             7: [float, '{:.3f}']
         }
-    }}"
+    )}}"
     datafile="{{ pwfile }}" />
 
 {%  assign pwfig = path.join(casedir, path.basename(pwfile))[:-4] + '.png' %}

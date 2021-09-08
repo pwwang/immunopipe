@@ -22,3 +22,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 immunopipe = "immunopipe:main"
+
+[tool.black]
+line-length = 80
+target-version = ['py37', 'py38', 'py39']
+include = '\.pyi?$'

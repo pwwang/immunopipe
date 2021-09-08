@@ -6,13 +6,13 @@
 import { DataTable, Tabs, Tab, Image } from 'pipen-smelte'
 </script>
 
-{% assign mdir = path.join(job0.out.outdir, 'Markers') %}
+{% for casedir in sorted(glob(path.join(job0.out.outdir, "*"))) %}
 
-{% for mfile in sorted(glob(path.join(mdir, "*.txt"))) %}
-{%  assign ident = path.basename(mfile).split(".")[1] %}
-{%  assign mgdir = path.join(job0.out.outdir, 'Markers-GSEA', ident) %}
-# Cluster #{{ident}}
+# {{ path.basename(casedir) }}
 
+## Markers
+
+{%  assign mfile = path.join(casedir, "markers.txt") %}
 <DataTable
     data="{{ report.datatable(
         mfile,
@@ -30,20 +30,18 @@ import { DataTable, Tabs, Tab, Image } from 'pipen-smelte'
     datafile="{{ mfile }}"
     />
 
-
 ## Enrichment analysis
 
 {% python %}
-def get_tabdata(mgdir):
+def get_tabdata(cldir):
     tabdata = []
-    for erplot in glob(mgdir + "/enrichr_*.png"):
+    for erplot in glob(cldir + "/enrichr_*.png"):
         db = path.basename(erplot)[8:-4]
         ertxt = erplot[:-4] + ".txt"
         tabdata.append({"id": db, "text": db, "table": ertxt, "plot": erplot})
     return tabdata
 {% endpython %}
-
-{% assign tabdata = get_tabdata(mgdir) %}
+{% assign tabdata = get_tabdata(casedir) %}
 
 <Tabs
     selected="{{ tabdata[0]['id'] }}"

@@ -14,7 +14,7 @@ ncores = {{ args.ncores }}
 commoncfg = '{{ args.commoncfg }}'
 
 setEnrichrSite("Enrichr")
-registerDoParallel(min(2, ncores))
+registerDoParallel(min(1, ncores))
 gsea_dbs = parseTOML(commoncfg, fromFile=FALSE)$GSEA_DBs
 
 dir.create(outdir, showWarnings = FALSE)
@@ -118,7 +118,13 @@ foreach (markfile = Sys.glob(file.path(itgdir, "Markers", "*.markers.RData"))) %
     ident_gsea_dir = file.path(markers_gsea_dir, ident)
     dir.create(ident_gsea_dir, showWarnings = FALSE)
     genes = markers %>% filter(p_val_adj < 0.05) %>% rownames()
-    enriched = enrichr(genes, gsea_dbs)
+    enriched = tryCatch(
+        { enrichr(genes, gsea_dbs) },
+        error=function(e) {
+            Sys.sleep(10)
+            enrichr(genes, gsea_dbs)
+        }
+    )
 
     for (db in gsea_dbs) {
         outtable = file.path(ident_gsea_dir, paste0('enrichr_', db, '.txt'))

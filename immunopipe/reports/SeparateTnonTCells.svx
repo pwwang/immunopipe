@@ -1,6 +1,6 @@
-{% import json %}
-{% from glob import glob %}
-{% from os import path %}
+{% import_ json %}
+{% from_ glob import glob %}
+{% from_ os import path %}
 
 <script>
 import { Image, DataTable, Tab, Tabs } from 'pipen-smelte'
@@ -9,29 +9,31 @@ import { Image, DataTable, Tab, Tabs } from 'pipen-smelte'
 # Clusters
 
 <DataTable
-    data="{{ job0.out.outdir | @path.join: 'clusters.txt' | @report.datatable:
+    data="{{ report.datatable(
+        path.join(job0.out.outdir, 'clusters.txt'),
         delimiter='\t',
         fmtcols={
             0: [float, '{:.3f}'],
             1: [float, '{:.3f}']
         }
-    }}"
-    datafile="{{ job0.out.outdir | @path.join: 'clusters.txt' }}" />
+    )}}"
+    datafile="{{ path.join(job0.out.outdir, 'clusters.txt') }}" />
 
 # CD3E-expression vs. Clonotype composition
 
 <Image alt="subdivision-rationale.png"
-    src="{{job0.out.outdir | @path.join: 'subdivision-rationale.png'}}" />
+    src="{{ path.join(job0.out.outdir, 'subdivision-rationale.png') }}" />
 
 # Markers for each cluster
-{% assign mdir = job0.out.outdir | @path.join: 'Markers' %}
-{% for mfile in mdir | @path.join: '*.txt' | @glob | @sorted %}
-{%  assign ident = mfile | @path.basename | .split: '.' | getitem: 1 %}
-{%  assign mgdir = job0.out.outdir | @path.join: 'Markers-GSEA', ident %}
+{% assign mdir = path.join(job0.out.outdir, 'Markers') %}
+{% for mfile in sorted(glob(path.join(mdir, "*.txt"))) %}
+{%  assign ident = path.basename(mfile).split('.')[1] %}
+{%  assign mgdir = path.join(job0.out.outdir, 'Markers-GSEA', ident) %}
 ## Cluster #{{ident}}
 
 <DataTable
-    data="{{mfile | @report.datatable:
+    data="{{ report.datatable(
+        mfile,
         delimiter='\t',
         rows=100,
         rownames=True,
@@ -42,19 +44,22 @@ import { Image, DataTable, Tab, Tabs } from 'pipen-smelte'
             4: [float, '{:.3f}'],
             5: [float, '{:.3e}'],
         }
-    }}"
+    ) }}"
     datafile="{{ mfile }}"
     />
 
 ### Enrichment analysis
 
 {% python %}
-tabdata = []
-for erplot in glob(mgdir + "/enrichr_*.png"):
-    db = path.basename(erplot)[8:-4]
-    ertxt = erplot[:-4] + ".txt"
-    tabdata.append({"id": db, "text": db, "table": ertxt, "plot": erplot})
+def get_tabdata(mgdir):
+    tabdata = []
+    for erplot in glob(mgdir + "/enrichr_*.png"):
+        db = path.basename(erplot)[8:-4]
+        ertxt = erplot[:-4] + ".txt"
+        tabdata.append({"id": db, "text": db, "table": ertxt, "plot": erplot})
+    return tabdata
 {% endpython %}
+{% assign tabdata = get_tabdata(mgdir) %}
 
 <Tabs
     selected="{{ tabdata[0]['id'] }}"
@@ -62,7 +67,7 @@ for erplot in glob(mgdir + "/enrichr_*.png"):
     tabButtonClasses="p-2"
     color="yellow-a200"
     let:selected={selected}
-    items={ {{ tabdata | @json.dumps }} }>
+    items={ {{ json.dumps(tabdata) }} }>
     <div
       slot="content"
       class="items-center content-center overflow-x-auto p-5 w-full h-full border-2 border-gray-600 border-t-0"
@@ -73,7 +78,8 @@ for erplot in glob(mgdir + "/enrichr_*.png"):
 
         <div>
             <DataTable
-                data="{{tdata['table'] | @report.datatable:
+                data="{{ report.datatable(
+                    tdata['table'],
                     delimiter='\t',
                     rows=20,
                     fmtcols={
@@ -82,7 +88,7 @@ for erplot in glob(mgdir + "/enrichr_*.png"):
                         6: [float, '{:.3f}'],
                         7: [float, '{:.3f}']
                     }
-                }}"
+                ) }}"
                 datafile="{{ tdata['table'] }}"
             />
         </div>

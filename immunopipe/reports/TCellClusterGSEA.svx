@@ -1,5 +1,5 @@
-{% from glob import glob %}
-{% from os import path %}
+{% from_ glob import glob %}
+{% from_ os import path %}
 
 <script>
 import { Image, DataTable } from 'pipen-smelte'
@@ -14,7 +14,8 @@ import { Image, DataTable } from 'pipen-smelte'
 # Cluster {{ident}}
 
 <DataTable
-    data="{{ enfile | @report.datatable:
+    data="{{ report.datatable(
+        enfile,
         delimiter='\t',
         rows=100,
         fmtcols={
@@ -23,7 +24,7 @@ import { Image, DataTable } from 'pipen-smelte'
             6: [float, '{:.3f}'],
             7: [float, '{:.3f}']
         }
-    }}"
+    ) }}"
     datafile="{{ enfile }}" />
 
 <p />

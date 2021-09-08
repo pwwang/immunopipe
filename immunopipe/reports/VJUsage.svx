@@ -1,6 +1,6 @@
-{% import json %}
-{% from glob import glob %}
-{% from os import path %}
+{% import_ json %}
+{% from_ glob import glob %}
+{% from_ os import path %}
 <script>
 import { Tabs, Tab, Image } from 'pipen-smelte'
 </script>
@@ -13,19 +13,21 @@ import { Tabs, Tab, Image } from 'pipen-smelte'
 
 # {{ patient }}
 {%      python %}
-tabdata = []
-for vjplot in glob(patdir + "/*.fancyvj.wt.png"):
-    sample = path.basename(vjplot)[:-15]
-    tabdata.append({"id": sample, "text": sample, "src": vjplot})
+def get_tabdata(patdir):
+    tabdata = []
+    for vjplot in glob(patdir + "/*.fancyvj.wt.png"):
+        sample = path.basename(vjplot)[:-15]
+        tabdata.append({"id": sample, "text": sample, "src": vjplot})
+    return tabdata
 {%      endpython %}
-
+{% assign tabdata = get_tabdata(patdir) %}
 <Tabs
     selected="{{ tabdata[0]['id'] }}"
     class="bg-gray-800 elevation-4 text-white "
     tabButtonClasses="p-2"
     color="yellow-a200"
     let:selected={selected}
-    items={ {{ tabdata | @json.dumps }} }>
+    items={ {{ json.dumps(tabdata) }} }>
     <div
       slot="content"
       class="flex items-center content-center overflow-hidden p-5 w-full h-full border-2 border-gray-600 border-t-0"

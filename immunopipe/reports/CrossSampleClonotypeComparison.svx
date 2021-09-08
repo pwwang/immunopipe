@@ -1,5 +1,5 @@
-{% from glob import glob %}
-{% from os import path %}
+{% from_ glob import glob %}
+{% from_ os import path %}
 
 <script>
 import { Image, DataTable, Tab } from 'pipen-smelte'
@@ -9,7 +9,7 @@ import { Image, DataTable, Tab } from 'pipen-smelte'
 
 {%  assign patient = path.basename(patdir) %}
 
-# {{ patdir | @path.basename }}
+# {{ path.basename(patdir) }}
 
 ## Clonotype composition
 {%  assign nttable = path.join(patdir, "clonotypes.nt.txt") %}
@@ -21,7 +21,7 @@ import { Image, DataTable, Tab } from 'pipen-smelte'
 
 <DataTable
     class="break-all"
-    data="{{ nttable | @report.datatable: delimiter='\t', rows=100 }}"
+    data="{{ report.datatable(nttable, delimiter='\t', rows=100) }}"
     datafile="{{ nttable }}" />
 
 <p></p>
@@ -33,7 +33,7 @@ import { Image, DataTable, Tab } from 'pipen-smelte'
 ### CDR3.aa
 
 <DataTable
-    data="{{ aatable | @report.datatable: delimiter='\t', rows=100 }}"
+    data="{{ report.datatable(aatable, delimiter='\t', rows=100) }}"
     datafile="{{ aatable }}" />
 
 <p></p>
@@ -54,13 +54,14 @@ import { Image, DataTable, Tab } from 'pipen-smelte'
 
 #### Counts
 
-<DataTable data="{{ countfile | @report.datatable: delimiter='\t' }}" />
+<DataTable data="{{ report.datatable(countfile, delimiter='\t') }}" />
 
 #### Proportion changes
 
 <DataTable
     class="break-all"
-    data="{{ compfile | @report.datatable:
+    data="{{ report.datatable(
+        compfile,
         delimiter='\t',
         rows=100,
         fmtcols={
@@ -68,7 +69,7 @@ import { Image, DataTable, Tab } from 'pipen-smelte'
             2: [float, '{:.3e}'],
             3: [float, '{:.3e}'],
         }
-    }}"
+    )}}"
     datafile="{{ compfile }}" />
 
 #### Top vanished and emerged clonotypes

@@ -7,7 +7,7 @@ import { DataTable } from 'pipen-smelte'
 {% assign samplefile = job.outdir + "/samples.txt"  %}
 
 <DataTable
-    data="{{ samplefile | @report.datatable: delimiter='\t' }}"
+    data="{{ report.datatable(samplefile, delimiter='\t') }}"
     datafile="{{ samplefile }}" />
 
 # Meta Information
@@ -15,5 +15,5 @@ import { DataTable } from 'pipen-smelte'
 {% assign metafile = job.outdir + "/metadata.txt"  %}
 
 <DataTable
-    data="{{ metafile | @report.datatable: delimiter='\t' }}"
+    data="{{ report.datatable(metafile, delimiter='\t') }}"
     datafile="{{ metafile }}" />
