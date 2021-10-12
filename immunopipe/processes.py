@@ -331,6 +331,7 @@ class IdentifyCrossSampleMarkersPerCluster(Proc):
     lang = args.rscript
     script = f"file://{SCRIPT_DIR}/IdentifyCrossSampleMarkersPerCluster.R"
     args = {
+        "cd4cd8clusters": args.extra_config.CD4CD8Clusters,
         "tclusters": args.extra_config.TCellClusters,
         "multipt_samples": args.extra_config.PatientSamples,
         "commoncfg": args.extra_config.COMMON,

@@ -27,7 +27,7 @@ import { Tab, Tabs, DataTable } from 'pipen-smelte'
 {%          if both_empty(cldir, path) %}
 {%              continue %}
 {%          endif %}
-### {{path.basename(srcdir)}}
+### {{path.basename(cldir)}}
 
 {% python %}
 def get_tabdata(cldir, patdir, srcdir):

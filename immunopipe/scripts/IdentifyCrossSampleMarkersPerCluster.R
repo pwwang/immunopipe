@@ -11,10 +11,12 @@ exprdir = "{{ in.exprdir }}"
 samples = "{{ in.samples }}"
 outdir = "{{ out.outdir }}"
 tclusters = '{{ args.tclusters }}'
+cd4cd8clusters = '{{ args.cd4cd8clusters }}'
 commoncfg = '{{ args.commoncfg }}'
 multipt_samples = '{{ args.multipt_samples }}'
 
 tclusters = parseTOML(tclusters, fromFile=FALSE)
+cd4cd8clusters = parseTOML(cd4cd8clusters, fromFile=FALSE)
 multipt_samples = parseTOML(multipt_samples, fromFile=FALSE)
 
 idents.tcell.pal = unlist(tclusters$colors)
@@ -271,6 +273,39 @@ handle_kind = function(patient, name, idents) {
         find_markers(cl_contracted_idents, "Contracted", "Pre", name, cluster, cldir, pre_exprs)
         find_markers(cl_contracted_idents, "Contracted", "Post", name, cluster, cldir, post_exprs)
 
+    }
+
+    for (cd4cd8 in names(cd4cd8clusters)) {
+        cldir = file.path(kind_dir, paste0(cd4cd8, "-groups"))
+        dir.create(cldir, showWarnings=FALSE)
+        groups = unname(unlist(tclusters$names[cd4cd8clusters[[cd4cd8]]]))
+
+        pre_cluster = paste0(groups, "_pre")
+        post_cluster = paste0(groups, "_post")
+
+        cols = c("ID", "pre_clone", "post_clone", pre_cluster, post_cluster)
+        cl_idents = pt_idents %>%
+            select(cols) %>%
+            mutate(
+                pre_sum=rowSums(pt_idents[, pre_cluster]),
+                post_sum=rowSums(pt_idents[, post_cluster]),
+            ) %>%
+            mutate(diff=post_sum - pre_sum) %>%
+            filter(!is.na(diff))
+        cl_expanded_idents = cl_idents %>%
+            filter(diff > 3) %>%
+            arrange(desc(diff))
+        cl_contracted_idents = cl_idents %>%
+            filter(diff < -3) %>%
+            arrange(diff)
+
+        write.table(cl_expanded_idents, file.path(cldir, "Expanded.txt"), row.names=FALSE, col.names=TRUE, sep="\t", quote=FALSE)
+        write.table(cl_contracted_idents, file.path(cldir, "Contracted.txt"), row.names=FALSE, col.names=TRUE, sep="\t", quote=FALSE)
+
+        find_markers(cl_expanded_idents, "Expanded", "Pre", name, cd4cd8, cldir, pre_exprs)
+        find_markers(cl_expanded_idents, "Expanded", "Post", name, cd4cd8, cldir, post_exprs)
+        find_markers(cl_contracted_idents, "Contracted", "Pre", name, cd4cd8, cldir, pre_exprs)
+        find_markers(cl_contracted_idents, "Contracted", "Post", name, cd4cd8, cldir, post_exprs)
     }
 
 }
