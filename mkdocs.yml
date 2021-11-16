@@ -15,6 +15,7 @@ extra_css:
     - style.css
 nav:
     - 'Introduction': 'index.md'
+    - 'Input': 'input.md'
     - 'Configurations': 'configurations.md'
     - 'Modules':
       - 'Basic TCR analysis': 'basic-tcr.md'
@@ -24,5 +25,6 @@ nav:
       - 'Clustering T cells and markers for each cluster': 'cluster-t-cells.md'
       - 'Radar plots': 'radar.md'
       - 'Markers finder': 'markers-finder.md'
-      - 'Gene expression investigation': 'gene-expr-investigation.md'
+      - 'Gene expression investigation for each cluster': 'gene-expr-investigation-for-each-cluster.md'
+      - 'Dim plots': 'dimplots.md'
     - 'Change log': 'CHANGELOG.md'
