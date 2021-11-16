@@ -1,0 +1,30 @@
+site_name: immunopipe
+repo_url: https://github.com/pwwang/immunopipe
+repo_name: pwwang/immunopipe
+theme:
+    name: 'material'
+markdown_extensions:
+    - markdown.extensions.admonition
+    - pymdownx.superfences:
+        preserve_tabs: true
+    - toc:
+        baselevel: 2
+plugins:
+    - search # necessary for search to work
+    - mkapi
+extra_css:
+    - style.css
+nav:
+    - 'Introduction': 'index.md'
+    - 'Configurations': 'configurations.md'
+    - 'Modules':
+      - 'Basic TCR analysis': 'basic-tcr.md'
+      - 'Clone residency analysis': 'clone-residency.md'
+      - 'V-J usage analysis': 'vj-usage.md'
+      - 'Clustering cells and separatining T cells': 'cluster-all-cells.md'
+      - 'Clustering T cells and markers for each cluster': 'cluster-t-cells.md'
+      - 'Radar plots': 'radar.md'
+      - 'Markers finder': 'markers-finder.md'
+      - 'Gene expression investigation': 'gene-expr-investigation.md'
+    - 'Change log': 'CHANGELOG.md'
+    - 'API': mkapi/api/immunopipe
