@@ -24,7 +24,7 @@ for (groupfile in groupfiles) {
                 function(x) paste(cur_column(), x, sep="_", collapse=";")
             )
         )) %>%
-        unite("ALL", 2:(n_samples+1)) %>%
+        unite("ALL", 2:(n_samples+1), sep = ";") %>%
         rename(group = 1)
     if (is.null(allgroups)) {
         allgroups = df
