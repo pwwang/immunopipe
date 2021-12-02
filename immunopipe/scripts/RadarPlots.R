@@ -6,32 +6,21 @@ library(ggplot2)
 library(ggradar)
 
 srtfile = {{in.srtobj | quote}}
-groupfiles = {{in.groupfiles | r}}
+groupfile = {{in.groupfile | r}}
 direction = {{in.direction | r}}
 breaks = as.integer({{in.breaks | split: "," | r}})
 outfile = {{out.outfile | quote}}
 
 sobj = readRDS(srtfile)
-allgroups = NULL
-for (groupfile in groupfiles) {
-    groups = read.table(groupfile, row.names=NULL, header=T, sep="\t", check.names = F)
-    n_samples = ncol(groups) - 1
-    df = groups %>% rowwise() %>%
-        mutate(
-            across(2:(n_samples+1),
-            ~ sapply(
-                strsplit(.x, ";", fixed=TRUE),
-                function(x) paste(cur_column(), x, sep="_", collapse=";")
-            )
-        )) %>%
-        unite("ALL", 2:(n_samples+1), sep = ";") %>%
-        rename(group = 1)
-    if (is.null(allgroups)) {
-        allgroups = df
-    } else {
-        allgroups = bind_rows(allgroups, df)
-    }
-}
+allgroups = read.table(
+    groupfile,
+    row.names=NULL,
+    header=T,
+    sep="\t",
+    check.names = F
+) %>% mutate(
+    ALL=strsplit(ALL, ";", fixed=TRUE)
+) %>% rename(group = 1)
 
 for (ident in unique(Idents(sobj))) {
     cells = WhichCells(sobj, ident = ident)

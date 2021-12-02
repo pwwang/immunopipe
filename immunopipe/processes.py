@@ -20,7 +20,7 @@ from biopipen.namespaces.scrna import (
     SeuratClustering,
     MarkersFinder,
     DimPlots,
-    GeneExpressionInvistigation,
+    GeneExpressionInvestigation,
 )
 from datar.all import (
     f,
@@ -165,9 +165,8 @@ if "RADAR_PLOTS" in config:
     RadarPlotsConfig = Proc.from_proc(
         Config2File,
         input_data=[
-            FILTERS["toml_dumps"](conf["filters"][key])
+            FILTERS["toml_dumps"](conf.filters)
             for conf in config.RADAR_PLOTS
-            for key in conf["filters"]
         ],
     )
     starts.append(RadarPlotsConfig)
@@ -175,11 +174,7 @@ if "RADAR_PLOTS" in config:
     RadarPlotsFilter = Proc.from_proc(
         ImmunarchFilter,
         requires=[ImmunarchLoading, RadarPlotsConfig],
-        input_data=lambda ch1, ch2: tibble(
-            ch1,
-            ch2,
-            [key for conf in config.RADAR_PLOTS for key in conf["filters"]],
-        ),
+        envs={"merge": True},
     )
 
     class RadarPlots(Proc):
@@ -187,7 +182,7 @@ if "RADAR_PLOTS" in config:
 
         input = [
             "srtobj:file",
-            "groupfiles:files",
+            "groupfile:file",
             "name:var",
             "direction:var",
             "breaks:var",
@@ -195,10 +190,7 @@ if "RADAR_PLOTS" in config:
         requires = [SeuratClusteringOfTCells, RadarPlotsFilter]
         input_data = lambda ch1, ch2: tibble(
             select(ch1, 1),
-            chunk_list(
-                flatten(select(ch2, 2)),
-                [len(conf["filters"]) for conf in config.RADAR_PLOTS],
-            ),
+            select(ch2, 2),
             [conf.name for conf in config.RADAR_PLOTS],
             [
                 conf.get("direction", "intra-cluster")
@@ -220,60 +212,30 @@ if "RADAR_PLOTS" in config:
 
 
 if "MARKERS_FINDER" in config:
-    markers_groups = list(
-        [case for case in config.MARKERS_FINDER.filters[0] if case != "name"]
-    )
     MarkersFinderClonesFilterConfig = Proc.from_proc(
         Config2File,
         input_data=[
-            FILTERS["toml_dumps"](conf[markers_groups[0]])
-            for conf in config.MARKERS_FINDER.filters
-        ],
-    )
-    MarkersFinderRestClonesFilterConfig = Proc.from_proc(
-        Config2File,
-        input_data=[
-            FILTERS["toml_dumps"](conf[markers_groups[1]])
-            for conf in config.MARKERS_FINDER.filters
+            FILTERS["toml_dumps"](conf.filters)
+            for conf in config.MARKERS_FINDER
         ],
     )
     starts.append(MarkersFinderClonesFilterConfig)
-    starts.append(MarkersFinderRestClonesFilterConfig)
 
     MarkersFinderClonesFilter = Proc.from_proc(
         ImmunarchFilter,
         requires=[ImmunarchLoading, MarkersFinderClonesFilterConfig],
-        input_data=lambda ch1, ch2: tibble(ch1, ch2, name=markers_groups[0]),
+        envs={"merge": True},
     )
 
-    MarkersFinderRestClonesFilter = Proc.from_proc(
-        ImmunarchFilter,
-        requires=[ImmunarchLoading, MarkersFinderRestClonesFilterConfig],
-        input_data=lambda ch1, ch2: tibble(ch1, ch2, name=markers_groups[1]),
-    )
-
-    MarkersFinderBindGroups = Proc.from_proc(
-        BindRows,
-        requires=[MarkersFinderClonesFilter, MarkersFinderRestClonesFilter],
-        input_data=lambda ch1, ch2: (
-            ch1
-            >> rename(groupfile0=f.groupfile, o=f.outfile)  # suppress warning
-            >> bind_cols(ch2)
-            >> select(f.groupfile0, f.groupfile)
-            >> unite(f.infiles, everything(), sep=" ||| ")
-            >> rowwise()
-            >> mutate(infiles=strsplit(f.infiles, " ||| ", fixed=True))
-        ),
-    )
     MarkersFinder = Proc.from_proc(
         MarkersFinder,
-        requires=[SeuratPreparing, MarkersFinderBindGroups],
+        requires=[SeuratPreparing, MarkersFinderClonesFilter],
         input_data=lambda ch1, ch2: tibble(
-            ch1,
-            ch2,
-            [filt["name"] for filt in config.MARKERS_FINDER.filters],
+            srtobj=ch1,
+            groupfile=select(ch2, 2),
+            name=[conf.name for conf in config.MARKERS_FINDER],
         ),
-        envs={"cases": {markers_groups[0]: {"ident.2": markers_groups[1]}}},
+        envs={"cases": {"ident.1": {"ident.2": "ident.2"}}},
     )
 
 if "GENE_EXPR_INVESTIGATION_CLUSTERS" in config:
@@ -288,14 +250,15 @@ if "GENE_EXPR_INVESTIGATION_CLUSTERS" in config:
     starts.append(GeneExprInvestigationClustersConfig)
     from datar.all import t
 
-    GeneExpressionInvistigationClusters = Proc.from_proc(
-        GeneExpressionInvistigation,
+    GeneExpressionInvestigationClusters = Proc.from_proc(
+        GeneExpressionInvestigation,
         requires=[
             SeuratClusteringOfTCells,
             GeneList,
             GeneExprInvestigationClustersConfig,
         ],
-        input_data=lambda ch1, ch2, ch3: tibble(ch1, t(ch2), ch3),
+        input_data=lambda ch1, ch2, ch3: tibble(ch1, [flatten(ch2)], ch3),
+        envs={"gopts": {"header": False, "sep": "\t", "row.names": None}}
     )
 
 if "DIM_PLOTS" in config:
