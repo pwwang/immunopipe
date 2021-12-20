@@ -27,4 +27,5 @@ nav:
       - 'Markers finder': 'markers-finder.md'
       - 'Gene expression investigation for each cluster': 'gene-expr-investigation-for-each-cluster.md'
       - 'Dim plots': 'dimplots.md'
+      - 'Metabolic landscape analysis': 'metabolic.md'
     - 'Change log': 'CHANGELOG.md'

@@ -71,6 +71,10 @@ Or you can check the docstring of the process in `biopipen`'s source code.
 
 - See: [https://pwwang.github.io/immunopipe/radar/](https://pwwang.github.io/immunopipe/radar/)]
 
+### `METABOLIC`
+
+- See: [https://pwwang.github.io/immunopipe/metabolic/](https://pwwang.github.io/immunopipe/metabolic/)]
+
 
 ## An examplar configuration file
 

@@ -36,6 +36,7 @@ Integrative analysis for scTCR- and scRNA-seq data
 - Markers finder for selected groups of cells
 - Expression investigation of genes of interest for selected groups of cells
 - UMAPs
+- Metabolic landscape analysis (Ref: Xiao, Zhengtao, Ziwei Dai, and Jason W. Locasale. "Metabolic landscape of the tumor microenvironment at single cell resolution." Nature communications 10.1 (2019): 1-12.)
 
 ## Documentaion
 
