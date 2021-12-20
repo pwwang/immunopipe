@@ -1,11 +1,10 @@
 """Process definition"""
-from itertools import islice
+import numpy
 from pipen import Proc
 from pipen.channel import expand_dir
 from pipen_filters.filters import FILTERS
 from biopipen.core.filters import filtermanager
 from biopipen.namespaces.misc import File2Proc, Config2File
-from biopipen.namespaces.csv import BindRows
 from biopipen.namespaces.tcr import (
     ImmunarchLoading,
     ImmunarchBasic,
@@ -22,17 +21,12 @@ from biopipen.namespaces.scrna import (
     DimPlots,
     GeneExpressionInvestigation,
 )
+from biopipen.namespaces.scrna_metabolic import (
+    build_processes,
+)
 from datar.all import (
-    f,
-    bind_cols,
     select,
-    rename,
-    unite,
     tibble,
-    everything,
-    rowwise,
-    mutate,
-    strsplit,
     flatten,
 )
 
@@ -165,8 +159,7 @@ if "RADAR_PLOTS" in config:
     RadarPlotsConfig = Proc.from_proc(
         Config2File,
         input_data=[
-            FILTERS["toml_dumps"](conf.filters)
-            for conf in config.RADAR_PLOTS
+            FILTERS["toml_dumps"](conf.filters) for conf in config.RADAR_PLOTS
         ],
     )
     starts.append(RadarPlotsConfig)
@@ -216,7 +209,7 @@ if "MARKERS_FINDER" in config:
         Config2File,
         input_data=[
             FILTERS["toml_dumps"](conf.filters)
-            for conf in config.MARKERS_FINDER
+            for conf in sorted(config.MARKERS_FINDER, key=lambda x: x["name"])
         ],
     )
     starts.append(MarkersFinderClonesFilterConfig)
@@ -258,7 +251,7 @@ if "GENE_EXPR_INVESTIGATION_CLUSTERS" in config:
             GeneExprInvestigationClustersConfig,
         ],
         input_data=lambda ch1, ch2, ch3: tibble(ch1, [flatten(ch2)], ch3),
-        envs={"gopts": {"header": False, "sep": "\t", "row.names": None}}
+        envs={"gopts": {"header": False, "sep": "\t", "row.names": None}},
     )
 
 if "DIM_PLOTS" in config:
@@ -271,3 +264,77 @@ if "DIM_PLOTS" in config:
         DimPlots,
         requires=[SeuratClusteringOfTCells, DimPlotsConfig],
     )
+
+if "METABOLIC" in config:
+    if any(
+        conf_case.get("subset_using") == "immunarch"
+        for conf_case in sorted(
+            config["METABOLIC"]["cases"],
+            key=lambda x: x["name"]
+        )
+    ):
+        MetabolicSubsetFilterConfig = Proc.from_proc(
+            Config2File,
+            input_data=[
+                FILTERS["toml_dumps"](conf_case["subsetting"])
+                for conf_case in sorted(
+                    config["METABOLIC"]["cases"],
+                    key=lambda x: x["name"]
+                )
+                if conf_case.get("subset_using") == "immunarch"
+            ]
+        )
+        MetabolicSubsetFilter = Proc.from_proc(
+            ImmunarchFilter,
+            requires=[ImmunarchLoading, MetabolicSubsetFilterConfig],
+            envs={"merge": True},
+        )
+        starts.append(MetabolicSubsetFilterConfig)
+    else:
+        MetabolicSubsetFilter = None
+
+    MetabolicInputs = build_processes({"clustered": True})
+    if MetabolicSubsetFilter:
+        def metabolic_input(ch1, ch2):
+            subsetfile = numpy.array([None] * len(config["METABOLIC"]["cases"]))
+            subsetfile[
+                [
+                    conf_case.get("subset_using") == "immunarch"
+                    for conf_case in sorted(
+                        config["METABOLIC"]["cases"],
+                        key=lambda x: x["name"]
+                    )
+                ]
+            ] = ch2.groupfile
+            return tibble(
+                metafile=ch1.rdsfile,
+                subsetfile=subsetfile,
+                groupfile=None,
+                gmtfile=config["METABOLIC"]["gmtfile"],
+                config=[
+                    FILTERS["toml_dumps"](conf_case)
+                    for conf_case in sorted(
+                        config["METABOLIC"]["cases"],
+                        key=lambda x: x["name"]
+                    )
+                ]
+            )
+        MetabolicInputs.requires = (
+            SeuratClusteringOfTCells, MetabolicSubsetFilter
+        )
+        MetabolicInputs.input_data = metabolic_input
+    else:
+        MetabolicInputs.requires = SeuratClusteringOfTCells
+        MetabolicInputs.input_data = lambda ch: tibble(
+            metafile=ch.rdsfile,
+            subsetfile=None,
+            groupfile=None,
+            gmtfile=config["METABOLIC"]["gmtfile"],
+            config=[
+                FILTERS["toml_dumps"](conf_case)
+                for conf_case in sorted(
+                    config["METABOLIC"]["cases"],
+                    key=lambda x: x["name"]
+                )
+            ]
+        )

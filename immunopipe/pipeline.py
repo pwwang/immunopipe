@@ -5,6 +5,10 @@ from .version import __version__
 from .processes import starts
 
 # Set the name and description of your pipeline here
+
+# Make sure plugins and configurations get setup
+Pipen.SETUP = False
+
 pipeline = Pipen(
     name="immunopipe",
     desc=(
