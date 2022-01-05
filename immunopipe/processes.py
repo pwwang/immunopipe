@@ -63,6 +63,7 @@ ImmunarchLoading = Proc.from_proc(
 
 SeuratPreparing = Proc.from_proc(
     SeuratPreparing,
+    cache="force",
     requires=SampleInfo,
     plugin_opts={"args_hide": True},
 )
@@ -75,9 +76,11 @@ SeuratClusteringOfAllCells = Proc.from_proc(
 
 MarkersForClustersOfAllCells = Proc.from_proc(
     MarkersFinder,
+    cache="force",
     requires=SeuratClusteringOfAllCells,
     input_data=lambda ch: tibble(
         ch,
+        None,
         "Markers for clusters of all cells",
     ),
     envs={"cases": "ident"},
@@ -118,8 +121,9 @@ SeuratClusteringOfTCells = Proc.from_proc(
 
 MarkersForClustersOfTCells = Proc.from_proc(
     MarkersFinder,
+    cache="force",
     requires=SeuratClusteringOfTCells,
-    input_data=lambda ch: tibble(ch, "Markers for clusters of T cells"),
+    input_data=lambda ch: tibble(ch, None, "Markers for clusters of T cells"),
     envs={"cases": "ident"},
     plugin_opts={"report_order": 3, "args_hide": True},
 )
@@ -205,31 +209,94 @@ if "RADAR_PLOTS" in config:
 
 
 if "MARKERS_FINDER" in config:
-    MarkersFinderClonesFilterConfig = Proc.from_proc(
+    ImmunarchFilterConfig = Proc.from_proc(
         Config2File,
         input_data=[
-            FILTERS["toml_dumps"](conf.filters)
-            for conf in sorted(config.MARKERS_FINDER, key=lambda x: x["name"])
+            FILTERS["toml_dumps"](mf_config.subsetting)
+            for mf_config in config.MARKERS_FINDER
         ],
     )
-    starts.append(MarkersFinderClonesFilterConfig)
+    MarkersFinderCases = Proc.from_proc(
+        Config2File,
+        input_data=[
+            FILTERS["toml_dumps"](
+                {
+                    name: {"ident.1": design[0], "ident.2": design[1]}
+                    for name, design in sorted(mf_config.design.items())
+                }
+            )
+            for mf_config in config.MARKERS_FINDER
+        ],
+    )
+    MetaMarkersConfig = Proc.from_proc(
+        Config2File,
+        input_data=[
+            FILTERS["toml_dumps"](
+                {
+                    "name": mf_config.name,
+                    "meta": mf_config.meta,
+                    "overlap": mf_config.overlap,
+                }
+            )
+            for mf_config in config.MARKERS_FINDER
+        ],
+    )
+    starts.append(ImmunarchFilterConfig)
+    starts.append(MarkersFinderCases)
+    starts.append(MetaMarkersConfig)
 
     MarkersFinderClonesFilter = Proc.from_proc(
         ImmunarchFilter,
-        requires=[ImmunarchLoading, MarkersFinderClonesFilterConfig],
+        requires=[ImmunarchLoading, ImmunarchFilterConfig],
         envs={"merge": True},
     )
 
-    MarkersFinder = Proc.from_proc(
+    MarkersFinderClones = Proc.from_proc(
         MarkersFinder,
-        requires=[SeuratPreparing, MarkersFinderClonesFilter],
-        input_data=lambda ch1, ch2: tibble(
+        cache="force",
+        requires=[
+            SeuratPreparing,
+            MarkersFinderClonesFilter,
+            MarkersFinderCases,
+        ],
+        input_data=lambda ch1, ch2, ch3: tibble(
             srtobj=ch1,
             groupfile=select(ch2, 2),
-            name=[conf.name for conf in config.MARKERS_FINDER],
+            casefile=ch3,
+            name=[mf_config.name for mf_config in config.MARKERS_FINDER],
         ),
-        envs={"cases": {"ident.1": {"ident.2": "ident.2"}}},
     )
+
+    class MetaMarkersForClones(Proc):
+        """Meta markers for different groups"""
+        cache = "force"
+        requires = (
+            SeuratPreparing,
+            MarkersFinderClonesFilter,
+            MarkersFinderClones,
+            MetaMarkersConfig,
+        )
+        input = "srtobj:file, groupfile:file, markersdir:file, configfile:file"
+        input_data = lambda ch1, ch2, ch3, ch4: tibble(
+            srtobj=ch1,
+            groupfile=ch2.iloc[:, 1],
+            markersdir=ch3,
+            configfile=ch4,
+        )
+        output = "outdir:dir:MetaMarkers"
+        lang = SeuratPreparing.lang
+        envs = {
+            "ncores": 1,
+            "min_cells": 5,
+            "venn_devpars": {"res": 100, "height": 1000, "width": 1200},
+            "upset_devpars": {"res": 100, "height": 1000, "width": 1000},
+        }
+        script = "file://scripts/MetaMarkersForClones.R"
+        plugin_opts = {
+            "report": "file://reports/MetaMarkersForClones.svelte"
+        }
+        template_opts = SeuratPreparing.template_opts
+
 
 if "GENE_EXPR_INVESTIGATION_CLUSTERS" in config:
     # Do the filtering
@@ -269,8 +336,7 @@ if "METABOLIC" in config:
     if any(
         conf_case.get("subset_using") == "immunarch"
         for conf_case in sorted(
-            config["METABOLIC"]["cases"],
-            key=lambda x: x["name"]
+            config["METABOLIC"]["cases"], key=lambda x: x["name"]
         )
     ):
         MetabolicSubsetFilterConfig = Proc.from_proc(
@@ -278,11 +344,10 @@ if "METABOLIC" in config:
             input_data=[
                 FILTERS["toml_dumps"](conf_case["subsetting"])
                 for conf_case in sorted(
-                    config["METABOLIC"]["cases"],
-                    key=lambda x: x["name"]
+                    config["METABOLIC"]["cases"], key=lambda x: x["name"]
                 )
                 if conf_case.get("subset_using") == "immunarch"
-            ]
+            ],
         )
         MetabolicSubsetFilter = Proc.from_proc(
             ImmunarchFilter,
@@ -295,14 +360,16 @@ if "METABOLIC" in config:
 
     MetabolicInputs = build_processes({"clustered": True})
     if MetabolicSubsetFilter:
+
         def metabolic_input(ch1, ch2):
-            subsetfile = numpy.array([None] * len(config["METABOLIC"]["cases"]))
+            subsetfile = numpy.array(
+                [None] * len(config["METABOLIC"]["cases"])
+            )
             subsetfile[
                 [
                     conf_case.get("subset_using") == "immunarch"
                     for conf_case in sorted(
-                        config["METABOLIC"]["cases"],
-                        key=lambda x: x["name"]
+                        config["METABOLIC"]["cases"], key=lambda x: x["name"]
                     )
                 ]
             ] = ch2.groupfile
@@ -314,13 +381,14 @@ if "METABOLIC" in config:
                 config=[
                     FILTERS["toml_dumps"](conf_case)
                     for conf_case in sorted(
-                        config["METABOLIC"]["cases"],
-                        key=lambda x: x["name"]
+                        config["METABOLIC"]["cases"], key=lambda x: x["name"]
                     )
-                ]
+                ],
             )
+
         MetabolicInputs.requires = (
-            SeuratClusteringOfTCells, MetabolicSubsetFilter
+            SeuratClusteringOfTCells,
+            MetabolicSubsetFilter,
         )
         MetabolicInputs.input_data = metabolic_input
     else:
@@ -333,8 +401,7 @@ if "METABOLIC" in config:
             config=[
                 FILTERS["toml_dumps"](conf_case)
                 for conf_case in sorted(
-                    config["METABOLIC"]["cases"],
-                    key=lambda x: x["name"]
+                    config["METABOLIC"]["cases"], key=lambda x: x["name"]
                 )
-            ]
+            ],
         )
