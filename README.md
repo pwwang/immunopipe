@@ -8,19 +8,11 @@ Integrative analysis for scTCR- and scRNA-seq data
     - Other python depedencies should be installed via `pip install -U immunopipe`
 
 - `R`
-  - `immunarch`: `v0.6.7+`
-  - `Seurat`: `v4.0+`
-  - `dplyr`
-  - `tidyr`
-  - `tibble`
-  - `ggplot2`
-  - `ggradar`
-  - `ggprism`
-  - `ggrepel`
-  - `future`
-  - `parallel`
-  - `enrichR`
-  - `ComplexHeatmap`
+    - `immunarch`(`v0.6.7+`), `Seurat`(`v4.0+`), `scImpute`, `scran`, `scater`
+    - `dplyr`, `tidyr`, `tibble`, `ggplot2`, `ggradar`, `ggprism`, `ggrepel`, `reshape2`
+    - `ComplexHeatmap`, `RColorBrewer`
+    - `future`, `parallel`, `gtools`
+    - `enrichR`
 
 - Other
   - VDJtools: https://vdjtools-doc.readthedocs.io/en/master/install.html
