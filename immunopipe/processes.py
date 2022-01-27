@@ -159,6 +159,12 @@ VJUsage = Proc.from_proc(
     plugin_opts={"report_toc": False, "args_hide": True},
 )
 
+DimPlots = Proc.from_proc(
+    DimPlots,
+    requires=SeuratClusteringOfTCells,
+    input_data=lambda ch: ch.rdsfile,
+)
+
 if "RADAR_PLOTS" in config:
     RadarPlotsConfig = Proc.from_proc(
         Config2File,
@@ -319,17 +325,6 @@ if "GENE_EXPR_INVESTIGATION_CLUSTERS" in config:
         ],
         input_data=lambda ch1, ch2, ch3: tibble(ch1, [flatten(ch2)], ch3),
         envs={"gopts": {"header": False, "sep": "\t", "row.names": None}},
-    )
-
-if "DIM_PLOTS" in config:
-    DimPlotsConfig = Proc.from_proc(
-        Config2File,
-        input_data=[FILTERS["toml_dumps"](conf) for conf in config.DIM_PLOTS],
-    )
-    starts.append(DimPlotsConfig)
-    DimPlots = Proc.from_proc(
-        DimPlots,
-        requires=[SeuratClusteringOfTCells, DimPlotsConfig],
     )
 
 if "METABOLIC" in config:

@@ -63,10 +63,6 @@ Or you can check the docstring of the process in `biopipen`'s source code.
 
 - See: [https://pwwang.github.io/immunopipe/gene-expr-investigation-for-each-cluster/](https://pwwang.github.io/immunopipe/gene-expr-investigation-for-each-cluster/)
 
-### `DIM_PLOTS`
-
-- See: [https://pwwang.github.io/immunopipe/dimplots/](https://pwwang.github.io/immunopipe/dimplots/)]
-
 ### `RADAR_PLOTS`
 
 - See: [https://pwwang.github.io/immunopipe/radar/](https://pwwang.github.io/immunopipe/radar/)]
@@ -280,10 +276,9 @@ target = [
 ]
 plots = { boxplot = {ncol = 3, res = 100, width = 1200, height = 3200} }
 
-[[DIM_PLOTS]]
-name = "Dimension redduction plot for clusters"
+[DimPlots.envs.cases.Ident_UMAP]
+"group.by" = "ident"
 reduction = "umap"
-"by.ident" = true
 
 [[RADAR_PLOTS]]
 name = "Cell proportion of control samples"
