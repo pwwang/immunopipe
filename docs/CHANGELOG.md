@@ -1,3 +1,7 @@
+## 0.0.5
+
+- ✨ Allow more flexible dim plots
+
 ## 0.0.4
 
 - ✨ Refactor markers finder module and add meta-marker analysis
