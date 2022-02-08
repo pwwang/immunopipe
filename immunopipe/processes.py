@@ -13,6 +13,7 @@ from biopipen.namespaces.tcr import (
     CloneResidency,
     Immunarch2VDJtools,
     VJUsage,
+    Attach2Seurat,
 )
 from biopipen.namespaces.scrna import (
     SeuratPreparing,
@@ -159,11 +160,12 @@ VJUsage = Proc.from_proc(
     plugin_opts={"report_toc": False, "args_hide": True},
 )
 
-DimPlots = Proc.from_proc(
-    DimPlots,
-    requires=SeuratClusteringOfTCells,
-    input_data=lambda ch: ch.rdsfile,
+Attach2Seurat = Proc.from_proc(
+    Attach2Seurat,
+    requires=[ImmunarchLoading, SeuratClusteringOfTCells],
 )
+
+DimPlots = Proc.from_proc(DimPlots, requires=Attach2Seurat)
 
 if "RADAR_PLOTS" in config:
     RadarPlotsConfig = Proc.from_proc(
