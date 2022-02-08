@@ -1,3 +1,7 @@
+## 0.0.6
+
+- ✨ Allow dimplots with clonal information
+
 ## 0.0.5
 
 - ✨ Allow more flexible dim plots

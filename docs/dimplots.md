@@ -19,3 +19,12 @@ reduction = "umap"
 mutate = "paste0(Source, '/', TimePoint)"
 reduction = "tsne"
 ```
+
+As of `v0.0.6`, you are also able to use TCR clonal information to overlay your dim plots:
+
+```toml
+[DimPlots.envs.cases.Clone_Size_UMAP]
+"group.by" = "Clone_Size"
+mutate = "case_when(Clones < 3 ~ '1 ~ 3', Clones < 10 ~ '3 ~ 10', Clones < 100 ~ '10 ~ 100', TRUE ~ '100+')"
+reduction = "umap"
+```
