@@ -167,6 +167,21 @@ Attach2Seurat = Proc.from_proc(
 
 DimPlots = Proc.from_proc(DimPlots, requires=Attach2Seurat)
 
+class CloneHeterogeneity(Proc):
+    """Clone heterogeneity in each cluster"""
+    input = "sobjfile:file"
+    requires = Attach2Seurat
+    output = "outdir:dir:CloneHeterogeneity"
+    lang = DimPlots.lang
+    script = "file://scripts/CloneHeterogeneity.R"
+    envs = { "cases": {} }
+    template_opts = {"filters": filtermanager.filters.copy()}
+    plugin_opts = {
+        "report": "file://reports/CloneHeterogeneity.svelte",
+        "report_order": 20,
+        "args_hide": True,
+    }
+
 if "RADAR_PLOTS" in config:
     RadarPlotsConfig = Proc.from_proc(
         Config2File,
@@ -316,7 +331,6 @@ if "GENE_EXPR_INVESTIGATION_CLUSTERS" in config:
         ],
     )
     starts.append(GeneExprInvestigationClustersConfig)
-    from datar.all import t
 
     GeneExpressionInvestigationClusters = Proc.from_proc(
         GeneExpressionInvestigation,
