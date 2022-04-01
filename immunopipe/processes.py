@@ -98,12 +98,12 @@ class SelectTCells(Proc):
     input = "srtobj:file, immdata:file"
     requires = [SeuratClusteringOfAllCells, ImmunarchLoading]
     input_data = lambda ch1, ch2: tibble(
-        select(ch1, 1),
+        select(ch1, 0),
         ch2,
         _name_repair="minimal",
     )
     output = "rdsfile:file:{{in.srtobj | stem}}.RDS, outdir:dir:details"
-    envs = {"tcell_filter": "Clonotype_pct > .25"}
+    envs = {"tcell_filter": "Clonotype_pct > .25", "indicator_gene": "CD3E"}
     lang = MarkersForClustersOfAllCells.lang
     script = "file://scripts/SelectTCells.R"
     plugin_opts = {
@@ -141,11 +141,12 @@ ImmunarchAdvanced = Proc.from_proc(
     plugin_opts={"args_hide": True},
 )
 
-CloneResidency = Proc.from_proc(
-    CloneResidency,
-    requires=ImmunarchLoading,
-    plugin_opts={"args_hide": True},
-)
+if "CloneResidency" in config:
+    CloneResidency = Proc.from_proc(
+        CloneResidency,
+        requires=ImmunarchLoading,
+        plugin_opts={"args_hide": True},
+    )
 
 Immunarch2VDJtools = Proc.from_proc(
     Immunarch2VDJtools,
@@ -167,20 +168,21 @@ Attach2Seurat = Proc.from_proc(
 
 DimPlots = Proc.from_proc(DimPlots, requires=Attach2Seurat)
 
-class CloneHeterogeneity(Proc):
-    """Clone heterogeneity in each cluster"""
-    input = "sobjfile:file"
-    requires = Attach2Seurat
-    output = "outdir:dir:CloneHeterogeneity"
-    lang = DimPlots.lang
-    script = "file://scripts/CloneHeterogeneity.R"
-    envs = { "cases": {} }
-    template_opts = {"filters": filtermanager.filters.copy()}
-    plugin_opts = {
-        "report": "file://reports/CloneHeterogeneity.svelte",
-        "report_order": 20,
-        "args_hide": True,
-    }
+if "CloneHeterogeneity" in config:
+    class CloneHeterogeneity(Proc):
+        """Clone heterogeneity in each cluster"""
+        input = "sobjfile:file"
+        requires = Attach2Seurat
+        output = "outdir:dir:CloneHeterogeneity"
+        lang = DimPlots.lang
+        script = "file://scripts/CloneHeterogeneity.R"
+        envs = { "cases": {} }
+        template_opts = {"filters": filtermanager.filters.copy()}
+        plugin_opts = {
+            "report": "file://reports/CloneHeterogeneity.svelte",
+            "report_order": 20,
+            "args_hide": True,
+        }
 
 if "RADAR_PLOTS" in config:
     RadarPlotsConfig = Proc.from_proc(
@@ -209,8 +211,8 @@ if "RADAR_PLOTS" in config:
         ]
         requires = [SeuratClusteringOfTCells, RadarPlotsFilter]
         input_data = lambda ch1, ch2: tibble(
-            select(ch1, 1),
-            select(ch2, 2),
+            select(ch1, 0),
+            select(ch2, 1),
             [conf.name for conf in config.RADAR_PLOTS],
             [
                 conf.get("direction", "intra-cluster")
@@ -220,6 +222,7 @@ if "RADAR_PLOTS" in config:
                 ",".join(str(brk) for brk in conf.get("breaks", [0, 50, 100]))
                 for conf in config.RADAR_PLOTS
             ],
+            _name_repair="minimal",
         )
         output = "outfile:file:{{in.name | slugify}}.radar.png"
         lang = SeuratClusteringOfTCells.lang
@@ -284,7 +287,7 @@ if "MARKERS_FINDER" in config:
         ],
         input_data=lambda ch1, ch2, ch3: tibble(
             srtobj=ch1,
-            groupfile=select(ch2, 2),
+            groupfile=select(ch2, 1),
             casefile=ch3,
             name=[mf_config.name for mf_config in config.MARKERS_FINDER],
         ),
@@ -339,7 +342,12 @@ if "GENE_EXPR_INVESTIGATION_CLUSTERS" in config:
             GeneList,
             GeneExprInvestigationClustersConfig,
         ],
-        input_data=lambda ch1, ch2, ch3: tibble(ch1, [flatten(ch2)], ch3),
+        input_data=lambda ch1, ch2, ch3: tibble(
+            ch1,
+            [flatten(ch2)],
+            ch3,
+            _name_repair="minimal",
+        ),
         envs={"gopts": {"header": False, "sep": "\t", "row.names": None}},
     )
 

@@ -5,7 +5,7 @@
 <h1>Sample Information</h1>
 
 <DataTable
-    data={ {{ job.out.outfile | datatable: sep="\t", ncols=[0,1,2,5,6,7,8,9,10,11,12] }} }
+    data={ {{ job.out.outfile | datatable: sep="\t", excluded=["TCRDir", "RNADir"] }} }
     pageSize={50}
     />
 

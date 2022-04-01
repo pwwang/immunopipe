@@ -10,11 +10,12 @@ srtfile = {{in.srtobj | quote}}
 immfile = {{in.immdata | quote}}
 outdir = {{out.outdir | quote}}
 rdsfile = {{out.rdsfile | quote}}
+indicator_gene = {{envs.indicator_gene | quote}}
 
 sobj = readRDS(srtfile)
 immdata = readRDS(immfile)
 
-cd3e.expr = as.matrix(sobj@assays$RNA["CD3E",])
+cd3e.expr = as.matrix(sobj@assays$RNA[indicator_gene,])
 cd3e.means = lapply(split(cd3e.expr, Idents(sobj)), mean)
 
 tcells = c()
@@ -40,7 +41,7 @@ df = bind_rows(
     as.data.frame(clonotype.pct)
 )
 
-rownames(df) = c("CD3E_means", "Clonotype_pct")
+rownames(df) = c(paste0(indicator_gene, "_means"), "Clonotype_pct")
 df = t(df) %>% as.data.frame() %>%
     rownames_to_column("ClusterID") %>%
     mutate(
@@ -66,7 +67,7 @@ png(
     width=1200
 )
 
-ggplot(df, aes(x=Clonotype_pct, y=CD3E_means)) +
+ggplot(df, aes_string(x="Clonotype_pct", y=paste0(indicator_gene, "_means"))) +
     geom_point(aes(color=Group)) +
     geom_label_repel(
         aes(label=Cluster),
