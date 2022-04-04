@@ -1,3 +1,9 @@
+## 0.0.7
+
+- Add CloneHeterogeneity
+- Allow setting `indicator_gene` for `SelectTCells`
+- Adopt latest datar and biopipen
+
 ## 0.0.6
 
 - ✨ Allow dimplots with clonal information
