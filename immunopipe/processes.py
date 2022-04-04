@@ -80,8 +80,7 @@ MarkersForClustersOfAllCells = Proc.from_proc(
     cache="force",
     requires=SeuratClusteringOfAllCells,
     input_data=lambda ch: tibble(
-        ch,
-        None,
+        ch >> select([0, 1]),
         "Markers for clusters of all cells",
     ),
     envs={"cases": "ident"},
@@ -124,7 +123,10 @@ MarkersForClustersOfTCells = Proc.from_proc(
     MarkersFinder,
     cache="force",
     requires=SeuratClusteringOfTCells,
-    input_data=lambda ch: tibble(ch, None, "Markers for clusters of T cells"),
+    input_data=lambda ch: tibble(
+        ch >> select([0, 1]),
+        "Markers for clusters of T cells"
+    ),
     envs={"cases": "ident"},
     plugin_opts={"report_order": 3, "args_hide": True},
 )
