@@ -64,7 +64,7 @@ ImmunarchLoading = Proc.from_proc(
 
 SeuratPreparing = Proc.from_proc(
     SeuratPreparing,
-    cache="force",
+    # cache="force",
     requires=SampleInfo,
     plugin_opts={"args_hide": True},
 )
@@ -77,7 +77,6 @@ SeuratClusteringOfAllCells = Proc.from_proc(
 
 MarkersForClustersOfAllCells = Proc.from_proc(
     MarkersFinder,
-    cache="force",
     requires=SeuratClusteringOfAllCells,
     input_data=lambda ch: tibble(
         ch >> select([0, 1]),
@@ -90,46 +89,49 @@ MarkersForClustersOfAllCells = Proc.from_proc(
     },
 )
 
+if config.get("SelectTCells", True):
+    class SelectTCells(Proc):
+        """Separate T and non-T cells"""
 
-class SelectTCells(Proc):
-    """Separate T and non-T cells"""
+        input = "srtobj:file, immdata:file"
+        requires = [SeuratClusteringOfAllCells, ImmunarchLoading]
+        input_data = lambda ch1, ch2: tibble(
+            select(ch1, 0),
+            ch2,
+            _name_repair="minimal",
+        )
+        output = "rdsfile:file:{{in.srtobj | stem}}.RDS, outdir:dir:details"
+        envs = {"tcell_filter": "Clonotype_pct > .25", "indicator_gene": "CD3E"}
+        lang = MarkersForClustersOfAllCells.lang
+        script = "file://scripts/SelectTCells.R"
+        plugin_opts = {
+            "report": "file://reports/SelectTCells.svelte",
+            "report_toc": False,
+            "report_order": 2,
+            "args_hide": True,
+        }
 
-    input = "srtobj:file, immdata:file"
-    requires = [SeuratClusteringOfAllCells, ImmunarchLoading]
-    input_data = lambda ch1, ch2: tibble(
-        select(ch1, 0),
-        ch2,
-        _name_repair="minimal",
+
+    SeuratClusteringOfTCells = Proc.from_proc(
+        SeuratClustering,
+        requires=SelectTCells,
+        plugin_opts={"args_hide": True},
     )
-    output = "rdsfile:file:{{in.srtobj | stem}}.RDS, outdir:dir:details"
-    envs = {"tcell_filter": "Clonotype_pct > .25", "indicator_gene": "CD3E"}
-    lang = MarkersForClustersOfAllCells.lang
-    script = "file://scripts/SelectTCells.R"
-    plugin_opts = {
-        "report": "file://reports/SelectTCells.svelte",
-        "report_toc": False,
-        "report_order": 2,
-        "args_hide": True,
-    }
 
+    MarkersForClustersOfTCells = Proc.from_proc(
+        MarkersFinder,
+        # cache="force",
+        requires=SeuratClusteringOfTCells,
+        input_data=lambda ch: tibble(
+            ch >> select([0, 1]),
+            "Markers for clusters of T cells"
+        ),
+        envs={"cases": "ident"},
+        plugin_opts={"report_order": 3, "args_hide": True},
+    )
+else:
+    SeuratClusteringOfTCells = SeuratClusteringOfAllCells
 
-SeuratClusteringOfTCells = Proc.from_proc(
-    SeuratClustering,
-    requires=SelectTCells,
-    plugin_opts={"args_hide": True},
-)
-
-MarkersForClustersOfTCells = Proc.from_proc(
-    MarkersFinder,
-    cache="force",
-    requires=SeuratClusteringOfTCells,
-    input_data=lambda ch: tibble(
-        ch >> select([0, 1]),
-        "Markers for clusters of T cells"
-    ),
-    envs={"cases": "ident"},
-    plugin_opts={"report_order": 3, "args_hide": True},
-)
 
 ImmunarchBasic = Proc.from_proc(
     ImmunarchBasic,
@@ -281,7 +283,7 @@ if "MARKERS_FINDER" in config:
 
     MarkersFinderClones = Proc.from_proc(
         MarkersFinder,
-        cache="force",
+        # cache="force",
         requires=[
             SeuratPreparing,
             MarkersFinderClonesFilter,
@@ -297,7 +299,7 @@ if "MARKERS_FINDER" in config:
 
     class MetaMarkersForClones(Proc):
         """Meta markers for different groups"""
-        cache = "force"
+        # cache = "force"
         requires = (
             SeuratPreparing,
             MarkersFinderClonesFilter,
