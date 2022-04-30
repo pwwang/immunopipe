@@ -18,7 +18,7 @@ pipen-args = "^0.1.3"
 pipen-report = "^0.2.2"
 pipen-filters = "^0.0"
 biopipen = "^0.1.8"
-datar = "^0.5"
+datar = "^0.8"
 
 [tool.poetry.dev-dependencies]
 

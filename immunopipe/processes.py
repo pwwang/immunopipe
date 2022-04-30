@@ -26,6 +26,7 @@ from biopipen.namespaces.scrna_metabolic import (
     build_processes,
 )
 from datar.all import (
+    f,
     select,
     tibble,
     flatten,
@@ -79,8 +80,8 @@ MarkersForClustersOfAllCells = Proc.from_proc(
     MarkersFinder,
     requires=SeuratClusteringOfAllCells,
     input_data=lambda ch: tibble(
-        ch >> select([0, 1]),
-        "Markers for clusters of all cells",
+        ch >> select(f[:2]),
+        name="Markers for clusters of all cells",
     ),
     envs={"cases": "ident"},
     plugin_opts={
@@ -123,8 +124,8 @@ if config.get("SelectTCells", True):
         # cache="force",
         requires=SeuratClusteringOfTCells,
         input_data=lambda ch: tibble(
-            ch >> select([0, 1]),
-            "Markers for clusters of T cells"
+            ch >> select(f[:2]),
+            name="Markers for clusters of T cells",
         ),
         envs={"cases": "ident"},
         plugin_opts={"report_order": 3, "args_hide": True},
