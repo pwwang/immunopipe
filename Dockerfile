@@ -1,14 +1,19 @@
-FROM continuumio/conda-ci-linux-64-python3.9:latest
+FROM mambaorg/micromamba:latest
 
-WORKDIR /immunopipe
-COPY . /immunopipe/
+RUN mkdir -p /home/$MAMBA_USER/immunopipe
+RUN chown $MAMBA_USER:$MAMBA_USER /home/$MAMBA_USER/immunopipe
 
-RUN conda create -n mamba -c conda-forge mamba
-RUN conda activate mamba
-RUN mamba create -n immunopipe -f environment.yml
-RUN conda activate immunopipe
-RUN pip install -U poetry
-RUN poetry config virtualenv.create false
-RUN poetry install -v
+USER $MAMBA_USER
+WORKDIR /home/$MAMBA_USER/immunopipe
+COPY --chown=$MAMBA_USER:$MAMBA_USER . .
 
-ENTRYPOINT ["./entrypoint.sh"]
+RUN micromamba install -n base --yes --file environment.yml && \
+    micromamba clean --all --yes
+
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
+# Install python dependencies
+RUN pip install -U poetry && \
+    poetry config virtualenvs.create false && \
+    poetry install -v
+
+CMD ["immunopipe"]
