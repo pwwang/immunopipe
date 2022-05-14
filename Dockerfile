@@ -7,7 +7,7 @@ USER $MAMBA_USER
 WORKDIR /home/$MAMBA_USER/immunopipe
 COPY --chown=$MAMBA_USER:$MAMBA_USER . .
 
-RUN micromamba install -n base --yes --file environment.yml && \
+RUN micromamba install -n base --yes --file env.lock && \
     micromamba clean --all --yes
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
