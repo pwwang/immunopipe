@@ -1,4 +1,5 @@
 import sys
+from diot import Diot
 from simpleconf import Config
 from pipen_args import Args
 
@@ -19,7 +20,7 @@ args.add_param(
     ]
 )
 
-config = Config(with_profile=False)
+config = Diot()
 
 try:
     confidx = sys.argv.index("--config")
@@ -27,4 +28,4 @@ try:
 except (ValueError, IndexError):
     pass
 else:
-    config._load(conffile)
+    config = Config.load(conffile)
