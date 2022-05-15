@@ -1,19 +1,15 @@
-FROM mambaorg/micromamba:latest
+FROM continuumio/miniconda3:4.11.0
 
-RUN mkdir -p /home/$MAMBA_USER/immunopipe
-RUN chown $MAMBA_USER:$MAMBA_USER /home/$MAMBA_USER/immunopipe
+WORKDIR /immunopipe
+COPY . .
 
-USER $MAMBA_USER
-WORKDIR /home/$MAMBA_USER/immunopipe
-COPY --chown=$MAMBA_USER:$MAMBA_USER . .
+# Mostly R and R packages
+# .biopipen.toml specifies the Rscript in the environment
+RUN conda env create --file environment.yml && \
+    conda clean --all --yes && \
+    conda activate immunopipe && \
+    python -m pip install -U poetry && \
+    python -m poetry config virtualenvs.create false && \
+    python -m poetry install -v
 
-RUN micromamba install -n base --yes --file environment.yml && \
-    micromamba clean --all --yes
-
-ARG MAMBA_DOCKERFILE_ACTIVATE=1
-# Install python dependencies
-RUN pip install -U poetry && \
-    poetry config virtualenvs.create false && \
-    poetry install -v
-
-CMD ["immunopipe"]
+ENTRYPOINT [ "conda", "run", "-n", "immunopipe", "python", "-m", "immunopipe" ]
