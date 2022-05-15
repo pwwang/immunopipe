@@ -55,9 +55,7 @@ class SampleInfo(File2Proc):
     }
 
 
-GeneList = Proc.from_proc(File2Proc)
 starts.append(SampleInfo)
-starts.append(GeneList)
 
 ImmunarchLoading = Proc.from_proc(
     ImmunarchLoading, requires=SampleInfo, plugin_opts={"args_hide": True}
@@ -265,16 +263,18 @@ if "MARKERS_FINDER" in config:
             FILTERS["toml_dumps"](
                 {
                     "name": mf_config.name,
-                    "meta": mf_config.meta,
-                    "overlap": mf_config.overlap,
+                    "meta": mf_config.get("meta"),
+                    "overlap": mf_config.get("overlap"),
                 }
             )
             for mf_config in config.MARKERS_FINDER
+            if "meta" in mf_config or "overlap" in mf_config
         ],
     )
     starts.append(ImmunarchFilterConfig)
     starts.append(MarkersFinderCases)
-    starts.append(MetaMarkersConfig)
+    if MetaMarkersConfig.input_data:
+        starts.append(MetaMarkersConfig)
 
     MarkersFinderClonesFilter = Proc.from_proc(
         ImmunarchFilter,
@@ -301,12 +301,13 @@ if "MARKERS_FINDER" in config:
     class MetaMarkersForClones(Proc):
         """Meta markers for different groups"""
         # cache = "force"
-        requires = (
-            SeuratPreparing,
-            MarkersFinderClonesFilter,
-            MarkersFinderClones,
-            MetaMarkersConfig,
-        )
+        if MetaMarkersConfig in starts:
+            requires = (
+                SeuratPreparing,
+                MarkersFinderClonesFilter,
+                MarkersFinderClones,
+                MetaMarkersConfig,
+            )
         input = "srtobj:file, groupfile:file, markersdir:file, configfile:file"
         input_data = lambda ch1, ch2, ch3, ch4: tibble(
             srtobj=ch1,
@@ -344,13 +345,12 @@ if "GENE_EXPR_INVESTIGATION_CLUSTERS" in config:
         GeneExpressionInvestigation,
         requires=[
             SeuratClusteringOfTCells,
-            GeneList,
             GeneExprInvestigationClustersConfig,
         ],
-        input_data=lambda ch1, ch2, ch3: tibble(
+        input_data=lambda ch1, ch2: tibble(
             ch1,
-            [flatten(ch2)],
-            ch3,
+            [config.GENE_EXPR_INVESTIGATION_CLUSTERS[0].genes],
+            ch2,
             _name_repair="minimal",
         ),
         envs={"gopts": {"header": False, "sep": "\t", "row.names": None}},
