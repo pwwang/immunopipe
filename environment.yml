@@ -553,7 +553,6 @@ dependencies:
     - enlighten==1.10.2
     - executing==0.8.3
     - html5lib==1.1
-    - immunopipe==0.0.7
     - importlib-metadata==4.11.3
     - inflection==0.5.1
     - jeepney==0.8.0

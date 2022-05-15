@@ -2,7 +2,7 @@ SHELL=/bin/bash
 
 environment.yml: FORCE
 	@if [[ $$CONDA_DEFAULT_ENV -eq "base" ]]; then \
-		conda env export -n immunopipe | grep -v "^prefix" > $@; \
+		conda env export -n immunopipe | grep -v "^prefix" | grep -v "\- immunopipe" > $@; \
 	else \
 		echo "Must run in base conda environment"; \
 		exit 1; \
