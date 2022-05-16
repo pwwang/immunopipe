@@ -31,9 +31,20 @@ docker run -w /workdir -v .:/workdir -it justold/immunopipe:dev
 singularity run -w \  # need it to be writable
   -H /home/immunopipe_user \  # required, used to init conda
   --pwd /workdir -B .:/workdir \  # Could use other directory instead of "."
-  --cleanenv \  # recommended, to avoid other host's environment variables to be used
-                # For example, $CONDA_PREFIX to affect host's conda environment
+  # --contain: don't map host filesystem
+  # --cleanenv: recommended, to avoid other host's environment variables to be used
+  #   For example, $CONDA_PREFIX to affect host's conda environment
+  --contain --cleanenv \
   docker://justold/immunopipe:dev
+
+# The mount your data directory to /mnt, which will make startup faster
+# For example
+# -B .:/workdir,/path/to/data:/mnt
+# Where /path/to/data is the data directory containing the data files
+
+# Or you can pull the image first by:
+singularity pull --force --dir images/ docker://justold/immunopipe:dev
+# Then you can replace "docker://justold/immunopipe:dev" with "images/immunopipe.sif"
 ```
 
 ## Modules

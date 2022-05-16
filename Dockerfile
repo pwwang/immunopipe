@@ -22,4 +22,4 @@ RUN conda activate immunopipe && \
     mkdir -p /home/immunopipe_user/ && \
     cp docker/.bashrc /home/immunopipe_user/
 
-ENTRYPOINT [ "conda", "run", "-n", "immunopipe", "python", "-m", "immunopipe" ]
+ENTRYPOINT [ "conda", "run", "--no-capture-output", "-n", "immunopipe", "python", "-m", "immunopipe" ]
