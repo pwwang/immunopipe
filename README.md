@@ -17,6 +17,25 @@ Integrative analysis for scTCR- and scRNA-seq data
 - Other
   - VDJtools: https://vdjtools-doc.readthedocs.io/en/master/install.html
 
+## Running as a container
+
+### Using docker:
+
+```bash
+docker run -w /workdir -v .:/workdir -it justold/immunopipe:dev
+```
+
+### Using singularity:
+
+```bash
+singularity run -w \  # need it to be writable
+  -H /home/immunopipe_user \  # required, used to init conda
+  --pwd /workdir -B .:/workdir \  # Could use other directory instead of "."
+  --cleanenv \  # recommended, to avoid other host's environment variables to be used
+                # For example, $CONDA_PREFIX to affect host's conda environment
+  docker://justold/immunopipe:dev
+```
+
 ## Modules
 
 - Basic TCR data analysis using `immunarch`
