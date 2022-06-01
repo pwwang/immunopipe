@@ -17,6 +17,13 @@ Integrative analysis for scTCR- and scRNA-seq data
 - Other
   - VDJtools: https://vdjtools-doc.readthedocs.io/en/master/install.html
 
+- Checking requirements
+
+  ```shell
+  pip install -U pipen-cli-require
+  pipen require immunopipe.pipeline:pipeline <pipeline arguments>
+  ```
+
 ## Running as a container
 
 ### Using docker:
