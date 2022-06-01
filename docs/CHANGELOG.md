@@ -1,3 +1,13 @@
+## 0.1.0
+
+- 🩹 Disable force-caching for some procs
+- ⬆️ Upgrade datar to 0.8.*
+- ✨ Add dockerfile
+- ⬆️ Upgrade pipen to 0.3
+- 💥 Remove gene lists from start processes
+- ⬆️ Upgrade biopipen to 0.3
+- ⬆️ Upgrade pipen to 0.3.5
+
 ## 0.0.7
 
 - Add CloneHeterogeneity
