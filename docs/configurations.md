@@ -75,24 +75,22 @@ Or you can check the docstring of the process in `biopipen`'s source code.
 ## An examplar configuration file
 
 ```toml
-# pipeline options
+ # pipeline options
 forks = 4
 
 # plugin options
 [plugin_opts]
 report_forks = 4
+args_hide = true
 
 # process settings
 [SampleInfo.in]
-infile = ["samples.txt"]
-
-[GeneList.in]
-metafile = ["genes.txt", "hmgenes.txt"]
+infile = ["sample.txt"]
 
 [CloneResidency.envs]
-subject = ["Patient"]
-group = "Source"
-order = ["PB", "BM"]
+subject = ["patient"]
+group = "region"
+order = ["Normal adjacent tissue", "Tumor"]
 
 [ImmunarchAdvanced.envs]
 div_methods = ["gini", "div"]
@@ -101,223 +99,151 @@ div_methods = ["gini", "div"]
 ncores = 4
 
 [MarkersForClustersOfAllCells.envs]
-ncores = 32
+ncores = 4
 
 [MarkersForClustersOfTCells.envs]
-ncores = 32
+ncores = 4
 
 [SeuratPreparing.envs]
 ncores = 12
 
-[ImmunarchAdvanced.envs.tracking_target]
-MM005_top_10 = {TOP = 10}
-MM006_top_10 = {TOP = 10}
+[Immunarch.envs.tracking_target]
+L1_top_5 = {TOP = 5}
+L2_top_5 = {TOP = 5}
+L3_top_5 = {TOP = 5}
+L4_top_5 = {TOP = 5}
+L5_top_5 = {TOP = 5}
+L6_top_5 = {TOP = 5}
 
-[ImmunarchAdvanced.envs.tracking_samples]
-MM005_top_10 = ["MM005BM-earlier", "MM005BM-postr", "MM005WBC-earlier", "MM005WBC-postr"]
-MM006_top_10 = ["MM006BM-pre", "MM006BM-postr", "MM006WBC-pre", "MM006WBC-postr"]
-
-# Module based settings
-
-## Pre-CART BM
-[[MARKERS_FINDER.filters]]  # 0
-name = "[pre-CART BM DR] Markers of top 20 TCR clones"
-[MARKERS_FINDER.filters."ident.1"]
-"by.meta" = { Source = "BM", TimePoint = "Pre-CART",  Response = "DR" }
-"by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-[MARKERS_FINDER.filters."ident.2"]
-"by.meta" = { Source = "BM", TimePoint = "Pre-CART",  Response = "DR" }
-"by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-[[MARKERS_FINDER.filters]]  # 1
-name = "[pre-CART BM PD] Markers of top 20 TCR clones"
-[MARKERS_FINDER.filters."ident.1"]
-"by.meta" = { Source = "BM", TimePoint = "Pre-CART",  Response = "PD" }
-"by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-[MARKERS_FINDER.filters."ident.2"]
-"by.meta" = { Source = "BM", TimePoint = "Pre-CART",  Response = "PD" }
-"by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-[[MARKERS_FINDER.filters]]  # 2
-name = "[BM CNTRL] Markers of top 20 TCR clones"
-[MARKERS_FINDER.filters."ident.1"]
-"by.meta" = { Source = "BM", Response = "CNTRL" }
-"by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-[MARKERS_FINDER.filters."ident.2"]
-"by.meta" = { Source = "BM", Response = "CNTRL" }
-"by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-## Pre-CART PB
-[[MARKERS_FINDER.filters]]  # 3
-name = "[pre-CART PB DR] Markers of top 20 TCR clones"
-[MARKERS_FINDER.filters."ident.1"]
-"by.meta" = { Source = "PB", TimePoint = "Pre-CART",  Response = "DR" }
-"by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-[MARKERS_FINDER.filters."ident.2"]
-"by.meta" = { Source = "PB", TimePoint = "Pre-CART",  Response = "DR" }
-"by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-[[MARKERS_FINDER.filters]]  # 4
-name = "[pre-CART PB PD] Markers of top 20 TCR clones"
-[MARKERS_FINDER.filters."ident.1"]
-"by.meta" = { Source = "PB", TimePoint = "Pre-CART",  Response = "PD" }
-"by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-[MARKERS_FINDER.filters."ident.2"]
-"by.meta" = { Source = "PB", TimePoint = "Pre-CART",  Response = "PD" }
-"by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-[[MARKERS_FINDER.filters]]  # 5
-name = "[PB CNTRL] Markers of top 20 TCR clones"
-[MARKERS_FINDER.filters."ident.1"]
-"by.meta" = { Source = "PB", Response = "CNTRL" }
-"by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-[MARKERS_FINDER.filters."ident.2"]
-"by.meta" = { Source = "PB", Response = "CNTRL" }
-"by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-## Post-CART BM
-[[MARKERS_FINDER.filters]]  # 6
-name = "[Post-CART BM DR] Markers of top 20 TCR clones"
-[MARKERS_FINDER.filters."ident.1"]
-"by.meta" = { Source = "BM", TimePoint = "Post-CART",  Response = "DR" }
-"by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-[MARKERS_FINDER.filters."ident.2"]
-"by.meta" = { Source = "BM", TimePoint = "Post-CART",  Response = "DR" }
-"by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-[[MARKERS_FINDER.filters]]  # 7
-name = "[Post-CART BM PD] Markers of top 20 TCR clones"
-[MARKERS_FINDER.filters."ident.1"]
-"by.meta" = { Source = "BM", TimePoint = "Post-CART",  Response = "PD" }
-"by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-[MARKERS_FINDER.filters."ident.2"]
-"by.meta" = { Source = "BM", TimePoint = "Post-CART",  Response = "PD" }
-"by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-## Post-CART PB
-[[MARKERS_FINDER.filters]]  # 8
-name = "[Post-CART PB DR] Markers of top 20 TCR clones"
-[MARKERS_FINDER.filters."ident.1"]
-"by.meta" = { Source = "PB", TimePoint = "Post-CART",  Response = "DR" }
-"by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-[MARKERS_FINDER.filters."ident.2"]
-"by.meta" = { Source = "PB", TimePoint = "Post-CART",  Response = "DR" }
-"by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-[[MARKERS_FINDER.filters]]  # 9
-name = "[Post-CART PB PD] Markers of top 20 TCR clones"
-[MARKERS_FINDER.filters."ident.1"]
-"by.meta" = { Source = "PB", TimePoint = "Post-CART",  Response = "PD" }
-"by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-[MARKERS_FINDER.filters."ident.2"]
-"by.meta" = { Source = "PB", TimePoint = "Post-CART",  Response = "PD" }
-"by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-## Early-BMT BM
-# [[MARKERS_FINDER.filters]]  # 10
-# name = "[Early-BMT BM DR] Markers of top 20 TCR clones"
-# [MARKERS_FINDER.filters."ident.1"]
-# "by.meta" = { Source = "BM", TimePoint = "Early-BMT",  Response = "DR" }
-# "by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-# [MARKERS_FINDER.filters."ident.2"]
-# "by.meta" = { Source = "BM", TimePoint = "Early-BMT",  Response = "DR" }
-# "by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-[[MARKERS_FINDER.filters]]  # 11
-name = "[Early-BMT BM PD] Markers of top 20 TCR clones"
-[MARKERS_FINDER.filters."ident.1"]
-"by.meta" = { Source = "BM", TimePoint = "Early-BMT",  Response = "PD" }
-"by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-[MARKERS_FINDER.filters."ident.2"]
-"by.meta" = { Source = "BM", TimePoint = "Early-BMT",  Response = "PD" }
-"by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-## Early-BMT PB
-# [[MARKERS_FINDER.filters]]  # 12
-# name = "[Early-BMT PB DR] Markers of top 20 TCR clones"
-# [MARKERS_FINDER.filters."ident.1"]
-# "by.meta" = { Source = "PB", TimePoint = "Early-BMT",  Response = "DR" }
-# "by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-# [MARKERS_FINDER.filters."ident.2"]
-# "by.meta" = { Source = "PB", TimePoint = "Early-BMT",  Response = "DR" }
-# "by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-[[MARKERS_FINDER.filters]]  # 13
-name = "[Early-BMT PB PD] Markers of top 20 TCR clones"
-[MARKERS_FINDER.filters."ident.1"]
-"by.meta" = { Source = "PB", TimePoint = "Early-BMT",  Response = "PD" }
-"by.count" = { ORDER = 1,  filter = "TOTAL %in% TOTAL[1:20]"}
-[MARKERS_FINDER.filters."ident.2"]
-"by.meta" = { Source = "PB", TimePoint = "Early-BMT",  Response = "PD" }
-"by.count" = { ORDER = 1,  filter = "!TOTAL %in% TOTAL[1:20]" }
-
-# Gene expression investigation for clusters
-[[GENE_EXPR_INVESTIGATION_CLUSTERS]] # 0
-name = "[Control samples] Gene expressions of T-Cell clusters"
-target = [
-    "Cone051520A", "Cone051520B", "Cone051920", "Cone052720", "Cone061920",
-    "WIG022221BM", "WIG022221WBC", "WIG030821BM", "WIG030821WBC", "WIG021721BM",
-    "WIG021721WBC",
-]
-plots = { boxplot = {ncol = 3, res = 100, width = 1200, height = 3200} }
-
-[[GENE_EXPR_INVESTIGATION_CLUSTERS]] # 1
-name = "[Case samples] Gene expressions of T-Cell clusters"
-target = [
-    "MM001BM-earlier", "MM001BM-postr", "MM002BM-earlier", "MM003BM-earlier",
-    "MM003WBC-earlier", "MM003BM-pre", "MM004BM-pre", "MM005BM-earlier",
-    "MM005WBC-earlier", "MM005BM-postr", "MM005WBC-postr", "MM006BM-pre",
-    "MM006WBC-pre", "MM006BM-postr", "MM006WBC-postr", "MM007BM-pre",
-    "MM007BM-post", "MM007WBC-post", "MM008BM-pre", "MM009BM-pre",
-    "MM009WBC-pre", "MM010BM-pre", "MM010WBC-pre", "MM011BM-earlier",
-    "MM011WBC-earlier", "MM011BM-postr", "MM012BM-pre", "MM012WBC-pre",
-    "MM013BM-pre", "MM013BM-post", "MM013WBC-post", "MM014BM-pre",
-    "MM014WBC-pre", "MM015BM-post", "MM015WBC-post",
-]
-plots = { boxplot = {ncol = 3, res = 100, width = 1200, height = 3200} }
+[Immunarch.envs.tracking_samples]
+L1_top_5 = ["LN1", "LT1"]
+L2_top_5 = ["LN2", "LT2"]
+L3_top_5 = ["LN3", "LT3"]
+L4_top_5 = ["LN4", "LT4"]
+L5_top_5 = ["LN5", "LT5"]
+L6_top_5 = ["LN6", "LT6"]
 
 [DimPlots.envs.cases.Ident_UMAP]
 "group.by" = "ident"
 reduction = "umap"
 
-[[RADAR_PLOTS]]
-name = "Cell proportion of control samples"
-breaks = [0, 15, 30]
-[RADAR_PLOTS.filters.BM]
-"by.meta" = { Source = "BM", Status = "CNTRL" }
-[RADAR_PLOTS.filters.PB]
-"by.meta" = { Source = "PB", Status = "CNTRL" }
+[CloneHeterogeneity.envs.cases.By_Quantile]
+cut = "quantile"
+
+[CloneHeterogeneity.envs.cases.By_Quantile.subsetting]
+Tumor = 'region == "Tumor"'
+Normal = 'region == "Normal adjacent tissue"'
+
+[CloneHeterogeneity.envs.cases.By_Quantile.design]
+Tumor_vs_Normal = ["Tumor", "Normal"]
+
+# Module based settings
+
+[[MARKERS_FINDER]]  # 0
+name = "Markers_of_top_20_TCR_clones"
+[MARKERS_FINDER.design]
+LT1_vs_LN1 = ["LT1", "LN1"]
+LT2_vs_LN2 = ["LT2", "LN2"]
+LT3_vs_LN3 = ["LT3", "LN3"]
+LT4_vs_LN4 = ["LT4", "LN4"]
+LT5_vs_LN5 = ["LT5", "LN5"]
+LT6_vs_LN6 = ["LT6", "LN6"]
+[MARKERS_FINDER.meta]
+MetaMarkers_Tumor = ["LT1", "LT2", "LT3", "LT4", "LT5", "LT6"]
+MetaMarkers_Normal = ["LN1", "LN2", "LN3", "LN4", "LN5", "LN6"]
+[MARKERS_FINDER.overlap]
+SharedMarkers = ["LT1_vs_LN1", "LT2_vs_LN2", "LT3_vs_LN3", "LT4_vs_LN4", "LT5_vs_LN5", "LT6_vs_LN6"]
+[MARKERS_FINDER.filters.LT1]
+"by.meta" = { Sample = "LT1" }
+"by.count" = { ORDER = 1, filter = "CDR3.aa %in% CDR3.aa[1:10]"}
+[MARKERS_FINDER.filters.LT2]
+"by.meta" = { Sample = "LT2" }
+"by.count" = { ORDER = 1, filter = "CDR3.aa %in% CDR3.aa[1:10]"}
+[MARKERS_FINDER.filters.LT3]
+"by.meta" = { Sample = "LT3" }
+"by.count" = { ORDER = 1, filter = "CDR3.aa %in% CDR3.aa[1:10]"}
+[MARKERS_FINDER.filters.LT4]
+"by.meta" = { Sample = "LT4" }
+"by.count" = { ORDER = 1, filter = "CDR3.aa %in% CDR3.aa[1:10]"}
+[MARKERS_FINDER.filters.LT5]
+"by.meta" = { Sample = "LT5" }
+"by.count" = { ORDER = 1, filter = "CDR3.aa %in% CDR3.aa[1:10]"}
+[MARKERS_FINDER.filters.LT6]
+"by.meta" = { Sample = "LT6" }
+"by.count" = { ORDER = 1, filter = "CDR3.aa %in% CDR3.aa[1:10]"}
+[MARKERS_FINDER.filters.LN1]
+"by.meta" = { Sample = "LN1" }
+"by.count" = { ORDER = 1, filter = "CDR3.aa %in% CDR3.aa[1:10]"}
+[MARKERS_FINDER.filters.LN2]
+"by.meta" = { Sample = "LN2" }
+"by.count" = { ORDER = 1, filter = "CDR3.aa %in% CDR3.aa[1:10]"}
+[MARKERS_FINDER.filters.LN3]
+"by.meta" = { Sample = "LN3" }
+"by.count" = { ORDER = 1, filter = "CDR3.aa %in% CDR3.aa[1:10]"}
+[MARKERS_FINDER.filters.LN4]
+"by.meta" = { Sample = "LN4" }
+"by.count" = { ORDER = 1, filter = "CDR3.aa %in% CDR3.aa[1:10]"}
+[MARKERS_FINDER.filters.LN5]
+"by.meta" = { Sample = "LN5" }
+"by.count" = { ORDER = 1, filter = "CDR3.aa %in% CDR3.aa[1:10]"}
+[MARKERS_FINDER.filters.LN6]
+"by.meta" = { Sample = "LN6" }
+"by.count" = { ORDER = 1, filter = "CDR3.aa %in% CDR3.aa[1:10]"}
+
+# Gene expression investigation for clusters
+[[GENE_EXPR_INVESTIGATION_CLUSTERS]] # 0
+genefile = "genes.txt"
+subset = "region == 'Tumor'"
+name = "[Tumor][boxplots] Gene expressions of T-Cell clusters"
+groupby = "seurat_clusters"
+plots = { boxplot = {ncol = 3, res = 100, width = 1200, height = 1200} }
+
+[[GENE_EXPR_INVESTIGATION_CLUSTERS]] # 1
+genefile = "hmgenes.txt"
+subset = "region == 'Tumor'"
+name = "[Tumor][heatmap] Gene expressions of T-Cell clusters"
+groupby = "seurat_clusters"
+plots = { heatmap = {res = 100, width = 1200, height = 1200} }
+
+[[GENE_EXPR_INVESTIGATION_CLUSTERS]] # 0
+genefile = "genes.txt"
+subset = "region == 'Normal adjacent tissue'"
+name = "[Normal][boxplots] Gene expressions of T-Cell clusters"
+groupby = "seurat_clusters"
+plots = { boxplot = {ncol = 3, res = 100, width = 1200, height = 1200} }
+
+[[GENE_EXPR_INVESTIGATION_CLUSTERS]] # 1
+genefile = "hmgenes.txt"
+subset = "region == 'Normal adjacent tissue'"
+name = "[Normal][heatmap] Gene expressions of T-Cell clusters"
+groupby = "seurat_clusters"
+plots = { heatmap = {res = 100, width = 1200, height = 1200} }
 
 [[RADAR_PLOTS]]
-name = "Cell proportion of pre-CART early relapse samples"
+name = "Cell proportion"
 breaks = [0, 15, 30]
 [RADAR_PLOTS.filters.BM]
-"by.meta" = { Source = "BM", Status = "Pre", PFS_12Mo = "PFS_12Mo-Y" }
+"by.meta" = { region = "Tumor" }
 [RADAR_PLOTS.filters.PB]
-"by.meta" = { Source = "PB", Status = "Pre", PFS_12Mo = "PFS_12Mo-Y" }
+"by.meta" = { region = "Normal adjacent tissue"}
 
-[[RADAR_PLOTS]]
-name = "Cell proportion of pre-CART durable response samples"
-breaks = [0, 15, 30]
-[RADAR_PLOTS.filters.BM]
-"by.meta" = { Source = "BM", Status = "Pre", PFS_12Mo = "PFS_12Mo-N" }
-[RADAR_PLOTS.filters.PB]
-"by.meta" = { Source = "PB", Status = "Pre", PFS_12Mo = "PFS_12Mo-N" }
+[METABOLIC]
+gmtfile = "KEGG_metabolism.gmt"
 
-[[RADAR_PLOTS]]
-name = "Cell proportion of post-CART early relapse samples"
-breaks = [0, 15, 30]
-[RADAR_PLOTS.filters.BM]
-"by.meta" = { Source = "BM", Status = "Post", PFS_12Mo = "PFS_12Mo-Y" }
-[RADAR_PLOTS.filters.PB]
-"by.meta" = { Source = "PB", Status = "Post", PFS_12Mo = "PFS_12Mo-Y" }
+[[METABOLIC.cases]]
 
-[[RADAR_PLOTS]]
-name = "Cell proportion of post-CART durable response samples"
-breaks = [0, 15, 30]
-[RADAR_PLOTS.filters.BM]
-"by.meta" = { Source = "BM", Status = "Post", PFS_12Mo = "PFS_12Mo-N" }
-[RADAR_PLOTS.filters.PB]
-"by.meta" = { Source = "PB", Status = "Post", PFS_12Mo = "PFS_12Mo-N" }
+[METABOLIC.cases.grouping]
+groupby = "idents"
+
+[METABOLIC.cases.subsetting]
+groupby = "region"
+alias = "SampleType"
+
+[METABOLIC.cases.design]
+Tumor_vs_Normal = ["Tumor", "Normal adjacent tissue"]
+
+[MetabolicPathwayActivity.envs.heatmap_devpars]
+width = 1200
+height = 1000
 
 ```
