@@ -3,7 +3,7 @@
 </script>
 
 {% for job in jobs %}
-<h1>{{ job.in.name }}</h1>
+<h1>{{ job.in.groupfile | stem }}</h1>
 
 <Image src={{job.out.outfile | quote}} />
 {% endfor %}

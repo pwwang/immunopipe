@@ -14,36 +14,36 @@ outfile = {{out.outfile | quote}}
 sobj = readRDS(srtfile)
 allgroups = read.table(
     groupfile,
-    row.names=NULL,
+    row.names=1,
     header=T,
     sep="\t",
     check.names = F
-) %>% mutate(
-    ALL=strsplit(ALL, ";", fixed=TRUE)
-) %>% rename(group = 1)
+) |> select(last_col())
 
-for (ident in unique(Idents(sobj))) {
-    cells = WhichCells(sobj, ident = ident)
-    if (!is.na(as.integer(ident))) {
-        cluster = paste0("Cluster", ident)
-    } else {
-        cluster = ident
-    }
-    allgroups = allgroups %>% rowwise() %>% mutate(
-        .x = length(intersect(unlist(strsplit(ALL, ";")), cells))
-    )
-    colnames(allgroups)[ncol(allgroups)] = cluster
-}
+group = colnames(allgroups)
+cells = intersect(rownames(sobj@meta.data), rownames(allgroups))
+data = cbind(sobj@meta.data[cells, ], allgroups[cells,, drop=FALSE])
 
-allgroups = allgroups %>% select(-"ALL") %>% arrange(group)
-counts = allgroups[2:ncol(allgroups)]
+data = data |>
+    mutate(
+        Cluster = if_else(
+            !is.na(as.integer(seurat_clusters)),
+            factor(paste0("Cluster", seurat_clusters)),
+            seurat_clusters
+        )
+    ) |>
+    group_by(Cluster, !!sym(group)) |>
+    count() |>
+    pivot_wider(id_cols = group, names_from = "Cluster", values_from = "n")
+
+counts = data[2:ncol(data)]
 if (direction == "inter-cluster") {
-    allgroups[2:ncol(allgroups)] = t(t(counts) / rowSums(t(counts)))
+    data[2:ncol(data)] = t(t(counts) / rowSums(t(counts)))
 } else {
-    allgroups[2:ncol(allgroups)] = counts / rowSums(counts)
+    data[2:ncol(data)] = counts / rowSums(counts)
 }
 p = ggradar(
-    allgroups,
+    data,
     values.radar = paste0(breaks, "%"),
     grid.min = breaks[1] / 100,
     grid.mid = breaks[2] / 100,
@@ -52,5 +52,3 @@ p = ggradar(
 png(outfile, res=100, width=1500, height=1000)
 print(p)
 dev.off()
-
-

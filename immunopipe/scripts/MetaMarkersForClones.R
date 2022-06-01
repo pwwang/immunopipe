@@ -1,4 +1,5 @@
 library(dplyr)
+library(tibble)
 library(parallel)
 library(Seurat)
 library(ggprism)
@@ -47,7 +48,7 @@ if (length(config$overlap) > 0) {
                 sep = "\t",
                 check.names = FALSE
             ) %>% filter(p_val_adj < 0.05)
-            ovmarkers[[ovgroup]] = markers$Gene
+            ovmarkers[[ovgroup]] = markers$gene
             ovgenes = unique(c(ovgenes, ovmarkers[[ovgroup]]))
         }
         if (length(ovmarkers) <= 4) {
@@ -89,42 +90,45 @@ if (length(config$meta) > 0) {
     print("- Meta markers for different groups")
     print("  Reading seurat object ...")
     seurat_obj = readRDS(srtobj)
-    groups = read.table(groupfile, header=T, row.names=1, sep="\t", check.names=F)
+    # Cell_Barcode  Group
+    groups = read.table(groupfile, header=T, row.names=1, sep="\t", check.names=F) |>
+        select(last_col())
 
-    do_one_metamarkers_case = function(mmname) {
+    DefaultAssay(seurat_obj) <- "RNA"
+    seurat_obj = NormalizeData(seurat_obj)
+    allcells = intersect(rownames(groups), colnames(seurat_obj))
+    # rows: genes
+    # cols: cells
+    exprs = as.data.frame(
+        GetAssayData(seurat_obj, slot = "data", assay = "RNA")
+    )[, allcells, drop=FALSE]
+    genes = rownames(exprs)
+
+    do_case = function(mmname) {
         print(paste("  Handling case", mmname))
         mmdir = file.path(meta_markers_dir, mmname)
         dir.create(mmdir, showWarnings = FALSE)
 
-        metagroups = config$meta[[mmname]]
+        # Pull the cells of this group
+        subsets = config$meta[[mmname]]
+        mmgroups = groups[groups[, 1] %in% subsets, , drop=FALSE]
+        cells = intersect(rownames(mmgroups), allcells)
+        exprmat = exprs[, cells, drop=FALSE]
 
-        cells = lapply(metagroups, function(mgroup) {
-            groups[mgroup, 1] %>% strsplit(";", fixed=T) %>% unlist()
-        })
-        names(cells) = metagroups
-
-        exprs = lapply(metagroups, function(mgroup) {
-            sobj = subset(seurat_obj, cells = cells[[mgroup]])
-            DefaultAssay(sobj) <- "RNA"
-            sobj = NormalizeData(sobj)
-            as.data.frame(
-                GetAssayData(sobj, slot = "data", assay = "RNA")
-            )
-        })
-        names(exprs) = metagroups
+        get_gene_exprs = function(gene) {
+            gdata = exprmat[gene, , drop=FALSE] |>
+                rownames_to_column("Gene") |>
+                pivot_longer(!Gene, names_to = "Cell", values_to = "Expr") |>
+                select(-"Gene")
+            gdata = cbind(gdata, mmgroups[gdata$Cell,,drop=FALSE])
+            colnames(gdata)[ncol(gdata)] = "Group"
+            gdata
+        }
 
         do_gene = function(gene) {
-            gexprs = lapply(metagroups, function(mgroup) {
-                expr = unlist(exprs[[mgroup]][gene,,drop=T])
-                if (length(expr) < min_cells) {
-                    return(NULL)
-                } else {
-                    return(data.frame(Expr=expr, Group=mgroup))
-                }
-            })
-            gexprs = do.call(rbind, gexprs)
+            gdata = get_gene_exprs(gene)
             tryCatch({
-                aov_ret = aov(Expr ~ Group, data=gexprs)
+                aov_ret = aov(Expr ~ Group, data=gdata)
                 pval = summary(aov_ret)[[1]][["Pr(>F)"]][1]
                 if (!is.na(pval) && pval < 0.05) {
                     write.table(
@@ -141,15 +145,17 @@ if (length(config$meta) > 0) {
                 NA
             })
         }
-        genes = rownames(exprs[[metagroups[1]]])
+
+        # Do ANOVA for each gene
         pvals = mclapply(genes, do_gene, mc.cores = ncores) %>% unlist()
         adjpvals = p.adjust(pvals, method = "BH")
 
         metamarkers = data.frame(Gene=genes, p_val=pvals, p_val_adj=adjpvals)
-        metamarkers = metamarkers[complete.cases(metamarkers), , drop=FALSE] %>%
-            filter(p_val_adj < 0.05) %>%
+        metamarkers = metamarkers[complete.cases(metamarkers), , drop=FALSE] |>
+            # filter(p_val_adj < 0.05) |>
             arrange(p_val_adj)
 
+        # Save the results
         write.table(
             metamarkers,
             file.path(mmdir, "meta_makers.txt"),
@@ -159,14 +165,9 @@ if (length(config$meta) > 0) {
             quote=FALSE
         )
 
-        for (gene in metamarkers %>% slice_head(n=10) %>% pull(Gene)) {
-            plotdata = read.table(
-                file.path(mmdir, paste(gene, "plotdata", "txt", sep=".")),
-                row.names=NULL,
-                header=TRUE,
-                sep="\t",
-                check.names = FALSE
-            )
+        # Plot the top 10 genes in each group with violin plots
+        for (gene in metamarkers |> slice_head(n=10) |> pull(Gene)) {
+            plotdata = get_gene_exprs(gene)
             plotViolin(
                 plotdata,
                 args = list(aes(x=Group, y=Expr)),
@@ -177,6 +178,7 @@ if (length(config$meta) > 0) {
     }
 
     for (mmname in names(config$meta)) {
-        do_one_metamarkers_case(mmname)
+        do_case(mmname)
     }
+
 }

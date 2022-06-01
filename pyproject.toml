@@ -17,7 +17,7 @@ python = "^3.7.1"
 pipen-args = "^0.2"
 pipen-report = "^0.4"
 pipen-filters = "^0.1"
-biopipen = "^0.2"
+biopipen = "^0.3"
 datar = "^0.8"
 pipen-verbose = "^0.1.0"
 

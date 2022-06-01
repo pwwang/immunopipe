@@ -16,17 +16,8 @@ sobj = readRDS(sobjfile)
 
 clusters = unique(Idents(sobj))
 
-fisher_pvals = data.frame(
-    Cluster = character(),
-    Case = character(),
-    p_value = double()
-)
-
-chisq_pvals = data.frame(
-    Cluster = character(),
-    Case = character(),
-    p_value = double()
-)
+fisher_pvals = NULL
+chisq_pvals = NULL
 
 do_one = function(case, cluster) {
     print(paste("Doing", case, "and cluster", cluster, "..."))
@@ -64,7 +55,7 @@ do_one = function(case, cluster) {
     subsettings = casevals$subsetting
     for (dname in names(designs)) {
         print(paste("  - Design", dname, "..."))
-        output_dir = file.path(outdir, paste0(case, ".", cluster_name), dname)
+        output_dir = file.path(outdir, case, cluster_name, dname)
         dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
         contfile = file.path(output_dir, "contingency.txt")
 
@@ -156,22 +147,25 @@ for (case in names(cases)) {
     for (cluster in clusters) {
         do_one(case, cluster)
     }
+
+    write.table(
+        fisher_pvals,
+        file.path(outdir, case, "fisher.txt"),
+        quote = FALSE,
+        sep = "\t",
+        row.names = FALSE,
+        col.names = TRUE
+    )
+
+    write.table(
+        chisq_pvals,
+        file.path(outdir, case, "chisq.txt"),
+        quote = FALSE,
+        sep = "\t",
+        row.names = FALSE,
+        col.names = TRUE
+    )
+
+    fisher_pvals = NULL
+    chisq_pvals = NULL
 }
-
-write.table(
-    fisher_pvals,
-    file.path(outdir, "fisher.txt"),
-    quote = FALSE,
-    sep = "\t",
-    row.names = FALSE,
-    col.names = TRUE
-)
-
-write.table(
-    chisq_pvals,
-    file.path(outdir, "chisq.txt"),
-    quote = FALSE,
-    sep = "\t",
-    row.names = FALSE,
-    col.names = TRUE
-)

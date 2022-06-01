@@ -16,8 +16,8 @@ args.add_param(
         "- `desc`: The description of the process",
         "- `filters`: The filters for the clones/cells "
         "(ident.1 for the cases, ident.2 for the controls)",
-        "- `dbs`: The databases to do enrichment analysis against"
-    ]
+        "- `dbs`: The databases to do enrichment analysis against",
+    ],
 )
 
 config = Diot()

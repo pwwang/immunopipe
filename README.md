@@ -39,8 +39,10 @@ singularity run -w \  # need it to be writable
 
 # The mount your data directory to /mnt, which will make startup faster
 # For example
-# -B .:/workdir,/path/to/data:/mnt
+#   -B .:/workdir,/path/to/data:/mnt
 # Where /path/to/data is the data directory containing the data files
+# You may also want to bind other directories (i.e. /tmp)
+#   -B <other bindings>,/tmp
 
 # Or you can pull the image first by:
 singularity pull --force --dir images/ docker://justold/immunopipe:dev

@@ -1,8 +1,9 @@
 """Assemable the pipeline"""
 from pipen import Pipen
 from .version import __version__
+
 # Import your processeses
-from .processes import starts
+from .processes import STARTS
 
 # Set the name and description of your pipeline here
 
@@ -14,9 +15,10 @@ pipeline = Pipen(
     desc=(
         "A pipeline for integrative analysis for scTCR- and scRNA-seq data\n"
         f"version: {__version__}"
-    )
+    ),
 )
+
 
 def main():
     """Run the pipeline"""
-    pipeline.set_starts(starts).run()
+    pipeline.set_starts(STARTS).run()

@@ -6,44 +6,26 @@ from pipen_filters.filters import FILTERS
 from biopipen.core.filters import filtermanager
 from biopipen.namespaces.misc import File2Proc, Config2File
 from biopipen.namespaces.tcr import (
-    ImmunarchLoading,
-    ImmunarchBasic,
-    ImmunarchAdvanced,
+    ImmunarchLoading as ImmunarchLoading_,
+    Immunarch as Immunarch_,
     ImmunarchFilter,
-    CloneResidency,
-    Immunarch2VDJtools,
-    VJUsage,
-    Attach2Seurat,
+    CloneResidency as CloneResidency_,
+    Immunarch2VDJtools as Immunarch2VDJtools_,
+    VJUsage as VJUsage_,
 )
 from biopipen.namespaces.scrna import (
-    SeuratPreparing,
+    SeuratPreparing as SeuratPreparing_,
     SeuratClustering,
+    SeuratMetadataMutater as SeuratMetadataMutater_,
     MarkersFinder,
-    DimPlots,
+    DimPlots as DimPlots_,
     GeneExpressionInvestigation,
 )
-from biopipen.namespaces.scrna_metabolic import (
-    build_processes,
-)
-from datar.all import (
-    f,
-    select,
-    tibble,
-    flatten,
-)
+from biopipen.namespaces.scrna_metabolic import build_processes
+from datar.all import f, select, tibble
 
 from .args import config
-
-starts = []
-
-
-def chunk_list(array, lens):
-    start = 0
-    out = []
-    for length in lens:
-        out.append(array[start : (start + length)])
-        start += length
-    return out
+from .utils import chunk_list
 
 
 class SampleInfo(File2Proc):
@@ -55,50 +37,52 @@ class SampleInfo(File2Proc):
     }
 
 
-starts.append(SampleInfo)
+class ImmunarchLoading(ImmunarchLoading_):
+    """Load TCR data into immunarch object"""
+    requires = SampleInfo
 
-ImmunarchLoading = Proc.from_proc(
-    ImmunarchLoading, requires=SampleInfo, plugin_opts={"args_hide": True}
-)
 
-SeuratPreparing = Proc.from_proc(
-    SeuratPreparing,
-    # cache="force",
-    requires=SampleInfo,
-    plugin_opts={"args_hide": True},
-)
+class SeuratPreparing(SeuratPreparing_):
+    requires = SampleInfo
 
-SeuratClusteringOfAllCells = Proc.from_proc(
-    SeuratClustering,
-    requires=SeuratPreparing,
-    plugin_opts={"args_hide": True},
-)
 
-MarkersForClustersOfAllCells = Proc.from_proc(
-    MarkersFinder,
-    requires=SeuratClusteringOfAllCells,
-    input_data=lambda ch: tibble(
-        ch >> select(f[:2]),
-        name="Markers for clusters of all cells",
-    ),
-    envs={"cases": "ident"},
-    plugin_opts={
-        "report_order": 1,
-        "args_hide": True,
-    },
-)
+class SeuratClusteringOfAllCells(SeuratClustering):
+    """Cluster all cells"""
+    requires = SeuratPreparing
+
+
+class MarkersForClustersOfAllCells(MarkersFinder):
+    """Markers for clusters of all cells"""
+    requires = SeuratClusteringOfAllCells
+    plugin_opts = {"report_order": 1}
+    order = 4
+
+
+class Immunarch(Immunarch_):
+    requires = ImmunarchLoading
+
+
+class Immunarch2VDJtools(Immunarch2VDJtools_):
+    requires = ImmunarchLoading
+    plugin_opts = {"args_hide": True}
+
+
+class VJUsage(VJUsage_):
+    requires = Immunarch2VDJtools
+    input_data = lambda ch: expand_dir(ch, pattern="*.txt")
+    plugin_opts = {"report_toc": False}
+    order = 2
+
+
+# Start processes
+STARTS = [SampleInfo]
 
 if config.get("SelectTCells", True):
+
     class SelectTCells(Proc):
         """Separate T and non-T cells"""
-
         input = "srtobj:file, immdata:file"
         requires = [SeuratClusteringOfAllCells, ImmunarchLoading]
-        input_data = lambda ch1, ch2: tibble(
-            select(ch1, 0),
-            ch2,
-            _name_repair="minimal",
-        )
         output = "rdsfile:file:{{in.srtobj | stem}}.RDS, outdir:dir:details"
         envs = {"tcell_filter": "Clonotype_pct > .25", "indicator_gene": "CD3E"}
         lang = MarkersForClustersOfAllCells.lang
@@ -107,100 +91,70 @@ if config.get("SelectTCells", True):
             "report": "file://reports/SelectTCells.svelte",
             "report_toc": False,
             "report_order": 2,
-            "args_hide": True,
         }
+        order = 5
 
+    class SeuratClusteringOfTCells(SeuratClustering):
+        requires = SelectTCells
 
-    SeuratClusteringOfTCells = Proc.from_proc(
-        SeuratClustering,
-        requires=SelectTCells,
-        plugin_opts={"args_hide": True},
-    )
+    class MarkersForClustersOfTCells(MarkersFinder):
+        requires = SeuratClusteringOfTCells
+        plugin_opts = {"report_order": 3}
+        order = 6
 
-    MarkersForClustersOfTCells = Proc.from_proc(
-        MarkersFinder,
-        # cache="force",
-        requires=SeuratClusteringOfTCells,
-        input_data=lambda ch: tibble(
-            ch >> select(f[:2]),
-            name="Markers for clusters of T cells",
-        ),
-        envs={"cases": "ident"},
-        plugin_opts={"report_order": 3, "args_hide": True},
-    )
 else:
     SeuratClusteringOfTCells = SeuratClusteringOfAllCells
 
 
-ImmunarchBasic = Proc.from_proc(
-    ImmunarchBasic,
-    requires=ImmunarchLoading,
-    plugin_opts={"args_hide": True},
-)
-
-ImmunarchAdvanced = Proc.from_proc(
-    ImmunarchAdvanced,
-    requires=ImmunarchLoading,
-    plugin_opts={"args_hide": True},
-)
-
-if "CloneResidency" in config:
-    CloneResidency = Proc.from_proc(
-        CloneResidency,
-        requires=ImmunarchLoading,
-        plugin_opts={"args_hide": True},
+class SeuratMetadataMutater(SeuratMetadataMutater_):
+    requires = SeuratClusteringOfTCells, ImmunarchLoading
+    input_data = lambda ch1, ch2: tibble(
+        srtobj=ch1.rdsfile, metafile=ch2.metatxt
     )
 
-Immunarch2VDJtools = Proc.from_proc(
-    Immunarch2VDJtools,
-    requires=ImmunarchLoading,
-    plugin_opts={"args_hide": True},
-)
 
-VJUsage = Proc.from_proc(
-    VJUsage,
-    requires=Immunarch2VDJtools,
-    input_data=lambda ch: expand_dir(ch, pattern="*.txt"),
-    plugin_opts={"report_toc": False, "args_hide": True},
-)
+class DimPlots(DimPlots_):
+    requires = SeuratMetadataMutater
+    order = 7
 
-Attach2Seurat = Proc.from_proc(
-    Attach2Seurat,
-    requires=[ImmunarchLoading, SeuratClusteringOfTCells],
-)
 
-DimPlots = Proc.from_proc(DimPlots, requires=Attach2Seurat)
+if "CloneResidency" in config:
+    class CloneResidency(CloneResidency_):
+        requires = ImmunarchLoading
+        order = 3
+
 
 if "CloneHeterogeneity" in config:
+
     class CloneHeterogeneity(Proc):
         """Clone heterogeneity in each cluster"""
         input = "sobjfile:file"
-        requires = Attach2Seurat
+        requires = SeuratMetadataMutater
         output = "outdir:dir:CloneHeterogeneity"
         lang = DimPlots.lang
         script = "file://scripts/CloneHeterogeneity.R"
-        envs = { "cases": {} }
+        envs = {"cases": {}}
         template_opts = {"filters": filtermanager.filters.copy()}
         plugin_opts = {
             "report": "file://reports/CloneHeterogeneity.svelte",
             "report_order": 20,
-            "args_hide": True,
         }
+        order = 11
+
 
 if "RADAR_PLOTS" in config:
-    RadarPlotsConfig = Proc.from_proc(
-        Config2File,
-        input_data=[
-            FILTERS["toml_dumps"](conf.filters) for conf in config.RADAR_PLOTS
-        ],
-    )
-    starts.append(RadarPlotsConfig)
 
-    RadarPlotsFilter = Proc.from_proc(
-        ImmunarchFilter,
-        requires=[ImmunarchLoading, RadarPlotsConfig],
-        envs={"merge": True},
-    )
+    class RadarPlotsConfig(Config2File):
+        input_data = [
+            FILTERS["toml_dumps"](conf) for conf in config.RADAR_PLOTS
+        ]
+
+    class RadarPlotsFilter(ImmunarchFilter):
+        requires = [ImmunarchLoading, RadarPlotsConfig]
+        input_data = lambda ch1, ch2: tibble(
+            immdata=select(ch1, 0),
+            filterfile=ch2,
+        )
 
     class RadarPlots(Proc):
         """Radar plots for cell proportion in different clusters"""
@@ -208,7 +162,6 @@ if "RADAR_PLOTS" in config:
         input = [
             "srtobj:file",
             "groupfile:file",
-            "name:var",
             "direction:var",
             "breaks:var",
         ]
@@ -216,7 +169,6 @@ if "RADAR_PLOTS" in config:
         input_data = lambda ch1, ch2: tibble(
             select(ch1, 0),
             select(ch2, 1),
-            [conf.name for conf in config.RADAR_PLOTS],
             [
                 conf.get("direction", "intra-cluster")
                 for conf in config.RADAR_PLOTS
@@ -227,7 +179,7 @@ if "RADAR_PLOTS" in config:
             ],
             _name_repair="minimal",
         )
-        output = "outfile:file:{{in.name | slugify}}.radar.png"
+        output = "outfile:file:{{in.groupfile | stem | slugify}}.radar.png"
         lang = SeuratClusteringOfTCells.lang
         script = "file://scripts/RadarPlots.R"
         plugin_opts = {
@@ -236,30 +188,63 @@ if "RADAR_PLOTS" in config:
         }
         template_opts = {"filters": filtermanager.filters.copy()}
 
+    STARTS.append(RadarPlotsConfig)
+
 
 if "MARKERS_FINDER" in config:
-    ImmunarchFilterConfig = Proc.from_proc(
-        Config2File,
-        input_data=[
-            FILTERS["toml_dumps"](mf_config.subsetting)
+
+    class ImmunarchFilterConfig(Config2File):
+        input_data = [
+            FILTERS["toml_dumps"](mf_config)
             for mf_config in config.MARKERS_FINDER
-        ],
-    )
-    MarkersFinderCases = Proc.from_proc(
-        Config2File,
-        input_data=[
+        ]
+
+    class MarkersFinderClonesFilter(ImmunarchFilter):
+        requires = [ImmunarchLoading, ImmunarchFilterConfig]
+        input_data = lambda ch1, ch2: tibble(
+            immdata=select(ch1, 0),
+            filterfile=ch2,
+        )
+        order = 9
+
+    class ApplyFiltersToSeurat(SeuratMetadataMutater_):
+        requires = SeuratPreparing, MarkersFinderClonesFilter
+        input_data = lambda ch1, ch2: tibble(
+            srtobj=ch1,
+            metafile=select(ch2, 1)
+        )
+
+    class MarkersFinderCases(Config2File):
+        input_data = [
             FILTERS["toml_dumps"](
-                {
-                    name: {"ident.1": design[0], "ident.2": design[1]}
-                    for name, design in sorted(mf_config.design.items())
-                }
+                dict(
+                    name=mf_config.name,
+                    cases={
+                        name: {
+                            "ident.1": design[0],
+                            "ident.2": design[1],
+                            "group.by": mf_config.name,
+                        }
+                        for name, design in sorted(mf_config.design.items())
+                    }
+                )
             )
             for mf_config in config.MARKERS_FINDER
-        ],
-    )
-    MetaMarkersConfig = Proc.from_proc(
-        Config2File,
-        input_data=[
+        ]
+
+    class MarkersFinderClones(MarkersFinder):
+        requires = [
+            ApplyFiltersToSeurat,
+            MarkersFinderCases,
+        ]
+        input_data = lambda ch1, ch2: tibble(
+            srtobj=ch1,
+            casefile=ch2,
+        )
+
+
+    class MetaMarkersConfig(Config2File):
+        input_data = [
             FILTERS["toml_dumps"](
                 {
                     "name": mf_config.name,
@@ -269,39 +254,13 @@ if "MARKERS_FINDER" in config:
             )
             for mf_config in config.MARKERS_FINDER
             if "meta" in mf_config or "overlap" in mf_config
-        ],
-    )
-    starts.append(ImmunarchFilterConfig)
-    starts.append(MarkersFinderCases)
-    if MetaMarkersConfig.input_data:
-        starts.append(MetaMarkersConfig)
-
-    MarkersFinderClonesFilter = Proc.from_proc(
-        ImmunarchFilter,
-        requires=[ImmunarchLoading, ImmunarchFilterConfig],
-        envs={"merge": True},
-    )
-
-    MarkersFinderClones = Proc.from_proc(
-        MarkersFinder,
-        # cache="force",
-        requires=[
-            SeuratPreparing,
-            MarkersFinderClonesFilter,
-            MarkersFinderCases,
-        ],
-        input_data=lambda ch1, ch2, ch3: tibble(
-            srtobj=ch1,
-            groupfile=select(ch2, 1),
-            casefile=ch3,
-            name=[mf_config.name for mf_config in config.MARKERS_FINDER],
-        ),
-    )
+        ]
 
     class MetaMarkersForClones(Proc):
         """Meta markers for different groups"""
+
         # cache = "force"
-        if MetaMarkersConfig in starts:
+        if MetaMarkersConfig.input_data:
             requires = (
                 SeuratPreparing,
                 MarkersFinderClonesFilter,
@@ -324,108 +283,51 @@ if "MARKERS_FINDER" in config:
             "upset_devpars": {"res": 100, "height": 1000, "width": 1000},
         }
         script = "file://scripts/MetaMarkersForClones.R"
-        plugin_opts = {
-            "report": "file://reports/MetaMarkersForClones.svelte"
-        }
+        plugin_opts = {"report": "file://reports/MetaMarkersForClones.svelte"}
         template_opts = SeuratPreparing.template_opts
+        order = 10
+
+    STARTS.append(ImmunarchFilterConfig)
+    STARTS.append(MarkersFinderCases)
+    if MetaMarkersConfig.input_data:
+        STARTS.append(MetaMarkersConfig)
 
 
 if "GENE_EXPR_INVESTIGATION_CLUSTERS" in config:
     # Do the filtering
-    GeneExprInvestigationClustersConfig = Proc.from_proc(
-        Config2File,
-        input_data=[
+    class GeneExprInvestigationClustersConfig(Config2File):
+        input_data = [
             FILTERS["toml_dumps"](conf)
             for conf in config.GENE_EXPR_INVESTIGATION_CLUSTERS
-        ],
-    )
-    starts.append(GeneExprInvestigationClustersConfig)
+        ]
 
-    GeneExpressionInvestigationClusters = Proc.from_proc(
-        GeneExpressionInvestigation,
-        requires=[
+    class GeneExpressionInvestigationClusters(GeneExpressionInvestigation):
+        requires = [
             SeuratClusteringOfTCells,
             GeneExprInvestigationClustersConfig,
-        ],
-        input_data=lambda ch1, ch2: tibble(
-            ch1,
-            [config.GENE_EXPR_INVESTIGATION_CLUSTERS[0].genes],
-            ch2,
-            _name_repair="minimal",
-        ),
-        envs={"gopts": {"header": False, "sep": "\t", "row.names": None}},
-    )
+        ]
+        input_data = lambda ch1, ch2: tibble(
+            srtobj=ch1,
+            genefile=[
+                conf.genefile
+                for conf in config.GENE_EXPR_INVESTIGATION_CLUSTERS
+            ],
+            configfile=ch2,
+        )
+        order = 8
+
+    STARTS.append(GeneExprInvestigationClustersConfig)
+
 
 if "METABOLIC" in config:
-    if any(
-        conf_case.get("subset_using") == "immunarch"
-        for conf_case in sorted(
-            config["METABOLIC"]["cases"], key=lambda x: x["name"]
-        )
-    ):
-        MetabolicSubsetFilterConfig = Proc.from_proc(
-            Config2File,
-            input_data=[
-                FILTERS["toml_dumps"](conf_case["subsetting"])
-                for conf_case in sorted(
-                    config["METABOLIC"]["cases"], key=lambda x: x["name"]
-                )
-                if conf_case.get("subset_using") == "immunarch"
-            ],
-        )
-        MetabolicSubsetFilter = Proc.from_proc(
-            ImmunarchFilter,
-            requires=[ImmunarchLoading, MetabolicSubsetFilterConfig],
-            envs={"merge": True},
-        )
-        starts.append(MetabolicSubsetFilterConfig)
-    else:
-        MetabolicSubsetFilter = None
 
     MetabolicInputs = build_processes({"clustered": True})
-    if MetabolicSubsetFilter:
-
-        def metabolic_input(ch1, ch2):
-            subsetfile = numpy.array(
-                [None] * len(config["METABOLIC"]["cases"])
-            )
-            subsetfile[
-                [
-                    conf_case.get("subset_using") == "immunarch"
-                    for conf_case in sorted(
-                        config["METABOLIC"]["cases"], key=lambda x: x["name"]
-                    )
-                ]
-            ] = ch2.groupfile
-            return tibble(
-                metafile=ch1.rdsfile,
-                subsetfile=subsetfile,
-                groupfile=None,
-                gmtfile=config["METABOLIC"]["gmtfile"],
-                config=[
-                    FILTERS["toml_dumps"](conf_case)
-                    for conf_case in sorted(
-                        config["METABOLIC"]["cases"], key=lambda x: x["name"]
-                    )
-                ],
-            )
-
-        MetabolicInputs.requires = (
-            SeuratClusteringOfTCells,
-            MetabolicSubsetFilter,
-        )
-        MetabolicInputs.input_data = metabolic_input
-    else:
-        MetabolicInputs.requires = SeuratClusteringOfTCells
-        MetabolicInputs.input_data = lambda ch: tibble(
-            metafile=ch.rdsfile,
-            subsetfile=None,
-            groupfile=None,
-            gmtfile=config["METABOLIC"]["gmtfile"],
-            config=[
-                FILTERS["toml_dumps"](conf_case)
-                for conf_case in sorted(
-                    config["METABOLIC"]["cases"], key=lambda x: x["name"]
-                )
-            ],
-        )
+    MetabolicInputs.order = 12
+    MetabolicInputs.requires = SeuratClusteringOfTCells
+    MetabolicInputs.input_data = lambda ch: tibble(
+        metafile=ch.rdsfile,
+        gmtfile=config["METABOLIC"]["gmtfile"],
+        config=list(
+            sorted(config["METABOLIC"]["cases"], key=lambda x: x.get("name"))
+        ),
+    )

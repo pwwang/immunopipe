@@ -25,6 +25,7 @@ dependencies:
   - bioconductor-delayedarray=0.20.0=r41h5c21468_1
   - bioconductor-delayedmatrixstats=1.16.0=r41hdfd78af_0
   - bioconductor-edger=3.36.0=r41h619a076_1
+  - bioconductor-fgsea=1.20.0=r41h619a076_1
   - bioconductor-genomeinfodb=1.30.0=r41hdfd78af_0
   - bioconductor-genomeinfodbdata=1.2.7=r41hdfd78af_1
   - bioconductor-genomicranges=1.46.1=r41h5c21468_0
@@ -48,9 +49,9 @@ dependencies:
   - bwidget=1.9.14=ha770c72_1
   - bzip2=1.0.8=h7f98852_4
   - c-ares=1.18.1=h7f98852_0
-  - ca-certificates=2021.10.8=ha878542_0
+  - ca-certificates=2022.5.18.1=ha878542_0
   - cairo=1.16.0=ha12eb4b_1010
-  - certifi=2021.10.8=py39hf3d152e_2
+  - certifi=2022.5.18.1=py39hf3d152e_0
   - cffi=1.15.0=py39h4bc2ebd_0
   - cfitsio=4.1.0=hd9d235c_0
   - chardet=4.0.0=py39hf3d152e_3
@@ -75,6 +76,7 @@ dependencies:
   - fribidi=1.0.10=h36c2ea0_0
   - gcc_impl_linux-64=10.3.0=hf2f2afa_16
   - gcc_linux-64=10.3.0=hc39de41_9
+  - gdal=1.9.2=0
   - geos=3.10.2=h9c3ff4c_0
   - geotiff=1.7.1=h509b78c_1
   - gettext=0.19.8.1=h73d1719_1008
@@ -113,6 +115,7 @@ dependencies:
   - libedit=3.1.20191231=he28a2e2_2
   - libev=4.33=h516909a_1
   - libffi=3.4.2=h7f98852_5
+  - libgcc=7.2.0=h69d50b8_2
   - libgcc-devel_linux-64=10.3.0=he6cfe16_16
   - libgcc-ng=12.1.0=h8d9b700_16
   - libgdal=3.4.3=h3886835_0
@@ -154,7 +157,6 @@ dependencies:
   - nodejs=17.8.0=hfba9c51_0
   - nspr=4.32=h9c3ff4c_1
   - nss=3.77=h2350873_0
-  - numpy=1.22.3=py39hc58783e_2
   - openjdk=8.0.112=zulu8.19.0.1_3
   - openjpeg=2.4.0=hb52868f_1
   - openssl=3.0.3=h166bdaf_0
@@ -172,7 +174,6 @@ dependencies:
   - poppler-data=0.4.11=hd8ed1ab_0
   - postgresql=14.2=hce44dc1_0
   - proj=9.0.0=h93bde94_1
-  - psutil=5.9.0=py39hb9d737c_1
   - pthread-stubs=0.4=h36c2ea0_1001
   - py-lief=0.11.5=py39he80948d_1
   - pycosat=0.6.3=py39hb9d737c_1010
@@ -255,6 +256,7 @@ dependencies:
   - r-fansi=1.0.3=r41h06615bd_0
   - r-farver=2.1.0=r41h03ef668_0
   - r-fastmap=1.1.0=r41h03ef668_0
+  - r-fastmatch=1.1_3=r41hcfec24a_0
   - r-fitdistrplus=1.1_8=r41hc72bb7e_0
   - r-flashclust=1.01_2=r41h859d828_1006
   - r-flexmix=2.3_17=r41hc72bb7e_0
@@ -285,6 +287,7 @@ dependencies:
   - r-ggsci=2.9=r41hc72bb7e_1003
   - r-ggseqlogo=0.1=r41hc72bb7e_1003
   - r-ggsignif=0.6.3=r41hc72bb7e_0
+  - r-ggupset=0.3.0=r41hc72bb7e_1
   - r-ggvenndiagram=1.2.0=r41h142f84f_3
   - r-gh=1.3.0=r41hc72bb7e_0
   - r-git2r=0.30.1=r41hf72769b_0
@@ -416,6 +419,7 @@ dependencies:
   - r-rio=0.5.29=r41hc72bb7e_0
   - r-rjson=0.2.21=r41h7525677_1
   - r-rlang=1.0.2=r41h7525677_0
+  - r-rmagic=2.0.3=r41hc72bb7e_1
   - r-robustbase=0.95_0=r41he5c027b_0
   - r-rocr=1.0_11=r41hc72bb7e_1
   - r-roxygen2=7.2.0=r41h7525677_0
@@ -536,7 +540,7 @@ dependencies:
   - pip:
     - aiofiles==0.8.0
     - asttokens==2.0.5
-    - biopipen==0.2.0
+    - biopipen==0.3.0
     - blessed==1.19.1
     - cachecontrol==0.12.11
     - cached-property==1.5.2
@@ -547,58 +551,80 @@ dependencies:
     - commonmark==0.9.1
     - crashtest==0.3.1
     - curio==1.5
-    - datar==0.8.4
+    - cycler==0.11.0
+    - datar==0.8.5
+    - decorator==5.1.1
+    - deprecated==1.2.13
     - diot==0.1.6
     - distlib==0.3.4
     - enlighten==1.10.2
     - executing==0.8.3
+    - fonttools==4.33.3
+    - future==0.18.2
+    - graphtools==1.5.2
     - html5lib==1.1
-    - importlib-metadata==4.11.3
+    - importlib-metadata==4.11.4
     - inflection==0.5.1
     - jeepney==0.8.0
+    - joblib==1.1.0
     - json5==0.9.8
     - keyring==23.5.0
+    - kiwisolver==1.4.2
     - lark-parser==0.12.0
-    - liquidpy==0.7.4
+    - liquidpy==0.7.5
     - lockfile==0.12.2
+    - magic-impute==3.0.0
+    - markdown==3.3.7
+    - matplotlib==3.5.2
     - more-itertools==8.13.0
     - msgpack==1.0.3
+    - numpy==1.22.4
     - packaging==20.9
     - pandas==1.3.5
     - pardoc==0.0.3
     - pastel==0.2.1
+    - pdtypes==0.0.4
     - pexpect==4.8.0
+    - pillow==9.1.1
     - pipda==0.6.0
-    - pipen==0.3.2
+    - pipen==0.3.5
     - pipen-args==0.2.1
-    - pipen-filters==0.1.0
-    - pipen-report==0.4.1
+    - pipen-filters==0.1.2
+    - pipen-report==0.4.4
     - pipen-verbose==0.1.0
     - platformdirs==2.5.2
     - poetry==1.1.13
     - poetry-core==1.0.8
     - prefixed==0.3.2
+    - psutil==5.9.1
     - ptyprocess==0.7.0
     - pure-eval==0.2.2
     - pygments==2.12.0
+    - pygsp==0.5.1
     - pylev==1.4.0
-    - pyparam==0.5.2
+    - pyparam==0.5.3
     - pyparsing==3.0.9
     - python-dateutil==2.8.2
-    - python-simpleconf==0.5.5
+    - python-simpleconf==0.5.6
     - python-slugify==6.1.2
     - requests-toolbelt==0.9.1
-    - rich==12.4.1
+    - rich==12.4.4
     - rtoml==0.8.0
+    - scikit-learn==1.1.1
+    - scipy==1.8.1
+    - scprep==1.2.0
     - secretstorage==3.3.2
     - shellingham==1.4.0
     - simplug==0.1.0
+    - tasklogger==1.1.2
     - text-unidecode==1.3
+    - threadpoolctl==3.1.0
     - tomlkit==0.10.2
     - uvloop==0.16.0
     - varname==0.8.3
     - virtualenv==20.14.1
     - wcwidth==0.2.5
     - webencodings==0.5.1
+    - wrapt==1.14.1
     - xqute==0.1.0
     - zipp==3.8.0
