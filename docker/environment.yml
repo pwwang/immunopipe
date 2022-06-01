@@ -167,7 +167,6 @@ dependencies:
   - pcre=8.45=h9c3ff4c_0
   - pcre2=10.37=h032f7d1_0
   - perl=5.22.0.1=0
-  - pip=22.1=pyhd8ed1ab_0
   - pixman=0.40.0=h36c2ea0_0
   - pkginfo=1.8.2=pyhd8ed1ab_0
   - poppler=22.04.0=h1434ded_0
@@ -586,6 +585,7 @@ dependencies:
     - pdtypes==0.0.4
     - pexpect==4.8.0
     - pillow==9.1.1
+    - pip==22.1.2
     - pipda==0.6.0
     - pipen==0.3.5
     - pipen-args==0.2.1
