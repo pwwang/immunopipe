@@ -4,8 +4,8 @@ from pipen import Proc
 from pipen.channel import expand_dir
 from pipen_filters.filters import FILTERS
 from biopipen.core.filters import filtermanager
-from biopipen.namespaces.misc import File2Proc, Config2File
-from biopipen.namespaces.tcr import (
+from biopipen.ns.misc import File2Proc, Config2File
+from biopipen.ns.tcr import (
     ImmunarchLoading as ImmunarchLoading_,
     Immunarch as Immunarch_,
     ImmunarchFilter,
@@ -13,7 +13,7 @@ from biopipen.namespaces.tcr import (
     Immunarch2VDJtools as Immunarch2VDJtools_,
     VJUsage as VJUsage_,
 )
-from biopipen.namespaces.scrna import (
+from biopipen.ns.scrna import (
     SeuratPreparing as SeuratPreparing_,
     SeuratClustering,
     SeuratMetadataMutater as SeuratMetadataMutater_,
@@ -21,7 +21,7 @@ from biopipen.namespaces.scrna import (
     DimPlots as DimPlots_,
     GeneExpressionInvestigation,
 )
-from biopipen.namespaces.scrna_metabolic import build_processes
+from biopipen.ns.scrna_metabolic import build_processes
 from datar.all import f, select, tibble
 
 from .args import config

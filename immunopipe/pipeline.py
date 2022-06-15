@@ -16,9 +16,9 @@ pipeline = Pipen(
         "A pipeline for integrative analysis for scTCR- and scRNA-seq data\n"
         f"version: {__version__}"
     ),
-)
+).set_starts(STARTS)
 
 
 def main():
     """Run the pipeline"""
-    pipeline.set_starts(STARTS).run()
+    pipeline.run()
