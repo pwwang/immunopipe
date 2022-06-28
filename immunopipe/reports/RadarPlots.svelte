@@ -2,8 +2,8 @@
     import { Image } from "@@";
 </script>
 
-{% for job in jobs %}
-<h1>{{ job.in.groupfile | stem }}</h1>
-
-<Image src={{job.out.outfile | quote}} />
+{% for figure in job.out.outdir | glob: "*.png" %}
+    <div>
+        <Image src={{figure | quote}} />
+    </div>
 {% endfor %}
