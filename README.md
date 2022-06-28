@@ -8,11 +8,7 @@ Integrative analysis for scTCR- and scRNA-seq data
     - Other python depedencies should be installed via `pip install -U immunopipe`
 
 - `R`
-    - `immunarch`(`v0.6.7+`), `Seurat`(`v4.0+`), `scImpute`, `scran`, `scater`
-    - `dplyr`, `tidyr`, `tibble`, `ggplot2`, `ggradar`, `ggprism`, `ggrepel`, `reshape2`
-    - `ComplexHeatmap`, `RColorBrewer`
-    - `future`, `parallel`, `gtools`
-    - `enrichR`
+    - A bunch of R packages
 
 - Other
   - VDJtools: https://vdjtools-doc.readthedocs.io/en/master/install.html
@@ -22,6 +18,13 @@ Integrative analysis for scTCR- and scRNA-seq data
   ```shell
   pip install -U pipen-cli-require
   pipen require immunopipe.pipeline:pipeline <pipeline arguments>
+  ```
+
+- Quick way to install the dependencies using conda
+  ```shell
+  conda env create --file docker/environment.yml
+  # then
+  conda activate immunopipe
   ```
 
 ## Running as a container
@@ -64,9 +67,15 @@ singularity pull --force --dir images/ docker://justold/immunopipe:dev
 - Clustering cells and configurale arguments to separate T and non-T cells
 - Clustering T cell, markers for each cluster and enrichment analysis for the markers
 - Radar plots to show the composition of cells for clusters
-- Markers finder for selected groups of cells
-- Expression investigation of genes of interest for selected groups of cells
-- UMAPs
+- (Meta-)Markers finder for selected groups/clones of cells
+- Psedo-bulk GSEA analysis of two groups of cells
+- Seurat cluster statistics, including:
+  - Basic statistics of the clusters (e.g. number of cells in each cluster)
+  - Gene expressions (e.g. ridge, violin, feature, dot and heatmap plots)
+  - Dimensional reduction plots
+- TCR clustering using CDR3 sequences and the statistics of the clusters
+- Cell group distribution (TCR clones/clusters) in Seurat clusters
+- Clone heterogeneity (TCR clone distribution) in Seurat clusters
 - Metabolic landscape analysis (Ref: Xiao, Zhengtao, Ziwei Dai, and Jason W. Locasale. "Metabolic landscape of the tumor microenvironment at single cell resolution." Nature communications 10.1 (2019): 1-12.)
 
 ## Documentaion
