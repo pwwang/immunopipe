@@ -30,7 +30,11 @@ do_case = function(case) {
     casepms = cases[[case]]
     outfile = file.path(outdir, paste0(slugify(case), ".png"))
 
-    meta = mutate_meta(sobj@meta.data, casepms$mutaters) |>
+    meta = mutate_meta(sobj@meta.data, casepms$mutaters)
+    if (!is.null(casepms$filter)) {
+        meta = meta |> filter(eval(parse(text=casepms$filter)))
+    }
+    meta = meta |>
         mutate(
             Cluster = if_else(
                 !is.na(as.integer(seurat_clusters)),
@@ -46,8 +50,12 @@ do_case = function(case) {
     if (!is.null(casepms$order)) {
         meta[[casepms$by]] = factor(meta[[casepms$by]], levels = casepms$order)
     }
+    perc_with_na = casepms$perc_with_na
+    if (is.null(perc_with_na)) {
+        perc_with_na = FALSE
+    }
 
-    counts = if (casepms$perc_with_na) meta[, 2:ncol(meta)] else meta[!is.na(meta[[casepms$by]]), 2:ncol(meta)]
+    counts = if (perc_with_na) meta[, 2:ncol(meta)] else meta[!is.na(meta[[casepms$by]]), 2:ncol(meta)]
     if (!is.null(casepms$direction) && casepms$direction == "inter-cluster") {
         meta[2:ncol(meta)] = t(t(counts) / rowSums(t(counts)))
     } else {
