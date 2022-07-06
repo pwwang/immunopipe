@@ -7,6 +7,8 @@
 - ⚡️ Add `filter` for RadarPlots
 - 📝 Update docs
 - ⬆️ Upgrade deps
+- 🔧 Update docker/environment.yml
+- 🐛 Fix CloneHeterogeneity when only 1 row in continency table
 
 ## 0.1.1
 
