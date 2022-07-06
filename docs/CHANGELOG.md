@@ -1,3 +1,21 @@
+## 0.2.0
+
+- ♻️ Move in-house processes out of processes.py
+- ♻️ Split up MARKERS_FINDER
+- ♻️ Refactor RadarPlots
+- ✨ Add an example config file
+- ⚡️ Add `filter` for RadarPlots
+- 📝 Update docs
+- ⬆️ Upgrade deps
+
+## 0.1.1
+
+- 💚 Try fix pip in environment.yml
+- 📝 Update readme for requirement checking
+- 📝 Update docs to fix #1
+- 📝 Update CHANGELOG
+- ⬆️ Adopt biopipen 0.4.0
+
 ## 0.1.0
 
 - 🩹 Disable force-caching for some procs
