@@ -50,9 +50,9 @@ dependencies:
   - bwidget=1.9.14=ha770c72_1
   - bzip2=1.0.8=h7f98852_4
   - c-ares=1.18.1=h7f98852_0
-  - ca-certificates=2022.5.18.1=ha878542_0
+  - ca-certificates=2022.6.15=ha878542_0
   - cairo=1.16.0=ha12eb4b_1010
-  - certifi=2022.5.18.1=py39hf3d152e_0
+  - certifi=2022.6.15=py39hf3d152e_0
   - cffi=1.15.0=py39h4bc2ebd_0
   - cfitsio=4.1.0=hd9d235c_0
   - chardet=4.0.0=py39hf3d152e_3
@@ -173,7 +173,7 @@ dependencies:
   - numpy=1.22.4=py39hc58783e_0
   - openjdk=8.0.112=zulu8.19.0.1_3
   - openjpeg=2.4.0=hb52868f_1
-  - openssl=3.0.3=h166bdaf_0
+  - openssl=3.0.5=h166bdaf_0
   - pango=1.50.7=hbd2fdc8_0
   - parallel=20170422=pl5.22.0_0
   - parmap=1.5.3=pyhd8ed1ab_0
@@ -487,7 +487,9 @@ dependencies:
   - r-tibble=3.1.7=r41h06615bd_0
   - r-tidyr=1.2.0=r41h03ef668_0
   - r-tidyselect=1.1.2=r41hc72bb7e_0
+  - r-tidyseurat=0.5.3=r41h142f84f_0
   - r-timedate=3043.102=r41hc72bb7e_1002
+  - r-ttservice=0.1.2=r41h142f84f_0
   - r-tweenr=1.0.2=r41h03ef668_0
   - r-tzdb=0.3.0=r41h7525677_0
   - r-units=0.8_0=r41h03ef668_0
