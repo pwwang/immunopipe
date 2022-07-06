@@ -122,11 +122,15 @@ do_one = function(case, cluster) {
         )
 
         fisher_file = file.path(output_dir, "fisher.txt")
-        fisher.out = tryCatch({
-            fisher.test(conttable)
-        }, error=function(e) {
-            fisher.test(conttable, simulate.p.value=TRUE, B=1e4)
-        })
+        if (nrow(conttable) < 2) {
+            fisher.out = list(p.value = NA)
+        } else {
+            fisher.out = tryCatch({
+                fisher.test(conttable)
+            }, error=function(e) {
+                fisher.test(conttable, simulate.p.value=TRUE, B=1e4)
+            })
+        }
         writeLines(
             capture.output(fisher.out),
             fisher_file
