@@ -1,4 +1,4 @@
-Cell clustering is done by `biopipen.namespaces.scrna.SeuratClustering` using `Seurat::FindClusters()`. See the full configurations by:
+Cell clustering is done by [`biopipen.ns.scrna.SeuratClustering`][1] using `Seurat::FindClusters()`. See the full configurations by:
 
 ```shell
 pipen run scrna SeuratClustering
@@ -29,3 +29,5 @@ dbs = ["KEGG_2021_Human", "GO_Biological_Process_2021"]
 
 See all available libraries here:
 [https://maayanlab.cloud/Enrichr/#libraries](https://maayanlab.cloud/Enrichr/#libraries)
+
+[1]: https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.SeuratClustering

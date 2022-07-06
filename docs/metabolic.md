@@ -15,39 +15,34 @@ Example:
 ```toml
 
 [METABOLIC]
-# The GMT file containing the metabolic pathways
+# # The metabolic pathway in gmt file
 gmtfile = "KEGG_metabolism.gmt"
-
 [[METABOLIC.cases]]
-# The name of the case, used in reports, optional
-name = "BM samples"
-
+# # The name of the case
+name = "Case1"
+# # How do we group the cells?
 [METABOLIC.cases.grouping]
-# How should we do the groupings
-# Idents: Use the Seurat clustering
-groupby = "Idents"
-
+# # Add new columns to the meta.data
+# mutaters = {}
+# # The columns to group the cells
+groupby = "seurat_clusters"
+# # How do we subset the data. The imputation will be done in each subset separately
 [METABOLIC.cases.subsetting]
-# Define the subsets.
-groupby = "Group"
+# # Add new columns to the meta.data
+# mutaters = {}
+# # The columns to subset the data
+groupby = "region"
+# # The alias of the subset working as a prefix to subset names
+alias = "SampleType"
+# # What kind of comparisons are we doing?
+# # It should be the values of subsetting `groupby`s
+[METABOLIC.cases.design]
+Tumor_vs_Normal = ["Tumor", "Normal adjacent tissue"]
 
-[METABOLIC.cases.subsetting.mutaters]
-Group = """
-    case_when(
-        Source == "BM" & TimePoint == "Post-CART" & Response == "DR" ~ "Post_DR",
-        Source == "BM" & TimePoint == "Post-CART" & Response == "PD" ~ "Post_PD",
-        Source == "BM" & TimePoint == "Post-CART" & Response == "CR" ~ "Post_CR",
-        Source == "BM" & Response == "CNTRL" ~ "CNTRL",
-        TRUE ~ NA_character_
-    )
+# # More cases
+# [[METABOLIC.cases]]
+# name = "Case2"
+# ...
 """
 
-[METABOLIC.cases.design]
-# Defines how we should do the comparisons and genes are ranked for each design
-Post_DR-vs-CNTRL = ["Post_DR", "CNTRL"]
-Post_PD-vs-CNTRL = ["Post_PD", "CNTRL"]
-Post_CR-vs-CNTRL = ["Post_CR", "CNTRL"]
-
-[[METABOLIC.cases]]
-# more cases
-```
+See also: https://pwwang.github.io/biopipen/pipelines/scrna_metabolic/

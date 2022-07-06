@@ -1,6 +1,6 @@
 If you have samples from the same patient, you can check the residency of the clonotypes (where the clones reside)
 
-Clone residency is done by process `biopipen.namespaces.tcr.CloneResidency`. To check available configurations of it:
+Clone residency is done by process [`biopipen.namespaces.tcr.CloneResidency`][1]. To check available configurations of it:
 
 ```shell
 pipen run tcr CloneResidency
@@ -16,3 +16,5 @@ group = "Source"
 # the order of the sources: X ~ Y
 order = ["Normal", "Tumor"]
 ```
+
+[1]: https://pwwang.github.io/biopipen/api/biopipen.ns.tcr/#biopipen.ns.tcr.CloneResidency
