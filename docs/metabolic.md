@@ -2,11 +2,11 @@ Metabolic landscape of single cells in the tumor microenvironment
 
 See:
 
-*Xiao, Zhengtao, Ziwei Dai, and Jason W. Locasale. "Metabolic landscape of the tumor microenvironment at single cell resolution." Nature communications 10.1 (2019): 1-12.*
+> *Xiao, Zhengtao, Ziwei Dai, and Jason W. Locasale. "Metabolic landscape of the tumor microenvironment at single cell resolution." Nature communications 10.1 (2019): 1-12.*
 
 and
 
-https://github.com/LocasaleLab/Single-Cell-Metabolic-Landscape
+> [https://github.com/LocasaleLab/Single-Cell-Metabolic-Landscape](https://github.com/LocasaleLab/Single-Cell-Metabolic-Landscape)
 
 ## Configurations
 
@@ -43,6 +43,6 @@ Tumor_vs_Normal = ["Tumor", "Normal adjacent tissue"]
 # [[METABOLIC.cases]]
 # name = "Case2"
 # ...
-"""
+```
 
 See also: https://pwwang.github.io/biopipen/pipelines/scrna_metabolic/

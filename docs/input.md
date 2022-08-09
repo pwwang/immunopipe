@@ -10,9 +10,6 @@ To start the pipeline, you need 3 files:
 
 Other optional files:
 
-- If `GENE_EXPR_INVESTIGATION_CLUSTERS` module is enabled, a gene file is required.
-    The file should have first column the gene name in features and second the name to show in the plots. It could be also just one column, then the names to show in the plots will be the same as the gene names.
-
 - If `METABOLIC` is enabled, a gmt file with metabolic pathways (can be found [here][1]) and a GTF file with exons are required for the analysis. The GTF file can be obtained by filter the type with `exon` from http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/genes/hg38.refGene.gtf.gz or http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/genes/hg38.refGene.gtf.gz
 
 
