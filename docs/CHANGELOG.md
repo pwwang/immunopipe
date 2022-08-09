@@ -1,6 +1,8 @@
 ## 0.2.1
 
-- 🩹 Add the correct arguments in help page
+- 🔥 Fix the bug of the wrong arguments in help page
+- ⬆️ Upgrade clustcr to 1.0.2
+- 📝 Fix docs for metabolic analysis
 
 ## 0.2.0
 
