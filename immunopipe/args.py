@@ -7,18 +7,35 @@ args = Args(prog="immunopipe")
 
 # Add more arguments if you want
 args.add_param(
-    "markers_finder",
-    default={},
-    type="json",
-    desc=[
-        "Sets of configurations for markers finding. Keys are process names, "
-        "and values are:",
-        "- `desc`: The description of the process",
-        "- `filters`: The filters for the clones/cells "
-        "(ident.1 for the cases, ident.2 for the controls)",
-        "- `dbs`: The databases to do enrichment analysis against",
-    ],
+    "METABOLIC",
+    type="ns",
+    desc="Configurations for metabolic landscape analysis",
 )
+
+args.add_param(
+    "METABOLIC.gmtfile",
+    type="file",
+    desc="The metabolic pathway in GMT file",
+)
+
+args.add_param(
+    "METABOLIC.cases",
+    type="list:json",
+    desc=(
+        'The list of cases for metabolic landscape analysis. '
+        'Each case is a dictionary with the following keys: '
+        '"name", "grouping", "subsetting" and "design". ',
+        '"name" is the name of the case.',
+        '"grouping" is the grouping of the case, with "mutaters" to add '
+        'new columns to the metadata and "groupby" the column to group '
+        'the cells.',
+        '"subsetting" is the subsetting of the case, with "mutaters" to '
+        'add new columns to the metadata, "groupby" the column to '
+        'subset the cells and "alias" as prefix to add to subset names.',
+        '"design" is the design of the case to define the comparisons. '
+    )
+)
+
 
 config = Diot()
 
