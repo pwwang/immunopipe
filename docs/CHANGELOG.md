@@ -1,3 +1,7 @@
+## 0.2.1
+
+- 🩹 Add the correct arguments in help page
+
 ## 0.2.0
 
 - ♻️ Move in-house processes out of processes.py
