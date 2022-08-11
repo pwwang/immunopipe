@@ -32,7 +32,12 @@ Integrative analysis for scTCR- and scRNA-seq data
 ### Using docker:
 
 ```bash
-docker run -w /workdir -v .:/workdir -it justold/immunopipe:dev
+docker run \
+    -w /workdir \
+    -v $(pwd)/:/workdir \
+    -v /tmp \
+    -v $(pwd)/prepared-data:/mnt \
+    justold/immunopipe:dev
 ```
 
 ### Using singularity:
