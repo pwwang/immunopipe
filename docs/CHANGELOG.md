@@ -1,3 +1,7 @@
+## 0.2.2
+
+- ⬆️ Upgrade biopipen to 0.4.7 to fix SeuratPreparing
+
 ## 0.2.1
 
 - 🔥 Fix the bug of the wrong arguments in help page
