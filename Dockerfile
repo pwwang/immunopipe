@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:4.11.0
+FROM continuumio/miniconda3:latest
 
 WORKDIR /immunopipe
 COPY . /immunopipe
