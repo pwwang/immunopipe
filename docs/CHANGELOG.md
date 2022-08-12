@@ -1,3 +1,7 @@
+## 0.2.3
+
+- ⬆️ Upgrade biopipen to 0.4.8
+
 ## 0.2.2
 
 - ⬆️ Upgrade biopipen to 0.4.7 to fix SeuratPreparing
