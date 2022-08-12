@@ -564,7 +564,7 @@ dependencies:
   - pip:
     - aiofiles==0.8.0
     - asttokens==2.0.5
-    - biopipen==0.4.7
+    - biopipen==0.4.8
     - biopython==1.79
     - blessed==1.19.1
     - cachecontrol==0.12.11

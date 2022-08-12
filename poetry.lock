@@ -30,7 +30,7 @@ test = ["astroid (<=2.5.3)", "pytest"]
 
 [[package]]
 name = "biopipen"
-version = "0.4.7"
+version = "0.4.8"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 category = "main"
 optional = false
@@ -43,7 +43,7 @@ pipen = ">=0.3,<0.4"
 pipen-filters = ">=0.1,<0.2"
 
 [package.extras]
-test = ["pipen-verbose (>=0.1,<0.2)", "pipen-args (>=0.2,<0.3)"]
+test = ["pipen-args (>=0.2,<0.3)", "pipen-verbose (>=0.1,<0.2)"]
 
 [[package]]
 name = "blessed"
@@ -498,7 +498,7 @@ unidecode = ["Unidecode (>=1.1.1)"]
 
 [[package]]
 name = "pytz"
-version = "2022.1"
+version = "2022.2"
 description = "World timezone definitions, modern and historical"
 category = "main"
 optional = false
@@ -861,10 +861,7 @@ python-slugify = [
     {file = "python-slugify-6.1.2.tar.gz", hash = "sha256:272d106cb31ab99b3496ba085e3fea0e9e76dcde967b5e9992500d1f785ce4e1"},
     {file = "python_slugify-6.1.2-py2.py3-none-any.whl", hash = "sha256:7b2c274c308b62f4269a9ba701aa69a797e9bca41aeee5b3a9e79e36b6656927"},
 ]
-pytz = [
-    {file = "pytz-2022.1-py2.py3-none-any.whl", hash = "sha256:e68985985296d9a66a881eb3193b0906246245294a881e7c8afe623866ac6a5c"},
-    {file = "pytz-2022.1.tar.gz", hash = "sha256:1e760e2fe6a8163bc0b3d9a19c4f84342afa0a2affebfaa84b01b978a02ecaa7"},
-]
+pytz = []
 rich = []
 rtoml = [
     {file = "rtoml-0.8.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:e924ae37aeafd60d09b888ea30ae18bceac5086689216ab3ae16dd93692202a9"},
