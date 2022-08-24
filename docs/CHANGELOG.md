@@ -1,3 +1,10 @@
+## 0.2.4
+
+- 💚 Use lastest miniconda3 for docker build
+- 💚 Use conda channel pwwang for bioconductor-genomeinfodbdata for fix (bioconda/bioconda-recipes#31349)
+- ⬆️ Upgrade biopipen to 0.4.9
+- 📝 Add URL to example in README
+
 ## 0.2.3
 
 - ⬆️ Upgrade biopipen to 0.4.8
