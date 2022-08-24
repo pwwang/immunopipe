@@ -86,3 +86,7 @@ singularity pull --force --dir images/ docker://justold/immunopipe:dev
 ## Documentaion
 
 https://pwwang.github.io/immunopipe
+
+## Example
+
+https://github.com/pwwang/immunopipe-example

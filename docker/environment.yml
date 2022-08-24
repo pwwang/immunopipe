@@ -28,7 +28,7 @@ dependencies:
   - bioconductor-edger=3.36.0=r41h619a076_1
   - bioconductor-fgsea=1.20.0=r41h619a076_1
   - bioconductor-genomeinfodb=1.30.0=r41hdfd78af_0
-  - bioconductor-genomeinfodbdata=1.2.7=r41_1
+  - bioconductor-genomeinfodbdata=1.2.7=r41hdfd78af_1
   - bioconductor-genomicranges=1.46.1=r41h5c21468_0
   - bioconductor-iranges=2.28.0=r41h5c21468_1
   - bioconductor-limma=3.50.1=r41h5c21468_0
@@ -563,8 +563,8 @@ dependencies:
   - zstd=1.5.2=ha95c52a_0
   - pip:
     - aiofiles==0.8.0
-    - asttokens==2.0.5
-    - biopipen==0.4.8
+    - asttokens==2.0.7
+    - biopipen==0.4.9
     - biopython==1.79
     - blessed==1.19.1
     - cachecontrol==0.12.11
@@ -590,17 +590,17 @@ dependencies:
     - importlib-metadata==4.12.0
     - inflection==0.5.1
     - jeepney==0.8.0
-    - json5==0.9.8
+    - json5==0.9.9
     - keyring==23.5.0
     - lark-parser==0.12.0
     - liquidpy==0.7.5
     - lockfile==0.12.2
     - magic-impute==3.0.0
-    - markdown==3.3.7
+    - markdown==3.4.1
     - matplotlib==3.5.2
-    - more-itertools==8.13.0
+    - more-itertools==8.14.0
     - msgpack==1.0.3
-    - numpy==1.23.0
+    - numpy==1.23.1
     - packaging==20.9
     - pandas==1.3.5
     - pardoc==0.0.3
@@ -626,12 +626,12 @@ dependencies:
     - pygsp==0.5.1
     - pylev==1.4.0
     - pyparam==0.5.3
-    - python-simpleconf==0.5.6
+    - python-simpleconf==0.5.7
     - python-slugify==6.1.2
     - radian==0.6.3
     - rchitect==0.3.36
     - requests-toolbelt==0.9.1
-    - rich==12.4.4
+    - rich==12.5.1
     - rtoml==0.8.0
     - scprep==1.2.0
     - secretstorage==3.3.2
@@ -647,4 +647,4 @@ dependencies:
     - webencodings==0.5.1
     - wrapt==1.14.1
     - xqute==0.1.0
-    - zipp==3.8.0
+    - zipp==3.8.1
