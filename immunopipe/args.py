@@ -1,7 +1,5 @@
-import sys
-from diot import Diot
-from simpleconf import Config
-from pipen_args import Args
+
+from pipen_args import Args, config  # noqa: F401
 
 args = Args(prog="immunopipe")
 
@@ -35,14 +33,3 @@ args.add_param(
         '"design" is the design of the case to define the comparisons. '
     )
 )
-
-
-config = Diot()
-
-try:
-    confidx = sys.argv.index("--config")
-    conffile = sys.argv[confidx + 1]
-except (ValueError, IndexError):
-    pass
-else:
-    config = Config.load(conffile)
