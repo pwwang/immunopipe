@@ -66,6 +66,8 @@ singularity pull --force --dir images/ docker://justold/immunopipe:dev
 
 ## Modules
 
+![immunopipe](./immunopipe.png)
+
 - Basic TCR data analysis using `immunarch`
 - Clone Residency analysis if you have paired samples (i.e. Tumor vs Normal)
 - V-J usage, the frequency of various V-J junctions in circos-style plots
