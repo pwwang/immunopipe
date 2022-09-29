@@ -1,5 +1,4 @@
 """In house processes"""
-from datar.tibble import tibble
 from biopipen.core.proc import Proc
 from biopipen.core.config import config
 

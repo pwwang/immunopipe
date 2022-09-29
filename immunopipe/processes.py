@@ -21,7 +21,7 @@ from biopipen.ns.scrna import (
     ScFGSEA,
 )
 from biopipen.ns.scrna_metabolic import build_processes
-from datar.all import f, select, tibble
+from datar.all import tibble
 
 from .args import config
 from .inhouse import (
