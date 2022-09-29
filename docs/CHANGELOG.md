@@ -1,3 +1,11 @@
+## 0.3.0
+
+- 💚 Use build 2 for genomeinfodbdata from bioconda (0.2.4)
+- 👽️ Use config from pipen_args
+- ⬆️ Pump biopipen to 0.5.3, pipen-args to 0.3.2
+- ⬆️ Upgrade deps for docker
+- 📝 Add flowchart in README.md
+
 ## 0.2.4
 
 - 💚 Use lastest miniconda3 for docker build
