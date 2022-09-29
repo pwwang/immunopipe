@@ -33,6 +33,7 @@ from .inhouse import (
 )
 
 toml_dumps = FILTERS["toml_dumps"]
+config = config or {}
 
 
 class SampleInfo(File2Proc):

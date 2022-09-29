@@ -5,6 +5,7 @@
 - ⬆️ Pump biopipen to 0.5.3, pipen-args to 0.3.2
 - ⬆️ Upgrade deps for docker
 - 📝 Add flowchart in README.md
+- 🐛 Fix error when --config not passed
 
 ## 0.2.4
 
