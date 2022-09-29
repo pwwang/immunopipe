@@ -16,7 +16,7 @@ python-versions = "*"
 
 [[package]]
 name = "biopipen"
-version = "0.5.1"
+version = "0.5.3"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 category = "main"
 optional = false
@@ -30,7 +30,7 @@ pipen-filters = ">=0.1,<0.2"
 pipen-report = ">=0.4,<0.5"
 
 [package.extras]
-test = ["pipen-args (>=0.2,<0.3)", "pipen-verbose (>=0.1,<0.2)"]
+test = ["pipen-args (>=0.3,<0.4)", "pipen-verbose (>=0.1,<0.2)"]
 
 [[package]]
 name = "blessed"
@@ -133,11 +133,14 @@ prefixed = ">=0.3.2"
 
 [[package]]
 name = "executing"
-version = "1.0.0"
+version = "1.1.0"
 description = "Get the currently executing AST node of a frame, and other information"
 category = "main"
 optional = false
 python-versions = "*"
+
+[package.extras]
+tests = ["asttokens", "littleutils", "pytest", "rich"]
 
 [[package]]
 name = "importlib-metadata"
@@ -352,7 +355,7 @@ xqute = ">=0.1,<0.2"
 
 [[package]]
 name = "pipen-args"
-version = "0.3.0"
+version = "0.3.2"
 description = "Command-line argument parser for pipen."
 category = "main"
 optional = false
@@ -631,8 +634,8 @@ ansicon = [
     {file = "ansicon-1.89.0.tar.gz", hash = "sha256:e4d039def5768a47e4afec8e89e83ec3ae5a26bf00ad851f914d1240b444d2b1"},
 ]
 biopipen = [
-    {file = "biopipen-0.5.1-py3-none-any.whl", hash = "sha256:7a308559a7286513468c3ca0e236994eb0aff3a05de45d061e2dda7f76d8d589"},
-    {file = "biopipen-0.5.1.tar.gz", hash = "sha256:4904bc1f418ea17ed376fca07542cfa99042b78c8d1acd2df29a3b499fda3d60"},
+    {file = "biopipen-0.5.3-py3-none-any.whl", hash = "sha256:32a635639a409c54f798d4c76f8c5337cd96c1f57870084104066324dd872f33"},
+    {file = "biopipen-0.5.3.tar.gz", hash = "sha256:12fb204cec7ec92b1eb36b0e7d1eaa827bf446757e99c7c81ce370da88c82e2e"},
 ]
 blessed = [
     {file = "blessed-1.19.1-py2.py3-none-any.whl", hash = "sha256:63b8554ae2e0e7f43749b6715c734cc8f3883010a809bf16790102563e6cf25b"},
@@ -666,8 +669,8 @@ enlighten = [
     {file = "enlighten-1.10.2.tar.gz", hash = "sha256:7a5b83cd0f4d095e59d80c648ebb5f7ffca0cd8bcf7ae6639828ee1ad000632a"},
 ]
 executing = [
-    {file = "executing-1.0.0-py2.py3-none-any.whl", hash = "sha256:550d581b497228b572235e633599133eeee67073c65914ca346100ad56775349"},
-    {file = "executing-1.0.0.tar.gz", hash = "sha256:98daefa9d1916a4f0d944880d5aeaf079e05585689bebd9ff9b32e31dd5e1017"},
+    {file = "executing-1.1.0-py2.py3-none-any.whl", hash = "sha256:4a6d96ba89eb3dcc11483471061b42b9006d8c9f81c584dd04246944cd022530"},
+    {file = "executing-1.1.0.tar.gz", hash = "sha256:2c2c07d1ec4b2d8f9676b25170f1d8445c0ee2eb78901afb075a4b8d83608c6a"},
 ]
 importlib-metadata = [
     {file = "importlib_metadata-4.12.0-py3-none-any.whl", hash = "sha256:7401a975809ea1fdc658c3aa4f78cc2195a0e019c5cbc4c06122884e9ae80c23"},
@@ -852,8 +855,8 @@ pipen = [
     {file = "pipen-0.3.6.tar.gz", hash = "sha256:ac8836b2b35faa97369a256833d3177aaae6048e37d05092b535b0034a8c57f3"},
 ]
 pipen-args = [
-    {file = "pipen-args-0.3.0.tar.gz", hash = "sha256:b12082671e5b1dfffc26ea913d13433973cf85bc209a60b4b5df42a1da6d5028"},
-    {file = "pipen_args-0.3.0-py3-none-any.whl", hash = "sha256:2f700530387da16cf22e16cbf4e2b9d966eec9df34bc8cab5c479b694743c01a"},
+    {file = "pipen-args-0.3.2.tar.gz", hash = "sha256:f2b55ef86d6955a037519b560abfecbb18b61f4245feb9e5b615194e013302d3"},
+    {file = "pipen_args-0.3.2-py3-none-any.whl", hash = "sha256:77639b84de8b8f3edecf2b71b9193bda0b9d9f7aca7baad9333e13b668b1de89"},
 ]
 pipen-filters = [
     {file = "pipen-filters-0.1.2.tar.gz", hash = "sha256:893686edfaac4a9487b25c8a5455a82f34d1bcb4617fbe362305cc31e8bf49ce"},
