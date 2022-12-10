@@ -27,7 +27,7 @@ pipen-verbose = "^0.1"
 immunopipe = "immunopipe.pipeline:main"
 
 [tool.poetry.group.dev.dependencies]
-pipen-dry = "^0.1.0"
+# pipen-dry = "^0.1.0"
 
 [tool.black]
 line-length = 80
