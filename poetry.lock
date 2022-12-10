@@ -403,6 +403,17 @@ pipen = ">=0.3,<0.4"
 pipen-args = ">=0.3,<0.4"
 
 [[package]]
+name = "pipen-dry"
+version = "0.1.0"
+description = "Dry runner for pipen pipelines"
+category = "dev"
+optional = false
+python-versions = ">=3.7.1,<4.0.0"
+
+[package.dependencies]
+pipen = ">=0.3,<0.4"
+
+[[package]]
 name = "pipen-filters"
 version = "0.1.2"
 description = "Add a set of useful filters for pipen templates"
@@ -659,7 +670,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.1"
-content-hash = "e44d8ce48fd3648a5473f5dd6aa564af82b9164af35ff6cdaa947c4ab708ccca"
+content-hash = "57fb25f6d3a15f8148b7a7e0e7c0f91d7a10784d22dd13aa144b9520dafec10d"
 
 [metadata.files]
 aiofiles = [
@@ -906,6 +917,10 @@ pipen-args = [
 pipen-cli-run = [
     {file = "pipen_cli_run-0.3.2-py3-none-any.whl", hash = "sha256:26293599fb685d7b0d23d508e6f9f09097d01d2e31e4f9d0ec12078a40515abb"},
     {file = "pipen_cli_run-0.3.2.tar.gz", hash = "sha256:9107e691c283519542793f64ab30bd9a7427e6924c15c924eb40a1b3c4895106"},
+]
+pipen-dry = [
+    {file = "pipen-dry-0.1.0.tar.gz", hash = "sha256:74f150cf8fa26ab5a8d6f349ef72873fe4b65099dd99b1d24355c95a6aab71af"},
+    {file = "pipen_dry-0.1.0-py3-none-any.whl", hash = "sha256:b8ccd22e6c0515ea7499b5007aff1d27cc58f6d7b4407420c050062528d30b3f"},
 ]
 pipen-filters = [
     {file = "pipen-filters-0.1.2.tar.gz", hash = "sha256:893686edfaac4a9487b25c8a5455a82f34d1bcb4617fbe362305cc31e8bf49ce"},

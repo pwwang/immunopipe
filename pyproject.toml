@@ -26,6 +26,9 @@ pipen-verbose = "^0.1"
 [tool.poetry.scripts]
 immunopipe = "immunopipe.pipeline:main"
 
+[tool.poetry.group.dev.dependencies]
+pipen-dry = "^0.1.0"
+
 [tool.black]
 line-length = 80
 target-version = ['py37', 'py38', 'py39']
