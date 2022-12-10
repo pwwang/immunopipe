@@ -20,7 +20,7 @@ from biopipen.ns.scrna import (
     CellsDistribution,
     ScFGSEA,
 )
-from biopipen.ns.scrna_metabolic import build_processes
+from biopipen.ns.scrna_metabolic import ScrnaMetabolic
 from datar.all import tibble
 
 from .args import config
@@ -173,7 +173,7 @@ if "MetaMarkersForClones" in config:
 
 
 if "METABOLIC" in config:
-    MetabolicInputs = build_processes({"clustered": True})
+    MetabolicInputs = ScrnaMetabolic({"clustered": True}).starts[0]
     MetabolicInputs.order = 12
     MetabolicInputs.requires = SeuratMetadataMutater
     MetabolicInputs.input_data = lambda ch: tibble(

@@ -28,7 +28,7 @@ for (sample in names(immdata$data)) {
 clonotype_pct_ident = function(ident) {
     ident_cells = WhichCells(sobj, idents = ident)
     has_clonotypes = table(ident_cells %in% tcells)
-    has_clonotypes["TRUE"] / sum(has_clonotypes)
+    unname(has_clonotypes["TRUE"] / sum(has_clonotypes))
 }
 
 clonotype.pct = list()

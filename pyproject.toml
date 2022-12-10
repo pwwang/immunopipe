@@ -17,8 +17,8 @@ python = "^3.7.1"
 pipen-args = "^0.3"
 pipen-report = "^0.4"
 pipen-filters = "^0.1"
-biopipen = "^0.5"
-datar = "^0.9"
+biopipen = "^0.6"
+datar = {version = "^0.10.3", extras = ["pandas"]}
 pipen-verbose = "^0.1"
 
 [tool.poetry.dev-dependencies]
