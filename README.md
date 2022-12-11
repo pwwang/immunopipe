@@ -22,9 +22,9 @@ Integrative analysis for scTCR- and scRNA-seq data
 
 - Quick way to install the dependencies using conda
   ```shell
-  conda env create --file docker/environment.yml
+  conda env install --name <env_name> --file docker/environment.yml
   # then
-  conda activate immunopipe
+  conda activate <env_name>
   ```
 
 ## Running as a container
@@ -33,35 +33,34 @@ Integrative analysis for scTCR- and scRNA-seq data
 
 ```bash
 docker run \
-    -w /workdir \
-    -v $(pwd)/:/workdir \
+    -w /immunopipe/workdir \
+    -v $(pwd)/:/immunopipe/workdir \
     -v /tmp \
     -v $(pwd)/prepared-data:/mnt \
-    justold/immunopipe:dev
+    justold/immunopipe:<tag>  # or :dev to use the development version
 ```
 
 ### Using singularity:
 
 ```bash
 singularity run -w \  # need it to be writable
-  -H /home/immunopipe_user \  # required, used to init conda
-  --pwd /workdir -B .:/workdir \  # Could use other directory instead of "."
+  --pwd /immunopipe/workdir -B .:/immunopipe/workdir \  # Could use other directory instead of "."
   # --contain: don't map host filesystem
   # --cleanenv: recommended, to avoid other host's environment variables to be used
   #   For example, $CONDA_PREFIX to affect host's conda environment
   --contain --cleanenv \
-  docker://justold/immunopipe:dev
+  docker://justold/immunopipe:<tag>  # or :dev to use the development version
 
 # The mount your data directory to /mnt, which will make startup faster
 # For example
-#   -B .:/workdir,/path/to/data:/mnt
+#   -B .:/immunopipe/workdir,/path/to/data:/mnt
 # Where /path/to/data is the data directory containing the data files
 # You may also want to bind other directories (i.e. /tmp)
 #   -B <other bindings>,/tmp
 
 # Or you can pull the image first by:
-singularity pull --force --dir images/ docker://justold/immunopipe:dev
-# Then you can replace "docker://justold/immunopipe:dev" with "images/immunopipe.sif"
+singularity pull --force --dir images/ docker://justold/immunopipe:<tag>
+# Then you can replace "docker://justold/immunopipe:<tag>" with "images/immunopipe.sif"
 ```
 
 ## Modules

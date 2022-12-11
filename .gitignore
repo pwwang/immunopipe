@@ -90,7 +90,7 @@ ENV/
 # Rope project settings
 .ropeproject
 
-workdir/
+# workdir/
 node_modules/
 _book/
 .vscode
