@@ -4,7 +4,7 @@ WORKDIR /immunopipe
 COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
 
 # Install dependencies
-RUN micromamba create --name base --yes --file docker/environment.yml && \
+RUN micromamba install --name base --yes --file docker/environment.yml && \
     micromamba clean --all --yes
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
