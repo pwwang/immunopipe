@@ -13,7 +13,7 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 # for the patching poetry (that's why we have to pin poetry's version)
 # The python dependencies are installed by conda,
 # use poetry to install again to check they are at the right versionsls /ho
-# SHELL [ "/bin/bash", "--login", "-c" ]
+SHELL [ "/bin/bash", "--login", "-c" ]
 
 # RUN conda activate immunopipe && \
 #     python -m pip install poetry==1.1.13 && \
@@ -24,7 +24,7 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 #     mkdir /workdir && \
 #     mkdir -p /home/immunopipe_user/ && \
 #     cp docker/.bashrc /home/immunopipe_user/
-RUN python -m pip install -U poetry==1.1.13 \
+RUN python -m pip install -U poetry \
     python -m poetry config virtualenvs.create false && \
     python -m poetry install -v && \
     # For singularity to init conda
