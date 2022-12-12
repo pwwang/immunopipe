@@ -1,3 +1,10 @@
+## 0.4.0
+
+- ⬆️ Bump biopipen to 0.6
+- ⬆️ Upgrade other dependencies
+- 💚 Use micromamba for docker image building
+- ⬆️ Add procps-ng for vdjtools for docker  building
+
 ## 0.3.0
 
 - 💚 Use build 2 for genomeinfodbdata from bioconda (0.2.4)
