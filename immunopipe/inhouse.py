@@ -7,12 +7,15 @@ class SelectTCells(Proc):
     """Separate T and non-T cells"""
     input = "srtobj:file, immdata:file"
     output = "rdsfile:file:{{in.srtobj | stem}}.RDS, outdir:dir:details"
-    envs = {"tcell_filter": "Clonotype_pct > .25", "indicator_gene": "CD3E"}
+    envs = {
+        "tcell_indicator": None,
+        "indicator_genes": "CD3E",
+    }
     lang = config.lang.rscript
     script = "file://scripts/SelectTCells.R"
     plugin_opts = {
         "report": "file://reports/SelectTCells.svelte",
-        "report_toc": False,
+        # "report_toc": False,
         "report_order": 2,
     }
     order = 5
