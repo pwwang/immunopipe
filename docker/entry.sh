@@ -10,7 +10,7 @@ if [ $# -eq 0 ]; then
     echo "   docker run <options> justold/immunopipe:master board immunopipe:Immunopipe -a /immunopipe/board.toml [options]"
     echo "   singularity run <options> docker://biopipen/scrna-basic:master board immunopipe:Immunopipe -a /workdir/board.toml [options]"
     exit 1
-else if [ "$1" == "board" ]; then
+elif [ "$1" == "board" ]; then
     # Run the pipeline using pipen-board
     pipen $@
 else
