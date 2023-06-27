@@ -1,5 +1,4 @@
 """Process definition"""
-import sys
 from datar.tibble import tibble
 from pipen.channel import expand_dir
 from pipen.utils import mark

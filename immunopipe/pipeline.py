@@ -1,5 +1,7 @@
 """Assemable the pipeline"""
 from pipen import Pipen
+from pipen_args import parser
+
 from .version import __version__
 
 # Import your processeses
@@ -14,4 +16,5 @@ class Immunopipe(Pipen):
 
 def main():
     """Run the pipeline"""
+    parser.description = Immunopipe.desc
     Immunopipe().run()
