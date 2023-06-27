@@ -19,7 +19,7 @@ jobs:
           poetry config virtualenvs.create false
           poetry install -v
       - name: Test if immunopipe can run
-        run: immunopipe 2>&1 | grep "A pipeline for"
+        run: immunopipe --help 2>&1 | grep "A pipeline for"
 
   docker:
     needs: build
