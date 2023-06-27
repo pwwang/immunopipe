@@ -27,6 +27,7 @@ mutate_meta = function(meta, mutaters) {
 }
 
 do_case = function(case) {
+    print("Processing case: " %>% paste(case))
     casepms = cases[[case]]
     outfile = file.path(outdir, paste0(slugify(case), ".png"))
 
@@ -55,6 +56,7 @@ do_case = function(case) {
         perc_with_na = FALSE
     }
 
+    meta = meta  |> filter(!is.na(!!sym(casepms$by)))
     counts = if (perc_with_na) meta[, 2:ncol(meta)] else meta[!is.na(meta[[casepms$by]]), 2:ncol(meta)]
     if (!is.null(casepms$direction) && casepms$direction == "inter-cluster") {
         meta[2:ncol(meta)] = t(t(counts) / rowSums(t(counts)))
@@ -62,8 +64,36 @@ do_case = function(case) {
         meta[2:ncol(meta)] = counts / rowSums(counts)
     }
 
-    meta = meta  |> filter(!is.na(!!sym(casepms$by)))
-
+    # group            mpg   cyl  disp    hp  drat    wt   qsec    vs    am
+    # <chr>          <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl> <dbl> <dbl>
+    # Ford Pantera L 0.230   1   0.698 0.749 0.673 0.424 0          0     1
+    # Ferrari Dino   0.396   0.5 0.184 0.435 0.396 0.321 0.119      0     1
+    # Maserati Bora  0.196   1   0.573 1     0.359 0.526 0.0119     0     1
+    # Volvo 142E     0.468   0   0.124 0.201 0.622 0.324 0.488      1     1
+    if (casepms$breaks == "auto" || is.null(casepms$breaks)) {
+        maxval = max(meta[, 2:ncol(meta)])
+        if (maxval <= 0.1) {  # 10%
+            casepms$breaks = c(0, 5, 10)
+        } else if (maxval <= 0.2) {
+            casepms$breaks = c(0, 10, 20)
+        } else if (maxval <= 0.3) {
+            casepms$breaks = c(0, 15, 30)
+        } else if (maxval <= 0.4) {
+            casepms$breaks = c(0, 20, 40)
+        } else if (maxval <= 0.5) {
+            casepms$breaks = c(0, 25, 50)
+        } else if (maxval <= 0.6) {
+            casepms$breaks = c(0, 30, 60)
+        } else if (maxval <= 0.7) {
+            casepms$breaks = c(0, 35, 70)
+        } else if (maxval <= 0.8) {
+            casepms$breaks = c(0, 40, 80)
+        } else if (maxval <= 0.9) {
+            casepms$breaks = c(0, 45, 90)
+        } else {
+            casepms$breaks = c(0, 50, 100)
+        }
+    }
     p = ggradar(
         meta,
         values.radar = paste0(casepms$breaks, "%"),
