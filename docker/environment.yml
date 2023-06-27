@@ -11,6 +11,8 @@ dependencies:
   - curl=7.86  # force using conda-forge version
   - python=3.9
   - openjdk=8  # vdjtools
+  - git  # for copier, used by pipen-report
+  - time  # for pipen-runinfo
   - vdjtools=1.1.4
   - bioconductor-fgsea
   - bioconductor-scater
