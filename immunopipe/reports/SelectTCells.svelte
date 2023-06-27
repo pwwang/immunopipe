@@ -1,5 +1,5 @@
 <script>
-    import { Image, DataTable } from "@@";
+    import { Image, DataTable } from "$libs";
 </script>
 
 <h1>Indicator gene expression vs clonotype percentage</h1>

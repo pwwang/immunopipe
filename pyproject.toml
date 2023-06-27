@@ -12,15 +12,13 @@ readme = "README.md"
 homepage = "https://github.com/pwwang/immunopipe"
 repository = "https://github.com/pwwang/immunopipe"
 
+[tool.poetry.build]
+generate-setup-file = true
+
 [tool.poetry.dependencies]
-python = "^3.7.1"
-pipen-args = "^0.3"
-pipen-report = "^0.4"
-pipen-filters = "^0.1"
-biopipen = "^0.7"
-# Already required by biopipen
-# datar = {version = "^0.11", extras = ["pandas"]}
-pipen-verbose = "^0.1"
+python = "^3.8"
+# pipen-report and pipen-board are required by biopipen
+biopipen = "^0.14.3"
 
 [tool.poetry.dev-dependencies]
 
@@ -32,5 +30,5 @@ immunopipe = "immunopipe.pipeline:main"
 
 [tool.black]
 line-length = 80
-target-version = ['py37', 'py38', 'py39']
+target-version = ['py38', 'py39', 'py310']
 include = '\.pyi?$'

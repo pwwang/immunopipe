@@ -1,6 +1,6 @@
 <script>
-    import { Image, DataTable } from "@@";
-    import { Tabs, Tab, TabContent, Tile } from "carbon-components-svelte";
+    import { Image, DataTable } from "$libs";
+    import { Tabs, Tab, TabContent, Tile } from "$ccs";
 </script>
 
 {% for cdir in job.out.outdir | joinpaths: "*" | glob %}

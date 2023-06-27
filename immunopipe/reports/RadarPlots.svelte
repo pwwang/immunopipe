@@ -1,5 +1,5 @@
 <script>
-    import { Image } from "@@";
+    import { Image } from "$libs";
 </script>
 
 {% for figure in job.out.outdir | glob: "*.png" %}

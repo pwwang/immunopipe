@@ -1,7 +1,7 @@
 {% from "utils/misc.liq" import report_jobs -%}
 
 <script>
-    import { Image, DataTable } from "@@";
+    import { Image, DataTable } from "$libs";
 </script>
 
 

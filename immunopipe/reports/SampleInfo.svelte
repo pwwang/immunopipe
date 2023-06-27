@@ -1,5 +1,5 @@
 <script>
-    import { DataTable } from "@@";
+    import { DataTable } from "$libs";
 </script>
 
 <h1>Sample Information</h1>
