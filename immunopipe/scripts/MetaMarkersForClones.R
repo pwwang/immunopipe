@@ -9,7 +9,7 @@ library(ggprism)
 library(tidyseurat)
 
 srtfile = {{in.srtobj | r}}
-cases = {{envs.cases | r}}
+cases = {{envs.cases | r: todot="-", sortkeys=False}}
 outdir = {{out.outdir | r}}
 ncores = {{envs.ncores | r}}
 
