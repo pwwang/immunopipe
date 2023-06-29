@@ -107,21 +107,20 @@ python-simpleconf = ">=0.6,<0.7"
 
 [[package]]
 name = "biopipen"
-version = "0.14.3"
+version = "0.15.0"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "biopipen-0.14.3-py3-none-any.whl", hash = "sha256:7964a83d7e295bd36fe9d2f8db3d61beb2e47a55248fee0b15fb437d846f6c81"},
-    {file = "biopipen-0.14.3.tar.gz", hash = "sha256:d9f17c69b9c1641a41002d57175183b37b1f4fc7acc45a96639178a39c815c45"},
+    {file = "biopipen-0.15.0-py3-none-any.whl", hash = "sha256:fa3fb92fe0833a8fd5f92a70b99fff78f7aff56d419740aac38a1ea73b85f6bc"},
+    {file = "biopipen-0.15.0.tar.gz", hash = "sha256:9adcfa21b6a4aecbc8e45d54ff180db1ed4f2f48640f626a67e7fc2cde868651"},
 ]
 
 [package.dependencies]
-cmdy = ">=0.5,<0.6"
 datar = {version = ">=0.12,<0.13", extras = ["pandas"]}
 pipen = ">=0.10,<0.11"
 pipen-args = ">=0.10,<0.11"
-pipen-board = ">=0.7.3,<0.8.0"
+pipen-board = ">=0.7.8,<0.8.0"
 pipen-cli-run = ">=0.9,<0.10"
 pipen-filters = ">=0.8,<0.9"
 pipen-report = ">=0.12,<0.13"
@@ -203,22 +202,6 @@ files = [
 colorama = {version = "*", markers = "platform_system == \"Windows\""}
 
 [[package]]
-name = "cmdy"
-version = "0.5.5"
-description = "Shell language to run command in python"
-optional = false
-python-versions = ">=3.7,<4.0"
-files = [
-    {file = "cmdy-0.5.5-py3-none-any.whl", hash = "sha256:358897b306d318e3dcd42e56afdc5bf63d276f37d42a98481237823e7fa66f67"},
-    {file = "cmdy-0.5.5.tar.gz", hash = "sha256:7057d814bca367513475ab004c3565f85259affd26a0e47db7cee436559f1258"},
-]
-
-[package.dependencies]
-curio = ">=1.6,<2.0"
-python-simpleconf = {version = ">=0.6,<0.7", extras = ["toml"]}
-varname = {version = ">=0.11,<0.12", markers = "python_version >= \"3.8\" and python_version < \"4.0\""}
-
-[[package]]
 name = "colorama"
 version = "0.4.6"
 description = "Cross-platform colored terminal text."
@@ -254,19 +237,6 @@ pygments = ">=2.7.1"
 pyyaml = ">=5.3.1"
 pyyaml-include = ">=1.2"
 questionary = ">=1.8.1"
-
-[[package]]
-name = "curio"
-version = "1.6"
-description = "Curio"
-optional = false
-python-versions = ">= 3.7"
-files = [
-    {file = "curio-1.6.tar.gz", hash = "sha256:562a586db20216ba7d2be8263deb9eb079e56048f9b8906d11d5f45aa81c5247"},
-]
-
-[package.extras]
-test = ["Sphinx", "pytest"]
 
 [[package]]
 name = "datar"
@@ -875,13 +845,13 @@ executing = ">1.1.0,<2.0"
 
 [[package]]
 name = "pipen"
-version = "0.10.5"
+version = "0.10.6"
 description = "A pipeline framework for python"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen-0.10.5-py3-none-any.whl", hash = "sha256:a1f7e7da847f0c562d316343b8dcdd915d1a7752ad21793bab7e12c403bc823a"},
-    {file = "pipen-0.10.5.tar.gz", hash = "sha256:02c3041d09180506615f8cbda140df85997188b2b89365127999bca69141e89a"},
+    {file = "pipen-0.10.6-py3-none-any.whl", hash = "sha256:d746eb788b91c504075f552e24ec4ba586cb1a8c5e8cdc518973ed9d3ead289a"},
+    {file = "pipen-0.10.6.tar.gz", hash = "sha256:da7ea52e4df5525885410cecbbfbb1e24c62cb055c6496f924e6dadd01a43912"},
 ]
 
 [package.dependencies]
@@ -925,13 +895,13 @@ pipen-annotate = ">=0.9.0,<0.10.0"
 
 [[package]]
 name = "pipen-board"
-version = "0.7.5"
+version = "0.7.8"
 description = "Visualization configuration and running of pipen pipelines on the web"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_board-0.7.5-py3-none-any.whl", hash = "sha256:b1d50524b71cc7d944f87e1db705f6cd4d11772dcd03265d3610f602f81807a0"},
-    {file = "pipen_board-0.7.5.tar.gz", hash = "sha256:15f4e4f5435f19639c9b7ba78272bf09c8015ba60494560315c88341870692cf"},
+    {file = "pipen_board-0.7.8-py3-none-any.whl", hash = "sha256:bf91fb58ac9298c881911aec6fdbbfd865ee8b0a369a8ade0e6f0bfeb27db232"},
+    {file = "pipen_board-0.7.8.tar.gz", hash = "sha256:f307f50aa7a770879dbef80f064f2d6de86d98ed2a897015fd57719e6a976b9e"},
 ]
 
 [package.dependencies]
@@ -1316,20 +1286,19 @@ files = [
 
 [[package]]
 name = "pyyaml-include"
-version = "1.3"
+version = "1.3.1"
 description = "Extending PyYAML with a custom constructor for including YAML files within YAML files"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.7"
 files = [
-    {file = "pyyaml-include-1.3.tar.gz", hash = "sha256:f7fbeb8e71b50be0e6e07472f7c79dbfb1a15bade9c93a078369ff49e57e6771"},
-    {file = "pyyaml_include-1.3-py3-none-any.whl", hash = "sha256:5142a0b0f93d9b1e5872d5a814f3681ffbc70638128ced1acfd9fb57da7825ca"},
+    {file = "pyyaml-include-1.3.1.tar.gz", hash = "sha256:4cb3b4e1baae2ec251808fe1e8aed5d3d20699c541864c8e47ed866ab2f15039"},
+    {file = "pyyaml_include-1.3.1-py3-none-any.whl", hash = "sha256:e58525721a2938d29c4046350f8aad86f848660a770c29605e6f2700925fa753"},
 ]
 
 [package.dependencies]
 PyYAML = ">=5.1,<7.0"
 
 [package.extras]
-all = ["toml"]
 toml = ["toml"]
 
 [[package]]
@@ -1510,13 +1479,13 @@ files = [
 
 [[package]]
 name = "typing-extensions"
-version = "4.6.3"
+version = "4.7.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "typing_extensions-4.6.3-py3-none-any.whl", hash = "sha256:88a4153d8505aabbb4e13aacb7c486c2b4a33ca3b3f807914a9b4c844c471c26"},
-    {file = "typing_extensions-4.6.3.tar.gz", hash = "sha256:d91d5919357fe7f681a9f2b5b4cb2a5f1ef0a1e9f59c4d8ff0d3491e05c0ffd5"},
+    {file = "typing_extensions-4.7.0-py3-none-any.whl", hash = "sha256:5d8c9dac95c27d20df12fb1d97b9793ab8b2af8a3a525e68c80e21060c161771"},
+    {file = "typing_extensions-4.7.0.tar.gz", hash = "sha256:935ccf31549830cda708b42289d44b6f74084d616a00be651601a4f968e77c82"},
 ]
 
 [[package]]
@@ -1677,4 +1646,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "1b361f1f03340b09745fb8ff80f4f9286c136d7937e2a3afa232e20e95325357"
+content-hash = "37f7638ddd2d269ed14c53f69e8f3a84871cd92a15d8b2857ce2f47890eb7e6b"
