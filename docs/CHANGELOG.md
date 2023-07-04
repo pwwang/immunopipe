@@ -1,3 +1,8 @@
+## 0.5.0
+
+- ⬆️ Upgrade biopipen to 0.15.0
+- 💚 Use better strategy docker image building
+
 ## 0.4.0
 
 - ⬆️ Bump biopipen to 0.6
