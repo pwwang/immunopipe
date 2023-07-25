@@ -25,7 +25,7 @@ dependencies:
   - r-future
   - r-tidyseurat
   - r-bracer
-  - r-immunarch=0.8.0
+  - r-immunarch=0.9.0
   - r-ggplot2
   - r-dplyr
   - r-tibble
@@ -34,6 +34,3 @@ dependencies:
   - r-ggvenndiagram
   - r-assertthat
   - r-enrichr
-  - pip
-  - pip:
-    - pydantic==1.10.6
