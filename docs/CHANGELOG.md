@@ -1,3 +1,9 @@
+## 0.5.1
+
+- ✨ Add `TopExpressingGenes`
+- 🎨 Move `RadarPlots` to `biopipen`
+- ⬆️ Bump biopipen to 0.15.2
+
 ## 0.5.0
 
 - ⬆️ Upgrade biopipen to 0.15.0
