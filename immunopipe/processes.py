@@ -27,6 +27,7 @@ from biopipen.ns.scrna import (
     CellTypeAnnotate as CellTypeAnnotate_,
     CellsDistribution,
     ScFGSEA,
+    TopExpressingGenes,
 )
 from biopipen.ns.scrna_metabolic_landscape import ScrnaMetabolicLandscape
 
@@ -93,6 +94,20 @@ class MarkersForClustersOfAllCells(MarkersFinder):
 
     If all your cells are T cells, the clustering will be performed on all
     T cells. `SeuratClusteringOfTCells` will be skipped.
+
+    {{*Summary.long}}
+    """
+    requires = SeuratClusteringOfAllCells
+    plugin_opts = {"report_order": 1}
+    order = 4
+
+
+@annotate.format_doc(indent=1)
+class TopExpressingGenesOfAllCells(TopExpressingGenes):
+    """Top expressing genes for clusters of all cells.
+
+    If all your cells are T cells, the clustering will be performed on all
+    T cells. `TopExpressingGenesOfTCells` will be skipped.
 
     {{*Summary.long}}
     """
