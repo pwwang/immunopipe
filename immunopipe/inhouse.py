@@ -44,33 +44,6 @@ class SelectTCells(Proc):
     order = 5
 
 
-class RadarPlots(Proc):
-    """Radar plots for cell proportion in different clusters
-
-    Envs:
-        cases (type=json): Cases with keys as case names
-            each case has arguments with keys:
-            * mutaters: Add new columns to the meta.data.
-            * by: Which column to use to separate the cells in different groups.
-            * order: The order of the values in `by`.
-            * breaks: breaks of the radar plots.
-            * direction: Direction to calculate the percentages.
-                inter-cluster: the percentage of the cells in all groups.
-                intra-cluster: the percentage of the cells in all clusters.
-            * prec_with_na: Whether the percentages are
-                calculated before or after filtering out the NAs.
-    """
-    input = "srtobj:file"
-    output = "outdir:dir:{{in.srtobj | stem}}.radar_plots"
-    lang = config.lang.rscript
-    script = "file://scripts/RadarPlots.R"
-    envs = {"cases": {}}
-    plugin_opts = {
-        "report": "file://reports/RadarPlots.svelte",
-        "report_toc": False,
-    }
-
-
 class CloneHeterogeneity(Proc):
     """Clone heterogeneity in each cluster
 

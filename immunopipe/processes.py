@@ -28,13 +28,13 @@ from biopipen.ns.scrna import (
     CellsDistribution,
     ScFGSEA,
     TopExpressingGenes,
+    RadarPlots,
 )
 from biopipen.ns.scrna_metabolic_landscape import ScrnaMetabolicLandscape
 
 # inhouse processes
 from .inhouse import (
     SelectTCells,
-    RadarPlots,
     CloneHeterogeneity,
     MetaMarkersForClones,
     MarkersOverlapping,
@@ -153,6 +153,18 @@ if "SelectTCells" in config or from_board:
 
     @annotate.format_doc(indent=2)
     class MarkersForClustersOfTCells(MarkersFinder):
+        """Find markers for clusters of T cells
+
+        This process will be skipped if all cells are T cells.
+
+        {{*Summary.long}}
+        """
+        requires = SeuratClusteringOfTCells
+        plugin_opts = {"report_order": 3}
+        order = 6
+
+    @annotate.format_doc(indent=2)
+    class TopExpressingGenesOfTCells(TopExpressingGenes):
         """Find markers for clusters of T cells
 
         This process will be skipped if all cells are T cells.
