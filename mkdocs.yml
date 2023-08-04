@@ -1,33 +1,61 @@
 site_name: immunopipe
+edit_uri: blob/dev/docs/
 repo_url: https://github.com/pwwang/immunopipe
 repo_name: pwwang/immunopipe
 theme:
-    name: 'material'
+    name: 'readthedocs'
 markdown_extensions:
     - markdown.extensions.admonition
     - pymdownx.superfences:
         preserve_tabs: true
     - toc:
         baselevel: 2
+        permalink: true
 plugins:
     - search # necessary for search to work
 extra_css:
     - style.css
 nav:
-    - 'Introduction': 'index.md'
-    - 'Input': 'input.md'
+    - 'Home': 'index.md'
+    - 'Introduction': 'introduction.md'
+    - 'Installation': 'installation.md'
+    - 'Running the pipeline': 'running.md'
+    - 'Preparing the input': 'preparing-input.md'
     - 'Configurations': 'configurations.md'
-    - 'Modules':
-      - 'Basic TCR analysis': 'basic-tcr.md'
-      - 'Clone residency analysis': 'clone-residency.md'
-      - 'V-J usage analysis': 'vj-usage.md'
-      - 'Clustering cells and separatining T cells': 'cluster-all-cells.md'
-      - 'Clustering T cells and markers for each cluster': 'cluster-t-cells.md'
-      - 'T-cell clustering statistics': 't-cell-clustering-stats.md'
-      - 'Radar plots': 'radar.md'
-      - 'Markers finder': 'markers-finder.md'
-      - 'TCR clustering': 'tcr-clustering.md'
-      - 'Gene set enrichment analysis': 'GSEA.md'
-      - 'Cell distribution': 'Cell-distribution.md'
-      - 'Metabolic landscape analysis': 'metabolic.md'
+    - 'Processes':
+      - 'SampleInfo': 'processes/SampleInfo.md'
+      - 'SeuratPreparing': 'processes/SeuratPreparing.md'
+      - 'SeuratClusteringOfAllCells': 'processes/SeuratClusteringOfAllCells.md'
+      - 'MarkersForClustersOfAllCells': 'processes/MarkersForClustersOfAllCells.md'
+      - 'TCellSelection': 'processes/TCellSelection.md'
+      - 'SeuratClusteringOfTCells': 'processes/SeuratClusteringOfTCells.md'
+      - 'CellTypeAnnotation': 'processes/CellTypeAnnotation.md'
+      - 'ImmunarchLoading': 'processes/ImmunarchLoading.md'
+      - 'ScFGSEA': 'processes/ScFGSEA.md'
+      - 'ScrnaMetabolicLandscape': 'processes/ScrnaMetabolicLandscape.md'
+      - 'SeuratClusterStats': 'processes/SeuratClusterStats.md'
+      - 'TCRClusters2Seurat': 'processes/TCRClusters2Seurat.md'
+      - 'CDR3AAPhyschem': 'processes/CDR3AAPhyschem.md'
+      - 'CellsDistribution': 'processes/CellsDistribution.md'
+      - 'CloneHeterogeneity': 'processes/CloneHeterogeneity.md'
+      - 'CloneResidency': 'processes/CloneResidency.md'
+      - 'Immunarch': 'processes/Immunarch.md'
+      - 'Immunarch2VDJtools': 'processes/Immunarch2VDJtools.md'
+      - 'MarkersFinder': 'processes/MarkersFinder.md'
+      - 'MarkersForClustersOfTCells': 'processes/MarkersForClustersOfTCells.md'
+      - 'MarkersOverlapping': 'processes/MarkersOverlapping.md'
+      - 'MetaMarkers': 'processes/MetaMarkers.md'
+      - 'MetabolicExprImpution': 'processes/MetabolicExprImpution.md'
+      - 'MetabolicFeatures': 'processes/MetabolicFeatures.md'
+      - 'MetabolicFeaturesIntraSubsets': 'processes/MetabolicFeaturesIntraSubsets.md'
+      - 'MetabolicLandscape': 'processes/MetabolicLandscape.md'
+      - 'MetabolicPathwayActivity': 'processes/MetabolicPathwayActivity.md'
+      - 'MetabolicPathwayHeterogeneity': 'processes/MetabolicPathwayHeterogeneity.md'
+      - 'RadarPlots': 'processes/RadarPlots.md'
+      - 'SeuratMetadataMutater': 'processes/SeuratMetadataMutater.md'
+      - 'TCRClustering': 'processes/TCRClustering.md'
+      - 'TCRClusteringStats': 'processes/TCRClusteringStats.md'
+      - 'TopExpressingGenesOfAllCells': 'processes/TopExpressingGenesOfAllCells.md'
+      - 'TopExpressingGenesOfTCells': 'processes/TopExpressingGenesOfTCells.md'
+      - 'VJUsage': 'processes/VJUsage.md'
     - 'Change log': 'CHANGELOG.md'

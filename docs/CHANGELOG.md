@@ -79,7 +79,7 @@
 ## 0.0.7
 
 - Add CloneHeterogeneity
-- Allow setting `indicator_gene` for `SelectTCells`
+- Allow setting `indicator_gene` for `TCellSelection`
 - Adopt latest datar and biopipen
 
 ## 0.0.6

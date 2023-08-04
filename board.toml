@@ -41,7 +41,7 @@ placeholder = "{{name}}.immunopipe.toml"
 [RUNNING_OPTIONS.SINGULARITY.value.tag]
 desc = "The tag of the docker image on dockerhub.\nYou can find the available tags at https://hub.docker.com/r/justold/immunopipe/tags"
 required = true
-value = "master"
+value = "dev"
 placeholder = "master"
 
 
@@ -70,5 +70,5 @@ placeholder = "{{name}}.immunopipe.toml"
 [RUNNING_OPTIONS.DOCKER.value.tag]
 desc = "The tag of the docker image on dockerhub.\nYou can find the available tags at https://hub.docker.com/r/justold/immunopipe/tags"
 required = true
-value = "master"
+value = "dev"
 placeholder = "master"

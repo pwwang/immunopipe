@@ -26,15 +26,15 @@
 <polyline fill="none" stroke="black" points="166,-204.5 154,-216.5 "/>
 <text text-anchor="middle" x="91" y="-137.8" font-family="Times,serif" font-size="14.00">MetabolicFeatures</text>
 </g>
-<!-- MetabolicExprImpute -->
+<!-- MetabolicExprImpution -->
 <g id="node2" class="node">
-<title>MetabolicExprImpute</title>
+<title>MetabolicExprImpution</title>
 <path fill="none" stroke="black" d="M628.5,-339C628.5,-339 479.5,-339 479.5,-339 473.5,-339 467.5,-333 467.5,-327 467.5,-327 467.5,-315 467.5,-315 467.5,-309 473.5,-303 479.5,-303 479.5,-303 628.5,-303 628.5,-303 634.5,-303 640.5,-309 640.5,-315 640.5,-315 640.5,-327 640.5,-327 640.5,-333 634.5,-339 628.5,-339"/>
-<text text-anchor="middle" x="554" y="-317.3" font-family="Times,serif" font-size="14.00">MetabolicExprImpute</text>
+<text text-anchor="middle" x="554" y="-317.3" font-family="Times,serif" font-size="14.00">MetabolicExprImpution</text>
 </g>
-<!-- MetabolicExprImpute&#45;&gt;MetabolicFeatures -->
+<!-- MetabolicExprImpution&#45;&gt;MetabolicFeatures -->
 <g id="edge2" class="edge">
-<title>MetabolicExprImpute&#45;&gt;MetabolicFeatures</title>
+<title>MetabolicExprImpution&#45;&gt;MetabolicFeatures</title>
 <path fill="none" stroke="black" d="M467.22,-315.99C370.77,-310.14 222.34,-296.55 175,-267 158.24,-256.53 144.04,-241.35 132.35,-225.17"/>
 <polygon fill="black" stroke="black" points="135.03,-222.88 126.47,-216.63 129.26,-226.85 135.03,-222.88"/>
 </g>
@@ -48,9 +48,9 @@
 <polyline fill="none" stroke="black" points="434.5,-255 422.5,-267 "/>
 <text text-anchor="middle" x="309" y="-137.8" font-family="Times,serif" font-size="14.00">MetabolicPathwayHeterogeneity</text>
 </g>
-<!-- MetabolicExprImpute&#45;&gt;MetabolicPathwayHeterogeneity -->
+<!-- MetabolicExprImpution&#45;&gt;MetabolicPathwayHeterogeneity -->
 <g id="edge3" class="edge">
-<title>MetabolicExprImpute&#45;&gt;MetabolicPathwayHeterogeneity</title>
+<title>MetabolicExprImpution&#45;&gt;MetabolicPathwayHeterogeneity</title>
 <path fill="none" stroke="black" d="M511.13,-302.89C490.1,-293.63 464.86,-281.18 444,-267 443.6,-266.73 443.21,-266.46 442.81,-266.19"/>
 <polygon fill="black" stroke="black" points="444.71,-263.24 434.51,-260.34 440.67,-268.96 444.71,-263.24"/>
 </g>
@@ -64,9 +64,9 @@
 <polyline fill="none" stroke="black" points="655.5,-231 643.5,-243 "/>
 <text text-anchor="middle" x="554" y="-137.8" font-family="Times,serif" font-size="14.00">MetabolicPathwayActivity</text>
 </g>
-<!-- MetabolicExprImpute&#45;&gt;MetabolicPathwayActivity -->
+<!-- MetabolicExprImpution&#45;&gt;MetabolicPathwayActivity -->
 <g id="edge4" class="edge">
-<title>MetabolicExprImpute&#45;&gt;MetabolicPathwayActivity</title>
+<title>MetabolicExprImpution&#45;&gt;MetabolicPathwayActivity</title>
 <path fill="none" stroke="black" d="M554,-302.98C554,-290.64 554,-272.78 554,-253.41"/>
 <polygon fill="black" stroke="black" points="557.5,-253.16 554,-243.16 550.5,-253.16 557.5,-253.16"/>
 </g>
@@ -80,9 +80,9 @@
 <polyline fill="none" stroke="black" points="908.5,-247 896.5,-259 "/>
 <text text-anchor="middle" x="791" y="-137.8" font-family="Times,serif" font-size="14.00">MetabolicFeaturesIntraSubset</text>
 </g>
-<!-- MetabolicExprImpute&#45;&gt;MetabolicFeaturesIntraSubset -->
+<!-- MetabolicExprImpution&#45;&gt;MetabolicFeaturesIntraSubset -->
 <g id="edge1" class="edge">
-<title>MetabolicExprImpute&#45;&gt;MetabolicFeaturesIntraSubset</title>
+<title>MetabolicExprImpution&#45;&gt;MetabolicFeaturesIntraSubset</title>
 <path fill="none" stroke="black" d="M598.29,-302.91C619.4,-293.77 644.47,-281.42 665,-267 665.91,-266.36 666.82,-265.71 667.73,-265.06"/>
 <polygon fill="black" stroke="black" points="669.96,-267.77 675.91,-259 665.79,-262.14 669.96,-267.77"/>
 </g>
@@ -92,9 +92,9 @@
 <path fill="none" stroke="black" d="M749.5,-470.5C749.5,-470.5 648.5,-470.5 648.5,-470.5 642.5,-470.5 636.5,-464.5 636.5,-458.5 636.5,-458.5 636.5,-446.5 636.5,-446.5 636.5,-440.5 642.5,-434.5 648.5,-434.5 648.5,-434.5 749.5,-434.5 749.5,-434.5 755.5,-434.5 761.5,-440.5 761.5,-446.5 761.5,-446.5 761.5,-458.5 761.5,-458.5 761.5,-464.5 755.5,-470.5 749.5,-470.5"/>
 <text text-anchor="middle" x="699" y="-448.8" font-family="Times,serif" font-size="14.00">MetabolicInput</text>
 </g>
-<!-- MetabolicInput&#45;&gt;MetabolicExprImpute -->
+<!-- MetabolicInput&#45;&gt;MetabolicExprImpution -->
 <g id="edge5" class="edge">
-<title>MetabolicInput&#45;&gt;MetabolicExprImpute</title>
+<title>MetabolicInput&#45;&gt;MetabolicExprImpution</title>
 <path fill="none" stroke="black" d="M679.75,-434.3C654.4,-411.66 609.69,-371.74 580.98,-346.09"/>
 <polygon fill="black" stroke="black" points="583.12,-343.32 573.33,-339.27 578.46,-348.54 583.12,-343.32"/>
 </g>
@@ -188,15 +188,15 @@
 <path fill="none" stroke="black" d="M1014.39,-1274.71C1008.31,-1245.62 995.99,-1186.68 988.73,-1151.91"/>
 <polygon fill="black" stroke="black" points="992.12,-1151.02 986.65,-1141.95 985.27,-1152.46 992.12,-1151.02"/>
 </g>
-<!-- SelectTCells -->
+<!-- TCellSelection -->
 <g id="node21" class="node">
-<title>SelectTCells</title>
+<title>TCellSelection</title>
 <path fill="none" stroke="black" d="M1294.5,-1141.5C1294.5,-1141.5 1213.5,-1141.5 1213.5,-1141.5 1207.5,-1141.5 1201.5,-1135.5 1201.5,-1129.5 1201.5,-1129.5 1201.5,-1117.5 1201.5,-1117.5 1201.5,-1111.5 1207.5,-1105.5 1213.5,-1105.5 1213.5,-1105.5 1294.5,-1105.5 1294.5,-1105.5 1300.5,-1105.5 1306.5,-1111.5 1306.5,-1117.5 1306.5,-1117.5 1306.5,-1129.5 1306.5,-1129.5 1306.5,-1135.5 1300.5,-1141.5 1294.5,-1141.5"/>
-<text text-anchor="middle" x="1254" y="-1119.8" font-family="Times,serif" font-size="14.00">SelectTCells</text>
+<text text-anchor="middle" x="1254" y="-1119.8" font-family="Times,serif" font-size="14.00">TCellSelection</text>
 </g>
-<!-- ImmunarchLoading&#45;&gt;SelectTCells -->
+<!-- ImmunarchLoading&#45;&gt;TCellSelection -->
 <g id="edge24" class="edge">
-<title>ImmunarchLoading&#45;&gt;SelectTCells</title>
+<title>ImmunarchLoading&#45;&gt;TCellSelection</title>
 <path fill="none" stroke="black" d="M1095.67,-1281.7C1128.21,-1274.21 1164.73,-1261.28 1192,-1239 1219.97,-1216.14 1237.18,-1177.21 1246.16,-1151.18"/>
 <polygon fill="black" stroke="black" points="1249.53,-1152.15 1249.31,-1141.56 1242.87,-1149.97 1249.53,-1152.15"/>
 </g>
@@ -332,15 +332,15 @@
 <path fill="none" stroke="black" d="M1274.55,-1274.77C1286.71,-1264.5 1302.34,-1251.13 1316,-1239 1316.26,-1238.77 1316.51,-1238.54 1316.77,-1238.31"/>
 <polygon fill="black" stroke="black" points="1319.16,-1240.87 1324.29,-1231.6 1314.5,-1235.65 1319.16,-1240.87"/>
 </g>
-<!-- SeuratClusteringOfAllCells&#45;&gt;SelectTCells -->
+<!-- SeuratClusteringOfAllCells&#45;&gt;TCellSelection -->
 <g id="edge17" class="edge">
-<title>SeuratClusteringOfAllCells&#45;&gt;SelectTCells</title>
+<title>SeuratClusteringOfAllCells&#45;&gt;TCellSelection</title>
 <path fill="none" stroke="black" d="M1254,-1274.71C1254,-1245.74 1254,-1187.19 1254,-1152.36"/>
 <polygon fill="black" stroke="black" points="1257.5,-1151.95 1254,-1141.95 1250.5,-1151.95 1257.5,-1151.95"/>
 </g>
-<!-- SelectTCells&#45;&gt;SeuratClusteringOfTCells -->
+<!-- TCellSelection&#45;&gt;SeuratClusteringOfTCells -->
 <g id="edge6" class="edge">
-<title>SelectTCells&#45;&gt;SeuratClusteringOfTCells</title>
+<title>TCellSelection&#45;&gt;SeuratClusteringOfTCells</title>
 <path fill="none" stroke="black" d="M1252.01,-1105.48C1248.18,-1072.78 1239.77,-1000.91 1235.17,-961.56"/>
 <polygon fill="black" stroke="black" points="1238.64,-961.14 1234,-951.61 1231.69,-961.95 1238.64,-961.14"/>
 </g>

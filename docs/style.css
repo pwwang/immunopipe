@@ -1,4 +1,29 @@
+.rst-content div[class^=highlight] pre {
+    padding: 0 !important;
+}
 
+div.wy-side-scroll div.wy-side-nav-search {
+    position: fixed;
+}
+
+div.wy-side-scroll div.wy-menu.wy-menu-vertical {
+    margin-top: 7rem;
+    margin-bottom: 1rem;
+}
+
+div.wy-side-scroll p.caption + ul > li > a::before {
+    content: "▪";
+    padding-right: 0.5rem;
+}
+div.wy-side-scroll p.caption + ul > li > a.current {
+    padding-left: 2.375rem;
+}
+div.wy-side-scroll p.caption + ul > li > a.current::before {
+    display: none;
+}
+div.document ul {
+    margin-top: 2px !important;
+}
 
 .md-typeset .admonition, .md-typeset details {
     font-size: .7rem !important;

@@ -95,7 +95,7 @@ node_modules/
 _book/
 .vscode
 export/
-*.svg
+# *.svg
 *.dot
 *.queue.txt
 site/

@@ -24,7 +24,7 @@ from biopipen.ns.scrna import (
     SeuratClusterStats,
     SeuratMetadataMutater as SeuratMetadataMutater_,
     MarkersFinder,
-    CellTypeAnnotate as CellTypeAnnotate_,
+    CellTypeAnnotation as CellTypeAnnotation_,
     CellsDistribution,
     ScFGSEA,
     TopExpressingGenes,
@@ -34,9 +34,9 @@ from biopipen.ns.scrna_metabolic_landscape import ScrnaMetabolicLandscape
 
 # inhouse processes
 from .inhouse import (
-    SelectTCells,
+    TCellSelection,
     CloneHeterogeneity,
-    MetaMarkersForClones,
+    MetaMarkers,
     MarkersOverlapping,
 )
 
@@ -55,10 +55,10 @@ class SampleInfo(File2Proc):
         infile (required): {{Input.infile.help | indent: 12}}.
             The input file should have the following columns.
             * Sample: A unique id for each sample.
-            * TCRDir: The directory for single-cell TCR data for this sample.
+            * TCRData: The directory for single-cell TCR data for this sample.
                 Specifically, it should contain filtered_contig_annotations.csv
                 or all_contig_annotations.csv from cellranger.
-            * RNADir: The directory for single-cell RNA data for this sample.
+            * RNAData: The directory for single-cell RNA data for this sample.
                 Specifically, it should be able to be read by
                 `Seurat::Read10X()`.
                 See also https://satijalab.org/seurat/reference/read10x.
@@ -136,20 +136,20 @@ class VJUsage(VJUsage):
 # Start processes
 STARTS = [SampleInfo]
 
-if "SelectTCells" in config or from_board:
-    class SelectTCells(SelectTCells):
+if "TCellSelection" in config or from_board:
+    class TCellSelection(TCellSelection):
         requires = [SeuratClusteringOfAllCells, ImmunarchLoading]
 
     @annotate.format_doc(indent=2)
     class SeuratClusteringOfTCells(SeuratClustering):
-        """Cluster the T cells selected by `SelectTCells`.
+        """Cluster the T cells selected by `TCellSelection`.
 
-        If nothing is set for `SelectTCells` in the config file, meaning
+        If nothing is set for `TCellSelection` in the config file, meaning
         all cells are T cells, this process will be skipped.
 
         {{*Summary.long}}
         """
-        requires = SelectTCells
+        requires = TCellSelection
 
     @annotate.format_doc(indent=2)
     class MarkersForClustersOfTCells(MarkersFinder):
@@ -179,7 +179,7 @@ else:
     SeuratClusteringOfTCells = SeuratClusteringOfAllCells
 
 
-class CellTypeAnnotate(CellTypeAnnotate_):
+class CellTypeAnnotation(CellTypeAnnotation_):
     requires = SeuratClusteringOfTCells
     # Change the default to direct, which doesn't do any annotation
     envs = {"tool": "direct"}
@@ -192,7 +192,7 @@ class SeuratMetadataMutater(SeuratMetadataMutater_):
 
     {{*Summary.long}}
     """
-    requires = CellTypeAnnotate, ImmunarchLoading
+    requires = CellTypeAnnotation, ImmunarchLoading
     input_data = lambda ch1, ch2: tibble(
         srtobj=ch1.outfile, metafile=ch2.metatxt
     )
@@ -221,7 +221,7 @@ if (
 
     @mark(board_config_hidden=True)
     @annotate.format_doc(indent=2)
-    class AttachTCRClusters2Seurat(SeuratMetadataMutater_):
+    class TCRClusters2Seurat(SeuratMetadataMutater_):
         """Attach TCR clusters as meta columns to Seurat object
 
         {{*Summary.long}}
@@ -238,7 +238,7 @@ if (
 if "CellsDistribution" in config or from_board:
     class CellsDistribution(CellsDistribution):
         requires = (
-            AttachTCRClusters2Seurat
+            TCRClusters2Seurat
             if "TCRClustering" in config or "TCRClusteringStats" in config
             else SeuratMetadataMutater
         )
@@ -266,18 +266,18 @@ if "ScFGSEA" in config or from_board:
         requires = SeuratMetadataMutater
 
 
-if "MarkersFinderForClones" in config or from_board:
-    class MarkersFinderForClones(MarkersFinder):
+if "MarkersFinder" in config or from_board:
+    class MarkersFinder(MarkersFinder):
         requires = SeuratMetadataMutater
 
 
 if "MarkersOverlapping" in config or from_board:
     class MarkersOverlapping(MarkersOverlapping):
-        requires = MarkersFinderForClones
+        requires = MarkersFinder
 
 
-if "MetaMarkersForClones" in config or from_board:
-    class MetaMarkersForClones(MetaMarkersForClones):
+if "MetaMarkers" in config or from_board:
+    class MetaMarkers(MetaMarkers):
         requires = SeuratMetadataMutater
 
 

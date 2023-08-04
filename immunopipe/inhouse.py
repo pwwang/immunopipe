@@ -3,11 +3,11 @@ from biopipen.core.proc import Proc
 from biopipen.core.config import config
 
 
-class SelectTCells(Proc):
+class TCellSelection(Proc):
     """Separate T and non-T cells and select T cells
 
     If all of your cells are T cells, you can skip this process by removing
-    the whole section `[SelectTCells]` from the configuration file.
+    the whole section `[TCellSelection]` from the configuration file.
 
     In such a case, `SeuratClusteringOfAllCells` will be clustering all
     T cells and `SeuratClusteringOfTCells` is skipped.
@@ -35,9 +35,9 @@ class SelectTCells(Proc):
         "indicator_genes": "CD3E",
     }
     lang = config.lang.rscript
-    script = "file://scripts/SelectTCells.R"
+    script = "file://scripts/TCellSelection.R"
     plugin_opts = {
-        "report": "file://reports/SelectTCells.svelte",
+        "report": "file://reports/TCellSelection.svelte",
         # "report_toc": False,
         "report_order": 2,
     }
@@ -66,7 +66,7 @@ class CloneHeterogeneity(Proc):
     order = 11
 
 
-class MetaMarkersForClones(Proc):
+class MetaMarkers(Proc):
     """Meta markers for different groups
 
     Envs:
@@ -83,8 +83,8 @@ class MetaMarkersForClones(Proc):
         "ncores": 1,
         "cases": {},
     }
-    script = "file://scripts/MetaMarkersForClones.R"
-    plugin_opts = {"report": "file://reports/MetaMarkersForClones.svelte"}
+    script = "file://scripts/MetaMarkers.R"
+    plugin_opts = {"report": "file://reports/MetaMarkers.svelte"}
     order = 10
 
 
