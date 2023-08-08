@@ -15,7 +15,7 @@ The scTCR-seq data should be paired with the scRNA-seq data. For each sample, yo
 
 ## Metadata
 
-A metadata file is required for the pipeline. It should be a `TAB` delimited file with 3 required columns:
+A metadata file is required as an input file for the pipeline. It should be a `TAB` delimited file with 3 required columns:
 
 - `Sample`: A unique id for each sample
 - `RNAData`: The directory or `h5` file for single-cell RNA data for this sample, as described above.
@@ -27,6 +27,8 @@ You can also add other columns to the metadata file. The columns will be added t
 - meta data of the seurat object loaded by `Seurat::Read10X()` or `Seurat::Read10X_h5()` (i.e. `srtobj@meta.data`)
 
 This file should be provided to `SampleInfo` process. See [`SampleInfo`](./processes/SampleInfo.md) for more details.
+
+An example metadata file can be found [here](https://github.com/pwwang/immunopipe-example/blob/master/data/sample.txt).
 
 ## Other optional files
 

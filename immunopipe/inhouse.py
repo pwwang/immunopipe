@@ -32,7 +32,7 @@ class TCellSelection(Proc):
     output = "rdsfile:file:{{in.srtobj | stem}}.RDS, outdir:dir:details"
     envs = {
         "tcell_indicator": None,
-        "indicator_genes": "CD3E",
+        "indicator_genes": ["CD3E"],
     }
     lang = config.lang.rscript
     script = "file://scripts/TCellSelection.R"

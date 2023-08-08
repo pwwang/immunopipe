@@ -27,7 +27,7 @@ indicator_genes = ["CD3D", "CD3E", "CD3G"]
 !!! tip
     In the individual process pages, we will list the `envs` of the process. For example,
 
-    - `indicator_genes`: The genes to be used to select T cells.
+    - `indicator_genes (list)`: The genes to be used to select T cells.
 
     This means that the environment variable `indicator_genes` should be set as follows:
 
@@ -49,6 +49,7 @@ You can check all avaiable configuration items and more details [here](https://p
   - It will change the working directory to `./.pipen/<name>`, where the pipeline information and intermediate files will be stored.
   - It will also change the default output directory to `./<name>-output`.
 - `outdir`: The output directory (Default: `"./<name>-output"`)
+    - See also [`Output directory and working directory`](#output-directory-and-working-directory).
 - `loglevel`: The logging level for the logger (Default: `"info"`)
 - `plugin_opts`: The options for the plugins.
     - Following `pipen` plugins are installed with `immunopipe`. You may check the links for more details.
@@ -63,6 +64,42 @@ You can check all avaiable configuration items and more details [here](https://p
     - [`pipen-cli-run`][9]: Running pipen processes/process groups from command line.
 - `scheduler_opts`: The options for the scheduler.
     - `immunopipe` is implemented using `pipen`, which is backended by [`xqute`][10]. Supported schedulers and options are listed [here](https://github.com/pwwang/xqute).
+
+### Output and working directory
+
+The output directory is the directory where the final results are stored. The working directory is the directory where the pipeline information and intermediate files are stored. By default, the output directory is `./<name>-output` and the working directory is `./.pipen/<name>`.
+
+You can change the output directory by setting `outdir` or `name` in the configuration file. For example, if you want to change the output directory to `./output`, you can set the configurations as follows:
+
+```toml
+outdir = "./output"
+```
+
+If you change the pipeline name:
+
+```toml
+name = "my-pipeline"
+```
+
+Then the output directory will be changed to `./my-pipeline-output`.
+
+!!! note
+
+    If both `outdir` and `name` are set, `outdir` will be used.
+
+You can do the similar thing to change the working directory. However, you are not recommended to change the working directory, especially if you are using [`pipen-board`][1]. This is because that the plugin scans `./.pipen/<name>` to get the information for the previous run. If you change the working directory, the plugin will not be able to find the information for the previous run.
+
+!!! tip
+    What if you want to change the working directory anyway? The recommended way is to create a symbolic link to the working directory. For example, if you want to change the working directory to `/path/to/the/real/working/directory`, you can do:
+
+    ```bash
+    ln -s /path/to/the/real/working/directory ./.pipen
+    ```
+
+!!! tip
+    You can also then debug the pipeline by inspecting the real scripts in the working directory that run for the jobs of each process at `./.pipen/<name>/<process-name>/<job-index>/job.script`.
+
+    You can also find the other information for the jobs at `./.pipen/<name>/<process-name>/<job-index>/`, including the stdout (`job.stdout`) and stderr (`job.stderr`) of the jobs, the exit code of the jobs (`job.rc`), etc.
 
 ### Process level configurations
 
@@ -91,7 +128,6 @@ By default, only a subset of processes are enabled. These processes include:
 - [`CellTypeAnnotation`](processes/CellTypeAnnotation.md)
 - [`SeuratMetadataMutater`](processes/SeuratMetadataMutater.md)
 - [`SeuratClusterStats`](processes/SeuratClusterStats.md)
-- [`CloneResidency`](processes/CloneResidency.md)
 - [`Immunarch`](processes/Immunarch.md)
 - [`Immunarch2VDJtools`](processes/Immunarch2VDJtools.md)
 - [`VJUsage`](processes/VJUsage.md)
@@ -108,6 +144,44 @@ If [`TCellSelection`](processes/TCellSelection.md) is enabled, then [`SeuratClus
 Similarly, if [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusteringStats`](processes/TCRClusteringStats.md) is enabled, then [`TCRClustering`](processes/TCRClustering.md), [`TCRClusters2Seurat`](processes/TCRClusters2Seurat.md), and [`TCRClusteringStats`](processes/TCRClusteringStats.md) will be enabled automatically.
 
 For other processes, make sure you have them configured to enable them.
+
+## Minimal configurations
+
+The minimal configurations are just the configurations with the input file:
+
+```toml
+[SampleInfo.in]
+infile = [ "samples.txt" ]
+```
+
+The input file is the metadata file mentioned in [`Preparing the input`](./preparing-input.md#metadata).
+
+With the minimal configurations, the pipeline will have [the default processes](#enablingdisabling-processes) enabled.
+
+You can also check the example report [here](https://pwwang.github.io/immunopipe-example/minimal/REPORTS/) to see what you will get with the minimal configurations.
+
+## Environment variable types
+
+The types of environment variables are annotated in the brackets next the name of the environment variables. For example, the type of `envs.indicator_genes` of [`TCellSelection`](processes/TCellSelection.md) is `list`, and it's annotated as:
+
+```
+- indicator_genes (list): The genes to be used to select T cells.
+```
+
+By default, the type of environment variables is `string`. The annotated types are helpful for the environment variables to be passed from the command line. It defines the argument and helps parse the argument from the command line. It is also useful to define the input elements from the [`pipen-board`][1] web interface and parse the values passed from the web interface as desired types.
+
+The following types are supported:
+
+- `string`: The default type, the values will be used as strings.
+- `int`: The values will be parsed as integers.
+- `float`: The values will be parsed as floats.
+- `flag`: The values will be parsed as boolean values.
+- `list`/`array`: The values will be parsed as lists.
+    - You can also see the `itype` of some environment variables, that specifies the type of the elements in the list. It must be atomatic types, such as `int`, `float`, `string`, and `flag`.
+- `json`: The values will be reciived as JSON strings and parsed as dictionaries (in python).
+- `choice`/`choices`: The value should be chosen from one of the choices listed as sub-items.
+- `mchoice`/`mchoices`: The value should be chosen from one or more of the choices listed as sub-items.
+- `ns`/`namespace`: There are sub-items for the value. The sub-items will be parsed as key-value pairs.
 
 ## Understanding the data
 

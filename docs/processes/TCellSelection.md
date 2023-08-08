@@ -65,4 +65,4 @@ Then a kmeans clustering will be performed on the mean expression values of the 
 
 ![kmeans](images/TCellSelection-kmeans.png)
 
-The cells within clusters that are marked by `is_TCell = TRUE` will be selected as T cells, and sent to [`SeuratClusteringOfTCells`](SeuratClusteringOfTCells.md) for further clustering and downstream analysis.
+The cluster with higher clonoype percentage will be selected as T cells (`is_TCell = TRUE`), and sent to [`SeuratClusteringOfTCells`](SeuratClusteringOfTCells.md) for further clustering and downstream analysis.

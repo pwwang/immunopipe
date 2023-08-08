@@ -1,6 +1,24 @@
 .rst-content div[class^=highlight] pre {
     padding: 0 !important;
 }
+.rst-content table.docutils td,
+.rst-content table.docutils th,
+.rst-content table.field-list td,
+.rst-content table.field-list th,
+.wy-table td,
+.wy-table th {
+    padding: 4px 12px;
+}
+.rst-content table.docutils tbody tr:nth-child(odd),
+.rst-content table.field-list tbody tr:nth-child(odd),
+.rst-content .wy-table tbody tr:nth-child(odd) {
+    background-color: #f8f8f8;
+}
+.admonition table.docutils tbody tr:nth-child(odd),
+.admonition table.field-list tbody tr:nth-child(odd),
+.admonition .wy-table tbody tr:nth-child(odd) {
+    background-color: #f0f8ff !important;
+}
 
 div.wy-side-scroll div.wy-side-nav-search {
     position: fixed;
