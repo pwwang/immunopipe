@@ -12,6 +12,7 @@ dependencies:
   - python=3.9
   - biopython=1.78  # for GIANA
   - scikit-learn=1.2  # for GIANA
+  - faiss-cpu  # for GIANA
   - openjdk=8  # vdjtools
   - git  # for copier, used by pipen-report
   - time  # for pipen-runinfo
