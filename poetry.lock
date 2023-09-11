@@ -2,13 +2,13 @@
 
 [[package]]
 name = "aiofile"
-version = "3.8.7"
+version = "3.8.8"
 description = "Asynchronous file operations."
 optional = false
 python-versions = ">=3.7, <4"
 files = [
-    {file = "aiofile-3.8.7-py3-none-any.whl", hash = "sha256:4c38991b1227e221296fa05bbc95bffba9c203fef1ce09ad3076cfe7b61842c7"},
-    {file = "aiofile-3.8.7.tar.gz", hash = "sha256:a8f9dec17282b3583337c4ef2d1a67f33072ab80dd03608041ed9e71b88dc521"},
+    {file = "aiofile-3.8.8-py3-none-any.whl", hash = "sha256:41e8845cce055779cd77713d949a339deb012eab605b857765e8f8e52a5ed811"},
+    {file = "aiofile-3.8.8.tar.gz", hash = "sha256:41f3dc40bd730459d58610476e82e5efb2f84ae6e9fa088a9545385d838b8a43"},
 ]
 
 [package.dependencies]
@@ -19,13 +19,13 @@ develop = ["aiomisc-pytest", "coveralls", "pytest", "pytest-cov", "pytest-rst"]
 
 [[package]]
 name = "aiofiles"
-version = "23.1.0"
+version = "23.2.1"
 description = "File support for asyncio."
 optional = false
-python-versions = ">=3.7,<4.0"
+python-versions = ">=3.7"
 files = [
-    {file = "aiofiles-23.1.0-py3-none-any.whl", hash = "sha256:9312414ae06472eb6f1d163f555e466a23aed1c8f60c30cccf7121dba2e53eb2"},
-    {file = "aiofiles-23.1.0.tar.gz", hash = "sha256:edd247df9a19e0db16534d4baaf536d6609a43e1de5401d7a4c1c148753a1635"},
+    {file = "aiofiles-23.2.1-py3-none-any.whl", hash = "sha256:19297512c647d4b27a2cf7c34caa7e405c0d60b5560618a29a9fe027b18b0107"},
+    {file = "aiofiles-23.2.1.tar.gz", hash = "sha256:84ec2218d8419404abcb9f0c02df3f34c6e0a68ed41072acfb1cef5cbc29051a"},
 ]
 
 [[package]]
@@ -107,23 +107,25 @@ python-simpleconf = ">=0.6,<0.7"
 
 [[package]]
 name = "biopipen"
-version = "0.15.2"
+version = "0.16.2"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "biopipen-0.15.2-py3-none-any.whl", hash = "sha256:44e09a1316133804956ff5ba42a9f3fa2a437553230244d5c13fc58517a3ffd1"},
-    {file = "biopipen-0.15.2.tar.gz", hash = "sha256:7de4bd37e1988fa2a306433d1cadfcb83f5b82ed1263fd53b3abf26a3a45cf7f"},
+    {file = "biopipen-0.16.2-py3-none-any.whl", hash = "sha256:84f6acb24717701f5e3f3c0507afc49cd707ee6626c6b08f58886b6388891580"},
+    {file = "biopipen-0.16.2.tar.gz", hash = "sha256:bfdd5adbee373fb87a5f4fa125e64194c9512e03ee488900b76402e5e716aae9"},
 ]
 
 [package.dependencies]
-datar = {version = ">=0.12,<0.13", extras = ["pandas"]}
+datar = {version = ">=0.13,<0.14", extras = ["pandas"]}
 pipen = ">=0.10,<0.11"
-pipen-board = {version = ">=0.9.1,<0.10.0", extras = ["report"]}
+pipen-board = {version = ">=0.11,<0.12", extras = ["report"]}
 pipen-cli-run = ">=0.9,<0.10"
 pipen-filters = ">=0.8,<0.9"
-pipen-runinfo = ">=0.2,<0.3"
 pipen-verbose = ">=0.7,<0.8"
+
+[package.extras]
+runinfo = ["pipen-runinfo (>=0.2,<0.3)"]
 
 [[package]]
 name = "blessed"
@@ -154,32 +156,27 @@ files = [
 
 [[package]]
 name = "caio"
-version = "0.9.12"
+version = "0.9.13"
 description = "Asynchronous file IO for Linux MacOS or Windows."
 optional = false
 python-versions = ">=3.7, <4"
 files = [
-    {file = "caio-0.9.12-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:df395e7e1c2025b3f32dbeff20a8b6491959fac8fbd5a9c2d452bf1f5c0ca2bf"},
-    {file = "caio-0.9.12-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:acd31b7828c6683bc46e467a32359f08c686d4c25a7e645c029a07c36685fea7"},
-    {file = "caio-0.9.12-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c0b7ffb561ca5c24e7f080aaa73ebb143ae659bd69645a748b332762c389349f"},
-    {file = "caio-0.9.12-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:6285d772ae3a55e758b1bd3bc34f095757e4af45dcc30a183becf9bbdead8ced"},
-    {file = "caio-0.9.12-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:18df0caecfaa90ab9ac84ff71975fcf2342554b6f65ef69049337204b8b5af42"},
-    {file = "caio-0.9.12-cp311-cp311-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7e569b83e9b41d12e094190d0e1a546610829a65609f429a1845e3250d4c5804"},
-    {file = "caio-0.9.12-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:7833f81f58e76a3585ff59813e63fa278731c8d26fefe52ae12e783d38c8faea"},
-    {file = "caio-0.9.12-cp37-cp37m-macosx_10_15_x86_64.whl", hash = "sha256:aa1dab77aca0b2672b9a364f14a03e764c5d811c0ae1395f661a2b8f6723f958"},
-    {file = "caio-0.9.12-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:f366c595eda130a184f372d458d647b0ac879a46e872757648d4e29b6cea12ad"},
-    {file = "caio-0.9.12-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2759fe1957d0effb3bc38b3508b20fa37610bff9005f3926f570e6c06e901567"},
-    {file = "caio-0.9.12-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:9e65060717e27c702cd76a90be33250cae46be32a3009781ce382c8675fa7551"},
-    {file = "caio-0.9.12-cp38-cp38-macosx_10_15_x86_64.whl", hash = "sha256:a8204c6a7ea3c96057abba3da1690190b3cae0c3f03d81e9b5e3c99978b5bb6e"},
-    {file = "caio-0.9.12-cp38-cp38-macosx_11_0_universal2.whl", hash = "sha256:820bb3ef23ce0d4096f822a8fea97ff2c239dd0351fa588801d2de627df9ab98"},
-    {file = "caio-0.9.12-cp38-cp38-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:aa9a27973a03c777934decd577be577a61a188bee72272b3dc37a7cbc5eedf91"},
-    {file = "caio-0.9.12-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3d6b424644ac37ce84f9dd99757d29e7cff01018d3b31f8ec0a38f2d5216165c"},
-    {file = "caio-0.9.12-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:15192a28e054cd591489af82f4b1093f15338eb201a2399a337461ff0bbd9fc9"},
-    {file = "caio-0.9.12-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:55317d2c90479a58108cfbd6816b85e584e61c48b42269c55f69cf4443857068"},
-    {file = "caio-0.9.12-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b18318d04cad7ef985fc2fb86d43f866ba34c1ee3445385f2370d6f843c05c69"},
-    {file = "caio-0.9.12-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:73c20d8fc7dfb140b7d57e69e6f17e1637d2ac4a9ebe0f5f8c94b56f87c5c087"},
-    {file = "caio-0.9.12-py3-none-any.whl", hash = "sha256:b81b3271478e91f18e7ac1f3e4f914ba0924364857ba8e27f03b9d0aea915ca8"},
-    {file = "caio-0.9.12.tar.gz", hash = "sha256:d2be553738dd793f8a01a60316f2c5284fbf152219241c0c67ca05f650a37a37"},
+    {file = "caio-0.9.13-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:a921c0514ea2bb161d9d9c4940d409a2431cc6bab89abbf20fb16fdc6964f650"},
+    {file = "caio-0.9.13-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:0a04bcac15b0c18057ec57dd9666c4d5c1058958a8db5191b46a1e54931c4a6e"},
+    {file = "caio-0.9.13-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:18307046421f4a8cac85c3d84aa941ab283fbbf0e57f0e5f81a306a057668f43"},
+    {file = "caio-0.9.13-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:789f8b55f4a2b46be14361df3ac8d14b6c8f0a3730badd70cb1b7778fcdc7039"},
+    {file = "caio-0.9.13-cp311-cp311-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a914684bad2a757cf013ae88d785d81659a3add1885bad60cd20bfbd3068bd5a"},
+    {file = "caio-0.9.13-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:a6577cec932011db441a87bb35051a0ae8c6f970ea1af165cef3106746ae9a52"},
+    {file = "caio-0.9.13-cp37-cp37m-macosx_11_0_x86_64.whl", hash = "sha256:e13c1b882f1c16bc15441d4cfe3e7e6b58b66cb5cf07a0ce46103ff9d0c1d16b"},
+    {file = "caio-0.9.13-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:114d6c158dc592849532fd0992cbfb85430f4f6e48323a3990c39e4741f81a25"},
+    {file = "caio-0.9.13-cp38-cp38-macosx_11_0_universal2.whl", hash = "sha256:9c5f115c6b5e032f00f35d5da69f27322272b1cb8d51a21da1c2444bd1926beb"},
+    {file = "caio-0.9.13-cp38-cp38-macosx_11_0_x86_64.whl", hash = "sha256:48f2c32f67923c728f4b79e03e4a0fc8dc175aa079a1e301773ab7d6baaa571f"},
+    {file = "caio-0.9.13-cp38-cp38-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9b7b6eafa11a446dced3cd10342140e618acb548b513aaf3a1fa4c86451d3856"},
+    {file = "caio-0.9.13-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:b1e4252b783ad25f15eeff6e412f7e9ec9409e7b4a81fd2893dc1ce1819385ff"},
+    {file = "caio-0.9.13-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:a07c9933543d18f98525f34a786700134403f13050a5bd22a642629e2ab410d4"},
+    {file = "caio-0.9.13-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a090ab82f21b310b56fa6afe04b3be92a0d1577a2e57127b61426c9dd6df34be"},
+    {file = "caio-0.9.13-py3-none-any.whl", hash = "sha256:582cbfc6e203d1dedf662ba972a94db6e744fe0b6bb9e02922b0f86803006fc9"},
+    {file = "caio-0.9.13.tar.gz", hash = "sha256:26f1e08a442bef4526a66142ea4e325e22dca8f040800aecb3caf8fae0589e98"},
 ]
 
 [package.extras]
@@ -187,13 +184,13 @@ develop = ["aiomisc-pytest", "pytest", "pytest-cov"]
 
 [[package]]
 name = "click"
-version = "8.1.6"
+version = "8.1.7"
 description = "Composable command line interface toolkit"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "click-8.1.6-py3-none-any.whl", hash = "sha256:fa244bb30b3b5ee2cae3da8f55c9e5e0c0e86093306301fb418eb9dc40fbded5"},
-    {file = "click-8.1.6.tar.gz", hash = "sha256:48ee849951919527a045bfe3bf7baa8a959c423134e1a5b98c05c20ba75a1cbd"},
+    {file = "click-8.1.7-py3-none-any.whl", hash = "sha256:ae74fb96c20a0277a1d615f1e4d73c8414f5a98db8b799a7931d1582f3390c28"},
+    {file = "click-8.1.7.tar.gz", hash = "sha256:ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"},
 ]
 
 [package.dependencies]
@@ -239,13 +236,13 @@ questionary = ">=1.8.1"
 
 [[package]]
 name = "datar"
-version = "0.12.2"
+version = "0.13.1"
 description = "A Grammar of Data Manipulation in python"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "datar-0.12.2-py3-none-any.whl", hash = "sha256:26a1024bdbd08c9bb69b0d065e417aabcafb33a5cc7c795e156b1b7f12e5ef47"},
-    {file = "datar-0.12.2.tar.gz", hash = "sha256:bc8fe40936a3604afe9e6a8766db6c24d726a34c9ac4701aab0694c0fc50a475"},
+    {file = "datar-0.13.1-py3-none-any.whl", hash = "sha256:c873b97246ac251200d46be097eb390ae0a9d737afb07c821f0455a6a43f33b4"},
+    {file = "datar-0.13.1.tar.gz", hash = "sha256:323f89b36590c76968fcc3752272e0b90a42d26bbed7c949847c1c815b7f5097"},
 ]
 
 [package.dependencies]
@@ -261,32 +258,32 @@ pandas = ["datar-pandas (>=0.3,<0.4)"]
 
 [[package]]
 name = "datar-numpy"
-version = "0.2.0"
+version = "0.2.1"
 description = "The numpy backend for datar"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "datar_numpy-0.2.0-py3-none-any.whl", hash = "sha256:2369f3d8419e7ffbbe950ad6b459a3f75ae6571155fab09f63874d49e96bab6b"},
-    {file = "datar_numpy-0.2.0.tar.gz", hash = "sha256:a0e119f3ec208ba45100e31b22a8dc1d0a926a42f144bb5b2b859e2897d2e320"},
+    {file = "datar_numpy-0.2.1-py3-none-any.whl", hash = "sha256:f9a85e514c612d6c400514f75242648d17c340aff188d8b8cf94d0a0de157bab"},
+    {file = "datar_numpy-0.2.1.tar.gz", hash = "sha256:49d835f6fdbd856cd7ea00d2829da664b2138be40892d72be464d0df79b5252a"},
 ]
 
 [package.dependencies]
-datar = ">=0.12,<0.13"
+datar = ">=0.13,<0.14"
 numpy = ">=1.20,<2.0"
 
 [[package]]
 name = "datar-pandas"
-version = "0.3.0"
+version = "0.3.1"
 description = "The pandas backend for datar"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "datar_pandas-0.3.0-py3-none-any.whl", hash = "sha256:738190a54c816dd3fa1529d0f48a601b134edc52a3e1d11ce6d3d0bcec91c2a7"},
-    {file = "datar_pandas-0.3.0.tar.gz", hash = "sha256:97803e124f0e3ac2f6b65ddd087859fabb47e5d510fc1f4d3772a882853dbea9"},
+    {file = "datar_pandas-0.3.1-py3-none-any.whl", hash = "sha256:ccd5db148b2d5a5d76aa408ea8b2b33b6bb4b4cc0a47d84062de980ef42a91f2"},
+    {file = "datar_pandas-0.3.1.tar.gz", hash = "sha256:2d683cca9eb1991fe19e0669b41242dfed66e0d65d183e3c76a0014376e1a051"},
 ]
 
 [package.dependencies]
-datar = ">=0.12,<0.13"
+datar = ">=0.13,<0.14"
 datar-numpy = ">=0.2,<0.3"
 pdtypes = ">=0.0.4,<0.0.5"
 
@@ -346,13 +343,13 @@ prefixed = ">=0.3.2"
 
 [[package]]
 name = "exceptiongroup"
-version = "1.1.2"
+version = "1.1.3"
 description = "Backport of PEP 654 (exception groups)"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "exceptiongroup-1.1.2-py3-none-any.whl", hash = "sha256:e346e69d186172ca7cf029c8c1d16235aa0e04035e5750b4b95039e65204328f"},
-    {file = "exceptiongroup-1.1.2.tar.gz", hash = "sha256:12c3e887d6485d16943a309616de20ae5582633e0a2eda17f4e10fd61c1e8af5"},
+    {file = "exceptiongroup-1.1.3-py3-none-any.whl", hash = "sha256:343280667a4585d195ca1cf9cef84a4e178c4b6cf2274caef9859782b567d5e3"},
+    {file = "exceptiongroup-1.1.3.tar.gz", hash = "sha256:097acd85d473d75af5bb98e41b61ff7fe35efe6675e4f9370ec6ec5126d160e9"},
 ]
 
 [package.extras]
@@ -878,13 +875,13 @@ xqute = ">=0.2.4,<0.3.0"
 
 [[package]]
 name = "pipen-annotate"
-version = "0.9.1"
+version = "0.9.2"
 description = "Use docstring to annotate pipen processes"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_annotate-0.9.1-py3-none-any.whl", hash = "sha256:d59a2cad34f4ce7bd8f0dba5c4ca43d5c128328685dab742628705dc2bb11732"},
-    {file = "pipen_annotate-0.9.1.tar.gz", hash = "sha256:a04a851fa11d2b9c3edca860203084719465d160b558576bb29c23079ee387dc"},
+    {file = "pipen_annotate-0.9.2-py3-none-any.whl", hash = "sha256:1b8f2746fcda9534d9e26d6ce8e8529e8022e134af9132b63e5ee431ad6fee38"},
+    {file = "pipen_annotate-0.9.2.tar.gz", hash = "sha256:80b637ae112816d7f13b1389720c4e7cb79c11140178008027817a731d075c0e"},
 ]
 
 [package.dependencies]
@@ -906,18 +903,18 @@ pipen-annotate = ">=0.9.0,<0.10.0"
 
 [[package]]
 name = "pipen-board"
-version = "0.9.1"
+version = "0.11.1"
 description = "Visualization configuration and running of pipen pipelines on the web"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_board-0.9.1-py3-none-any.whl", hash = "sha256:bb1146a5471959bf08169815942c242cdc4720f4c355b10733f7a08c349e7463"},
-    {file = "pipen_board-0.9.1.tar.gz", hash = "sha256:fc37cbfa174842c19a0b78438aec13d0136bf64c04f399e1bb629fbb125505ee"},
+    {file = "pipen_board-0.11.1-py3-none-any.whl", hash = "sha256:9866e6a62ea36466530f45ab493bbfde639a3dca709724cb3c69b9a2a38e981d"},
+    {file = "pipen_board-0.11.1.tar.gz", hash = "sha256:8b6d02f5010deb75510172471ccae3faa84332629fca4a44618b921c2ddde397"},
 ]
 
 [package.dependencies]
 pipen-args = ">=0.10.0,<0.11.0"
-pipen-log2file = ">=0.3.0,<0.4.0"
+pipen-log2file = ">=0.3.4,<0.4.0"
 pipen-report = {version = ">=0.12.6,<0.13.0", optional = true, markers = "extra == \"report\""}
 psutil = ">=5.9.5,<6.0.0"
 python-slugify = ">=8.0.1,<9.0.0"
@@ -925,17 +922,19 @@ quart = ">=0.18,<0.19"
 websocket-client = ">=1.5,<2.0"
 
 [package.extras]
+diagram = ["pipen-diagram (>=0.7,<0.8)"]
+filters = ["pipen-filters (>=0.8,<0.9)"]
 report = ["pipen-report (>=0.12.6,<0.13.0)"]
 
 [[package]]
 name = "pipen-cli-run"
-version = "0.9.0"
+version = "0.9.1"
 description = "A pipen cli plugin to run a process or a pipeline"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_cli_run-0.9.0-py3-none-any.whl", hash = "sha256:164e8ea174ff9f662674c7fbcd6cbdfeffe85baeccda368249907e2e09fc96cd"},
-    {file = "pipen_cli_run-0.9.0.tar.gz", hash = "sha256:e3090099af1384a0b7689b926b8fd546054ea28e8e556bc81b5a1eb70da2931c"},
+    {file = "pipen_cli_run-0.9.1-py3-none-any.whl", hash = "sha256:56e4246609d0cc398af11cc73d12b2d656ae1bd595fd966b567281752f670186"},
+    {file = "pipen_cli_run-0.9.1.tar.gz", hash = "sha256:f21fb951226a493e08753add80873f1619e3cf7467663174be77e5bd5d61f049"},
 ]
 
 [package.dependencies]
@@ -957,13 +956,13 @@ pipen = ">=0.10,<0.11"
 
 [[package]]
 name = "pipen-log2file"
-version = "0.3.3"
+version = "0.3.4"
 description = "Add verbosal information in logs for pipen."
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_log2file-0.3.3-py3-none-any.whl", hash = "sha256:684f735741168b8522c83a2a67ce845fc91ca132dc634834f3fa3b9511416246"},
-    {file = "pipen_log2file-0.3.3.tar.gz", hash = "sha256:895d72e4bef1c8902c529a7a669f45f9ccbc605f515d659513138edeb3f994ac"},
+    {file = "pipen_log2file-0.3.4-py3-none-any.whl", hash = "sha256:05eabfcf4f0ca6c99019017455bac851a6433a0f8d2af0872ed282e5ab81f4fb"},
+    {file = "pipen_log2file-0.3.4.tar.gz", hash = "sha256:93fb76f94e28b1b57f95f04593af637ac4332b5a8a237ce7cf01d80a250bfc0e"},
 ]
 
 [package.dependencies]
@@ -971,13 +970,13 @@ pipen = ">=0.10.0,<0.11.0"
 
 [[package]]
 name = "pipen-report"
-version = "0.12.6"
+version = "0.12.7"
 description = "Report generation system for pipen"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_report-0.12.6-py3-none-any.whl", hash = "sha256:7a9a636c3ed363086807c3312eb1f5f5f8110b4f45053c9343df0d975b77c135"},
-    {file = "pipen_report-0.12.6.tar.gz", hash = "sha256:cb0b29b5c28d8c02cfa35cf87fc137612b9cf2339958e6ce78dab0d6ce1e035b"},
+    {file = "pipen_report-0.12.7-py3-none-any.whl", hash = "sha256:c3c31067b990fb438eab04eb2a27e551e707725477a8b4f8a33cc38c96c2e68d"},
+    {file = "pipen_report-0.12.7.tar.gz", hash = "sha256:a2d24b71a580586f55082fa7556a227d0e9d57b91d153ff599adbde3d507b63b"},
 ]
 
 [package.dependencies]
@@ -1059,13 +1058,13 @@ files = [
 
 [[package]]
 name = "prompt-toolkit"
-version = "3.0.39"
+version = "3.0.36"
 description = "Library for building powerful interactive command lines in Python"
 optional = false
-python-versions = ">=3.7.0"
+python-versions = ">=3.6.2"
 files = [
-    {file = "prompt_toolkit-3.0.39-py3-none-any.whl", hash = "sha256:9dffbe1d8acf91e3de75f3b544e4842382fc06c6babe903ac9acb74dc6e08d88"},
-    {file = "prompt_toolkit-3.0.39.tar.gz", hash = "sha256:04505ade687dc26dc4284b1ad19a83be2f2afe83e7a828ace0c72f3a1df72aac"},
+    {file = "prompt_toolkit-3.0.36-py3-none-any.whl", hash = "sha256:aa64ad242a462c5ff0363a7b9cfe696c20d55d9fc60c11fd8e632d064804d305"},
+    {file = "prompt_toolkit-3.0.36.tar.gz", hash = "sha256:3e163f254bef5a03b146397d7c1963bd3e2812f0964bb9a24e6ec761fd28db63"},
 ]
 
 [package.dependencies]
@@ -1151,13 +1150,13 @@ email = ["email-validator (>=1.0.3)"]
 
 [[package]]
 name = "pygments"
-version = "2.15.1"
+version = "2.16.1"
 description = "Pygments is a syntax highlighting package written in Python."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "Pygments-2.15.1-py3-none-any.whl", hash = "sha256:db2db3deb4b4179f399a09054b023b6a586b76499d36965813c71aa8ed7b5fd1"},
-    {file = "Pygments-2.15.1.tar.gz", hash = "sha256:8ace4d3c1dd481894b2005f560ead0f9f19ee64fe983366be1a21e171d12775c"},
+    {file = "Pygments-2.16.1-py3-none-any.whl", hash = "sha256:13fc09fa63bc8d8671a6d247e1eb303c4b343eaee81d861f3404db2935653692"},
+    {file = "Pygments-2.16.1.tar.gz", hash = "sha256:1daff0494820c69bc8941e407aa20f577374ee88364ee10a98fdbe0aece96e29"},
 ]
 
 [package.extras]
@@ -1219,13 +1218,13 @@ unidecode = ["Unidecode (>=1.1.1)"]
 
 [[package]]
 name = "pytz"
-version = "2023.3"
+version = "2023.3.post1"
 description = "World timezone definitions, modern and historical"
 optional = false
 python-versions = "*"
 files = [
-    {file = "pytz-2023.3-py2.py3-none-any.whl", hash = "sha256:a151b3abb88eda1d4e34a9814df37de2a80e301e68ba0fd856fb9b46bfbbbffb"},
-    {file = "pytz-2023.3.tar.gz", hash = "sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588"},
+    {file = "pytz-2023.3.post1-py2.py3-none-any.whl", hash = "sha256:ce42d816b81b68506614c11e8937d3aa9e41007ceb50bfdcb0749b921bf646c7"},
+    {file = "pytz-2023.3.post1.tar.gz", hash = "sha256:7b4fddbeb94a1eba4b557da24f19fdf9db575192544270a9101d8509f9f43d7b"},
 ]
 
 [[package]]
@@ -1345,30 +1344,27 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "questionary"
-version = "1.10.0"
+version = "2.0.1"
 description = "Python library to build pretty command line user prompts ⭐️"
 optional = false
-python-versions = ">=3.6,<4.0"
+python-versions = ">=3.8"
 files = [
-    {file = "questionary-1.10.0-py3-none-any.whl", hash = "sha256:fecfcc8cca110fda9d561cb83f1e97ecbb93c613ff857f655818839dac74ce90"},
-    {file = "questionary-1.10.0.tar.gz", hash = "sha256:600d3aefecce26d48d97eee936fdb66e4bc27f934c3ab6dd1e292c4f43946d90"},
+    {file = "questionary-2.0.1-py3-none-any.whl", hash = "sha256:8ab9a01d0b91b68444dff7f6652c1e754105533f083cbe27597c8110ecc230a2"},
+    {file = "questionary-2.0.1.tar.gz", hash = "sha256:bcce898bf3dbb446ff62830c86c5c6fb9a22a54146f0f5597d3da43b10d8fc8b"},
 ]
 
 [package.dependencies]
-prompt_toolkit = ">=2.0,<4.0"
-
-[package.extras]
-docs = ["Sphinx (>=3.3,<4.0)", "sphinx-autobuild (>=2020.9.1,<2021.0.0)", "sphinx-autodoc-typehints (>=1.11.1,<2.0.0)", "sphinx-copybutton (>=0.3.1,<0.4.0)", "sphinx-rtd-theme (>=0.5.0,<0.6.0)"]
+prompt_toolkit = ">=2.0,<=3.0.36"
 
 [[package]]
 name = "rich"
-version = "13.5.1"
+version = "13.5.2"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 optional = false
 python-versions = ">=3.7.0"
 files = [
-    {file = "rich-13.5.1-py3-none-any.whl", hash = "sha256:b97381b204a206e1be618f5e1215a57174a1a7732490b3bf6668cf41d30bc72d"},
-    {file = "rich-13.5.1.tar.gz", hash = "sha256:881653ee7037803559d8eae98f145e0a4c4b0ec3ff0300d2cc8d479c71fc6819"},
+    {file = "rich-13.5.2-py3-none-any.whl", hash = "sha256:146a90b3b6b47cac4a73c12866a499e9817426423f57c5a66949c086191a8808"},
+    {file = "rich-13.5.2.tar.gz", hash = "sha256:fb9d6c0a0f643c99eed3875b5377a184132ba9be4d61516a55273d3554d75a39"},
 ]
 
 [package.dependencies]
@@ -1567,29 +1563,29 @@ files = [
 
 [[package]]
 name = "websocket-client"
-version = "1.6.1"
+version = "1.6.3"
 description = "WebSocket client for Python with low level API options"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "websocket-client-1.6.1.tar.gz", hash = "sha256:c951af98631d24f8df89ab1019fc365f2227c0892f12fd150e935607c79dd0dd"},
-    {file = "websocket_client-1.6.1-py3-none-any.whl", hash = "sha256:f1f9f2ad5291f0225a49efad77abf9e700b6fef553900623060dad6e26503b9d"},
+    {file = "websocket-client-1.6.3.tar.gz", hash = "sha256:3aad25d31284266bcfcfd1fd8a743f63282305a364b8d0948a43bd606acc652f"},
+    {file = "websocket_client-1.6.3-py3-none-any.whl", hash = "sha256:6cfc30d051ebabb73a5fa246efdcc14c8fbebbd0330f8984ac3bb6d9edd2ad03"},
 ]
 
 [package.extras]
-docs = ["Sphinx (>=3.4)", "sphinx-rtd-theme (>=0.5)"]
+docs = ["Sphinx (>=6.0)", "sphinx-rtd-theme (>=1.1.0)"]
 optional = ["python-socks", "wsaccel"]
 test = ["websockets"]
 
 [[package]]
 name = "werkzeug"
-version = "2.3.6"
+version = "2.3.7"
 description = "The comprehensive WSGI web application library."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "Werkzeug-2.3.6-py3-none-any.whl", hash = "sha256:935539fa1413afbb9195b24880778422ed620c0fc09670945185cce4d91a8890"},
-    {file = "Werkzeug-2.3.6.tar.gz", hash = "sha256:98c774df2f91b05550078891dee5f0eb0cb797a522c757a2452b9cee5b202330"},
+    {file = "werkzeug-2.3.7-py3-none-any.whl", hash = "sha256:effc12dba7f3bd72e605ce49807bbe692bd729c3bb122a3b91747a6ae77df528"},
+    {file = "werkzeug-2.3.7.tar.gz", hash = "sha256:2b8c0e447b4b9dbcc85dd97b6eeb4dcbaf6c8b6c3be0bd654e25553e0a2157d8"},
 ]
 
 [package.dependencies]
@@ -1651,4 +1647,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "a9f9e086bd9fc2164ae5b09d2fe6d6c06ba567093a2c65753c0ebe5df3b6302e"
+content-hash = "f95aef96698a5dfd6d6cda40998aa414e1a314b230b4bbc6c006a49d790f4af6"
