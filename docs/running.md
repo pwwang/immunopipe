@@ -30,18 +30,18 @@ For configuration items, see [configurations](./configurations.md) for more deta
 
 ## Run the pipeline via `pipen-board`
 
-[`pipen-board`](https://github.com/pwwang/pipen-board) is a web-based dashboard for `pipen`. It provides a user-friendly interface to configure and run the pipeline. It also provides a way to monitor the progress of the pipeline.
+[`pipen-board`](https://github.com/pwwang/pipen-board) is a web-based dashboard for `pipen`. It provides a user-friendly interface to configure and run the pipeline. It also provides a way to monitor the running progress of the pipeline.
 
-`pipen-board` is installed by default when you install `immunopipe`. You can run it via CLI:
+`pipen-board` is installed by default with `immunopipe`. You can run it via CLI:
 
 ```shell
 $ pipen board immunopipe:Immunopipe
  *
- *        __   __  __         __  __      __  __
+ *        __   __  __.  .     __  __   +  __  __
  *       |__)||__)|_ |\ | __ |__)/  \ /\ |__)|  \
  *       |   ||   |__| \|    |__)\__//--\| \ |__/
  *
- *                   version: 0.9.0
+ *                   version: 0.11.0
  *
  * Configure and run pipen pipelines from the web
  *
@@ -54,7 +54,7 @@ $ pipen board immunopipe:Immunopipe
 
 Then you can open the dashboard in your browser at `http://localhost:18521`.
 
-In the `Configuration` tab, you can configure the pipeline and the processes. Then you can use the `Generate Configuration` button to generate the configuration file. You can use the generated configuration file to run the pipeline via CLI.
+In the `Configuration` tab, you can configure the pipeline and the processes. Then you can use the `Generate Configuration` button to generate the configuration file and then use the generated configuration file to run the pipeline via CLI.
 
 If you want to run the pipeline via `pipen-board`, you need an additional configuration file to tell `pipen-board` how to run the pipeline:
 
@@ -91,6 +91,16 @@ $ singularity run \
 ```
 
 ## Run the pipeline via `pipen-board` using docker image
+
+### Choose the right tag of the docker image
+
+The docker image is tagged with the version of `immunopipe`, together with `dev`. They are listed here: <https://hub.docker.com/repository/docker/justold/immunopipe/tags>.
+
+`dev` is the latest development version of `immunopipe`. It may have unstable features. If you want to use a specific version, you can choose the corresponding tag.
+
+You can pull the images in advance using `docker` or `singularity`. See help options of `docker pull` and `singularity pull` for more details.
+
+You can also specify the tag when running the pipeline. See the following sections for more details.
 
 ### Use `docker`
 

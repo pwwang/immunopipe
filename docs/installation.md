@@ -1,12 +1,10 @@
 # Installation
 
-## Install the pipeline itself
+## Install the pipline and the dependencies using conda
 
-```shell
-$ pip install -U immunopipe
-```
+!!! Tip
 
-## Install the dependencies
+    If you plan to use the docker image, you can skip this section.
 
 `immunopipe` is built upon [`pipen`](https://github.com/pwwang/pipen) framework, and a number of packages in `R` and `python`. It's not recommended to install the packages manually. Instead, you can use the provided `environment.yml` to create a conda environment.
 

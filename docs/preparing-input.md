@@ -43,7 +43,7 @@ If you have a set of genes/features of interest, you can provide a file with tho
 - Heatmaps using [`Seurat::DoHeatmap()`](https://satijalab.org/seurat/reference/doheatmap).
 
 !!! note
-    The genes should exist in the `features.tsv` file.
+    The genes should exist in the RNA-seq data (i.e `features.tsv` or the `h5` file from cellranger).
 
 See [`SeuratClusterStats`](./processes/SeuratClusterStats.md) for more details.
 
@@ -52,6 +52,12 @@ See [`SeuratClusterStats`](./processes/SeuratClusterStats.md) for more details.
 If you want to perform GSEA, you need to provide a file containing the pathways. The file should be in the [GMT format][1]. You can provide the file to `ScFGSEA.envs.gmtfile`. Similarly, the genes should exist (be in the same format) in the `features.tsv` file.
 
 See [`ScFGSEA`](./processes/ScFGSEA.md) for more details.
+
+### Cell type database for cell type annotation by `sctype` or `hitype`
+
+If you want to perform cell type annotation, you need to provide a file containing the cell type database if you are using `sctype` or `hitype`. The database file should be fed to `CellTypeAnnotation.envs.sctype_db` if you are using `sctype`, or `CellTypeAnnotation.envs.hitype_db` if you are using `hitype`. Again, the markers in the database should exist (be in the same format) in the `features.tsv` file or the `h5` file.
+
+See [`CellTypeAnnotation`](./processes/CellTypeAnnotation.md) for more details.
 
 ### Metabolic pathway for Metabolic Landscape Analysis
 

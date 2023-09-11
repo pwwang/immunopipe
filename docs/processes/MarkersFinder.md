@@ -8,7 +8,27 @@ This process is extended from [`MarkersFinder`][1] from the [`biopipen`][2] pack
     - Used in `future::plan(strategy = "multicore", workers = <ncores>)` to parallelize some Seurat procedures.
     - See also: <https://satijalab.org/seurat/articles/future_vignette.html>
 - `mutaters`: The mutaters to mutate the metadata.
-    - See also [mutating the metadata](../configurations.md#mutating-the-metadata).
+    There are also also 4 helper functions, `expanded`, `collapsed`, `emerged` and `vanished`, that can be used to identify the expanded/collapsed/emerged/vanished groups (i.e. TCR clones).
+    For example, you can use `{"Patient1_Tumor_Expanded_Clones": "expanded(., Source, 'Tumor', subset = Patent == 'Patient1', uniq=FALSE)"}`
+    to create a new column in metadata named `Patient1_Tumor_Collapsed_Clones`
+    with the collapsed clones in the tumor sample (compared to the normal sample) of patient 1. The values in this columns for other clones will be `NA`.
+    The `expanded` and `contracted` functions take 3 arguments:
+    * `df`: The metadata data frame. You can use the `.` to refer to it.
+    * `group-by`: The column name in metadata to group the cells.
+    * `idents`: The first group or both groups of cells to compare (value in `group-by` column). If only the first group is given, the rest of the cells (with non-NA in `group-by` column) will be used as the second group.
+    * `subset`: An expression to subset the cells, will be passed to `dplyr::filter()`. Default is `TRUE` (no filtering).
+    * `id`: The column name in metadata for the group ids (i.e. `CDR3.aa`)
+    * `compare`: Either a (numeric) column name (i.e. `Clones`) in metadata to compare between groups, or `.n` to compare the number of cells in each group.
+    * `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df %>% mutate(expanded = expanded(...))`.
+    * `order`: The order of the returned ids. It could be `sum` or `diff`, which is the sum or diff of the `compare` between idents.
+        Two kinds of modifiers can be added, including `desc` and `abs`.
+        For example, `sum,desc` means the sum of `compare` between idents in descending order.
+        Default is `diff,abs,desc`. It only works when `uniq` is `TRUE`. If `uniq` is `FALSE`, the returned
+        ids will be in the same order as in `df`.
+    Note that the numeric column should be the same for all cells in the same group. This will not be checked (only the first value is used).
+
+    See also [mutating the metadata](../configurations.md#mutating-the-metadata).
+
 - `ident-1`: The first group of cells to compare
 - `ident-2`: The second group of cells to compare
     If not provided, the rest of the cells are used for `ident-2`.
@@ -91,7 +111,7 @@ each = "Group"
 ```toml
 [<Proc>.envs]
 group-by = "seurat_clusters"
-group-1 = "1"
+ident-1 = "1"
 ```
 
 - Cluster
@@ -104,19 +124,19 @@ group-1 = "1"
 ```toml
 [<Proc>.envs]
 group-by = "seurat_clusters"
-group-1 = "1"
-group-2 = "2"
+ident-1 = "1"
+ident-2 = "2"
 ```
 
 - Cluster
     - 1 (vs 2)
 
-### Multie cases
+### Multiple cases
 
 ```toml
 [<Proc>.envs.cases]
-c1_vs_c2 = {group-1 = "1", group-2 = "2"}
-c3_vs_c4 = {group-1 = "3", group-2 = "4"}
+c1_vs_c2 = {ident-1 = "1", ident-2 = "2"}
+c3_vs_c4 = {ident-1 = "3", ident-2 = "4"}
 ```
 
 - DEFAULT:c1_vs_c2

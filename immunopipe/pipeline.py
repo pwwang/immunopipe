@@ -2,16 +2,16 @@
 from pipen import Pipen
 from pipen_args import parser
 
-from .version import __version__
+from .version import __version__  # noqa: F401
 
 # Import your processeses
-from .processes import STARTS
+from .processes import SampleInfo
 
 
 class Immunopipe(Pipen):
     """The pipeline class"""
-    starts = STARTS
-    desc="A pipeline for integrative analysis for scTCR- and scRNA-seq data"
+    starts = [SampleInfo]
+    desc = "A pipeline for integrative analysis for scTCR- and scRNA-seq data"
 
 
 def main():

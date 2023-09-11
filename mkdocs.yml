@@ -4,7 +4,9 @@ repo_url: https://github.com/pwwang/immunopipe
 repo_name: pwwang/immunopipe
 theme:
     name: 'readthedocs'
+    favicon: 'assets/favicon.png'
 markdown_extensions:
+    - attr_list
     - markdown.extensions.admonition
     - pymdownx.superfences:
         preserve_tabs: true
@@ -14,10 +16,13 @@ markdown_extensions:
 plugins:
     - search # necessary for search to work
 extra_css:
-    - style.css
+    - assets/style.css
+extra_javascript:
+    - assets/script.js
 nav:
     - 'Home': 'index.md'
     - 'Introduction': 'introduction.md'
+    - 'Geting started': 'getting-started.md'
     - 'Installation': 'installation.md'
     - 'Running the pipeline': 'running.md'
     - 'Preparing the input': 'preparing-input.md'
@@ -27,35 +32,36 @@ nav:
       - 'SeuratPreparing': 'processes/SeuratPreparing.md'
       - 'SeuratClusteringOfAllCells': 'processes/SeuratClusteringOfAllCells.md'
       - 'MarkersForClustersOfAllCells': 'processes/MarkersForClustersOfAllCells.md'
+      - 'TopExpressingGenesOfAllCells': 'processes/TopExpressingGenesOfAllCells.md'
       - 'TCellSelection': 'processes/TCellSelection.md'
       - 'SeuratClusteringOfTCells': 'processes/SeuratClusteringOfTCells.md'
       - 'CellTypeAnnotation': 'processes/CellTypeAnnotation.md'
+      - 'SeuratClusterStats': 'processes/SeuratClusterStats.md'
+      - 'MarkersForClustersOfTCells': 'processes/MarkersForClustersOfTCells.md'
+      - 'TopExpressingGenesOfTCells': 'processes/TopExpressingGenesOfTCells.md'
       - 'ImmunarchLoading': 'processes/ImmunarchLoading.md'
       - 'Immunarch': 'processes/Immunarch.md'
-      - 'ScFGSEA': 'processes/ScFGSEA.md'
-      - 'ScrnaMetabolicLandscape': 'processes/ScrnaMetabolicLandscape.md'
-      - 'SeuratClusterStats': 'processes/SeuratClusterStats.md'
-      - 'TCRClusters2Seurat': 'processes/TCRClusters2Seurat.md'
-      - 'CDR3AAPhyschem': 'processes/CDR3AAPhyschem.md'
-      - 'CellsDistribution': 'processes/CellsDistribution.md'
-      - 'CloneHeterogeneity': 'processes/CloneHeterogeneity.md'
-      - 'CloneResidency': 'processes/CloneResidency.md'
       - 'Immunarch2VDJtools': 'processes/Immunarch2VDJtools.md'
+      - 'VJUsage': 'processes/VJUsage.md'
+      - 'RadarPlots': 'processes/RadarPlots.md'
+      - 'TCRClustering': 'processes/TCRClustering.md'
+      - 'TCRClusteringStats': 'processes/TCRClusteringStats.md'
+      - 'TCRClusters2Seurat': 'processes/TCRClusters2Seurat.md'
+      - 'SeuratMetadataMutater': 'processes/SeuratMetadataMutater.md'
+      - 'ScFGSEA': 'processes/ScFGSEA.md'
+      - 'CellsDistribution': 'processes/CellsDistribution.md'
+    #   - 'CloneHeterogeneity': 'processes/CloneHeterogeneity.md'
+      - 'CloneResidency': 'processes/CloneResidency.md'
       - 'MarkersFinder': 'processes/MarkersFinder.md'
-      - 'MarkersForClustersOfTCells': 'processes/MarkersForClustersOfTCells.md'
-      - 'MarkersOverlapping': 'processes/MarkersOverlapping.md'
+    #   - 'MarkersOverlapping': 'processes/MarkersOverlapping.md'
       - 'MetaMarkers': 'processes/MetaMarkers.md'
+      - 'CDR3AAPhyschem': 'processes/CDR3AAPhyschem.md'
+    - 'Metabolic Landscape Analysis':
+      - 'Introduction & Group Arguments': 'processes/ScrnaMetabolicLandscape.md'
+      - 'MetabolicInput': 'processes/MetabolicInput.md'
       - 'MetabolicExprImpution': 'processes/MetabolicExprImpution.md'
       - 'MetabolicFeatures': 'processes/MetabolicFeatures.md'
       - 'MetabolicFeaturesIntraSubsets': 'processes/MetabolicFeaturesIntraSubsets.md'
-      - 'MetabolicLandscape': 'processes/MetabolicLandscape.md'
       - 'MetabolicPathwayActivity': 'processes/MetabolicPathwayActivity.md'
       - 'MetabolicPathwayHeterogeneity': 'processes/MetabolicPathwayHeterogeneity.md'
-      - 'RadarPlots': 'processes/RadarPlots.md'
-      - 'SeuratMetadataMutater': 'processes/SeuratMetadataMutater.md'
-      - 'TCRClustering': 'processes/TCRClustering.md'
-      - 'TCRClusteringStats': 'processes/TCRClusteringStats.md'
-      - 'TopExpressingGenesOfAllCells': 'processes/TopExpressingGenesOfAllCells.md'
-      - 'TopExpressingGenesOfTCells': 'processes/TopExpressingGenesOfTCells.md'
-      - 'VJUsage': 'processes/VJUsage.md'
     - 'Change log': 'CHANGELOG.md'

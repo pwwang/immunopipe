@@ -87,7 +87,7 @@ Then the output directory will be changed to `./my-pipeline-output`.
 
     If both `outdir` and `name` are set, `outdir` will be used.
 
-You can do the similar thing to change the working directory. However, you are not recommended to change the working directory, especially if you are using [`pipen-board`][1]. This is because that the plugin scans `./.pipen/<name>` to get the information for the previous run. If you change the working directory, the plugin will not be able to find the information for the previous run.
+You can do the similar thing to change the working directory. However, you are **NOT** recommended to change the working directory, especially if you are using [`pipen-board`][1]. This is because that the plugin scans `./.pipen/<name>` to get the information for the previous run of the pipeline. If you change the working directory, the plugin will not be able to find the information for the previous run.
 
 !!! tip
     What if you want to change the working directory anyway? The recommended way is to create a symbolic link to the working directory. For example, if you want to change the working directory to `/path/to/the/real/working/directory`, you can do:
@@ -145,18 +145,33 @@ Similarly, if [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusteringSt
 
 For other processes, make sure you have them configured to enable them.
 
+!!! tip
+    You may find out that for some processes, the default configurations are good enough for you to run. For example, [`TCRClustering`](processes/TCRClustering.md) is not enabled by default. If you don't change any configurations (by not putting in the configuration file nor changing any items on the web interface of `pipen-board`) for the process, it will not be triggered. However, the default configurations are good enough for you to run the process. To enable it, you can either add this process manually in the configuration file:
+
+    ```toml
+    # ... other configurations
+    [TCRClustering]
+    ```
+
+    or if you are using `pipen-board`, you can change a configuration item that does not actually affect the process. For example, you can change the `forks` of the process to `2`, instead of the default `1`, since the process is a single-job process. Then the process will be put in the configuration file and will be enabled.
+
+    ```toml
+    [TCRClustering]
+    forks = 2
+    ```
+
 ## Minimal configurations
 
 The minimal configurations are just the configurations with the input file:
 
 ```toml
 [SampleInfo.in]
-infile = [ "samples.txt" ]
+infile = [ "sample.txt" ]
 ```
 
 The input file is the metadata file mentioned in [`Preparing the input`](./preparing-input.md#metadata).
 
-With the minimal configurations, the pipeline will have [the default processes](#enablingdisabling-processes) enabled.
+With the minimal configurations, the pipeline will have [the default processes](#enablingdisabling-processes) enabled. You can take a look at the diagram of the pipeline [here](./ImmunopipeMinimal.svg) to see the processes enabled with the minimal configurations and the relationships between the processes.
 
 You can also check the example report [here](https://pwwang.github.io/immunopipe-example/minimal/REPORTS/) to see what you will get with the minimal configurations.
 
@@ -212,7 +227,7 @@ group = "Source"
 
 And you will get the following plots:
 
-![clone-residency](processes/images/RadarPlots-cloneresidency.png)
+![clone-residency](processes/images/CloneResidency.png)
 
 ### Mutating the metadata
 
@@ -336,6 +351,67 @@ again.
 !!! tip
     You don't need to worry about which environment variables are `namespace` ones. We will mention it in the individual process pages and the description of the environment variables in `pipen-board` configuration descriptions.
 
+## Multi-case variable design
+
+Some environment variables are designed to support multiple cases. However, in most cases, we only need to set the values for the default case. In such cases, the environment variable is usually a `namespace` environment variable with the sub-keys needed for the default case. In order to support multiple cases, a sub-key `cases` is added to the `namespace` environment variable. The `cases` is a dictionary (key-value pairs), where the keys are the names of the cases, and the values are the sub-keys for the corresponding cases. For example, the `envs.cluster_size` of [`SeuratClusterStats`](processes/SeuratClusterStats.md) process:
+
+```toml
+[TCRClustering.envs.cluster_size]
+by = "Sample"
+devpars = { width = 1000, height = 1000, res = 100 }
+cases = {}
+```
+
+If `cases` is empty, then the default case will be added automatically. The name of the default case is `DEFAULT`. So the above configuration is equivalent to:
+
+```toml
+[TCRClustering.envs.cluster_size]
+by = "Sample"
+devpars = { width = 1000, height = 1000, res = 100 }
+cases = { DEFAULT = {} }
+```
+
+If you want to add more cases, you can add them to the `cases` dictionary. For example, if you want to add a case named `CASE1`, you can do:
+
+```toml
+[TCRClustering.envs.cluster_size]
+by = "Sample"
+devpars = { width = 1000, height = 1000, res = 100 }
+cases = { DEFAULT = {}, CASE1 = {} }
+```
+
+Then you can set the values for the default case and `CASE1` case. For example, if you want to set the `by` column to `Sample` for the default case and `Sample1` for `CASE1`, you can do:
+
+```toml
+[TCRClustering.envs.cluster_size]
+by = "Sample"
+devpars = { width = 1000, height = 1000, res = 100 }
+cases = { DEFAULT = { }, CASE1 = { by = "Sample1" } }
+```
+
+If a key in a case is not specified, the value in the default case will be used. In the above example,
+`"Sample"` will be used for `by` of the `DEFAULT` case, and `{ width = 1000, height = 1000, res = 100 }` will be used for `devpars` of the `CASE1` case.
+
+## Security alert
+
+!!! danger
+
+    Note that some configuration items will be evaluated in the scripts directly. For example, the `mutaters` will be passed to `R` scripts, parsed and evaluated so that they can be used in `dplyr::mutate()`. Even though some were evaluated by [`rlang`][15], not all of them are safe. Some of them are evaluated directly. For example, one could inject malicious code in the expressions passed by `dplyr::filter()`. For example, in the script:
+
+    ```r
+    df %>% filter({{ expression }})
+    ```
+
+    The expected `expression` is something like `Sample == "Sample001"`. However, one could pass `Sample == "Sample001"); system("cat /etc/passwd")` to the `expression`, which will be evaluated as:
+
+    ```r
+    df %>% filter(Sample == "Sample001"); system("cat /etc/passwd")
+    ```
+
+    This will cause the pipeline to run the command `cat /etc/passwd` in the shell. This is just an example. One could do more harm by injecting malicious code.
+
+    When you give acess of composing the configuration file to others or the public (not recommended), either via the command line or the web interface by `pipen-board`, you need to be careful about the security issues.
+
 
 [1]: https://github.com/pwwang/pipen-board
 [2]: https://github.com/pwwang/pipen-verbose
@@ -351,3 +427,4 @@ again.
 [12]: https://satijalab.org/seurat/reference/sctransform
 [13]: https://github.com/pwwang/argx
 [14]: https://dplyr.tidyverse.org/reference/filter.html
+[15]: https://rlang.r-lib.org/

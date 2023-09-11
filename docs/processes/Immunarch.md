@@ -46,7 +46,7 @@ method = "jaccard"
 vis_args = { "-plot": "heatmap2" }
 ```
 
-`-plot` will be translated to `.plot` and then passed to `vis`. See also [Namespace and Environment Variables](../configurations/#namespace-environment-variables).
+`-plot` will be translated to `.plot` and then passed to `vis`. See also [Namespace and Environment Variables](../configurations.md#namespace-environment-variables).
 
 If multiple cases share the same arguments, we can use the following configuration:
 
@@ -101,7 +101,7 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
 
 - `mutaters` (`type=json`): The mutaters passed to `dplyr::mutate()` on `immdata$meta` to add new columns. The keys will be the names of the columns, and the values will be the expressions. The new names can be used in `volumes`, `lens`, `counts`, `top_clones`, `rare_clones`, `hom_clones`, `gene_usages`, `divs`, etc.
 
-    - See also [Mutating the metadata](../configurations/#mutating-the-metadata).
+    - See also [Mutating the metadata](../configurations.md#mutating-the-metadata).
 
     !!! examples
 

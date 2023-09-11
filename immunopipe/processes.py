@@ -17,27 +17,29 @@ from biopipen.ns.tcr import (
     VJUsage,
     TCRClustering,
     TCRClusteringStats,
+    CDR3AAPhyschem,
 )
 from biopipen.ns.scrna import (
     SeuratPreparing,
     SeuratClustering,
     SeuratClusterStats,
     SeuratMetadataMutater as SeuratMetadataMutater_,
-    MarkersFinder,
+    MarkersFinder as MarkersFinder_,
     CellTypeAnnotation as CellTypeAnnotation_,
     CellsDistribution,
     ScFGSEA,
     TopExpressingGenes,
     RadarPlots,
+    MetaMarkers as MetaMarkers_,
 )
 from biopipen.ns.scrna_metabolic_landscape import ScrnaMetabolicLandscape
 
 # inhouse processes
 from .inhouse import (
     TCellSelection,
-    CloneHeterogeneity,
-    MetaMarkers,
-    MarkersOverlapping,
+    # CloneHeterogeneity,
+    # MetaMarkers,
+    # MarkersOverlapping,
 )
 
 toml_dumps = FILTERS["toml_dumps"]
@@ -89,15 +91,25 @@ class SeuratClusteringOfAllCells(SeuratClustering):
 
 
 @annotate.format_doc(indent=1)
-class MarkersForClustersOfAllCells(MarkersFinder):
+class MarkersForClustersOfAllCells(MarkersFinder_):
     """Find markers for clusters of all cells.
 
     If all your cells are T cells, the clustering will be performed on all
     T cells. `SeuratClusteringOfTCells` will be skipped.
 
     {{*Summary.long}}
+
+    Envs:
+        cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.
+        each (hidden;readonly): {{Envs.each.help | indent: 12}}.
+        ident-1 (hidden;readonly): {{Envs["ident-1"].help | indent: 12}}.
+        ident-2 (hidden;readonly): {{Envs["ident-2"].help | indent: 12}}.
+        mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
+        prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 12}}.
+        section (hidden;readonly): {{Envs.section.help | indent: 12}}.
     """
     requires = SeuratClusteringOfAllCells
+    envs = {"cases": {"Cluster": {}}}
     plugin_opts = {"report_order": 1}
     order = 4
 
@@ -110,8 +122,17 @@ class TopExpressingGenesOfAllCells(TopExpressingGenes):
     T cells. `TopExpressingGenesOfTCells` will be skipped.
 
     {{*Summary.long}}
+
+    Envs:
+        cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.
+        each (hidden;readonly): {{Envs.each.help | indent: 12}}.
+        ident (hidden;readonly): {{Envs.ident.help | indent: 12}}.
+        mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
+        prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 12}}.
+        section (hidden;readonly): {{Envs.section.help | indent: 12}}.
     """
     requires = SeuratClusteringOfAllCells
+    envs = {"cases": {"Cluster": {}}}
     plugin_opts = {"report_order": 1}
     order = 4
 
@@ -133,9 +154,6 @@ class VJUsage(VJUsage):
     order = 2
 
 
-# Start processes
-STARTS = [SampleInfo]
-
 if "TCellSelection" in config or from_board:
     class TCellSelection(TCellSelection):
         requires = [SeuratClusteringOfAllCells, ImmunarchLoading]
@@ -152,14 +170,24 @@ if "TCellSelection" in config or from_board:
         requires = TCellSelection
 
     @annotate.format_doc(indent=2)
-    class MarkersForClustersOfTCells(MarkersFinder):
+    class MarkersForClustersOfTCells(MarkersFinder_):
         """Find markers for clusters of T cells
 
         This process will be skipped if all cells are T cells.
 
         {{*Summary.long}}
-        """
+
+        Envs:
+            cases (hidden;readonly): {{Envs.cases.help | indent: 16}}.
+            each (hidden;readonly): {{Envs.each.help | indent: 16}}.
+            ident-1 (hidden;readonly): {{Envs["ident-1"].help | indent: 16}}.
+            ident-2 (hidden;readonly): {{Envs["ident-2"].help | indent: 16}}.
+            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 16}}.
+            prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 16}}.
+            section (hidden;readonly): {{Envs.section.help | indent: 16}}.
+        """  # noqa: E501
         requires = SeuratClusteringOfTCells
+        envs = {"cases": {"Cluster": {}}}
         plugin_opts = {"report_order": 3}
         order = 6
 
@@ -170,8 +198,17 @@ if "TCellSelection" in config or from_board:
         This process will be skipped if all cells are T cells.
 
         {{*Summary.long}}
-        """
+
+        Envs:
+            cases (hidden;readonly): {{Envs.cases.help | indent: 16}}.
+            each (hidden;readonly): {{Envs.each.help | indent: 16}}.
+            ident (hidden;readonly): {{Envs.ident.help | indent: 16}}.
+            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 16}}.
+            prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 16}}.
+            section (hidden;readonly): {{Envs.section.help | indent: 16}}.
+        """  # noqa: E501
         requires = SeuratClusteringOfTCells
+        envs = {"cases": {"Cluster": {}}}
         plugin_opts = {"report_order": 3}
         order = 6
 
@@ -251,9 +288,9 @@ if "CloneResidency" in config or from_board:
         order = 3
 
 
-if "CloneHeterogeneity" in config or from_board:
-    class CloneHeterogeneity(CloneHeterogeneity):
-        requires = SeuratMetadataMutater
+# if "CloneHeterogeneity" in config or from_board:
+#     class CloneHeterogeneity(CloneHeterogeneity):
+#         requires = SeuratMetadataMutater
 
 
 if "RadarPlots" in config or from_board:
@@ -267,18 +304,27 @@ if "ScFGSEA" in config or from_board:
 
 
 if "MarkersFinder" in config or from_board:
-    class MarkersFinder(MarkersFinder):
+    class MarkersFinder(MarkersFinder_):
         requires = SeuratMetadataMutater
 
 
-if "MarkersOverlapping" in config or from_board:
-    class MarkersOverlapping(MarkersOverlapping):
-        requires = MarkersFinder
+# if "MarkersOverlapping" in config or from_board:
+#     class MarkersOverlapping(MarkersOverlapping):
+#         requires = MarkersFinder
 
 
 if "MetaMarkers" in config or from_board:
-    class MetaMarkers(MetaMarkers):
+    class MetaMarkers(MetaMarkers_):
         requires = SeuratMetadataMutater
+
+
+if "CDR3AAPhyschem" in config or from_board:
+    class CDR3AAPhyschem(CDR3AAPhyschem):
+        requires = ImmunarchLoading, SeuratMetadataMutater
+        input_data = lambda ch1, ch2: tibble(
+            immdata=ch1.rdsfile,
+            srtobj=ch2.rdsfile,
+        )
 
 
 if "ScrnaMetabolicLandscape" in config or from_board:
@@ -291,5 +337,5 @@ if "ScrnaMetabolicLandscape" in config or from_board:
     anno.Args.is_seurat.attrs["default"] = True
     anno.Args.is_seurat.attrs["value"] = True
     scrna_metabolic_landscape = ScrnaMetabolicLandscape(is_seurat=True)
-    scrna_metabolic_landscape.p_input.order = 12
     scrna_metabolic_landscape.p_input.requires = SeuratMetadataMutater
+    scrna_metabolic_landscape.p_input.order = 99

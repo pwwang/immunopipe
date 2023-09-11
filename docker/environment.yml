@@ -7,7 +7,7 @@ channels:
   - bioconda
   - nodefaults
 dependencies:
-  - nodejs  # pipen-report
+  - nodejs=18  # pipen-report
   - curl=7.86  # force using conda-forge version
   - python=3.9
   - openjdk=8  # vdjtools
@@ -19,6 +19,7 @@ dependencies:
   - bioconductor-scater
   - bioconductor-complexheatmap
   - r-ggradar
+  - r-hitype
   - r-seuratwrappers
   - r-base=4.2.0
   - r-seurat=4.3.0

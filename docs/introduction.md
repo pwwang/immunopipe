@@ -1,6 +1,6 @@
 # Introduction
 
-## The pipeline
+## The pipeline architecture
 
 `immunopipe` is built upon [`pipen`](https://github.com/pwwang/pipen). It is recommended to read the [pipen docs](https://pwwang.github.io/pipen) first to get a better understanding of the pipeline.
 
@@ -8,14 +8,12 @@ Here, we just want to highlight some concepts that are helpful to use the pipeli
 
 A _[process](https://pwwang.github.io/pipen/defining-proc/)_ is a unit of work in the pipeline. `immunopipe` includes a set of processes. Some of them are reused from [`biopipen`](https://github.com/pwwang/biopipen) and some are written specifically for `immunopipe`.
 
-The input of a process is typically a `pandas` `DataFrame`, where the rows are distributed to the jobs of the process, and columns are spreaded to the input variables of the _job_s. See more illustration [here](https://pwwang.github.io/pipen/channels/). In our case, most processes are just single-job processes. Other than the start processes, the input of a process is the output of other process(es). So users don't need to worry about the input of the processes in the configurations.
-
-Check the [Analyses and processes](#analyses-and-processes) for more details about what each process does.
+The input of a process is typically a [`pandas`](https://pandas.pydata.org/) `DataFrame`, which serves as the channel passing data between processes. The rows of the data frame are distributed to the jobs of the process, and columns are spreaded to the input variables of the _[job](https://pwwang.github.io/pipen/api/pipen.job/#pipenjobjob)_ s. See more illustration [here](https://pwwang.github.io/pipen/channels/). In our case, most processes are just single-job processes. Other than the start processes, the input of a process is the output of other process(es). So users don't need to worry about the input of the processes in the configurations.
 
 _`envs`_ of a process is the most important part of `immunopipe` that a user needs to configure. It defines the environment variables of the process. The environment variables are shared by all the jobs of the process.
 
 !!! note
-    These environment variables are not the same as the environment variables of the system. They are just variables that are used in the process.
+    These environment variables are not the same as the environment variables of the system. They are just variables that are used in the process across its jobs.
 
 See individual process pages for more details about the `envs` of each process.
 
@@ -65,8 +63,7 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 - [`CellTypeAnnotation`](processes/CellTypeAnnotation.md): Annotate cell types for each T-cell cluster.
 - [`TCRClusters2Seurat`](processes/TCRClusters2Seurat.md): Attach TCR clusters to `Seurat` objects.
 - [`SeuratMetadataMutater`](processes/SeuratMetadataMutater.md): Integrate TCR data into `Seurat` objects.
-- [`CellsDistribution`](processes/CellsDistribution.md): Investigate the distribution of cells in different groups for each T-cell cluster.
-- [`CloneHeterogeneity`](processes/CloneHeterogeneity.md): Investigate the heterogeneity of TCR clones in different groups for each T-cell cluster.
+- [`CellsDistribution`](processes/CellsDistribution.md): Investigate the distribution of cells in different groups for each T-cell cluster.<!-- - [`CloneHeterogeneity`](processes/CloneHeterogeneity.md): Investigate the heterogeneity of TCR clones in different groups for each T-cell cluster. -->
 - [`CDR3AAPhyschem`](processes/CDR3AAPhyschem.md): Investigate the physicochemical properties of CDR3 amino acid sequences of one cell type over another (i.e. `Treg` vs `Tconv`).
 - [`ScFGSEA`](processes/ScFGSEA.md): Perform GSEA analysis for comparisons between two groups of cells. For example, between two cell types, clone groups, TCR clusters or clinical groups.
 - [`MarkersFinder`](processes/MarkersFinder.md): Find markers for clones or clone groups and perform enrichment analysis.
@@ -75,7 +72,8 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 
 ### Metabolic landscape analyses
 
-- [`MetabolicLandscape`](processes/MetabolicLandscape.md): A group of folowwing processes to perform metabolic landscape analyses.
+- [`ScrnaMetabolicLandscape`](processes/ScrnaMetabolicLandscape.md): A group of folowwing processes to perform metabolic landscape analyses.
+- [`MetabolicInput`](processes/MetabolicInput.md): Prepare the input files for metabolic landscape analyses.
 - [`MetabolicExprImpution`](processes/MetabolicExprImpution.md): Impute the dropout values in the expression matrix.
 - [`MetabolicPathwayActivity`](processes/MetabolicPathwayActivity.md): Investigate the metabolic pathways of the cells in different groups and subsets.
 - [`MetabolicPathwayHeterogeneity`](processes/MetabolicPathwayHeterogeneity.md): Show metabolic pathways enriched in genes with highest contribution to the metabolic heterogeneities.
