@@ -187,3 +187,23 @@ div.document ul {
 .mkapi-object-body.module.top * {
     font-size: .75rem !important;
 }
+
+/** faq **/
+#faq ~ details {
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+}
+
+#faq ~ details > summary {
+    cursor: pointer;
+    font-weight: bold;
+    text-indent: -1rem;
+    margin-bottom: 1rem;
+    line-height: 1.2rem;
+    font-size: 108%;
+}
+
+#faq ~ details > p {
+    font-size: 96%;
+    margin-bottom: 1rem;
+}

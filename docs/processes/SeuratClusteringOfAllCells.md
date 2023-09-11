@@ -74,6 +74,7 @@ The variables marked with (`ns`) are `namespace` variables. See also: [Namespace
     Sample names can also be specified in `reference` instead of indices only.
     `reduction` defaults to `rpca`.
     `normalization.method` defaults to `SCT` if `use_sct` is `True`.
+    **If you want to use reference-based integration, you can also set `reference` to a list of sample names, instead of a list of indices.**
     - `<more>`: See more arguments: <https://satijalab.org/seurat/reference/findintegrationanchors>
 - `IntegrateData` (`ns`): Arguments for [`IntegrateData()`](https://satijalab.org/seurat/reference/integratedata).
     `anchorset` is specified internally, and `-` in the key will be replaced with `.`.

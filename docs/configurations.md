@@ -69,6 +69,8 @@ You can check all avaiable configuration items and more details [here](https://p
 
 The output directory is the directory where the final results are stored. The working directory is the directory where the pipeline information and intermediate files are stored. By default, the output directory is `./<name>-output` and the working directory is `./.pipen/<name>`.
 
+The output of processes with final results will be stored in the output directory in sub-directories named after the processes. For example, the output of [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md) will be stored in `./<outdir>/SeuratClusteringOfAllCells`. This is also a special subdirectory named `REPORTS` that contains the reports of the pipeline. By visiting the `<outdir>/REPORTS/index.html` with a web browser, you can check the reports of the pipeline.
+
 You can change the output directory by setting `outdir` or `name` in the configuration file. For example, if you want to change the output directory to `./output`, you can set the configurations as follows:
 
 ```toml

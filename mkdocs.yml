@@ -8,6 +8,7 @@ theme:
 markdown_extensions:
     - attr_list
     - markdown.extensions.admonition
+    - pymdownx.blocks.details
     - pymdownx.superfences:
         preserve_tabs: true
     - toc:
@@ -61,7 +62,8 @@ nav:
       - 'MetabolicInput': 'processes/MetabolicInput.md'
       - 'MetabolicExprImpution': 'processes/MetabolicExprImpution.md'
       - 'MetabolicFeatures': 'processes/MetabolicFeatures.md'
-      - 'MetabolicFeaturesIntraSubsets': 'processes/MetabolicFeaturesIntraSubsets.md'
+      - 'MetabolicFeaturesIntraSubset': 'processes/MetabolicFeaturesIntraSubset.md'
       - 'MetabolicPathwayActivity': 'processes/MetabolicPathwayActivity.md'
       - 'MetabolicPathwayHeterogeneity': 'processes/MetabolicPathwayHeterogeneity.md'
+    - 'FAQ': 'faq.md'
     - 'Change log': 'CHANGELOG.md'
