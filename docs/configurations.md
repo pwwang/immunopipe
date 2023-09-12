@@ -62,8 +62,10 @@ You can check all avaiable configuration items and more details [here](https://p
     - [`pipen-report`][7]: Generating reports for pipen pipelines.
     - [`pipen-log2file`][8]: Logging to files for pipen pipelines.
     - [`pipen-cli-run`][9]: Running pipen processes/process groups from command line.
+- `scheduler`: The scheduler to use (Default: `"local"`)
 - `scheduler_opts`: The options for the scheduler.
     - `immunopipe` is implemented using `pipen`, which is backended by [`xqute`][10]. Supported schedulers and options are listed [here](https://github.com/pwwang/xqute).
+    - See also [`How to run the pipeline on a cluster?`](./faq.md#how-to-run-the-pipeline-on-a-cluster) for more details.
 
 ### Output and working directory
 
@@ -114,6 +116,9 @@ You can do the similar thing to change the working directory. However, you are *
 
 - `num_retries`: The number of retries for the jobs. (Default: `3`)
 - `forks`: How many jobs to run simultaneously? (Default: `1`)
+- `scheduler`: The scheduler to use. If not specified, the scheduler specified in the pipeline level configurations will be used.
+- `scheduler_opts`: The options for the scheduler. If not specified, the scheduler options specified in the pipeline level configurations will be used.
+    - See also [`How to run the pipeline on a cluster?`](./faq.md#how-to-run-the-pipeline-on-a-cluster) for more details.
 
 To know more about the configuration items for the pipeline, you can also read the [pipen docs](https://pwwang.github.io/pipen/configurations/).
 
