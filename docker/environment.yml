@@ -22,6 +22,7 @@ dependencies:
   - bioconductor-scater
   - bioconductor-complexheatmap
   - r-hash  # CDR3AAPhyschem
+  - r-glmnet  # CDR3AAPhyschem
   - r-ggradar
   - r-hitype
   - r-seuratwrappers
