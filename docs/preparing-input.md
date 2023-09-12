@@ -28,7 +28,7 @@ You can also add other columns to the metadata file. The columns will be added t
 
 This file should be provided to `SampleInfo` process. See [`SampleInfo`](./processes/SampleInfo.md) for more details.
 
-An example metadata file can be found [here](https://github.com/pwwang/immunopipe-example/blob/master/data/sample.txt).
+An example metadata file can be found [here](https://github.com/pwwang/immunopipe-example/blob/master/data/samples.txt).
 
 ## Other optional files
 

@@ -180,7 +180,7 @@ The input file is the metadata file mentioned in [`Preparing the input`](./prepa
 
 With the minimal configurations, the pipeline will have [the default processes](#enablingdisabling-processes) enabled. You can take a look at the diagram of the pipeline [here](./ImmunopipeMinimal.svg) to see the processes enabled with the minimal configurations and the relationships between the processes.
 
-You can also check the example report [here](https://pwwang.github.io/immunopipe-example/minimal/REPORTS/) to see what you will get with the minimal configurations.
+You can also check the example report [here](http:/imp.pwwang.com/minimal/REPORTS/) to see what you will get with the minimal configurations.
 
 ## Environment variable types
 
