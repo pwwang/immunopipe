@@ -107,13 +107,13 @@ python-simpleconf = ">=0.6,<0.7"
 
 [[package]]
 name = "biopipen"
-version = "0.16.5"
+version = "0.16.6"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "biopipen-0.16.5-py3-none-any.whl", hash = "sha256:ef758b6ee26cc824ada264f052179061870842f8098830542e74543e682bda4c"},
-    {file = "biopipen-0.16.5.tar.gz", hash = "sha256:11a0f7149e757bf7213aa2c76ed073f14dd3ff011b52268ebe4c7094e65d78cb"},
+    {file = "biopipen-0.16.6-py3-none-any.whl", hash = "sha256:e78603b494e4f4747b09eeba96c12fc7a746feebe7fe30851b1016b61feeee8b"},
+    {file = "biopipen-0.16.6.tar.gz", hash = "sha256:639c622d5eb552b330463f6cbb7ed27b0a6bac31517647dab69f6e9ce19ee34f"},
 ]
 
 [package.dependencies]
@@ -1647,4 +1647,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "844e6edac50a66578411b3fecf9ccbab39d56bc5d7e178a23b11dacb74e86192"
+content-hash = "b1dfa8f809aac68c022bb16c059b7daba446f21c789d00a652b09793aec11408"
