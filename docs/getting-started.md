@@ -78,13 +78,13 @@ With that "minimal" configuration file, only a subset of the processes will be r
 
 You can also visit the following link to see the reports of the pipeline we just ran:
 
-<https://pwwang.github.io/immunopipe-example/minimal/REPORTS/index.html>
+<http://imp.pwwang.com/minimal/REPORTS/index.html>
 
 ## Next steps
 
 You may read through this documentation to learn more about the pipeline and how to configure it. There is also a configuration file, named [`Immunopipe.config.toml`][3] in the example repository, with more processes enabled. You can use it to run the pipeline with the dataset prepared above. Check out the following link for the reports:
 
-<https://pwwang.github.io/immunopipe-example/output/REPORTS/index.html>
+<http://imp.pwwang.com/output/REPORTS/index.html>
 
 
 [1]: https://www.ncbi.nlm.nih.gov/pubmed/32103181
