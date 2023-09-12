@@ -21,6 +21,7 @@ dependencies:
   - bioconductor-fgsea
   - bioconductor-scater
   - bioconductor-complexheatmap
+  - r-hash  # CDR3AAPhyschem
   - r-ggradar
   - r-hitype
   - r-seuratwrappers
