@@ -44,4 +44,67 @@ Two possible solutions are:
 
 ///
 
+/// details | Can I run one of the processes from the pipeline separately if I have the input files prepared?
+
+Only for some of the processes. `immunopipe` depends on [`biopipen`][1]. Most of the processes in `immunopipe` are subclasses of processes in `biopipen`. You can run the processes in `biopipen` separately by:
+
+```shell
+pipen run scrna SeuratClustering [options]
+```
+
+Note that only the processes from [`biopipen`][1] can be run separately. The processes in `immunopipe` are not designed to be run separately. For example, the `SeuratClusteringOfAllCells` process in `immunopipe` is a subclass of the `SeuratClustering` process in `biopipen`. It's specialized for the `immunopipe` pipeline. If you want to run a similar process separately, you should use the `SeuratClustering` process in `biopipen` instead.
+
+Like `immunopipe`, you can also either provide a configuration file:
+
+```shell
+pipen run scrna SeuratClustering @config.toml
+```
+
+or specify the options in the command line:
+
+```shell
+pipen run scrna SeuratClustering --in.srtobj path/to/srtobj.RDS ...
+```
+
+You can also use the `-h`/`--help` option to see the brief options of the process, or use `-h+`/`--help+` to see the full options of the process.
+
+///
+
+/// details | How to run the pipeline on a cluster?
+    attrs: {id: how-to-run-the-pipeline-on-a-cluster}
+
+`immunopipe` is built on top of [`pipen`][2] and [`xqute`][3]. A set of schedulers are supported by default. These schedulers are:
+
+- `local`: Run the pipeline locally.
+- `slurm`: Run the pipeline on a slurm cluster.
+- `sge`: Run the pipeline on a sge cluster.
+- `ssh`: Run the pipeline on a remote host via ssh.
+
+The scheduler can be specified via `scheduler_opts` for the whole pipeline or for a specific process. For example, to run the whole pipeline on a slurm cluster, you can use the following configuration file:
+
+```toml
+scheduler = "slurm"
+
+[scheduler_opts]
+sbatch_partition = "1-day"
+```
+
+To run a specific process on a slurm cluster, you can use the following configuration file:
+
+```toml
+[<Process>]
+scheduler = "slurm"
+
+[<Process>.scheduler_opts]
+sbatch_partition = "1-day"
+```
+
+You can also use profiles to switch between different schedulers. See also <https://pwwang.github.io/pipen/configurations/#profiles>
+
+///
+
 <p> </p>
+
+[1]: https://github.com/pwwang/biopipen
+[2]: https://github.com/pwwang/pipen
+[3]: https://github.com/pwwang/xqute

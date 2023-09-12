@@ -28,6 +28,10 @@ $ immunopipe @config.toml --forks 4 --TopExpressingGenesOfAllCells.envs.n 100 ..
 
 For configuration items, see [configurations](./configurations.md) for more details.
 
+!!! Tip
+
+    If you want to run the pipeline on a cluster, see [How to run the pipeline on a cluster?](./faq.md#how-to-run-the-pipeline-on-a-cluster) for more details.
+
 ## Run the pipeline via `pipen-board`
 
 [`pipen-board`](https://github.com/pwwang/pipen-board) is a web-based dashboard for `pipen`. It provides a user-friendly interface to configure and run the pipeline. It also provides a way to monitor the running progress of the pipeline.
