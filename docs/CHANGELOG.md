@@ -1,3 +1,10 @@
+## 0.6.0
+
+- ⬆️ Bump biopipen to 0.16
+- 📝 Add documentation
+- 💚 Fix docs building in CI
+- 📝 Update README with flowchart
+
 ## 0.5.1
 
 - ✨ Add `TopExpressingGenes`
