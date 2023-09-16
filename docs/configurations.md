@@ -240,38 +240,36 @@ And you will get the following plots:
 
 Sometimes, you may want to mutate the metadata to get the desired information. Of course, you can have them prepared in the input file, as those extra columns with meta information will be attached to the object (either `immunarch$meta` or `srtobj@meta.data`) automatically. See [`Preparing the input`](./preparing-input.md) for more details. However, sometimes the metadata is specific to some processes, you may not want to have them prepared in the input file to get all processes contaminated. Moreover, those derived columns are usually based on the existing columns, so that is also helpful to create them on the fly to keep the input file clean.
 
-In such a case, for example, if you want to plot the clone residency for each patient/subject, but the sample IDs and source information are not in the metadata directly. The information you can trace is from a `LABID` column, which is in the format of `<subject>-<source>-<timepoint>`. Then you can mutate the metadata to get the desired information.
+In such case, for example, if you want to plot the clone residency for two groups (e.g. `BM-Pre` vs. `BM-Post`) of samples for the same group (e.g. `A`). However, the `Source` and `Timepoint` information are not in a single column of metadata. Here is when `mutaters` come in place.
 
 Suppose the metadata (sitting in `immdata$meta` in `R` for example) is as follows:
 
-| LABID |
-| ----- |
-| MM003-BM-Earlier |
-| MM003-PB-Earlier |
-| MM005-BM-Earlier |
-| MM005-PB-Earlier |
+| Sample | Group | Source | Timepoint |
+| ------ | ----- | ------ | --------- |
+| MM003  | A     | BM     | Pre       |
+| MM003  | A     | BM     | Pre       |
+| MM005  | A     | BM     | Post      |
+| MM005  | A     | BM     | Post      |
+| ...    | ...   | ...    | ...       |
 
 Then you can set the configurations as follows:
 
 ```toml
 [CloneResidency.envs.mutaters]
-Sample = "stringr::str_extract(LABID, '^[^-]+')"
-Source = "stringr::str_extract(LABID, '(?<=-)[^-]+(?=-)')"
+SampleGroup = "paste0(Sample, '-', Timepoint)"
 
 [CloneResidency.envs]
-subject = "Sample"
-group = "Source"
+subject = "Group"
+group = "SampleGroup"
+order = ["BM-Pre", "BM-Post"]
 ```
 
-You will get the same plots as above.
+Then you will get a clone residency plot for group `A` with `BM-Pre` as x-axis and `BM-Post` as y-axis.
 
-The key-value pairs of `mutaters` are passed to [`dplyr::mutater()`][11] function. The actual code to mutate the metadata is as follows:
+The key-value pairs of `mutaters` are passed to [`dplyr::mutate()`][11] function. The actual code to mutate the metadata is as follows:
 
 ```r
-df %>% mutate(
-    Sample = stringr::str_extract(LABID, '^[^-]+'),
-    Source = stringr::str_extract(LABID, '(?<=-)[^-]+(?=-)')
-)
+df %>% mutate(SampleGroup = paste0(Sample, '-', Timepoint))
 ```
 
 So, for this kind of advanced configurations, you need to have some knowledge of `dplyr` in `R`.

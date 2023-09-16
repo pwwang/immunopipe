@@ -72,6 +72,10 @@ singularity run \
 
     If you want to install and run the pipeline without docker, please refer to the [Installation](./installation.md) and [Running the pipeline](./running.md) pages for more details.
 
+!!! note
+
+    You need at least 8GB of memory to run the pipeline with the example dataset and minimal configuration. 16GB or more is recommended.
+
 ## Check the results
 
 With that "minimal" configuration file, only a subset of the processes will be run. See also [Enabling/Disabling processes](./configurations.md#enablingdisabling-processes). The results will be saved in the `minimal` directory. You can also check the reports at `minimal/REPORTS/index.html` with a web browser.
