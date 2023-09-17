@@ -43,3 +43,17 @@ $ singularity pull docker://justold/immunopipe:<tag>
 ```
 
 To run the pipeline use the image, please refer to [Running the pipeline](./running.md).
+
+!!! note
+
+    Note the GPU support is not available for TCR clustering using `faiss-gpu`. If you want to use the GPU support, please install the pipeline and the dependencies using conda, and then install the packages with GPU support manually.
+
+### The directory structure in the container
+
+The docker image is build upon [`mambaorg/micromamba:1.4.3`][1]. The OS is linux/amd64. Other than the default directories, the following directories are also created or should be mapped during the run:
+
+- `/immunopipe`: The directory where the source code of the pipeline is. It is general a clone of the [repository][2]. The pipeline is also installed from this directory.
+- `/workdir`: The working directory. It is the directory where the pipeline is run. It is recommended to map the current directory (`.`) to this directory.
+
+[1]: https://hub.docker.com/layers/mambaorg/micromamba/1.4.3/images/sha256-0251b94151c021c85d3e4f4ffe1fc81c436f18e01337d3b367d0f7c76ee716ac?context=explore
+[2]: https://github.com/pwwang/immunopipe

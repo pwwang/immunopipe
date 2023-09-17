@@ -70,6 +70,10 @@ singularity run \
 
 !!! tip
 
+    Both the `docker` and `singularity` commands map the current directory (`.`) to the `/workdir` directory in the container. To get the detailed directory structure in the container, please refer to the [The directory structure in the container](./installation.md#the-directory-structure-in-the-container).
+
+!!! tip
+
     If you want to install and run the pipeline without docker, please refer to the [Installation](./installation.md) and [Running the pipeline](./running.md) pages for more details.
 
 !!! note

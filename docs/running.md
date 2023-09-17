@@ -58,6 +58,8 @@ $ pipen board immunopipe:Immunopipe
 
 Then you can open the dashboard in your browser at `http://localhost:18521`.
 
+![pipen-board](pipen-board.gif)
+
 In the `Configuration` tab, you can configure the pipeline and the processes. Then you can use the `Generate Configuration` button to generate the configuration file and then use the generated configuration file to run the pipeline via CLI.
 
 If you want to run the pipeline via `pipen-board`, you need an additional configuration file to tell `pipen-board` how to run the pipeline:
@@ -131,10 +133,12 @@ You can also run the pipeline via `pipen-board` using the docker image with `sin
 ```shell
 $ singularity run \
     --pwd /workdir -B .:/workdir -c -e -w \
-    docker:://justold/immunopipe:<tag> board \
+    docker://justold/immunopipe:<tag> board \
     immunopipe:Immunopipe \
     -a /immunopipe/board.toml
 ```
+
+![singularity-pipen-board](singularity-pipen-board.png)
 
 The under the `running options`, choose `LOCAL` to run the pipeline.
 
