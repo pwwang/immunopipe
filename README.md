@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="120" style="height: 120px" src="https://github.com/pwwang/immunopipe/blob/dev/logo.png?raw=true">
+  <img height="120" style="height: 120px" src="https://github.com/pwwang/immunopipe/blob/dev/docs/logo.png?raw=true">
 </p>
 <p align="center">Integrative analysis for single-cell RNA sequencing and single-cell TCR sequencing data</p>
 <hr />

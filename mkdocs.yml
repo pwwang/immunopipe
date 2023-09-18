@@ -3,8 +3,8 @@ edit_uri: blob/dev/docs/
 repo_url: https://github.com/pwwang/immunopipe
 repo_name: pwwang/immunopipe
 theme:
-    name: 'readthedocs'
-    favicon: 'assets/favicon.png'
+    name: 'rtd'
+    logo: 'rtd-logo.png'
 markdown_extensions:
     - attr_list
     - markdown.extensions.admonition
