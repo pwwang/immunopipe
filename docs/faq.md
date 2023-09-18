@@ -103,6 +103,12 @@ You can also use profiles to switch between different schedulers. See also <http
 
 ///
 
+/// details | Do I have to re-run the entire pipeline if I want to change some parameters?
+
+If you want to change some parameters for a specific process, you just modify the configuration file and re-run the pipeline. The pipeline will detect the changes and re-run the necessary processes. For example, if you are changing some environment variables for [`ScFGSEA`](processes/ScFGSEA.md), the prior processes, such as the ones for clustering and differential expression analysis, will be cached and will not be re-run.
+
+///
+
 <p> </p>
 
 [1]: https://github.com/pwwang/biopipen
