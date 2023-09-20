@@ -30,6 +30,7 @@ from biopipen.ns.scrna import (
     ScFGSEA,
     TopExpressingGenes,
     RadarPlots,
+    ModuleScoreCalculator as ModuleScoreCalculator_,
     MetaMarkers as MetaMarkers_,
 )
 from biopipen.ns.scrna_metabolic_landscape import ScrnaMetabolicLandscape
@@ -222,7 +223,14 @@ class CellTypeAnnotation(CellTypeAnnotation_):
     envs = {"tool": "direct"}
 
 
-@mark(board_config_hidden=True)
+if "ModuleScoreCalculator" in config or from_board:
+    class ModuleScoreCalculator(ModuleScoreCalculator_):
+        requires = CellTypeAnnotation
+
+    CellTypeAnnotation = ModuleScoreCalculator
+
+
+# @mark(board_config_hidden=True)
 @annotate.format_doc(indent=1)
 class SeuratMetadataMutater(SeuratMetadataMutater_):
     """Attach TCR clone information as meta columns to Seurat object
