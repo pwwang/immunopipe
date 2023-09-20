@@ -107,13 +107,13 @@ python-simpleconf = ">=0.6,<0.7"
 
 [[package]]
 name = "biopipen"
-version = "0.16.6"
+version = "0.17.0"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "biopipen-0.16.6-py3-none-any.whl", hash = "sha256:e78603b494e4f4747b09eeba96c12fc7a746feebe7fe30851b1016b61feeee8b"},
-    {file = "biopipen-0.16.6.tar.gz", hash = "sha256:639c622d5eb552b330463f6cbb7ed27b0a6bac31517647dab69f6e9ce19ee34f"},
+    {file = "biopipen-0.17.0-py3-none-any.whl", hash = "sha256:cfda5742c7130a99bbad8954149633b435c9f208ee0e7db904006dd29e141ab7"},
+    {file = "biopipen-0.17.0.tar.gz", hash = "sha256:c499b33e9131b6e1dfb360a0a7025a80d236cb9b8f70e0df388d394ba0549f77"},
 ]
 
 [package.dependencies]
@@ -903,13 +903,13 @@ pipen-annotate = ">=0.9.0,<0.10.0"
 
 [[package]]
 name = "pipen-board"
-version = "0.11.1"
+version = "0.11.4"
 description = "Visualization configuration and running of pipen pipelines on the web"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_board-0.11.1-py3-none-any.whl", hash = "sha256:9866e6a62ea36466530f45ab493bbfde639a3dca709724cb3c69b9a2a38e981d"},
-    {file = "pipen_board-0.11.1.tar.gz", hash = "sha256:8b6d02f5010deb75510172471ccae3faa84332629fca4a44618b921c2ddde397"},
+    {file = "pipen_board-0.11.4-py3-none-any.whl", hash = "sha256:c6756cb9832ff1081e567e9f9c32de29bdd8da62e8e772bd8764dba62a793c35"},
+    {file = "pipen_board-0.11.4.tar.gz", hash = "sha256:e3e82d4ab50d6bd89eb7f9f4d73b4fcf8bd914a4766157afa560173dcfe5cb1e"},
 ]
 
 [package.dependencies]
@@ -1358,13 +1358,13 @@ prompt_toolkit = ">=2.0,<=3.0.36"
 
 [[package]]
 name = "rich"
-version = "13.5.2"
+version = "13.5.3"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 optional = false
 python-versions = ">=3.7.0"
 files = [
-    {file = "rich-13.5.2-py3-none-any.whl", hash = "sha256:146a90b3b6b47cac4a73c12866a499e9817426423f57c5a66949c086191a8808"},
-    {file = "rich-13.5.2.tar.gz", hash = "sha256:fb9d6c0a0f643c99eed3875b5377a184132ba9be4d61516a55273d3554d75a39"},
+    {file = "rich-13.5.3-py3-none-any.whl", hash = "sha256:9257b468badc3d347e146a4faa268ff229039d4c2d176ab0cffb4c4fbc73d5d9"},
+    {file = "rich-13.5.3.tar.gz", hash = "sha256:87b43e0543149efa1253f485cd845bb7ee54df16c9617b8a893650ab84b4acb6"},
 ]
 
 [package.dependencies]
@@ -1480,13 +1480,13 @@ files = [
 
 [[package]]
 name = "typing-extensions"
-version = "4.7.1"
-description = "Backported and Experimental Type Hints for Python 3.7+"
+version = "4.8.0"
+description = "Backported and Experimental Type Hints for Python 3.8+"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "typing_extensions-4.7.1-py3-none-any.whl", hash = "sha256:440d5dd3af93b060174bf433bccd69b0babc3b15b1a8dca43789fd7f61514b36"},
-    {file = "typing_extensions-4.7.1.tar.gz", hash = "sha256:b75ddc264f0ba5615db7ba217daeb99701ad295353c45f9e95963337ceeeffb2"},
+    {file = "typing_extensions-4.8.0-py3-none-any.whl", hash = "sha256:8f92fc8806f9a6b641eaa5318da32b44d401efaac0f6678c9bc448ba3605faa0"},
+    {file = "typing_extensions-4.8.0.tar.gz", hash = "sha256:df8e4339e9cb77357558cbdbceca33c303714cf861d1eef15e1070055ae8b7ef"},
 ]
 
 [[package]]
@@ -1631,20 +1631,20 @@ uvloop = ">=0,<1"
 
 [[package]]
 name = "zipp"
-version = "3.16.2"
+version = "3.17.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "zipp-3.16.2-py3-none-any.whl", hash = "sha256:679e51dd4403591b2d6838a48de3d283f3d188412a9782faadf845f298736ba0"},
-    {file = "zipp-3.16.2.tar.gz", hash = "sha256:ebc15946aa78bd63458992fc81ec3b6f7b1e92d51c35e6de1c3804e73b799147"},
+    {file = "zipp-3.17.0-py3-none-any.whl", hash = "sha256:0e923e726174922dce09c53c59ad483ff7bbb8e572e00c7f7c46b88556409f31"},
+    {file = "zipp-3.17.0.tar.gz", hash = "sha256:84e64a1c28cf7e91ed2078bb8cc8c259cb19b76942096c8d7b84947690cabaf0"},
 ]
 
 [package.extras]
-docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
+docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (<7.2.5)", "sphinx (>=3.5)", "sphinx-lint"]
 testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-ignore-flaky", "pytest-mypy (>=0.9.1)", "pytest-ruff"]
 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "b1dfa8f809aac68c022bb16c059b7daba446f21c789d00a652b09793aec11408"
+content-hash = "50180abee8bc049821e6e3f5505000a03949fd2de1d75d113d0e589e17482190"
