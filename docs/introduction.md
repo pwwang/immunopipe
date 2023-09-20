@@ -53,7 +53,6 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 - [`CloneResidency`](processes/CloneResidency.md): Explore the residency of TCR clones for paired samples (e.g. tumor vs blood) from the same patient.
 - [`Immunarch2VDJtools`](processes/Immunarch2VDJtools.md): Convert `immunarch` objects to files for [`VDJtools`](https://vdjtools-doc.readthedocs.io/en/master/) for `VJUsage`
 - [`VJUsage`](processes/VJUsage.md): Investigate the V/J gene usage of TCR clones.
-- [`RadarPlots`](processes/RadarPlots.md): Visualize proportion of cells in different groups for each cluster.
 - [`TCRClustering`](processes/TCRClustering.md): Perform clustering on TCR clones based on CDR3 amino acid sequences.
 - [`TCRClusteringStats`](processes/TCRClusteringStats.md): Investigate statistics for TCR clusters (i.e. TCR cluster size distribution, shared TCR clusters among samples, revisited sample diversity using TCR clusters instead of clonotypes, etc.)
 - [`Immunarch`](processes/Immunarch.md): Perform TCR clonotype analyses using [`immunarch`](https://immunarch.com/) package.
@@ -63,6 +62,7 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 - [`CellTypeAnnotation`](processes/CellTypeAnnotation.md): Annotate cell types for each T-cell cluster.
 - [`TCRClusters2Seurat`](processes/TCRClusters2Seurat.md): Attach TCR clusters to `Seurat` objects.
 - [`SeuratMetadataMutater`](processes/SeuratMetadataMutater.md): Integrate TCR data into `Seurat` objects.
+- [`RadarPlots`](processes/RadarPlots.md): Visualize proportion of cells in different groups for each cluster.
 - [`CellsDistribution`](processes/CellsDistribution.md): Investigate the distribution of cells in different groups for each T-cell cluster.<!-- - [`CloneHeterogeneity`](processes/CloneHeterogeneity.md): Investigate the heterogeneity of TCR clones in different groups for each T-cell cluster. -->
 - [`CDR3AAPhyschem`](processes/CDR3AAPhyschem.md): Investigate the physicochemical properties of CDR3 amino acid sequences of one cell type over another (i.e. `Treg` vs `Tconv`).
 - [`ScFGSEA`](processes/ScFGSEA.md): Perform GSEA analysis for comparisons between two groups of cells. For example, between two cell types, clone groups, TCR clusters or clinical groups.

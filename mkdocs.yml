@@ -37,6 +37,7 @@ nav:
       - 'TCellSelection': 'processes/TCellSelection.md'
       - 'SeuratClusteringOfTCells': 'processes/SeuratClusteringOfTCells.md'
       - 'CellTypeAnnotation': 'processes/CellTypeAnnotation.md'
+      - 'ModuleScoreCalculator': 'processes/ModuleScoreCalculator.md'
       - 'SeuratClusterStats': 'processes/SeuratClusterStats.md'
       - 'MarkersForClustersOfTCells': 'processes/MarkersForClustersOfTCells.md'
       - 'TopExpressingGenesOfTCells': 'processes/TopExpressingGenesOfTCells.md'
