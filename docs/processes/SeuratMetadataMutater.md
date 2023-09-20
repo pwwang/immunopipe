@@ -4,4 +4,33 @@ This process is used to integrate scTCR-seq data into the `Seurat` object. The s
 
 [ImmunarchLoading](./ImmunarchLoading.md) process will generate a text file with the information for each cell. `ImmunarchLoading.envs.metacols` can be used to specify the columns to be exported to the text file, which will then be integrated into the `Seurat` object by this process.
 
-There is no environment variables for this process.
+You may also use `envs.mutaters` to add new columns to the metadata.
+
+These columns can be used for downstream analysis.
+
+## Environment Variables
+
+- `mutaters` (`type=json`): The mutaters to mutate the metadata.
+    The key-value pairs will be passed the `dplyr::mutate()` to mutate the metadata.
+    There are also also 4 helper functions, `expanded`, `collapsed`, `emerged` and `vanished`, that can be used to identify the expanded/collpased/emerged/vanished groups (i.e. TCR clones).
+    For example, you can use `{"Patient1_Tumor_Collapsed_Clones": "expanded(Source, 'Tumor', subset = Patent == 'Patient1')"}`
+    to create a new column in metadata named `Patient1_Tumor_Collapsed_Clones`
+    with the collapsed clones in the tumor sample (compared to the normal sample) of patient 1. The values in this columns for other clones will be `NA`.
+    Those functions take following arguments:
+    * `df`: The metadata data frame. You can use the `.` to refer to it.
+    * `group-by`: The column name in metadata to group the cells.
+    * `idents`: The first group or both groups of cells to compare (value in `group-by` column). If only the first group is given, the rest of the cells (with non-NA in `group-by` column) will be used as the second group.
+    * `subset`: An expression to subset the cells, will be passed to `dplyr::filter()`. Default is `TRUE` (no filtering).
+    * `id`: The column name in metadata for the group ids (i.e. `CDR3.aa`)
+    * `compare`: Either a (numeric) column name (i.e. `Clones`) in metadata to compare between groups, or `.n` to compare the number of cells in each group.
+    * `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df |> mutate(expanded = expanded(...))`.
+    * `order`: The order of the returned ids. It could be `sum` or `diff`, which is the sum or diff of the `compare` between idents.
+        Two kinds of modifiers can be added, including `desc` and `abs`.
+        For example, `sum,desc` means the sum of `compare` between idents in descending order.
+        Default is `diff,abs,desc`. It only works when `uniq` is `TRUE`. If `uniq` is `FALSE`, the returned
+        ids will be in the same order as in `df`.
+
+    !!! note
+
+        Note that the numeric column should be the same for all cells in the same group. This will not be checked (only the first value is used).
+

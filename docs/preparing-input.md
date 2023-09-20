@@ -30,6 +30,8 @@ This file should be provided to `SampleInfo` process. See [`SampleInfo`](./proce
 
 An example metadata file can be found [here](https://github.com/pwwang/immunopipe-example/blob/master/data/samples.txt).
 
+You can also use [`SeuratMetadataMutater`](./processes/SeuratMetadataMutater.md) to add columns to metadata by configuration. These columns are persisted for downstream analysis.
+
 ## Other optional files
 
 ### Genes/Features to visualize for Seurat object

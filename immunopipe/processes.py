@@ -227,6 +227,9 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 class SeuratMetadataMutater(SeuratMetadataMutater_):
     """Attach TCR clone information as meta columns to Seurat object
 
+    You may also use `envs.mutaters` to add new columns to the metadata.
+    These columns can be used for downstream analysis.
+
     {{*Summary.long}}
     """
     requires = CellTypeAnnotation, ImmunarchLoading
