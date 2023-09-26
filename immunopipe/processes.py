@@ -66,6 +66,7 @@ class SampleInfo(SampleInfo_):
             * Other columns are optional and will be treated as metadata for
                 each sample.
     """
+    envs = {"exclude_cols": "TCRData,RNAData"}
 
 
 class ImmunarchLoading(ImmunarchLoading):
