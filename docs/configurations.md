@@ -358,10 +358,10 @@ again.
 
 ## Multi-case variable design
 
-Some environment variables are designed to support multiple cases. However, in most cases, we only need to set the values for the default case. In such cases, the environment variable is usually a `namespace` environment variable with the sub-keys needed for the default case. In order to support multiple cases, a sub-key `cases` is added to the `namespace` environment variable. The `cases` is a dictionary (key-value pairs), where the keys are the names of the cases, and the values are the sub-keys for the corresponding cases. For example, the `envs.cluster_size` of [`SeuratClusterStats`](processes/SeuratClusterStats.md) process:
+Some environment variables are designed to support multiple cases. However, in most cases, we only need to set the values for the default case. In such cases, the environment variable is usually a `namespace` environment variable with the sub-keys needed for the default case. In order to support multiple cases, a sub-key `cases` is added to the `namespace` environment variable. The `cases` is a dictionary (key-value pairs), where the keys are the names of the cases, and the values are the sub-keys for the corresponding cases. For example, the `envs.cluster_size` of [`TCRClusteringStats`](processes/TCRClusteringStats.md) process:
 
 ```toml
-[TCRClustering.envs.cluster_size]
+[TCRClusteringStats.envs.cluster_size]
 by = "Sample"
 devpars = { width = 1000, height = 1000, res = 100 }
 cases = {}
@@ -370,7 +370,7 @@ cases = {}
 If `cases` is empty, then the default case will be added automatically. The name of the default case is `DEFAULT`. So the above configuration is equivalent to:
 
 ```toml
-[TCRClustering.envs.cluster_size]
+[TCRClusteringStats.envs.cluster_size]
 by = "Sample"
 devpars = { width = 1000, height = 1000, res = 100 }
 cases = { DEFAULT = {} }
@@ -379,7 +379,7 @@ cases = { DEFAULT = {} }
 If you want to add more cases, you can add them to the `cases` dictionary. For example, if you want to add a case named `CASE1`, you can do:
 
 ```toml
-[TCRClustering.envs.cluster_size]
+[TCRClusteringStats.envs.cluster_size]
 by = "Sample"
 devpars = { width = 1000, height = 1000, res = 100 }
 cases = { DEFAULT = {}, CASE1 = {} }
@@ -388,7 +388,7 @@ cases = { DEFAULT = {}, CASE1 = {} }
 Then you can set the values for the default case and `CASE1` case. For example, if you want to set the `by` column to `Sample` for the default case and `Sample1` for `CASE1`, you can do:
 
 ```toml
-[TCRClustering.envs.cluster_size]
+[TCRClusteringStats.envs.cluster_size]
 by = "Sample"
 devpars = { width = 1000, height = 1000, res = 100 }
 cases = { DEFAULT = { }, CASE1 = { by = "Sample1" } }
