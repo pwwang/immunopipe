@@ -107,13 +107,13 @@ python-simpleconf = ">=0.6,<0.7"
 
 [[package]]
 name = "biopipen"
-version = "0.17.2"
+version = "0.17.3"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "biopipen-0.17.2-py3-none-any.whl", hash = "sha256:1284400d1e5656652e360802875570548dda247baef013119ed84bf44c5a95f1"},
-    {file = "biopipen-0.17.2.tar.gz", hash = "sha256:1cfbf467e82b8e3b2d8cd8f362cc574cf95222c8ed45dde92b29f981e36d054b"},
+    {file = "biopipen-0.17.3-py3-none-any.whl", hash = "sha256:ef10a38099150ccc78d5ee960eb88cb43cc86002f8854f061d85f3e5bdefda45"},
+    {file = "biopipen-0.17.3.tar.gz", hash = "sha256:1cdbfbf42107030b47dbc79f1bdc6d18968cfa50ce228581b1082c959f54cd3a"},
 ]
 
 [package.dependencies]
@@ -328,13 +328,13 @@ packaging = ">=20.9"
 
 [[package]]
 name = "enlighten"
-version = "1.11.2"
+version = "1.12.0"
 description = "Enlighten Progress Bar"
 optional = false
 python-versions = "*"
 files = [
-    {file = "enlighten-1.11.2-py2.py3-none-any.whl", hash = "sha256:98c9eb20e022b6a57f1c8d4f17e16760780b6881e6d658c40f52d21255ea45f3"},
-    {file = "enlighten-1.11.2.tar.gz", hash = "sha256:9284861dee5a272e0e1a3758cd3f3b7180b1bd1754875da76876f2a7f46ccb61"},
+    {file = "enlighten-1.12.0-py2.py3-none-any.whl", hash = "sha256:6e5f68e8971ce9f21acdcf93bfae717a1a81fdb85e9bb6f9aa68f631002718b1"},
+    {file = "enlighten-1.12.0.tar.gz", hash = "sha256:6b8af6d071b5de05013a38e80e168726dc6ffb2858de817f77e415f85b2ce819"},
 ]
 
 [package.dependencies]
@@ -970,13 +970,13 @@ pipen = ">=0.10.0,<0.11.0"
 
 [[package]]
 name = "pipen-report"
-version = "0.12.7"
+version = "0.12.8"
 description = "Report generation system for pipen"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_report-0.12.7-py3-none-any.whl", hash = "sha256:c3c31067b990fb438eab04eb2a27e551e707725477a8b4f8a33cc38c96c2e68d"},
-    {file = "pipen_report-0.12.7.tar.gz", hash = "sha256:a2d24b71a580586f55082fa7556a227d0e9d57b91d153ff599adbde3d507b63b"},
+    {file = "pipen_report-0.12.8-py3-none-any.whl", hash = "sha256:539201a1e90dc4f07b37b271673e6227057754184f9fbd496d85f105d032d704"},
+    {file = "pipen_report-0.12.8.tar.gz", hash = "sha256:cd593e52f3a95fb3aaac54afc1131efe2899a9b4e9a5bf2ce45841eeb03ed997"},
 ]
 
 [package.dependencies]
