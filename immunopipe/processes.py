@@ -8,7 +8,8 @@ from pipen_board import from_pipen_board
 from pipen_filters.filters import FILTERS
 
 # biopipen processes
-from biopipen.ns.misc import File2Proc
+# from biopipen.ns.misc import File2Proc
+from biopipen.ns.delim import SampleInfo as SampleInfo_
 from biopipen.ns.tcr import (
     ImmunarchLoading,
     Immunarch,
@@ -48,11 +49,8 @@ from_board = from_pipen_board()
 
 
 @annotate.format_doc(indent=1)
-class SampleInfo(File2Proc):
-    """Load and list sample information
-
-    This process is just used to pass by input file and list the
-    sample information in the report.
+class SampleInfo(SampleInfo_):
+    """{{Summary}}
 
     Input:
         infile (required): {{Input.infile.help | indent: 12}}.
@@ -68,10 +66,6 @@ class SampleInfo(File2Proc):
             * Other columns are optional and will be treated as metadata for
                 each sample.
     """
-    plugin_opts = {
-        "report": "file://reports/SampleInfo.svelte",
-        "report_toc": False,
-    }
 
 
 class ImmunarchLoading(ImmunarchLoading):
