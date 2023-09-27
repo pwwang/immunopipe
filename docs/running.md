@@ -11,7 +11,7 @@ $ immunopipe --help
 You can specify the options directly in the CLI. For example:
 
 ```shell
-$ immunopipe --forks 4 --TopExpressingGenesOfAllCells.envs.n 100 ...
+$ immunopipe --forks 4 --TopExpressingGenes.envs.n 100 ...
 ```
 
 It's recommended to use a configuration file to specify all the options. For example:
@@ -23,7 +23,7 @@ $ immunopipe @config.toml
 You can also use both ways together. The options specified in the CLI will override the ones in the configuration file.
 
 ```shell
-$ immunopipe @config.toml --forks 4 --TopExpressingGenesOfAllCells.envs.n 100 ...
+$ immunopipe @config.toml --forks 4 --TopExpressingGenes.envs.n 100 ...
 ```
 
 For configuration items, see [configurations](./configurations.md) for more details.

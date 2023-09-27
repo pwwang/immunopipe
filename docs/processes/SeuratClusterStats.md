@@ -1,6 +1,6 @@
 # SeuratClusterStats
 
-Statistics of the clustering, including the number/fraction of cells in each cluster, the gene expression values and dimension reduction plots.
+Statistics of the clustering, including the number/fraction of cells in each cluster, the gene expression values and dimension reduction plots. It's also possible to perform stats on TCR clones/clusters for each T-cell cluster.
 
 ## Environment variables
 
@@ -55,19 +55,19 @@ Statistics of the clustering, including the number/fraction of cells in each clu
 
 ```toml
 [SeuratClusterStats.envs.stats]
-ncells_All = { }
+nCells_All = { }
 ```
 
-![ncells_All](images/SeuratClusterStats_ncells_All.png){: width="80%" }
+![nCells_All](images/SeuratClusterStats_nCells_All.png){: width="80%" }
 
 ### Number of cells in each cluster by groups
 
 ```toml
 [SeuratClusterStats.envs.stats]
-ncells_Sample = { by = "Sample" }
+nCells_Sample = { by = "Sample" }
 ```
 
-![ncells_Sample](images/SeuratClusterStats_ncells_Sample.png){: width="80%" }
+![nCells_Sample](images/SeuratClusterStats_nCells_Sample.png){: width="80%" }
 
 ### Fraction of cells in each cluster by groups
 

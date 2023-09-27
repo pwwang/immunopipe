@@ -109,8 +109,25 @@ If you want to change some parameters for a specific process, you just modify th
 
 ///
 
+/// details | Why I am getting this error when running with [`apptainer`][4]: `FATAL:   no SIF writable overlay partition found in /tmp/apptainer_cache_xxx/...`?
+
+You may need to use `--unsquash` option instead of `-w` option (used by `singularity`) for `apptainer run`.
+
+///
+
+/// details | How can I use data with soft links while using docker image to run the pipeline?
+
+The container does not have access to the host filesystem. You need to mount the directory containing the data to the container.
+
+For example, if your real data is under `/path/to/data`, you can mount it to `/data` in the container (using `-v /path/to/data:/data` option for `docker` or `-B /path/to/data:/data` option for `singularity` or `apptainer`).
+
+Then you can use `/data` in the container to access the data under `/path/to/data` on the host. Also remember to change the path of `RNAData` and `TCRData` in the file (e.g. `samples.txt`) that is passed to `SampleInfo` process.
+
+///
+
 <p> </p>
 
 [1]: https://github.com/pwwang/biopipen
 [2]: https://github.com/pwwang/pipen
 [3]: https://github.com/pwwang/xqute
+[4]: https://apptainer.org/

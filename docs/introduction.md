@@ -31,22 +31,18 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 - [`ImmunarchLoading`](processes/ImmunarchLoading.md): Load the data into `immunarch` objects.
 - [`SeuratPreparing`](processes/SeuratPreparing.md): Read the data into `Seurat` objects and perform QC.
 
-### Clustering of all cells
-
-- [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md): Perform clustering on all cells.
-- [`MarkersForClustersOfAllCells`](processes/MarkersForClustersOfAllCells.md): Find markers for each cluster and perform enrichment analysis.
-- [`TopExpressingGenesOfAllCells`](processes/TopExpressingGenesOfAllCells.md): Find top expressing genes for each cluster of all cells and perform enrichment analysis.
-
 ### T cell selection
 
+- [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md): Perform clustering on all cells.
 - [`TCellSelection`](processes/TCellSelection.md): Select T cells from all cells.
 
 ### Clustering of T cells
 
 - [`SeuratClusteringOfTCells`](processes/SeuratClusteringOfTCells.md): Perform clustering on T cells selected above.
-- [`MarkersForClustersOfTCells`](processes/MarkersForClustersOfTCells.md): Find markers for each T-cell cluster and perform enrichment analysis.
-- [`SeuratClusterStats`](processes/SeuratClusterStats.md): Investigate statistics for each T-cell cluster (i.e. the number of cells in each cluster, the number of cells in each sample for each cluster, feature/gene expression visualization, dimension reduction plots, etc.).
-- [`TopExpressingGenesOfTCells`](processes/TopExpressingGenesOfTCells.md): Find top expressing genes for each T-cell cluster and perform enrichment analysis.
+- [`CellTypeAnnotation`](processes/CellTypeAnnotation.md): Annotate cell types for each T-cell cluster.
+- [`ClusterMarkers`](processes/ClusterMarkers.md): Find markers for each T-cell cluster and perform enrichment analysis.
+- [`TopExpressingGenes`](processes/TopExpressingGenes.md): Find top expressing genes for each T-cell cluster and perform enrichment analysis.
+- [`ModuleScoreCalculator`](processes/ModuleScoreCalculator.md): Calculate module scores or cell cycle scores for each cell.
 
 ### TCR data analyses
 
@@ -59,7 +55,7 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 
 ### Integrative analyses
 
-- [`CellTypeAnnotation`](processes/CellTypeAnnotation.md): Annotate cell types for each T-cell cluster.
+- [`SeuratClusterStats`](processes/SeuratClusterStats.md): Investigate statistics for each T-cell cluster (i.e. the number of cells in each cluster, the number of cells in each sample for each cluster, feature/gene expression visualization, dimension reduction plots, etc.). It's also possible to perform stats on TCR clones/clusters for each T-cell cluster.
 - [`TCRClusters2Seurat`](processes/TCRClusters2Seurat.md): Attach TCR clusters to `Seurat` objects.
 - [`SeuratMetadataMutater`](processes/SeuratMetadataMutater.md): Integrate TCR data into `Seurat` objects.
 - [`RadarPlots`](processes/RadarPlots.md): Visualize proportion of cells in different groups for each cluster.
@@ -67,7 +63,7 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 - [`CDR3AAPhyschem`](processes/CDR3AAPhyschem.md): Investigate the physicochemical properties of CDR3 amino acid sequences of one cell type over another (i.e. `Treg` vs `Tconv`).
 - [`ScFGSEA`](processes/ScFGSEA.md): Perform GSEA analysis for comparisons between two groups of cells. For example, between two cell types, clone groups, TCR clusters or clinical groups.
 - [`MarkersFinder`](processes/MarkersFinder.md): Find markers for clones or clone groups and perform enrichment analysis.
-- [`MarkersOverlapping`](processes/MarkersOverlapping.md): Investigate the overlapping of markers for different groups.
+<!-- - [`MarkersOverlapping`](processes/MarkersOverlapping.md): Investigate the overlapping of markers for different groups. -->
 - [`MetaMarkers`](processes/MetaMarkers.md): Find meta markers for more than 2 clones or clone groups and perform enrichment analysis.
 
 ### Metabolic landscape analyses

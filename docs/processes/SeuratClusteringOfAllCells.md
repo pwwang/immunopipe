@@ -1,6 +1,6 @@
 # SeuratClusteringOfAllCells
 
-This process will perform clustering on all cells using [`Seurat`][1] package. The clusters will then be used to select T cells by [`TCellSelection`](TCellSelection.md) process. The clustering results will also be used to find markers for each cluster by [`MarkersForClustersOfAllCells`](MarkersForClustersOfAllCells.md) process, which is useful to examine the cell type composition of the samples.
+This process will perform clustering on all cells using [`Seurat`][1] package. The clusters will then be used to select T cells by [`TCellSelection`](TCellSelection.md) process.
 
 !!! note
     If all you cells are T cells, this process will perform clustering on all cells and the results will be used on downstream T-cell analyses and the integrative analyses. At the same time, you should leave the [`TCellSelection`](TCellSelection.md) process out of the pipeline, by not setting anything for the process in the configuration file.

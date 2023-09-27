@@ -1,5 +1,7 @@
 # Getting started
 
+You can find the nessary files and source code of this tutorial in the [example repository](https://github.com/pwwang/immunopipe-example).
+
 In this tutorial we will show you how to run the immunopipe pipeline on a small dataset of 3 patients with paired tumor and normal samples. The dataset is part of the data used in the publications below:
 
 - [Wu TD, Madireddi S, de Almeida PE, Banchereau R et al. Peripheral T cell expansion predicts tumour infiltration and clinical response. Nature 2020 Mar;579(7798):274-278.][1]

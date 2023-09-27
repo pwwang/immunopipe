@@ -128,16 +128,16 @@ By default, only a subset of processes are enabled. These processes include:
 
 - [`SampleInfo`](processes/SampleInfo.md)
 - [`ImmunarchLoading`](processes/ImmunarchLoading.md)
-- [`SeuratPreparing`](processes/SeuratPreparing.md)
-- [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md)
-- [`MarkersForClustersOfAllCells`](processes/MarkersForClustersOfAllCells.md)
-- [`TopExpressingGenesOfAllCells`](processes/TopExpressingGenesOfAllCells.md)
-- [`CellTypeAnnotation`](processes/CellTypeAnnotation.md)
-- [`SeuratMetadataMutater`](processes/SeuratMetadataMutater.md)
-- [`SeuratClusterStats`](processes/SeuratClusterStats.md)
-- [`Immunarch`](processes/Immunarch.md)
 - [`Immunarch2VDJtools`](processes/Immunarch2VDJtools.md)
 - [`VJUsage`](processes/VJUsage.md)
+- [`Immunarch`](processes/Immunarch.md)
+- [`SeuratPreparing`](processes/SeuratPreparing.md)
+- [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md)
+- [`CellTypeAnnotation`](processes/CellTypeAnnotation.md)
+- [`SeuratMetadataMutater`](processes/SeuratMetadataMutater.md)
+- [`ClusterMarkers`](processes/ClusterMarkers.md)
+- [`TopExpressingGenes`](processes/TopExpressingGenes.md)
+- [`SeuratClusterStats`](processes/SeuratClusterStats.md)
 
 To enable more processes, you just need to add configurations for the processes. As long as the process name appears in the configuration file, the process will be enabled. For example, if you want to enable [`TCellSelection`](processes/TCellSelection.md), you can add the following lines to the configuration file:
 
@@ -146,7 +146,7 @@ To enable more processes, you just need to add configurations for the processes.
 indicator_genes = ["CD3D", "CD3E", "CD3G"]
 ```
 
-If [`TCellSelection`](processes/TCellSelection.md) is enabled, then [`SeuratClusteringOfTCells`](processes/SeuratClusteringOfTCells.md), [`MarkersForClustersOfTCells`](processes/MarkersForClustersOfTCells.md), and [`TopExpressingGenesOfTCells`](processes/TopExpressingGenesOfTCells.md) will be enabled automatically.
+If [`TCellSelection`](processes/TCellSelection.md) is enabled, then [`SeuratClusteringOfTCells`](processes/SeuratClusteringOfTCells.md) will be enabled, and [`ClusterMarkers`](processes/ClusterMarkers.md), and [`TopExpressingGenes`](processes/TopExpressingGenes.md) will be performed on the clusters of selected T cells.
 
 Similarly, if [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusteringStats`](processes/TCRClusteringStats.md) is enabled, then [`TCRClustering`](processes/TCRClustering.md), [`TCRClusters2Seurat`](processes/TCRClusters2Seurat.md), and [`TCRClusteringStats`](processes/TCRClusteringStats.md) will be enabled automatically.
 
@@ -173,7 +173,7 @@ The minimal configurations are just the configurations with the input file:
 
 ```toml
 [SampleInfo.in]
-infile = [ "sample.txt" ]
+infile = [ "samples.txt" ]
 ```
 
 The input file is the metadata file mentioned in [`Preparing the input`](./preparing-input.md#metadata).

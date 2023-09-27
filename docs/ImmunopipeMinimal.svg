@@ -1,167 +1,167 @@
-<svg width="743" height="442" viewBox="0.00 0.00 743.00 442.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="592" height="442" viewBox="0.00 0.00 591.50 442.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 438)">
 <title>ImmunopipeMinimal</title>
-<polygon fill="#FFFFFF" stroke="#000000" points="-4,4 -4,-438 739,-438 739,4 -4,4" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="367.5" y="-418.8" font-family="Helvetica,sans-Serif" font-size="14.00">ImmunopipeMinimal</text>
-<text text-anchor="middle" x="367.5" y="-403.8" font-family="Helvetica,sans-Serif" font-size="14.00"> </text>
-<!-- Immunarch2VDJtools -->
+<polygon fill="#FFFFFF" stroke="#000000" points="-4,4 -4,-438 587.5,-438 587.5,4 -4,4" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="291.75" y="-418.8" font-family="Helvetica,sans-Serif" font-size="14.00">ImmunopipeMinimal</text>
+<text text-anchor="middle" x="291.75" y="-403.8" font-family="Helvetica,sans-Serif" font-size="14.00"> </text>
+<!-- CellTypeAnnotation -->
 <g id="node1" class="node">
-<title>Immunarch2VDJtools</title>
-<path fill="none" stroke="#000000" d="M590.5,-252C590.5,-252 483.5,-252 483.5,-252 477.5,-252 471.5,-246 471.5,-240 471.5,-240 471.5,-228 471.5,-228 471.5,-222 477.5,-216 483.5,-216 483.5,-216 590.5,-216 590.5,-216 596.5,-216 602.5,-222 602.5,-228 602.5,-228 602.5,-240 602.5,-240 602.5,-246 596.5,-252 590.5,-252"></path>
-<text text-anchor="middle" x="537" y="-230.9" font-family="Helvetica,sans-Serif" font-size="12.00">Immunarch2VDJtools</text>
-</g>
-<!-- VJUsage -->
-<g id="node6" class="node">
-<title>VJUsage</title>
-<polygon fill="none" stroke="#000000" points="603,-180 537,-180 537,-144 603,-144 603,-180"></polygon>
-<text text-anchor="middle" x="570" y="-158.9" font-family="Helvetica,sans-Serif" font-size="12.00">VJUsage</text>
-</g>
-<!-- Immunarch2VDJtools&#45;&gt;VJUsage -->
-<g id="edge2" class="edge">
-<title>Immunarch2VDJtools-&gt;VJUsage</title>
-<path fill="none" stroke="#000000" d="M545.16,-215.7C549.15,-207.22 554.04,-196.86 558.41,-187.58"></path>
-<polygon fill="black" stroke="#000000" points="561.06,-188.53 561.94,-180.1 555.99,-186.15 561.06,-188.53"></polygon>
+<title>CellTypeAnnotation</title>
+<path fill="none" stroke="#000000" d="M444.5,-180C444.5,-180 346.5,-180 346.5,-180 340.5,-180 334.5,-174 334.5,-168 334.5,-168 334.5,-156 334.5,-156 334.5,-150 340.5,-144 346.5,-144 346.5,-144 444.5,-144 444.5,-144 450.5,-144 456.5,-150 456.5,-156 456.5,-156 456.5,-168 456.5,-168 456.5,-174 450.5,-180 444.5,-180"></path>
+<text text-anchor="middle" x="395.5" y="-158.9" font-family="Helvetica,sans-Serif" font-size="12.00">CellTypeAnnotation</text>
 </g>
 <!-- SeuratMetadataMutater -->
-<g id="node2" class="node">
+<g id="node4" class="node">
 <title>SeuratMetadataMutater</title>
-<g id="a_node2"><a xlink:title="Attach TCR clone information as meta columns to Seurat object">
-<path fill="none" stroke="#000000" d="M602.5,-108C602.5,-108 485.5,-108 485.5,-108 479.5,-108 473.5,-102 473.5,-96 473.5,-96 473.5,-84 473.5,-84 473.5,-78 479.5,-72 485.5,-72 485.5,-72 602.5,-72 602.5,-72 608.5,-72 614.5,-78 614.5,-84 614.5,-84 614.5,-96 614.5,-96 614.5,-102 608.5,-108 602.5,-108"></path>
-<text text-anchor="middle" x="544" y="-86.9" font-family="Helvetica,sans-Serif" font-size="12.00">SeuratMetadataMutater</text>
+<g id="a_node4"><a xlink:title="Attach TCR clone information as meta columns to Seurat object">
+<path fill="none" stroke="#000000" d="M306,-108C306,-108 189,-108 189,-108 183,-108 177,-102 177,-96 177,-96 177,-84 177,-84 177,-78 183,-72 189,-72 189,-72 306,-72 306,-72 312,-72 318,-78 318,-84 318,-84 318,-96 318,-96 318,-102 312,-108 306,-108"></path>
+<text text-anchor="middle" x="247.5" y="-86.9" font-family="Helvetica,sans-Serif" font-size="12.00">SeuratMetadataMutater</text>
 </a>
 </g>
 </g>
-<!-- SeuratClusterStats -->
-<g id="node7" class="node">
-<title>SeuratClusterStats</title>
-<polygon fill="none" stroke="#000000" points="602.5,-36 485.5,-36 485.5,0 602.5,0 602.5,-36"></polygon>
-<text text-anchor="middle" x="544" y="-14.9" font-family="Helvetica,sans-Serif" font-size="12.00">SeuratClusterStats</text>
-</g>
-<!-- SeuratMetadataMutater&#45;&gt;SeuratClusterStats -->
+<!-- CellTypeAnnotation&#45;&gt;SeuratMetadataMutater -->
 <g id="edge8" class="edge">
-<title>SeuratMetadataMutater-&gt;SeuratClusterStats</title>
-<path fill="none" stroke="#000000" d="M544,-71.7C544,-63.39 544,-53.28 544,-44.14"></path>
-<polygon fill="black" stroke="#000000" points="546.8,-44.1 544,-36.1 541.2,-44.1 546.8,-44.1"></polygon>
+<title>CellTypeAnnotation-&gt;SeuratMetadataMutater</title>
+<path fill="none" stroke="#000000" d="M359.3,-143.88C338.7,-134.14 312.77,-121.87 291.07,-111.61"></path>
+<polygon fill="black" stroke="#000000" points="292.02,-108.96 283.59,-108.07 289.62,-114.02 292.02,-108.96"></polygon>
+</g>
+<!-- TopExpressingGenes -->
+<g id="node6" class="node">
+<title>TopExpressingGenes</title>
+<g id="a_node6"><a xlink:title="Top expressing genes for clusters of T cells.">
+<polygon fill="none" stroke="#000000" points="467,-108 336,-108 336,-72 467,-72 467,-108"></polygon>
+<text text-anchor="middle" x="401.5" y="-86.9" font-family="Helvetica,sans-Serif" font-size="12.00">TopExpressingGenes</text>
+</a>
+</g>
+</g>
+<!-- CellTypeAnnotation&#45;&gt;TopExpressingGenes -->
+<g id="edge12" class="edge">
+<title>CellTypeAnnotation-&gt;TopExpressingGenes</title>
+<path fill="none" stroke="#000000" d="M396.98,-143.7C397.7,-135.39 398.56,-125.28 399.35,-116.14"></path>
+<polygon fill="black" stroke="#000000" points="402.14,-116.31 400.03,-108.1 396.56,-115.84 402.14,-116.31"></polygon>
+</g>
+<!-- ClusterMarkers -->
+<g id="node12" class="node">
+<title>ClusterMarkers</title>
+<g id="a_node12"><a xlink:title="Markers for clusters of T cells.">
+<polygon fill="none" stroke="#000000" points="583.5,-108 485.5,-108 485.5,-72 583.5,-72 583.5,-108"></polygon>
+<text text-anchor="middle" x="534.5" y="-86.9" font-family="Helvetica,sans-Serif" font-size="12.00">ClusterMarkers</text>
+</a>
+</g>
+</g>
+<!-- CellTypeAnnotation&#45;&gt;ClusterMarkers -->
+<g id="edge11" class="edge">
+<title>CellTypeAnnotation-&gt;ClusterMarkers</title>
+<path fill="none" stroke="#000000" d="M429.5,-143.88C448.69,-134.22 472.8,-122.07 493.08,-111.86"></path>
+<polygon fill="black" stroke="#000000" points="494.48,-114.29 500.37,-108.19 491.96,-109.29 494.48,-114.29"></polygon>
+</g>
+<!-- Immunarch2VDJtools -->
+<g id="node2" class="node">
+<title>Immunarch2VDJtools</title>
+<path fill="none" stroke="#000000" d="M119,-252C119,-252 12,-252 12,-252 6,-252 0,-246 0,-240 0,-240 0,-228 0,-228 0,-222 6,-216 12,-216 12,-216 119,-216 119,-216 125,-216 131,-222 131,-228 131,-228 131,-240 131,-240 131,-246 125,-252 119,-252"></path>
+<text text-anchor="middle" x="65.5" y="-230.9" font-family="Helvetica,sans-Serif" font-size="12.00">Immunarch2VDJtools</text>
+</g>
+<!-- VJUsage -->
+<g id="node10" class="node">
+<title>VJUsage</title>
+<polygon fill="none" stroke="#000000" points="98.5,-180 32.5,-180 32.5,-144 98.5,-144 98.5,-180"></polygon>
+<text text-anchor="middle" x="65.5" y="-158.9" font-family="Helvetica,sans-Serif" font-size="12.00">VJUsage</text>
+</g>
+<!-- Immunarch2VDJtools&#45;&gt;VJUsage -->
+<g id="edge1" class="edge">
+<title>Immunarch2VDJtools-&gt;VJUsage</title>
+<path fill="none" stroke="#000000" d="M65.5,-215.7C65.5,-207.39 65.5,-197.28 65.5,-188.14"></path>
+<polygon fill="black" stroke="#000000" points="68.3,-188.1 65.5,-180.1 62.7,-188.1 68.3,-188.1"></polygon>
 </g>
 <!-- Immunarch -->
 <g id="node3" class="node">
 <title>Immunarch</title>
-<polygon fill="none" stroke="#000000" points="735,-252 659,-252 659,-216 735,-216 735,-252"></polygon>
-<text text-anchor="middle" x="697" y="-230.9" font-family="Helvetica,sans-Serif" font-size="12.00">Immunarch</text>
+<polygon fill="none" stroke="#000000" points="225.5,-252 149.5,-252 149.5,-216 225.5,-216 225.5,-252"></polygon>
+<text text-anchor="middle" x="187.5" y="-230.9" font-family="Helvetica,sans-Serif" font-size="12.00">Immunarch</text>
 </g>
-<!-- MarkersForClustersOfAllCells -->
-<g id="node4" class="node">
-<title>MarkersForClustersOfAllCells</title>
-<g id="a_node4"><a xlink:title="Find markers for clusters of all cells.">
-<polygon fill="none" stroke="#000000" points="176,-180 0,-180 0,-144 176,-144 176,-180"></polygon>
-<text text-anchor="middle" x="88" y="-158.9" font-family="Helvetica,sans-Serif" font-size="12.00">MarkersForClustersOfAllCells</text>
-</a>
-</g>
-</g>
-<!-- TopExpressingGenesOfAllCells -->
+<!-- SeuratClusterStats -->
 <g id="node5" class="node">
-<title>TopExpressingGenesOfAllCells</title>
-<g id="a_node5"><a xlink:title="Top expressing genes for clusters of all cells.">
-<polygon fill="none" stroke="#000000" points="378.5,-180 193.5,-180 193.5,-144 378.5,-144 378.5,-180"></polygon>
-<text text-anchor="middle" x="286" y="-158.9" font-family="Helvetica,sans-Serif" font-size="12.00">TopExpressingGenesOfAllCells</text>
-</a>
+<title>SeuratClusterStats</title>
+<polygon fill="none" stroke="#000000" points="306,-36 189,-36 189,0 306,0 306,-36"></polygon>
+<text text-anchor="middle" x="247.5" y="-14.9" font-family="Helvetica,sans-Serif" font-size="12.00">SeuratClusterStats</text>
 </g>
+<!-- SeuratMetadataMutater&#45;&gt;SeuratClusterStats -->
+<g id="edge7" class="edge">
+<title>SeuratMetadataMutater-&gt;SeuratClusterStats</title>
+<path fill="none" stroke="#000000" d="M247.5,-71.7C247.5,-63.39 247.5,-53.28 247.5,-44.14"></path>
+<polygon fill="black" stroke="#000000" points="250.3,-44.1 247.5,-36.1 244.7,-44.1 250.3,-44.1"></polygon>
 </g>
-<!-- SeuratClusteringOfAllCells -->
-<g id="node8" class="node">
-<title>SeuratClusteringOfAllCells</title>
-<g id="a_node8"><a xlink:title="Cluster all cells using Seurat">
-<path fill="none" stroke="#000000" d="M398.5,-252C398.5,-252 261.5,-252 261.5,-252 255.5,-252 249.5,-246 249.5,-240 249.5,-240 249.5,-228 249.5,-228 249.5,-222 255.5,-216 261.5,-216 261.5,-216 398.5,-216 398.5,-216 404.5,-216 410.5,-222 410.5,-228 410.5,-228 410.5,-240 410.5,-240 410.5,-246 404.5,-252 398.5,-252"></path>
-<text text-anchor="middle" x="330" y="-230.9" font-family="Helvetica,sans-Serif" font-size="12.00">SeuratClusteringOfAllCells</text>
-</a>
+<!-- ImmunarchLoading -->
+<g id="node7" class="node">
+<title>ImmunarchLoading</title>
+<path fill="none" stroke="#000000" d="M268,-324C268,-324 173,-324 173,-324 167,-324 161,-318 161,-312 161,-312 161,-300 161,-300 161,-294 167,-288 173,-288 173,-288 268,-288 268,-288 274,-288 280,-294 280,-300 280,-300 280,-312 280,-312 280,-318 274,-324 268,-324"></path>
+<text text-anchor="middle" x="220.5" y="-302.9" font-family="Helvetica,sans-Serif" font-size="12.00">ImmunarchLoading</text>
 </g>
-</g>
-<!-- SeuratClusteringOfAllCells&#45;&gt;MarkersForClustersOfAllCells -->
+<!-- ImmunarchLoading&#45;&gt;Immunarch2VDJtools -->
 <g id="edge5" class="edge">
-<title>SeuratClusteringOfAllCells-&gt;MarkersForClustersOfAllCells</title>
-<path fill="none" stroke="#000000" d="M271.11,-215.97C236.12,-205.84 191.63,-192.97 155.26,-182.45"></path>
-<polygon fill="black" stroke="#000000" points="155.62,-179.64 147.15,-180.11 154.06,-185.02 155.62,-179.64"></polygon>
+<title>ImmunarchLoading-&gt;Immunarch2VDJtools</title>
+<path fill="none" stroke="#000000" d="M182.58,-287.88C160.92,-278.09 133.62,-265.77 110.83,-255.47"></path>
+<polygon fill="black" stroke="#000000" points="111.74,-252.81 103.29,-252.07 109.43,-257.91 111.74,-252.81"></polygon>
 </g>
-<!-- SeuratClusteringOfAllCells&#45;&gt;TopExpressingGenesOfAllCells -->
+<!-- ImmunarchLoading&#45;&gt;Immunarch -->
 <g id="edge9" class="edge">
-<title>SeuratClusteringOfAllCells-&gt;TopExpressingGenesOfAllCells</title>
-<path fill="none" stroke="#000000" d="M319.12,-215.7C313.69,-207.05 307.02,-196.45 301.1,-187.03"></path>
-<polygon fill="black" stroke="#000000" points="303.38,-185.39 296.75,-180.1 298.64,-188.37 303.38,-185.39"></polygon>
+<title>ImmunarchLoading-&gt;Immunarch</title>
+<path fill="none" stroke="#000000" d="M212.34,-287.7C208.35,-279.22 203.46,-268.86 199.09,-259.58"></path>
+<polygon fill="black" stroke="#000000" points="201.51,-258.15 195.56,-252.1 196.44,-260.53 201.51,-258.15"></polygon>
 </g>
-<!-- CellTypeAnnotation -->
-<g id="node12" class="node">
-<title>CellTypeAnnotation</title>
-<path fill="none" stroke="#000000" d="M507,-180C507,-180 409,-180 409,-180 403,-180 397,-174 397,-168 397,-168 397,-156 397,-156 397,-150 403,-144 409,-144 409,-144 507,-144 507,-144 513,-144 519,-150 519,-156 519,-156 519,-168 519,-168 519,-174 513,-180 507,-180"></path>
-<text text-anchor="middle" x="458" y="-158.9" font-family="Helvetica,sans-Serif" font-size="12.00">CellTypeAnnotation</text>
-</g>
-<!-- SeuratClusteringOfAllCells&#45;&gt;CellTypeAnnotation -->
-<g id="edge6" class="edge">
-<title>SeuratClusteringOfAllCells-&gt;CellTypeAnnotation</title>
-<path fill="none" stroke="#000000" d="M361.31,-215.88C378.82,-206.3 400.8,-194.28 419.37,-184.13"></path>
-<polygon fill="black" stroke="#000000" points="420.89,-186.48 426.57,-180.19 418.2,-181.57 420.89,-186.48"></polygon>
+<!-- ImmunarchLoading&#45;&gt;SeuratMetadataMutater -->
+<g id="edge2" class="edge">
+<title>ImmunarchLoading-&gt;SeuratMetadataMutater</title>
+<path fill="none" stroke="#000000" d="M225.82,-287.98C228.84,-277.67 232.41,-264.19 234.5,-252 242.62,-204.5 245.7,-148.22 246.84,-116.36"></path>
+<polygon fill="black" stroke="#000000" points="249.65,-116.13 247.12,-108.04 244.05,-115.95 249.65,-116.13"></polygon>
 </g>
 <!-- SeuratPreparing -->
-<g id="node9" class="node">
+<g id="node8" class="node">
 <title>SeuratPreparing</title>
-<path fill="none" stroke="#000000" d="M456,-324C456,-324 376,-324 376,-324 370,-324 364,-318 364,-312 364,-312 364,-300 364,-300 364,-294 370,-288 376,-288 376,-288 456,-288 456,-288 462,-288 468,-294 468,-300 468,-300 468,-312 468,-312 468,-318 462,-324 456,-324"></path>
-<text text-anchor="middle" x="416" y="-302.9" font-family="Helvetica,sans-Serif" font-size="12.00">SeuratPreparing</text>
+<path fill="none" stroke="#000000" d="M407.5,-324C407.5,-324 327.5,-324 327.5,-324 321.5,-324 315.5,-318 315.5,-312 315.5,-312 315.5,-300 315.5,-300 315.5,-294 321.5,-288 327.5,-288 327.5,-288 407.5,-288 407.5,-288 413.5,-288 419.5,-294 419.5,-300 419.5,-300 419.5,-312 419.5,-312 419.5,-318 413.5,-324 407.5,-324"></path>
+<text text-anchor="middle" x="367.5" y="-302.9" font-family="Helvetica,sans-Serif" font-size="12.00">SeuratPreparing</text>
+</g>
+<!-- SeuratClusteringOfAllCells -->
+<g id="node9" class="node">
+<title>SeuratClusteringOfAllCells</title>
+<g id="a_node9"><a xlink:title="Cluster all cells using Seurat">
+<path fill="none" stroke="#000000" d="M453,-252C453,-252 316,-252 316,-252 310,-252 304,-246 304,-240 304,-240 304,-228 304,-228 304,-222 310,-216 316,-216 316,-216 453,-216 453,-216 459,-216 465,-222 465,-228 465,-228 465,-240 465,-240 465,-246 459,-252 453,-252"></path>
+<text text-anchor="middle" x="384.5" y="-230.9" font-family="Helvetica,sans-Serif" font-size="12.00">SeuratClusteringOfAllCells</text>
+</a>
+</g>
 </g>
 <!-- SeuratPreparing&#45;&gt;SeuratClusteringOfAllCells -->
 <g id="edge4" class="edge">
 <title>SeuratPreparing-&gt;SeuratClusteringOfAllCells</title>
-<path fill="none" stroke="#000000" d="M394.74,-287.7C383.49,-278.54 369.55,-267.19 357.49,-257.38"></path>
-<polygon fill="black" stroke="#000000" points="358.99,-254.98 351.01,-252.1 355.45,-259.33 358.99,-254.98"></polygon>
+<path fill="none" stroke="#000000" d="M371.7,-287.7C373.72,-279.39 376.18,-269.28 378.39,-260.14"></path>
+<polygon fill="black" stroke="#000000" points="381.18,-260.54 380.35,-252.1 375.74,-259.22 381.18,-260.54"></polygon>
+</g>
+<!-- SeuratClusteringOfAllCells&#45;&gt;CellTypeAnnotation -->
+<g id="edge6" class="edge">
+<title>SeuratClusteringOfAllCells-&gt;CellTypeAnnotation</title>
+<path fill="none" stroke="#000000" d="M387.22,-215.7C388.52,-207.39 390.11,-197.28 391.55,-188.14"></path>
+<polygon fill="black" stroke="#000000" points="394.34,-188.44 392.81,-180.1 388.8,-187.57 394.34,-188.44"></polygon>
 </g>
 <!-- SampleInfo -->
-<g id="node10" class="node">
+<g id="node11" class="node">
 <title>SampleInfo</title>
-<g id="a_node10"><a xlink:title="Load and list sample information">
-<polygon fill="none" stroke="#000000" points="481,-396 413.93,-378 481,-360 548.07,-378 481,-396"></polygon>
-<text text-anchor="middle" x="481" y="-374.9" font-family="Helvetica,sans-Serif" font-size="12.00">SampleInfo</text>
+<g id="a_node11"><a xlink:title="List sample information and perform statistics">
+<polygon fill="none" stroke="#000000" points="285.5,-396 218.43,-378 285.5,-360 352.57,-378 285.5,-396"></polygon>
+<text text-anchor="middle" x="285.5" y="-374.9" font-family="Helvetica,sans-Serif" font-size="12.00">SampleInfo</text>
 </a>
 </g>
 </g>
-<!-- SampleInfo&#45;&gt;SeuratPreparing -->
-<g id="edge12" class="edge">
-<title>SampleInfo-&gt;SeuratPreparing</title>
-<path fill="none" stroke="#000000" d="M468.16,-363.17C459.35,-353.69 447.47,-340.89 437.27,-329.9"></path>
-<polygon fill="black" stroke="#000000" points="439.3,-327.98 431.8,-324.02 435.2,-331.79 439.3,-327.98"></polygon>
-</g>
-<!-- ImmunarchLoading -->
-<g id="node11" class="node">
-<title>ImmunarchLoading</title>
-<path fill="none" stroke="#000000" d="M631.5,-324C631.5,-324 536.5,-324 536.5,-324 530.5,-324 524.5,-318 524.5,-312 524.5,-312 524.5,-300 524.5,-300 524.5,-294 530.5,-288 536.5,-288 536.5,-288 631.5,-288 631.5,-288 637.5,-288 643.5,-294 643.5,-300 643.5,-300 643.5,-312 643.5,-312 643.5,-318 637.5,-324 631.5,-324"></path>
-<text text-anchor="middle" x="584" y="-302.9" font-family="Helvetica,sans-Serif" font-size="12.00">ImmunarchLoading</text>
-</g>
 <!-- SampleInfo&#45;&gt;ImmunarchLoading -->
-<g id="edge1" class="edge">
-<title>SampleInfo-&gt;ImmunarchLoading</title>
-<path fill="none" stroke="#000000" d="M498.94,-364.81C513.6,-354.85 534.67,-340.52 552.18,-328.63"></path>
-<polygon fill="black" stroke="#000000" points="553.89,-330.85 558.94,-324.03 550.74,-326.22 553.89,-330.85"></polygon>
-</g>
-<!-- ImmunarchLoading&#45;&gt;Immunarch2VDJtools -->
-<g id="edge10" class="edge">
-<title>ImmunarchLoading-&gt;Immunarch2VDJtools</title>
-<path fill="none" stroke="#000000" d="M572.38,-287.7C566.52,-278.97 559.32,-268.24 552.95,-258.75"></path>
-<polygon fill="black" stroke="#000000" points="555.27,-257.19 548.48,-252.1 550.62,-260.31 555.27,-257.19"></polygon>
-</g>
-<!-- ImmunarchLoading&#45;&gt;SeuratMetadataMutater -->
 <g id="edge3" class="edge">
-<title>ImmunarchLoading-&gt;SeuratMetadataMutater</title>
-<path fill="none" stroke="#000000" d="M595.4,-287.65C601.29,-277.67 607.88,-264.63 611,-252 622.53,-205.4 633.07,-187.13 612,-144 605.85,-131.41 595.1,-120.94 583.94,-112.72"></path>
-<polygon fill="black" stroke="#000000" points="585.53,-110.41 577.36,-108.14 582.33,-115.01 585.53,-110.41"></polygon>
+<title>SampleInfo-&gt;ImmunarchLoading</title>
+<path fill="none" stroke="#000000" d="M272.66,-363.17C263.85,-353.69 251.97,-340.89 241.77,-329.9"></path>
+<polygon fill="black" stroke="#000000" points="243.8,-327.98 236.3,-324.02 239.7,-331.79 243.8,-327.98"></polygon>
 </g>
-<!-- ImmunarchLoading&#45;&gt;Immunarch -->
-<g id="edge11" class="edge">
-<title>ImmunarchLoading-&gt;Immunarch</title>
-<path fill="none" stroke="#000000" d="M611.64,-287.88C626.83,-278.47 645.81,-266.71 662.02,-256.67"></path>
-<polygon fill="black" stroke="#000000" points="663.92,-258.78 669.25,-252.19 660.98,-254.02 663.92,-258.78"></polygon>
-</g>
-<!-- CellTypeAnnotation&#45;&gt;SeuratMetadataMutater -->
-<g id="edge7" class="edge">
-<title>CellTypeAnnotation-&gt;SeuratMetadataMutater</title>
-<path fill="none" stroke="#000000" d="M479.26,-143.7C490.51,-134.54 504.45,-123.19 516.51,-113.38"></path>
-<polygon fill="black" stroke="#000000" points="518.55,-115.33 522.99,-108.1 515.01,-110.98 518.55,-115.33"></polygon>
+<!-- SampleInfo&#45;&gt;SeuratPreparing -->
+<g id="edge10" class="edge">
+<title>SampleInfo-&gt;SeuratPreparing</title>
+<path fill="none" stroke="#000000" d="M300.92,-363.83C312.25,-354.17 327.9,-340.8 341.19,-329.46"></path>
+<polygon fill="black" stroke="#000000" points="343.22,-331.41 347.49,-324.08 339.59,-327.15 343.22,-331.41"></polygon>
 </g>
 </g>
 </svg>
