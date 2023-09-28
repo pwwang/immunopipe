@@ -100,9 +100,9 @@ $ singularity run \
 
 ### Choose the right tag of the docker image
 
-The docker image is tagged with the version of `immunopipe`, together with `dev`. They are listed here: <https://hub.docker.com/repository/docker/justold/immunopipe/tags>.
+The docker image is tagged with the version of `immunopipe`, together with `master` and `dev`. They are listed here: <https://hub.docker.com/repository/docker/justold/immunopipe/tags>.
 
-`dev` is the latest development version of `immunopipe`. It may have unstable features. If you want to use a specific version, you can choose the corresponding tag.
+`dev` is the latest development version of `immunopipe`. It may have unstable features. If you want to use a more stable version, please try `master`, or a specific semantic version.
 
 You can pull the images in advance using `docker` or `singularity`. See help options of `docker pull` and `singularity pull` for more details.
 
