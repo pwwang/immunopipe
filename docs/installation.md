@@ -2,9 +2,9 @@
 
 ## Install the pipline and the dependencies using conda
 
-!!! Tip
-
-    If you plan to use the docker image, you can skip this section.
+/// Tip
+If you plan to use the docker image, you can skip this section.
+///
 
 `immunopipe` is built upon [`pipen`](https://github.com/pwwang/pipen) framework, and a number of packages in `R` and `python`. It's not recommended to install the packages manually. Instead, you can use the provided `environment.yml` to create a conda environment.
 
@@ -18,13 +18,14 @@ If the URL doesn't work, you can download the file and create the environment lo
 
 For more detailed instructions of `conda env create`, please refer to [conda docs](https://docs.conda.io/projects/conda/en/latest/commands/env/create.html).
 
-!!! note
-    The pipeline itself is not included in the conda environment. You need to install it separately.
+/// Reminder
+The pipeline itself is NOT included in the conda environment. You need to install it separately.
 
-    ```shell
-    $ conda activate immunopipe
-    $ pip install -U immunopipe
-    ```
+```shell
+$ conda activate immunopipe
+$ pip install -U immunopipe
+```
+///
 
 ## Use the docker image
 
@@ -32,21 +33,31 @@ You can also use the docker image to run the pipeline. The image is built upon `
 
 To pull the image:
 
+/// tab | Using docker
 ```shell
 $ docker pull justold/immunopipe:<tag>
 ```
+///
 
+/// tab | Using singularity
 If you are using `singularity`, you can pull and convert the image to `sif` format:
 
 ```shell
 $ singularity pull docker://justold/immunopipe:<tag>
 ```
+///
+
+/// tab | Using apptainer
+```shell
+$ apptainer pull docker://justold/immunopipe:<tag>
+```
+///
 
 To run the pipeline use the image, please refer to [Running the pipeline](./running.md).
 
-!!! note
-
-    Note the GPU support is not available for TCR clustering using `faiss-gpu`. If you want to use the GPU support, please install the pipeline and the dependencies using conda, and then install the packages with GPU support manually.
+/// Note
+Note the GPU support is not available for TCR clustering using `faiss-gpu`. If you want to use the GPU support, please install the pipeline and the dependencies using conda, and then install the packages with GPU support manually.
+///
 
 ### The directory structure in the container
 

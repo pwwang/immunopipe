@@ -83,18 +83,19 @@ You may also perform some statistics on the sample information, for example, num
     The keys are the case names and the values are the parameters
     inheirted from `envs.defaults`.
 
-!!! Tip
+/// Tip
 
-    This is the start process of the pipeline. Once you change the parameters for this process, the whole pipeline will be re-run.
+This is the start process of the pipeline. Once you change the parameters for this process, the whole pipeline will be re-run.
 
-    If you just want to change the parameters for the statistics, and use the cached (previous) results for other processes, you can set `cache` at pipeline level to `"force"` to force the pipeline to use the cached results and `cache` of `SampleInfo` to `false` to force the pipeline to re-run the `SampleInfo` process only.
+If you just want to change the parameters for the statistics, and use the cached (previous) results for other processes, you can set `cache` at pipeline level to `"force"` to force the pipeline to use the cached results and `cache` of `SampleInfo` to `false` to force the pipeline to re-run the `SampleInfo` process only.
 
-    ```toml
-    cache = "force"
+```toml
+cache = "force"
 
-    [SampleInfo]
-    cache = false
-    ```
+[SampleInfo]
+cache = false
+```
+///
 
 ## Example
 

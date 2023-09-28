@@ -12,8 +12,9 @@ The input of a process is typically a [`pandas`](https://pandas.pydata.org/) `Da
 
 _`envs`_ of a process is the most important part of `immunopipe` that a user needs to configure. It defines the environment variables of the process. The environment variables are shared by all the jobs of the process.
 
-!!! note
-    These environment variables are not the same as the environment variables of the system. They are just variables that are used in the process across its jobs.
+/// Attention
+These environment variables are not the same as the environment variables of the system. They are just variables that are used in the process across its jobs.
+///
 
 See individual process pages for more details about the `envs` of each process.
 

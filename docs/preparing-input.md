@@ -44,8 +44,9 @@ If you have a set of genes/features of interest, you can provide a file with tho
 - Dot plots using [`Seurat::DotPlot()`](https://satijalab.org/seurat/reference/dotplot), and
 - Heatmaps using [`Seurat::DoHeatmap()`](https://satijalab.org/seurat/reference/doheatmap).
 
-!!! note
-    The genes should exist in the RNA-seq data (i.e `features.tsv` or the `h5` file from cellranger).
+/// Note
+The genes should exist in the RNA-seq data (i.e `features.tsv` or the `h5` file from cellranger).
+///
 
 See [`SeuratClusterStats`](./processes/SeuratClusterStats.md) for more details.
 

@@ -52,35 +52,46 @@ infile = [ "data/samples.txt" ]
 
 ## Run the pipeline
 
-The easiest way to run the pipeline is to run it with docker. We can use the following command to run the pipeline with the configuration file we just created:
+The easiest way to run the pipeline is to run it within the docker container. We can use the following command to run the pipeline with the configuration file we just created:
 
+/// tab | Using docker
 ```bash
 docker run \
     --rm -w /workdir -v .:/workdir \
     justold/immunopipe:0.6.0 \
     @ImmunopipeMinimal.config.toml
 ```
+///
 
-or with singularity:
-
+/// tab | Using singularity
 ```bash
 singularity run \
     --pwd /workdir -B .:/workdir -c -e -w \
     docker://justold/immunopipe:0.6.0 \
     @ImmunopipeMinimal.config.toml
 ```
+///
 
-!!! tip
+/// tab | Using apptainer
+```bash
+apptainer run \
+    --pwd /workdir -B .:/workdir -c -e --unsquash \
+    docker://justold/immunopipe:0.7.0 \
+    @ImmunopipeMinimal.config.toml
+```
+///
 
-    Both the `docker` and `singularity` commands map the current directory (`.`) to the `/workdir` directory in the container. To get the detailed directory structure in the container, please refer to the [The directory structure in the container](./installation.md#the-directory-structure-in-the-container).
+/// Tip
+Both the `docker`, `singularity` and `apptainer` commands map the current directory (`.`) to the `/workdir` directory in the container. To get the detailed directory structure in the container, please refer to the [The directory structure in the container](./installation.md#the-directory-structure-in-the-container).
+///
 
-!!! tip
+/// Tip
+If you want to install and run the pipeline without docker, please refer to the [Installation](./installation.md) and [Running the pipeline](./running.md) pages for more details.
+///
 
-    If you want to install and run the pipeline without docker, please refer to the [Installation](./installation.md) and [Running the pipeline](./running.md) pages for more details.
-
-!!! note
-
-    You need at least 8GB of memory to run the pipeline with the example dataset and minimal configuration. 16GB or more is recommended.
+/// Note
+You need at least 8GB of memory to run the pipeline with the example dataset and minimal configuration. 16GB or more is recommended.
+///
 
 ## Check the results
 
@@ -96,9 +107,9 @@ You may read through this documentation to learn more about the pipeline and how
 
 <http://imp.pwwang.com/output/REPORTS/index.html>
 
-!!! warning
-
-    The results provided by this example configuration files are for demonstration purpose only. They are not intended to be used for any scientific analysis.
+/// Warning
+The results provided by this example configuration files are for demonstration purpose only. They are not intended to be used for any scientific analysis.
+///
 
 
 [1]: https://www.ncbi.nlm.nih.gov/pubmed/32103181

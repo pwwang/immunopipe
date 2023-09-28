@@ -30,7 +30,7 @@ These columns can be used for downstream analysis.
         Default is `diff,abs,desc`. It only works when `uniq` is `TRUE`. If `uniq` is `FALSE`, the returned
         ids will be in the same order as in `df`.
 
-    !!! note
-
-        Note that the numeric column should be the same for all cells in the same group. This will not be checked (only the first value is used).
+    /// Note
+    Note that the numeric column should be the same for all cells in the same group. This will not be checked (only the first value is used).
+    ///
 

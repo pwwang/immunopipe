@@ -7,8 +7,10 @@ theme:
     logo: 'rtd-logo.png'
 markdown_extensions:
     - attr_list
-    - markdown.extensions.admonition
+    - pymdownx.blocks.admonition
     - pymdownx.blocks.details
+    - pymdownx.blocks.tab:
+        alternate_style: true
     - pymdownx.superfences:
         preserve_tabs: true
     - toc:
@@ -23,8 +25,8 @@ extra_javascript:
 nav:
     - 'Home': 'index.md'
     - 'Introduction': 'introduction.md'
-    - 'Geting started': 'getting-started.md'
     - 'Installation': 'installation.md'
+    - 'Geting started': 'getting-started.md'
     - 'Running the pipeline': 'running.md'
     - 'Preparing the input': 'preparing-input.md'
     - 'Configurations': 'configurations.md'

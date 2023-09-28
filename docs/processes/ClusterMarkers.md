@@ -26,10 +26,11 @@ The enrichment analysis is done by [`enrichr`][5].
 - `rest` (`ns`): Rest arguments for [`Seurat::FindMarkers()`][3]. Use `-` to replace `.` in the argument name. For example, use `min-pct` instead of `min.pct`.
     - `<more>`: See <https://satijalab.org/seurat/reference/findmarkers>
 
-!!! note
-    Since this process is extended from `MarkersFinder`, other environment variables from `MarkersFinder` are also available. However, they should not be used in this process. Other environment variables are used for more complicated cases for marker finding (See [`MarkersFinder`][1] for more details).
+/// Note
+Since this process is extended from `MarkersFinder`, other environment variables from `MarkersFinder` are also available. However, they should not be used in this process. Other environment variables are used for more complicated cases for marker finding (See [`MarkersFinder`][1] for more details).
 
-    If you are using `pipen-board` to run the pipeline (see [here](../running.md#run-the-pipeline-via-pipen-board) and [here](../running.md#run-the-pipeline-via-pipen-board-using-docker-image)), you may see the other environment variables of this process are hidden and readonly.
+If you are using `pipen-board` to run the pipeline (see [here](../running.md#run-the-pipeline-via-pipen-board) and [here](../running.md#run-the-pipeline-via-pipen-board-using-docker-image)), you may see the other environment variables of this process are hidden and readonly.
+///
 
 
 [1]: https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder

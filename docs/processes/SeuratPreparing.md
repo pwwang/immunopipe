@@ -17,23 +17,25 @@ In order to perform QC, some additional columns are added to the meta data of th
 
 - `cell_qc`: Filter expression to filter cells, using [tidyrseurat::filter()][3].
 
-    !!! tip
-        Including the columns added above, all available QC keys include `nFeature_RNA`, `nCount_RNA`, `percent.mt`, `percent.ribo`, `percent.hb`, and `percent.plat`. For example:
+    /// Tip
+    Including the columns added above, all available QC keys include `nFeature_RNA`, `nCount_RNA`, `percent.mt`, `percent.ribo`, `percent.hb`, and `percent.plat`. For example:
 
-        ```toml
-        [SeuratPreparing.envs]
-        cell_qc = "nFeature_RNA > 200 & percent.mt < 5"
-        ```
-        will keep cells with more than 200 genes and less than 5% mitochondrial genes.
+    ```toml
+    [SeuratPreparing.envs]
+    cell_qc = "nFeature_RNA > 200 & percent.mt < 5"
+    ```
+    will keep cells with more than 200 genes and less than 5% mitochondrial genes.
+    ///
 
 - `gene_qc`: Filter genes. Currently, only `min_cells` is supported.
 
-    !!! example
-        ```toml
-        [SeuratPreparing.envs]
-        gene_qc = { min_cells = 3 }
-        ```
-        will keep genes that are expressed in at least 3 cells.
+    /// Tip | Example
+    ```toml
+    [SeuratPreparing.envs]
+    gene_qc = { min_cells = 3 }
+    ```
+    will keep genes that are expressed in at least 3 cells.
+    ///
 
 See also:
 - [https://satijalab.org/seurat/articles/pbmc3k_tutorial.html#standard-pre-processing-workflow-1](https://satijalab.org/seurat/articles/pbmc3k_tutorial.html#standard-pre-processing-workflow-1) and
