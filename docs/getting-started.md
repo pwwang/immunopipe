@@ -96,6 +96,10 @@ You may read through this documentation to learn more about the pipeline and how
 
 <http://imp.pwwang.com/output/REPORTS/index.html>
 
+!!! warning
+
+    The results provided by this example configuration files are for demonstration purpose only. They are not intended to be used for any scientific analysis.
+
 
 [1]: https://www.ncbi.nlm.nih.gov/pubmed/32103181
 [2]: https://www.ncbi.nlm.nih.gov/pubmed/35263569
