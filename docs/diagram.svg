@@ -1,445 +1,445 @@
-<svg width="1497" height="893" viewBox="0.00 0.00 1496.50 893.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="1517" height="893" viewBox="0.00 0.00 1517.00 893.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 889)">
 <title>Immunopipe</title>
-<polygon fill="#FFFFFF" stroke="#000000" points="-4,4 -4,-889 1492.5,-889 1492.5,4 -4,4" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="744.25" y="-869.8" font-family="Helvetica,sans-Serif" font-size="14.00">Immunopipe</text>
-<text text-anchor="middle" x="744.25" y="-854.8" font-family="Helvetica,sans-Serif" font-size="14.00"> </text>
+<polygon fill="#FFFFFF" stroke="#000000" points="-4,4 -4,-889 1513,-889 1513,4 -4,4" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="754.5" y="-869.8" font-family="Helvetica,sans-Serif" font-size="14.00">Immunopipe</text>
+<text text-anchor="middle" x="754.5" y="-854.8" font-family="Helvetica,sans-Serif" font-size="14.00"> </text>
 <g id="clust1" class="cluster">
 <title>cluster_ScrnaMetabolicLandscape</title>
-<polygon fill="#EEEEEE" stroke="#EEEEEE" points="651,-8 651,-227 1357,-227 1357,-8 651,-8"></polygon>
-<text text-anchor="middle" x="739" y="-211.8" font-family="Helvetica,sans-Serif" font-size="14.00">ScrnaMetabolicLandscape</text>
-</g>
-<!-- MetabolicFeaturesIntraSubset -->
-<g id="node1" class="node">
-<title>MetabolicFeaturesIntraSubset</title>
-<g id="a_node1"><a xlink:title="Intra-subset metabolic features - Enrichment analysis in details">
-<polygon fill="#F26419" stroke="#000000" points="835,-52 659,-52 659,-16 835,-16 835,-52" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="747" y="-30.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetabolicFeaturesIntraSubset</text>
-</a>
-</g>
+<polygon fill="#EEEEEE" stroke="#EEEEEE" points="8,-8 8,-227 714,-227 714,-8 8,-8"></polygon>
+<text text-anchor="middle" x="96" y="-211.8" font-family="Helvetica,sans-Serif" font-size="14.00">ScrnaMetabolicLandscape</text>
 </g>
 <!-- MetabolicInput -->
-<g id="node2" class="node">
+<g id="node1" class="node">
 <title>MetabolicInput</title>
-<g id="a_node2"><a xlink:title="Input for the metabolic pathway analysis pipeline for scRNA-seq data">
-<path fill="#219EBC" stroke="#000000" d="M854.5,-196C854.5,-196 783.5,-196 783.5,-196 777.5,-196 771.5,-190 771.5,-184 771.5,-184 771.5,-172 771.5,-172 771.5,-166 777.5,-160 783.5,-160 783.5,-160 854.5,-160 854.5,-160 860.5,-160 866.5,-166 866.5,-172 866.5,-172 866.5,-184 866.5,-184 866.5,-190 860.5,-196 854.5,-196" stroke-opacity="0"></path>
-<text text-anchor="middle" x="819" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetabolicInput</text>
+<g id="a_node1"><a xlink:title="Input for the metabolic pathway analysis pipeline for scRNA-seq data">
+<path fill="#219EBC" stroke="#000000" d="M602.5,-196C602.5,-196 531.5,-196 531.5,-196 525.5,-196 519.5,-190 519.5,-184 519.5,-184 519.5,-172 519.5,-172 519.5,-166 525.5,-160 531.5,-160 531.5,-160 602.5,-160 602.5,-160 608.5,-160 614.5,-166 614.5,-172 614.5,-172 614.5,-184 614.5,-184 614.5,-190 608.5,-196 602.5,-196" stroke-opacity="0"></path>
+<text text-anchor="middle" x="567" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetabolicInput</text>
 </a>
 </g>
 </g>
 <!-- MetabolicExprImpution -->
-<g id="node5" class="node">
+<g id="node2" class="node">
 <title>MetabolicExprImpution</title>
-<g id="a_node5"><a xlink:title="Impute the dropout values in scRNA-seq data.">
-<path fill="#219EBC" stroke="#000000" d="M987.5,-124C987.5,-124 872.5,-124 872.5,-124 866.5,-124 860.5,-118 860.5,-112 860.5,-112 860.5,-100 860.5,-100 860.5,-94 866.5,-88 872.5,-88 872.5,-88 987.5,-88 987.5,-88 993.5,-88 999.5,-94 999.5,-100 999.5,-100 999.5,-112 999.5,-112 999.5,-118 993.5,-124 987.5,-124" stroke-opacity="0"></path>
-<text text-anchor="middle" x="930" y="-102.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetabolicExprImpution</text>
+<g id="a_node2"><a xlink:title="Impute the dropout values in scRNA-seq data.">
+<path fill="#219EBC" stroke="#000000" d="M534.5,-124C534.5,-124 419.5,-124 419.5,-124 413.5,-124 407.5,-118 407.5,-112 407.5,-112 407.5,-100 407.5,-100 407.5,-94 413.5,-88 419.5,-88 419.5,-88 534.5,-88 534.5,-88 540.5,-88 546.5,-94 546.5,-100 546.5,-100 546.5,-112 546.5,-112 546.5,-118 540.5,-124 534.5,-124" stroke-opacity="0"></path>
+<text text-anchor="middle" x="477" y="-102.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetabolicExprImpution</text>
 </a>
 </g>
 </g>
 <!-- MetabolicInput&#45;&gt;MetabolicExprImpution -->
 <g id="edge3" class="edge">
 <title>MetabolicInput-&gt;MetabolicExprImpution</title>
-<path fill="none" stroke="#3D314A" d="M846.15,-159.88C861.07,-150.47 879.72,-138.71 895.64,-128.67"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="897.47,-130.83 902.74,-124.19 894.48,-126.09 897.47,-130.83"></polygon>
+<path fill="none" stroke="#3D314A" d="M544.75,-159.7C532.87,-150.46 518.12,-138.98 505.42,-129.11"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="507.03,-126.81 498.99,-124.1 503.59,-131.23 507.03,-126.81"></polygon>
 </g>
-<!-- MetabolicPathwayActivity -->
+<!-- MetabolicFeaturesIntraSubset -->
 <g id="node3" class="node">
-<title>MetabolicPathwayActivity</title>
-<g id="a_node3"><a xlink:title="Pathway activities for each group">
-<polygon fill="#F26419" stroke="#000000" points="1006.5,-52 853.5,-52 853.5,-16 1006.5,-16 1006.5,-52" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="930" y="-30.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetabolicPathwayActivity</text>
-</a>
-</g>
-</g>
-<!-- MetabolicPathwayHeterogeneity -->
-<g id="node4" class="node">
-<title>MetabolicPathwayHeterogeneity</title>
-<g id="a_node4"><a xlink:title="Pathway heterogeneity">
-<polygon fill="#F26419" stroke="#000000" points="1215,-52 1025,-52 1025,-16 1215,-16 1215,-52" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="1120" y="-30.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetabolicPathwayHeterogeneity</text>
+<title>MetabolicFeaturesIntraSubset</title>
+<g id="a_node3"><a xlink:title="Intra-subset metabolic features - Enrichment analysis in details">
+<polygon fill="#F26419" stroke="#000000" points="192,-52 16,-52 16,-16 192,-16 192,-52" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="104" y="-30.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetabolicFeaturesIntraSubset</text>
 </a>
 </g>
 </g>
 <!-- MetabolicExprImpution&#45;&gt;MetabolicFeaturesIntraSubset -->
-<g id="edge4" class="edge">
+<g id="edge5" class="edge">
 <title>MetabolicExprImpution-&gt;MetabolicFeaturesIntraSubset</title>
-<path fill="none" stroke="#3D314A" d="M885.23,-87.88C859.22,-77.92 826.31,-65.34 799.13,-54.94"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="800.09,-52.31 791.62,-52.07 798.09,-57.54 800.09,-52.31"></polygon>
+<path fill="none" stroke="#3D314A" d="M407.28,-91.92C348.94,-80.97 265.1,-65.23 200.34,-53.08"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="200.52,-50.27 192.14,-51.54 199.49,-55.77 200.52,-50.27"></polygon>
+</g>
+<!-- MetabolicPathwayActivity -->
+<g id="node4" class="node">
+<title>MetabolicPathwayActivity</title>
+<g id="a_node4"><a xlink:title="Pathway activities for each group">
+<polygon fill="#F26419" stroke="#000000" points="363.5,-52 210.5,-52 210.5,-16 363.5,-16 363.5,-52" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="287" y="-30.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetabolicPathwayActivity</text>
+</a>
+</g>
 </g>
 <!-- MetabolicExprImpution&#45;&gt;MetabolicPathwayActivity -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>MetabolicExprImpution-&gt;MetabolicPathwayActivity</title>
-<path fill="none" stroke="#3D314A" d="M930,-87.7C930,-79.39 930,-69.28 930,-60.14"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="932.8,-60.1 930,-52.1 927.2,-60.1 932.8,-60.1"></polygon>
+<path fill="none" stroke="#3D314A" d="M430.52,-87.88C403.51,-77.92 369.34,-65.34 341.12,-54.94"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="341.8,-52.21 333.33,-52.07 339.87,-57.46 341.8,-52.21"></polygon>
+</g>
+<!-- MetabolicPathwayHeterogeneity -->
+<g id="node5" class="node">
+<title>MetabolicPathwayHeterogeneity</title>
+<g id="a_node5"><a xlink:title="Pathway heterogeneity">
+<polygon fill="#F26419" stroke="#000000" points="572,-52 382,-52 382,-16 572,-16 572,-52" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="477" y="-30.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetabolicPathwayHeterogeneity</text>
+</a>
+</g>
 </g>
 <!-- MetabolicExprImpution&#45;&gt;MetabolicPathwayHeterogeneity -->
-<g id="edge1" class="edge">
+<g id="edge4" class="edge">
 <title>MetabolicExprImpution-&gt;MetabolicPathwayHeterogeneity</title>
-<path fill="none" stroke="#3D314A" d="M976.48,-87.88C1003.49,-77.92 1037.66,-65.34 1065.88,-54.94"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="1067.13,-57.46 1073.67,-52.07 1065.2,-52.21 1067.13,-57.46"></polygon>
+<path fill="none" stroke="#3D314A" d="M477,-87.7C477,-79.39 477,-69.28 477,-60.14"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="479.8,-60.1 477,-52.1 474.2,-60.1 479.8,-60.1"></polygon>
 </g>
 <!-- MetabolicFeatures -->
 <g id="node6" class="node">
 <title>MetabolicFeatures</title>
 <g id="a_node6"><a xlink:title="Inter-subset metabolic features - Enrichment analysis in details">
-<polygon fill="#F26419" stroke="#000000" points="1349,-52 1233,-52 1233,-16 1349,-16 1349,-52" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="1291" y="-30.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetabolicFeatures</text>
+<polygon fill="#F26419" stroke="#000000" points="706,-52 590,-52 590,-16 706,-16 706,-52" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="648" y="-30.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetabolicFeatures</text>
 </a>
 </g>
 </g>
 <!-- MetabolicExprImpution&#45;&gt;MetabolicFeatures -->
-<g id="edge5" class="edge">
+<g id="edge2" class="edge">
 <title>MetabolicExprImpution-&gt;MetabolicFeatures</title>
-<path fill="none" stroke="#3D314A" d="M999.77,-93.84C1059.51,-83.94 1147.72,-68.53 1224,-52 1224.37,-51.92 1224.73,-51.84 1225.1,-51.76"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="1225.76,-54.48 1232.95,-49.99 1224.53,-49.02 1225.76,-54.48"></polygon>
+<path fill="none" stroke="#3D314A" d="M518.83,-87.88C542.94,-78.01 573.37,-65.55 598.64,-55.21"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="599.96,-57.69 606.3,-52.07 597.84,-52.51 599.96,-57.69"></polygon>
 </g>
-<!-- TopExpressingGenes -->
+<!-- ClusterMarkers -->
 <g id="node7" class="node">
-<title>TopExpressingGenes</title>
-<g id="a_node7"><a xlink:title="Top expressing genes for clusters of T cells.">
-<polygon fill="#F26419" stroke="#000000" points="566.5,-415 435.5,-415 435.5,-379 566.5,-379 566.5,-415" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="501" y="-393.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">TopExpressingGenes</text>
+<title>ClusterMarkers</title>
+<g id="a_node7"><a xlink:title="Markers for clusters of T cells.">
+<polygon fill="#F26419" stroke="#000000" points="800,-415 702,-415 702,-379 800,-379 800,-415" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="751" y="-393.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">ClusterMarkers</text>
 </a>
 </g>
 </g>
-<!-- SeuratClusteringOfTCells -->
+<!-- CellsDistribution -->
 <g id="node8" class="node">
-<title>SeuratClusteringOfTCells</title>
-<g id="a_node8"><a xlink:title="Cluster the T cells selected by `TCellSelection`.">
-<path fill="#219EBC" stroke="#000000" d="M519,-559C519,-559 389,-559 389,-559 383,-559 377,-553 377,-547 377,-547 377,-535 377,-535 377,-529 383,-523 389,-523 389,-523 519,-523 519,-523 525,-523 531,-529 531,-535 531,-535 531,-547 531,-547 531,-553 525,-559 519,-559" stroke-opacity="0"></path>
-<text text-anchor="middle" x="454" y="-537.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">SeuratClusteringOfTCells</text>
-</a>
-</g>
-</g>
-<!-- CellTypeAnnotation -->
-<g id="node26" class="node">
-<title>CellTypeAnnotation</title>
-<path fill="#219EBC" stroke="#000000" d="M431,-487C431,-487 333,-487 333,-487 327,-487 321,-481 321,-475 321,-475 321,-463 321,-463 321,-457 327,-451 333,-451 333,-451 431,-451 431,-451 437,-451 443,-457 443,-463 443,-463 443,-475 443,-475 443,-481 437,-487 431,-487" stroke-opacity="0"></path>
-<text text-anchor="middle" x="382" y="-465.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">CellTypeAnnotation</text>
-</g>
-<!-- SeuratClusteringOfTCells&#45;&gt;CellTypeAnnotation -->
-<g id="edge21" class="edge">
-<title>SeuratClusteringOfTCells-&gt;CellTypeAnnotation</title>
-<path fill="none" stroke="#3D314A" d="M436.2,-522.7C426.96,-513.71 415.55,-502.61 405.58,-492.92"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="407.28,-490.67 399.59,-487.1 403.38,-494.69 407.28,-490.67"></polygon>
-</g>
-<!-- MarkersFinder -->
-<g id="node9" class="node">
-<title>MarkersFinder</title>
-<polygon fill="#F26419" stroke="#000000" points="94,-196 0,-196 0,-160 94,-160 94,-196" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="47" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MarkersFinder</text>
-</g>
-<!-- CloneResidency -->
-<g id="node10" class="node">
-<title>CloneResidency</title>
-<polygon fill="#F26419" stroke="#000000" points="879,-631 773,-631 773,-595 879,-595 879,-631" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="826" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">CloneResidency</text>
-</g>
-<!-- MetaMarkers -->
-<g id="node11" class="node">
-<title>MetaMarkers</title>
-<polygon fill="#F26419" stroke="#000000" points="198,-196 112,-196 112,-160 198,-160 198,-196" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="155" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetaMarkers</text>
+<title>CellsDistribution</title>
+<polygon fill="#F26419" stroke="#000000" points="827.5,-196 722.5,-196 722.5,-160 827.5,-160 827.5,-196" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="775" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">CellsDistribution</text>
 </g>
 <!-- SeuratPreparing -->
-<g id="node12" class="node">
+<g id="node9" class="node">
 <title>SeuratPreparing</title>
-<path fill="#219EBC" stroke="#000000" d="M672,-775C672,-775 592,-775 592,-775 586,-775 580,-769 580,-763 580,-763 580,-751 580,-751 580,-745 586,-739 592,-739 592,-739 672,-739 672,-739 678,-739 684,-745 684,-751 684,-751 684,-763 684,-763 684,-769 678,-775 672,-775" stroke-opacity="0"></path>
-<text text-anchor="middle" x="632" y="-753.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">SeuratPreparing</text>
+<path fill="#219EBC" stroke="#000000" d="M1004,-775C1004,-775 924,-775 924,-775 918,-775 912,-769 912,-763 912,-763 912,-751 912,-751 912,-745 918,-739 924,-739 924,-739 1004,-739 1004,-739 1010,-739 1016,-745 1016,-751 1016,-751 1016,-763 1016,-763 1016,-769 1010,-775 1004,-775" stroke-opacity="0"></path>
+<text text-anchor="middle" x="964" y="-753.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">SeuratPreparing</text>
 </g>
 <!-- SeuratClusteringOfAllCells -->
 <g id="node30" class="node">
 <title>SeuratClusteringOfAllCells</title>
 <g id="a_node30"><a xlink:title="Cluster all cells using Seurat">
-<path fill="#219EBC" stroke="#000000" d="M661.5,-703C661.5,-703 524.5,-703 524.5,-703 518.5,-703 512.5,-697 512.5,-691 512.5,-691 512.5,-679 512.5,-679 512.5,-673 518.5,-667 524.5,-667 524.5,-667 661.5,-667 661.5,-667 667.5,-667 673.5,-673 673.5,-679 673.5,-679 673.5,-691 673.5,-691 673.5,-697 667.5,-703 661.5,-703" stroke-opacity="0"></path>
-<text text-anchor="middle" x="593" y="-681.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">SeuratClusteringOfAllCells</text>
+<path fill="#219EBC" stroke="#000000" d="M993.5,-703C993.5,-703 856.5,-703 856.5,-703 850.5,-703 844.5,-697 844.5,-691 844.5,-691 844.5,-679 844.5,-679 844.5,-673 850.5,-667 856.5,-667 856.5,-667 993.5,-667 993.5,-667 999.5,-667 1005.5,-673 1005.5,-679 1005.5,-679 1005.5,-691 1005.5,-691 1005.5,-697 999.5,-703 993.5,-703" stroke-opacity="0"></path>
+<text text-anchor="middle" x="925" y="-681.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">SeuratClusteringOfAllCells</text>
 </a>
 </g>
 </g>
 <!-- SeuratPreparing&#45;&gt;SeuratClusteringOfAllCells -->
-<g id="edge29" class="edge">
+<g id="edge28" class="edge">
 <title>SeuratPreparing-&gt;SeuratClusteringOfAllCells</title>
-<path fill="none" stroke="#3D314A" d="M622.36,-738.7C617.59,-730.14 611.75,-719.66 606.54,-710.3"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="608.87,-708.73 602.53,-703.1 603.98,-711.46 608.87,-708.73"></polygon>
+<path fill="none" stroke="#3D314A" d="M954.36,-738.7C949.59,-730.14 943.75,-719.66 938.54,-710.3"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="940.87,-708.73 934.53,-703.1 935.98,-711.46 940.87,-708.73"></polygon>
+</g>
+<!-- Immunarch2VDJtools -->
+<g id="node10" class="node">
+<title>Immunarch2VDJtools</title>
+<path fill="#219EBC" stroke="#000000" d="M1029.5,-631C1029.5,-631 922.5,-631 922.5,-631 916.5,-631 910.5,-625 910.5,-619 910.5,-619 910.5,-607 910.5,-607 910.5,-601 916.5,-595 922.5,-595 922.5,-595 1029.5,-595 1029.5,-595 1035.5,-595 1041.5,-601 1041.5,-607 1041.5,-607 1041.5,-619 1041.5,-619 1041.5,-625 1035.5,-631 1029.5,-631" stroke-opacity="0"></path>
+<text text-anchor="middle" x="976" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">Immunarch2VDJtools</text>
+</g>
+<!-- VJUsage -->
+<g id="node16" class="node">
+<title>VJUsage</title>
+<polygon fill="#F26419" stroke="#000000" points="1009,-559 943,-559 943,-523 1009,-523 1009,-559" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="976" y="-537.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">VJUsage</text>
+</g>
+<!-- Immunarch2VDJtools&#45;&gt;VJUsage -->
+<g id="edge8" class="edge">
+<title>Immunarch2VDJtools-&gt;VJUsage</title>
+<path fill="none" stroke="#3D314A" d="M976,-594.7C976,-586.39 976,-576.28 976,-567.14"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="978.8,-567.1 976,-559.1 973.2,-567.1 978.8,-567.1"></polygon>
+</g>
+<!-- TopExpressingGenes -->
+<g id="node11" class="node">
+<title>TopExpressingGenes</title>
+<g id="a_node11"><a xlink:title="Top expressing genes for clusters of T cells.">
+<polygon fill="#F26419" stroke="#000000" points="949.5,-415 818.5,-415 818.5,-379 949.5,-379 949.5,-415" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="884" y="-393.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">TopExpressingGenes</text>
+</a>
+</g>
+</g>
+<!-- TCRClusteringStats -->
+<g id="node12" class="node">
+<title>TCRClusteringStats</title>
+<polygon fill="#F26419" stroke="#000000" points="1309,-559 1185,-559 1185,-523 1309,-523 1309,-559" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="1247" y="-537.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">TCRClusteringStats</text>
 </g>
 <!-- ModuleScoreCalculator -->
 <g id="node13" class="node">
 <title>ModuleScoreCalculator</title>
-<path fill="#219EBC" stroke="#000000" d="M405.5,-415C405.5,-415 286.5,-415 286.5,-415 280.5,-415 274.5,-409 274.5,-403 274.5,-403 274.5,-391 274.5,-391 274.5,-385 280.5,-379 286.5,-379 286.5,-379 405.5,-379 405.5,-379 411.5,-379 417.5,-385 417.5,-391 417.5,-391 417.5,-403 417.5,-403 417.5,-409 411.5,-415 405.5,-415" stroke-opacity="0"></path>
-<text text-anchor="middle" x="346" y="-393.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">ModuleScoreCalculator</text>
+<path fill="#219EBC" stroke="#000000" d="M1110.5,-415C1110.5,-415 991.5,-415 991.5,-415 985.5,-415 979.5,-409 979.5,-403 979.5,-403 979.5,-391 979.5,-391 979.5,-385 985.5,-379 991.5,-379 991.5,-379 1110.5,-379 1110.5,-379 1116.5,-379 1122.5,-385 1122.5,-391 1122.5,-391 1122.5,-403 1122.5,-403 1122.5,-409 1116.5,-415 1110.5,-415" stroke-opacity="0"></path>
+<text text-anchor="middle" x="1051" y="-393.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">ModuleScoreCalculator</text>
 </g>
 <!-- SeuratMetadataMutater -->
-<g id="node27" class="node">
+<g id="node21" class="node">
 <title>SeuratMetadataMutater</title>
-<g id="a_node27"><a xlink:title="Attach TCR clone information as meta columns to Seurat object">
-<path fill="#219EBC" stroke="#000000" d="M529.5,-343C529.5,-343 412.5,-343 412.5,-343 406.5,-343 400.5,-337 400.5,-331 400.5,-331 400.5,-319 400.5,-319 400.5,-313 406.5,-307 412.5,-307 412.5,-307 529.5,-307 529.5,-307 535.5,-307 541.5,-313 541.5,-319 541.5,-319 541.5,-331 541.5,-331 541.5,-337 535.5,-343 529.5,-343" stroke-opacity="0"></path>
-<text text-anchor="middle" x="471" y="-321.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">SeuratMetadataMutater</text>
+<g id="a_node21"><a xlink:title="Attach TCR clone information as meta columns to Seurat object">
+<path fill="#219EBC" stroke="#000000" d="M1162.5,-343C1162.5,-343 1045.5,-343 1045.5,-343 1039.5,-343 1033.5,-337 1033.5,-331 1033.5,-331 1033.5,-319 1033.5,-319 1033.5,-313 1039.5,-307 1045.5,-307 1045.5,-307 1162.5,-307 1162.5,-307 1168.5,-307 1174.5,-313 1174.5,-319 1174.5,-319 1174.5,-331 1174.5,-331 1174.5,-337 1168.5,-343 1162.5,-343" stroke-opacity="0"></path>
+<text text-anchor="middle" x="1104" y="-321.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">SeuratMetadataMutater</text>
 </a>
 </g>
 </g>
 <!-- ModuleScoreCalculator&#45;&gt;SeuratMetadataMutater -->
-<g id="edge23" class="edge">
+<g id="edge12" class="edge">
 <title>ModuleScoreCalculator-&gt;SeuratMetadataMutater</title>
-<path fill="none" stroke="#3D314A" d="M376.58,-378.88C393.68,-369.3 415.14,-357.28 433.27,-347.13"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="434.69,-349.54 440.3,-343.19 431.96,-344.66 434.69,-349.54"></polygon>
+<path fill="none" stroke="#3D314A" d="M1064.1,-378.7C1070.71,-369.97 1078.83,-359.24 1086.02,-349.75"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1088.45,-351.17 1091.05,-343.1 1083.99,-347.79 1088.45,-351.17"></polygon>
 </g>
-<!-- ClusterMarkers -->
+<!-- MetaMarkers -->
 <g id="node14" class="node">
-<title>ClusterMarkers</title>
-<g id="a_node14"><a xlink:title="Markers for clusters of T cells.">
-<polygon fill="#F26419" stroke="#000000" points="256,-415 158,-415 158,-379 256,-379 256,-415" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="207" y="-393.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">ClusterMarkers</text>
-</a>
-</g>
-</g>
-<!-- SampleInfo -->
-<g id="node15" class="node">
-<title>SampleInfo</title>
-<g id="a_node15"><a xlink:title="List sample information and perform statistics">
-<polygon fill="#4C956C" stroke="#000000" points="672,-847 604.93,-829 672,-811 739.07,-829 672,-847" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="672" y="-825.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">SampleInfo</text>
-</a>
-</g>
-</g>
-<!-- SampleInfo&#45;&gt;SeuratPreparing -->
-<g id="edge30" class="edge">
-<title>SampleInfo-&gt;SeuratPreparing</title>
-<path fill="none" stroke="#3D314A" d="M663.52,-813.15C658.39,-804.18 651.72,-792.52 645.85,-782.23"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="648.14,-780.6 641.74,-775.04 643.28,-783.38 648.14,-780.6"></polygon>
-</g>
-<!-- ImmunarchLoading -->
-<g id="node25" class="node">
-<title>ImmunarchLoading</title>
-<path fill="#219EBC" stroke="#000000" d="M804.5,-703C804.5,-703 709.5,-703 709.5,-703 703.5,-703 697.5,-697 697.5,-691 697.5,-691 697.5,-679 697.5,-679 697.5,-673 703.5,-667 709.5,-667 709.5,-667 804.5,-667 804.5,-667 810.5,-667 816.5,-673 816.5,-679 816.5,-679 816.5,-691 816.5,-691 816.5,-697 810.5,-703 804.5,-703" stroke-opacity="0"></path>
-<text text-anchor="middle" x="757" y="-681.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">ImmunarchLoading</text>
-</g>
-<!-- SampleInfo&#45;&gt;ImmunarchLoading -->
-<g id="edge19" class="edge">
-<title>SampleInfo-&gt;ImmunarchLoading</title>
-<path fill="none" stroke="#3D314A" d="M680.78,-813.34C695.32,-789.04 724.58,-740.16 742.31,-710.53"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="744.85,-711.75 746.56,-703.44 740.05,-708.87 744.85,-711.75"></polygon>
-</g>
-<!-- CellsDistribution -->
-<g id="node16" class="node">
-<title>CellsDistribution</title>
-<polygon fill="#F26419" stroke="#000000" points="321.5,-196 216.5,-196 216.5,-160 321.5,-160 321.5,-196" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="269" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">CellsDistribution</text>
-</g>
-<!-- Immunarch2VDJtools -->
-<g id="node17" class="node">
-<title>Immunarch2VDJtools</title>
-<path fill="#219EBC" stroke="#000000" d="M742.5,-631C742.5,-631 635.5,-631 635.5,-631 629.5,-631 623.5,-625 623.5,-619 623.5,-619 623.5,-607 623.5,-607 623.5,-601 629.5,-595 635.5,-595 635.5,-595 742.5,-595 742.5,-595 748.5,-595 754.5,-601 754.5,-607 754.5,-607 754.5,-619 754.5,-619 754.5,-625 748.5,-631 742.5,-631" stroke-opacity="0"></path>
-<text text-anchor="middle" x="689" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">Immunarch2VDJtools</text>
-</g>
-<!-- VJUsage -->
-<g id="node19" class="node">
-<title>VJUsage</title>
-<polygon fill="#F26419" stroke="#000000" points="722,-559 656,-559 656,-523 722,-523 722,-559" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="689" y="-537.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">VJUsage</text>
-</g>
-<!-- Immunarch2VDJtools&#45;&gt;VJUsage -->
-<g id="edge13" class="edge">
-<title>Immunarch2VDJtools-&gt;VJUsage</title>
-<path fill="none" stroke="#3D314A" d="M689,-594.7C689,-586.39 689,-576.28 689,-567.14"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="691.8,-567.1 689,-559.1 686.2,-567.1 691.8,-567.1"></polygon>
-</g>
-<!-- TCRClusteringStats -->
-<g id="node18" class="node">
-<title>TCRClusteringStats</title>
-<polygon fill="#F26419" stroke="#000000" points="1008,-559 884,-559 884,-523 1008,-523 1008,-559" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="946" y="-537.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">TCRClusteringStats</text>
-</g>
-<!-- TCellSelection -->
-<g id="node20" class="node">
-<title>TCellSelection</title>
-<path fill="#219EBC" stroke="#000000" d="M555,-631C555,-631 483,-631 483,-631 477,-631 471,-625 471,-619 471,-619 471,-607 471,-607 471,-601 477,-595 483,-595 483,-595 555,-595 555,-595 561,-595 567,-601 567,-607 567,-607 567,-619 567,-619 567,-625 561,-631 555,-631" stroke-opacity="0"></path>
-<text text-anchor="middle" x="519" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">TCellSelection</text>
-</g>
-<!-- TCellSelection&#45;&gt;SeuratClusteringOfTCells -->
-<g id="edge22" class="edge">
-<title>TCellSelection-&gt;SeuratClusteringOfTCells</title>
-<path fill="none" stroke="#3D314A" d="M502.93,-594.7C494.67,-585.8 484.48,-574.82 475.54,-565.2"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="477.38,-563.06 469.88,-559.1 473.27,-566.87 477.38,-563.06"></polygon>
-</g>
-<!-- Immunarch -->
-<g id="node21" class="node">
-<title>Immunarch</title>
-<polygon fill="#F26419" stroke="#000000" points="1089,-631 1013,-631 1013,-595 1089,-595 1089,-631" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="1051" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">Immunarch</text>
+<title>MetaMarkers</title>
+<polygon fill="#F26419" stroke="#000000" points="932,-196 846,-196 846,-160 932,-160 932,-196" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="889" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MetaMarkers</text>
 </g>
 <!-- RadarPlots -->
-<g id="node22" class="node">
+<g id="node15" class="node">
 <title>RadarPlots</title>
-<polygon fill="#F26419" stroke="#000000" points="416.5,-196 339.5,-196 339.5,-160 416.5,-160 416.5,-196" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="378" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">RadarPlots</text>
+<polygon fill="#F26419" stroke="#000000" points="1027.5,-196 950.5,-196 950.5,-160 1027.5,-160 1027.5,-196" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="989" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">RadarPlots</text>
+</g>
+<!-- TCellSelection -->
+<g id="node17" class="node">
+<title>TCellSelection</title>
+<path fill="#219EBC" stroke="#000000" d="M880,-631C880,-631 808,-631 808,-631 802,-631 796,-625 796,-619 796,-619 796,-607 796,-607 796,-601 802,-595 808,-595 808,-595 880,-595 880,-595 886,-595 892,-601 892,-607 892,-607 892,-619 892,-619 892,-625 886,-631 880,-631" stroke-opacity="0"></path>
+<text text-anchor="middle" x="844" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">TCellSelection</text>
+</g>
+<!-- SeuratClusteringOfTCells -->
+<g id="node29" class="node">
+<title>SeuratClusteringOfTCells</title>
+<g id="a_node29"><a xlink:title="Cluster the T cells selected by `TCellSelection`.">
+<path fill="#219EBC" stroke="#000000" d="M911,-559C911,-559 781,-559 781,-559 775,-559 769,-553 769,-547 769,-547 769,-535 769,-535 769,-529 775,-523 781,-523 781,-523 911,-523 911,-523 917,-523 923,-529 923,-535 923,-535 923,-547 923,-547 923,-553 917,-559 911,-559" stroke-opacity="0"></path>
+<text text-anchor="middle" x="846" y="-537.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">SeuratClusteringOfTCells</text>
+</a>
+</g>
+</g>
+<!-- TCellSelection&#45;&gt;SeuratClusteringOfTCells -->
+<g id="edge11" class="edge">
+<title>TCellSelection-&gt;SeuratClusteringOfTCells</title>
+<path fill="none" stroke="#3D314A" d="M844.49,-594.7C844.73,-586.39 845.02,-576.28 845.28,-567.14"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="848.08,-567.18 845.51,-559.1 842.48,-567.02 848.08,-567.18"></polygon>
+</g>
+<!-- TCRClusters2Seurat -->
+<g id="node18" class="node">
+<title>TCRClusters2Seurat</title>
+<g id="a_node18"><a xlink:title="Attach TCR clusters as meta columns to Seurat object">
+<path fill="#219EBC" stroke="#000000" d="M1156,-271C1156,-271 1052,-271 1052,-271 1046,-271 1040,-265 1040,-259 1040,-259 1040,-247 1040,-247 1040,-241 1046,-235 1052,-235 1052,-235 1156,-235 1156,-235 1162,-235 1168,-241 1168,-247 1168,-247 1168,-259 1168,-259 1168,-265 1162,-271 1156,-271" stroke-opacity="0"></path>
+<text text-anchor="middle" x="1104" y="-249.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">TCRClusters2Seurat</text>
+</a>
+</g>
+</g>
+<!-- TCRClusters2Seurat&#45;&gt;MetabolicInput -->
+<g id="edge33" class="edge">
+<title>TCRClusters2Seurat-&gt;MetabolicInput</title>
+<path fill="none" stroke="#3D314A" d="M1039.88,-252.8C962.08,-252.65 827.27,-248.76 714,-227 681.1,-220.68 645.36,-209.12 617.35,-198.93"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="618.14,-196.23 609.66,-196.09 616.2,-201.49 618.14,-196.23"></polygon>
+</g>
+<!-- TCRClusters2Seurat&#45;&gt;CellsDistribution -->
+<g id="edge34" class="edge">
+<title>TCRClusters2Seurat-&gt;CellsDistribution</title>
+<path fill="none" stroke="#3D314A" d="M1039.7,-250.09C972.71,-247.38 872.62,-241.06 837,-227 822.5,-221.27 808.57,-211.07 797.59,-201.53"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="799.31,-199.31 791.49,-196.03 795.56,-203.47 799.31,-199.31"></polygon>
+</g>
+<!-- TCRClusters2Seurat&#45;&gt;MetaMarkers -->
+<g id="edge27" class="edge">
+<title>TCRClusters2Seurat-&gt;MetaMarkers</title>
+<path fill="none" stroke="#3D314A" d="M1039.96,-250.63C1009.1,-247.88 972.32,-241.44 942,-227 929.68,-221.13 918.17,-211.45 909.04,-202.32"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="910.96,-200.28 903.41,-196.44 906.92,-204.15 910.96,-200.28"></polygon>
+</g>
+<!-- TCRClusters2Seurat&#45;&gt;RadarPlots -->
+<g id="edge22" class="edge">
+<title>TCRClusters2Seurat-&gt;RadarPlots</title>
+<path fill="none" stroke="#3D314A" d="M1051.36,-234.87C1046.36,-232.51 1041.49,-229.89 1037,-227 1026.63,-220.33 1016.72,-211.1 1008.62,-202.51"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1010.53,-200.44 1003.07,-196.42 1006.39,-204.22 1010.53,-200.44"></polygon>
+</g>
+<!-- SeuratClusterStats -->
+<g id="node23" class="node">
+<title>SeuratClusterStats</title>
+<polygon fill="#F26419" stroke="#000000" points="1162.5,-196 1045.5,-196 1045.5,-160 1162.5,-160 1162.5,-196" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="1104" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">SeuratClusterStats</text>
+</g>
+<!-- TCRClusters2Seurat&#45;&gt;SeuratClusterStats -->
+<g id="edge31" class="edge">
+<title>TCRClusters2Seurat-&gt;SeuratClusterStats</title>
+<path fill="none" stroke="#3D314A" d="M1104,-234.7C1104,-225.61 1104,-214.3 1104,-204.25"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1106.8,-204.18 1104,-196.18 1101.2,-204.18 1106.8,-204.18"></polygon>
+</g>
+<!-- CDR3AAPhyschem -->
+<g id="node26" class="node">
+<title>CDR3AAPhyschem</title>
+<polygon fill="#F26419" stroke="#000000" points="1506.5,-196 1383.5,-196 1383.5,-160 1506.5,-160 1506.5,-196" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="1445" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">CDR3AAPhyschem</text>
+</g>
+<!-- TCRClusters2Seurat&#45;&gt;CDR3AAPhyschem -->
+<g id="edge23" class="edge">
+<title>TCRClusters2Seurat-&gt;CDR3AAPhyschem</title>
+<path fill="none" stroke="#3D314A" d="M1168.23,-249.73C1235.84,-246.68 1337.43,-240.08 1374,-227 1390.34,-221.16 1406.54,-210.67 1419.32,-200.99"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1421.1,-203.15 1425.68,-196.02 1417.65,-198.74 1421.1,-203.15"></polygon>
+</g>
+<!-- ScFGSEA -->
+<g id="node27" class="node">
+<title>ScFGSEA</title>
+<polygon fill="#F26419" stroke="#000000" points="1253,-196 1181,-196 1181,-160 1253,-160 1253,-196" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="1217" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">ScFGSEA</text>
+</g>
+<!-- TCRClusters2Seurat&#45;&gt;ScFGSEA -->
+<g id="edge17" class="edge">
+<title>TCRClusters2Seurat-&gt;ScFGSEA</title>
+<path fill="none" stroke="#3D314A" d="M1157.88,-234.91C1162.81,-232.55 1167.6,-229.92 1172,-227 1182.12,-220.3 1191.58,-210.9 1199.2,-202.19"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1201.39,-203.94 1204.4,-196.02 1197.11,-200.33 1201.39,-203.94"></polygon>
+</g>
+<!-- MarkersFinder -->
+<g id="node31" class="node">
+<title>MarkersFinder</title>
+<polygon fill="#F26419" stroke="#000000" points="1365,-196 1271,-196 1271,-160 1365,-160 1365,-196" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="1318" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">MarkersFinder</text>
+</g>
+<!-- TCRClusters2Seurat&#45;&gt;MarkersFinder -->
+<g id="edge9" class="edge">
+<title>TCRClusters2Seurat-&gt;MarkersFinder</title>
+<path fill="none" stroke="#3D314A" d="M1168.22,-249.83C1197.88,-246.86 1232.88,-240.45 1262,-227 1274.9,-221.04 1287.14,-211.23 1296.86,-202.02"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1298.83,-204.01 1302.58,-196.41 1294.91,-200.02 1298.83,-204.01"></polygon>
+</g>
+<!-- Immunarch -->
+<g id="node19" class="node">
+<title>Immunarch</title>
+<polygon fill="#F26419" stroke="#000000" points="1136,-631 1060,-631 1060,-595 1136,-595 1136,-631" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="1098" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">Immunarch</text>
+</g>
+<!-- CellTypeAnnotation -->
+<g id="node20" class="node">
+<title>CellTypeAnnotation</title>
+<path fill="#219EBC" stroke="#000000" d="M920,-487C920,-487 822,-487 822,-487 816,-487 810,-481 810,-475 810,-475 810,-463 810,-463 810,-457 816,-451 822,-451 822,-451 920,-451 920,-451 926,-451 932,-457 932,-463 932,-463 932,-475 932,-475 932,-481 926,-487 920,-487" stroke-opacity="0"></path>
+<text text-anchor="middle" x="871" y="-465.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">CellTypeAnnotation</text>
+</g>
+<!-- CellTypeAnnotation&#45;&gt;ClusterMarkers -->
+<g id="edge7" class="edge">
+<title>CellTypeAnnotation-&gt;ClusterMarkers</title>
+<path fill="none" stroke="#3D314A" d="M841.64,-450.88C825.37,-441.38 804.99,-429.5 787.68,-419.4"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="788.79,-416.8 780.47,-415.19 785.97,-421.64 788.79,-416.8"></polygon>
+</g>
+<!-- CellTypeAnnotation&#45;&gt;TopExpressingGenes -->
+<g id="edge6" class="edge">
+<title>CellTypeAnnotation-&gt;TopExpressingGenes</title>
+<path fill="none" stroke="#3D314A" d="M874.21,-450.7C875.76,-442.39 877.63,-432.28 879.33,-423.14"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="882.12,-423.48 880.82,-415.1 876.61,-422.46 882.12,-423.48"></polygon>
+</g>
+<!-- CellTypeAnnotation&#45;&gt;ModuleScoreCalculator -->
+<g id="edge10" class="edge">
+<title>CellTypeAnnotation-&gt;ModuleScoreCalculator</title>
+<path fill="none" stroke="#3D314A" d="M915.03,-450.88C940.51,-440.97 972.72,-428.44 999.39,-418.07"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1000.67,-420.58 1007.11,-415.07 998.64,-415.36 1000.67,-420.58"></polygon>
+</g>
+<!-- SeuratMetadataMutater&#45;&gt;TCRClusters2Seurat -->
+<g id="edge21" class="edge">
+<title>SeuratMetadataMutater-&gt;TCRClusters2Seurat</title>
+<path fill="none" stroke="#3D314A" d="M1104,-306.7C1104,-298.39 1104,-288.28 1104,-279.14"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1106.8,-279.1 1104,-271.1 1101.2,-279.1 1106.8,-279.1"></polygon>
 </g>
 <!-- TCRClustering -->
-<g id="node23" class="node">
+<g id="node22" class="node">
 <title>TCRClustering</title>
-<g id="a_node23"><a xlink:title="Cluster the TCR clones by their CDR3 sequences">
-<path fill="#219EBC" stroke="#000000" d="M982.5,-631C982.5,-631 909.5,-631 909.5,-631 903.5,-631 897.5,-625 897.5,-619 897.5,-619 897.5,-607 897.5,-607 897.5,-601 903.5,-595 909.5,-595 909.5,-595 982.5,-595 982.5,-595 988.5,-595 994.5,-601 994.5,-607 994.5,-607 994.5,-619 994.5,-619 994.5,-625 988.5,-631 982.5,-631" stroke-opacity="0"></path>
-<text text-anchor="middle" x="946" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">TCRClustering</text>
+<g id="a_node22"><a xlink:title="Cluster the TCR clones by their CDR3 sequences">
+<path fill="#219EBC" stroke="#000000" d="M1283.5,-631C1283.5,-631 1210.5,-631 1210.5,-631 1204.5,-631 1198.5,-625 1198.5,-619 1198.5,-619 1198.5,-607 1198.5,-607 1198.5,-601 1204.5,-595 1210.5,-595 1210.5,-595 1283.5,-595 1283.5,-595 1289.5,-595 1295.5,-601 1295.5,-607 1295.5,-607 1295.5,-619 1295.5,-619 1295.5,-625 1289.5,-631 1283.5,-631" stroke-opacity="0"></path>
+<text text-anchor="middle" x="1247" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">TCRClustering</text>
 </a>
 </g>
 </g>
 <!-- TCRClustering&#45;&gt;TCRClusteringStats -->
-<g id="edge18" class="edge">
+<g id="edge16" class="edge">
 <title>TCRClustering-&gt;TCRClusteringStats</title>
-<path fill="none" stroke="#3D314A" d="M946,-594.7C946,-586.39 946,-576.28 946,-567.14"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="948.8,-567.1 946,-559.1 943.2,-567.1 948.8,-567.1"></polygon>
-</g>
-<!-- TCRClusters2Seurat -->
-<g id="node28" class="node">
-<title>TCRClusters2Seurat</title>
-<g id="a_node28"><a xlink:title="Attach TCR clusters as meta columns to Seurat object">
-<path fill="#219EBC" stroke="#000000" d="M523,-271C523,-271 419,-271 419,-271 413,-271 407,-265 407,-259 407,-259 407,-247 407,-247 407,-241 413,-235 419,-235 419,-235 523,-235 523,-235 529,-235 535,-241 535,-247 535,-247 535,-259 535,-259 535,-265 529,-271 523,-271" stroke-opacity="0"></path>
-<text text-anchor="middle" x="471" y="-249.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">TCRClusters2Seurat</text>
-</a>
-</g>
+<path fill="none" stroke="#3D314A" d="M1247,-594.7C1247,-586.39 1247,-576.28 1247,-567.14"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1249.8,-567.1 1247,-559.1 1244.2,-567.1 1249.8,-567.1"></polygon>
 </g>
 <!-- TCRClustering&#45;&gt;TCRClusters2Seurat -->
-<g id="edge7" class="edge">
+<g id="edge19" class="edge">
 <title>TCRClustering-&gt;TCRClusters2Seurat</title>
-<path fill="none" stroke="#3D314A" d="M908.43,-594.83C866.06,-572.58 803,-529.48 803,-470 803,-470 803,-470 803,-396 803,-283.8 640.74,-259.08 543.09,-254.36"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="543.13,-251.56 535.01,-254.01 542.88,-257.15 543.13,-251.56"></polygon>
+<path fill="none" stroke="#3D314A" d="M1279.57,-594.8C1293.42,-585.89 1308.54,-573.76 1318,-559 1339.82,-524.95 1337,-510.45 1337,-470 1337,-470 1337,-470 1337,-396 1337,-319.6 1244.52,-283.1 1176.08,-266.55"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1176.71,-263.83 1168.29,-264.73 1175.44,-269.28 1176.71,-263.83"></polygon>
 </g>
-<!-- ScFGSEA -->
+<!-- ImmunarchLoading -->
 <g id="node24" class="node">
-<title>ScFGSEA</title>
-<polygon fill="#F26419" stroke="#000000" points="507,-196 435,-196 435,-160 507,-160 507,-196" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="471" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">ScFGSEA</text>
-</g>
-<!-- ImmunarchLoading&#45;&gt;CloneResidency -->
-<g id="edge33" class="edge">
-<title>ImmunarchLoading-&gt;CloneResidency</title>
-<path fill="none" stroke="#3D314A" d="M774.06,-666.7C782.91,-657.71 793.85,-646.61 803.4,-636.92"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="805.52,-638.77 809.14,-631.1 801.53,-634.84 805.52,-638.77"></polygon>
+<title>ImmunarchLoading</title>
+<path fill="#219EBC" stroke="#000000" d="M1178.5,-703C1178.5,-703 1083.5,-703 1083.5,-703 1077.5,-703 1071.5,-697 1071.5,-691 1071.5,-691 1071.5,-679 1071.5,-679 1071.5,-673 1077.5,-667 1083.5,-667 1083.5,-667 1178.5,-667 1178.5,-667 1184.5,-667 1190.5,-673 1190.5,-679 1190.5,-679 1190.5,-691 1190.5,-691 1190.5,-697 1184.5,-703 1178.5,-703" stroke-opacity="0"></path>
+<text text-anchor="middle" x="1131" y="-681.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">ImmunarchLoading</text>
 </g>
 <!-- ImmunarchLoading&#45;&gt;Immunarch2VDJtools -->
-<g id="edge8" class="edge">
+<g id="edge18" class="edge">
 <title>ImmunarchLoading-&gt;Immunarch2VDJtools</title>
-<path fill="none" stroke="#3D314A" d="M740.19,-666.7C731.46,-657.71 720.68,-646.61 711.27,-636.92"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="713.2,-634.89 705.62,-631.1 709.18,-638.79 713.2,-634.89"></polygon>
+<path fill="none" stroke="#3D314A" d="M1093.08,-666.88C1071.42,-657.09 1044.12,-644.77 1021.33,-634.47"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1022.24,-631.81 1013.79,-631.07 1019.93,-636.91 1022.24,-631.81"></polygon>
 </g>
 <!-- ImmunarchLoading&#45;&gt;TCellSelection -->
-<g id="edge9" class="edge">
+<g id="edge29" class="edge">
 <title>ImmunarchLoading-&gt;TCellSelection</title>
-<path fill="none" stroke="#3D314A" d="M699.08,-666.97C661.32,-655.86 612.29,-641.44 574.93,-630.45"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="575.6,-627.73 567.14,-628.16 574.02,-633.1 575.6,-627.73"></polygon>
+<path fill="none" stroke="#3D314A" d="M1071.46,-671.21C1025.1,-661.01 959.24,-646 902,-631 901.29,-630.81 900.57,-630.63 899.86,-630.43"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="900.5,-627.71 892.05,-628.31 899.03,-633.11 900.5,-627.71"></polygon>
 </g>
 <!-- ImmunarchLoading&#45;&gt;Immunarch -->
 <g id="edge15" class="edge">
 <title>ImmunarchLoading-&gt;Immunarch</title>
-<path fill="none" stroke="#3D314A" d="M816.7,-673.54C867.08,-664.16 940.87,-649.1 1004,-631 1004.36,-630.9 1004.73,-630.79 1005.1,-630.68"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="1006.11,-633.3 1012.92,-628.26 1004.45,-627.95 1006.11,-633.3"></polygon>
-</g>
-<!-- ImmunarchLoading&#45;&gt;TCRClustering -->
-<g id="edge10" class="edge">
-<title>ImmunarchLoading-&gt;TCRClustering</title>
-<path fill="none" stroke="#3D314A" d="M803.23,-666.88C830.11,-656.92 864.09,-644.34 892.17,-633.94"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="893.39,-636.47 899.92,-631.07 891.44,-631.22 893.39,-636.47"></polygon>
+<path fill="none" stroke="#3D314A" d="M1122.84,-666.7C1118.85,-658.22 1113.96,-647.86 1109.59,-638.58"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1112.01,-637.15 1106.06,-631.1 1106.94,-639.53 1112.01,-637.15"></polygon>
 </g>
 <!-- ImmunarchLoading&#45;&gt;SeuratMetadataMutater -->
-<g id="edge16" class="edge">
+<g id="edge20" class="edge">
 <title>ImmunarchLoading-&gt;SeuratMetadataMutater</title>
-<path fill="none" stroke="#3D314A" d="M697.28,-668.16C663.38,-658 625.47,-644.27 614,-631 587.54,-600.41 595,-582.45 595,-542 595,-542 595,-542 595,-468 595,-427.46 599.87,-411.02 575,-379 564.17,-365.05 548.66,-354.46 532.91,-346.55"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="534.1,-344.02 525.67,-343.1 531.69,-349.07 534.1,-344.02"></polygon>
+<path fill="none" stroke="#3D314A" d="M1136.82,-666.56C1139.93,-656.33 1143.43,-643.08 1145,-631 1147.06,-615.13 1145.48,-610.99 1145,-595 1142.11,-498.87 1157.94,-471.61 1132,-379 1129.24,-369.14 1124.46,-359.02 1119.62,-350.31"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1122.03,-348.87 1115.59,-343.35 1117.18,-351.68 1122.03,-348.87"></polygon>
 </g>
-<!-- CDR3AAPhyschem -->
-<g id="node31" class="node">
-<title>CDR3AAPhyschem</title>
-<polygon fill="#F26419" stroke="#000000" points="1488.5,-196 1365.5,-196 1365.5,-160 1488.5,-160 1488.5,-196" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="1427" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">CDR3AAPhyschem</text>
+<!-- ImmunarchLoading&#45;&gt;TCRClustering -->
+<g id="edge13" class="edge">
+<title>ImmunarchLoading-&gt;TCRClustering</title>
+<path fill="none" stroke="#3D314A" d="M1159.38,-666.88C1175.11,-657.38 1194.81,-645.5 1211.54,-635.4"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1213.11,-637.72 1218.51,-631.19 1210.22,-632.93 1213.11,-637.72"></polygon>
 </g>
 <!-- ImmunarchLoading&#45;&gt;CDR3AAPhyschem -->
-<g id="edge26" class="edge">
+<g id="edge30" class="edge">
 <title>ImmunarchLoading-&gt;CDR3AAPhyschem</title>
-<path fill="none" stroke="#3D314A" d="M816.58,-680.18C952.14,-669.85 1272,-635.56 1272,-542 1272,-542 1272,-542 1272,-324 1272,-306.79 1354.54,-237.48 1399.15,-201.28"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="1400.99,-203.39 1405.45,-196.19 1397.47,-199.04 1400.99,-203.39"></polygon>
+<path fill="none" stroke="#3D314A" d="M1190.69,-675.76C1262.92,-662.03 1375,-627.04 1375,-542 1375,-542 1375,-542 1375,-324 1375,-277.36 1404.74,-229.92 1425.45,-202.53"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1427.81,-204.06 1430.5,-196.02 1423.38,-200.63 1427.81,-204.06"></polygon>
 </g>
-<!-- CellTypeAnnotation&#45;&gt;TopExpressingGenes -->
-<g id="edge12" class="edge">
-<title>CellTypeAnnotation-&gt;TopExpressingGenes</title>
-<path fill="none" stroke="#3D314A" d="M411.11,-450.88C427.25,-441.38 447.46,-429.5 464.63,-419.4"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="466.3,-421.66 471.78,-415.19 463.46,-416.83 466.3,-421.66"></polygon>
+<!-- CloneResidency -->
+<g id="node28" class="node">
+<title>CloneResidency</title>
+<polygon fill="#F26419" stroke="#000000" points="1509,-631 1403,-631 1403,-595 1509,-595 1509,-631" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="1456" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">CloneResidency</text>
 </g>
-<!-- CellTypeAnnotation&#45;&gt;ModuleScoreCalculator -->
-<g id="edge20" class="edge">
-<title>CellTypeAnnotation-&gt;ModuleScoreCalculator</title>
-<path fill="none" stroke="#3D314A" d="M373.1,-450.7C368.7,-442.14 363.31,-431.66 358.5,-422.3"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="360.95,-420.94 354.8,-415.1 355.97,-423.5 360.95,-420.94"></polygon>
-</g>
-<!-- CellTypeAnnotation&#45;&gt;ClusterMarkers -->
-<g id="edge31" class="edge">
-<title>CellTypeAnnotation-&gt;ClusterMarkers</title>
-<path fill="none" stroke="#3D314A" d="M339.19,-450.88C314.42,-440.97 283.11,-428.44 257.18,-418.07"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="258.14,-415.44 249.67,-415.07 256.06,-420.64 258.14,-415.44"></polygon>
-</g>
-<!-- SeuratMetadataMutater&#45;&gt;TCRClusters2Seurat -->
-<g id="edge28" class="edge">
-<title>SeuratMetadataMutater-&gt;TCRClusters2Seurat</title>
-<path fill="none" stroke="#3D314A" d="M471,-306.7C471,-298.39 471,-288.28 471,-279.14"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="473.8,-279.1 471,-271.1 468.2,-279.1 473.8,-279.1"></polygon>
-</g>
-<!-- TCRClusters2Seurat&#45;&gt;MetabolicInput -->
-<g id="edge24" class="edge">
-<title>TCRClusters2Seurat-&gt;MetabolicInput</title>
-<path fill="none" stroke="#3D314A" d="M535.05,-245.41C569.85,-241.26 613.52,-235.14 652,-227 689.55,-219.05 731.02,-207.15 763.24,-197.19"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="764.42,-199.75 771.22,-194.7 762.75,-194.41 764.42,-199.75"></polygon>
-</g>
-<!-- TCRClusters2Seurat&#45;&gt;MarkersFinder -->
-<g id="edge11" class="edge">
-<title>TCRClusters2Seurat-&gt;MarkersFinder</title>
-<path fill="none" stroke="#3D314A" d="M406.68,-252.47C316.16,-252.3 156.27,-248.79 103,-227 89.65,-221.54 77.21,-211.59 67.46,-202.17"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="69.37,-200.12 61.75,-196.41 65.4,-204.06 69.37,-200.12"></polygon>
-</g>
-<!-- TCRClusters2Seurat&#45;&gt;MetaMarkers -->
-<g id="edge32" class="edge">
-<title>TCRClusters2Seurat-&gt;MetaMarkers</title>
-<path fill="none" stroke="#3D314A" d="M406.88,-250.61C340.42,-248.34 241.52,-242.41 207,-227 194.48,-221.41 183,-211.58 174.03,-202.26"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="175.99,-200.25 168.51,-196.26 171.87,-204.05 175.99,-200.25"></polygon>
-</g>
-<!-- TCRClusters2Seurat&#45;&gt;CellsDistribution -->
-<g id="edge14" class="edge">
-<title>TCRClusters2Seurat-&gt;CellsDistribution</title>
-<path fill="none" stroke="#3D314A" d="M406.92,-247.35C382.09,-243.85 353.94,-237.72 330,-227 316.12,-220.78 302.62,-210.72 291.87,-201.41"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="293.7,-199.29 285.87,-196.05 289.97,-203.47 293.7,-199.29"></polygon>
-</g>
-<!-- TCRClusters2Seurat&#45;&gt;RadarPlots -->
-<g id="edge34" class="edge">
-<title>TCRClusters2Seurat-&gt;RadarPlots</title>
-<path fill="none" stroke="#3D314A" d="M437.41,-234.72C433.46,-232.28 429.57,-229.69 426,-227 416.4,-219.76 406.83,-210.67 398.79,-202.35"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="400.5,-200.08 392.97,-196.19 396.43,-203.93 400.5,-200.08"></polygon>
-</g>
-<!-- TCRClusters2Seurat&#45;&gt;ScFGSEA -->
+<!-- ImmunarchLoading&#45;&gt;CloneResidency -->
 <g id="edge25" class="edge">
-<title>TCRClusters2Seurat-&gt;ScFGSEA</title>
-<path fill="none" stroke="#3D314A" d="M471,-234.7C471,-225.61 471,-214.3 471,-204.25"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="473.8,-204.18 471,-196.18 468.2,-204.18 473.8,-204.18"></polygon>
+<title>ImmunarchLoading-&gt;CloneResidency</title>
+<path fill="none" stroke="#3D314A" d="M1190.6,-672.56C1243,-662.31 1321.26,-646.54 1389,-631 1390.81,-630.59 1392.64,-630.16 1394.48,-629.72"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1395.53,-632.35 1402.66,-627.77 1394.23,-626.91 1395.53,-632.35"></polygon>
 </g>
-<!-- SeuratClusterStats -->
-<g id="node29" class="node">
-<title>SeuratClusterStats</title>
-<polygon fill="#F26419" stroke="#000000" points="642.5,-196 525.5,-196 525.5,-160 642.5,-160 642.5,-196" stroke-opacity="0"></polygon>
-<text text-anchor="middle" x="584" y="-174.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">SeuratClusterStats</text>
+<!-- SampleInfo -->
+<g id="node25" class="node">
+<title>SampleInfo</title>
+<g id="a_node25"><a xlink:title="List sample information and perform statistics">
+<polygon fill="#4C956C" stroke="#000000" points="1004,-847 936.93,-829 1004,-811 1071.07,-829 1004,-847" stroke-opacity="0"></polygon>
+<text text-anchor="middle" x="1004" y="-825.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#FFFFFF">SampleInfo</text>
+</a>
 </g>
-<!-- TCRClusters2Seurat&#45;&gt;SeuratClusterStats -->
-<g id="edge6" class="edge">
-<title>TCRClusters2Seurat-&gt;SeuratClusterStats</title>
-<path fill="none" stroke="#3D314A" d="M502.72,-234.94C507.22,-232.36 511.76,-229.66 516,-227 528.89,-218.9 542.68,-209.34 554.45,-200.9"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="556.29,-203.03 561.13,-196.07 553.01,-198.49 556.29,-203.03"></polygon>
 </g>
-<!-- TCRClusters2Seurat&#45;&gt;CDR3AAPhyschem -->
-<g id="edge27" class="edge">
-<title>TCRClusters2Seurat-&gt;CDR3AAPhyschem</title>
-<path fill="none" stroke="#3D314A" d="M535.18,-250.7C736.21,-246.58 1341.49,-233.65 1361,-227 1376.62,-221.68 1391.68,-211.27 1403.46,-201.5"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="1405.42,-203.51 1409.66,-196.17 1401.76,-199.27 1405.42,-203.51"></polygon>
+<!-- SampleInfo&#45;&gt;SeuratPreparing -->
+<g id="edge32" class="edge">
+<title>SampleInfo-&gt;SeuratPreparing</title>
+<path fill="none" stroke="#3D314A" d="M995.52,-813.15C990.39,-804.18 983.72,-792.52 977.85,-782.23"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="980.14,-780.6 973.74,-775.04 975.28,-783.38 980.14,-780.6"></polygon>
+</g>
+<!-- SampleInfo&#45;&gt;ImmunarchLoading -->
+<g id="edge26" class="edge">
+<title>SampleInfo-&gt;ImmunarchLoading</title>
+<path fill="none" stroke="#3D314A" d="M1016.41,-814.13C1038.2,-789.76 1083.56,-739.04 1110.21,-709.24"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="1112.35,-711.05 1115.6,-703.22 1108.18,-707.31 1112.35,-711.05"></polygon>
+</g>
+<!-- SeuratClusteringOfTCells&#45;&gt;CellTypeAnnotation -->
+<g id="edge14" class="edge">
+<title>SeuratClusteringOfTCells-&gt;CellTypeAnnotation</title>
+<path fill="none" stroke="#3D314A" d="M852.18,-522.7C855.18,-514.3 858.83,-504.07 862.12,-494.86"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="864.84,-495.58 864.89,-487.1 859.56,-493.7 864.84,-495.58"></polygon>
 </g>
 <!-- SeuratClusteringOfAllCells&#45;&gt;TCellSelection -->
-<g id="edge17" class="edge">
+<g id="edge24" class="edge">
 <title>SeuratClusteringOfAllCells-&gt;TCellSelection</title>
-<path fill="none" stroke="#3D314A" d="M574.71,-666.7C565.12,-657.63 553.26,-646.4 542.94,-636.65"></path>
-<polygon fill="#3D314A" stroke="#3D314A" points="544.82,-634.57 537.08,-631.1 540.97,-638.64 544.82,-634.57"></polygon>
+<path fill="none" stroke="#3D314A" d="M904.98,-666.7C894.38,-657.54 881.25,-646.19 869.89,-636.38"></path>
+<polygon fill="#3D314A" stroke="#3D314A" points="871.68,-634.22 863.79,-631.1 868.01,-638.45 871.68,-634.22"></polygon>
 </g>
 </g>
 </svg>
