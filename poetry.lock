@@ -107,13 +107,13 @@ python-simpleconf = ">=0.6,<0.7"
 
 [[package]]
 name = "biopipen"
-version = "0.17.5"
+version = "0.17.6"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "biopipen-0.17.5-py3-none-any.whl", hash = "sha256:48b6124e964b438aa52b6a95377ea836502f6dce8a338e6bfe5e003ff3ab71ca"},
-    {file = "biopipen-0.17.5.tar.gz", hash = "sha256:ccdd81a9c2a694fd94b1c38974aa9d1cd80bc5cac51582629a7680629f749dbf"},
+    {file = "biopipen-0.17.6-py3-none-any.whl", hash = "sha256:cfdcb6dee7c8e54656675f744002ab229e5472fd9d0c89cdfc5e87242d27813b"},
+    {file = "biopipen-0.17.6.tar.gz", hash = "sha256:d7551b5d504ed5d1e3ea75591a84ac2bffc665b7b06620dfb7613e7f40b1900a"},
 ]
 
 [package.dependencies]
@@ -944,28 +944,28 @@ pipen-annotate = ">=0.9.0,<0.10.0"
 
 [[package]]
 name = "pipen-board"
-version = "0.11.4"
+version = "0.11.5"
 description = "Visualization configuration and running of pipen pipelines on the web"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_board-0.11.4-py3-none-any.whl", hash = "sha256:c6756cb9832ff1081e567e9f9c32de29bdd8da62e8e772bd8764dba62a793c35"},
-    {file = "pipen_board-0.11.4.tar.gz", hash = "sha256:e3e82d4ab50d6bd89eb7f9f4d73b4fcf8bd914a4766157afa560173dcfe5cb1e"},
+    {file = "pipen_board-0.11.5-py3-none-any.whl", hash = "sha256:9d1b910cf9f18f61fe39494c0c8fe5aa4f667e70966c68be90a6c7f5618f2e8c"},
+    {file = "pipen_board-0.11.5.tar.gz", hash = "sha256:2e405f1ad934e4d604394ede7ba2c1dea9dea08551551d93553e1674eb756e90"},
 ]
 
 [package.dependencies]
-pipen-args = ">=0.10.0,<0.11.0"
+pipen-args = ">=0.10.4,<0.11.0"
 pipen-log2file = ">=0.3.4,<0.4.0"
-pipen-report = {version = ">=0.12.6,<0.13.0", optional = true, markers = "extra == \"report\""}
+pipen-report = {version = ">=0.12.8,<0.13.0", optional = true, markers = "extra == \"report\""}
 psutil = ">=5.9.5,<6.0.0"
 python-slugify = ">=8.0.1,<9.0.0"
 quart = ">=0.18,<0.19"
-websocket-client = ">=1.5,<2.0"
+websocket-client = ">=1.6,<2.0"
 
 [package.extras]
 diagram = ["pipen-diagram (>=0.7,<0.8)"]
 filters = ["pipen-filters (>=0.8,<0.9)"]
-report = ["pipen-report (>=0.12.6,<0.13.0)"]
+report = ["pipen-report (>=0.12.8,<0.13.0)"]
 
 [[package]]
 name = "pipen-cli-run"
@@ -1688,4 +1688,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "50180abee8bc049821e6e3f5505000a03949fd2de1d75d113d0e589e17482190"
+content-hash = "39daa0e9e877f331e3991170bc06b517812f623bdd05507410af91a934aba3fe"
