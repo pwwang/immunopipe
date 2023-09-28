@@ -37,10 +37,9 @@ If you are using `ScType`, `scCATCH`, or `hitype`, a text file containing the ma
    You can also use built-in databases, including `hitypedb_short`, `hitypedb_full`, and `hitypedb_pbmc3k`.
 - `cell_types` (`list`): The cell types to use for direct annotation. You can use `"-"` or `""` as the placeholder for the clusters that you want to keep the original cell types (`seurat_clusters`). If the length of `cell_types` is shorter than the number of clusters, the remaining clusters will be kept as the original cell types.
 
-    !!! note
-        If `tool` is `direct` and `cell_types` is not specified or
-        an empty list, the original cell types will be kept and nothing
-        will be changed.
+    /// Note
+    If `tool` is `direct` and `cell_types` is not specified or an empty list, the original cell types will be kept and nothing will be changed.
+    ///
 
 - `sccatch_args` (`ns`): The arguments for [`scCATCH::findmarkergene()`][3] if `tool` is `sccatch`.
     - `species` (`choice`): The specie of cells.

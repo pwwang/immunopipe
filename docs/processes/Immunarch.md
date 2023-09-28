@@ -103,32 +103,33 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
 
     - See also [Mutating the metadata](../configurations.md#mutating-the-metadata).
 
-    !!! examples
+    /// Tip | Examples
 
-        ```toml
-        [Immunarch.envs.mutaters]
-        Vector = 'c("C", "C", "MS", "MS")'
-        # You can also use an existing column
-        Vector = 'Status'
-        ```
+    ```toml
+    [Immunarch.envs.mutaters]
+    Vector = 'c("C", "C", "MS", "MS")'
+    # You can also use an existing column
+    Vector = 'Status'
+    ```
 
-        Mutates the metadata from:
+    Mutates the metadata from:
 
-        |Sample |ID   |Sex     |Age |Status |Lane|Timepoint|
-        |-------|-----|--------|----|-------|----|---------|
-        |Sample1|C1   |M       |11  |C      |A   |8        |
-        |Sample2|C2   |M       |9   |C      |A   |6        |
-        |Sample3|MS1  |M       |12  |MS     |C   |10       |
-        |Sample4|MS2  |M       |30  |MS     |C   |3        |
+    |Sample |ID   |Sex     |Age |Status |Lane|Timepoint|
+    |-------|-----|--------|----|-------|----|---------|
+    |Sample1|C1   |M       |11  |C      |A   |8        |
+    |Sample2|C2   |M       |9   |C      |A   |6        |
+    |Sample3|MS1  |M       |12  |MS     |C   |10       |
+    |Sample4|MS2  |M       |30  |MS     |C   |3        |
 
-        to:
+    to:
 
-        |Sample |ID   |Sex     |Age |Status |Lane|Timepoint|Vector|
-        |-------|-----|--------|----|-------|----|---------|------|
-        |Sample1|C1   |M       |11  |C      |A   |8        |C     |
-        |Sample2|C2   |M       |9   |C      |A   |6        |C     |
-        |Sample3|MS1  |M       |12  |MS     |C   |10       |MS    |
-        |Sample4|MS2  |M       |30  |MS     |C   |3        |MS    |
+    |Sample |ID   |Sex     |Age |Status |Lane|Timepoint|Vector|
+    |-------|-----|--------|----|-------|----|---------|------|
+    |Sample1|C1   |M       |11  |C      |A   |8        |C     |
+    |Sample2|C2   |M       |9   |C      |A   |6        |C     |
+    |Sample3|MS1  |M       |12  |MS     |C   |10       |MS    |
+    |Sample4|MS2  |M       |30  |MS     |C   |3        |MS    |
+    ///
 
 ### Basic statistics
 
@@ -145,23 +146,24 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
         If NO cases are specified, the default case will be added, with the name `DEFAULT` and the
         values of `envs.volume.by`, `envs.volume.devpars`.
 
-    !!! examples
+    /// Tip | Examples
 
-        By default (without specifying any arguments), a bar plot will be generated for the volumes of the samples:
+    By default (without specifying any arguments), a bar plot will be generated for the volumes of the samples:
 
-        ![Immunarch volume default](images/Immunarch-volume-default.png)
+    ![Immunarch volume default](images/Immunarch-volume-default.png)
 
-        Using `.by` with one column or two columns:
+    Using `by` with one column or two columns:
 
-        ```toml
-        [Immunarch.envs.volumes.cases]
-        # You can also use the columns created by `mutaters`
-        # ByVector = { by = "Vector" }
-        ByStatus = { by = "Status" }
-        ByStatusAndSex = { by = "Status,Sex" }
-        ```
+    ```toml
+    [Immunarch.envs.volumes.cases]
+    # You can also use the columns created by `mutaters`
+    # ByVector = { by = "Vector" }
+    ByStatus = { by = "Status" }
+    ByStatusAndSex = { by = "Status,Sex" }
+    ```
 
-        ![Immunarch volume by status and sex](https://immunarch.com/articles/web_only/v3_basic_analysis_files/figure-html/eda-by-meta-1.png)
+    ![Immunarch volume by status and sex](https://immunarch.com/articles/web_only/v3_basic_analysis_files/figure-html/eda-by-meta-1.png)
+    ///
 
 
 - `lens` (`ns`): Explore clonotype CDR3 lengths.
@@ -178,20 +180,21 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
         If NO cases are specified, the default case will be added, with the name `DEFAULT` and the
         values of `envs.lens.by`, `envs.lens.devpars`.
 
-    !!! examples
+    /// Tip | Examples
 
-        Similar to `volumes`, by default (without specifying any arguments), a bar plot will be generated for the lengths of the samples:
+    Similar to `volumes`, by default (without specifying any arguments), a bar plot will be generated for the lengths of the samples:
 
-        ![Immunarch length default](https://immunarch.com/articles/web_only/v3_basic_analysis_files/figure-html/eda-1-1.png)
+    ![Immunarch length default](https://immunarch.com/articles/web_only/v3_basic_analysis_files/figure-html/eda-1-1.png)
 
-        Using `.by`:
+    Using `by`:
 
-        ```toml
-        [Immunarch.envs.lens]
-        by = "Status"
-        ```
+    ```toml
+    [Immunarch.envs.lens]
+    by = "Status"
+    ```
 
-        ![Immunarch length by status](https://immunarch.com/articles/web_only/v3_basic_analysis_files/figure-html/eda-3-1.png)
+    ![Immunarch length by status](https://immunarch.com/articles/web_only/v3_basic_analysis_files/figure-html/eda-3-1.png)
+    ///
 
 
 - `counts` (`ns`): Explore clonotype counts.
@@ -208,17 +211,18 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
         If NO cases are specified, the default case will be added, with the name `DEFAULT` and the
         values of `envs.counts.by`, `envs.counts.devpars`.
 
-    !!! examples
+    /// Tip | Examples
 
-        Let's do with and without by at the same time this time:
+    Let's do with and without by at the same time this time:
 
-        ```toml
-        [Immunarch.envs.counts.cases]
-        NoGrouping = {}
-        BySex = { by = "Sex" }
-        ```
+    ```toml
+    [Immunarch.envs.counts.cases]
+    NoGrouping = {}
+    BySex = { by = "Sex" }
+    ```
 
-        ![Immunarch counts](images/Immunarch-counts.png)
+    ![Immunarch counts](images/Immunarch-counts.png)
+    ///
 
 ### Clonality
 
@@ -237,24 +241,25 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
         If NO cases are specified, the default case will be added, with the name `DEFAULT` and the
         values of `envs.top_clones.by`, `envs.top_clones.marks` and `envs.top_clones.devpars`.
 
-    !!! examples
+    /// Tip | Examples
 
-        ```toml
-        [Immunarch.envs.top_clones.cases]
-        NoGrouping = {}
-        ByStatus = { by = "Status" }
-        ```
+    ```toml
+    [Immunarch.envs.top_clones.cases]
+    NoGrouping = {}
+    ByStatus = { by = "Status" }
+    ```
 
-        ![Imuunarch top clones](https://immunarch.com/articles/web_only/v3_basic_analysis_files/figure-html/clonality-hom-vis-1-1.png)
+    ![Imuunarch top clones](https://immunarch.com/articles/web_only/v3_basic_analysis_files/figure-html/clonality-hom-vis-1-1.png)
 
-        You can also use different `marks`:
+    You can also use different `marks`:
 
-        ```toml
-        [Immunarch.envs.top_clones.cases]
-        NewMarks = { marks = [100, 300, 500, 700, 1000]
-        ```
+    ```toml
+    [Immunarch.envs.top_clones.cases]
+    NewMarks = { marks = [100, 300, 500, 700, 1000]
+    ```
 
-        ![Immunarch new marks](images/Immunarch-top_clones_marks.png)
+    ![Immunarch new marks](images/Immunarch-top_clones_marks.png)
+    ///
 
 - `rare_clones` (`ns`): Explore rare clonotypes.
     - `by`: Groupings when visualize rare clones, passed to the `.by` argument of `vis(imm_rare, .by = <values>)`.
@@ -272,17 +277,18 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
         If NO cases are specified, the default case will be added, with the name `DEFAULT` and the
         values of `envs.rare_clones.by`, `envs.rare_clones.marks` and `envs.rare_clones.devpars`.
 
-    !!! examples
+    /// Tip | Examples
 
-        Similar to `top_clones`:
+    Similar to `top_clones`:
 
-        ```toml
-        [Immunarch.envs.rare_clones.cases]
-        NoGrouping = {}
-        ByStatus = { by = "Status" }
-        ```
+    ```toml
+    [Immunarch.envs.rare_clones.cases]
+    NoGrouping = {}
+    ByStatus = { by = "Status" }
+    ```
 
-        ![Immunarch rare clones](https://immunarch.com/articles/web_only/v3_basic_analysis_files/figure-html/clonality-hom-vis-1-2.png)
+    ![Immunarch rare clones](https://immunarch.com/articles/web_only/v3_basic_analysis_files/figure-html/clonality-hom-vis-1-2.png)
+    ///
 
 - `hom_clones` (`ns`): Explore homeo clonotypes.
     - `by`: Groupings when visualize homeo clones, passed to the `.by` argument of `vis(imm_hom, .by = <values>)`.
@@ -306,17 +312,18 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
         If NO cases are specified, the default case will be added, with the name `DEFAULT` and the
         values of `envs.hom_clones.by`, `envs.hom_clones.marks` and `envs.hom_clones.devpars`.
 
-    !!! examples
+    /// Tip | Examples
 
-        Similar to `top_clones`:
+    Similar to `top_clones`:
 
-        ```toml
-        [Immunarch.envs.hom_clones.cases]
-        NoGrouping = {}
-        ByStatus = { by = "Status" }
-        ```
+    ```toml
+    [Immunarch.envs.hom_clones.cases]
+    NoGrouping = {}
+    ByStatus = { by = "Status" }
+    ```
 
-        ![Immunarch homeo clones](images/Immunarch-hom_clones.png)
+    ![Immunarch homeo clones](images/Immunarch-hom_clones.png)
+    ///
 
 ### Repertoire overlap
 
@@ -361,37 +368,38 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
         If NO cases are specified, the default case will be added, with the key the default method and the
         values of `envs.overlaps.method`, `envs.overlaps.vis_args`, `envs.overlaps.devpars` and `envs.overlaps.analyses`.
 
-    !!! examples
+    /// Tip | Examples
 
-        Using different methods:
+    Using different methods:
 
-        ```toml
-        [Immunarch.envs.overlaps.cases]
-        Public = { method = "public" }
-        Morisita = { method = "morisita" }
-        ```
+    ```toml
+    [Immunarch.envs.overlaps.cases]
+    Public = { method = "public" }
+    Morisita = { method = "morisita" }
+    ```
 
-        ![Immunarch overlaps](https://immunarch.com/articles/web_only/v4_overlap_files/figure-html/overlap-1.png)
+    ![Immunarch overlaps](https://immunarch.com/articles/web_only/v4_overlap_files/figure-html/overlap-1.png)
 
-        Using `vis_args`:
+    Using `vis_args`:
 
-        ```toml
-        [Immunarch.envs.overlaps.cases]
-        Public = { method = "public", vis_args = { "-plot": "heatmap2" } }
-        ```
-        ![Immunarch overlaps heatmap2](https://immunarch.com/articles/web_only/v4_overlap_files/figure-html/overlap-2.png)
+    ```toml
+    [Immunarch.envs.overlaps.cases]
+    Public = { method = "public", vis_args = { "-plot": "heatmap2" } }
+    ```
+    ![Immunarch overlaps heatmap2](https://immunarch.com/articles/web_only/v4_overlap_files/figure-html/overlap-2.png)
 
-        With `analyses`:
+    With `analyses`:
 
-        ```toml
-        [Immunarch.envs.overlaps.cases.Public]
-        method = "public"
+    ```toml
+    [Immunarch.envs.overlaps.cases.Public]
+    method = "public"
 
-        [Immunarch.envs.overlaps.cases.Public.analyses]
-        method = "mds+kmeans"
-        ```
+    [Immunarch.envs.overlaps.cases.Public.analyses]
+    method = "mds+kmeans"
+    ```
 
-        ![Immunarch overlaps analyses](https://immunarch.com/articles/web_only/v4_overlap_files/figure-html/overlap-2-2.png)
+    ![Immunarch overlaps analyses](https://immunarch.com/articles/web_only/v4_overlap_files/figure-html/overlap-2-2.png)
+    ///
 
 ### Gene usage
 
@@ -429,46 +437,47 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
         If NO cases are specified, the default case will be added, with the name `DEFAULT` and the
         values of `envs.gene_usages.top`, `envs.gene_usages.norm`, `envs.gene_usages.by`, `envs.gene_usages.vis_args`, `envs.gene_usages.devpars` and `envs.gene_usages.analyses`.
 
-    !!! examples
+    /// Tip | Examples
 
-        See also <https://immunarch.com/articles/web_only/v5_gene_usage.html>
+    See also <https://immunarch.com/articles/web_only/v5_gene_usage.html>
 
-        ```toml
-        [Immunarch.envs.gene_usages.cases]
-        ByStatus = { norm = true, by = "Status" }
-        Grid = { norm = true, vis_args = { "-plot": "box" } }
-        ```
+    ```toml
+    [Immunarch.envs.gene_usages.cases]
+    ByStatus = { norm = true, by = "Status" }
+    Grid = { norm = true, vis_args = { "-plot": "box" } }
+    ```
 
-        ![Immunarch gene usages](https://immunarch.com/articles/web_only/v5_gene_usage_files/figure-html/unnamed-chunk-3-1.png)
+    ![Immunarch gene usages](https://immunarch.com/articles/web_only/v5_gene_usage_files/figure-html/unnamed-chunk-3-1.png)
 
-        ![Immunarch gene usages grid](https://immunarch.com/articles/web_only/v5_gene_usage_files/figure-html/unnamed-chunk-5-1.png)
+    ![Immunarch gene usages grid](https://immunarch.com/articles/web_only/v5_gene_usage_files/figure-html/unnamed-chunk-5-1.png)
 
-        With `analyses`:
+    With `analyses`:
 
-        ```toml
-        [Immunarch.envs.gene_usages]
-        norm = true
+    ```toml
+    [Immunarch.envs.gene_usages]
+    norm = true
 
-        [Immunarch.envs.gene_usages.analyses]
-        # Shared arguments
-        -text-size = 1.5
+    [Immunarch.envs.gene_usages.analyses]
+    # Shared arguments
+    -text-size = 1.5
 
-        [Immunarch.envs.gene_usages.analyses.cases.Js]
-        method = "js"
+    [Immunarch.envs.gene_usages.analyses.cases.Js]
+    method = "js"
 
-        [Immunarch.envs.gene_usages.analyses.cases.Js.vis_args]
-        -title = "Gene usage JS-divergence"
-        -leg-title = "JS"
+    [Immunarch.envs.gene_usages.analyses.cases.Js.vis_args]
+    -title = "Gene usage JS-divergence"
+    -leg-title = "JS"
 
-        [Immunarch.envs.gene_usages.analyses.cases.Cor]
-        method = "cor"
+    [Immunarch.envs.gene_usages.analyses.cases.Cor]
+    method = "cor"
 
-        [Immunarch.envs.gene_usages.analyses.cases.Cor.vis_args]
-        -title = "Gene usage correlation"
-        -leg-title = "Cor"
-        ```
+    [Immunarch.envs.gene_usages.analyses.cases.Cor.vis_args]
+    -title = "Gene usage correlation"
+    -leg-title = "Cor"
+    ```
 
-        ![Immunarch gene usages analyses](https://immunarch.com/articles/web_only/v5_gene_usage_files/figure-html/unnamed-chunk-6-1.png)
+    ![Immunarch gene usages analyses](https://immunarch.com/articles/web_only/v5_gene_usage_files/figure-html/unnamed-chunk-6-1.png)
+    ///
 
 ### Spectratyping
 
@@ -494,15 +503,16 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
         By default, a `By_Clonotype` case will be added, with the values of `quant = "id"` and `col = "nt"`, and
         a `By_Num_Clones` case will be added, with the values of `quant = "count"` and `col = "aa+v"`.
 
-    !!! examples
+    /// Tip | Examples
 
-        ```toml
-        [Immunarch.envs.spects.cases]
-        By_Clonotype = { quant = "id", col = "nt" }
-        By_Num_Clones = { quant = "count", col = "aa+v" }
-        ```
+    ```toml
+    [Immunarch.envs.spects.cases]
+    By_Clonotype = { quant = "id", col = "nt" }
+    By_Num_Clones = { quant = "count", col = "aa+v" }
+    ```
 
-        ![Immunarch spects](https://immunarch.com/articles/web_only/v5_gene_usage_files/figure-html/spectr-1.png)
+    ![Immunarch spects](https://immunarch.com/articles/web_only/v5_gene_usage_files/figure-html/spectr-1.png)
+    ///
 
 ### Diversity estimation
 
@@ -548,9 +558,9 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
     - `test` (`ns`): Perform statistical tests between each pair of groups.
         Does NOT work for `raref`.
         - `method` (`choice`): The method to perform the test
-            - none: No test
-            - t.test: Welch's t-test
-            - wilcox.test: Wilcoxon rank sum test
+            - `none`: No test
+            - `t.test`: Welch's t-test
+            - `wilcox.test`: Wilcoxon rank sum test
         - `padjust` (`choice`): The method to adjust p-values.
             Defaults to `none`.
             - `bonferroni`: one-step correction
@@ -575,25 +585,26 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
         If NO cases are specified, the default case will be added, with the name of `envs.div.method`.
         The values specified in `envs.div` will be used as the defaults for the cases here.
 
-    !!! examples
+    /// Tip | Examples
 
-        ```toml
-        [Immunarch.envs.divs.cases]
-        Chao1_NoGrouping = { method = "chao1" }
-        Chao1_ByStatusSex = { method = "chao1", by = "Status,Sex" }
-        ```
+    ```toml
+    [Immunarch.envs.divs.cases]
+    Chao1_NoGrouping = { method = "chao1" }
+    Chao1_ByStatusSex = { method = "chao1", by = "Status,Sex" }
+    ```
 
-        ![Immunarch divs](https://immunarch.com/articles/web_only/v6_diversity_files/figure-html/diversity-1.png)
+    ![Immunarch divs](https://immunarch.com/articles/web_only/v6_diversity_files/figure-html/diversity-1.png)
 
-        Rarefraction:
+    Rarefraction:
 
-        ```toml
-        [Immunarch.envs.divs.cases]
-        Raref_NoGrouping = { method = "raref" }
-        Raref_ByStatus = { method = "raref", by = "Status" }
-        ```
+    ```toml
+    [Immunarch.envs.divs.cases]
+    Raref_NoGrouping = { method = "raref" }
+    Raref_ByStatus = { method = "raref", by = "Status" }
+    ```
 
-        ![Immunarch divs raref](https://immunarch.com/articles/web_only/v6_diversity_files/figure-html/unnamed-chunk-1-1.png)
+    ![Immunarch divs raref](https://immunarch.com/articles/web_only/v6_diversity_files/figure-html/unnamed-chunk-1-1.png)
+    ///
 
 ### Track clonotypes across samples and time
 
@@ -612,24 +623,25 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
         If NO cases are specified, the default case will be added, with the name `DEFAULT` and the
         values of `envs.trackings.target`, `envs.trackings.subject_col`, and `envs.trackings.subjects`.
 
-    !!! examples
+    /// Tip | Examples
 
-        ```toml
-        [Immunarch.envs.trackings]
-        targets = "CASSDSAGGTDTQYF,CASSDSSGGANEQFF,CASSDSSGSTDTQYF,CASSLAGGYNEQFF,CASSLDSYEQYF,CASSLEETQYF,CASSSAGGYNEQFF"
-        subject_col = "Sample"
-        ```
+    ```toml
+    [Immunarch.envs.trackings]
+    targets = "CASSDSAGGTDTQYF,CASSDSSGGANEQFF,CASSDSSGSTDTQYF,CASSLAGGYNEQFF,CASSLDSYEQYF,CASSLEETQYF,CASSSAGGYNEQFF"
+    subject_col = "Sample"
+    ```
 
-        ![Immunarch trackings](https://immunarch.com/articles/web_only/v8_tracking_files/figure-html/unnamed-chunk-4-1.png)
+    ![Immunarch trackings](https://immunarch.com/articles/web_only/v8_tracking_files/figure-html/unnamed-chunk-4-1.png)
 
-        ```toml
-        [Immunarch.envs.trackings]
-        targets = 7
-        subject_col = "Sample"
-        subjects = ["A2-i129", "A2-i133", "A4-i191"]
-        ```
+    ```toml
+    [Immunarch.envs.trackings]
+    targets = 7
+    subject_col = "Sample"
+    subjects = ["A2-i129", "A2-i133", "A4-i191"]
+    ```
 
-        ![Immunarch trackings](https://immunarch.com/articles/web_only/v8_tracking_files/figure-html/unnamed-chunk-8-3.png)
+    ![Immunarch trackings](https://immunarch.com/articles/web_only/v8_tracking_files/figure-html/unnamed-chunk-8-3.png)
+    ///
 
 ### Kmer and sequence motif analysis and visualisation
 
@@ -665,40 +677,41 @@ Generally, you don't need to specify `cases` if you only have one case. A defaul
         If any of these arguments are not specified, the default case will be added, with the name `DEFAULT` and the
         values of `envs.kmers.k`, `envs.kmers.head`, `envs.kmers.vis_args` and `envs.kmers.devpars`.
 
-    !!! examples
+    /// Tip | Examples
 
-        ```toml
-        [Immunarch.envs.kmers]
-        k = 5
-        ```
+    ```toml
+    [Immunarch.envs.kmers]
+    k = 5
+    ```
 
-        ![Immunarch kmers](https://immunarch.com/articles/web_only/v9_kmers_files/figure-html/unnamed-chunk-4-1.png)
+    ![Immunarch kmers](https://immunarch.com/articles/web_only/v9_kmers_files/figure-html/unnamed-chunk-4-1.png)
 
-        ```toml
-        [Immunarch.envs.kmers]
-        # Shared by cases
-        k = 5
+    ```toml
+    [Immunarch.envs.kmers]
+    # Shared by cases
+    k = 5
 
-        [Immunarch.envs.kmers.cases]
-        Head5 = { head = 5, -position = "stack" }
-        Head10 = { head = 10, -position = "fill" }
-        Head30 = { head = 30, -position = "dodge" }
-        ```
+    [Immunarch.envs.kmers.cases]
+    Head5 = { head = 5, -position = "stack" }
+    Head10 = { head = 10, -position = "fill" }
+    Head30 = { head = 30, -position = "dodge" }
+    ```
 
-        ![Immunarch kmers](https://immunarch.com/articles/web_only/v9_kmers_files/figure-html/unnamed-chunk-6-1.png)
+    ![Immunarch kmers](https://immunarch.com/articles/web_only/v9_kmers_files/figure-html/unnamed-chunk-6-1.png)
 
-        With motif profiling:
+    With motif profiling:
 
-        ```toml
-        [Immunarch.envs.kmers]
-        k = 5
+    ```toml
+    [Immunarch.envs.kmers]
+    k = 5
 
-        [Immnuarch.envs.kmers.profiles.cases]
-        TextPlot = { method = "self", vis_args = { "-plot": "text" } }
-        SeqPlot = { method = "self", vis_args = { "-plot": "seq" } }
-        ```
+    [Immnuarch.envs.kmers.profiles.cases]
+    TextPlot = { method = "self", vis_args = { "-plot": "text" } }
+    SeqPlot = { method = "self", vis_args = { "-plot": "seq" } }
+    ```
 
-        ![Immunarch kmers](https://immunarch.com/articles/web_only/v9_kmers_files/figure-html/unnamed-chunk-10-1.png)
+    ![Immunarch kmers](https://immunarch.com/articles/web_only/v9_kmers_files/figure-html/unnamed-chunk-10-1.png)
+    ///
 
 
 [1]: ./ImmunarchLoading.md

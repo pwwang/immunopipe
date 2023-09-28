@@ -11,7 +11,7 @@ $ immunopipe --help
 You can specify the options directly in the CLI. For example:
 
 ```shell
-$ immunopipe --forks 4 --TopExpressingGenesOfAllCells.envs.n 100 ...
+$ immunopipe --forks 4 --TopExpressingGenes.envs.n 100 ...
 ```
 
 It's recommended to use a configuration file to specify all the options. For example:
@@ -23,14 +23,14 @@ $ immunopipe @config.toml
 You can also use both ways together. The options specified in the CLI will override the ones in the configuration file.
 
 ```shell
-$ immunopipe @config.toml --forks 4 --TopExpressingGenesOfAllCells.envs.n 100 ...
+$ immunopipe @config.toml --forks 4 --TopExpressingGenes.envs.n 100 ...
 ```
 
 For configuration items, see [configurations](./configurations.md) for more details.
 
-!!! Tip
-
-    If you want to run the pipeline on a cluster, see [How to run the pipeline on a cluster?](./faq.md#how-to-run-the-pipeline-on-a-cluster) for more details.
+/// Tip
+If you want to run the pipeline on a cluster, see [How to run the pipeline on a cluster?](./faq.md#how-to-run-the-pipeline-on-a-cluster) for more details.
+///
 
 ## Run the pipeline via `pipen-board`
 
@@ -68,14 +68,13 @@ If you want to run the pipeline via `pipen-board`, you need an additional config
 $ pipen board immunopipe:Immunopipe -a gh:pwwang/immunopipe/board.toml@dev
 ```
 
-The additional file is available at `immunopipe`'s GitHub repo. You can also download it and modify it to fit your needs, but in most cases, you don't have to. With the additional file, you can find three `running options`, `LOCAL`, `DOCKER` and `SINGULARITY`, on the left side of the `Configuration` tab. You can choose one of them to run the pipeline.
+The additional file is available at `immunopipe`'s GitHub repo. You can also download it and modify it to fit your needs, but in most cases, you don't have to. With the additional file, you can find four `running options`, `LOCAL`, `DOCKER`, `SINGULARITY` and `APPTAINER`, on the left side of the `Configuration` tab. You can choose one of them to run the pipeline.
 
 Take `LOCAL` as an example. When clicking the `Run the command` button, a configuration file specified by `configfile` is saved and used to run the pipeline via CLI. Then the `Previous Run` tab is replaced by the `Running` tab to track the progress of the pipeline.
 
 ## Run the pipeline using docker image
 
-### Use `docker`
-
+/// tab | Using docker
 To run the pipeline using the docker image with `docker`, you need to mount the current working directory to the `/workdir` directory in the container. You also need to specify the configuration file via `@<configfile>` option. For example:
 
 ```shell
@@ -84,9 +83,9 @@ $ docker run \
     justold/immunopipe:<tag> \
     @config.toml
 ```
+///
 
-### Use `singularity`
-
+/// tab | Using singularity
 You also need to mount the current working directory to the `/workdir` directory in the container if you are using `singularity`. You also need to specify the configuration file via `@<configfile>` option. For example:
 
 ```shell
@@ -95,21 +94,32 @@ $ singularity run \
     docker://justold/immunopipe:<tag> \
     @config.toml
 ```
+///
+
+/// tab | Using apptainer
+You also need to mount the current working directory to the `/workdir` directory in the container if you are using `apptainer`. You also need to specify the configuration file via `@<configfile>` option. For example:
+
+```shell
+$ apptainer run \
+    --pwd /workdir -B .:/workdir -c -e --unsquash \
+    docker://justold/immunopipe:<tag> \
+    @config.toml
+```
+///
 
 ## Run the pipeline via `pipen-board` using docker image
 
 ### Choose the right tag of the docker image
 
-The docker image is tagged with the version of `immunopipe`, together with `dev`. They are listed here: <https://hub.docker.com/repository/docker/justold/immunopipe/tags>.
+The docker image is tagged with the version of `immunopipe`, together with `master` and `dev`. They are listed here: <https://hub.docker.com/repository/docker/justold/immunopipe/tags>.
 
-`dev` is the latest development version of `immunopipe`. It may have unstable features. If you want to use a specific version, you can choose the corresponding tag.
+`dev` is the latest development version of `immunopipe`. It may have unstable features. If you want to use a more stable version, please try `master`, or a specific semantic version.
 
-You can pull the images in advance using `docker` or `singularity`. See help options of `docker pull` and `singularity pull` for more details.
+You can pull the images in advance using `docker`, `singularity` or `apptainer`. See help options of `docker pull`, `singularity pull` or `apptainer pull` for more details.
 
 You can also specify the tag when running the pipeline. See the following sections for more details.
 
-### Use `docker`
-
+//// tab | Using docker
 You can also run the pipeline via `pipen-board` using the docker image with `docker`:
 
 ```shell
@@ -122,12 +132,12 @@ $ docker run -p 18521:18521 \
 
 The under the `running options`, choose `LOCAL` to run the pipeline.
 
-!!! note
-    You should use `LOCAL` instead of `DOCKER` to run the pipeline. Otherwise, the pipeline will be run in a docker container inside the docker container.
+/// Tip | Note
+You should use `LOCAL` instead of `DOCKER` to run the pipeline. Otherwise, the pipeline will be run in a docker container inside the docker container.
+///
+////
 
-
-### Use `singularity`
-
+/// tab | Using singularity
 You can also run the pipeline via `pipen-board` using the docker image with `singularity`:
 
 ```shell
@@ -138,8 +148,27 @@ $ singularity run \
     -a /immunopipe/board.toml
 ```
 
-![singularity-pipen-board](singularity-pipen-board.png)
-
 The under the `running options`, choose `LOCAL` to run the pipeline.
 
 Similarly, you should use `LOCAL` instead of `SINGULARITY` to run the pipeline. Otherwise, the pipeline will be run in a docker container inside the container.
+///
+
+/// tab | Using apptainer
+You can also run the pipeline via `pipen-board` using the docker image with `apptainer`:
+
+```shell
+$ apptainer run \
+    --pwd /workdir -B .:/workdir -c -e --unsquash \
+    docker://justold/immunopipe:<tag> board \
+    immunopipe:Immunopipe \
+    -a /immunopipe/board.toml
+```
+
+Also similarly, you should use `LOCAL` instead of `APPTAINER` to run the pipeline. Otherwise, the pipeline will be run in a docker container inside the container.
+///
+
+When the command is running, you will see the following message:
+
+![singularity-pipen-board](singularity-pipen-board.png)
+
+Then, You can open the dashboard in your browser at `http://localhost:18521`.

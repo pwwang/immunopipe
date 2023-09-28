@@ -99,8 +99,8 @@ breaks = [0, 50, 100]  # also change the breaks
 ![Radar plots cluster_order](images/RadarPlots-cluster_order.png)
 
 
-!!! note
-    All the plots used in the examples are just for demonstration purpose. The real plots will have different appearance.
-
+/// Attention
+All the plots used in the examples are just for demonstration purpose. The real plots will have different appearance.
+///
 
 [1]: ../configurations.md#mutating-the-metadata

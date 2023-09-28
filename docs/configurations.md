@@ -24,17 +24,18 @@ indicator_genes = ["CD3D", "CD3E", "CD3G"]
 # ...
 ```
 
-!!! tip
-    In the individual process pages, we will list the `envs` of the process. For example,
+/// Tip
+In the individual process pages, we will list the `envs` of the process. For example,
 
-    - `indicator_genes (list)`: The genes to be used to select T cells.
+- `indicator_genes (list)`: The genes to be used to select T cells.
 
-    This means that the environment variable `indicator_genes` should be set as follows:
+This means that the environment variable `indicator_genes` should be set as follows:
 
-    ```toml
-    [TCellSelection.envs]
-    indicator_genes = ["CD3D", "CD3E", "CD3G"]
-    ```
+```toml
+[TCellSelection.envs]
+indicator_genes = ["CD3D", "CD3E", "CD3G"]
+```
+///
 
 
 ## Pipeline configurations
@@ -87,23 +88,25 @@ name = "my-pipeline"
 
 Then the output directory will be changed to `./my-pipeline-output`.
 
-!!! note
-
-    If both `outdir` and `name` are set, `outdir` will be used.
+/// Note
+If both `outdir` and `name` are set, `outdir` will be used.
+///
 
 You can do the similar thing to change the working directory. However, you are **NOT** recommended to change the working directory, especially if you are using [`pipen-board`][1]. This is because that the plugin scans `./.pipen/<name>` to get the information for the previous run of the pipeline. If you change the working directory, the plugin will not be able to find the information for the previous run.
 
-!!! tip
-    What if you want to change the working directory anyway? The recommended way is to create a symbolic link to the working directory. For example, if you want to change the working directory to `/path/to/the/real/working/directory`, you can do:
+/// Tip
+What if you want to change the working directory anyway? The recommended way is to create a symbolic link to the working directory. For example, if you want to change the working directory to `/path/to/the/real/working/directory`, you can do:
 
-    ```bash
-    ln -s /path/to/the/real/working/directory ./.pipen
-    ```
+```bash
+ln -s /path/to/the/real/working/directory ./.pipen
+```
+///
 
-!!! tip
-    You can also then debug the pipeline by inspecting the real scripts in the working directory that run for the jobs of each process at `./.pipen/<name>/<process-name>/<job-index>/job.script`.
+/// Tip
+You can also then debug the pipeline by inspecting the real scripts in the working directory that run for the jobs of each process at `./.pipen/<name>/<process-name>/<job-index>/job.script`.
 
-    You can also find the other information for the jobs at `./.pipen/<name>/<process-name>/<job-index>/`, including the stdout (`job.stdout`) and stderr (`job.stderr`) of the jobs, the exit code of the jobs (`job.rc`), etc.
+You can also find the other information for the jobs at `./.pipen/<name>/<process-name>/<job-index>/`, including the stdout (`job.stdout`) and stderr (`job.stderr`) of the jobs, the exit code of the jobs (`job.rc`), etc.
+///
 
 ### Process level configurations
 
@@ -128,16 +131,16 @@ By default, only a subset of processes are enabled. These processes include:
 
 - [`SampleInfo`](processes/SampleInfo.md)
 - [`ImmunarchLoading`](processes/ImmunarchLoading.md)
-- [`SeuratPreparing`](processes/SeuratPreparing.md)
-- [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md)
-- [`MarkersForClustersOfAllCells`](processes/MarkersForClustersOfAllCells.md)
-- [`TopExpressingGenesOfAllCells`](processes/TopExpressingGenesOfAllCells.md)
-- [`CellTypeAnnotation`](processes/CellTypeAnnotation.md)
-- [`SeuratMetadataMutater`](processes/SeuratMetadataMutater.md)
-- [`SeuratClusterStats`](processes/SeuratClusterStats.md)
-- [`Immunarch`](processes/Immunarch.md)
 - [`Immunarch2VDJtools`](processes/Immunarch2VDJtools.md)
 - [`VJUsage`](processes/VJUsage.md)
+- [`Immunarch`](processes/Immunarch.md)
+- [`SeuratPreparing`](processes/SeuratPreparing.md)
+- [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md)
+- [`CellTypeAnnotation`](processes/CellTypeAnnotation.md)
+- [`SeuratMetadataMutater`](processes/SeuratMetadataMutater.md)
+- [`ClusterMarkers`](processes/ClusterMarkers.md)
+- [`TopExpressingGenes`](processes/TopExpressingGenes.md)
+- [`SeuratClusterStats`](processes/SeuratClusterStats.md)
 
 To enable more processes, you just need to add configurations for the processes. As long as the process name appears in the configuration file, the process will be enabled. For example, if you want to enable [`TCellSelection`](processes/TCellSelection.md), you can add the following lines to the configuration file:
 
@@ -146,26 +149,27 @@ To enable more processes, you just need to add configurations for the processes.
 indicator_genes = ["CD3D", "CD3E", "CD3G"]
 ```
 
-If [`TCellSelection`](processes/TCellSelection.md) is enabled, then [`SeuratClusteringOfTCells`](processes/SeuratClusteringOfTCells.md), [`MarkersForClustersOfTCells`](processes/MarkersForClustersOfTCells.md), and [`TopExpressingGenesOfTCells`](processes/TopExpressingGenesOfTCells.md) will be enabled automatically.
+If [`TCellSelection`](processes/TCellSelection.md) is enabled, then [`SeuratClusteringOfTCells`](processes/SeuratClusteringOfTCells.md) will be enabled, and [`ClusterMarkers`](processes/ClusterMarkers.md), and [`TopExpressingGenes`](processes/TopExpressingGenes.md) will be performed on the clusters of selected T cells.
 
 Similarly, if [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusteringStats`](processes/TCRClusteringStats.md) is enabled, then [`TCRClustering`](processes/TCRClustering.md), [`TCRClusters2Seurat`](processes/TCRClusters2Seurat.md), and [`TCRClusteringStats`](processes/TCRClusteringStats.md) will be enabled automatically.
 
 For other processes, make sure you have them configured to enable them.
 
-!!! tip
-    You may find out that for some processes, the default configurations are good enough for you to run. For example, [`TCRClustering`](processes/TCRClustering.md) is not enabled by default. If you don't change any configurations (by not putting in the configuration file nor changing any items on the web interface of `pipen-board`) for the process, it will not be triggered. However, the default configurations are good enough for you to run the process. To enable it, you can either add this process manually in the configuration file:
+/// Tip
+You may find out that for some processes, the default configurations are good enough for you to run. For example, [`TCRClustering`](processes/TCRClustering.md) is not enabled by default. If you don't change any configurations (by not putting in the configuration file nor changing any items on the web interface of `pipen-board`) for the process, it will not be triggered. However, the default configurations are good enough for you to run the process. To enable it, you can either add this process manually in the configuration file:
 
-    ```toml
-    # ... other configurations
-    [TCRClustering]
-    ```
+```toml
+# ... other configurations
+[TCRClustering]
+```
 
-    or if you are using `pipen-board`, you can change a configuration item that does not actually affect the process. For example, you can change the `forks` of the process to `2`, instead of the default `1`, since the process is a single-job process. Then the process will be put in the configuration file and will be enabled.
+or if you are using `pipen-board`, you can change a configuration item that does not actually affect the process. For example, you can change the `forks` of the process to `2`, instead of the default `1`, since the process is a single-job process. Then the process will be put in the configuration file and will be enabled.
 
-    ```toml
-    [TCRClustering]
-    forks = 2
-    ```
+```toml
+[TCRClustering]
+forks = 2
+```
+///
 
 ## Minimal configurations
 
@@ -173,7 +177,7 @@ The minimal configurations are just the configurations with the input file:
 
 ```toml
 [SampleInfo.in]
-infile = [ "sample.txt" ]
+infile = [ "samples.txt" ]
 ```
 
 The input file is the metadata file mentioned in [`Preparing the input`](./preparing-input.md#metadata).
@@ -353,15 +357,16 @@ do = { scale = true }
 
 again.
 
-!!! tip
-    You don't need to worry about which environment variables are `namespace` ones. We will mention it in the individual process pages and the description of the environment variables in `pipen-board` configuration descriptions.
+/// Tip
+You don't need to worry about which environment variables are `namespace` ones. We will mention it in the individual process pages and the description of the environment variables in `pipen-board` configuration descriptions.
+///
 
 ## Multi-case variable design
 
-Some environment variables are designed to support multiple cases. However, in most cases, we only need to set the values for the default case. In such cases, the environment variable is usually a `namespace` environment variable with the sub-keys needed for the default case. In order to support multiple cases, a sub-key `cases` is added to the `namespace` environment variable. The `cases` is a dictionary (key-value pairs), where the keys are the names of the cases, and the values are the sub-keys for the corresponding cases. For example, the `envs.cluster_size` of [`SeuratClusterStats`](processes/SeuratClusterStats.md) process:
+Some environment variables are designed to support multiple cases. However, in most cases, we only need to set the values for the default case. In such cases, the environment variable is usually a `namespace` environment variable with the sub-keys needed for the default case. In order to support multiple cases, a sub-key `cases` is added to the `namespace` environment variable. The `cases` is a dictionary (key-value pairs), where the keys are the names of the cases, and the values are the sub-keys for the corresponding cases. For example, the `envs.cluster_size` of [`TCRClusteringStats`](processes/TCRClusteringStats.md) process:
 
 ```toml
-[TCRClustering.envs.cluster_size]
+[TCRClusteringStats.envs.cluster_size]
 by = "Sample"
 devpars = { width = 1000, height = 1000, res = 100 }
 cases = {}
@@ -370,7 +375,7 @@ cases = {}
 If `cases` is empty, then the default case will be added automatically. The name of the default case is `DEFAULT`. So the above configuration is equivalent to:
 
 ```toml
-[TCRClustering.envs.cluster_size]
+[TCRClusteringStats.envs.cluster_size]
 by = "Sample"
 devpars = { width = 1000, height = 1000, res = 100 }
 cases = { DEFAULT = {} }
@@ -379,7 +384,7 @@ cases = { DEFAULT = {} }
 If you want to add more cases, you can add them to the `cases` dictionary. For example, if you want to add a case named `CASE1`, you can do:
 
 ```toml
-[TCRClustering.envs.cluster_size]
+[TCRClusteringStats.envs.cluster_size]
 by = "Sample"
 devpars = { width = 1000, height = 1000, res = 100 }
 cases = { DEFAULT = {}, CASE1 = {} }
@@ -388,7 +393,7 @@ cases = { DEFAULT = {}, CASE1 = {} }
 Then you can set the values for the default case and `CASE1` case. For example, if you want to set the `by` column to `Sample` for the default case and `Sample1` for `CASE1`, you can do:
 
 ```toml
-[TCRClustering.envs.cluster_size]
+[TCRClusteringStats.envs.cluster_size]
 by = "Sample"
 devpars = { width = 1000, height = 1000, res = 100 }
 cases = { DEFAULT = { }, CASE1 = { by = "Sample1" } }
@@ -399,23 +404,23 @@ If a key in a case is not specified, the value in the default case will be used.
 
 ## Security alert
 
-!!! danger
+/// Danger
+Note that some configuration items will be evaluated in the scripts directly. For example, the `mutaters` will be passed to `R` scripts, parsed and evaluated so that they can be used in `dplyr::mutate()`. Even though some were evaluated by [`rlang`][15], not all of them are safe. Some of them are evaluated directly. For example, one could inject malicious code in the expressions passed by `dplyr::filter()`. For example, in the script:
 
-    Note that some configuration items will be evaluated in the scripts directly. For example, the `mutaters` will be passed to `R` scripts, parsed and evaluated so that they can be used in `dplyr::mutate()`. Even though some were evaluated by [`rlang`][15], not all of them are safe. Some of them are evaluated directly. For example, one could inject malicious code in the expressions passed by `dplyr::filter()`. For example, in the script:
+```r
+df %>% filter({{ expression }})
+```
 
-    ```r
-    df %>% filter({{ expression }})
-    ```
+The expected `expression` is something like `Sample == "Sample001"`. However, one could pass `Sample == "Sample001"); system("cat /etc/passwd")` to the `expression`, which will be evaluated as:
 
-    The expected `expression` is something like `Sample == "Sample001"`. However, one could pass `Sample == "Sample001"); system("cat /etc/passwd")` to the `expression`, which will be evaluated as:
+```r
+df %>% filter(Sample == "Sample001"); system("cat /etc/passwd")
+```
 
-    ```r
-    df %>% filter(Sample == "Sample001"); system("cat /etc/passwd")
-    ```
+This will cause the pipeline to run the command `cat /etc/passwd` in the shell. This is just an example. One could do more harm by injecting malicious code.
 
-    This will cause the pipeline to run the command `cat /etc/passwd` in the shell. This is just an example. One could do more harm by injecting malicious code.
-
-    When you give acess of composing the configuration file to others or the public (not recommended), either via the command line or the web interface by `pipen-board`, you need to be careful about the security issues.
+When you give acess of composing the configuration file to others or the public (not recommended), either via the command line or the web interface by `pipen-board`, you need to be careful about the security issues.
+///
 
 
 [1]: https://github.com/pwwang/pipen-board

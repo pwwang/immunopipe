@@ -7,8 +7,10 @@ theme:
     logo: 'rtd-logo.png'
 markdown_extensions:
     - attr_list
-    - markdown.extensions.admonition
+    - pymdownx.blocks.admonition
     - pymdownx.blocks.details
+    - pymdownx.blocks.tab:
+        alternate_style: true
     - pymdownx.superfences:
         preserve_tabs: true
     - toc:
@@ -23,8 +25,8 @@ extra_javascript:
 nav:
     - 'Home': 'index.md'
     - 'Introduction': 'introduction.md'
-    - 'Geting started': 'getting-started.md'
     - 'Installation': 'installation.md'
+    - 'Geting started': 'getting-started.md'
     - 'Running the pipeline': 'running.md'
     - 'Preparing the input': 'preparing-input.md'
     - 'Configurations': 'configurations.md'
@@ -32,14 +34,12 @@ nav:
       - 'SampleInfo': 'processes/SampleInfo.md'
       - 'SeuratPreparing': 'processes/SeuratPreparing.md'
       - 'SeuratClusteringOfAllCells': 'processes/SeuratClusteringOfAllCells.md'
-      - 'MarkersForClustersOfAllCells': 'processes/MarkersForClustersOfAllCells.md'
-      - 'TopExpressingGenesOfAllCells': 'processes/TopExpressingGenesOfAllCells.md'
       - 'TCellSelection': 'processes/TCellSelection.md'
       - 'SeuratClusteringOfTCells': 'processes/SeuratClusteringOfTCells.md'
       - 'CellTypeAnnotation': 'processes/CellTypeAnnotation.md'
-      - 'SeuratClusterStats': 'processes/SeuratClusterStats.md'
-      - 'MarkersForClustersOfTCells': 'processes/MarkersForClustersOfTCells.md'
-      - 'TopExpressingGenesOfTCells': 'processes/TopExpressingGenesOfTCells.md'
+      - 'ModuleScoreCalculator': 'processes/ModuleScoreCalculator.md'
+      - 'ClusterMarkers': 'processes/ClusterMarkers.md'
+      - 'TopExpressingGenes': 'processes/TopExpressingGenes.md'
       - 'ImmunarchLoading': 'processes/ImmunarchLoading.md'
       - 'Immunarch': 'processes/Immunarch.md'
       - 'Immunarch2VDJtools': 'processes/Immunarch2VDJtools.md'
@@ -49,6 +49,7 @@ nav:
       - 'TCRClusteringStats': 'processes/TCRClusteringStats.md'
       - 'TCRClusters2Seurat': 'processes/TCRClusters2Seurat.md'
       - 'SeuratMetadataMutater': 'processes/SeuratMetadataMutater.md'
+      - 'SeuratClusterStats': 'processes/SeuratClusterStats.md'
       - 'ScFGSEA': 'processes/ScFGSEA.md'
       - 'CellsDistribution': 'processes/CellsDistribution.md'
     #   - 'CloneHeterogeneity': 'processes/CloneHeterogeneity.md'

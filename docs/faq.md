@@ -12,11 +12,11 @@ docker run --rm -w /workdir -v .:/workdir -v path/to/tmp:/tmp \
     justold/immunopipe:<tag> @config.toml
 ```
 
-If you are using singularity, you can try to use the `-B` option to bind the local directory to `/tmp` in the container.
+If you are using `singularity`/`apptainer`, you can try to use the `-B` option to bind the local directory to `/tmp` in the container.
 
 ///
 
-/// details | Why does the pipeline stop at [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md) and family without a clear error message?
+//// details | Why does the pipeline stop at [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md) and family without a clear error message?
 
 This is likely because that the pipeline is running out of memory. The [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md) and family processes (e.g. [`SeuratClusteringOfTCells`](processes/SeuratClusteringOfTCells.md)) will run the a series of `Seurat` functions to perform the clustering, especially the [`IntegrateData`](https://satijalab.org/seurat/reference/integratedata) and [`FindIntegrationAnchors`](https://satijalab.org/seurat/reference/findintegrationanchors) functions.
 
@@ -37,12 +37,13 @@ Two possible solutions are:
 - Use `reduction = "rpca"` for [`FindIntegrationAnchors`](https://satijalab.org/seurat/reference/findintegrationanchors) under `[SeuratClusteringOfAllCells.envs.FindIntegrationAnchors]`.
 - Use Reference-based integration `reference = [1, 2]` for [`FindIntegrationAnchors`](https://satijalab.org/seurat/reference/findintegrationanchors) under `[SeuratClusteringOfAllCells.envs.FindIntegrationAnchors]`.
 
-!!! Tip
-    You can also pass a list of sample names instead of the sample indices. For example, `reference = ["sample1", "sample2"]` under `[SeuratClusteringOfAllCells.envs.FindIntegrationAnchors]` to use `sample1` and `sample2` as the reference samples.
+/// Tip
+You can also pass a list of sample names instead of the sample indices. For example, `reference = ["sample1", "sample2"]` under `[SeuratClusteringOfAllCells.envs.FindIntegrationAnchors]` to use `sample1` and `sample2` as the reference samples.
 
-    See also description about `FindIntegrationAnchors` [here](processes/SeuratClusteringOfAllCells.md#environment-variables).
-
+See also description about `FindIntegrationAnchors` [here](processes/SeuratClusteringOfAllCells.md#environment-variables).
 ///
+
+////
 
 /// details | Can I run one of the processes from the pipeline separately if I have the input files prepared?
 
@@ -109,8 +110,38 @@ If you want to change some parameters for a specific process, you just modify th
 
 ///
 
+/// details | Why I am getting this error when running with [`apptainer`][4]: `FATAL:   no SIF writable overlay partition found in /tmp/apptainer_cache_xxx/...`?
+
+You may need to use `--unsquash` option instead of `-w` option (used by `singularity`) for `apptainer run`.
+
+///
+
+/// details | How can I use data with soft links while using docker image to run the pipeline?
+
+The container does not have access to the host filesystem. You need to mount the directory containing the data to the container.
+
+For example, if your real data is under `/path/to/data`, you can mount it to `/data` in the container (using `-v /path/to/data:/data` option for `docker` or `-B /path/to/data:/data` option for `singularity` or `apptainer`).
+
+Then you can use `/data` in the container to access the data under `/path/to/data` on the host. Also remember to change the path of `RNAData` and `TCRData` in the file (e.g. `samples.txt`) that is passed to `SampleInfo` process.
+
+///
+
+/// details | Why I am getting `disk quota exceeded` error while pulling the docker image using `apptainer` with still plenty of space on the disk?
+
+It's probably because that the cache directory of `apptainer` is full. You can try to use a different cache directory by setting the environment variable `APPTAINER_CACHEDIR` to a different directory. For example:
+
+```shell
+export APPTAINER_CACHEDIR=/path/to/cache
+apptainer pull justold/immunopipe:<tag>
+```
+
+See also: <https://apptainer.org/docs/user/main/build_env.html#cache-folders>
+
+///
+
 <p> </p>
 
 [1]: https://github.com/pwwang/biopipen
 [2]: https://github.com/pwwang/pipen
 [3]: https://github.com/pwwang/xqute
+[4]: https://apptainer.org/
