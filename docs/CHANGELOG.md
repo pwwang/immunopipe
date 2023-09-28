@@ -1,3 +1,43 @@
+# Change Log
+
+## 0.7.0
+
+### Housekeeping and docs updates
+
+- Fix typos in docs/configurations
+   - `TCRClustering` should be `TCRClusteringStats` in Multi-case variable design section
+   - `infile` of `[SampleInfo.in]` should be `samples.txt` rather than `sample.txt`
+- Remove unused scripts by deprecated processes
+- Bump `pipen-report` to [0.12.8](https://github.com/pwwang/pipen-report/releases/tag/0.12.8)
+- Add `master` branch and `master` tag as stable tag for docker image
+- Add pdf version of the flowchart (#4)
+- Add warning for the results in getting started tutorial
+- Bump `pipen-board` to [0.11.5](https://github.com/pwwang/pipen-board/releases/tag/0.11.5)
+- Add apptainer to the docs
+
+### Added
+
+- Add `ModuleScoreCalculator` to calculate module scores or cell cycle scores
+    - See: <https://pwwang.github.io/immunopipe/processes/ModuleScoreCalculator/>
+- Allow `SampleInfo` to perform statistics on the sample information
+    - See: <https://pwwang.github.io/immunopipe/processes/SampleInfo/>
+- Add `TCR_Cluster_Size` and `TCR_Cluster_Size1` from `TCRClustering` to metadata for further integrative analysis
+    - See: <https://pwwang.github.io/immunopipe/processes/TCRClusters2Seurat/>
+
+### Fixed
+
+- Fix default height and width for plots in `SeuratClusterStats`
+- Fix cluster order not kept after annotation using `hitype` in `CellTypeAnnotation`
+
+### Breaking changes
+
+- Change `seurat_clusters_old` to `seurat_clusters_id` to save old `seurat_clusters` in `CellTypeAnnotation`
+- Remove `MarkersForClustersOfAllCells` and `TopExpressingGenesOfAllCells` processes
+- Rename `MarkersForClustersOfTCells` to `ClusterMarkers`
+- Rename `TopExpressingGenesOfTCells` to `TopExpressingGenes`
+- Rename `envs.exprs` to `envs.features` for `SeuratClusterStats`
+    - `envs.exprs.genes` is also renamed to `envs.features.features`
+
 ## 0.6.0
 
 - ⬆️ Bump biopipen to 0.16

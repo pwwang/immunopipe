@@ -51,7 +51,7 @@ You may also perform some statistics on the sample information, for example, num
         returned ids. Non-paired ids will be `NA`.
 - `save_mutated` (`flag`): Whether to save the mutated columns.
 - `exclude_cols`: The columns to exclude in the table in the report.
-    Could be a list or a string separated by comma.
+    Could be a list or a string separated by comma. Default: `RNAData,TCRData`.
 - `defaults` (`ns`): The default parameters for each case in `envs.stats`.
     - `on`: The column name in the data for the stats.
         Default is `Sample`.
