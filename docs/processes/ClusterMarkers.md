@@ -1,5 +1,9 @@
 # ClusterMarkers
 
+/// Attention | Changed in 0.7.0
+`MarkersForClustersOfTCells` is renamed to `ClusterMarkers` since `0.7.0`.
+///
+
 This process is extended from [`MarkersFinder`][1] from the [`biopipen`][2] package. `MarkersFinder` is a `pipen` process that wraps the [`Seurat::FindMarkers()`][3] function, and performs enrichment analysis for the markers found.
 
 The enrichment analysis is done by [`enrichr`][5].

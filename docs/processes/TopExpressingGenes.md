@@ -1,5 +1,9 @@
 # TopExpressingGenes
 
+/// Attention | Changed in 0.7.0
+`TopExpressingGenesOfTCells` is renamed to `TopExpressingGenes` since `0.7.0`.
+///
+
 This process finds the top expressing genes of clusters of all cells, and also performs the enrichment analysis against the genes.
 
 The enrichment analysis is done by [`enrichr`][1].

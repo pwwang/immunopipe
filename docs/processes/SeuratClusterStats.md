@@ -15,9 +15,19 @@ Statistics of the clustering, including the number/fraction of cells in each clu
         instead of the absolute number.
 - `features` (`type=json`): The plots for features, including gene expressions,
     and columns from metadata.
+
+    /// Attention | Changed in 0.7.0
+    `envs.exprs` is renamed to `envs.features` since `0.7.0`.
+    ///
+
     * `features` - The set of features (separated by comma) for the plots,
         unless `features` for those plots is specified.
         One could also specify a file with features (one per line).
+
+        /// Attention | Changed in 0.7.0
+        `envs.exprs.genes` is renamed to `envs.features.features` since `0.7.0`.
+        ///
+
     * `ridgeplots` - The ridge plots for the features.
         See [`Seurat::RidgePlot`](https://satijalab.org/seurat/reference/ridgeplot).
     * `vlnplots` - Violin plots for the features.
