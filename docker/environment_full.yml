@@ -1,0 +1,48 @@
+channels:
+  - aroth85  # vdjtools
+  - pwwang  # r-ggradar, r-seuratwrappers
+  # - svalkiers
+  - conda-forge
+  - r
+  - bioconda
+  - nodefaults
+dependencies:
+  - nodejs=18  # pipen-report
+  - curl=7.86  # force using conda-forge version
+  - python=3.9
+  - biopython=1.78  # for GIANA
+  - scikit-learn=1.2  # for GIANA
+  - faiss-gpu  # for GIANA
+  - openjdk=8  # vdjtools
+  - git  # for copier, used by pipen-report
+  - time  # for pipen-runinfo
+  - procps-ng  # vdjtools: free command not found
+  - vdjtools=1.1.4
+  - bioconductor-fgsea
+  - bioconductor-scater
+  - bioconductor-complexheatmap
+  - r-hash  # CDR3AAPhyschem
+  - r-glmnet  # CDR3AAPhyschem
+  - r-matrix  # CDR3AAPhyschem
+  - r-broom.mixed  # CDR3AAPhyschem
+  - r-ggradar
+  - r-hitype
+  - r-seuratwrappers
+  - r-base=4.2.0
+  - r-seurat=4.3.0
+  - r-future
+  - r-tidyseurat
+  - r-bracer
+  - r-immunarch=0.9.0
+  - r-ggplot2
+  - r-dplyr
+  - r-tibble
+  - r-tidyr
+  - r-ggprism
+  - r-ggvenndiagram
+  - r-assertthat
+  - r-enrichr
+  - r-laplacesdemon  # TESSA
+  - pip:
+    - keras  # TESSA
+    - tensorflow  # TESSA
