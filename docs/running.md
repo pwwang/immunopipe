@@ -123,16 +123,6 @@ $ apptainer run \
 
 ## Run the pipeline via `pipen-board` using docker image
 
-### Choose the right tag of the docker image
-
-The docker image is tagged with the version of `immunopipe`, together with `master` and `dev`. They are listed here: <https://hub.docker.com/repository/docker/justold/immunopipe/tags>.
-
-`dev` is the latest development version of `immunopipe`. It may have unstable features. If you want to use a more stable version, please try `master`, or a specific semantic version.
-
-You can pull the images in advance using `docker`, `singularity` or `apptainer`. See help options of `docker pull`, `singularity pull` or `apptainer pull` for more details.
-
-You can also specify the tag when running the pipeline. See the following sections for more details.
-
 //// tab | Using docker
 You can also run the pipeline via `pipen-board` using the docker image with `docker`:
 

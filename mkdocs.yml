@@ -45,6 +45,7 @@ nav:
       - 'Immunarch2VDJtools': 'processes/Immunarch2VDJtools.md'
       - 'VJUsage': 'processes/VJUsage.md'
       - 'RadarPlots': 'processes/RadarPlots.md'
+      - 'TESSA': 'processes/TESSA.md'
       - 'TCRClustering': 'processes/TCRClustering.md'
       - 'TCRClusteringStats': 'processes/TCRClusteringStats.md'
       - 'TCRClusters2Seurat': 'processes/TCRClusters2Seurat.md'

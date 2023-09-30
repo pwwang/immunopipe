@@ -90,7 +90,7 @@ If you want to install and run the pipeline without docker, please refer to the 
 ///
 
 /// Note
-You need at least 8GB of memory to run the pipeline with the example dataset and minimal configuration. 16GB or more is recommended.
+You need at least 16GB of memory to run the pipeline with the example dataset and minimal configuration.
 ///
 
 ## Check the results

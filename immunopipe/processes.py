@@ -19,6 +19,7 @@ from biopipen.ns.tcr import (
     TCRClustering as TCRClustering_,
     TCRClusteringStats as TCRClusteringStats_,
     CDR3AAPhyschem as CDR3AAPhyschem_,
+    TESSA as TESSA_,
 )
 from biopipen.ns.scrna import (
     SeuratPreparing as SeuratPreparing_,
@@ -173,6 +174,14 @@ if "ModuleScoreCalculator" in config or from_board:
         requires = CellTypeAnnotation
 
     CellTypeAnnotation = ModuleScoreCalculator
+
+
+if "TESSA" in config or from_board:
+    class TESSA(TESSA_):
+        requires = ImmunarchLoading, CellTypeAnnotation
+        input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 0], ch2)
+
+    CellTypeAnnotation = TESSA
 
 
 # @mark(board_config_hidden=True)
