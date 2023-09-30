@@ -21,7 +21,7 @@ jobs:
         run: immunopipe --help 2>&1 | grep "A pipeline for"
       - name: Print help message
         run: immunopipe --help
-        if: !success()
+        if: failure()
 
   docker:
     needs: build
