@@ -15,9 +15,9 @@ $ conda env create \
 ```
 
 /// Attention
-The `environment.yml` includes only a subset of the packages required by the pipeline. The GPU support packages are not included, and the dependencies of the [`TESSA`](processes/TESSA.md) process are also not included, either.
+The `environment.yml` includes only a subset of the packages required by the pipeline. The dependencies of the [`TESSA`](processes/TESSA.md) process are not included.
 
-If you want to use the GPU support (mainly for [`TCRClustering`](processes/TCRClustering.md) process), and/or enable [`TESSA`](processes/TESSA.md) process , please use the `environment_full.yml` (<https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_full.yml>) instead.
+If you want to enable [`TESSA`](processes/TESSA.md) process , please use the `environment_full.yml` (<https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_full.yml>) instead.
 
 See also [Choose the right tag of the docker image](running.md#choose-the-right-tag-of-the-docker-image).
 ///
