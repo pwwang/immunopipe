@@ -18,7 +18,7 @@ generate-setup-file = true
 [tool.poetry.dependencies]
 python = "^3.8"
 # pipen-report and pipen-board are required by biopipen
-biopipen = "^0.17.7"
+biopipen = { version = "^0.18.0", extras = ["runinfo"] }
 
 [tool.poetry.dev-dependencies]
 
@@ -29,6 +29,6 @@ immunopipe = "immunopipe.pipeline:main"
 # pipen-dry = "^0.1.0"
 
 [tool.black]
-line-length = 80
+line-length = 88
 target-version = ['py38', 'py39', 'py310']
 include = '\.pyi?$'
