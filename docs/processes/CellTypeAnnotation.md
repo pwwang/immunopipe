@@ -52,6 +52,10 @@ If you are using `ScType`, `scCATCH`, or `hitype`, a text file containing the ma
        You can pass an RDS file to `sccatch_args.marker` to work as custom marker. If so,
        `if_use_custom_marker` will be set to `TRUE` automatically.
 
+/// Attention | Changed in 0.7.0
+Metadata column `seurat_clusters_old1` is changed to `seurat_clusters_id` to save old `seurat_clusters`.
+///
+
 ## Examples
 
 ### Directly assign cell types

@@ -1,6 +1,16 @@
 # FAQ
 
-/// details | Why I am getting "Error writing to connection:  No space left on device" while running [`ImmunarchLoading`](processes/ImmunarchLoading.md)?
+/// details | `immunopipe` command not found?
+
+Please make sure if you have installed `immunopipe` on the right `python`. If you have used `pip` to install `immunopipe`, make sure the `pip` is associated with the right `python`.
+
+You may try `/path/to/python -m pip install -U immunopipe` to ensure `immunopipe` is installed with the `python` you wanted.
+
+If `immunopipe` still can't be found from command line, try `/path/to/python -m immunopipe`.
+
+///
+
+//// details | Why I am getting "Error writing to connection:  No space left on device" while running [`ImmunarchLoading`](processes/ImmunarchLoading.md)?
 
 If you are running the pipeline and it complains about "No space left on device" at `ImmunarchLoading`, and you are pretty sure that your working directory is way from full, then  it is likely that your temporary directory does not have enough space. This is because that the `ImmunarchLoading` process will create a temporary directory to store the intermediate files, and the default temporary directory is `/tmp`. Make sure that you have enough space in `/tmp` or you can change the temporary directory by setting the environment variable of the process: [`envs.tmpdir`](processes/ImmunarchLoading.md#environment-variables).
 
@@ -14,7 +24,27 @@ docker run --rm -w /workdir -v .:/workdir -v path/to/tmp:/tmp \
 
 If you are using `singularity`/`apptainer`, you can try to use the `-B` option to bind the local directory to `/tmp` in the container.
 
+/// tab | Singularity
+```
+singularity run \
+    --pwd /workdir -B .:/workdir -c -e -w \
+    -B path/to/tmp:/tmp \
+  # ^^^^^^^^^^^^^^^^^^^
+    docker://justold/immunopipe:<tag> \
+    @config.toml
+```
 ///
+/// tab | Apptainer
+```
+apptainer run \
+    --pwd /workdir -B .:/workdir -c -e -w --unsquash \
+    -B path/to/tmp:/tmp \
+  # ^^^^^^^^^^^^^^^^^^^
+    docker://justold/immunopipe:<tag> \
+    @config.toml
+```
+///
+////
 
 //// details | Why does the pipeline stop at [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md) and family without a clear error message?
 
@@ -112,7 +142,7 @@ If you want to change some parameters for a specific process, you just modify th
 
 /// details | Why I am getting this error when running with [`apptainer`][4]: `FATAL:   no SIF writable overlay partition found in /tmp/apptainer_cache_xxx/...`?
 
-You may need to use `--unsquash` option instead of `-w` option (used by `singularity`) for `apptainer run`.
+You may need to add `--unsquash` option for `apptainer run`.
 
 ///
 

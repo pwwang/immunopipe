@@ -6,19 +6,27 @@
 If you plan to use the docker image, you can skip this section.
 ///
 
-`immunopipe` is built upon [`pipen`](https://github.com/pwwang/pipen) framework, and a number of packages in `R` and `python`. It's not recommended to install the packages manually. Instead, you can use the provided `environment.yml` to create a conda environment.
+`immunopipe` is built upon [`pipen`](https://github.com/pwwang/pipen) framework, and a number of packages written in `R` and `python`. It's not recommended to install the packages manually. Instead, you can use the provided `environment.yml` to create a conda environment.
 
 ```shell
 $ conda env create \
     -n immunopipe \
-    -f https://raw.githubusercontent.com/pwwang/immunopipe/dev/docker/environment.yml
+    -f https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment.yml
 ```
+
+/// Attention
+The `environment.yml` includes only a subset of the packages required by the pipeline. The dependencies of the [`TESSA`](processes/TESSA.md) process are not included.
+
+If you want to enable [`TESSA`](processes/TESSA.md) process , please use the `environment_full.yml` (<https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_full.yml>) instead.
+
+See also [Choose the right tag of the docker image](running.md#choose-the-right-tag-of-the-docker-image).
+///
 
 If the URL doesn't work, you can download the file and create the environment locally.
 
 For more detailed instructions of `conda env create`, please refer to [conda docs](https://docs.conda.io/projects/conda/en/latest/commands/env/create.html).
 
-/// Reminder
+/// Attention
 The pipeline itself is NOT included in the conda environment. You need to install it separately.
 
 ```shell
@@ -55,9 +63,6 @@ $ apptainer pull docker://justold/immunopipe:<tag>
 
 To run the pipeline use the image, please refer to [Running the pipeline](./running.md).
 
-/// Note
-Note the GPU support is not available for TCR clustering using `faiss-gpu`. If you want to use the GPU support, please install the pipeline and the dependencies using conda, and then install the packages with GPU support manually.
-///
 
 ### The directory structure in the container
 

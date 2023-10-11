@@ -25,6 +25,10 @@ Note that the required `RNAData` and `TCRData` columns are not shown in the repo
 
 You may also perform some statistics on the sample information, for example, number of samples per group. See next section for details.
 
+/// Tip | New in `0.7.0`
+Performing statistics on the sample information is added in `0.7.0`.
+///
+
 ## Environment variables
 
 - `sep`: The separator of the input file.

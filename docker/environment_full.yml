@@ -43,3 +43,7 @@ dependencies:
   - r-ggvenndiagram
   - r-assertthat
   - r-enrichr
+  - r-laplacesdemon  # TESSA
+  - pip:
+    - keras  # TESSA
+    - tensorflow  # TESSA
