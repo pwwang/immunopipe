@@ -46,13 +46,13 @@ typing-extensions = {version = ">=3.10.0.0", markers = "python_version < \"3.10\
 
 [[package]]
 name = "aiopath"
-version = "0.6.11"
+version = "0.6.13"
 description = "📁 Async pathlib for Python"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "aiopath-0.6.11-py2.py3-none-any.whl", hash = "sha256:7b1f1aa3acb422050908ac3c4755b5e43f625111be003f1bfc7dc2193027c45d"},
-    {file = "aiopath-0.6.11.tar.gz", hash = "sha256:2f0d4d9195281612c6508cbfa12ac3184c31540d13b9e6215a325897da59decd"},
+    {file = "aiopath-0.6.13-py2.py3-none-any.whl", hash = "sha256:9be122183c66c5ee5a26ebacc733df09652068a12250107232f20d0a27279690"},
+    {file = "aiopath-0.6.13.tar.gz", hash = "sha256:ba31a7483630882daf3d6fe671dcd650558c6c88f65e911ecadca2e07b2c7673"},
 ]
 
 [package.dependencies]
@@ -121,13 +121,13 @@ python-simpleconf = ">=0.6,<0.7"
 
 [[package]]
 name = "biopipen"
-version = "0.18.1"
+version = "0.18.2"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "biopipen-0.18.1-py3-none-any.whl", hash = "sha256:9a6fb4436b446f0c4259ac23152ec2449a958396463d3015e7129abedaa5eaac"},
-    {file = "biopipen-0.18.1.tar.gz", hash = "sha256:333e37b985c4f9fed908bb842f908562e18584e742487cb8ea917cee13990043"},
+    {file = "biopipen-0.18.2-py3-none-any.whl", hash = "sha256:c5498f5294b6e5df3a66dd084bf34f20ec41520821259fbc24e14cf2d89e75c4"},
+    {file = "biopipen-0.18.2.tar.gz", hash = "sha256:37c086a41d311b4c3de2788c6f9ea8fa426de321a6c037f1da407e87009751f0"},
 ]
 
 [package.dependencies]
@@ -1869,4 +1869,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "a68c3395055b723b7f4f8afe5ea37008e7bc3d419c91bd556a1790ada8e99412"
+content-hash = "4c19ba72b16879401c2b520c5be9bd21015bf37efed01a4a2237b2076600d501"

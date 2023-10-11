@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.8.1
+
+- Bump biopipen to 0.18.2 to fix a bug when the min length of CDR3 seqs > 12 for `CDR3AAphyschem`
+
 ## 0.8.0
 
 ### Housekeeping and docs updates
