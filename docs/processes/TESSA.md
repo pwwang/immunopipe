@@ -29,9 +29,10 @@ These columns can be then used for further downstream analysis to explore the fu
 - `predefined_b` (`flag`): Whether use the predefined `b` or not.
     Please check the paper of tessa for more details about the b vector.
     If True, the tessa will not update b in the MCMC iterations.
-- `max_iter` (`int`): The maximum number of iterations for MCMC.
-
-
+- `max_iter` (`type=int`): The maximum number of iterations for MCMC.
+- `assay`: Which assay to use to extract the expression matrix.
+- `save_tessa` (`flag`): Save tessa detailed results to seurat object?
+    They will be saved to `sobj@misc$tessa`.
 
 [1]: https://github.com/jcao89757/TESSA
 [2]: https://www.nature.com/articles/s41592-020-01020-3
