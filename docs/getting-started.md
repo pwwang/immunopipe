@@ -75,7 +75,7 @@ singularity run \
 /// tab | Using apptainer
 ```bash
 apptainer run \
-    --pwd /workdir -B .:/workdir -c -e --unsquash \
+    --pwd /workdir -B .:/workdir -c -e -w --unsquash \
     docker://justold/immunopipe:0.7.0 \
     @ImmunopipeMinimal.config.toml
 ```

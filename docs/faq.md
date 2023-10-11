@@ -37,7 +37,7 @@ singularity run \
 /// tab | Apptainer
 ```
 apptainer run \
-    --pwd /workdir -B .:/workdir -c -e --unsquash \
+    --pwd /workdir -B .:/workdir -c -e -w --unsquash \
     -B path/to/tmp:/tmp \
   # ^^^^^^^^^^^^^^^^^^^
     docker://justold/immunopipe:<tag> \
@@ -142,7 +142,7 @@ If you want to change some parameters for a specific process, you just modify th
 
 /// details | Why I am getting this error when running with [`apptainer`][4]: `FATAL:   no SIF writable overlay partition found in /tmp/apptainer_cache_xxx/...`?
 
-You may need to use `--unsquash` option instead of `-w` option (used by `singularity`) for `apptainer run`.
+You may need to add `--unsquash` option for `apptainer run`.
 
 ///
 
