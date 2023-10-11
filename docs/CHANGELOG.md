@@ -1,5 +1,35 @@
 # Change Log
 
+## 0.8.0
+
+### Housekeeping and docs updates
+
+- Bump biopipen to 0.18.1
+- Mention function changes with versions in docs
+- Add apptainer in board.toml so the command can be generated in pipen-board
+- Make logo shorter in docs
+- Add docker image with `-full` tags to include all dependencies
+- Print command help message if run test failed in CI
+- Add singularity/apptainer in FAQ for "no space left" question
+- Add -w fro apptainer in docs (as we need to save pipen-board file in home directory)
+
+### Added
+
+- Add `TESSA` process for [tessa analysis](https://pwwang.github.io/immunopipe/processes/TESSA/)
+- Add volcano plot for `MarkersFinder` and `ClusterMarkers`
+
+### Fixed
+
+- Fix when `Sample` is the only column in meta for `ImmunarchLoading`
+- Add clear message when `k.weight` is too large for `IntegrateData` in `SeuratClustering`
+- Allow `unique:` prefix for `on` in `SampleInfo`
+- Fix sample order in plots for `SampleInfo`
+- Remove `tidyseurat::` prefix for `filter` in scripts of `MetaMarkers`, `ScFGSEA` and `SeuratClusterStats` in case `tidyseurat::filter` is not exported when installed from `conda` (but it will make `dplyr::filter` work anyway on seurat object)
+
+### Breaking changes
+
+- Redesign envs for `SeuratClusteringStats` to allow setting defaults for cases and switch identities for plots
+
 ## 0.7.0
 
 ### Housekeeping and docs updates
