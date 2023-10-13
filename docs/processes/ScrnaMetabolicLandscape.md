@@ -44,7 +44,7 @@ The data preparation, preprocessing and clustering already done by other process
     For example, if we have `subsetting_prefix = "timepoint"` and
     we have `pre` and `post` in the `subsetting` column, the subsets
     will be named as `timepoint_pre` and `timepoint_post`
-    If `subsetting` is a list, then this should also be a same-length
+    If `subsetting` is a list, this should also be a same-length
     list. If a single string is given, it will be repeated to a list
     with the same length as `subsetting`
 - `subsetting_comparison` (type=json): What kind of comparisons are we
