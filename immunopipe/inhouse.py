@@ -36,11 +36,7 @@ class TCellSelection(Proc):
     }
     lang = config.lang.rscript
     script = "file://scripts/TCellSelection.R"
-    plugin_opts = {
-        "report": "file://reports/TCellSelection.svelte",
-        # "report_toc": False,
-        "report_order": 2,
-    }
+    plugin_opts = {"report": "file://reports/TCellSelection.svelte"}
     order = 5
 
 
@@ -61,7 +57,6 @@ class CloneHeterogeneity(Proc):
     envs = {"cases": {}}
     plugin_opts = {
         "report": "file://reports/CloneHeterogeneity.svelte",
-        "report_order": 20,
     }
     order = 11
 
