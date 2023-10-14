@@ -22,14 +22,14 @@ If you are using `ScType`, `scCATCH`, or `hitype`, a text file containing the ma
        See <https://github.com/ZJUFanLab/scCATCH>
     - `direct`: Directly assign cell types
 - `sctype_tissue`: The tissue to use for `sctype`.
-   Avaiable tissues should be the first column (`tissueType`) of `sctype_db`.
+   Available tissues should be the first column (`tissueType`) of `sctype_db`.
    Examples are `Immune system`, `Pancreas`, `Liver`, `Eye`, `Kidney`,
    `Brain`, `Lung`, `Adrenal`, `Heart`, `Intestine`, `Muscle`,
    `Placenta`, `Spleen`, `Stomach` and `Thymus` for the example `sctype_db`.
 - `sctype_db`: The database to use for sctype.
    Check examples at <https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_full.xlsx>
 - `hitype_tissue`: The tissue to use for `hitype`.
-   Avaiable tissues should be the first column (`tissueType`) of `hitype_db`.
+   Available tissues should be the first column (`tissueType`) of `hitype_db`.
    If not specified, all rows in `hitype_db` will be used.
 - `hitype_db`: The database to use for hitype.
    Compatible with `sctype_db`.
@@ -45,7 +45,7 @@ If you are using `ScType`, `scCATCH`, or `hitype`, a text file containing the ma
     - `species` (`choice`): The specie of cells.
         - `Human`: The sample is from human.
         - `Mouse`: The sample is from mouse.
-    - `cancer`: If the sample is from cancer tissue, then the cancer type may be defined.
+    - `cancer`: If the sample is from cancer tissue, the cancer type may be defined.
     - `tissue`: Tissue origin of cells must be defined.
     - <more>: Other arguments for `scCATCH::findmarkergene()`
        See <https://rdrr.io/cran/scCATCH/man/findmarkergene.html>.

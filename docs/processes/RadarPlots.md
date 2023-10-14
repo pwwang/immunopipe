@@ -21,7 +21,7 @@ This process generates the radar plots for the clusters of T cells. It explores 
 - `each`: A column with values to separate all cells in different cases
     When specified, the case will be expanded to multiple cases for
     each value in the column.
-    For example, if column `Timepoint` has values `Pre` and `Post`, then the cells marked with `Pre` will be in one case, and the cells marked with `Post` will be in another case.
+    For example, if column `Timepoint` has values `Pre` and `Post`, the cells marked with `Pre` will be in one case, and the cells marked with `Post` will be in another case.
     If specified, `section` will be ignored, and the case name will
     be used as the section name.
 

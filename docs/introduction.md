@@ -64,8 +64,7 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 - [`CellsDistribution`](processes/CellsDistribution.md): Investigate the distribution of cells in different groups for each T-cell cluster.<!-- - [`CloneHeterogeneity`](processes/CloneHeterogeneity.md): Investigate the heterogeneity of TCR clones in different groups for each T-cell cluster. -->
 - [`CDR3AAPhyschem`](processes/CDR3AAPhyschem.md): Investigate the physicochemical properties of CDR3 amino acid sequences of one cell type over another (i.e. `Treg` vs `Tconv`).
 - [`ScFGSEA`](processes/ScFGSEA.md): Perform GSEA analysis for comparisons between two groups of cells. For example, between two cell types, clone groups, TCR clusters or clinical groups.
-- [`MarkersFinder`](processes/MarkersFinder.md): Find markers for clones or clone groups and perform enrichment analysis.
-<!-- - [`MarkersOverlapping`](processes/MarkersOverlapping.md): Investigate the overlapping of markers for different groups. -->
+- [`MarkersFinder`](processes/MarkersFinder.md): Find markers (differentially expressed genes) for any two groups, including clones or clone groups.
 - [`MetaMarkers`](processes/MetaMarkers.md): Find meta markers for more than 2 clones or clone groups and perform enrichment analysis.
 
 ### Metabolic landscape analyses

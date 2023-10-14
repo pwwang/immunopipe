@@ -1,5 +1,13 @@
 # Change Log
 
+## 0.8.3
+
+- 📝 Fix typos in docs
+- 📝 Add links to some optional input files (#9, 5)
+- 🔨 Add apptainer to docker entry.sh (#9, 6)
+- 💄 Adjust process order in reports (#9, 1)
+- ⬆️ Bump pipen-report to 0.13.1 (#9, 2)
+
 ## 0.8.2
 
 - Bump biopipen to 0.18.3 to fix when either ident is empty for `MarkersFinder`

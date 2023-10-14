@@ -42,7 +42,7 @@ indicator_genes = ["CD3D", "CD3E", "CD3G"]
 
 There are pipeline level configurations and process level configurations. The pipeline level configurations are used to control the pipeline itself. The process level configurations set here are the default values for all the processes. You can override the default values for each process in the process level configurations.
 
-You can check all avaiable configuration items and more details [here](https://pwwang.github.io/pipen/configurations/). Here we only list some of the most important ones. The rest ones are not recommended to change unless you know what you are doing.
+You can check all available configuration items and more details [here](https://pwwang.github.io/pipen/configurations/). Here we only list some of the most important ones. The rest ones are not recommended to change unless you know what you are doing.
 
 ### Pipeline level configurations
 
@@ -115,7 +115,7 @@ You can also find the other information for the jobs at `./.pipen/<name>/<proces
     - `halt`: Any failure will just halt the entire pipeline (default)
     - `ignore`: Ignore the error and keep running (assuming the job runs successfully anyway)
     - `retry`: Retry to job running.
-      After `num_retries` times of retrying, if the job is still failing, then halt the pipeline.
+      After `num_retries` times of retrying, if the job is still failing, halt the pipeline.
 
 - `num_retries`: The number of retries for the jobs. (Default: `3`)
 - `forks`: How many jobs to run simultaneously? (Default: `1`)
@@ -149,9 +149,9 @@ To enable more processes, you just need to add configurations for the processes.
 indicator_genes = ["CD3D", "CD3E", "CD3G"]
 ```
 
-If [`TCellSelection`](processes/TCellSelection.md) is enabled, then [`SeuratClusteringOfTCells`](processes/SeuratClusteringOfTCells.md) will be enabled, and [`ClusterMarkers`](processes/ClusterMarkers.md), and [`TopExpressingGenes`](processes/TopExpressingGenes.md) will be performed on the clusters of selected T cells.
+If [`TCellSelection`](processes/TCellSelection.md) is enabled, [`SeuratClusteringOfTCells`](processes/SeuratClusteringOfTCells.md) will be enabled, and [`ClusterMarkers`](processes/ClusterMarkers.md), and [`TopExpressingGenes`](processes/TopExpressingGenes.md) will be performed on the clusters of selected T cells.
 
-Similarly, if [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusteringStats`](processes/TCRClusteringStats.md) is enabled, then [`TCRClustering`](processes/TCRClustering.md), [`TCRClusters2Seurat`](processes/TCRClusters2Seurat.md), and [`TCRClusteringStats`](processes/TCRClusteringStats.md) will be enabled automatically.
+Similarly, if [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusteringStats`](processes/TCRClusteringStats.md) is enabled, [`TCRClustering`](processes/TCRClustering.md), [`TCRClusters2Seurat`](processes/TCRClusters2Seurat.md), and [`TCRClusteringStats`](processes/TCRClusteringStats.md) will be enabled automatically.
 
 For other processes, make sure you have them configured to enable them.
 
@@ -288,7 +288,7 @@ For scRNA-seq data, the existing column names of the metadata are:
 
 and the meta columns in the input file. See also [`Preparing the input`](./preparing-input.md) for more details.
 
-There could also be some other columns, depending on the previous processes. For example, if you have the cells clustered, then there will be a column named `seurat_clusters` in the metadata.
+There could also be some other columns, depending on the previous processes. For example, if you have the cells clustered, there will be a column named `seurat_clusters` in the metadata.
 
 For scTCR-seq data, `Sample` is the only existing column in the metadata after loaded. Then the meta columns from the input file will be attached to the metadata.
 
@@ -372,7 +372,7 @@ devpars = { width = 1000, height = 1000, res = 100 }
 cases = {}
 ```
 
-If `cases` is empty, then the default case will be added automatically. The name of the default case is `DEFAULT`. So the above configuration is equivalent to:
+If `cases` is empty, the default case will be added automatically. The name of the default case is `DEFAULT`. So the above configuration is equivalent to:
 
 ```toml
 [TCRClusteringStats.envs.cluster_size]

@@ -145,8 +145,7 @@ class ClusterMarkers(MarkersFinder_):
     """
     requires = CellTypeAnnotation
     envs = {"cases": {"Cluster": {}}}
-    plugin_opts = {"report_order": 1}
-    order = 4
+    order = 2
 
 
 @annotate.format_doc(indent=1)
@@ -165,8 +164,7 @@ class TopExpressingGenes(TopExpressingGenes_):
     """
     requires = CellTypeAnnotation
     envs = {"cases": {"Cluster": {}}}
-    plugin_opts = {"report_order": 1}
-    order = 4
+    order = 3
 
 
 if "ModuleScoreCalculator" in config or from_board:
@@ -237,7 +235,7 @@ else:
 
 class SeuratClusterStats(SeuratClusterStats_):
     requires = TCRClusters2Seurat
-    order = 7
+    order = -1
 
 
 if "CellsDistribution" in config or from_board:
@@ -260,16 +258,19 @@ if "CloneResidency" in config or from_board:
 if "RadarPlots" in config or from_board:
     class RadarPlots(RadarPlots_):
         requires = TCRClusters2Seurat
+        order = -2
 
 
 if "ScFGSEA" in config or from_board:
     class ScFGSEA(ScFGSEA_):
         requires = TCRClusters2Seurat
+        order = 4
 
 
 if "MarkersFinder" in config or from_board:
     class MarkersFinder(MarkersFinder_):
         requires = TCRClusters2Seurat
+        order = 5
 
 
 # if "MarkersOverlapping" in config or from_board:
@@ -280,6 +281,7 @@ if "MarkersFinder" in config or from_board:
 if "MetaMarkers" in config or from_board:
     class MetaMarkers(MetaMarkers_):
         requires = TCRClusters2Seurat
+        order = 6
 
 
 if "CDR3AAPhyschem" in config or from_board:
@@ -289,6 +291,7 @@ if "CDR3AAPhyschem" in config or from_board:
             immdata=ch1.rdsfile,
             srtobj=ch2.rdsfile,
         )
+        order = 9
 
 
 if "ScrnaMetabolicLandscape" in config or from_board:

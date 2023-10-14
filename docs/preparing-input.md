@@ -36,7 +36,7 @@ You can also use [`SampleInfo`](./processes/SampleInfo.md) with `envs.save_mutat
 
 ### Genes/Features to visualize for Seurat object
 
-If you have a set of genes/features of interest, you can provide a file with those genes, one gene per line, to `SeuratClusterStats.envs.exprs.genes` for:
+If you have a set of genes/features of interest, you can provide a file with those genes, one gene per line, to `SeuratClusterStats.envs.exprs.features` for:
 
 - Ridge plots using [`Seurat::RidgePlot()`](https://satijalab.org/seurat/reference/ridgeplot),
 - Violin plots using [`Seurat::VlnPlot()`](https://satijalab.org/seurat/reference/vlnplot),
@@ -56,11 +56,15 @@ If you want to perform GSEA, you need to provide a file containing the pathways.
 
 See [`ScFGSEA`](./processes/ScFGSEA.md) for more details.
 
+You can also find an example here: <https://github.com/pwwang/immunopipe-example/blob/master/data/MSigDB_Hallmark_v7.5.1.gmt>
+
 ### Cell type database for cell type annotation by `sctype` or `hitype`
 
 If you want to perform cell type annotation, you need to provide a file containing the cell type database if you are using `sctype` or `hitype`. The database file should be fed to `CellTypeAnnotation.envs.sctype_db` if you are using `sctype`, or `CellTypeAnnotation.envs.hitype_db` if you are using `hitype`. Again, the markers in the database should exist (be in the same format) in the `features.tsv` file or the `h5` file.
 
 See [`CellTypeAnnotation`](./processes/CellTypeAnnotation.md) for more details.
+
+Examples can be found here: [ScTypeDB_short.xlsx](https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_short.xlsx) and [ScTypeDB_full.xlsx](https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_full.xlsx).
 
 ### Metabolic pathway for Metabolic Landscape Analysis
 

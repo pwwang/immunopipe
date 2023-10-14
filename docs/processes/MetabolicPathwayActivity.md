@@ -44,7 +44,7 @@ The violin plot shows the distribution of the pathway activities for each group:
     For example, if we have `subsetting_prefix = "timepoint"` and
     we have `pre` and `post` in the `subsetting` column, the subsets
     will be named as `timepoint_pre` and `timepoint_post`.
-    If `subsetting` is a list, then this should also be a
+    If `subsetting` is a list, this should also be a
     same-length list. If a single string is given, it will be
     repeated to a list with the same length as `subsetting`.
     Defaults to `ScrnaMetabolicLandscape.subsetting_prefix`
