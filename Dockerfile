@@ -2,9 +2,10 @@ FROM mambaorg/micromamba:1.4.3
 
 COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
 
-# Install dependencies
+# Install dependencies and make /data for future mounting
 RUN micromamba install -y -n base -f /immunopipe/docker/environment.yml && \
-    micromamba clean --all --yes
+    micromamba clean --all --yes && \
+    mkdir /data
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
