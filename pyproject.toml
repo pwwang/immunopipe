@@ -18,7 +18,7 @@ generate-setup-file = true
 [tool.poetry.dependencies]
 python = "^3.8"
 # pipen-report and pipen-board are required by biopipen
-biopipen = { version = "^0.18.3", extras = ["runinfo"] }
+biopipen = { version = "^0.19.0", extras = ["runinfo"] }
 
 [tool.poetry.dev-dependencies]
 
