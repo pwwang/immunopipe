@@ -104,6 +104,47 @@ class SeuratClusteringOfAllCells(SeuratClustering):
     requires = SeuratPreparing
 
 
+if "ClusterMarkersOfAllCells" in config or from_board:
+    @annotate.format_doc(indent=2)
+    class ClusterMarkersOfAllCells(MarkersFinder_):
+        """Markers for clusters of all cells.
+
+        {{*Summary.long}}
+
+        Envs:
+            cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.
+            each (hidden;readonly): {{Envs.each.help | indent: 12}}.
+            ident-1 (hidden;readonly): {{Envs["ident-1"].help | indent: 12}}.
+            ident-2 (hidden;readonly): {{Envs["ident-2"].help | indent: 12}}.
+            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
+            prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 12}}.
+            section (hidden;readonly): {{Envs.section.help | indent: 12}}.
+        """
+        requires = SeuratClusteringOfAllCells
+        envs = {"cases": {"Cluster": {}}}
+        order = 2
+
+
+if "TopExpressingGenesOfAllCells" in config or from_board:
+    @annotate.format_doc(indent=2)
+    class TopExpressingGenesOfAllCells(TopExpressingGenes_):
+        """Top expressing genes for clusters of all cells.
+
+        {{*Summary.long}}
+
+        Envs:
+            cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.
+            each (hidden;readonly): {{Envs.each.help | indent: 12}}.
+            ident (hidden;readonly): {{Envs.ident.help | indent: 12}}.
+            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
+            prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 12}}.
+            section (hidden;readonly): {{Envs.section.help | indent: 12}}.
+        """
+        requires = SeuratClusteringOfAllCells
+        envs = {"cases": {"Cluster": {}}}
+        order = 3
+
+
 if "TCellSelection" in config or from_board:
     class TCellSelection(TCellSelection_):
         requires = [SeuratClusteringOfAllCells, ImmunarchLoading]
