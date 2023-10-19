@@ -95,6 +95,17 @@ class SeuratPreparing(SeuratPreparing_):
     requires = SampleInfo
 
 
+if "ModuleScoreCalculator" in config or from_board:
+    # Define the process first.
+    # We need to setup the connections later
+    class ModuleScoreCalculator(ModuleScoreCalculator_):
+        ...
+
+    if "TCellSelection" not in config:
+        ModuleScoreCalculator.requires = SeuratPreparing
+        SeuratPreparing = ModuleScoreCalculator
+
+
 @annotate.format_doc(indent=1)
 class SeuratClusteringOfAllCells(SeuratClustering):
     """Cluster all cells using Seurat
@@ -148,6 +159,10 @@ if "TopExpressingGenesOfAllCells" in config or from_board:
 if "TCellSelection" in config or from_board:
     class TCellSelection(TCellSelection_):
         requires = [SeuratClusteringOfAllCells, ImmunarchLoading]
+
+    if "ModuleScoreCalculator" in config or from_board:
+        ModuleScoreCalculator.requires = TCellSelection
+        TCellSelection = ModuleScoreCalculator
 
     @annotate.format_doc(indent=2)
     class SeuratClusteringOfTCells(SeuratClustering):
@@ -206,13 +221,6 @@ class TopExpressingGenes(TopExpressingGenes_):
     requires = CellTypeAnnotation
     envs = {"cases": {"Cluster": {}}}
     order = 3
-
-
-if "ModuleScoreCalculator" in config or from_board:
-    class ModuleScoreCalculator(ModuleScoreCalculator_):
-        requires = CellTypeAnnotation
-
-    CellTypeAnnotation = ModuleScoreCalculator
 
 
 if "TESSA" in config or from_board:
