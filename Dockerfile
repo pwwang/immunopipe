@@ -4,11 +4,11 @@ COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
 
 # Install dependencies and make /data for future mounting
 RUN micromamba install -y -n base -f /immunopipe/docker/environment.yml && \
-    micromamba clean --all --yes && \
-    mkdir /data
+    micromamba clean --all --yes
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
+WORKDIR /data
 WORKDIR /immunopipe
 RUN python -m pip install -U poetry && \
     python -m poetry config virtualenvs.create false && \
