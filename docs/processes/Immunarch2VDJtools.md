@@ -1,8 +1,13 @@
 # Immunarch2VDJtools
 
-This process converts the [`immunarch`][1] object to the [`VDJtools`][2] input files, in order to perform the VJ gene usage analysis by [`VJUsage`][3] process.
+Convert immuarch format into VDJtools input formats.
 
-This process will generally generate a tab-delimited file for each sample, with the following columns:
+This process converts the [`immunarch`](https://immunarch.com/) object to the
+[`VDJtools`](https://vdjtools-doc.readthedocs.io/en/master/) input files,
+in order to perform the VJ gene usage analysis by [`VJUsage`](./VJUsage.md) process.<br />
+
+This process will generally generate a tab-delimited file for each sample,
+with the following columns.<br />
 
 - `count`: The number of reads for this clonotype
 - `frequency`: The frequency of this clonotype
@@ -12,11 +17,7 @@ This process will generally generate a tab-delimited file for each sample, with 
 - `D`: The D gene
 - `J`: The J gene
 
-See also: <https://vdjtools-doc.readthedocs.io/en/master/input.html#vdjtools-format>.
+See also: <https://vdjtools-doc.readthedocs.io/en/master/input.html#vdjtools-format>.<br />
 
-This process has no environment variables.
+This process has no environment variables.<br />
 
-
-[1]: https://immunarch.com/
-[2]: https://vdjtools-doc.readthedocs.io/en/master/
-[3]: ./VJUsage.md

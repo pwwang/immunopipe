@@ -1,29 +1,12 @@
-# ClusterMarkers
+# ClusterMarkersOfAllCells
 
-Markers for clusters of T cells.
+Markers for clusters of all cells.
 
-/// Attention | Changed in 0.7.0
-`MarkersForClustersOfTCells` is renamed to `ClusterMarkers` since `0.7.0`.<br />
+/// Tip | Added in 0.9.0
+`ClusterMarkersOfAllCells` is added in `0.9.0` and is optional by default.<br />
 ///
 
-This process is extended from [`MarkersFinder`](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder)
-from the [`biopipen`](https://pwwang.github.io/biopipen) package.<br />
-`MarkersFinder` is a `pipen` process that wraps the
-[`Seurat::FindMarkers()`](https://satijalab.org/seurat/reference/findmarkers)
-function, and performs enrichment analysis for the markers found.<br />
-
-The enrichment analysis is done by [`enrichr`](https://maayanlab.cloud/Enrichr/).<br />
-
-/// Note
-Since this process is extended from `MarkersFinder`, other environment variables from `MarkersFinder` are also available.<br />
-However, they should not be used in this process. Other environment variables are used for more complicated cases for marker finding
-(See [`MarkersFinder`](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder) for more details).<br />
-
-If you are using `pipen-board` to run the pipeline
-(see [here](../running.md#run-the-pipeline-via-pipen-board) and
-[here](../running.md#run-the-pipeline-via-pipen-board-using-docker-image)),
-you may see the other environment variables of this process are hidden and readonly.<br />
-///
+See also [ClusterMarkers](./ClusterMarkers.md).<br />
 
 ## Environment Variables
 
@@ -31,6 +14,12 @@ you may see the other environment variables of this process are hidden and reado
     Number of cores to use for parallel computing for some `Seurat` procedures.<br />
     * Used in `future::plan(strategy = "multicore", workers = <ncores>)` to parallelize some Seurat procedures.<br />
     * See also: <https://satijalab.org/seurat/articles/future_vignette.html>
+- `group-by`: *Default: `seurat_clusters`*. <br />
+    The column name in metadata to group the cells.<br />
+    If only `group-by` is specified, and `ident-1` and `ident-2` are
+    not specified, markers will be found for all groups in this column
+    in the manner of "group vs rest" comparison.<br />
+    `NA` group will be ignored.<br />
 - `dbs` *(`list`)*: *Default: `['GO_Biological_Process_2021', 'GO_Cellular_Component_2021', 'GO_Molecular_Function_2021', 'KEGG_2021_Human']`*. <br />
     The dbs to do enrichment analysis for significant
     markers See below for all libraries.<br />
