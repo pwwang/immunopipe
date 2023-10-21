@@ -51,7 +51,7 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 - [`Immunarch2VDJtools`](processes/Immunarch2VDJtools.md): Convert `immunarch` objects to files for [`VDJtools`](https://vdjtools-doc.readthedocs.io/en/master/) for `VJUsage`
 - [`VJUsage`](processes/VJUsage.md): Investigate the V/J gene usage of TCR clones.
 - [`TCRClustering`](processes/TCRClustering.md): Perform clustering on TCR clones based on CDR3 amino acid sequences.
-- [`TCRClusteringStats`](processes/TCRClusteringStats.md): Investigate statistics for TCR clusters (i.e. TCR cluster size distribution, shared TCR clusters among samples, revisited sample diversity using TCR clusters instead of clonotypes, etc.)
+- [`TCRClusterStats`](processes/TCRClusterStats.md): Investigate statistics for TCR clusters (i.e. TCR cluster size distribution, shared TCR clusters among samples, revisited sample diversity using TCR clusters instead of clonotypes, etc.)
 - [`Immunarch`](processes/Immunarch.md): Perform TCR clonotype analyses using [`immunarch`](https://immunarch.com/) package.
 
 ### Integrative analyses

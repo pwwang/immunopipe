@@ -16,7 +16,7 @@ from biopipen.ns.tcr import (
     Immunarch2VDJtools as Immunarch2VDJtools_,
     VJUsage as VJUsage_,
     TCRClustering as TCRClustering_,
-    TCRClusteringStats as TCRClusteringStats_,
+    TCRClusterStats as TCRClusterStats_,
     CDR3AAPhyschem as CDR3AAPhyschem_,
     TESSA as TESSA_,
 )
@@ -479,7 +479,7 @@ class SeuratMetadataMutater(SeuratMetadataMutater_):
 
 if (
     "TCRClustering" in config
-    or "TCRClusteringStats" in config
+    or "TCRClusterStats" in config
     or just_loading
 ):
     @annotate.format_doc(indent=2)
@@ -487,7 +487,7 @@ if (
         """{{Summary.short}}
 
         You can disable this by remving the whole sections of
-        TCRClustering and TCRClusteringStats in the config file.
+        TCRClustering and TCRClusterStats in the config file.
 
         {{*Summary.long}}
         """
@@ -540,7 +540,7 @@ if (
             srtobj=ch1.rdsfile, metafile=ch2.clusterfile
         )
 
-    class TCRClusteringStats(TCRClusteringStats_):
+    class TCRClusterStats(TCRClusterStats_):
         requires = TCRClustering
 
 else:

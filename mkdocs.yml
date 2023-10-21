@@ -45,7 +45,7 @@ nav:
       - 'SeuratClusteringOfTCells': 'processes/SeuratClusteringOfTCells.md'
       - 'CellTypeAnnotation': 'processes/CellTypeAnnotation.md'
       - 'TCRClustering': 'processes/TCRClustering.md'
-      - 'TCRClusteringStats': 'processes/TCRClusteringStats.md'
+      - 'TCRClusterStats': 'processes/TCRClusterStats.md'
       - 'TCRClusters2Seurat': 'processes/TCRClusters2Seurat.md'
       - 'ClusterMarkers': 'processes/ClusterMarkers.md'
       - 'TopExpressingGenes': 'processes/TopExpressingGenes.md'

@@ -160,15 +160,15 @@
 </a>
 </g>
 </g>
-<!-- TCRClusteringStats -->
+<!-- TCRClusterStats -->
 <g id="node14" class="node">
-<title>TCRClusteringStats</title>
+<title>TCRClusterStats</title>
 <polygon fill="#f26419" stroke="transparent" points="715.5,-631 591.5,-631 591.5,-595 715.5,-595 715.5,-631"/>
-<text text-anchor="middle" x="653.5" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#ffffff">TCRClusteringStats</text>
+<text text-anchor="middle" x="653.5" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#ffffff">TCRClusterStats</text>
 </g>
-<!-- TCRClustering&#45;&gt;TCRClusteringStats -->
+<!-- TCRClustering&#45;&gt;TCRClusterStats -->
 <g id="edge11" class="edge">
-<title>TCRClustering&#45;&gt;TCRClusteringStats</title>
+<title>TCRClustering&#45;&gt;TCRClusterStats</title>
 <path fill="none" stroke="#3d314a" d="M648.23,-666.7C649.06,-658.39 650.07,-648.28 650.99,-639.14"/>
 <polygon fill="#3d314a" stroke="#3d314a" points="653.78,-639.34 651.79,-631.1 648.21,-638.79 653.78,-639.34"/>
 </g>

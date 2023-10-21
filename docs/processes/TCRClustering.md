@@ -3,7 +3,7 @@
 Cluster the TCR clones by their CDR3 sequences
 
 You can disable this by remving the whole sections of
-TCRClustering and TCRClusteringStats in the config file.<br />
+TCRClustering and TCRClusterStats in the config file.<br />
 
 This process is used to cluster TCR clones based on their CDR3 sequences.<br />
 

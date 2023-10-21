@@ -151,7 +151,7 @@ indicator_genes = ["CD3D", "CD3E", "CD3G"]
 
 If [`TCellSelection`](processes/TCellSelection.md) is enabled, [`SeuratClusteringOfTCells`](processes/SeuratClusteringOfTCells.md) will be enabled, and [`ClusterMarkers`](processes/ClusterMarkers.md), and [`TopExpressingGenes`](processes/TopExpressingGenes.md) will be performed on the clusters of selected T cells.
 
-Similarly, if [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusteringStats`](processes/TCRClusteringStats.md) is enabled, [`TCRClustering`](processes/TCRClustering.md), [`TCRClusters2Seurat`](processes/TCRClusters2Seurat.md), and [`TCRClusteringStats`](processes/TCRClusteringStats.md) will be enabled automatically.
+Similarly, if [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusterStats`](processes/TCRClusterStats.md) is enabled, [`TCRClustering`](processes/TCRClustering.md), [`TCRClusters2Seurat`](processes/TCRClusters2Seurat.md), and [`TCRClusterStats`](processes/TCRClusterStats.md) will be enabled automatically.
 
 For other processes, make sure you have them configured to enable them.
 
@@ -363,10 +363,10 @@ You don't need to worry about which environment variables are `namespace` ones. 
 
 ## Multi-case variable design
 
-Some environment variables are designed to support multiple cases. However, in most cases, we only need to set the values for the default case. In such cases, the environment variable is usually a `namespace` environment variable with the sub-keys needed for the default case. In order to support multiple cases, a sub-key `cases` is added to the `namespace` environment variable. The `cases` is a dictionary (key-value pairs), where the keys are the names of the cases, and the values are the sub-keys for the corresponding cases. For example, the `envs.cluster_size` of [`TCRClusteringStats`](processes/TCRClusteringStats.md) process:
+Some environment variables are designed to support multiple cases. However, in most cases, we only need to set the values for the default case. In such cases, the environment variable is usually a `namespace` environment variable with the sub-keys needed for the default case. In order to support multiple cases, a sub-key `cases` is added to the `namespace` environment variable. The `cases` is a dictionary (key-value pairs), where the keys are the names of the cases, and the values are the sub-keys for the corresponding cases. For example, the `envs.cluster_size` of [`TCRClusterStats`](processes/TCRClusterStats.md) process:
 
 ```toml
-[TCRClusteringStats.envs.cluster_size]
+[TCRClusterStats.envs.cluster_size]
 by = "Sample"
 devpars = { width = 1000, height = 1000, res = 100 }
 cases = {}
@@ -375,7 +375,7 @@ cases = {}
 If `cases` is empty, the default case will be added automatically. The name of the default case is `DEFAULT`. So the above configuration is equivalent to:
 
 ```toml
-[TCRClusteringStats.envs.cluster_size]
+[TCRClusterStats.envs.cluster_size]
 by = "Sample"
 devpars = { width = 1000, height = 1000, res = 100 }
 cases = { DEFAULT = {} }
@@ -384,7 +384,7 @@ cases = { DEFAULT = {} }
 If you want to add more cases, you can add them to the `cases` dictionary. For example, if you want to add a case named `CASE1`, you can do:
 
 ```toml
-[TCRClusteringStats.envs.cluster_size]
+[TCRClusterStats.envs.cluster_size]
 by = "Sample"
 devpars = { width = 1000, height = 1000, res = 100 }
 cases = { DEFAULT = {}, CASE1 = {} }
@@ -393,7 +393,7 @@ cases = { DEFAULT = {}, CASE1 = {} }
 Then you can set the values for the default case and `CASE1` case. For example, if you want to set the `by` column to `Sample` for the default case and `Sample1` for `CASE1`, you can do:
 
 ```toml
-[TCRClusteringStats.envs.cluster_size]
+[TCRClusterStats.envs.cluster_size]
 by = "Sample"
 devpars = { width = 1000, height = 1000, res = 100 }
 cases = { DEFAULT = { }, CASE1 = { by = "Sample1" } }
