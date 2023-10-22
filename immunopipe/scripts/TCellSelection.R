@@ -2,6 +2,7 @@ library(Seurat)
 library(dplyr)
 library(tidyr)
 library(tibble)
+library(rlang)
 library(ggplot2)
 library(ggprism)
 library(ggrepel)
@@ -25,8 +26,10 @@ immdata = readRDS(immfile)
 indicators = AverageExpression(sobj, features = indicator_genes, assays = "RNA") %>%
     as.data.frame() %>%
     t() %>%
-    as.data.frame() %>%
-    rownames_to_column("Cluster") %>%
+    as.data.frame()
+
+colnames(indicators) = indicator_genes
+indicators = indicators %>% rownames_to_column("Cluster") %>%
     mutate(Cluster = sub("^RNA\\.", "", Cluster))
 
 cluster_sizes = table(Idents(sobj))[indicators$Cluster]
@@ -107,7 +110,7 @@ write.table(
 # Plot the indicator gene expression and
 # clonotype percentage and mark the T cell clusters
 plot_indicator_gene = function(gene) {
-    p = ggplot(indicators, aes_string(x="Clonotype_Pct", y=gene)) +
+    p = ggplot(indicators, aes(x=Clonotype_Pct, y=!!sym(gene))) +
         geom_point(aes(color=is_TCell, size=Cluster_Size), shape=19) +
         geom_label_repel(
             aes(label=Cluster),

@@ -1,5 +1,49 @@
 # Change Log
 
+## 0.9.0
+
+### Housekeeping and docs
+
+- Bump biopipen to 0.20.3 (pipen to 0.12)
+- Use [`pipen-cli-ref`](https://github.com/pwwang/pipen-cli-ref) to generate API for processes (it uses docstring of the process class so that we don't need to maintain two copies of docs)
+
+### Fixed/Enhanced
+
+- Make `/data` directory in container, so it can be mounted
+- Fix a bug when a single gene provided to `indicator_genes` in `TCellSelection`
+- Move `ModuleScoreCalculator` before clustering so that the scores can be used in `vars.to.regress` of `SCTransform` while clustering
+- Set default assay to RNA in case module scores only caculated using integrated features in `ModuleScoreCalculator`
+- Improve QC plots in `SeuratPreparing` by marking the cells that are removed in the plots instead of doing before/after plots
+- Fix type annotation for envs.features_defaults.ncol in docstring for `SeuratPreparing` (causing `pipen-board` not converting to int)
+- Fix the cluster order in pie charts for `CellsDistribution`
+- Fix the cluster order in pie charts for `SeuratClusterStats`
+- Fix order in pie charts for `SampleInfo`
+- Fix docstring for `envs.div.args` of `Immunarch` (more clear description of method)
+- Allow mutiple columns in the file for `envs.features_defaults.features` in `SeuratClusterStats`
+- Allow order to be optional for `CloneResidency` (errored when not provided)
+- Add number of clusters at the end of log for `SeuratClusteringOfAllCells`/`SeuratClusteringOfTCells`
+- Add stricter checker for input file (#13)
+- Indicate the case name in logs when pie is enabled for `group-by` in `SeuratClusterStats`
+- Allow to skip overlap and gene usage analyses by setting method to `none` for `Immunoarch` (#11, #12)
+- Don't cluster on heatmap when there are only 2 samples for `TCRClusterStats` (#11)
+- Import Seurat explictly to avoid satijalab/seurat#2853 in `MetabolicFeatures`
+- Fix when NA values in data for heatmap in `MetabolicPathwayActivity`
+- Fix error when no significant pathways selected in `MetabolicPathwayHeterogeneity`
+- Give better error message in CellsDistribution if group value not found for `CellsDistribution` (#16)
+- Try including more genes (even though insignificant) in volcano plot for `MarkersFinder`/`ClusterMarkers`/`ClusterMarkersOfAllCells` (#17)
+- Add margins to volcano plot for `MarkersFinder`/`ClusterMarkers`/`ClusterMarkersOfAllCells`
+- Fix when `envs.cell_qc` is `None` (not provided) for `SeuratPreparing`
+- Fix `ident` in cases of `envs.dimplots` not working for `SeuratClusterStats`
+
+### Added
+
+- Add `ClusterMarkersOfAllCells` and `TopExpressingGenesOfAllCells` and set them as optional
+- Add dim plots in `SeuratClusterStats` to overlay TCR presence/absence of cells (#14)
+
+### Breaking changes
+
+- Rename `TCRClusteringStats` to `TCRClusterStats` (#15)
+
 ## 0.8.3
 
 - 📝 Fix typos in docs

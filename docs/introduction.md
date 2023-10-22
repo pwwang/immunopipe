@@ -35,6 +35,8 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 ### T cell selection
 
 - [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md): Perform clustering on all cells.
+- [`ClusterMarkersOfAllCells`](processes/ClusterMarkersOfAllCells.md): Find markers for each cluster of all the cells and perform enrichment analysis.
+- [`TopExpressingGenesOfAllCells`](processes/TopExpressingGenesOfAllCells.md): Find top expressing genes for each cluster of all the cells and perform enrichment analysis.
 - [`TCellSelection`](processes/TCellSelection.md): Select T cells from all cells.
 
 ### Clustering of T cells
@@ -51,7 +53,7 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 - [`Immunarch2VDJtools`](processes/Immunarch2VDJtools.md): Convert `immunarch` objects to files for [`VDJtools`](https://vdjtools-doc.readthedocs.io/en/master/) for `VJUsage`
 - [`VJUsage`](processes/VJUsage.md): Investigate the V/J gene usage of TCR clones.
 - [`TCRClustering`](processes/TCRClustering.md): Perform clustering on TCR clones based on CDR3 amino acid sequences.
-- [`TCRClusteringStats`](processes/TCRClusteringStats.md): Investigate statistics for TCR clusters (i.e. TCR cluster size distribution, shared TCR clusters among samples, revisited sample diversity using TCR clusters instead of clonotypes, etc.)
+- [`TCRClusterStats`](processes/TCRClusterStats.md): Investigate statistics for TCR clusters (i.e. TCR cluster size distribution, shared TCR clusters among samples, revisited sample diversity using TCR clusters instead of clonotypes, etc.)
 - [`Immunarch`](processes/Immunarch.md): Perform TCR clonotype analyses using [`immunarch`](https://immunarch.com/) package.
 
 ### Integrative analyses

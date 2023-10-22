@@ -15,6 +15,7 @@ dependencies:
   - faiss-cpu  # for GIANA
   - openjdk=8  # vdjtools
   - git  # for copier, used by pipen-report
+  - libiconv # fix git: error while loading shared libraries: libiconv.so.2
   - time  # for pipen-runinfo
   - procps-ng  # vdjtools: free command not found
   - vdjtools=1.1.4

@@ -2,49 +2,67 @@
 
 This process calculates the pathway activities in different groups and subsets.
 
-The cells are first grouped by subsets and then the metabolic activities are examined for each groups in different subsets.
+The cells are first grouped by subsets and then the metabolic activities are
+examined for each groups in different subsets.<br />
 
-For each subset, a heatmap and a violin plot will be generated. The heatmap shows the pathway activities for each group and each metabolic pathway:
+For each subset, a heatmap and a violin plot will be generated.<br />
+The heatmap shows the pathway activities for each group and each metabolic pathway
 
-![MetabolicPathwayActivity_heatmap](images/MetabolicPathwayActivity_heatmap.png){: width="80%"}
+![MetabolicPathwayActivity_heatmap](https://pwwang.github.io/immunopipe/processes/images/MetabolicPathwayActivity_heatmap.png){: width="80%"}
 
-The violin plot shows the distribution of the pathway activities for each group:
+The violin plot shows the distribution of the pathway activities for each group
 
-![MetabolicPathwayActivity_violin](images/MetabolicPathwayActivity_violin.png){: width="45%"}
+![MetabolicPathwayActivity_violin](https://pwwang.github.io/immunopipe/processes/images/MetabolicPathwayActivity_violin.png){: width="45%"}
 
-## Environment variables
+## Environment Variables
 
-- `ntimes` (`type=int`): Number of times to do the permutation
-- `ncores` (`type=int`): Number of cores to use for parallelization.
+- `ntimes` *(`type=int`)*: *Default: `5000`*. <br />
+    Number of times to do the permutation
+- `ncores` *(`type=int;pgarg`)*: *Default: `1`*. <br />
+    Number of cores to use for parallelization
     Defaults to `ScrnaMetabolicLandscape.ncores`
-- `heatmap_devpars` (`ns`): Device parameters for the heatmap
-    - `width` (`type=int`): Width of the heatmap
-    - `height` (`type=int`): Height of the heatmap
-    - `res` (`type=int`): Resolution of the heatmap
-- `violin_devpars` (`ns`): Device parameters for the violin plot
-    - `width` (`type=int`): Width of the violin plot
-    - `height` (`type=int`): Height of the violin plot
-    - `res` (`type=int`): Resolution of the violin plot
-- `gmtfile`: The GMT file with the metabolic pathways.
+- `heatmap_devpars` *(`ns`)*:
+    Device parameters for the heatmap
+    - `width` *(`type=int`)*:
+        Width of the heatmap
+    - `height` *(`type=int`)*:
+        Height of the heatmap
+    - `res` *(`type=int`)*:
+        Resolution of the heatmap
+- `violin_devpars` *(`ns`)*:
+    Device parameters for the violin plot
+    - `width` *(`type=int`)*:
+        Width of the violin plot
+    - `height` *(`type=int`)*:
+        Height of the violin plot
+    - `res` *(`type=int`)*:
+        Resolution of the violin plot
+- `gmtfile` *(`pgarg`)*:
+    The GMT file with the metabolic pathways.<br />
     Defaults to `ScrnaMetabolicLandscape.gmtfile`
-- `grouping` (`type=auto`;`readonly`): Defines the basic groups to
-    investigate the metabolic activity, typically the clusters.
+- `grouping` *(`type=auto;pgarg;readonly`)*:
+    Defines the basic groups to
+    investigate the metabolic activity, typically the clusters.<br />
     Defaults to `ScrnaMetabolicLandscape.grouping`
-- `grouping_prefix` (`type=auto`;`readonly`): Working as a prefix to group
+- `grouping_prefix` *(`type=auto;pgarg;readonly`)*: *Default: `""`*. <br />
+    Working as a prefix to group
     names. For example, if we have `grouping_prefix = "cluster"` and
     we have `1` and `2` in the `grouping` column, the groups
-    will be named as `cluster_1` and `cluster_2`.
+    will be named as `cluster_1` and `cluster_2`.<br />
     Defaults to `ScrnaMetabolicLandscape.grouping_prefix`
-- `subsetting` (`type=auto`;`readonly`): How do we subset the data. Other
+- `subsetting` *(`type=auto;pgarg;readonly`)*:
+    How do we subset the data. Other
     columns in the metadata to do comparisons. For example,
-    `"TimePoint"` or `["TimePoint", "Response"]`.
+    `"TimePoint"` or `["TimePoint", "Response"]`.<br />
     Defaults to `ScrnaMetabolicLandscape.subsetting`
-- `subsetting_prefix` (`type=auto`;`readonly`): Working as a prefix to
-    subset names.
+- `subsetting_prefix` *(`type=auto;pgarg;readonly`)*:
+    Working as a prefix to
+    subset names.<br />
     For example, if we have `subsetting_prefix = "timepoint"` and
     we have `pre` and `post` in the `subsetting` column, the subsets
-    will be named as `timepoint_pre` and `timepoint_post`.
-    If `subsetting` is a list, this should also be a
+    will be named as `timepoint_pre` and `timepoint_post`.<br />
+    If `subsetting` is a list, then this should also be a
     same-length list. If a single string is given, it will be
-    repeated to a list with the same length as `subsetting`.
+    repeated to a list with the same length as `subsetting`.<br />
     Defaults to `ScrnaMetabolicLandscape.subsetting_prefix`
+

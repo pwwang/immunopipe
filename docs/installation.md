@@ -70,6 +70,7 @@ The docker image is build upon [`mambaorg/micromamba:1.4.3`][1]. The OS is linux
 
 - `/immunopipe`: The directory where the source code of the pipeline is. It is general a clone of the [repository][2]. The pipeline is also installed from this directory.
 - `/workdir`: The working directory. It is the directory where the pipeline is run. It is recommended to map the current directory (`.`) to this directory.
+- `/data`: An empty directory. You can map your data directory to this directory.
 
 [1]: https://hub.docker.com/layers/mambaorg/micromamba/1.4.3/images/sha256-0251b94151c021c85d3e4f4ffe1fc81c436f18e01337d3b367d0f7c76ee716ac?context=explore
 [2]: https://github.com/pwwang/immunopipe

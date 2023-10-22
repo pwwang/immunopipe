@@ -154,6 +154,10 @@ For example, if your real data is under `/path/to/data`, you can mount it to `/d
 
 Then you can use `/data` in the container to access the data under `/path/to/data` on the host. Also remember to change the path of `RNAData` and `TCRData` in the file (e.g. `samples.txt`) that is passed to `SampleInfo` process.
 
+Other than `/data`, there are other directories that you can use for mounting inside the container, including `/mnt` and `/tmp`, in case your want to mount multiple directories.
+
+See also [`The directory structure in the container`](./installation.md#the-directory-structure-in-the-container).
+
 ///
 
 /// details | Why I am getting `disk quota exceeded` error while pulling the docker image using `apptainer` with still plenty of space on the disk?

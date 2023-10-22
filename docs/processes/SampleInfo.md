@@ -1,97 +1,54 @@
 # SampleInfo
 
-This process is the entrance of the pipeline. It just pass by input file and list the sample information in the report.
+List sample information and perform statistics
 
-To specify the input file:
+
+
+This process is the entrance of the pipeline. It just pass by input file and list
+the sample information in the report.<br />
+
+To specify the input file in the configuration file, use the following
 
 ```toml
 [SampleInfo.in]
 infile = [ "path/to/sample_info.txt" ]
 ```
 
-Or with `pipen-board`, find the `SampleInfo` process and click the `Edit` button. Then you can specify the input file here:
+Or with `pipen-board`, find the `SampleInfo` process and click the `Edit` button.<br />
+Then you can specify the input file here
 
-![infile](images/SampleInfo-infile.png)
+![infile](https://pwwang.github.io/immunopipe/processes/images/SampleInfo-infile.png)
 
-Theroetically, we can have multiple input files. However, it is not tested yet. If you have multiple input files to run, please run it with a different pipeline instance (configuration file).
+Theroetically, we can have multiple input files. However, it is not tested yet.<br />
+If you have multiple input files to run, please run it with a different pipeline
+instance (configuration file).<br />
 
-For the content of the input file, please see details [here](../preparing-input.md#metadata).
+For the content of the input file, please see details
+[here](https://pwwang.github.io/immunopipe/preparing-input/#metadata).<br />
 
-Once the pipeline is finished, you can see the sample information in the report:
+Once the pipeline is finished, you can see the sample information in the report
 
-![report](images/SampleInfo-report.png)
+![report](https://pwwang.github.io/immunopipe/processes/images/SampleInfo-report.png)
 
-Note that the required `RNAData` and `TCRData` columns are not shown in the report. They are used to specify the paths of the `scRNA-seq` and `scTCR-seq` data, respectively.
+Note that the required `RNAData` and `TCRData` columns are not shown in the report.<br />
+They are used to specify the paths of the `scRNA-seq` and `scTCR-seq` data, respectively.<br />
 
-You may also perform some statistics on the sample information, for example, number of samples per group. See next section for details.
+You may also perform some statistics on the sample information, for example,
+number of samples per group. See next section for details.<br />
 
 /// Tip | New in `0.7.0`
-Performing statistics on the sample information is added in `0.7.0`.
+Performing statistics on the sample information is added in `0.7.0`.<br />
 ///
 
-## Environment variables
-
-- `sep`: The separator of the input file.
-- `mutaters` (`type=json`): A dict of mutaters to mutate the data frame.
-    The key is the column name and the value is the R expression
-    to mutate the column. The dict will be transformed to a list in R
-    and passed to [`dplyr::mutate`](https://dplyr.tidyverse.org/reference/mutate.html).
-    You may also use `paired()` to identify paired samples. The function
-    takes following arguments:
-    * `df`: The data frame. Use `.` if the function is called in
-        a dplyr pipe.
-    * `id_col`: The column name in `df` for the ids to be returned in
-        the final output.
-    * `compare_col`: The column name in `df` to compare the values for
-        each id in `id_col`.
-    * `idents`: The values in `compare_col` to compare. It could be
-        either an an integer or a vector. If it is an integer,
-        the number of values in `compare_col` must be the same as
-        the integer for the `id` to be regarded as paired. If it is
-        a vector, the values in `compare_col` must be the same
-        as the values in `idents` for the `id` to be regarded as paired.
-    * `uniq`: Whether to return unique ids or not. Default is `TRUE`.
-        If `FALSE`, you can mutate the meta data frame with the
-        returned ids. Non-paired ids will be `NA`.
-- `save_mutated` (`flag`): Whether to save the mutated columns.
-- `exclude_cols`: The columns to exclude in the table in the report.
-    Could be a list or a string separated by comma. Default: `RNAData,TCRData`.
-- `defaults` (`ns`): The default parameters for each case in `envs.stats`.
-    - `on`: The column name in the data for the stats.
-        Default is `Sample`.
-        If there are duplicated values in `on`, and you want to do stats
-        on the unique values, you can use `distinct:` prefix.
-        For example, `distinct:Patient` will keep only the first
-        duplicated value in `Patient` and do stats on the unique values.
-        If this is a column with discrete values, we are performing stats on
-        the number of samples in each `group` (see below). If this is a
-        column with continuous values, we are performing stats on the distribution of the
-        values in each `group`.
-    - `group`: The column name in the data for the group ids.
-        If not provided, all records will be regarded as one group.
-    - `na_group` (`flag`): Whether to include `NA`s in the group.
-    - `each`: The column in the data to split the analysis in different
-        plots, which will be passed to [`facet_wrap`](https://ggplot2.tidyverse.org/reference/facet_wrap.html) in [`ggplot2`](https://ggplot2.tidyverse.org/).
-    - `ncol` (`type=int`): The number of columns in the plot when `each`
-        is not `NULL`. Default is `2`.
-    - `na_each` (`flag`): Whether to include `NA`s in the `each` column.
-    - `plot`: Type of plot. If `on` is continuous, it could be
-        `boxplot` (default), `violin`, `violin+boxplot (vlnbox)` or `histogram`.
-        If `on` is not continuous, it could be `barplot` or
-        `pie` (default).
-    - `devpars` (`ns`): The device parameters for the plot.
-        - `width` (`type=int`): The width of the plot.
-        - `height` (`type=int`): The height of the plot.
-        - `res` (`type=int`): The resolution of the plot.
-- `stats` (`type=json`): The statistics to perform.
-    The keys are the case names and the values are the parameters
-    inheirted from `envs.defaults`.
-
 /// Tip
+This is the start process of the pipeline. Once you change the parameters for
+this process, the whole pipeline will be re-run.<br />
 
-This is the start process of the pipeline. Once you change the parameters for this process, the whole pipeline will be re-run.
-
-If you just want to change the parameters for the statistics, and use the cached (previous) results for other processes, you can set `cache` at pipeline level to `"force"` to force the pipeline to use the cached results and `cache` of `SampleInfo` to `false` to force the pipeline to re-run the `SampleInfo` process only.
+If you just want to change the parameters for the statistics, and use the
+cached (previous) results for other processes, you can set `cache` at
+pipeline level to `"force"` to force the pipeline to use the cached results
+and `cache` of `SampleInfo` to `false` to force the pipeline to re-run the
+`SampleInfo` process only.<br />
 
 ```toml
 cache = "force"
@@ -101,7 +58,78 @@ cache = false
 ```
 ///
 
-## Example
+## Environment Variables
+
+- `sep`: *Default: `	`*. <br />
+    The separator of the input file.<br />
+- `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
+    A dict of mutaters to mutate the data frame.<br />
+    The key is the column name and the value is the R expression
+    to mutate the column. The dict will be transformed to a list in R
+    and passed to `dplyr::mutate`.<br />
+    You may also use `paired()` to identify paired samples. The function
+    takes following arguments:<br />
+    * `df`: The data frame. Use `.` if the function is called in
+    a dplyr pipe.<br />
+    * `id_col`: The column name in `df` for the ids to be returned in
+    the final output.<br />
+    * `compare_col`: The column name in `df` to compare the values for
+    each id in `id_col`.<br />
+    * `idents`: The values in `compare_col` to compare. It could be
+    either an an integer or a vector. If it is an integer,
+    the number of values in `compare_col` must be the same as
+    the integer for the `id` to be regarded as paired. If it is
+    a vector, the values in `compare_col` must be the same
+    as the values in `idents` for the `id` to be regarded as paired.<br />
+    * `uniq`: Whether to return unique ids or not. Default is `TRUE`.<br />
+    If `FALSE`, you can mutate the meta data frame with the
+    returned ids. Non-paired ids will be `NA`.<br />
+- `save_mutated` *(`flag`)*: *Default: `False`*. <br />
+    Whether to save the mutated columns.<br />
+- `exclude_cols`: *Default: `TCRData,RNAData`*. <br />
+    The columns to exclude in the table in the report.<br />
+    Could be a list or a string separated by comma.<br />
+- `defaults` *(`ns`)*:
+    The default parameters for `envs.stats`.<br />
+    - `on`: *Default: `Sample`*. <br />
+        The column name in the data for the stats.<br />
+        Default is `Sample`.<br />
+        If there are duplicated values in `on`, and you want to do stats
+        on the unique values, you can use `distinct:`/`unique:` prefix.<br />
+        For example, `distinct:Patient` will keep only the first
+        duplicated value in `Patient` and do stats on the unique values.<br />
+    - `group`:
+        The column name in the data for the group ids.<br />
+        If not provided, all records will be regarded as one group.<br />
+    - `na_group` *(`flag`)*: *Default: `False`*. <br />
+        Whether to include `NA`s in the group.<br />
+    - `each`:
+        The column in the data to split the analysis in different
+        plots.<br />
+    - `ncol` *(`type=int`)*: *Default: `2`*. <br />
+        The number of columns in the plot when `each`
+        is not `NULL`. Default is 2.<br />
+    - `na_each` *(`flag`)*: *Default: `False`*. <br />
+        Whether to include `NA`s in the `each` column.<br />
+    - `plot`:
+        Type of plot. If `on` is continuous, it could be
+        `boxplot` (default), `violin`, `violin+boxplot` or `histogram`.<br />
+        If `on` is not continuous, it could be `barplot` or
+        `pie` (default).<br />
+    - `devpars` *(`ns`)*:
+        The device parameters for the plot.<br />
+        - `width` *(`type=int`)*: *Default: `800`*. <br />
+            The width of the plot.<br />
+        - `height` *(`type=int`)*: *Default: `600`*. <br />
+            The height of the plot.<br />
+        - `res` *(`type=int`)*: *Default: `100`*. <br />
+            The resolution of the plot.<br />
+- `stats` *(`type=json`)*: *Default: `{}`*. <br />
+    The statistics to perform.<br />
+    The keys are the case names and the values are the parameters
+    inheirted from `envs.defaults`.<br />
+
+## Examples
 
 ### Example data
 
@@ -140,7 +168,7 @@ Samples_Source = { "group": "Source" }
 Samples_Source_each_Subject = { "group": "Source", "each": "Subject" }
 ```
 
-![Samples_Source](images/SampleInfo_Samples_Source.png)
+![Samples_Source](https://pwwang.github.io/immunopipe/processes/images/SampleInfo_Samples_Source.png)
 
 ### Explore the distribution of the Score
 
@@ -157,4 +185,5 @@ plot = "violin+box"
 each = "Subject"
 ```
 
-![Score_Source](images/SampleInfo_Score_Source.png)
+![Score_Source](https://pwwang.github.io/immunopipe/processes/images/SampleInfo_Score_Source.png)
+
