@@ -486,7 +486,7 @@ class SeuratMetadataMutater(SeuratMetadataMutater_):
     )
     envs = {
         "mutaters": {
-            "TCR_Presence": {'if_else(is.na(CDR3.aa), "TCR_absent", "TCR_present")'}
+            "TCR_Presence": 'if_else(is.na(CDR3.aa), "TCR_absent", "TCR_present")'
         }
     }
 
