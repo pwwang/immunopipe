@@ -17,9 +17,14 @@ generate-setup-file = true
 
 [tool.poetry.dependencies]
 python = "^3.8"
-# pipen-diagram = "^0.9"
+pipen-diagram = { version = "^0.9", optional = true }
+pipen-runinfo = { version = "^0.4", optional = true }
 # pipen-report and pipen-board are required by biopipen
-biopipen = { version = "^0.20.3", extras = ["runinfo"] }
+biopipen = { version = "^0.20.3" }
+
+[tool.poetry.extras]
+diagram = ["pipen-diagram"]
+runinfo = ["pipen-runinfo"]
 
 [tool.poetry.group.docs.dependencies]
 pipen-cli-ref = "^0.0"
