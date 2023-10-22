@@ -35,6 +35,8 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 ### T cell selection
 
 - [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md): Perform clustering on all cells.
+- [`ClusterMarkersOfAllCells`](processes/ClusterMarkersOfAllCells.md): Find markers for each cluster of all the cells and perform enrichment analysis.
+- [`TopExpressingGenesOfAllCells`](processes/TopExpressingGenesOfAllCells.md): Find top expressing genes for each cluster of all the cells and perform enrichment analysis.
 - [`TCellSelection`](processes/TCellSelection.md): Select T cells from all cells.
 
 ### Clustering of T cells
