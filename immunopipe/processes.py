@@ -468,6 +468,15 @@ class SeuratMetadataMutater(SeuratMetadataMutater_):
 
     You may also use `envs.mutaters` to add new columns to the metadata.
     These columns can be used for downstream analysis.
+    An additional column `TCR_Presence` is added so later on we can overlay the
+    TCR presence on the UMAP plot in [`SeuratClustering`](./SeuratClustering.md)
+    process.
+
+    /// Warning
+    If you are modifying `envs.mutaters`, make sure you keep the `TCR_Presence` column.
+    Because by default, `SeuratClustering` process will use this column to overlay
+    the TCR presence on the UMAP plot.
+    ///
 
     {{*Summary.long}}
     """
@@ -475,6 +484,11 @@ class SeuratMetadataMutater(SeuratMetadataMutater_):
     input_data = lambda ch1, ch2: tibble(
         srtobj=ch1.iloc[:, 0], metafile=ch2.metatxt
     )
+    envs = {
+        "mutaters": {
+            "TCR_Presence": {'if_else(is.na(CDR3.aa), "TCR_absent", "TCR_present")'}
+        }
+    }
 
 
 if (
@@ -550,6 +564,20 @@ else:
 class SeuratClusterStats(SeuratClusterStats_):
     requires = TCRClusters2Seurat
     order = -1
+    envs = {
+        "dimplots": {
+            "Dimensional reduction plot": {
+                "label": True,
+                "label-box": True,
+                "repel": True,
+            },
+            "TCR presence": {
+                "ident": "TCR_Presence",
+                "order": "TCR_absent",
+                "cols": ["#FF000066", "gray"],
+            },
+        },
+    }
 
 
 if "CellsDistribution" in config or just_loading:
