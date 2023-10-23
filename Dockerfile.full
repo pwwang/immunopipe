@@ -12,7 +12,7 @@ WORKDIR /data
 WORKDIR /immunopipe
 RUN python -m pip install -U poetry && \
     python -m poetry config virtualenvs.create false && \
-    python -m poetry install -v && \
+    python -m poetry install -v -E runinfo -E diagram && \
     pipen report update
 
 WORKDIR /workdir

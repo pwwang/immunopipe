@@ -600,7 +600,8 @@ if "CloneResidency" in config or just_loading:
 if "RadarPlots" in config or just_loading:
     @annotate.format_doc(indent=2)
     class RadarPlots(RadarPlots_):
-        """
+        """{{Summary}}
+
         Envs:
             mutaters: {{Envs.mutaters.help | indent: 12}}.
                 See also

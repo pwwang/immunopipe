@@ -1,5 +1,13 @@
 # Change Log
 
+## 0.9.1
+
+- 🐛 Fix docstring for `RadarPlots`
+- ➕ Add `pipen-diagram` as dependency
+- ➕ Set `pipen-runinfo` as optional
+- ⬆️ Bump biopipen to 0.20.4
+- 📝 Update version in docs
+
 ## 0.9.0
 
 ### Housekeeping and docs

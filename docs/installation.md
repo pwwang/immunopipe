@@ -32,6 +32,8 @@ The pipeline itself is NOT included in the conda environment. You need to instal
 ```shell
 $ conda activate immunopipe
 $ pip install -U immunopipe
+$ # if you want to create diagram and generate running information
+$ pip install -U immunopipe[diagram,runinfo]
 ```
 ///
 
