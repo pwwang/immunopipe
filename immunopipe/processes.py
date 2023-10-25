@@ -588,8 +588,12 @@ if "CellsDistribution" in config or just_loading:
 
 if "CloneResidency" in config or just_loading:
     class CloneResidency(CloneResidency_):
-        requires = ImmunarchLoading
-        order = 3
+        requires = ImmunarchLoading, TCRClusters2Seurat
+        input_data = lambda ch1, ch2: tibble(
+            immdata=ch1.iloc[:, 0],
+            metafile=ch2.iloc[:, 0],
+        )
+        order = -3
 
 
 # if "CloneHeterogeneity" in config or just_loading:
