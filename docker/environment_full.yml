@@ -42,6 +42,7 @@ dependencies:
   - r-tibble
   - r-tidyr
   - r-ggprism
+  - r-ggnewscale
   - r-ggvenndiagram
   - r-assertthat
   - r-enrichr
