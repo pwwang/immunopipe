@@ -39,10 +39,7 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
     Filter expression to filter cells, using
     `tidyrseurat::filter()`.<br />
     Available QC keys include `nFeature_RNA`, `nCount_RNA`,
-    `percent.mt`, `percent.ribo`, `percent.hb`, and `percent.plat`
-    For example: `nFeature_RNA > 200 & percent.mt < 5` will
-    keep cells with more than 200 genes and less than 5%% mitochondrial
-    genes.<br />
+    `percent.mt`, `percent.ribo`, `percent.hb`, and `percent.plat`.<br />
 
     /// Tip | Example
     Including the columns added above, all available QC keys include
@@ -53,7 +50,7 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
     [SeuratPreparing.envs]
     cell_qc = "nFeature_RNA > 200 & percent.mt < 5"
     ```
-    will keep cells with more than 200 genes and less than 5% mitochondrial
+    will keep cells with more than 200 genes and less than 5%% mitochondrial
     genes.<br />
     ///
 

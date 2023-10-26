@@ -2,7 +2,8 @@
 
 Identification of clone residency
 
-This process is used to investigate the residency of clones in groups, typically two samples (e.g. tumor and normal) from the same patient. But it can be used for any two groups of clones.<br />
+This process is used to investigate the residency of clones in groups, typically two
+samples (e.g. tumor and normal) from the same patient. But it can be used for any two groups of clones.<br />
 
 There are three types of output from this process
 
@@ -17,9 +18,11 @@ There are three types of output from this process
 
 - Residency plots showing the residency of clones in the two groups
 
-    ![CloneResidency_residency](images/CloneResidency.png)
+    ![CloneResidency_residency](https://pwwang.github.io/immunopipe/processes/images/CloneResidency.png)
 
-    The points in the plot are jittered to avoid overplotting. The x-axis is the residency in the first group and the y-axis is the residency in the second group. The size of the points are relative to the normalized size of the clones. You may identify different types of clones in the plot based on their residency in the two groups:<br />
+    The points in the plot are jittered to avoid overplotting. The x-axis is the residency in the first group and
+    the y-axis is the residency in the second group. The size of the points are relative to the normalized size of
+    the clones. You may identify different types of clones in the plot based on their residency in the two groups:<br />
 
     - Collapsed (The clones that are collapsed in the second group)
     - Dual (The clones that are present in both groups with equal size)
@@ -35,7 +38,7 @@ There are three types of output from this process
 
 - Venn diagrams showing the overlap of the clones in the two groups
 
-    ![CloneResidency_venn](images/CloneResidency_venn.png){: width="60%"}
+    ![CloneResidency_venn](https://pwwang.github.io/immunopipe/processes/images/CloneResidency_venn.png){: width="60%"}
 
 ## Environment Variables
 
@@ -49,24 +52,34 @@ There are three types of output from this process
     It doesn't have to be 2 groups always. If there are more than 3
     groups, instead of venn diagram, upset plots will be used.<br />
 - `order` *(`list`)*: *Default: `[]`*. <br />
-    The order of the values in `group`. Early-ordered
-    group will be used as x-axis in scatter plots
-    If there are more than 2 groups, for example, [A, B, C], the
-    scatter plots will be drawn for pairs: B ~ A, C ~ B and C ~ A.<br />
-- `sample_groups`:
-    How the samples aligned in the report.<br />
+    The order of the values in `group`. In scatter/residency plots,
+    `X` in `X,Y` will be used as x-axis and `Y` will be used as y-axis.<br />
+    You can also have multiple orders. For example: `["X,Y", "X,Z"]`.<br />
+    If you only have two groups, you can set `order = ["X", "Y"]`, which will
+    be the same as `order = ["X,Y"]`.<br />
+- `section`:
+    How the subjects aligned in the report. Multiple subjects with
+    the same value will be grouped together.<br />
     Useful for cohort with large number of samples.<br />
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
     The mutaters passed to `dplyr::mutate()` on
-    `immdata$meta` to add new columns. The keys will be the names of
-    the columns, and the values will be the expressions. The new names
-    can be used in `subject`, `group`, `order` and `sample_groups`.<br />
+    the cell-level data converted from `in.immdata`. If `in.metafile` is
+    provided, the mutaters will be applied to the joined data.<br />
+    The keys will be the names of the new columns, and the values will be the
+    expressions. The new names can be used in `subject`, `group`, `order` and
+    `section`.<br />
+- `subset`:
+    The filter passed to `dplyr::filter()` to filter the data for the cells
+    before calculating the clone residency. For example, `Clones > 1` to filter
+    out singletons.<br />
+- `prefix`: *Default: `{Sample}_`*. <br />
+    The prefix of the cell barcodes in the `Seurat` object.<br />
 - `cases` *(`type=json`)*: *Default: `{}`*. <br />
     If you have multiple cases, you can use this argument
     to specify them. The keys will be used as the names of the cases.<br />
     The values will be passed to the corresponding arguments.<br />
     If no cases are specified, the default case will be added, with
     the name `DEFAULT` and the values of `envs.subject`, `envs.group`,
-    `envs.order` and `envs.sample_groups`. These values are also the
+    `envs.order` and `envs.section`. These values are also the
     defaults for the other cases.<br />
 

@@ -85,5 +85,5 @@ group_by = "region"
 group_order = [ "Tumor", "Normal" ]
 ```
 
-![CellsDistribution_example](images/CellsDistribution_example.png)
+![CellsDistribution_example](https://pwwang.github.io/immunopipe/processes/images/CellsDistribution_example.png)
 

@@ -120,6 +120,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     The default parameters for `dimplots`.<br />
     - `ident`: *Default: `seurat_clusters`*. <br />
         The column name in metadata to use as the identity.<br />
+        Ignored if `group-by` is specified.<br />
     - `group-by`:
         Same as `ident`. How the points are colored.<br />
     - `split-by`:
@@ -149,7 +150,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
             Use `Seurat::PCAPlot`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/dimplot>
-- `dimplots` *(`type=json`)*: *Default: `{'Dimensional reduction plot': Diot({'label': True, 'label-box': True, 'repel': True})}`*. <br />
+- `dimplots` *(`type=json`)*: *Default: `{'Dimensional reduction plot': Diot({'label': True, 'label-box': True, 'repel': True}), 'TCR presence': Diot({'ident': 'TCR_Presence', 'order': 'TCR_absent', 'cols': ['#FF000066', 'gray']})}`*. <br />
     The dimensional reduction plots.<br />
     Keys are the titles of the plots and values are the dicts inherited from `env.dimplots_defaults`. It can also have other parameters from
     [`Seurat::DimPlot`](https://satijalab.org/seurat/reference/dimplot).<br />

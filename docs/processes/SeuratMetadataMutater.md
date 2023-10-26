@@ -18,11 +18,20 @@ by this process.<br />
 
 You may also use `envs.mutaters` to add new columns to the metadata.<br />
 These columns can be used for downstream analysis.<br />
+An additional column `TCR_Presence` is added so later on we can overlay the
+TCR presence on the UMAP plot in [`SeuratClustering`](./SeuratClustering.md)
+process.<br />
+
+/// Warning
+If you are modifying `envs.mutaters`, make sure you keep the `TCR_Presence` column.<br />
+Because by default, `SeuratClustering` process will use this column to overlay
+the TCR presence on the UMAP plot.<br />
+///
 
 
 ## Environment Variables
 
-- `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
+- `mutaters` *(`type=json`)*: *Default: `{'TCR_Presence': 'if_else(is.na(CDR3.aa), "TCR_absent", "TCR_present")'}`*. <br />
     The mutaters to mutate the metadata.<br />
     The key-value pairs will be passed the `dplyr::mutate()` to mutate the metadata.<br />
     There are also also 4 helper functions, `expanded`, `collapsed`, `emerged` and `vanished`, that can be used to identify the expanded/collpased/emerged/vanished groups (i.e. TCR clones).<br />
