@@ -1,5 +1,17 @@
 # Change Log
 
+## 0.9.2
+
+- ➕ Add `r-ggnewscale` as dependency for `CDR3AAPhyschem` in docker image
+- ⬆️ Bump biopipen to 0.20.5
+  - 🧱 CloneResidency: Integrate RNA data to allow more flexible analysis (i.e. within specific seurat clusters)
+  - 🏗️ CloneResidency: Rename envs.sample_groups to envs.section to be consistent with other processes
+  - 📝 ScFGSEA: Remove the link in the summary of the docstring (since they are not transformed in the report)
+  - 🎨 CDR3AAPhyschem: Give better error message when wrong group items are given
+- ⬆️ Bump pipen-board to 0.13.3
+  - Add items automatically when blurred for list options
+  - Add other sections to description on the UI for processes
+
 ## 0.9.1
 
 - 🐛 Fix docstring for `RadarPlots`
