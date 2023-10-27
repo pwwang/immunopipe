@@ -121,13 +121,13 @@ python-simpleconf = ">=0.6,<0.7"
 
 [[package]]
 name = "biopipen"
-version = "0.20.5"
+version = "0.20.7"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "biopipen-0.20.5-py3-none-any.whl", hash = "sha256:7cf6ee200b37b3811b8a819c8481d56263c7619af039c3db31cd43ddb9bd3ad9"},
-    {file = "biopipen-0.20.5.tar.gz", hash = "sha256:26215c71ab06935f7150ff8f95b1474909e41e7590a4da2cc925c7573a8ba66e"},
+    {file = "biopipen-0.20.7-py3-none-any.whl", hash = "sha256:1b9643b7310f4cae04f699fde56ea2241cc77eb76d3df1b6be52f7fe8d0aa608"},
+    {file = "biopipen-0.20.7.tar.gz", hash = "sha256:e4ec1d8acfb6c5ada6f21b3cf99583553224b33cab62b24daeee40fe3edbb3ea"},
 ]
 
 [package.dependencies]
@@ -1022,13 +1022,13 @@ pipen-annotate = ">=0.11,<0.12"
 
 [[package]]
 name = "pipen-board"
-version = "0.13.3"
+version = "0.13.4"
 description = "Visualization configuration and running of pipen pipelines on the web"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_board-0.13.3-py3-none-any.whl", hash = "sha256:c0e70a3830a9703e823d5b326d560da0b3f9a75677d8f2e3794bc2e2e4db17bf"},
-    {file = "pipen_board-0.13.3.tar.gz", hash = "sha256:46a15373d95361d53dd7cd6a82819ca599e4054c5f9bfd7437cf62400227660f"},
+    {file = "pipen_board-0.13.4-py3-none-any.whl", hash = "sha256:cd15471c00133348d2a4c4b10cdabb8b78036a04280a6a4956e1fd77b512b03c"},
+    {file = "pipen_board-0.13.4.tar.gz", hash = "sha256:2638a139da4f9be6989e85d541c6965256825917d7d3925db43b33bb64d8c3fe"},
 ]
 
 [package.dependencies]
@@ -1899,4 +1899,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "3be663e8ba682e725c7c95531d4d250a44e7b8f5fa8831047395ab9a5cb36fa3"
+content-hash = "2bcd89a6c7a20038670d72111c296ae3c18fb55c6c66f065dfb0cef54f53476a"

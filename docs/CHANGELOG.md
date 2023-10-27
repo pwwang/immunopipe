@@ -1,5 +1,14 @@
 # Change Log
 
+## 0.9.3
+
+- deps: Bump biopipen to 0.20.7
+- deps: Bump pipen-board to 0.13.4
+- ClusterMarkers/ClusterMarkersOfAllCells: Choose avg_log2FC > 0 markers by default
+- MarkersFinder: Allow to set assay and set assay to `RNA` by default
+- CellsDistribution: Add venn/upset plot for overlapping cell groups in different cases
+- SampleInfo: Add `distinct` to case to perform stats on distinct records
+
 ## 0.9.2
 
 - ➕ Add `r-ggnewscale` as dependency for `CDR3AAPhyschem` in docker image
