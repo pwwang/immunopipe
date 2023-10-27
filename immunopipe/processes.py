@@ -271,7 +271,10 @@ if "ClusterMarkersOfAllCells" in config or just_loading:
             section (hidden;readonly): {{Envs.section.help | indent: 12}}.
         """
         requires = SeuratClusteringOfAllCells
-        envs = {"cases": {"Cluster": {}}}
+        envs = {
+            "cases": {"Cluster": {}},
+            "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
+        }
         order = 2
 
 
@@ -380,7 +383,10 @@ class ClusterMarkers(MarkersFinder_):
         section (hidden;readonly): {{Envs.section.help | indent: 12}}.
     """  # noqa: E501
     requires = CellTypeAnnotation
-    envs = {"cases": {"Cluster": {}}}
+    envs = {
+        "cases": {"Cluster": {}},
+        "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
+    }
     order = 2
 
 
