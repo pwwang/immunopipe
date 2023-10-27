@@ -738,6 +738,7 @@ if "MarkersFinder" in config or just_loading:
             in the report.
         """
         requires = TCRClusters2Seurat
+        envs = {"assay": "RNA"}
         order = 5
 
 
