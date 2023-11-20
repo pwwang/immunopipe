@@ -27,7 +27,7 @@ dependencies:
   - r-logger
   - r-hash  # CDR3AAPhyschem
   - r-glmnet  # CDR3AAPhyschem
-  - r-matrix  # CDR3AAPhyschem
+  - r-matrix=1.6_1  # CDR3AAPhyschem
   - r-broom.mixed  # CDR3AAPhyschem
   - r-ggradar
   - r-hitype
