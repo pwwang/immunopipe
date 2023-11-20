@@ -1,13 +1,3 @@
-div.wy-side-scroll div.wy-menu.wy-menu-vertical {
-    margin-top: 8.4rem !important;
-}
-
-.wy-side-nav-search .wy-dropdown>a, .wy-side-nav-search {
-    padding-top: 0.2rem;
-}
-.wy-side-nav-search .wy-dropdown>a, .wy-side-nav-search>a {
-    margin-bottom: 0;
-}
 
 /** faq **/
 #faq ~ details {
