@@ -184,10 +184,6 @@ class ImmunarchLoading(ImmunarchLoading_):
     requires = SampleInfo
 
 
-class Immunarch(Immunarch_):
-    requires = ImmunarchLoading
-
-
 @mark(board_config_hidden=True)
 class Immunarch2VDJtools(Immunarch2VDJtools_):
     requires = ImmunarchLoading
@@ -584,6 +580,14 @@ class SeuratClusterStats(SeuratClusterStats_):
             },
         },
     }
+
+
+class Immunarch(Immunarch_):
+    requires = ImmunarchLoading, TCRClusters2Seurat
+    input_data = lambda ch1, ch2: tibble(
+        immdata=ch1.iloc[:, 0],
+        metafile=ch2.iloc[:, 0],
+    )
 
 
 if "CellsDistribution" in config or just_loading:
