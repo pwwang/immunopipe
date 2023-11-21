@@ -185,7 +185,10 @@ class ImmunarchLoading(ImmunarchLoading_):
 
 
 @mark(board_config_hidden=True)
+@annotate.format_doc(indent=1)
 class Immunarch2VDJtools(Immunarch2VDJtools_):
+    """{{Summary | str | replace: '!!#biopipennstcrvjusage', './VJUsage.md'}}
+    """
     requires = ImmunarchLoading
     plugin_opts = {"args_hide": True}
 
@@ -471,13 +474,13 @@ class SeuratMetadataMutater(SeuratMetadataMutater_):
     You may also use `envs.mutaters` to add new columns to the metadata.
     These columns can be used for downstream analysis.
     An additional column `TCR_Presence` is added so later on we can overlay the
-    TCR presence on the UMAP plot in [`SeuratClustering`](./SeuratClustering.md)
-    process.
+    TCR presence on the UMAP plot in
+    [`SeuratClusteringOfTCells`](./SeuratClusteringOfTCells.md) process.
 
     /// Warning
     If you are modifying `envs.mutaters`, make sure you keep the `TCR_Presence` column.
-    Because by default, `SeuratClustering` process will use this column to overlay
-    the TCR presence on the UMAP plot.
+    Because by default, `SeuratClusteringOfTCells` process will use this column to
+    overlay the TCR presence on the UMAP plot.
     ///
 
     {{*Summary.long}}
@@ -582,7 +585,22 @@ class SeuratClusterStats(SeuratClusterStats_):
     }
 
 
+@annotate.format_doc(indent=1)
 class Immunarch(Immunarch_):
+    """{{Summary.sort}}
+
+    /// Tip | Changed in `0.10.0`
+    `envs.mutaters` are now applied at cell level.
+
+    Seurat clustering information and other information are added at cell level, which
+    can be used to subset the cells for listed analyses.
+
+    You can now use `subset` to subset the cells for listed analyses, at cell level.
+    ///
+
+    {{*Summary.long | str |
+    replace: '!!#biopipennstcrimmunarchloading', './ImmunarchLoading.md'}}
+    """
     requires = ImmunarchLoading, TCRClusters2Seurat
     input_data = lambda ch1, ch2: tibble(
         immdata=ch1.iloc[:, 0],
@@ -779,3 +797,9 @@ if "ScrnaMetabolicLandscape" in config or just_loading:
     scrna_metabolic_landscape = ScrnaMetabolicLandscape(is_seurat=True)
     scrna_metabolic_landscape.p_input.requires = TCRClusters2Seurat
     scrna_metabolic_landscape.p_input.order = 99
+    scrna_metabolic_landscape.p_features_intra_subset.__doc__ = (
+        scrna_metabolic_landscape.p_features_intra_subset.__doc__.replace(
+            "!!#biopipennsscrna_metabolic_landscapemetabolicfeatures",
+            "./MetabolicFeatures.md",
+        )
+    )

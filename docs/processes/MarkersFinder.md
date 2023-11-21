@@ -13,20 +13,25 @@ function, and performs enrichment analysis for the markers found.<br />
     * Used in `future::plan(strategy = "multicore", workers = <ncores>)` to parallelize some Seurat procedures.<br />
     * See also: <https://satijalab.org/seurat/articles/future_vignette.html>
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
-    The mutaters to mutate the metadata There are also also 4 helper functions, `expanded`, `collapsed`, `emerged` and `vanished`, that can be used to identify the expanded/collpased/emerged/vanished groups (i.e. TCR clones).<br />
-    For example, you can use `{"Patient1_Tumor_Collapsed_Clones": "expanded(., Source, 'Tumor', subset = Patent == 'Patient1')"}` to create a new column in metadata named `Patient1_Tumor_Collapsed_Clones` with the collapsed clones in the tumor sample (compared to the normal sample) of patient 1. The values in this columns for other clones will be `NA`.<br />
+    The mutaters to mutate the metadata There are also also 4 helper functions, `expanded`, `collapsed`, `emerged` and `vanished`, which can be used to identify the expanded/collpased/emerged/vanished groups (i.e. TCR clones).<br />
+    For example, you can use `{"Patient1_Tumor_Collapsed_Clones": "expanded(., Source, 'Tumor', subset = Patent == 'Patient1', uniq = FALSE)"}` to create a new column in metadata named `Patient1_Tumor_Collapsed_Clones` with the collapsed clones in the tumor sample (compared to the normal sample) of patient 1.<br />
+    The values in this columns for other clones will be `NA`.<br />
     Those functions take following arguments:<br />
     * `df`: The metadata data frame. You can use the `.` to refer to it.<br />
     * `group-by`: The column name in metadata to group the cells.<br />
     * `idents`: The first group or both groups of cells to compare (value in `group-by` column). If only the first group is given, the rest of the cells (with non-NA in `group-by` column) will be used as the second group.<br />
     * `subset`: An expression to subset the cells, will be passed to `dplyr::filter()`. Default is `TRUE` (no filtering).<br />
-    * `id`: The column name in metadata for the group ids (i.e. `CDR3.aa`) * `compare`: Either a (numeric) column name (i.e. `Clones`) in metadata to compare between groups, or `.n` to compare the number of cells in each group.<br />
+    * `id`: The column name in metadata for the group ids (i.e. `CDR3.aa`).<br />
+    * `compare`: Either a (numeric) column name (i.e. `Clones`) in metadata to compare between groups, or `.n` to compare the number of cells in each group.<br />
+    If numeric column is given, the values should be the same for all cells in the same group.<br />
+    This will not be checked (only the first value is used).<br />
     * `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df |> mutate(expanded = expanded(...))`.<br />
     * `order`: The order of the returned ids. It could be `sum` or `diff`, which is the sum or diff of the `compare` between idents.<br />
     Two kinds of modifiers can be added, including `desc` and `abs`.<br />
     For example, `sum,desc` means the sum of `compare` between idents in descending order.<br />
     Default is `diff,abs,desc`. It only works when `uniq` is `TRUE`. If `uniq` is `FALSE`, the returned ids will be in the same order as in `df`.<br />
-    Note that the numeric column should be the same for all cells in the same group. This will not be checked (only the first value is used)..<br />
+    * `include_emerged`: Whether to include the emerged group for `expanded` (only works for `expanded`). Default is `FALSE`.<br />
+    * `include_vanished`: Whether to include the vanished group for `collapsed` (only works for `collapsed`). Default is `FALSE`..<br />
     See also
     [mutating the metadata](../configurations.md#mutating-the-metadata).<br />
 - `ident-1`:
@@ -57,6 +62,8 @@ function, and performs enrichment analysis for the markers found.<br />
     `p_val_adj`. For example, `"p_val_adj < 0.05 & abs(avg_log2FC) > 1"`
     to select markers with adjusted p-value < 0.05 and absolute log2
     fold change > 1.<br />
+- `assay`: *Default: `RNA`*. <br />
+    The assay to use.<br />
 - `volcano_genes` *(`type=auto`)*: *Default: `True`*. <br />
     The genes to label in the volcano plot if they are
     significant markers.<br />
@@ -65,18 +72,36 @@ function, and performs enrichment analysis for the markers found.<br />
     It could be either a string with comma separated genes, or a list
     of genes.<br />
 - `section`: *Default: `DEFAULT`*. <br />
-    The section name for the report.<br />
-    Worked only when `each` is not specified and `ident-2` is specified.<br />
-    Otherwise, the section name will be constructed from `each` and
-    `group-by`.<br />
-    If `DEFAULT`, and it's the only section, it not included in the
-    case/section names.<br />
+    The section name for the report. It must not contain colon (`:`).<br />
+    Ignored when `each` is not specified and `ident-1` is specified.<br />
+    When neither `each` nor `ident-1` is specified, case name will be used
+    as section name.<br />
+    If `each` is specified, the section name will be constructed from
+    `each` and case name.<br />
+- `subset`:
+    An expression to subset the cells for each case.<br />
 - `rest` *(`ns`)*:
     Rest arguments for `Seurat::FindMarkers()`.<br />
     Use `-` to replace `.` in the argument name. For example,
     use `min-pct` instead of `min.pct`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findmarkers>
+- `dotplot` *(`ns`)*:
+    Arguments for `Seurat::DotPlot()`.<br />
+    Use `-` to replace `.` in the argument name. For example,
+    use `group-bar` instead of `group.bar`.<br />
+    Note that `object`, `features`, and `group-by` are already specified
+    by this process. So you don't need to specify them here.<br />
+    - `devpars` *(`ns`)*:
+        The device parameters for the plots.<br />
+        - `res` *(`type=int`)*:
+            The resolution of the plots.<br />
+        - `height` *(`type=int`)*:
+            The height of the plots.<br />
+        - `width` *(`type=int`)*:
+            The width of the plots.<br />
+    - `<more>`:
+        See <https://satijalab.org/seurat/reference/doheatmap>
 - `cases` *(`type=json`)*: *Default: `{}`*. <br />
     If you have multiple cases, you can specify them
     here. The keys are the names of the cases and the values are the
@@ -84,6 +109,8 @@ function, and performs enrichment analysis for the markers found.<br />
     not specified, the default values specified above will be used.<br />
     If no cases are specified, the default case will be added with
     the default values under `envs` with the name `DEFAULT`.<br />
+- `overlap` *(`list`)*: *Default: `[]`*. <br />
+    The sections to do overlap analysis.<br />
 
 ## Examples
 

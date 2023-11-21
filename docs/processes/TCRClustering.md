@@ -30,9 +30,8 @@ yield similar results.<br />
 
 A text file will be generated with the cluster assignments for each cell, together
 with the `immunarch` object (in `R`) with the cluster assignments at `TCR_Clsuter`
-column. This information will then be merged to the `Seurat` object by
-[TCRClusters2Seurat](./TCRClusters2Seurat.md).<br />
-Futher downstream analysis can be performed using the cluster assignments.<br />
+column. This information will then be merged to a `Seurat` object for further
+downstream analysis.<br />
 
 The cluster assignments are prefixed with `S_` or `M_` to indicate whether a
 cluster has only one unique CDR3 sequence or multiple CDR3 sequences.<br />

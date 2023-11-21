@@ -2,11 +2,9 @@
 
 Intra-subset metabolic features - Enrichment analysis in details
 
-Similar to the [`MetabolicFeatures`](./MetabolicFeatures.md) process,
-this process performs enrichment analysis for the metabolic pathways for
+Similar to the [`MetabolicFeatures`](./MetabolicFeatures.md)
+process, this process performs enrichment analysis for the metabolic pathways for
 each subset in each group, instead of each group in each subset.<br />
-
-See also: [`MetabolicFeatures`](./MetabolicFeatures.md)
 
 ## Environment Variables
 

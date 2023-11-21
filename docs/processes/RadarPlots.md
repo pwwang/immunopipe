@@ -59,7 +59,7 @@ in different T-cell clusters.<br />
     The parameters for `png()`
     - `res` *(`type=int`)*: *Default: `100`*. <br />
         The resolution of the plot
-    - `height` *(`type=int`)*: *Default: `1200`*. <br />
+    - `height` *(`type=int`)*: *Default: `1000`*. <br />
         The height of the plot
     - `width` *(`type=int`)*: *Default: `1200`*. <br />
         The width of the plot

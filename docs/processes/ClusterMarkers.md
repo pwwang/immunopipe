@@ -35,13 +35,15 @@ you may see the other environment variables of this process are hidden and reado
     The dbs to do enrichment analysis for significant
     markers See below for all libraries.<br />
     <https://maayanlab.cloud/Enrichr/#libraries>
-- `sigmarkers`: *Default: `p_val_adj < 0.05`*. <br />
+- `sigmarkers`: *Default: `p_val_adj < 0.05 & avg_log2FC > 0`*. <br />
     An expression passed to `dplyr::filter()` to filter the
     significant markers for enrichment analysis.<br />
     Available variables are `p_val`, `avg_log2FC`, `pct.1`, `pct.2` and
     `p_val_adj`. For example, `"p_val_adj < 0.05 & abs(avg_log2FC) > 1"`
     to select markers with adjusted p-value < 0.05 and absolute log2
     fold change > 1.<br />
+- `assay`:
+    The assay to use.<br />
 - `volcano_genes` *(`type=auto`)*: *Default: `True`*. <br />
     The genes to label in the volcano plot if they are
     significant markers.<br />
@@ -49,10 +51,30 @@ you may see the other environment variables of this process are hidden and reado
     genes will be labeled. Otherwise, specify the genes to label.<br />
     It could be either a string with comma separated genes, or a list
     of genes.<br />
+- `subset`:
+    An expression to subset the cells for each case.<br />
 - `rest` *(`ns`)*:
     Rest arguments for `Seurat::FindMarkers()`.<br />
     Use `-` to replace `.` in the argument name. For example,
     use `min-pct` instead of `min.pct`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findmarkers>
+- `dotplot` *(`ns`)*:
+    Arguments for `Seurat::DotPlot()`.<br />
+    Use `-` to replace `.` in the argument name. For example,
+    use `group-bar` instead of `group.bar`.<br />
+    Note that `object`, `features`, and `group-by` are already specified
+    by this process. So you don't need to specify them here.<br />
+    - `devpars` *(`ns`)*:
+        The device parameters for the plots.<br />
+        - `res` *(`type=int`)*:
+            The resolution of the plots.<br />
+        - `height` *(`type=int`)*:
+            The height of the plots.<br />
+        - `width` *(`type=int`)*:
+            The width of the plots.<br />
+    - `<more>`:
+        See <https://satijalab.org/seurat/reference/doheatmap>
+- `overlap` *(`list`)*: *Default: `[]`*. <br />
+    The sections to do overlap analysis.<br />
 
