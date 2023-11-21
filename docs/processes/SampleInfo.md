@@ -36,10 +36,6 @@ They are used to specify the paths of the `scRNA-seq` and `scTCR-seq` data, resp
 You may also perform some statistics on the sample information, for example,
 number of samples per group. See next section for details.<br />
 
-/// Tip | New in `0.7.0`
-Performing statistics on the sample information is added in `0.7.0`.<br />
-///
-
 /// Tip
 This is the start process of the pipeline. Once you change the parameters for
 this process, the whole pipeline will be re-run.<br />

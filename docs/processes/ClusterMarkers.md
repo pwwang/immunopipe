@@ -2,10 +2,6 @@
 
 Markers for clusters of T cells.
 
-/// Attention | Changed in 0.7.0
-`MarkersForClustersOfTCells` is renamed to `ClusterMarkers` since `0.7.0`.<br />
-///
-
 This process is extended from [`MarkersFinder`](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder)
 from the [`biopipen`](https://pwwang.github.io/biopipen) package.<br />
 `MarkersFinder` is a `pipen` process that wraps the

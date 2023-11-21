@@ -1,5 +1,28 @@
 # Change Log
 
+## 0.10.0
+
+- docker: lock r-matrix version to 1.6_1 for compatibility
+- docs: adopt mkdocs-rtd 0.0.10 (add scrollbar to the table of contents)
+- deps: bump biopipen to 0.21.1
+  - use `r-logger` for logging in R scripts
+  - docs: fix internal references in API docs
+  - deps: bump pipen-board to 0.13.6
+  - SampleInfo: refactor data subset logic using `subset` instead of `distinct`
+  - Immunarch: add `in.metafile` to allow other meta info (i.e. seurat clusters) for future subsetting (#22)
+  - Immunarch: fix empty groups in diversity plot after subsetting
+  - Immunarch: allow `subset` to subset cells for analyses
+  - Immunarch: allow `separate_by` also works on other diversity plots
+  - Immunarch: add `ymin` and `ymax` to align diversity plots by `separate_by`
+  - Immunarch: add `ncol` to specify # columns in the combined plots
+  - RadarPlots: fix `envs.order` not working
+  - MarkersFinder: add `overlap` to find overlapping markers between cases (#24)
+  - MarkersFinder: allow `subset` to subset cells for analyses
+  - MarkersFinder: add dot plots for significant markers
+  - CellsDistribution: allow multiple columns for `cells_by`
+  - CellsDistribution: allow `subset` to subset cells for analyses
+  - utils.mutate_helpers.R: add `include_emerged` for `expanded()` and `include_vanished` for `collapsed()`
+
 ## 0.9.3
 
 - deps: Bump biopipen to 0.20.7

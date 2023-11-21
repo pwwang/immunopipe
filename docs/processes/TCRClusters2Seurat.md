@@ -18,10 +18,6 @@ and `TCR_Cluster_Size1`. The `TCR_Cluster_Size` column contains the number of
 cells in each cluster, while the `TCR_Cluster_Size1` column contains the
 number of unique CDR3 sequences in each cluster.<br />
 
-/// Tip | New in `0.7.0`
-`TCR_Cluster_Size` and `TCR_Cluster_Size1` are added in `0.7.0`.<br />
-///
-
 Those columns can be then used for further downstream analysis. For example,
 you can find the markers for the TCR cluster (i.e. `S_1` vs `S_2`) in
 each seurat cluster by

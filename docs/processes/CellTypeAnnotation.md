@@ -2,11 +2,6 @@
 
 Annotate the T cell clusters.
 
-/// Attention | Changed in 0.7.0
-Metadata column `seurat_clusters_old1` is changed to `seurat_clusters_id` to save
-old `seurat_clusters`.<br />
-///
-
 Annotate the cell clusters. Currently, four ways are supported:<br />
 
 1. Pass the cell type annotation directly
@@ -22,8 +17,14 @@ The old `seurat_clusters` column will be renamed to `seurat_clusters_old`.<br />
 If you are using `ScType`, `scCATCH`, or `hitype`, a text file containing the mapping from
 the old `seurat_clusters` to the new cell types will be generated and saved to
 `cluster2celltype.tsv` under `<workdir>/<pipline_name>/CellTypeAnnotation/0/output/`.<br />
+
 The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
 by default.<br />
+
+/// Note
+When cell types are annotated, the old `seurat_clusters` column will be renamed
+to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br />
+///
 
 ## Environment Variables
 

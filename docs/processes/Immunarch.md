@@ -8,6 +8,8 @@ Exploration of Single-cell and Bulk T-cell/Antibody Immune Repertoires
 
 Seurat clustering information and other information are added at cell level, which
 can be used to subset the cells for listed analyses.<br />
+
+You can now use `subset` to subset the cells for listed analyses, at cell level.<br />
 ///
 
 See <https://immunarch.com/articles/web_only/v3_basic_analysis.html>
