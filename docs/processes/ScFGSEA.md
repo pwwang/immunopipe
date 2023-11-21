@@ -24,24 +24,30 @@ each gene set, and GSEA plots for the top gene sets.<br />
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
     The mutaters to mutate the metadata.<br />
     The key-value pairs will be passed the `dplyr::mutate()` to mutate the metadata.<br />
-    There are also also 4 helper functions, `expanded`, `collapsed`, `emerged` and `vanished`, that can be used to identify the expanded/collpased/emerged/vanished groups (i.e. TCR clones).<br />
-    For example, you can use `{"Patient1_Tumor_Collapsed_Clones": "expanded(., Source, 'Tumor', subset = Patent == 'Patient1')"}`
+    There are also also 4 helper functions, `expanded`, `collapsed`, `emerged` and `vanished`,
+    which can be used to identify the expanded/collpased/emerged/vanished groups (i.e. TCR clones).<br />
+    For example, you can use
+    `{"Patient1_Tumor_Collapsed_Clones": "expanded(., Source, 'Tumor', subset = Patent == 'Patient1', uniq = FALSE)"}`
     to create a new column in metadata named `Patient1_Tumor_Collapsed_Clones`
-    with the collapsed clones in the tumor sample (compared to the normal sample) of patient 1. The values in this columns for other clones will be `NA`.<br />
+    with the collapsed clones in the tumor sample (compared to the normal sample) of patient 1.<br />
+    The values in this columns for other clones will be `NA`.<br />
     Those functions take following arguments:<br />
     * `df`: The metadata data frame. You can use the `.` to refer to it.<br />
     * `group-by`: The column name in metadata to group the cells.<br />
     * `idents`: The first group or both groups of cells to compare (value in `group-by` column). If only the first group is given, the rest of the cells (with non-NA in `group-by` column) will be used as the second group.<br />
     * `subset`: An expression to subset the cells, will be passed to `dplyr::filter()`. Default is `TRUE` (no filtering).<br />
-    * `id`: The column name in metadata for the group ids (i.e. `CDR3.aa`)
+    * `id`: The column name in metadata for the group ids (i.e. `CDR3.aa`).<br />
     * `compare`: Either a (numeric) column name (i.e. `Clones`) in metadata to compare between groups, or `.n` to compare the number of cells in each group.<br />
+    If numeric column is given, the values should be the same for all cells in the same group.<br />
+    This will not be checked (only the first value is used).<br />
     * `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df |> mutate(expanded = expanded(...))`.<br />
     * `order`: The order of the returned ids. It could be `sum` or `diff`, which is the sum or diff of the `compare` between idents.<br />
     Two kinds of modifiers can be added, including `desc` and `abs`.<br />
     For example, `sum,desc` means the sum of `compare` between idents in descending order.<br />
     Default is `diff,abs,desc`. It only works when `uniq` is `TRUE`. If `uniq` is `FALSE`, the returned
     ids will be in the same order as in `df`.<br />
-    Note that the numeric column should be the same for all cells in the same group. This will not be checked (only the first value is used).<br />
+    * `include_emerged`: Whether to include the emerged group for `expanded` (only works for `expanded`). Default is `FALSE`.<br />
+    * `include_vanished`: Whether to include the vanished group for `collapsed` (only works for `collapsed`). Default is `FALSE`.<br />
 - `group-by`:
     The column name in metadata to group the cells.<br />
 - `ident-1`:

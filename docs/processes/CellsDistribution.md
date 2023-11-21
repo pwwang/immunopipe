@@ -12,10 +12,13 @@ are groups (i.e. clinic groups).<br />
     The mutaters to mutate the metadata
     Keys are the names of the mutaters and values are the R expressions
     passed by `dplyr::mutate()` to mutate the metadata.<br />
-    There are also also 4 helper functions, `expanded`, `collapsed`, `emerged` and `vanished`, that can be used to identify the expanded/collpased/emerged/vanished groups (i.e. TCR clones).<br />
-    For example, you can use `{"Patient1_Tumor_Collapsed_Clones": "expanded(., Source, 'Tumor', subset = Patent == 'Patient1')"}`
+    There are also also 4 helper functions, `expanded`, `collapsed`, `emerged` and `vanished`,
+    which can be used to identify the expanded/collpased/emerged/vanished groups (i.e. TCR clones).<br />
+    For example, you can use
+    `{"Patient1_Tumor_Collapsed_Clones": "expanded(., Source, 'Tumor', subset = Patent == 'Patient1', uniq = FALSE)"}`
     to create a new column in metadata named `Patient1_Tumor_Collapsed_Clones`
-    with the collapsed clones in the tumor sample (compared to the normal sample) of patient 1. The values in this columns for other clones will be `NA`.<br />
+    with the collapsed clones in the tumor sample (compared to the normal sample) of patient 1.<br />
+    The values in this columns for other clones will be `NA`.<br />
     Those functions take following arguments:<br />
     * `df`: The metadata data frame. You can use the `.` to refer to it.<br />
     * `group-by`: The column name in metadata to group the cells.<br />
@@ -23,24 +26,33 @@ are groups (i.e. clinic groups).<br />
     * `subset`: An expression to subset the cells, will be passed to `dplyr::filter()`. Default is `TRUE` (no filtering).<br />
     * `id`: The column name in metadata for the group ids (i.e. `CDR3.aa`).<br />
     * `compare`: Either a (numeric) column name (i.e. `Clones`) in metadata to compare between groups, or `.n` to compare the number of cells in each group.<br />
+    If numeric column is given, the values should be the same for all cells in the same group.<br />
+    This will not be checked (only the first value is used).<br />
     * `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df |> mutate(expanded = expanded(...))`.<br />
     * `order`: The order of the returned ids. It could be `sum` or `diff`, which is the sum or diff of the `compare` between idents.<br />
     Two kinds of modifiers can be added, including `desc` and `abs`.<br />
     For example, `sum,desc` means the sum of `compare` between idents in descending order.<br />
     Default is `diff,abs,desc`. It only works when `uniq` is `TRUE`. If `uniq` is `FALSE`, the returned
     ids will be in the same order as in `df`.<br />
-    Note that the numeric column should be the same for all cells in the same group. This will not be checked (only the first value is used).<br />
+    * `include_emerged`: Whether to include the emerged group for `expanded` (only works for `expanded`). Default is `FALSE`.<br />
+    * `include_vanished`: Whether to include the vanished group for `collapsed` (only works for `collapsed`). Default is `FALSE`.<br />
 - `group_by`:
     The column name in metadata to group the cells for the columns of the plot.<br />
 - `group_order` *(`list`)*: *Default: `[]`*. <br />
     The order of the groups (columns) to show on the plot
 - `cells_by`:
     The column name in metadata to group the cells for the rows of the plot.<br />
+    If your cell groups have overlapping cells, you can also use multiple columns, separated by comma (`,`).<br />
+    These columns will be concatenated to form the cell groups. For the overlapping cells, they will be
+    counted multiple times for different groups. So make sure the cell group names in different columns
+    are unique.<br />
 - `cells_order` *(`list`)*: *Default: `[]`*. <br />
     The order of the cells (rows) to show on the plot
 - `cells_orderby`:
     An expression passed to `dplyr::arrange()` to order the cells (rows) of the plot.<br />
     Only works when `cells-order` is not specified.<br />
+    The data frame passed to `dplyr::arrange()` is grouped by `cells_by` before ordering.<br />
+    You can have multiple expressions separated by semicolon (`;`). The expessions will be parsed by `rlang::parse_exprs()`.<br />
     4 extra columns were added to the metadata for ordering the rows in the plot:<br />
     * `CloneSize`: The size (number of cells) of clones (identified by `cells_by`)
     * `CloneGroupSize`: The clone size in each group (identified by `group_by`)
@@ -49,6 +61,9 @@ are groups (i.e. clinic groups).<br />
 - `cells_n` *(`type=int`)*: *Default: `10`*. <br />
     The max number of groups to show for each cell group identity (row).<br />
     Ignored if `cells_order` is specified.<br />
+- `subset`:
+    An expression to subset the cells, will be passed to `dplyr::filter()` on metadata.<br />
+    This will be applied prior to `each`.<br />
 - `devpars` *(`ns`)*:
     The device parameters for the plots.<br />
     - `res` *(`type=int`)*:
@@ -62,6 +77,9 @@ are groups (i.e. clinic groups).<br />
 - `section`: *Default: `DEFAULT`*. <br />
     The section to show in the report. This allows different cases to be put in the same section in report.<br />
     Only works when `each` is not specified.<br />
+- `overlap` *(`list`)*: *Default: `[]`*. <br />
+    Plot the overlap of cells in different cases under the same section.<br />
+    The section must have at least 2 cases.<br />
 - `cases` *(`type=json;order=99`)*: *Default: `{}`*. <br />
     If you have multiple cases, you can specify them here.<br />
     Keys are the names of the cases and values are the options above except `mutaters`.<br />

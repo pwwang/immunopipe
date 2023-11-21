@@ -2,6 +2,16 @@
 
 Exploration of Single-cell and Bulk T-cell/Antibody Immune Repertoires
 
+
+/// Tip | Changed in `0.10.0`
+`envs.mutaters` are now applied at cell level.<br />
+
+Seurat clustering information and other information are added at cell level, which
+can be used to subset the cells for listed analyses.<br />
+
+You can now use `subset` to subset the cells for listed analyses, at cell level.<br />
+///
+
 See <https://immunarch.com/articles/web_only/v3_basic_analysis.html>
 
 After [`ImmunarchLoading`](./ImmunarchLoading.md) loads the raw data into an [immunarch](https://immunarch.com) object,
@@ -20,9 +30,14 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
 ## Environment Variables
 
 - `mutaters` *(`type=json;order=-9`)*: *Default: `{}`*. <br />
-    The mutaters passed to `dplyr::mutate()` on `immdata$meta` to add new columns.<br />
+    The mutaters passed to `dplyr::mutate()` on expanded cell-level data
+    to add new columns.<br />
     The keys will be the names of the columns, and the values will be the expressions.<br />
     The new names can be used in `volumes`, `lens`, `counts`, `top_clones`, `rare_clones`, `hom_clones`, `gene_usages`, `divs`, etc.<br />
+- `prefix`: *Default: `{Sample}_`*. <br />
+    The prefix to the barcodes. You can use placeholder like `{Sample}_`
+    The prefixed barcodes will be used to match the barcodes in `in.metafile`.<br />
+    Not used if `in.metafile` is not specified.<br />
 - `volumes` *(`ns`)*:
     Explore clonotype volume (sizes).<br />
     - `by`:
@@ -36,6 +51,10 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
             The height of the plot.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
             The resolution of the plot.<br />
+    - `subset`:
+        Subset the data before calculating the clonotype volumes.<br />
+        The whole data will be expanded to cell level, and then subsetted.<br />
+        Clone sizes will be re-calculated based on the subsetted data.<br />
     - `cases` *(`type=json;order=9`)*: *Default: `{}`*. <br />
         If you have multiple cases, you can use this argument to specify them.<br />
         The keys will be the names of the cases.<br />
@@ -56,6 +75,10 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
             The height of the plot.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
             The resolution of the plot.<br />
+    - `subset`:
+        Subset the data before calculating the clonotype volumes.<br />
+        The whole data will be expanded to cell level, and then subsetted.<br />
+        Clone sizes will be re-calculated based on the subsetted data.<br />
     - `cases` *(`type=json;order=9`)*: *Default: `{}`*. <br />
         If you have multiple cases, you can use this argument to specify them.<br />
         The keys will be the names of the cases.<br />
@@ -76,6 +99,10 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
             The height of the plot.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
             The resolution of the plot.<br />
+    - `subset`:
+        Subset the data before calculating the clonotype volumes.<br />
+        The whole data will be expanded to cell level, and then subsetted.<br />
+        Clone sizes will be re-calculated based on the subsetted data.<br />
     - `cases` *(`type=json;order=9`)*: *Default: `{}`*. <br />
         If you have multiple cases, you can use this argument to specify them.<br />
         The keys will be the names of the cases.<br />
@@ -98,6 +125,10 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
             The height of the plot.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
             The resolution of the plot.<br />
+    - `subset`:
+        Subset the data before calculating the clonotype volumes.<br />
+        The whole data will be expanded to cell level, and then subsetted.<br />
+        Clone sizes will be re-calculated based on the subsetted data.<br />
     - `cases` *(`type=json;order=9`)*: *Default: `{}`*. <br />
         If you have multiple cases, you can use this argument to specify them.<br />
         The keys will be the names of the cases.<br />
@@ -121,6 +152,10 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
             The height of the plot.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
             The resolution of the plot.<br />
+    - `subset`:
+        Subset the data before calculating the clonotype volumes.<br />
+        The whole data will be expanded to cell level, and then subsetted.<br />
+        Clone sizes will be re-calculated based on the subsetted data.<br />
     - `cases` *(`type=json;order=9`)*: *Default: `{}`*. <br />
         If you have multiple cases, you can use this argument to specify them.<br />
         The keys will be the names of the cases.<br />
@@ -147,6 +182,10 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
             the large clonotypes
         - `Hyperexpanded` *(`type=float`)*: *Default: `1.0`*. <br />
             the hyperexpanded clonotypes
+    - `subset`:
+        Subset the data before calculating the clonotype volumes.<br />
+        The whole data will be expanded to cell level, and then subsetted.<br />
+        Clone sizes will be re-calculated based on the subsetted data.<br />
     - `devpars` *(`ns`)*:
         The parameters for the plotting device.<br />
         - `width` *(`type=int`)*: *Default: `1000`*. <br />
@@ -185,6 +224,10 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
             incremental overlaps of the N most abundant clonotypes with incrementally growing N using the public method.<br />
         - `inc+morisita`:
             incremental overlaps of the N most abundant clonotypes with incrementally growing N using the morisita method.<br />
+    - `subset`:
+        Subset the data before calculating the clonotype volumes.<br />
+        The whole data will be expanded to cell level, and then subsetted.<br />
+        Clone sizes will be re-calculated based on the subsetted data.<br />
     - `vis_args` *(`type=json`)*: *Default: `{}`*. <br />
         Other arguments for the plotting functions `vis(imm_ov, ...)`.<br />
     - `devpars` *(`ns`)*:
@@ -247,6 +290,10 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
             The height of the plot.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
             The resolution of the plot.<br />
+    - `subset`:
+        Subset the data before calculating the clonotype volumes.<br />
+        The whole data will be expanded to cell level, and then subsetted.<br />
+        Clone sizes will be re-calculated based on the subsetted data.<br />
     - `analyses` *(`ns;order=8`)*:
         Perform gene usage analyses.<br />
         - `method`: *Default: `none`*. <br />
@@ -293,6 +340,10 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
         E.g., pass "aa+v" for spectratyping on CDR3 amino acid sequences paired with V gene segments,
         i.e., in this case a unique clonotype is a pair of CDR3 amino acid and V gene segment.<br />
         Clonal counts of equal clonotypes will be summed up.<br />
+    - `subset`:
+        Subset the data before calculating the clonotype volumes.<br />
+        The whole data will be expanded to cell level, and then subsetted.<br />
+        Clone sizes will be re-calculated based on the subsetted data.<br />
     - `devpars` *(`ns`)*:
         The parameters for the plotting device.<br />
         - `width` *(`type=int`)*: *Default: `1000`*. <br />
@@ -310,13 +361,6 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
         a `By_Num_Clones` case will be added, with the values of `quant = "count"` and `col = "aa+v"`.<br />
 - `divs` *(`ns`)*:
     Parameters to control the diversity analysis.<br />
-    - `filter`:
-        The filter passed to `dplyr::filter()` to filter the data for each sample before calculating diversity.<br />
-        For example, `Clones > 1` to filter out singletons.<br />
-        To check which columns are available, use `immdata$data[[1]] |> colnames()` in R.<br />
-        You may also check quickly here:<br />
-        <https://immunarch.com/articles/v2_data.html#basic-data-manipulations-with-dplyr-and-immunarch>.<br />
-        To use the top 10 clones, you can try `rank(desc(Clones)) <= 10`
     - `method` *(`choice`)*: *Default: `gini`*. <br />
         The method to calculate diversity.<br />
         - `chao1`:
@@ -353,6 +397,10 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
     - `by`:
         The variables (column names) to group samples.<br />
         Multiple columns should be separated by `,`.<br />
+    - `subset`:
+        Subset the data before calculating the clonotype volumes.<br />
+        The whole data will be expanded to cell level, and then subsetted.<br />
+        Clone sizes will be re-calculated based on the subsetted data.<br />
     - `args` *(`type=json`)*: *Default: `{}`*. <br />
         Other arguments for `repDiversity()`.<br />
         Do not include the preceding `.` and use `-` instead of `.` in the argument names.<br />
@@ -393,13 +441,24 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
             - `none`:
                 no correction.<br />
     - `separate_by`:
-        A column name used to separate the samples into different plots. Only works for `raref`.<br />
+        A column name used to separate the samples into different plots.<br />
     - `align_x` *(`flag`)*: *Default: `False`*. <br />
         Align the x-axis of multiple plots. Only works for `raref`.<br />
     - `align_y` *(`flag`)*: *Default: `False`*. <br />
-        Align the y-axis of multiple plots. Only works for `raref`.<br />
+        Align the y-axis of multiple plots.<br />
+    - `ymin` *(`type=float`)*:
+        The minimum value of the y-axis.<br />
+        The minimum value of the y-axis for plots splitting by `separate_by`.<br />
+        `align_y` is forced `True` when both `ymin` and `ymax` are specified.<br />
+    - `ymax` *(`type=float`)*:
+        The maximum value of the y-axis.<br />
+        The maximum value of the y-axis for plots splitting by `separate_by`.<br />
+        `align_y` is forced `True` when both `ymin` and `ymax` are specified.<br />
+        Works when both `ymin` and `ymax` are specified.<br />
     - `log` *(`flag`)*: *Default: `False`*. <br />
         Indicate whether we should plot with log-transformed x-axis using `vis(.log = TRUE)`. Only works for `raref`.<br />
+    - `ncol` *(`type=int`)*: *Default: `2`*. <br />
+        The number of columns of the plots.<br />
     - `devpars` *(`ns`)*:
         The parameters for the plotting device.<br />
         - `width` *(`type=int`)*: *Default: `1000`*. <br />
@@ -414,6 +473,7 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
         The values will be passed to the corresponding arguments above.<br />
         If NO cases are specified, the default case will be added, with the name of `envs.div.method`.<br />
         The values specified in `envs.div` will be used as the defaults for the cases here.<br />
+    - `filter`:
 - `trackings` *(`ns`)*:
     Parameters to control the clonotype tracking analysis.<br />
     - `targets`:
@@ -422,6 +482,10 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
         The column name in meta data that contains the subjects/samples on the x-axis of the alluvial plot.<br />
         If the values in this column are not unique, the values will be merged with the values in `subject_col` to form the x-axis.<br />
         This defaults to `Sample`.<br />
+    - `subset`:
+        Subset the data before calculating the clonotype volumes.<br />
+        The whole data will be expanded to cell level, and then subsetted.<br />
+        Clone sizes will be re-calculated based on the subsetted data.<br />
     - `subjects` *(`list`)*: *Default: `[]`*. <br />
         A list of values from `subject_col` to show in the alluvial plot on the x-axis.<br />
         If not specified, all values in `subject_col` will be used.<br />
@@ -449,6 +513,10 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
             The height of the plot.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
             The resolution of the plot.<br />
+    - `subset`:
+        Subset the data before calculating the clonotype volumes.<br />
+        The whole data will be expanded to cell level, and then subsetted.<br />
+        Clone sizes will be re-calculated based on the subsetted data.<br />
     - `profiles` *(`ns;order=8`)*:
         Arguments for sequence profilings.<br />
         - `method` *(`choice`)*: *Default: `self`*. <br />
@@ -524,7 +592,7 @@ method = "jaccard"
 vis_args = { "-plot": "heatmap2" }
 ```
 
-`-plot` will be translated to `.plot` and then passed to `vis`. See also [Namespace and Environment Variables](../configurations.md#namespace-environment-variables).<br />
+`-plot` will be translated to `.plot` and then passed to `vis`.<br />
 
 If multiple cases share the same arguments, we can use the following configuration:<br />
 

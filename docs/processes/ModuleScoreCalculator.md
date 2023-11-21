@@ -2,9 +2,6 @@
 
 Calculate the module scores for each cell
 
-/// Tip | `ModuleScoreCalculator` is added in `0.7.0`
-///
-
 The module scores are calculated by
 [`Seurat::AddModuleScore()`](https://satijalab.org/seurat/reference/addmodulescore)
 or [`Seurat::CellCycleScoring()`](https://satijalab.org/seurat/reference/cellcyclescoring)

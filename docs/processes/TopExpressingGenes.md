@@ -2,10 +2,6 @@
 
 Top expressing genes for clusters of T cells.
 
-/// Attention | Changed in 0.7.0
-`TopExpressingGenesOfTCells` is renamed to `TopExpressingGenes` since `0.7.0`.<br />
-///
-
 
 
 This process finds the top expressing genes of clusters of T cells, and also

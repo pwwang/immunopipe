@@ -36,10 +36,6 @@ They are used to specify the paths of the `scRNA-seq` and `scTCR-seq` data, resp
 You may also perform some statistics on the sample information, for example,
 number of samples per group. See next section for details.<br />
 
-/// Tip | New in `0.7.0`
-Performing statistics on the sample information is added in `0.7.0`.<br />
-///
-
 /// Tip
 This is the start process of the pipeline. Once you change the parameters for
 this process, the whole pipeline will be re-run.<br />
@@ -93,11 +89,11 @@ cache = false
     The default parameters for `envs.stats`.<br />
     - `on`: *Default: `Sample`*. <br />
         The column name in the data for the stats.<br />
-        Default is `Sample`.<br />
-        If there are duplicated values in `on`, and you want to do stats
-        on the unique values, you can use `distinct:`/`unique:` prefix.<br />
-        For example, `distinct:Patient` will keep only the first
-        duplicated value in `Patient` and do stats on the unique values.<br />
+        Default is `Sample`. The column could be either continuous or not.<br />
+    - `subset`:
+        An R expression to subset the data.<br />
+        If you want to keep the distinct records, you can use
+        `!duplicated(<col>)`.<br />
     - `group`:
         The column name in the data for the group ids.<br />
         If not provided, all records will be regarded as one group.<br />
@@ -124,6 +120,7 @@ cache = false
             The height of the plot.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
             The resolution of the plot.<br />
+    - `distinct`:
 - `stats` *(`type=json`)*: *Default: `{}`*. <br />
     The statistics to perform.<br />
     The keys are the case names and the values are the parameters

@@ -2,9 +2,6 @@
 
 Tessa is a Bayesian model to integrate T cell receptor (TCR) sequence profiling with transcriptomes of T cells.
 
-/// Tip | `TESSA` is added in `0.8.0`
-///
-
 Enabled by the recently developed single cell sequencing techniques, which provide
 both TCR sequences and RNA sequences of each T cell concurrently, Tessa maps the
 functional landscape of the TCR repertoire, and generates insights into

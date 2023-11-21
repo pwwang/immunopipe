@@ -84,10 +84,6 @@ class SampleInfo(SampleInfo_):
     You may also perform some statistics on the sample information, for example,
     number of samples per group. See next section for details.
 
-    /// Tip | New in `0.7.0`
-    Performing statistics on the sample information is added in `0.7.0`.
-    ///
-
     /// Tip
     This is the start process of the pipeline. Once you change the parameters for
     this process, the whole pipeline will be re-run.
@@ -184,12 +180,11 @@ class ImmunarchLoading(ImmunarchLoading_):
     requires = SampleInfo
 
 
-class Immunarch(Immunarch_):
-    requires = ImmunarchLoading
-
-
 @mark(board_config_hidden=True)
+@annotate.format_doc(indent=1)
 class Immunarch2VDJtools(Immunarch2VDJtools_):
+    """{{Summary | str | replace: '!!#biopipennstcrvjusage', './VJUsage.md'}}
+    """
     requires = ImmunarchLoading
     plugin_opts = {"args_hide": True}
 
@@ -213,15 +208,8 @@ class SeuratPreparing(SeuratPreparing_):
 if "ModuleScoreCalculator" in config or just_loading:
     # Define the process first.
     # We need to setup the connections later
-    @annotate.format_doc(indent=2)
     class ModuleScoreCalculator(ModuleScoreCalculator_):
-        """{{Summary.short}}
-
-        /// Tip | `ModuleScoreCalculator` is added in `0.7.0`
-        ///
-
-        {{*Summary.long}}
-        """
+        ...
 
     if "TCellSelection" not in config and not just_loading:
         ModuleScoreCalculator.requires = SeuratPreparing
@@ -331,14 +319,15 @@ else:
 class CellTypeAnnotation(CellTypeAnnotation_):
     """Annotate the T cell clusters.
 
-    /// Attention | Changed in 0.7.0
-    Metadata column `seurat_clusters_old1` is changed to `seurat_clusters_id` to save
-    old `seurat_clusters`.
-    ///
-
     {{*Summary}}
+
     The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
     by default.
+
+    /// Note
+    When cell types are annotated, the old `seurat_clusters` column will be renamed
+    to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.
+    ///
     """
     requires = SeuratClusteringOfTCells
     # Change the default to direct, which doesn't do any annotation
@@ -348,10 +337,6 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 @annotate.format_doc(indent=1)
 class ClusterMarkers(MarkersFinder_):
     """Markers for clusters of T cells.
-
-    /// Attention | Changed in 0.7.0
-    `MarkersForClustersOfTCells` is renamed to `ClusterMarkers` since `0.7.0`.
-    ///
 
     This process is extended from [`MarkersFinder`](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder)
     from the [`biopipen`](https://pwwang.github.io/biopipen) package.
@@ -394,10 +379,6 @@ class ClusterMarkers(MarkersFinder_):
 class TopExpressingGenes(TopExpressingGenes_):
     """Top expressing genes for clusters of T cells.
 
-    /// Attention | Changed in 0.7.0
-    `TopExpressingGenesOfTCells` is renamed to `TopExpressingGenes` since `0.7.0`.
-    ///
-
     {{*Summary.long}}
 
     This process finds the top expressing genes of clusters of T cells, and also
@@ -434,12 +415,7 @@ class TopExpressingGenes(TopExpressingGenes_):
 if "TESSA" in config or just_loading:
     @annotate.format_doc(indent=2)
     class TESSA(TESSA_):
-        """{{Summary.short}}
-
-        /// Tip | `TESSA` is added in `0.8.0`
-        ///
-
-        {{*Summary.long}}
+        """{{Summary}}
 
         /// Note
         The dependencies of TESSA are not included in the docker image of immunopipe
@@ -475,13 +451,13 @@ class SeuratMetadataMutater(SeuratMetadataMutater_):
     You may also use `envs.mutaters` to add new columns to the metadata.
     These columns can be used for downstream analysis.
     An additional column `TCR_Presence` is added so later on we can overlay the
-    TCR presence on the UMAP plot in [`SeuratClustering`](./SeuratClustering.md)
-    process.
+    TCR presence on the UMAP plot in
+    [`SeuratClusteringOfTCells`](./SeuratClusteringOfTCells.md) process.
 
     /// Warning
     If you are modifying `envs.mutaters`, make sure you keep the `TCR_Presence` column.
-    Because by default, `SeuratClustering` process will use this column to overlay
-    the TCR presence on the UMAP plot.
+    Because by default, `SeuratClusteringOfTCells` process will use this column to
+    overlay the TCR presence on the UMAP plot.
     ///
 
     {{*Summary.long}}
@@ -534,10 +510,6 @@ if (
         cells in each cluster, while the `TCR_Cluster_Size1` column contains the
         number of unique CDR3 sequences in each cluster.
 
-        /// Tip | New in `0.7.0`
-        `TCR_Cluster_Size` and `TCR_Cluster_Size1` are added in `0.7.0`.
-        ///
-
         Those columns can be then used for further downstream analysis. For example,
         you can find the markers for the TCR cluster (i.e. `S_1` vs `S_2`) in
         each seurat cluster by
@@ -584,6 +556,29 @@ class SeuratClusterStats(SeuratClusterStats_):
             },
         },
     }
+
+
+@annotate.format_doc(indent=1)
+class Immunarch(Immunarch_):
+    """{{Summary.sort}}
+
+    /// Tip | Changed in `0.10.0`
+    `envs.mutaters` are now applied at cell level.
+
+    Seurat clustering information and other information are added at cell level, which
+    can be used to subset the cells for listed analyses.
+
+    You can now use `subset` to subset the cells for listed analyses, at cell level.
+    ///
+
+    {{*Summary.long | str |
+    replace: '!!#biopipennstcrimmunarchloading', './ImmunarchLoading.md'}}
+    """
+    requires = ImmunarchLoading, TCRClusters2Seurat
+    input_data = lambda ch1, ch2: tibble(
+        immdata=ch1.iloc[:, 0],
+        metafile=ch2.iloc[:, 0],
+    )
 
 
 if "CellsDistribution" in config or just_loading:
@@ -775,3 +770,9 @@ if "ScrnaMetabolicLandscape" in config or just_loading:
     scrna_metabolic_landscape = ScrnaMetabolicLandscape(is_seurat=True)
     scrna_metabolic_landscape.p_input.requires = TCRClusters2Seurat
     scrna_metabolic_landscape.p_input.order = 99
+    scrna_metabolic_landscape.p_features_intra_subset.__doc__ = (
+        scrna_metabolic_landscape.p_features_intra_subset.__doc__.replace(
+            "!!#biopipennsscrna_metabolic_landscapemetabolicfeatures",
+            "./MetabolicFeatures.md",
+        )
+    )

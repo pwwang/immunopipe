@@ -4,7 +4,8 @@ Convert immuarch format into VDJtools input formats.
 
 This process converts the [`immunarch`](https://immunarch.com/) object to the
 [`VDJtools`](https://vdjtools-doc.readthedocs.io/en/master/) input files,
-in order to perform the VJ gene usage analysis by [`VJUsage`](./VJUsage.md) process.<br />
+in order to perform the VJ gene usage analysis by
+[`VJUsage`](./VJUsage.md) process.<br />
 
 This process will generally generate a tab-delimited file for each sample,
 with the following columns.<br />
