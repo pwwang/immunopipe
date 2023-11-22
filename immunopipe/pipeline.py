@@ -13,7 +13,7 @@ class Immunopipe(Pipen):
     starts = [SampleInfo]
     desc = (
         f"Immunopipe v{__version__}: "
-        "integrative analysis for scRNA-seq and scTCR-seq data"
+        "Integrative analysis for scRNA-seq and scTCR-seq data"
     )
 
 
