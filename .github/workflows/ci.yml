@@ -52,6 +52,14 @@ jobs:
           push: true
           file: Dockerfile.full
           tags: justold/immunopipe:${{ github.ref_name }}-full
+      - name: Build and push full
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          pull: false
+          file: Dockerfile.full
+          tags: justold/immunopipe:${{ github.ref_name }}-full
+          build-args: SRC_TAG=${{ github.ref_name }}
 
   pypi:
     needs: build
