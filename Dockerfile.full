@@ -1,4 +1,4 @@
-FROM justold/immunopipe:SRC_TAG
+FROM SRC_IMAGE
 
 # COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
 

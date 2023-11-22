@@ -53,7 +53,7 @@ jobs:
           pull: false
           file: Dockerfile.full
           tags: justold/immunopipe:${{ github.ref_name }}-full
-          build-args: SRC_TAG=${{ github.ref_name }}
+          build-context: SRC_IMAGE=justold/immunopipe:${{ github.ref_name }}
 
   pypi:
     needs: build
