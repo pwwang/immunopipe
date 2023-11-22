@@ -1,4 +1,4 @@
-FROM SRC_IMAGE
+FROM src_image
 
 # COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
 
