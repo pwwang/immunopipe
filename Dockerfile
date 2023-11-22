@@ -10,7 +10,8 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 WORKDIR /data
 WORKDIR /immunopipe
-RUN python -m pip install -U poetry && \
+RUN fc-cache -f -v && \
+    python -m pip install -U poetry && \
     python -m poetry config virtualenvs.create false && \
     python -m poetry install -v -E runinfo -E diagram && \
     pipen report update

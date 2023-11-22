@@ -11,7 +11,10 @@ from .processes import SampleInfo
 class Immunopipe(Pipen):
     """The pipeline class"""
     starts = [SampleInfo]
-    desc = "A pipeline for integrative analysis for scTCR- and scRNA-seq data"
+    desc = (
+        f"Immunopipe v{__version__}: "
+        "Integrative analysis for scRNA-seq and scTCR-seq data"
+    )
 
 
 def main():

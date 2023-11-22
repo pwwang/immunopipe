@@ -21,7 +21,7 @@ jobs:
           poetry config virtualenvs.create false
           poetry install -v
       - name: Test if immunopipe can run
-        run: immunopipe --help+ 2>&1 | grep "A pipeline for"
+        run: immunopipe --help+ 2>&1 | grep "Integrative analysis for scRNA-seq and scTCR-seq data"
       - name: Print help message
         run: immunopipe --help+ 2>&1
         if: failure()
@@ -44,14 +44,39 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
+          # load: true
           push: true
           tags: justold/immunopipe:${{ github.ref_name }}
+      # - name: Slim image
+      #   uses: kitabisa/docker-slim-action@v1
+      #   env:
+      #     DSLIM_HTTP_PROBE: false
+      #   with:
+      #     target: justold/immunopipe:${{ github.ref_name }}
+      #     overwrite: true
+      # - name: Push slim image
+      #   run: |
+      #     docker push justold/immunopipe:${{ github.ref_name }}
       - name: Build and push full
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           push: true
+          pull: false
+          # load: true
           file: Dockerfile.full
           tags: justold/immunopipe:${{ github.ref_name }}-full
+          build-args: |
+            SRC_IMAGE=justold/immunopipe:${{ github.ref_name }}
+      # - name: Slim full image
+      #   uses: kitabisa/docker-slim-action@v1
+      #   env:
+      #     DSLIM_HTTP_PROBE: false
+      #   with:
+      #     target: justold/immunopipe:${{ github.ref_name }}-full
+      #     overwrite: true
+      # - name: Push slim full image
+      #   run: |
+      #     docker push justold/immunopipe:${{ github.ref_name }}-full
 
   pypi:
     needs: build

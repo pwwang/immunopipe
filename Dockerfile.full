@@ -1,6 +1,7 @@
-FROM mambaorg/micromamba:1.4.3
+ARG SRC_IMAGE=justold/immunopipe:dev
+FROM ${SRC_IMAGE}
 
-COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
+# COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
 
 # Install dependencies and make /data for future mounting
 RUN micromamba install -y -n base -f /immunopipe/docker/environment_full.yml && \
@@ -10,10 +11,11 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 WORKDIR /data
 WORKDIR /immunopipe
-RUN python -m pip install -U poetry && \
-    python -m poetry config virtualenvs.create false && \
-    python -m poetry install -v -E runinfo -E diagram && \
-    pipen report update
+RUN fc-cache -f -v
+# RUN python -m pip install -U poetry && \
+#     python -m poetry config virtualenvs.create false && \
+#     python -m poetry install -v -E runinfo -E diagram && \
+#     pipen report update
 
 WORKDIR /workdir
 ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh", "bash", "/immunopipe/docker/entry.sh" ]
