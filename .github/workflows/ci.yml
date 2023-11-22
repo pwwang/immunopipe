@@ -44,17 +44,29 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          push: true
+          push: false
           tags: justold/immunopipe:${{ github.ref_name }}
+      - uses: kitabisa/docker-slim-action@v1
+        env:
+          DSLIM_HTTP_PROBE: false
+        with:
+          target: justold/immunopipe:${{ github.ref_name }}
+          overwrite: true
       - name: Build and push full
         uses: docker/build-push-action@v5
         with:
-          push: true
+          push: false
           pull: false
           file: Dockerfile.full
           tags: justold/immunopipe:${{ github.ref_name }}-full
           build-args: |
             SRC_IMAGE=justold/immunopipe:${{ github.ref_name }}
+      - uses: kitabisa/docker-slim-action@v1
+        env:
+          DSLIM_HTTP_PROBE: false
+        with:
+          target: justold/immunopipe:${{ github.ref_name }}-full
+          overwrite: true
 
   pypi:
     needs: build
