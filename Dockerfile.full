@@ -1,4 +1,5 @@
-FROM src_image
+ARG SRC_IMAGE=justold/immunopipe:dev
+FROM ${SRC_IMAGE}
 
 # COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
 

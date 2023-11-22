@@ -46,7 +46,6 @@ jobs:
         with:
           push: true
           tags: justold/immunopipe:${{ github.ref_name }}
-          cache-to: type=local,dest=/tmp/.buildx-cache
       - name: Build and push full
         uses: docker/build-push-action@v5
         with:
@@ -54,8 +53,8 @@ jobs:
           pull: false
           file: Dockerfile.full
           tags: justold/immunopipe:${{ github.ref_name }}-full
-          build-contexts: src_image=justold/immunopipe:${{ github.ref_name }}
-          cache-from: type=local,src=/tmp/.buildx-cache
+          build-args: |
+            SRC_IMAGE=justold/immunopipe:${{ github.ref_name }}
 
   pypi:
     needs: build
