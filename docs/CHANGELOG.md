@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.10.1
+
+- chore: update pipeline description to include version in the logs
+- fix: add fc-cache command to Dockerfile to solve `Fontconfig error`
+- docker: optimize building full image based off the base image
+
 ## 0.10.0
 
 - docker: lock r-matrix version to 1.6_1 for compatibility
