@@ -131,8 +131,6 @@ By default, only a subset of processes are enabled. These processes include:
 
 - [`SampleInfo`](processes/SampleInfo.md)
 - [`ImmunarchLoading`](processes/ImmunarchLoading.md)
-- [`Immunarch2VDJtools`](processes/Immunarch2VDJtools.md)
-- [`VJUsage`](processes/VJUsage.md)
 - [`Immunarch`](processes/Immunarch.md)
 - [`SeuratPreparing`](processes/SeuratPreparing.md)
 - [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md)
