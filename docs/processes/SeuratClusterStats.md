@@ -127,6 +127,8 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
         The column name in metadata to split the cells into different plots.<br />
     - `shape-by`:
         The column name in metadata to use as the shape.<br />
+    - `subset`:
+        An expression to subset the cells, will be passed to `tidyrseurat::filter()`.<br />
     - `devpars` *(`ns`)*:
         The device parameters for the plots.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
