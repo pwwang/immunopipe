@@ -16,14 +16,20 @@ of the clusters.<br />
 
 ## Environment Variables
 
-- `tcell_indicator`:
+- `tcell_selector`:
     The expression passed to `tidyseurat::mutate(is_TCell = ...)`
     to indicate whether a cell is a T cell. For example, `Clonotype_Pct > 0.25`
     to indicate cells with clonotype percentage > 25% are T cells.<br />
+    If `indicator_genes` is provided, the expression values can also be used
+    in the expression. For example, `Clonotype_Pct > 0.25 & CD3E > 0`.<br />
+    The expression is first normalized and scaled to have mean 0 and
+    standard deviation 1, and then averaged for each cluster.<br />
+    If not provided, a kmeans clustering will be performed on the expression
+    values of `indicator_genes` and `Clonotype_Pct`, with K=2, and the cluster
+    with higher clonotype percentage will be selected as T cells.<br />
 - `indicator_genes` *(`list`)*: *Default: `['CD3E']`*. <br />
     A list of indicator genes whose expression values and
     clonotype percentage will be used to determine T cells.<br />
-    A kmeans clustering will be performed on those values with K=2.<br />
     The markers could be either positive, such as `CD3E`, `CD3D`, `CD3G`, or
     negative, such as `CD19`, `CD14`, `CD68`.<br />
 
@@ -44,7 +50,7 @@ With the configuration below:<br />
 
 ```toml
 [TCellSelection.envs]
-tcell_indicator = "Clonotype_Pct > 0.25"
+tcell_selector = "Clonotype_Pct > 0.25"
 ```
 
 The T cells will be selected as:<br />
