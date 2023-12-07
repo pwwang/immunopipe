@@ -51,7 +51,7 @@ in different T-cell clusters.<br />
     - `intra-cluster`:
         the percentage of the cells in all clusters.<br />
         (percentage adds up to 1 for each group).<br />
-- `section`:
+- `section`: *Default: `DEFAULT`*. <br />
     If you want to put multiple cases into a same section
     in the report, you can set this option to the name of the section.<br />
     Only used in the report.<br />

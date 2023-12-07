@@ -12,7 +12,7 @@ class Immunopipe(Pipen):
     """The pipeline class"""
     starts = [SampleInfo]
     desc = (
-        f"Immunopipe v{__version__}: "
+        f"Immunopipe (v{__version__}): "
         "Integrative analysis for scRNA-seq and scTCR-seq data"
     )
 
