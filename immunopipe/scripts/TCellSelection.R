@@ -12,6 +12,7 @@ library(patchwork)
 library(factoextra)
 library(logger)
 library(slugify)
+library(glue)
 
 srtfile = {{in.srtobj | quote}}
 immfile = {{in.immdata | quote}}
@@ -23,7 +24,7 @@ tcell_selector = {{envs.tcell_selector | r}}
 
 log_info("Reading data from input files ...")
 sobj = readRDS(srtfile)
-immdata = readRDS(immfile)
+immdata = read.table(immfile, header = TRUE, sep = "\t", stringsAsFactors = FALSE, row.names = 1)
 
 # Cluster   CD3E   ...
 # 0         1.1    ...
@@ -47,12 +48,7 @@ cluster_sizes = table(Idents(sobj))[indicators$Cluster]
 indicators$Cluster_Size = as.numeric(cluster_sizes)
 
 log_info("Fetching clonotype percentage for each cluster ...")
-tcells = c()
-for (sample in names(immdata$data)) {
-    cells = immdata$data[[sample]]$Barcode %>% strsplit(";") %>% unlist()
-    cells = paste(sample, cells, sep="_")
-    tcells = c(tcells, cells)
-}
+tcells = rownames(immdata)
 
 clonotype_pct_ident = function(ident) {
     ident_cells = WhichCells(sobj, idents = ident)
@@ -63,6 +59,20 @@ clonotype_pct_ident = function(ident) {
 clonotype.pct = list()
 for (ident in unique(Idents(sobj))) {
     clonotype.pct[[ident]] = clonotype_pct_ident(ident)
+    if (is.na(clonotype.pct[[ident]])) {
+        clonotype.pct[[ident]] = 0
+    }
+}
+
+if (sum(unlist(clonotype.pct)) == 0) {
+    msg = glue("No clonotype information found in the Seurat object
+
+The barcode information from the Seurat object does not match the barcode information from the scTCR-seq data
+The barcode from scRNA-seq data is like: {rownames(sobj@meta.data)[1]}
+The barcode from scTCR-seq data is like: {tcells[1]}
+
+Have you specified correct `envs.prefix` for `ImmunarchLoading` process?")
+    stop(msg)
 }
 
 # Cluster   CD3E   ...   Clonotype_Pct
