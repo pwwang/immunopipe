@@ -121,13 +121,13 @@ python-simpleconf = ">=0.6,<0.7"
 
 [[package]]
 name = "biopipen"
-version = "0.22.0"
+version = "0.22.1"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "biopipen-0.22.0-py3-none-any.whl", hash = "sha256:3aa8e9364d31618b07bbc9ce95d5c8f3da4afcef79b1080dd4f3631a373cb81f"},
-    {file = "biopipen-0.22.0.tar.gz", hash = "sha256:4833c3eff4bb6212113ad6f390b31f5daf550342023d982346f1313f7a39531f"},
+    {file = "biopipen-0.22.1-py3-none-any.whl", hash = "sha256:bcd0fa217526cb49cc723d5b9c1519f12c5d3cb4336379e3b5f1ee9232c368ba"},
+    {file = "biopipen-0.22.1.tar.gz", hash = "sha256:47722ec20e2b96238ede5fa5f2de61def1ea43d0f1977a5b5df353e6608edf4e"},
 ]
 
 [package.dependencies]
@@ -1952,4 +1952,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "d93b3f776766200effdeddd90046627414d3983946cace144dc3881167a3ec1b"
+content-hash = "d2e68aa31da1237cc94227da7d0eadb1eeeea81f31673d178ad231fd7dcf5cac"
