@@ -271,9 +271,11 @@ if "TopExpressingGenesOfAllCells" in config or just_loading:
 if "TCellSelection" in config or just_loading:
     class TCellSelection(TCellSelection_):
         requires = [SeuratClusteringOfAllCells, ImmunarchLoading]
+        input_data = lambda ch1, ch2: tibble(ch1, ch2.iloc[:, 1])
 
     if "ModuleScoreCalculator" in config or just_loading:
         ModuleScoreCalculator.requires = TCellSelection
+        ModuleScoreCalculator.input_data = lambda ch1: ch1.iloc[:, [0]]
         TCellSelection = ModuleScoreCalculator
 
     @annotate.format_doc(indent=2)
@@ -399,7 +401,7 @@ if "TESSA" in config or just_loading:
         ///
         """
         requires = ImmunarchLoading, CellTypeAnnotation
-        input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 0], ch2)
+        input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 1], ch2)
 
     CellTypeAnnotation = TESSA
 
@@ -437,9 +439,7 @@ class SeuratMetadataMutater(SeuratMetadataMutater_):
     {{*Summary.long}}
     """
     requires = CellTypeAnnotation, ImmunarchLoading
-    input_data = lambda ch1, ch2: tibble(
-        srtobj=ch1.iloc[:, 0], metafile=ch2.metatxt
-    )
+    input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 0], ch2.iloc[:, 1])
     envs = {
         "mutaters": {
             "TCR_Presence": 'if_else(is.na(CDR3.aa), "TCR_absent", "TCR_present")'
@@ -462,6 +462,7 @@ if (
         {{*Summary.long}}
         """
         requires = ImmunarchLoading
+        input_data = lambda ch1: ch1.iloc[:, [0]]
 
     @mark(board_config_hidden=True)
     @annotate.format_doc(indent=2)
@@ -508,6 +509,7 @@ if (
 
     class TCRClusterStats(TCRClusterStats_):
         requires = TCRClustering
+        input_data = lambda ch1: ch1.iloc[:, [0]]
 
 else:
     TCRClusters2Seurat = SeuratMetadataMutater
