@@ -20,6 +20,7 @@
   - see more at https://github.com/pwwang/pipen-report/releases/tag/0.16.0
 - change: remove `Immunarch2VDJtools` and `VJUsage` processes (vj usage analysis can be done in `Immunarch` process)
 - change: change `tcell_indicator` to `tcell_selector` in `TCellSelection` process
+- enhance: provide better error message when none barcode matches from RNA and TCR data for `TCRClustering` process
 - docs: add memory usage reduction tips in FAQ
 - chore: dismiss warnings of wasted input columns for multiple processes
 
