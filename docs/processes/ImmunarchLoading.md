@@ -24,7 +24,9 @@ TCR-seq data into the `Seurat` object for further integrative analysis.<br />
 
 - `prefix`: *Default: `{Sample}_`*. <br />
     The prefix to the barcodes. You can use placeholder like `{Sample}_`
-    to use the meta data from the `immunarch` object.<br />
+    to use the meta data from the `immunarch` object. The prefixed barcodes will
+    be saved in `out.metatxt`. The `immunarch` object keeps the original barcodes, but
+    the prefix is saved at `immdata$prefix`.<br />
 
     /// Note
     This option is useful because the barcodes for the cells from scRNA-seq
@@ -36,15 +38,20 @@ TCR-seq data into the `Seurat` object for further integrative analysis.<br />
     different sources later.<br />
     ///
 
-- `tmpdir`: *Default: `/tmp/m161047`*. <br />
+- `tmpdir`: *Default: `/tmp`*. <br />
     The temporary directory to link all data files.<br />
     `Immunarch` scans a directory to find the data files. If the data files
     are not in the same directory, we can link them to a temporary directory
     and pass the temporary directory to `Immunarch`.<br />
     This option is useful when the data files are in different directories.<br />
-- `metacols` *(`list`)*: *Default: `['Clones', 'Proportion', 'CDR3.aa']`*. <br />
-    The columns to be exported to the text file.<br />
+- `extracols` *(`list`)*: *Default: `[]`*. <br />
+    The extra columns to be exported to the text file.<br />
     You can refer to the
     [immunarch documentation](https://immunarch.com/articles/v2_data.html#immunarch-data-format)
-    for the full list of the columns.<br />
+    to get a sense for the full list of the columns.<br />
+    The columns may vary depending on the data source.<br />
+    The columns from `immdata$meta` and some core columns, including
+    `Barcode`, `CDR3.aa`, `Clones`, `Proportion`, `V.name`, `J.name`, and
+    `D.name` will be exported by default. You can use this option to
+    specify the extra columns to be exported.<br />
 

@@ -34,10 +34,11 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
     to add new columns.<br />
     The keys will be the names of the columns, and the values will be the expressions.<br />
     The new names can be used in `volumes`, `lens`, `counts`, `top_clones`, `rare_clones`, `hom_clones`, `gene_usages`, `divs`, etc.<br />
-- `prefix`: *Default: `{Sample}_`*. <br />
+- `prefix`:
     The prefix to the barcodes. You can use placeholder like `{Sample}_`
     The prefixed barcodes will be used to match the barcodes in `in.metafile`.<br />
     Not used if `in.metafile` is not specified.<br />
+    If `None` (default), `immdata$prefix` will be used.<br />
 - `volumes` *(`ns`)*:
     Explore clonotype volume (sizes).<br />
     - `by`:
