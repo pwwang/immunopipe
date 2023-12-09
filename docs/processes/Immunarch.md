@@ -2,7 +2,6 @@
 
 Exploration of Single-cell and Bulk T-cell/Antibody Immune Repertoires
 
-
 /// Tip | Changed in `0.10.0`
 `envs.mutaters` are now applied at cell level.<br />
 
@@ -26,6 +25,7 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
 - The dynamics of repertoires across time points/samples, provided by [`immunarch::trackClonotypes`](https://immunarch.com/reference/trackClonotypes.html)
 - The spectratype of clonotypes, provided by [`immunarch::spectratype`](https://immunarch.com/reference/spectratype.html)
 - The distributions of kmers and sequence profiles, provided by [`immunarch::getKmers`](https://immunarch.com/reference/getKmers.html)
+- The V-J junction circos plots, implemented within the script of this process.<br />
 
 ## Environment Variables
 
@@ -34,10 +34,11 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
     to add new columns.<br />
     The keys will be the names of the columns, and the values will be the expressions.<br />
     The new names can be used in `volumes`, `lens`, `counts`, `top_clones`, `rare_clones`, `hom_clones`, `gene_usages`, `divs`, etc.<br />
-- `prefix`: *Default: `{Sample}_`*. <br />
+- `prefix`:
     The prefix to the barcodes. You can use placeholder like `{Sample}_`
     The prefixed barcodes will be used to match the barcodes in `in.metafile`.<br />
     Not used if `in.metafile` is not specified.<br />
+    If `None` (default), `immdata$prefix` will be used.<br />
 - `volumes` *(`ns`)*:
     Explore clonotype volume (sizes).<br />
     - `by`:
@@ -553,6 +554,33 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
         The values will be passed to the corresponding arguments above.<br />
         If any of these arguments are not specified, the default case will be added, with the name `DEFAULT` and the
         values of `envs.kmers.k`, `envs.kmers.head`, `envs.kmers.vis_args` and `envs.kmers.devpars`.<br />
+- `vj_junc` *(`ns`)*:
+    Arguments for VJ junction circos plots.<br />
+    This analysis is not included in `immunarch`. It is a separate implementation using [`circlize`](https://github.com/jokergoo/circlize).<br />
+    - `by`: *Default: `Sample`*. <br />
+        Groupings to show VJ usages. Typically, this is the `Sample` column, so that the VJ usages are shown for each sample.<br />
+        But you can also use other columns, such as `Subject` to show the VJ usages for each subject.<br />
+        Multiple columns should be separated by `,`.<br />
+    - `by_clones` *(`flag`)*: *Default: `True`*. <br />
+        If True, the VJ usages will be calculated based on the distinct clonotypes, instead of the individual cells.<br />
+    - `subset`:
+        Subset the data before plotting VJ usages.<br />
+        The whole data will be expanded to cell level, and then subsetted.<br />
+        Clone sizes will be re-calculated based on the subsetted data, which will affect the VJ usages at cell level (by_clones=False).<br />
+    - `devpars` *(`ns`)*:
+        The parameters for the plotting device.<br />
+        - `width` *(`type=int`)*: *Default: `800`*. <br />
+            The width of the plot.<br />
+        - `height` *(`type=int`)*: *Default: `800`*. <br />
+            The height of the plot.<br />
+        - `res` *(`type=int`)*: *Default: `100`*. <br />
+            The resolution of the plot.<br />
+    - `cases` *(`type=json;order=9`)*: *Default: `{}`*. <br />
+        If you have multiple cases, you can use this argument to specify them.<br />
+        The keys will be used as the names of the cases. The values will be passed to the corresponding arguments above.<br />
+        If any of these arguments are not specified, the values in `envs.vj_junc` will be used.<br />
+        If NO cases are specified, the default case will be added, with the name `DEFAULT` and the
+        values of `envs.vj_junc.by`, `envs.vj_junc.by_clones` `envs.vj_junc.subset` and `envs.vj_junc.devpars`.<br />
 
 ## Environment Variable Design
 

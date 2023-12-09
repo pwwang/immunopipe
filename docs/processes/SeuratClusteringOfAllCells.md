@@ -162,4 +162,15 @@ anything for the process in the configuration file.<br />
         The resolution of the clustering
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findclusters>
+- `cache` *(`type=auto`)*: *Default: `True`*. <br />
+    Whether to cache the seurat object with cluster information.<br />
+    If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
+    The cached seurat object will be saved as `<signature>.cached.RDS` file, where `<signature>` is the signature determined by
+    the input and envs of the process.<br />
+    See <https://github.com/satijalab/seurat/issues/7849>, <https://github.com/satijalab/seurat/issues/5358> and
+    <https://github.com/satijalab/seurat/issues/6748> for more details.<br />
+    To not use the cached seurat object, you can either set `cache` to `False` or delete the cached file at
+    `.pipen/<Pipeline>/SeuratClustering/0/output/<signature>.cached.RDS`.<br />
+    You can also specify the directory to save the cached seurat object by setting `cache` to the directory path.<br />
+
 

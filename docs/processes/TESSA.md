@@ -33,9 +33,14 @@ docker image with tag with `-full` suffix, or install the dependencies manually.
 
 - `python`: *Default: `python`*. <br />
     The path of python with `TESSA`'s dependencies installed
-- `prefix`: *Default: `{Sample}_`*. <br />
-    The prefix to the barcodes of TCR data. You can use placeholder
-    like `{Sample}_` to use the meta data from the immunarch object.<br />
+- `prefix`:
+    The prefix of the cell barcodes in the `Seurat` object.<br />
+    Once could use a fixed prefix, or a placeholder with the column
+    name in meta data. For example, `"{Sample}_"` will replace the
+    placeholder with the value of the column `Sample` in meta data.<br />
+    If `in.immdata` is text file, the prefix will be ignored and the
+    barcode should be already prefixed.<br />
+    If `None` and `in.immdata` is RDS file, `immdata$prefix` will be used.<br />
 - `within_sample` *(`flag`)*: *Default: `False`*. <br />
     Whether the TCR networks are constructed only
     within TCRs from the same sample/patient (True) or with all the

@@ -34,8 +34,6 @@ nav:
       - 'SampleInfo': 'processes/SampleInfo.md'
       - 'ImmunarchLoading': 'processes/ImmunarchLoading.md'
       - 'Immunarch': 'processes/Immunarch.md'
-      - 'Immunarch2VDJtools': 'processes/Immunarch2VDJtools.md'
-      - 'VJUsage': 'processes/VJUsage.md'
       - 'SeuratPreparing': 'processes/SeuratPreparing.md'
       - 'SeuratClusteringOfAllCells': 'processes/SeuratClusteringOfAllCells.md'
       - 'ClusterMarkersOfAllCells': 'processes/ClusterMarkersOfAllCells.md'
@@ -56,9 +54,7 @@ nav:
       - 'CloneResidency': 'processes/CloneResidency.md'
       - 'ScFGSEA': 'processes/ScFGSEA.md'
       - 'CellsDistribution': 'processes/CellsDistribution.md'
-    #   - 'CloneHeterogeneity': 'processes/CloneHeterogeneity.md'
       - 'MarkersFinder': 'processes/MarkersFinder.md'
-    #   - 'MarkersOverlapping': 'processes/MarkersOverlapping.md'
       - 'MetaMarkers': 'processes/MetaMarkers.md'
       - 'CDR3AAPhyschem': 'processes/CDR3AAPhyschem.md'
     - 'Metabolic Landscape Analysis':

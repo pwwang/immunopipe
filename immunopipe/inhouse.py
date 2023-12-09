@@ -34,7 +34,7 @@ class TCellSelection(Proc):
 
         ```toml
         [TCellSelection.envs]
-        tcell_indicator = "Clonotype_Pct > 0.25"
+        tcell_selector = "Clonotype_Pct > 0.25"
         ```
 
         The T cells will be selected as:
@@ -82,19 +82,25 @@ class TCellSelection(Proc):
         outdir: Output directory with details
 
     Envs:
-        tcell_indicator: The expression passed to `tidyseurat::mutate(is_TCell = ...)`
+        tcell_selector: The expression passed to `tidyseurat::mutate(is_TCell = ...)`
             to indicate whether a cell is a T cell. For example, `Clonotype_Pct > 0.25`
             to indicate cells with clonotype percentage > 25% are T cells.
+            If `indicator_genes` is provided, the expression values can also be used
+            in the expression. For example, `Clonotype_Pct > 0.25 & CD3E > 0`.
+            The expression is first normalized and scaled to have mean 0 and
+            standard deviation 1, and then averaged for each cluster.
+            If not provided, a kmeans clustering will be performed on the expression
+            values of `indicator_genes` and `Clonotype_Pct`, with K=2, and the cluster
+            with higher clonotype percentage will be selected as T cells.
         indicator_genes (list): A list of indicator genes whose expression values and
             clonotype percentage will be used to determine T cells.
-            A kmeans clustering will be performed on those values with K=2.
             The markers could be either positive, such as `CD3E`, `CD3D`, `CD3G`, or
             negative, such as `CD19`, `CD14`, `CD68`.
     """
     input = "srtobj:file, immdata:file"
     output = "rdsfile:file:{{in.srtobj | stem}}.RDS, outdir:dir:details"
     envs = {
-        "tcell_indicator": None,
+        "tcell_selector": None,
         "indicator_genes": ["CD3E"],
     }
     lang = config.lang.rscript

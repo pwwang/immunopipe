@@ -104,6 +104,8 @@ You can also use the `-h`/`--help` option to see the brief options of the proces
 /// details | How to run the pipeline on a cluster?
     attrs: {id: how-to-run-the-pipeline-on-a-cluster}
 
+To run the pipeline on a cluster, it's recommended to install the pipeline locally so that the cluster nodes can access the pipeline.
+
 `immunopipe` is built on top of [`pipen`][2] and [`xqute`][3]. A set of schedulers are supported by default. These schedulers are:
 
 - `local`: Run the pipeline locally.
@@ -170,6 +172,42 @@ apptainer pull justold/immunopipe:<tag>
 ```
 
 See also: <https://apptainer.org/docs/user/main/build_env.html#cache-folders>
+
+///
+
+/// details | `Unable to fork: Cannot allocate memory` or `long vectors not supported yet` during clustering using Seurat?
+
+This is likely because that the pipeline is running out of memory. The [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md) and family processes (e.g. [`SeuratClusteringOfTCells`](processes/SeuratClusteringOfTCells.md)) will run the a series of `Seurat` functions to perform the clustering, especially the [`IntegrateData`](https://satijalab.org/seurat/reference/integratedata) and [`FindIntegrationAnchors`](https://satijalab.org/seurat/reference/findintegrationanchors) functions.
+
+You can try to set `envs.ncores` to a smaller number to reduce the memory usage. For example:
+
+```toml
+[SeuratClusteringOfAllCells.envs]
+ncores = 4  # instead of 16
+```
+
+The other strategy is to use Reference-based integration `reference = [1, 2]` for [`FindIntegrationAnchors`](https://satijalab.org/seurat/reference/findintegrationanchors). See also description about `FindIntegrationAnchors` [here](processes/SeuratClusteringOfAllCells.md#environment-variables). For example:
+
+```toml
+[SeuratClusteringOfAllCells.envs.FindIntegrationAnchors]
+reference = [1, 2]  # You can also use sample names instead of indices
+```
+
+See also these issues for more details:
+
+- <https://github.com/satijalab/seurat/issues/1029>
+- <https://github.com/satijalab/seurat/issues/7419>
+
+///
+
+/// details | Got error `Not all stats values are finite numbers` while running [`ScFGSEA`](processes/ScFGSEA.md)?
+
+It's probably because that there are too many missing values in the expression matrix and `signal_to_noise` is not able to detect the rank of the genes. You can try a different method for gene preranking. For example:
+
+```toml
+[ScFGSEA.envs]
+method = "diff_of_classes"
+```
 
 ///
 

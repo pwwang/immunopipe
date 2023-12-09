@@ -59,6 +59,9 @@ generates violin plots for the top 10 markers.<br />
     The dbs to do enrichment analysis for significant
     markers See below for all libraries.<br />
     <https://maayanlab.cloud/Enrichr/#libraries>
+- `subset`:
+    The subset of the cells to do the analysis.<br />
+    An expression passed to `dplyr::filter()`.<br />
 - `p_adjust` *(`choice`)*: *Default: `BH`*. <br />
     The method to adjust the p values, which can be used to filter the significant markers.<br />
     See also <https://rdrr.io/r/stats/p.adjust.html>

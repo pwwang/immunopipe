@@ -1,20 +1,16 @@
 """Process definition"""
 from datar.tibble import tibble
-from pipen.channel import expand_dir
 from pipen.utils import mark, is_loading_pipeline
 from pipen_annotate import annotate
 from pipen_args import config
 from pipen_filters.filters import FILTERS
 
 # biopipen processes
-# from biopipen.ns.misc import File2Proc
 from biopipen.ns.delim import SampleInfo as SampleInfo_
 from biopipen.ns.tcr import (
     ImmunarchLoading as ImmunarchLoading_,
     Immunarch as Immunarch_,
     CloneResidency as CloneResidency_,
-    Immunarch2VDJtools as Immunarch2VDJtools_,
-    VJUsage as VJUsage_,
     TCRClustering as TCRClustering_,
     TCRClusterStats as TCRClusterStats_,
     CDR3AAPhyschem as CDR3AAPhyschem_,
@@ -37,12 +33,7 @@ from biopipen.ns.scrna import (
 from biopipen.ns.scrna_metabolic_landscape import ScrnaMetabolicLandscape
 
 # inhouse processes
-from .inhouse import (
-    TCellSelection as TCellSelection_,
-    # CloneHeterogeneity,
-    # MetaMarkers,
-    # MarkersOverlapping,
-)
+from .inhouse import TCellSelection as TCellSelection_
 
 toml_dumps = FILTERS["toml_dumps"]
 just_loading = is_loading_pipeline()
@@ -180,22 +171,6 @@ class ImmunarchLoading(ImmunarchLoading_):
     requires = SampleInfo
 
 
-@mark(board_config_hidden=True)
-@annotate.format_doc(indent=1)
-class Immunarch2VDJtools(Immunarch2VDJtools_):
-    """{{Summary | str | replace: '!!#biopipennstcrvjusage', './VJUsage.md'}}
-    """
-    requires = ImmunarchLoading
-    plugin_opts = {"args_hide": True}
-
-
-class VJUsage(VJUsage_):
-    requires = Immunarch2VDJtools
-    input_data = lambda ch: expand_dir(ch, pattern="*.txt")
-    plugin_opts = {"report_toc": False}
-    order = 2
-
-
 @annotate.format_doc(indent=1)
 class SeuratPreparing(SeuratPreparing_):
     """{{Summary}}
@@ -296,9 +271,11 @@ if "TopExpressingGenesOfAllCells" in config or just_loading:
 if "TCellSelection" in config or just_loading:
     class TCellSelection(TCellSelection_):
         requires = [SeuratClusteringOfAllCells, ImmunarchLoading]
+        input_data = lambda ch1, ch2: tibble(ch1, ch2.iloc[:, 1])
 
     if "ModuleScoreCalculator" in config or just_loading:
         ModuleScoreCalculator.requires = TCellSelection
+        ModuleScoreCalculator.input_data = lambda ch1: ch1.iloc[:, [0]]
         TCellSelection = ModuleScoreCalculator
 
     @annotate.format_doc(indent=2)
@@ -424,12 +401,11 @@ if "TESSA" in config or just_loading:
         ///
         """
         requires = ImmunarchLoading, CellTypeAnnotation
-        input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 0], ch2)
+        input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 1], ch2)
 
     CellTypeAnnotation = TESSA
 
 
-# @mark(board_config_hidden=True)
 @annotate.format_doc(indent=1)
 class SeuratMetadataMutater(SeuratMetadataMutater_):
     """Attach TCR clone information as meta columns to Seurat object
@@ -463,9 +439,7 @@ class SeuratMetadataMutater(SeuratMetadataMutater_):
     {{*Summary.long}}
     """
     requires = CellTypeAnnotation, ImmunarchLoading
-    input_data = lambda ch1, ch2: tibble(
-        srtobj=ch1.iloc[:, 0], metafile=ch2.metatxt
-    )
+    input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 0], ch2.iloc[:, 1])
     envs = {
         "mutaters": {
             "TCR_Presence": 'if_else(is.na(CDR3.aa), "TCR_absent", "TCR_present")'
@@ -488,6 +462,7 @@ if (
         {{*Summary.long}}
         """
         requires = ImmunarchLoading
+        input_data = lambda ch1: ch1.iloc[:, [0]]
 
     @mark(board_config_hidden=True)
     @annotate.format_doc(indent=2)
@@ -534,6 +509,7 @@ if (
 
     class TCRClusterStats(TCRClusterStats_):
         requires = TCRClustering
+        input_data = lambda ch1: ch1.iloc[:, [0]]
 
 else:
     TCRClusters2Seurat = SeuratMetadataMutater
@@ -560,7 +536,7 @@ class SeuratClusterStats(SeuratClusterStats_):
 
 @annotate.format_doc(indent=1)
 class Immunarch(Immunarch_):
-    """{{Summary.sort}}
+    """{{Summary.short}}
 
     /// Tip | Changed in `0.10.0`
     `envs.mutaters` are now applied at cell level.
@@ -735,11 +711,6 @@ if "MarkersFinder" in config or just_loading:
         requires = TCRClusters2Seurat
         envs = {"assay": "RNA"}
         order = 5
-
-
-# if "MarkersOverlapping" in config or just_loading:
-#     class MarkersOverlapping(MarkersOverlapping):
-#         requires = MarkersFinder
 
 
 if "MetaMarkers" in config or just_loading:

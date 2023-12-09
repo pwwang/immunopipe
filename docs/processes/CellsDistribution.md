@@ -64,6 +64,8 @@ are groups (i.e. clinic groups).<br />
 - `subset`:
     An expression to subset the cells, will be passed to `dplyr::filter()` on metadata.<br />
     This will be applied prior to `each`.<br />
+- `descr`:
+    The description of the case, will be shown in the report.<br />
 - `devpars` *(`ns`)*:
     The device parameters for the plots.<br />
     - `res` *(`type=int`)*:

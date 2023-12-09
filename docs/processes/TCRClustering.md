@@ -49,6 +49,11 @@ CDR3 sequence may be shared by multiple cells.<br />
         by Li lab at UT Southwestern Medical Center
     - `ClusTCR`:
         by Sebastiaan Valkiers, etc
+- `prefix`:
+    The prefix to the barcodes. You can use placeholder like `{Sample}_`
+    The prefixed barcodes will be used to match the barcodes in `in.metafile`.<br />
+    Not used if `in.metafile` is not specified.<br />
+    If `None` (default), `immdata$prefix` will be used.<br />
 - `python`: *Default: `python`*. <br />
     The path of python with `GIANA`'s dependencies installed
     or with `clusTCR` installed. Depending on the `tool` you choose.<br />

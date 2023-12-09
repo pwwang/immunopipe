@@ -1,5 +1,28 @@
 # Change Log
 
+## 0.11.0
+
+- deps: update biopipen to 0.22.1, highlights:
+  - add V-J junction circos plots to `Immunarch` process
+  - add cache option to cache the clustering results if nothing changed except ncores, to `SeuratClustering` process
+  - add dot plots to `MarkersFinder` (`ClusterMarkersOfAllCells`, `ClusterMarkers`) process
+  - save exported table with only necessary columns for `CellsDistribution` process
+  - add `descr` to describe cases cases in report for `CellsDistribution` process
+  - add `subset` for dimplots in `SeuratClusterStats` process
+  - use a new palette (`biopipen`) for related processes
+  - optimize report rendering (using `render_job()` filter from `pipen-report`)
+  - change metacols to extracols so essential columns get exported for `ImmunarchLoading` process
+  - add cache option to cache the clustering results if nothing changed except ncores for `SeuratClustering` (`SeuratClusteringOfAllCells`) process
+  - see more at https://github.com/pwwang/biopipen/releases/tag/0.22.0 and https://github.com/pwwang/biopipen/releases/tag/0.22.1
+- deps: update pipen-report to 0.16, highlights:
+  - scroll anchor into view on the page
+  - build report page when each process is done, instead of the whole pipeline
+  - see more at https://github.com/pwwang/pipen-report/releases/tag/0.16.0
+- change: remove `Immunarch2VDJtools` and `VJUsage` processes (vj usage analysis can be done in `Immunarch` process)
+- change: change `tcell_indicator` to `tcell_selector` in `TCellSelection` process
+- docs: add memory usage reduction tips in FAQ
+- chore: dismiss warnings of wasted input columns for multiple processes
+
 ## 0.10.1
 
 - chore: update pipeline description to include version in the logs

@@ -58,7 +58,7 @@ The easiest way to run the pipeline is to run it within the docker container. We
 ```bash
 docker run \
     --rm -w /workdir -v .:/workdir \
-    justold/immunopipe:0.10.0 \
+    justold/immunopipe:0.11.0 \
     @ImmunopipeMinimal.config.toml
 ```
 ///
@@ -67,7 +67,7 @@ docker run \
 ```bash
 singularity run \
     --pwd /workdir -B .:/workdir -c -e -w \
-    docker://justold/immunopipe:0.10.0 \
+    docker://justold/immunopipe:0.11.0 \
     @ImmunopipeMinimal.config.toml
 ```
 ///
@@ -76,7 +76,7 @@ singularity run \
 ```bash
 apptainer run \
     --pwd /workdir -B .:/workdir -c -e -w --unsquash \
-    docker://justold/immunopipe:0.10.0 \
+    docker://justold/immunopipe:0.11.0 \
     @ImmunopipeMinimal.config.toml
 ```
 ///
@@ -91,6 +91,14 @@ If you want to install and run the pipeline without docker, please refer to the 
 
 /// Note
 You need at least 16GB of memory to run the pipeline with the example dataset and minimal configuration.
+
+You may also need to decrease `ncores` of some processes to avoid running out of memory. For example:
+
+```diff
+[SeuratClusteringOfAllCells.envs]
+- ncores = 16
++ ncores = 4
+```
 ///
 
 ## Check the results
