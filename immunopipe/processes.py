@@ -288,6 +288,7 @@ if "TCellSelection" in config or just_loading:
         See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).
         """
         requires = TCellSelection
+        input_data = lambda ch1: ch1.iloc[:, [0]]
 else:
     SeuratClusteringOfTCells = SeuratClusteringOfAllCells
 
