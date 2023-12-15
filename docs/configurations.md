@@ -294,6 +294,115 @@ The best practice is to use a prefix for the column names you want to create. Fo
 
 The other thing you need to pay attention to is that you should try to avoid `.` or `-` in the column names. For example, if you want to create a column named `Sample-Source`, you can use `Sample_Source` instead. This is because that the column names will be used as the keys of the environment variables, and some processes will translate `-` into `.`. See also [`Namespace environment variables`](#namespace-environment-variables) for more details.
 
+#### Mutater helpers
+
+Other than the direct expressions that are parsed by [`rlang::parse_expr()`](https://rlang.r-lib.org/reference/parse_expr.html), for processes with `envs.mutaters`, we also provide some helper functions to make it easier to create the columns, especially for identifying the clones that are expanded, collapsed, vanished and emerged between two groups. The helper functions are:
+
+- `expanded()`: Identify the expanded clones between two groups.
+- `collapsed()`: Identify the collapsed clones between two groups.
+- `vanished()`: Identify the vanished clones between two groups.
+- `emerged()`: Identify the emerged clones between two groups.
+
+The helper functions take the following arguments:
+
+* `df`: The cell-level data. When used in `dplyr::mutate()`, you can use `.` to refer to the dataframe.
+* `group.by`: The column name in metadata to group the cells.
+* `idents`: The first group or both groups of cells to compare (value in `group-by` column). If only the first group is given, the rest of the cells (with non-NA in `group-by` column) will be used as the second group.
+* `subset`: An expression to subset the cells, will be passed to `dplyr::filter()`. Default is `TRUE` (no filtering).
+* `each`: A column name (without quotes) in metadata to split the cells.
+    Each comparison will be done for each value in this column.
+* `id`: The column name in metadata for the group ids (i.e. `CDR3.aa`).
+* `compare`: Either a (numeric) column name (i.e. `Clones`) in metadata to compare between groups, or `.n` to compare the number of cells in each group.
+    If numeric column is given, the values should be the same for all cells in the same group.
+    This will not be checked (only the first value is used).
+* `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df |> mutate(expanded = expanded(...))`.
+* `debug`: Return the data frame with intermediate columns instead of the ids. Default is `FALSE`.
+* `order`: The expression passed to `dplyr::arrange()` to order intermediate dataframe and get the ids in order accordingly.
+    The intermediate dataframe includes the following columns:
+    * `<id>`: The ids of clones (i.e. `CDR3.aa`).
+    * `<each>`: The values in `each` column.
+    * `ident_1`: The size of clones in the first group.
+    * `ident_2`: The size of clones in the second group.
+    * `.diff`: The difference between the sizes of clones in the first and second groups.
+    * `.sum`: The sum of the sizes of clones in the first and second groups.
+    * `.predicate`: Showing whether the clone is expanded/collapsed/emerged/vanished.
+* `include_emerged`: Whether to include the emerged group for `expanded` (only works for `expanded`). Default is `FALSE`.
+* `include_vanished`: Whether to include the vanished group for `collapsed` (only works for `collapsed`). Default is `FALSE`.
+
+The returned values of the functions depend on the `debug` and `uniq` arguments. If `debug` is `TRUE`, the intermediate data frame will be returned. Otherwise, the ids will be returned.
+If `uniq` is `TRUE`, the ids will be unique. Otherwise, the ids will be the same length as the number of rows in input data frame, which is useful for mutating the metadata.
+
+Let's say we have the following data frame:
+
+| CDR3.aa | Group |
+| ------- | ----- |
+| Clone1  | A     |
+| Clone1  | A     |
+| Clone2  | A     |
+| Clone3  | A     |
+| Clone3  | A     |
+| Clone3  | A     |
+| Clone4  | A     |
+| Clone4  | A     |
+| Clone2  | B     |
+| Clone2  | B     |
+| Clone3  | B     |
+| Clone3  | B     |
+| Clone4  | B     |
+| Clone4  | B     |
+| Clone4  | B     |
+
+To identify the expanded clones between groups `A` and `B`, the intermediate data frame will be like:
+
+```r
+expanded(df, Group, "A", debug = TRUE)
+# A tibble: 4 × 6
+  CDR3.aa ident_1 ident_2 .predicate  .sum .diff
+  <chr>     <int>   <int> <lgl>      <int> <int>
+1 Clone3        3       2 TRUE           5     1
+2 Clone4        2       3 FALSE          5    -1
+3 Clone2        1       2 FALSE          3    -1
+4 Clone1        2       0 FALSE          2     2
+```
+
+So the expanded clones are `Clone3`, and if you want to include the emerged clones, the result will be `Clone3` and `Clone1`.
+
+```r
+expanded(df, Group, "A")
+[1] "Clone3"
+
+expanded(df, Group, "A", include_emerged = TRUE)
+[1] "Clone3" "Clone1"
+
+# Change the order based on the difference
+expanded(df, Group, "A", include_emerged = TRUE, order = desc(.diff))
+[1] "Clone1" "Clone3"
+```
+
+If you want to add a column named `Expanded` to the metadata to save the clone ids:
+
+```r
+df %>% mutate(Expanded = expanded(df, Group, "A", uniq = FALSE))
+# A tibble: 15 × 3
+   CDR3.aa Group Expanded
+   <chr>   <chr> <chr>
+ 1 Clone1  A     NA
+ 2 Clone1  A     NA
+ 3 Clone2  A     NA
+ 4 Clone3  A     Clone3
+ 5 Clone3  A     Clone3
+ 6 Clone3  A     Clone3
+ 7 Clone4  A     NA
+ 8 Clone4  A     NA
+ 9 Clone2  B     NA
+10 Clone2  B     NA
+11 Clone3  B     Clone3
+12 Clone3  B     Clone3
+13 Clone4  B     NA
+14 Clone4  B     NA
+15 Clone4  B     NA
+```
+
 ### Filtering the data
 
 In most processes where we need to filter the data, we don't provide an option for you to set the expression for [`dplyr::filter()`][14]. Instead, you can make use of the `mutaters` to create a column for filtering. For example, if you only want to plot clone residency for only one patient/subject (e.g. `MM003-Eariler`) in [`CloneResidency`](processes/CloneResidency.md), you can set the configurations as follows (suppose we have `Sample` and `Source` columns in the metadata):

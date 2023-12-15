@@ -64,6 +64,8 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
     If the length of `cell_types` is shorter than the number of
     clusters, the remaining clusters will be kept as the original cell
     types.<br />
+    You can also use `NA` to remove the clusters from downstream analysis. This
+    only works when `envs.newcol` is not specified.<br />
 
     /// Note
     If `tool` is `direct` and `cell_types` is not specified or an empty list,
@@ -107,4 +109,17 @@ The cell types will be assigned as:<br />
 2 -> 2
 3 -> CellType4
 ```
+
+## Metadata
+
+When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
+the `Seurat` object will be kept as is.<br />
+
+When `envs.newcol` is specified, the original `seurat_clusters` column will be
+kept is, and the annotated cell types will be saved in the new column.<br />
+Otherwise, the original `seurat_clusters` column will be replaced by the
+annotated cell types and the original `seurat_clusters` column will be
+saved at `seurat_clusters_id`.<br />
+
+![CellTypeAnnotation-metadata](../processes/images/CellTypeAnnotation-metadata.png)
 

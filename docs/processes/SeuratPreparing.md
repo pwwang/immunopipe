@@ -69,3 +69,10 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
         will keep genes that are expressed in at least 3 cells.<br />
         ///
 
+## Metadata
+
+Here is the demonstration of basic metadata for the `Seurat` object. Future
+processes will use it and/or add more metadata to the `Seurat` object.<br />
+
+![SeuratPreparing-metadata](../processes/images/SeuratPreparing-metadata.png)
+

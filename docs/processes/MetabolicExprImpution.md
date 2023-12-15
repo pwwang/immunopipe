@@ -26,7 +26,7 @@ of the process group to `True`.<br />
         Number of clusters to use
     - `ncores` *(`type=int`)*: *Default: `1`*. <br />
         Number of cores to use
-    - `refgene`: *Default: `/home/mayo/m161047/reference/hg19/hg19-gene.gtf`*. <br />
+    - `refgene`: *Default: `~/reference/hg19/hg19-gene.gtf`*. <br />
         The reference gene file
 - `rmagic_args` *(`ns`)*:
     The arguments for rmagic

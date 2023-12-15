@@ -68,3 +68,10 @@ docker image with tag with `-full` suffix, or install the dependencies manually.
     binding specificity.', Lu, T., Zhang, Z., Zhu, J. et al. 2021.<br />
     [link](https://www.nature.com/articles/s42256-021-00383-2)
 
+## Metadata
+
+The metadata of the `Seurat` object will be updated with the TESSA clusters
+and the cluster sizes:<br />
+
+![TESSA-metadata](../processes/images/TESSA-metadata.png)
+
