@@ -121,13 +121,13 @@ python-simpleconf = ">=0.6,<0.7"
 
 [[package]]
 name = "biopipen"
-version = "0.22.2"
+version = "0.22.5"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "biopipen-0.22.2-py3-none-any.whl", hash = "sha256:097e252928ef3808ee48340f0062a8f12a6edd65a613d480fe484215fdca8690"},
-    {file = "biopipen-0.22.2.tar.gz", hash = "sha256:ed6690251a21d8670ffa5afcb8ec6c4df0aeae88a19dc6c510d7f47f03fd7a17"},
+    {file = "biopipen-0.22.5-py3-none-any.whl", hash = "sha256:5edefafa043546aa3a7d66a960efaf063beb9946401f66ba0b22484bd7842cca"},
+    {file = "biopipen-0.22.5.tar.gz", hash = "sha256:63c7e89a0d99c2e2b039ecd42c6f06f465d2d031589e17236a0b39807539f549"},
 ]
 
 [package.dependencies]
@@ -1032,13 +1032,13 @@ xqute = ">=0.2.4,<0.3.0"
 
 [[package]]
 name = "pipen-annotate"
-version = "0.11.5"
+version = "0.11.6"
 description = "Use docstring to annotate pipen processes"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_annotate-0.11.5-py3-none-any.whl", hash = "sha256:4668104b9ad200fd5885f494ae96efb4887618fe71914b404858d6366b53e19a"},
-    {file = "pipen_annotate-0.11.5.tar.gz", hash = "sha256:e0b490449dd42e35c6e94e4363e1bd16c4e8b8b9a65eb5b313b6a3e912511fc5"},
+    {file = "pipen_annotate-0.11.6-py3-none-any.whl", hash = "sha256:2b2680feae6bc8a24f416ea562f5ff85e8ce5228724fabdce1a8517878b03be4"},
+    {file = "pipen_annotate-0.11.6.tar.gz", hash = "sha256:de3360783b6e1677aa69698048fdeea6c19f2fc301911080f56b32f03ad0683b"},
 ]
 
 [package.dependencies]
@@ -1060,13 +1060,13 @@ pipen-annotate = ">=0.11,<0.12"
 
 [[package]]
 name = "pipen-board"
-version = "0.13.8"
+version = "0.13.9"
 description = "Visualization configuration and running of pipen pipelines on the web"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_board-0.13.8-py3-none-any.whl", hash = "sha256:b75d2bd058d8acfe8e8a3a639d43e252e00dd0faf2e2030328f381b545727ceb"},
-    {file = "pipen_board-0.13.8.tar.gz", hash = "sha256:097fcd5076fbbf9013f03e9736912364b2206ab48bdc7f527521c0f6c89dfcb7"},
+    {file = "pipen_board-0.13.9-py3-none-any.whl", hash = "sha256:841d4295fb141c5c37a506047689fc8765c6a41fcd7b7d1734e79c1e62f4bb58"},
+    {file = "pipen_board-0.13.9.tar.gz", hash = "sha256:bc93662279c525ef857d2122308fe7f1c1d96344623c713ea4056d2914b8f530"},
 ]
 
 [package.dependencies]
@@ -1085,18 +1085,18 @@ report = ["pipen-report (>=0.16,<0.17)"]
 
 [[package]]
 name = "pipen-cli-ref"
-version = "0.0.3"
+version = "0.1.0"
 description = "Make API reference documentation for pipen pipeline/processes"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_cli_ref-0.0.3-py3-none-any.whl", hash = "sha256:602e15c30683752d36cfc833bad865c87156c466ac6fcda266e09356d80536c3"},
-    {file = "pipen_cli_ref-0.0.3.tar.gz", hash = "sha256:4dfff4b5915683066130d2b93f3b62446176ff1349d2b944157da494c69518a7"},
+    {file = "pipen_cli_ref-0.1.0-py3-none-any.whl", hash = "sha256:f3f9387428b2ebbff853b1dac65415db41cb674ede115fe01f59f74d8b89f8b6"},
+    {file = "pipen_cli_ref-0.1.0.tar.gz", hash = "sha256:20ba86a87f161e87547689469c3022183d4eba8874c643b44203c7d09225ea25"},
 ]
 
 [package.dependencies]
 pipen = ">=0.12,<0.13"
-pipen-annotate = ">=0.11.3,<0.12.0"
+pipen-annotate = ">=0.11.5,<0.12.0"
 
 [[package]]
 name = "pipen-cli-run"
@@ -1157,13 +1157,13 @@ pipen = ">=0.12,<0.13"
 
 [[package]]
 name = "pipen-report"
-version = "0.16.0"
+version = "0.16.1"
 description = "Report generation system for pipen"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pipen_report-0.16.0-py3-none-any.whl", hash = "sha256:287417c7f0fb79d4d2b5511dec638801aa2f98a10d088c5bdc297335cea4c023"},
-    {file = "pipen_report-0.16.0.tar.gz", hash = "sha256:6c06b406e7368dbb8b8efe30582d7afce1c6d54304433538cbb56a9c6c43ae2e"},
+    {file = "pipen_report-0.16.1-py3-none-any.whl", hash = "sha256:f54ec3915fb2caf291446bf04d671c05a307482ca8a5dd4dd9d8c261a8a5b44d"},
+    {file = "pipen_report-0.16.1.tar.gz", hash = "sha256:1a4befa945b2e6ba933e1a64397f8770eb69d77a4249b50d082d34c1195810a8"},
 ]
 
 [package.dependencies]
@@ -1952,4 +1952,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "10fabf31f0b89e685e62c5ceb88e8d88e55b3df61830800570fd99d3601d9d23"
+content-hash = "6a080416d70175ddfcd8008a4bed5da4c1c8d189f8c22baf796c949819e2baa7"
