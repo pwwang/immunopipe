@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.11.2
+
+- docs: move `Immunarch` to the later position in process list
+- docs: Use `master` tag in getting-started
+
 ## 0.11.1
 
 - chore: change line length to 88 for flake8
