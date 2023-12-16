@@ -33,7 +33,6 @@ nav:
     - 'Processes':
       - 'SampleInfo': 'processes/SampleInfo.md'
       - 'ImmunarchLoading': 'processes/ImmunarchLoading.md'
-      - 'Immunarch': 'processes/Immunarch.md'
       - 'SeuratPreparing': 'processes/SeuratPreparing.md'
       - 'SeuratClusteringOfAllCells': 'processes/SeuratClusteringOfAllCells.md'
       - 'ClusterMarkersOfAllCells': 'processes/ClusterMarkersOfAllCells.md'
@@ -47,6 +46,7 @@ nav:
       - 'TCRClusters2Seurat': 'processes/TCRClusters2Seurat.md'
       - 'ClusterMarkers': 'processes/ClusterMarkers.md'
       - 'TopExpressingGenes': 'processes/TopExpressingGenes.md'
+      - 'Immunarch': 'processes/Immunarch.md'
       - 'TESSA': 'processes/TESSA.md'
       - 'SeuratMetadataMutater': 'processes/SeuratMetadataMutater.md'
       - 'SeuratClusterStats': 'processes/SeuratClusterStats.md'
