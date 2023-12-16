@@ -8,7 +8,7 @@
 - docs: add version of renaming `envs.tcell_indicator` to `envs.tcell_selector`
 - docs: remove unused doc files
 - docs: add metadata illustration
-- deps: bump biopipen to 0.22.6. Highlights:
+- deps: bump biopipen to 0.22.8. Highlights:
   - deps: bump pipen-board to 0.13.10 (pipen-report to 0.16.2)
   - CellsDistribution: Don't add rownames to the output table file
   - MarkersFinder (ClusterMarkers/ClusterMarkersOfAllCells): Optimize to use `FindAllMarkers` if `ident.1` is not specified
