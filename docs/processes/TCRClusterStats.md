@@ -113,7 +113,7 @@ The statistics include
 by = "Sample"
 ```
 
-![Cluster_size](https://pwwang.github.io/immunopipe/processes/images/TCRClusteringStats_cluster_size.png){: width="80%"}
+![Cluster_size](../processes/images/TCRClusteringStats_cluster_size.png){: width="80%"}
 
 ### Shared clusters
 
@@ -123,7 +123,7 @@ numbers_on_heatmap = true
 heatmap_meta = ["region"]
 ```
 
-![Shared_clusters](https://pwwang.github.io/immunopipe/processes/images/TCRClusteringStats_shared_clusters.png){: width="80%"}
+![Shared_clusters](../processes/images/TCRClusteringStats_shared_clusters.png){: width="80%"}
 
 ### Sample diversity
 
@@ -132,9 +132,9 @@ heatmap_meta = ["region"]
 method = "gini"
 ```
 
-![Sample_diversity](https://pwwang.github.io/immunopipe/processes/images/TCRClusteringStats_sample_diversity.png){: width="80%"}
+![Sample_diversity](../processes/images/TCRClusteringStats_sample_diversity.png){: width="80%"}
 
 Compared to the sample diversity using TCR clones:<br />
 
-![Sample_diversity](https://pwwang.github.io/immunopipe/processes/images/Immunarch_sample_diversity.png){: width="80%"}
+![Sample_diversity](../processes/images/Immunarch_sample_diversity.png){: width="80%"}
 

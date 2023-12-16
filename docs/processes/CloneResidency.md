@@ -18,7 +18,7 @@ There are three types of output from this process
 
 - Residency plots showing the residency of clones in the two groups
 
-    ![CloneResidency_residency](https://pwwang.github.io/immunopipe/processes/images/CloneResidency.png)
+    ![CloneResidency_residency](../processes/images/CloneResidency.png)
 
     The points in the plot are jittered to avoid overplotting. The x-axis is the residency in the first group and
     the y-axis is the residency in the second group. The size of the points are relative to the normalized size of
@@ -38,7 +38,7 @@ There are three types of output from this process
 
 - Venn diagrams showing the overlap of the clones in the two groups
 
-    ![CloneResidency_venn](https://pwwang.github.io/immunopipe/processes/images/CloneResidency_venn.png){: width="60%"}
+    ![CloneResidency_venn](../processes/images/CloneResidency_venn.png){: width="60%"}
 
 ## Environment Variables
 

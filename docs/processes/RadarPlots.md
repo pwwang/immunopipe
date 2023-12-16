@@ -96,7 +96,7 @@ by = "Source"
 
 Then we will have a radar plots like this:<br />
 
-![Radar plots](https://pwwang.github.io/immunopipe/processes/images/RadarPlots-default.png)
+![Radar plots](../processes/images/RadarPlots-default.png)
 
 We can use `each` to separate the cells into different cases:<br />
 
@@ -108,7 +108,7 @@ each = "Timepoint"
 
 Then we will have two radar plots, one for `Pre` and one for `Post`:<br />
 
-![Radar plots](https://pwwang.github.io/immunopipe/processes/images/RadarPlots-each.png)
+![Radar plots](../processes/images/RadarPlots-each.png)
 
 Using `cluster_order` to change the order of the clusters and show only the first 3 clusters:<br />
 
@@ -119,7 +119,7 @@ cluster_order = ["2", "0", "1"]
 breaks = [0, 50, 100]  # also change the breaks
 ```
 
-![Radar plots cluster_order](https://pwwang.github.io/immunopipe/processes/images/RadarPlots-cluster_order.png)
+![Radar plots cluster_order](../processes/images/RadarPlots-cluster_order.png)
 
 /// Attention
 All the plots used in the examples are just for demonstration purpose. The real plots will have different appearance.<br />

@@ -11,7 +11,7 @@ in the permutations.<br />
 The heterogeneity can be reflected by the NES values and the p-values in
 different groups for the metabolic pathways.<br />
 
-![MetabolicPathwayHeterogeneity](https://pwwang.github.io/immunopipe/processes/images/MetabolicPathwayHeterogeneity.png)
+![MetabolicPathwayHeterogeneity](../processes/images/MetabolicPathwayHeterogeneity.png)
 
 ## Environment Variables
 

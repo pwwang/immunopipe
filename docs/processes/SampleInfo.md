@@ -17,18 +17,18 @@ infile = [ "path/to/sample_info.txt" ]
 Or with `pipen-board`, find the `SampleInfo` process and click the `Edit` button.<br />
 Then you can specify the input file here
 
-![infile](https://pwwang.github.io/immunopipe/processes/images/SampleInfo-infile.png)
+![infile](../processes/images/SampleInfo-infile.png)
 
 Theroetically, we can have multiple input files. However, it is not tested yet.<br />
 If you have multiple input files to run, please run it with a different pipeline
 instance (configuration file).<br />
 
 For the content of the input file, please see details
-[here](https://pwwang.github.io/immunopipe/preparing-input/#metadata).<br />
+[here](../preparing-input.md#metadata).<br />
 
 Once the pipeline is finished, you can see the sample information in the report
 
-![report](https://pwwang.github.io/immunopipe/processes/images/SampleInfo-report.png)
+![report](../processes/images/SampleInfo-report.png)
 
 Note that the required `RNAData` and `TCRData` columns are not shown in the report.<br />
 They are used to specify the paths of the `scRNA-seq` and `scTCR-seq` data, respectively.<br />
@@ -165,7 +165,7 @@ Samples_Source = { "group": "Source" }
 Samples_Source_each_Subject = { "group": "Source", "each": "Subject" }
 ```
 
-![Samples_Source](https://pwwang.github.io/immunopipe/processes/images/SampleInfo_Samples_Source.png)
+![Samples_Source](../processes/images/SampleInfo_Samples_Source.png)
 
 ### Explore the distribution of the Score
 
@@ -182,5 +182,5 @@ plot = "violin+box"
 each = "Subject"
 ```
 
-![Score_Source](https://pwwang.github.io/immunopipe/processes/images/SampleInfo_Score_Source.png)
+![Score_Source](../processes/images/SampleInfo_Score_Source.png)
 

@@ -30,5 +30,10 @@ ident-2 = "S_2"
 each = "seurat_clusters"
 ```
 
-There is no environment variables for this process.<br />
+## Metadata
+
+The metadata of the `Seurat` object will be updated with the TCR cluster
+assignments and their sizes:<br />
+
+![TCRClusters2Seurat-metadata](../processes/images/TCRClusters2Seurat-metadata.png)
 

@@ -27,6 +27,11 @@ of the clusters.<br />
     If not provided, a kmeans clustering will be performed on the expression
     values of `indicator_genes` and `Clonotype_Pct`, with K=2, and the cluster
     with higher clonotype percentage will be selected as T cells.<br />
+
+    /// Tip | Changed in `0.11.0`
+    `envs.tcell_indicator` is renamed to `envs.tcell_selector` in `0.11.0`.<br />
+    ///
+
 - `indicator_genes` *(`list`)*: *Default: `['CD3E']`*. <br />
     A list of indicator genes whose expression values and
     clonotype percentage will be used to determine T cells.<br />

@@ -168,7 +168,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
 nCells_All = { }
 ```
 
-![nCells_All](https://pwwang.github.io/immunopipe/processes/images/SeuratClusterStats_nCells_All.png){: width="80%" }
+![nCells_All](../processes/images/SeuratClusterStats_nCells_All.png){: width="80%" }
 
 ### Number of cells in each cluster by groups
 
@@ -177,7 +177,7 @@ nCells_All = { }
 nCells_Sample = { group-by = "Sample" }
 ```
 
-![nCells_Sample](https://pwwang.github.io/immunopipe/processes/images/SeuratClusterStats_nCells_Sample.png){: width="80%" }
+![nCells_Sample](../processes/images/SeuratClusterStats_nCells_Sample.png){: width="80%" }
 
 ### Violin plots for the gene expressions
 
@@ -190,8 +190,8 @@ vlnplots = { pt-size = 0, kind = "vln" }
 vlnplots_1 = { features = ["FOXP3", "IL2RA"], pt-size = 0, kind = "vln" }
 ```
 
-![vlnplots](https://pwwang.github.io/immunopipe/processes/images/SeuratClusterStats_vlnplots.png){: width="80%" }
-![vlnplots_1](https://pwwang.github.io/immunopipe/processes/images/SeuratClusterStats_vlnplots_1.png){: width="80%" }
+![vlnplots](../processes/images/SeuratClusterStats_vlnplots.png){: width="80%" }
+![vlnplots_1](../processes/images/SeuratClusterStats_vlnplots_1.png){: width="80%" }
 
 ### Dimension reduction plot with labels
 
@@ -202,5 +202,5 @@ label-box = true
 repel = true
 ```
 
-![dimplots](https://pwwang.github.io/immunopipe/processes/images/SeuratClusterStats_dimplots.png){: width="80%" }
+![dimplots](../processes/images/SeuratClusterStats_dimplots.png){: width="80%" }
 

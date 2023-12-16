@@ -38,7 +38,7 @@ TCR-seq data into the `Seurat` object for further integrative analysis.<br />
     different sources later.<br />
     ///
 
-- `tmpdir`: *Default: `/tmp`*. <br />
+- `tmpdir`: *Default: `/tmp/user`*. <br />
     The temporary directory to link all data files.<br />
     `Immunarch` scans a directory to find the data files. If the data files
     are not in the same directory, we can link them to a temporary directory

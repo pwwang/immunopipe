@@ -37,9 +37,10 @@ from .inhouse import TCellSelection as TCellSelection_
 
 toml_dumps = FILTERS["toml_dumps"]
 just_loading = is_loading_pipeline()
+DOC_BASEURL = "https://pwwang.github.io/immunopipe"
 
 
-@annotate.format_doc(indent=1)
+@annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})
 class SampleInfo(SampleInfo_):
     """{{Summary}}
 
@@ -56,18 +57,18 @@ class SampleInfo(SampleInfo_):
     Or with `pipen-board`, find the `SampleInfo` process and click the `Edit` button.
     Then you can specify the input file here
 
-    ![infile](https://pwwang.github.io/immunopipe/processes/images/SampleInfo-infile.png)
+    ![infile]({{baseurl}}/processes/images/SampleInfo-infile.png)
 
     Theroetically, we can have multiple input files. However, it is not tested yet.
     If you have multiple input files to run, please run it with a different pipeline
     instance (configuration file).
 
     For the content of the input file, please see details
-    [here](https://pwwang.github.io/immunopipe/preparing-input/#metadata).
+    [here]({{baseurl}}/preparing-input.md#metadata).
 
     Once the pipeline is finished, you can see the sample information in the report
 
-    ![report](https://pwwang.github.io/immunopipe/processes/images/SampleInfo-report.png)
+    ![report]({{baseurl}}/processes/images/SampleInfo-report.png)
 
     Note that the required `RNAData` and `TCRData` columns are not shown in the report.
     They are used to specify the paths of the `scRNA-seq` and `scTCR-seq` data, respectively.
@@ -131,7 +132,7 @@ class SampleInfo(SampleInfo_):
         Samples_Source_each_Subject = { "group": "Source", "each": "Subject" }
         ```
 
-        ![Samples_Source](https://pwwang.github.io/immunopipe/processes/images/SampleInfo_Samples_Source.png)
+        ![Samples_Source]({{baseurl}}/processes/images/SampleInfo_Samples_Source.png)
 
         ### Explore the distribution of the Score
 
@@ -148,7 +149,7 @@ class SampleInfo(SampleInfo_):
         each = "Subject"
         ```
 
-        ![Score_Source](https://pwwang.github.io/immunopipe/processes/images/SampleInfo_Score_Source.png)
+        ![Score_Source]({{baseurl}}/processes/images/SampleInfo_Score_Source.png)
 
     Input:
         infile (required): {{Input.infile.help | indent: 12}}.
@@ -171,20 +172,33 @@ class ImmunarchLoading(ImmunarchLoading_):
     requires = SampleInfo
 
 
-@annotate.format_doc(indent=1)
+@annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})
 class SeuratPreparing(SeuratPreparing_):
     """{{Summary}}
 
     See also [Preparing the input](../preparing-input.md#scRNA-seq-data).
-    """
+
+    Metadata:
+        Here is the demonstration of basic metadata for the `Seurat` object. Future
+        processes will use it and/or add more metadata to the `Seurat` object.
+
+        ![SeuratPreparing-metadata]({{baseurl}}/processes/images/SeuratPreparing-metadata.png)
+    """  # noqa: E501
     requires = SampleInfo
 
 
 if "ModuleScoreCalculator" in config or just_loading:
     # Define the process first.
     # We need to setup the connections later
+    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class ModuleScoreCalculator(ModuleScoreCalculator_):
-        ...
+        """{{Summary}}
+
+        Metadata:
+            The metadata of the `Seurat` object will be updated with the module scores:
+
+            ![ModuleScoreCalculator-metadata]({{baseurl}}/processes/images/ModuleScoreCalculator-metadata.png)
+        """  # noqa: E501
 
     if "TCellSelection" not in config and not just_loading:
         ModuleScoreCalculator.requires = SeuratPreparing
@@ -278,7 +292,7 @@ if "TCellSelection" in config or just_loading:
         ModuleScoreCalculator.input_data = lambda ch1: ch1.iloc[:, [0]]
         TCellSelection = ModuleScoreCalculator
 
-    @annotate.format_doc(indent=2)
+    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class SeuratClusteringOfTCells(SeuratClustering):
         """Cluster the T cells selected by `TCellSelection`.
 
@@ -286,13 +300,20 @@ if "TCellSelection" in config or just_loading:
         all cells are T cells, this process will be skipped.
 
         See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).
+
+        Metadata:
+            The metadata of the `Seurat` object will be updated with the cluster
+            assignments:
+
+            ![SeuratClusteringOfTCells-metadata]({{baseurl}}/processes/images/SeuratClusteringOfTCells-metadata.png)
         """
         requires = TCellSelection
+        input_data = lambda ch1: ch1.iloc[:, [0]]
 else:
     SeuratClusteringOfTCells = SeuratClusteringOfAllCells
 
 
-@annotate.format_doc(indent=1)
+@annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})
 class CellTypeAnnotation(CellTypeAnnotation_):
     """Annotate the T cell clusters.
 
@@ -305,6 +326,19 @@ class CellTypeAnnotation(CellTypeAnnotation_):
     When cell types are annotated, the old `seurat_clusters` column will be renamed
     to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.
     ///
+
+    Metadata:
+        When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
+        the `Seurat` object will be kept as is.
+
+        When `envs.newcol` is specified, the original `seurat_clusters` column will be
+        kept is, and the annotated cell types will be saved in the new column.
+        Otherwise, the original `seurat_clusters` column will be replaced by the
+        annotated cell types and the original `seurat_clusters` column will be
+        saved at `seurat_clusters_id`.
+
+        ![CellTypeAnnotation-metadata]({{baseurl}}/processes/images/CellTypeAnnotation-metadata.png)
+
     """
     requires = SeuratClusteringOfTCells
     # Change the default to direct, which doesn't do any annotation
@@ -390,7 +424,7 @@ class TopExpressingGenes(TopExpressingGenes_):
 
 
 if "TESSA" in config or just_loading:
-    @annotate.format_doc(indent=2)
+    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class TESSA(TESSA_):
         """{{Summary}}
 
@@ -399,6 +433,12 @@ if "TESSA" in config or just_loading:
         with tag without `-full` suffix. If you want to use TESSA, please use the
         docker image with tag with `-full` suffix, or install the dependencies manually.
         ///
+
+        Metadata:
+            The metadata of the `Seurat` object will be updated with the TESSA clusters
+            and the cluster sizes:
+
+            ![TESSA-metadata]({{baseurl}}/processes/images/TESSA-metadata.png)
         """
         requires = ImmunarchLoading, CellTypeAnnotation
         input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 1], ch2)
@@ -406,7 +446,7 @@ if "TESSA" in config or just_loading:
     CellTypeAnnotation = TESSA
 
 
-@annotate.format_doc(indent=1)
+@annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})
 class SeuratMetadataMutater(SeuratMetadataMutater_):
     """Attach TCR clone information as meta columns to Seurat object
 
@@ -437,6 +477,14 @@ class SeuratMetadataMutater(SeuratMetadataMutater_):
     ///
 
     {{*Summary.long}}
+
+    Metadata:
+        The metadata of the `Seurat` object will be updated with information from TCR
+        data:
+
+        ![SeuratMetadataMutater-metadata]({{baseurl}}/processes/images/SeuratMetadataMutater-metadata.png)
+
+        All of the columns above can be used for downstream analysis.
     """
     requires = CellTypeAnnotation, ImmunarchLoading
     input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 0], ch2.iloc[:, 1])
@@ -465,7 +513,7 @@ if (
         input_data = lambda ch1: ch1.iloc[:, [0]]
 
     @mark(board_config_hidden=True)
-    @annotate.format_doc(indent=2)
+    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class TCRClusters2Seurat(SeuratMetadataMutater_):
         """Attach TCR clusters as meta columns to Seurat object
 
@@ -497,10 +545,14 @@ if (
         each = "seurat_clusters"
         ```
 
-        There is no environment variables for this process.
-
         Envs:
             mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
+
+        Metadata:
+            The metadata of the `Seurat` object will be updated with the TCR cluster
+            assignments and their sizes:
+
+            ![TCRClusters2Seurat-metadata]({{baseurl}}/processes/images/TCRClusters2Seurat-metadata.png)
         """
         requires = SeuratMetadataMutater, TCRClustering
         input_data = lambda ch1, ch2: tibble(

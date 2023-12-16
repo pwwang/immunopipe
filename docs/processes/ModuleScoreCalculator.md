@@ -75,3 +75,9 @@ expression, and the control features are randomly selected from each bin.<br />
     ```
 
 
+## Metadata
+
+The metadata of the `Seurat` object will be updated with the module scores:<br />
+
+![ModuleScoreCalculator-metadata](../processes/images/ModuleScoreCalculator-metadata.png)
+

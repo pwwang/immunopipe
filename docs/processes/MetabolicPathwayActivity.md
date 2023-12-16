@@ -8,11 +8,11 @@ examined for each groups in different subsets.<br />
 For each subset, a heatmap and a violin plot will be generated.<br />
 The heatmap shows the pathway activities for each group and each metabolic pathway
 
-![MetabolicPathwayActivity_heatmap](https://pwwang.github.io/immunopipe/processes/images/MetabolicPathwayActivity_heatmap.png){: width="80%"}
+![MetabolicPathwayActivity_heatmap](../processes/images/MetabolicPathwayActivity_heatmap.png){: width="80%"}
 
 The violin plot shows the distribution of the pathway activities for each group
 
-![MetabolicPathwayActivity_violin](https://pwwang.github.io/immunopipe/processes/images/MetabolicPathwayActivity_violin.png){: width="45%"}
+![MetabolicPathwayActivity_violin](../processes/images/MetabolicPathwayActivity_violin.png){: width="45%"}
 
 ## Environment Variables
 

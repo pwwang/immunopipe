@@ -159,3 +159,10 @@ See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
     You can also specify the directory to save the cached seurat object by setting `cache` to the directory path.<br />
 
 
+## Metadata
+
+The metadata of the `Seurat` object will be updated with the cluster
+assignments:<br />
+
+![SeuratClusteringOfTCells-metadata](../processes/images/SeuratClusteringOfTCells-metadata.png)
+
