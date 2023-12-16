@@ -45,7 +45,7 @@ $ pipen board immunopipe:Immunopipe
  *       |__)||__)|_ |\ | __ |__)/  \ /\ |__)|  \
  *       |   ||   |__| \|    |__)\__//--\| \ |__/
  *
- *                   version: 0.11.0
+ *                   version: 0.11.1
  *
  * Configure and run pipen pipelines from the web
  *
