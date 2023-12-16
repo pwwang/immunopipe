@@ -1,5 +1,21 @@
 # Change Log
 
+## 0.11.1
+
+- chore: change line length to 88 for flake8
+- chore: dismissing warning about wasting columns for `SeuratClusteringOfTCells`
+- docs: update CHANGELOG.md with missing changes of last version
+- docs: add version of renaming `envs.tcell_indicator` to `envs.tcell_selector`
+- docs: remove unused doc files
+- docs: add metadata illustration
+- deps: bump biopipen to 0.22.6. Highlights:
+  - deps: bump pipen-board to 0.13.10 (pipen-report to 0.16.2)
+  - CellsDistribution: Don't add rownames to the output table file
+  - MarkersFinder (ClusterMarkers/ClusterMarkersOfAllCells): Optimize to use `FindAllMarkers` if `ident.1` is not specified
+  - SeuratClusterStats: Fix path of expression table file
+  - CellTypeAnnotation: Allow using `NA` to exclude clusters from output `Seurat` object
+  - utils.mutate_helpers: Return ids only when subset is true and group is not `NA` for `uniq = TRUE` in `expanded`, `collapsed`, `emerged` and `vanished`
+
 ## 0.11.0
 
 - deps: update biopipen to 0.22.1, highlights:
