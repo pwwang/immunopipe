@@ -23,8 +23,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
         The column name in metadata to group the cells.<br />
         Does NOT support for pie charts.<br />
     - `split-by`:
-        The column name in metadata to split the cells into
-        different plots.<br />
+        The column name in metadata to split the cells into different plots.<br />
     - `subset`:
         An expression to subset the cells, will be passed to
         `dplyr::filter()` on metadata.<br />
@@ -129,6 +128,12 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
             Use `Seurat::DotPlot`.<br />
         - `dotplot`:
             Same as `dot`.<br />
+        - `bar`:
+            Bar plot on an aggregated feature.<br />
+            The features must be a single feature, which will be either an  existing feature or an expression
+            passed to `dplyr::summarise()` (grouped by `ident`) on the existing features to create a new feature.<br />
+        - `barplot`:
+            Same as `bar`.<br />
         - `heatmap`:
             Use `Seurat::DoHeatmap`.<br />
             You can specify `average=True` to plot on the average of the expressions.<br />
