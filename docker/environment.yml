@@ -26,6 +26,7 @@ dependencies:
   - bioconductor-complexheatmap
   - r-slugify
   - r-logger
+  - r-presto  # MarkersFinder
   - r-hash  # CDR3AAPhyschem
   - r-glmnet  # CDR3AAPhyschem
   - r-matrix=1.6_1  # CDR3AAPhyschem
