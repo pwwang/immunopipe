@@ -18,6 +18,7 @@ from biopipen.ns.tcr import (
 )
 from biopipen.ns.scrna import (
     SeuratPreparing as SeuratPreparing_,
+    SeuratClustering as SeuratClustering_,
     SeuratMap2Ref as SeuratMap2Ref_,
     SeuratClusterStats as SeuratClusterStats_,
     SeuratMetadataMutater as SeuratMetadataMutater_,
@@ -194,34 +195,18 @@ class SeuratPreparing(SeuratPreparing_):
     requires = SampleInfo
 
 
-if "ModuleScoreCalculator" in config or just_loading:
-    # Define the process first.
-    # We need to setup the connections later
-    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
-    class ModuleScoreCalculator(ModuleScoreCalculator_):
-        """{{Summary}}
+if just_loading or "TCellSelection" in config:
+    # No matter "SeuratClusteringOfAllCells" is in the config or not
+    @annotate.format_doc(indent=2)
+    class SeuratClusteringOfAllCells(SeuratClustering_):
+        """Cluster all cells, including T cells and non-T cells using Seurat
 
-        Metadata:
-            The metadata of the `Seurat` object will be updated with the module scores:
+        This process will perform clustering on all cells using
+        [`Seurat`](https://satijalab.org/seurat/) package.
+        The clusters will then be used to select T cells by
+        [`TCellSelection`](TCellSelection.md) process.
 
-            ![ModuleScoreCalculator-metadata]({{baseurl}}/processes/images/ModuleScoreCalculator-metadata.png)
-        """  # noqa: E501
-
-    if "TCellSelection" not in config and not just_loading:
-        ModuleScoreCalculator.requires = SeuratPreparing
-        SeuratPreparing = ModuleScoreCalculator
-
-
-@annotate.format_doc(indent=1)
-class SeuratClusteringOfAllCells(SeuratClustering):
-    """Cluster all cells using Seurat
-
-    This process will perform clustering on all cells using
-    [`Seurat`](https://satijalab.org/seurat/) package.
-    The clusters will then be used to select T cells by
-    [`TCellSelection`](TCellSelection.md) process.
-
-    {{*Summary.long}}
+        {{*Summary.long}}
 
         /// Note
         If all your cells are all T cells ([`TCellSelection`](TCellSelection.md) is
@@ -233,8 +218,14 @@ class SeuratClusteringOfAllCells(SeuratClustering):
         """
         requires = SeuratPreparing
 
+    SeuratPreparing = SeuratClusteringOfAllCells
+    # >>> SeuratPreparing
 
-if "ClusterMarkersOfAllCells" in config or just_loading:
+
+if (
+    just_loading
+    or ("TCellSelection" in config and "ClusterMarkersOfAllCells" in config)
+):
     @annotate.format_doc(indent=2)
     class ClusterMarkersOfAllCells(MarkersFinder_):
         """Markers for clusters of all cells.
@@ -254,7 +245,7 @@ if "ClusterMarkersOfAllCells" in config or just_loading:
             prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 12}}.
             section (hidden;readonly): {{Envs.section.help | indent: 12}}.
         """
-        requires = SeuratClusteringOfAllCells
+        requires = SeuratPreparing
         envs = {
             "cases": {"Cluster": {}},
             "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
@@ -262,7 +253,10 @@ if "ClusterMarkersOfAllCells" in config or just_loading:
         order = 2
 
 
-if "TopExpressingGenesOfAllCells" in config or just_loading:
+if (
+    just_loading
+    or ("TCellSelection" in config and "TopExpressingGenesOfAllCells" in config)
+):
     @annotate.format_doc(indent=2)
     class TopExpressingGenesOfAllCells(TopExpressingGenes_):
         """Top expressing genes for clusters of all cells.
@@ -284,16 +278,34 @@ if "TopExpressingGenesOfAllCells" in config or just_loading:
             prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 12}}.
             section (hidden;readonly): {{Envs.section.help | indent: 12}}.
         """
-        requires = SeuratClusteringOfAllCells
+        requires = SeuratPreparing
         envs = {"cases": {"Cluster": {}}}
         order = 3
 
 
-if "TCellSelection" in config or just_loading:
+if just_loading or "TCellSelection" in config:
     class TCellSelection(TCellSelection_):
-        requires = [SeuratClusteringOfAllCells, ImmunarchLoading]
+        requires = [SeuratPreparing, ImmunarchLoading]
         input_data = lambda ch1, ch2: tibble(ch1, ch2.iloc[:, 1])
 
+    SeuratPreparing = TCellSelection
+    # >>> SeuratPreparing
+
+if just_loading or "ModuleScoreCalculator" in config:
+    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
+    class ModuleScoreCalculator(ModuleScoreCalculator_):
+        """{{Summary}}
+
+        Metadata:
+            The metadata of the `Seurat` object will be updated with the module scores:
+
+            ![ModuleScoreCalculator-metadata]({{baseurl}}/processes/images/ModuleScoreCalculator-metadata.png)
+        """  # noqa: E501
+        requires = SeuratPreparing
+        input_data = lambda ch1: ch1.iloc[:, [0]]
+
+    SeuratPreparing = ModuleScoreCalculator
+    # >>> SeuratPreparing
 
 if just_loading or "SeuratMap2Ref" in config:
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
@@ -333,6 +345,8 @@ if just_loading or "SeuratMap2Ref" not in config:
         requires = SeuratPreparing
         input_data = lambda ch1: ch1.iloc[:, [0]]
 
+    Clustered = SeuratClustering
+    # >>> Clustered
 
 if just_loading or "SeuratMap2Ref" not in config:
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
@@ -381,7 +395,7 @@ if just_loading or "SeuratMap2Ref" not in config:
 
 @annotate.format_doc(indent=1)
 class ClusterMarkers(MarkersFinder_):
-    """Markers for clusters of T cells.
+    """Markers for clusters of all or selected T cells.
 
     This process is extended from [`MarkersFinder`](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder)
     from the [`biopipen`](https://pwwang.github.io/biopipen) package.
@@ -412,7 +426,7 @@ class ClusterMarkers(MarkersFinder_):
         prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 12}}.
         section (hidden;readonly): {{Envs.section.help | indent: 12}}.
     """  # noqa: E501
-    requires = CellTypeAnnotation
+    requires = Clustered
     envs = {
         "cases": {"Cluster": {}},
         "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
@@ -422,7 +436,7 @@ class ClusterMarkers(MarkersFinder_):
 
 @annotate.format_doc(indent=1)
 class TopExpressingGenes(TopExpressingGenes_):
-    """Top expressing genes for clusters of T cells.
+    """Top expressing genes for clusters of all or selected T cells.
 
     {{*Summary.long}}
 
@@ -452,12 +466,12 @@ class TopExpressingGenes(TopExpressingGenes_):
         prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 12}}.
         section (hidden;readonly): {{Envs.section.help | indent: 12}}.
     """  # noqa: E501
-    requires = CellTypeAnnotation
+    requires = Clustered
     envs = {"cases": {"Cluster": {}}}
     order = 3
 
 
-if "TESSA" in config or just_loading:
+if just_loading or "TESSA" in config:
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class TESSA(TESSA_):
         """{{Summary}}
@@ -474,10 +488,12 @@ if "TESSA" in config or just_loading:
 
             ![TESSA-metadata]({{baseurl}}/processes/images/TESSA-metadata.png)
         """
-        requires = ImmunarchLoading, CellTypeAnnotation
+        requires = ImmunarchLoading, Clustered
         input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 1], ch2)
+        order = 9
 
-    CellTypeAnnotation = TESSA
+    Clustered = TESSA
+    # >>> Clustered
 
 
 @annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})
@@ -529,11 +545,7 @@ class IntegratingTCR(SeuratMetadataMutater_):
     }
 
 
-if (
-    "TCRClustering" in config
-    or "TCRClusterStats" in config
-    or just_loading
-):
+if just_loading or "TCRClustering" in config or "TCRClusterStats" in config:
     @annotate.format_doc(indent=2)
     class TCRClustering(TCRClustering_):
         """{{Summary.short}}
@@ -545,6 +557,7 @@ if (
         """
         requires = ImmunarchLoading
         input_data = lambda ch1: ch1.iloc[:, [0]]
+        order = 9
 
     @mark(board_config_hidden=True)
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
