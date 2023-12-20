@@ -91,10 +91,16 @@ function, and performs enrichment analysis for the markers found.<br />
     `each` and case name.<br />
 - `subset`:
     An expression to subset the cells for each case.<br />
+- `use_presto`: *Default: `False`*. <br />
+    Whether to use [`presto::wilcoxauc`](https://rdrr.io/github/immunogenomics/presto/man/wilcoxauc.html)
+    to find markers.<br />
+    [`presto`](https://github.com/immunogenomics/presto) is a package performs
+    fast Wilcoxon rank sum test and auROC analysis.<br />
 - `rest` *(`ns`)*:
     Rest arguments for `Seurat::FindMarkers()`.<br />
     Use `-` to replace `.` in the argument name. For example,
     use `min-pct` instead of `min.pct`.<br />
+    This only works when `use_presto` is `False`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findmarkers>
 - `dotplot` *(`ns`)*:
