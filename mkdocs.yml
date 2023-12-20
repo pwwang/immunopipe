@@ -39,7 +39,7 @@ nav:
       - 'TopExpressingGenesOfAllCells': 'processes/TopExpressingGenesOfAllCells.md'
       - 'TCellSelection': 'processes/TCellSelection.md'
       - 'ModuleScoreCalculator': 'processes/ModuleScoreCalculator.md'
-      - 'SeuratClusteringOfTCells': 'processes/SeuratClusteringOfTCells.md'
+      - 'SeuratClustering': 'processes/SeuratClustering.md'
       - 'CellTypeAnnotation': 'processes/CellTypeAnnotation.md'
       - 'TCRClustering': 'processes/TCRClustering.md'
       - 'TCRClusterStats': 'processes/TCRClusterStats.md'

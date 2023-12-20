@@ -147,7 +147,7 @@ To enable more processes, you just need to add configurations for the processes.
 indicator_genes = ["CD3D", "CD3E", "CD3G"]
 ```
 
-If [`TCellSelection`](processes/TCellSelection.md) is enabled, [`SeuratClusteringOfTCells`](processes/SeuratClusteringOfTCells.md) will be enabled, and [`ClusterMarkers`](processes/ClusterMarkers.md), and [`TopExpressingGenes`](processes/TopExpressingGenes.md) will be performed on the clusters of selected T cells.
+If [`TCellSelection`](processes/TCellSelection.md) is enabled, [`SeuratClustering`](processes/SeuratClustering.md) will be enabled, and [`ClusterMarkers`](processes/ClusterMarkers.md), and [`TopExpressingGenes`](processes/TopExpressingGenes.md) will be performed on the clusters of selected T cells.
 
 Similarly, if [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusterStats`](processes/TCRClusterStats.md) is enabled, [`TCRClustering`](processes/TCRClustering.md), [`TCRClusters2Seurat`](processes/TCRClusters2Seurat.md), and [`TCRClusterStats`](processes/TCRClusterStats.md) will be enabled automatically.
 

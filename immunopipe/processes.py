@@ -219,15 +219,15 @@ class SeuratClusteringOfAllCells(SeuratClustering):
 
     {{*Summary.long}}
 
-    /// Note
-    If all you cells are T cells, this process will perform clustering on all cells
-    and the results will be used on downstream T-cell analyses and the integrative
-    analyses. At the same time, you should leave the
-    [`TCellSelection`](TCellSelection.md) process out of the pipeline, by not setting
-    anything for the process in the configuration file.
-    ///
-    """
-    requires = SeuratPreparing
+        /// Note
+        If all your cells are all T cells ([`TCellSelection`](TCellSelection.md) is
+        not set in configuration), you should not use this process.
+        Instead, you should use [`SeuratClustering`](./SeuratClustering.md) process
+        for unsupervised clustering, or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process
+        for supervised clustering.
+        ///
+        """
+        requires = SeuratPreparing
 
 
 if "ClusterMarkersOfAllCells" in config or just_loading:
@@ -296,11 +296,13 @@ if "TCellSelection" in config or just_loading:
         TCellSelection = ModuleScoreCalculator
 
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
-    class SeuratClusteringOfTCells(SeuratClustering):
-        """Cluster the T cells selected by `TCellSelection`.
+    class SeuratClustering(SeuratClustering_):
+        """Cluster all T cells or selected T cells selected by `TCellSelection`.
 
-        If nothing is set for `TCellSelection` in the config file, meaning
-        all cells are T cells, this process will be skipped.
+        If `[TCellSelection]` is not set in the configuration, meaning
+        all cells are T cells, this process will be run on all T cells. Otherwise,
+        this process will be run on the selected T cells by
+        [`TCellSelection`](./TCellSelection.md).
 
         See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).
 
@@ -308,12 +310,10 @@ if "TCellSelection" in config or just_loading:
             The metadata of the `Seurat` object will be updated with the cluster
             assignments:
 
-            ![SeuratClusteringOfTCells-metadata]({{baseurl}}/processes/images/SeuratClusteringOfTCells-metadata.png)
+            ![SeuratClustering-metadata]({{baseurl}}/processes/images/SeuratClustering-metadata.png)
         """
-        requires = TCellSelection
+        requires = SeuratPreparing
         input_data = lambda ch1: ch1.iloc[:, [0]]
-else:
-    SeuratClusteringOfTCells = SeuratClusteringOfAllCells
 
 
 @annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})

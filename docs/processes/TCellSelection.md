@@ -6,7 +6,7 @@ If all of your cells are T cells, do not set any configurations for this process
 
 In such a case, [`SeuratClusteringOfAllCells`](SeuratClusteringOfAllCells.md) will
 be clustering all T cells and
-[`SeuratClusteringOfTCells`](SeuratClusteringOfTCells.md) will be skipped.<br />
+[`SeuratClustering`](SeuratClustering.md) will be skipped.<br />
 
 There are two ways to separate T and non-T cells:<br />
 
@@ -88,9 +88,9 @@ the indicator genes, together with `Clonotype_Pct`, with K=2.<br />
 | 3  | 0.5           | 3               | 1.5  | 0.8  | 0.9  | TRUE     |
 
 ![kmeans](images/TCellSelection-kmeans.png)
-
+SeuratClustering
 The cluster with higher clonoype percentage will be selected as T cells
 (`is_TCell = TRUE`), and sent to
-[`SeuratClusteringOfTCells`](SeuratClusteringOfTCells.md) for
+[`SeuratClustering`](SeuratClustering.md) for
 further clustering and downstream analysis.<br />
 

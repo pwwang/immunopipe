@@ -41,7 +41,7 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 
 ### Clustering of T cells
 
-- [`SeuratClusteringOfTCells`](processes/SeuratClusteringOfTCells.md): Perform clustering on T cells selected above.
+- [`SeuratClustering`](processes/SeuratClustering.md): Perform clustering on T cells selected above.
 - [`CellTypeAnnotation`](processes/CellTypeAnnotation.md): Annotate cell types for each T-cell cluster.
 - [`ClusterMarkers`](processes/ClusterMarkers.md): Find markers for each T-cell cluster and perform enrichment analysis.
 - [`TopExpressingGenes`](processes/TopExpressingGenes.md): Find top expressing genes for each T-cell cluster and perform enrichment analysis.

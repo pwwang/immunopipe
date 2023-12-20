@@ -1,9 +1,11 @@
-# SeuratClusteringOfTCells
+# SeuratClustering
 
-Cluster the T cells selected by `TCellSelection`.
+Cluster all T cells or selected T cells selected by `TCellSelection`.
 
-If nothing is set for `TCellSelection` in the config file, meaning
-all cells are T cells, this process will be skipped.<br />
+If `[TCellSelection]` is not set in the configuration, meaning
+all cells are T cells, this process will be run on all T cells. Otherwise,
+this process will be run on the selected T cells by
+[`TCellSelection`](./TCellSelection.md).<br />
 
 See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
 
@@ -164,5 +166,5 @@ See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
 The metadata of the `Seurat` object will be updated with the cluster
 assignments:<br />
 
-![SeuratClusteringOfTCells-metadata](../processes/images/SeuratClusteringOfTCells-metadata.png)
+![SeuratClustering-metadata](../processes/images/SeuratClustering-metadata.png)
 

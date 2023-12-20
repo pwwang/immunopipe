@@ -8,13 +8,13 @@ class TCellSelection(Proc):
 
     If all of your cells are T cells, do not set any configurations for this process.
 
-    In such a case, [`SeuratClusteringOfAllCells`](SeuratClusteringOfAllCells.md) will
-    be clustering all T cells and
-    [`SeuratClusteringOfTCells`](SeuratClusteringOfTCells.md) will be skipped.
+    In such a case, [`SeuratClusteringOfAllCells`](SeuratClusteringOfAllCells.md) should
+    not be used, and [`SeuratClustering`](SeuratClustering.md) will be clustering all
+    of the cells, which are all T cells.
 
     There are two ways to separate T and non-T cells:
 
-    1. Use the T cell indicator directly from the metadata.
+    1. Use the an expression indicator directly from the metadata.
     2. Use the expression values of indicator genes, and the clonotype percentage
     of the clusters.
 
@@ -70,7 +70,7 @@ class TCellSelection(Proc):
 
         The cluster with higher clonoype percentage will be selected as T cells
         (`is_TCell = TRUE`), and sent to
-        [`SeuratClusteringOfTCells`](SeuratClusteringOfTCells.md) for
+        [`SeuratClustering`](SeuratClustering.md) for
         further clustering and downstream analysis.
 
     Input:
