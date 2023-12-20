@@ -1,6 +1,6 @@
 # TopExpressingGenes
 
-Top expressing genes for clusters of T cells.
+Top expressing genes for clusters of all or selected T cells.
 
 
 

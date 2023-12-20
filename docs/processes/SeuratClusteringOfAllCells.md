@@ -1,6 +1,6 @@
 # SeuratClusteringOfAllCells
 
-Cluster all cells using Seurat
+Cluster all cells, including T cells and non-T cells using Seurat
 
 This process will perform clustering on all cells using
 [`Seurat`](https://satijalab.org/seurat/) package.<br />
@@ -15,11 +15,11 @@ To perform the clustering, you have two routes to choose from:<br />
 - See: [https://satijalab.org/seurat/articles/integration_rpca.html](https://satijalab.org/seurat/articles/integration_rpca.html)
 
 /// Note
-If all you cells are T cells, this process will perform clustering on all cells
-and the results will be used on downstream T-cell analyses and the integrative
-analyses. At the same time, you should leave the
-[`TCellSelection`](TCellSelection.md) process out of the pipeline, by not setting
-anything for the process in the configuration file.<br />
+If all your cells are all T cells ([`TCellSelection`](TCellSelection.md) is
+not set in configuration), you should not use this process.<br />
+Instead, you should use [`SeuratClustering`](./SeuratClustering.md) process
+for unsupervised clustering, or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process
+for supervised clustering.<br />
 ///
 
 ## Environment Variables

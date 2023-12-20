@@ -22,6 +22,11 @@ The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
 by default.<br />
 
 /// Note
+When supervised clustering [`SeuratMap2Ref`](./SeuratMap2Ref.md) is used, this
+process will be ignored.<br />
+///
+
+/// Note
 When cell types are annotated, the old `seurat_clusters` column will be renamed
 to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br />
 ///
@@ -115,8 +120,8 @@ The cell types will be assigned as:<br />
 When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
 the `Seurat` object will be kept as is.<br />
 
-When `envs.newcol` is specified, the original `seurat_clusters` column will be
-kept is, and the annotated cell types will be saved in the new column.<br />
+When `envs.newcol` is specified, the original `seurat_clusters` column will
+be kept is, and the annotated cell types will be saved in the new column.<br />
 Otherwise, the original `seurat_clusters` column will be replaced by the
 annotated cell types and the original `seurat_clusters` column will be
 saved at `seurat_clusters_id`.<br />

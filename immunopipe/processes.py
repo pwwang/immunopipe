@@ -18,7 +18,7 @@ from biopipen.ns.tcr import (
 )
 from biopipen.ns.scrna import (
     SeuratPreparing as SeuratPreparing_,
-    SeuratClustering,
+    SeuratMap2Ref as SeuratMap2Ref_,
     SeuratClusterStats as SeuratClusterStats_,
     SeuratMetadataMutater as SeuratMetadataMutater_,
     MarkersFinder as MarkersFinder_,
@@ -294,11 +294,25 @@ if "TCellSelection" in config or just_loading:
         requires = [SeuratClusteringOfAllCells, ImmunarchLoading]
         input_data = lambda ch1, ch2: tibble(ch1, ch2.iloc[:, 1])
 
-    if "ModuleScoreCalculator" in config or just_loading:
-        ModuleScoreCalculator.requires = TCellSelection
-        ModuleScoreCalculator.input_data = lambda ch1: ch1.iloc[:, [0]]
-        TCellSelection = ModuleScoreCalculator
 
+if just_loading or "SeuratMap2Ref" in config:
+    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
+    class SeuratMap2Ref(SeuratMap2Ref_):
+        """{{Summary}}
+
+        Metadata:
+            The metadata of the `Seurat` object will be updated with the cluster
+            assignments (column name determined by `envs.name`):
+
+            ![SeuratMap2Ref-metadata]({{baseurl}}/processes/images/SeuratClustering-metadata.png)
+        """
+        requires = SeuratPreparing
+        input_data = lambda ch1: ch1.iloc[:, [0]]
+
+    Clustered = SeuratMap2Ref
+    # >>> Clustered
+
+if just_loading or "SeuratMap2Ref" not in config:
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class SeuratClustering(SeuratClustering_):
         """Cluster all T cells or selected T cells selected by `TCellSelection`.
@@ -320,36 +334,49 @@ if "TCellSelection" in config or just_loading:
         input_data = lambda ch1: ch1.iloc[:, [0]]
 
 
-@annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})
-class CellTypeAnnotation(CellTypeAnnotation_):
-    """Annotate the T cell clusters.
+if just_loading or "SeuratMap2Ref" not in config:
+    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
+    class CellTypeAnnotation(CellTypeAnnotation_):
+        """Annotate the T cell clusters.
 
-    {{*Summary}}
+        {{*Summary}}
 
-    The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
-    by default.
+        The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
+        by default.
 
-    /// Note
-    When cell types are annotated, the old `seurat_clusters` column will be renamed
-    to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.
-    ///
+        /// Note
+        When supervised clustering [`SeuratMap2Ref`](./SeuratMap2Ref.md) is used, this
+        process will be ignored.
+        ///
 
-    Metadata:
-        When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
-        the `Seurat` object will be kept as is.
+        /// Note
+        When cell types are annotated, the old `seurat_clusters` column will be renamed
+        to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.
+        ///
 
-        When `envs.newcol` is specified, the original `seurat_clusters` column will be
-        kept is, and the annotated cell types will be saved in the new column.
-        Otherwise, the original `seurat_clusters` column will be replaced by the
-        annotated cell types and the original `seurat_clusters` column will be
-        saved at `seurat_clusters_id`.
+        Metadata:
+            When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
+            the `Seurat` object will be kept as is.
 
-        ![CellTypeAnnotation-metadata]({{baseurl}}/processes/images/CellTypeAnnotation-metadata.png)
+            When `envs.newcol` is specified, the original `seurat_clusters` column will
+            be kept is, and the annotated cell types will be saved in the new column.
+            Otherwise, the original `seurat_clusters` column will be replaced by the
+            annotated cell types and the original `seurat_clusters` column will be
+            saved at `seurat_clusters_id`.
 
-    """
-    requires = SeuratClusteringOfTCells
-    # Change the default to direct, which doesn't do any annotation
-    envs = {"tool": "direct", "sctype_db": None}
+            ![CellTypeAnnotation-metadata]({{baseurl}}/processes/images/CellTypeAnnotation-metadata.png)
+
+        """  # noqa: E501
+        if just_loading:
+            # Make sure both are loaded while just loading the pipeline
+            requires = SeuratMap2Ref, SeuratClustering
+        else:
+            requires = Clustered
+        # Change the default to direct, which doesn't do any annotation
+        envs = {"tool": "direct", "sctype_db": None}
+
+    Clustered = CellTypeAnnotation
+    # >>> Clustered
 
 
 @annotate.format_doc(indent=1)
