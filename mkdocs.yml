@@ -40,6 +40,7 @@ nav:
       - 'TCellSelection': 'processes/TCellSelection.md'
       - 'ModuleScoreCalculator': 'processes/ModuleScoreCalculator.md'
       - 'SeuratClustering': 'processes/SeuratClustering.md'
+      - 'SeuratMap2Ref': 'processes/SeuratMap2Ref.md'
       - 'CellTypeAnnotation': 'processes/CellTypeAnnotation.md'
       - 'TCRClustering': 'processes/TCRClustering.md'
       - 'TCRClusterStats': 'processes/TCRClusterStats.md'
