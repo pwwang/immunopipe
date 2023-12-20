@@ -49,6 +49,29 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     }
     ```
 
+- `ngenes_defaults` *(`ns`)*:
+    The default parameters for `ngenes`.<br />
+    The default parameters to plot the number of genes expressed in each cell.<br />
+    - `ident`: *Default: `seurat_clusters`*. <br />
+        The column name in metadata to use as the identity.<br />
+    - `group-by`:
+        The column name in metadata to group the cells.<br />
+        Dodge position will be used to separate the groups.<br />
+    - `split-by`:
+        The column name in metadata to split the cells into different plots.<br />
+    - `subset`:
+        An expression to subset the cells, will be passed to `tidyrseurat::filter()`.<br />
+    - `devpars` *(`ns`)*:
+        The device parameters for the plots.<br />
+        - `res` *(`type=int`)*: *Default: `100`*. <br />
+            The resolution of the plots.<br />
+        - `height` *(`type=int`)*: *Default: `800`*. <br />
+            The height of the plots.<br />
+        - `width` *(`type=int`)*: *Default: `1000`*. <br />
+            The width of the plots.<br />
+- `ngenes` *(`type=json`)*: *Default: `{'Number of genes expressed in each cluster': Diot({})}`*. <br />
+    The number of genes expressed in each cell.<br />
+    Keys are the names of the plots and values are the dicts inherited from `env.ngenes_defaults`.<br />
 - `features_defaults` *(`ns`)*:
     The default parameters for `features`.<br />
     - `features`:
