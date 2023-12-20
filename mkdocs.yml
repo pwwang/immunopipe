@@ -43,7 +43,7 @@ nav:
       - 'CellTypeAnnotation': 'processes/CellTypeAnnotation.md'
       - 'TCRClustering': 'processes/TCRClustering.md'
       - 'TCRClusterStats': 'processes/TCRClusterStats.md'
-      - 'TCRClusters2Seurat': 'processes/TCRClusters2Seurat.md'
+      - 'IntegratingTCRClusters': 'processes/IntegratingTCRClusters.md'
       - 'ClusterMarkers': 'processes/ClusterMarkers.md'
       - 'TopExpressingGenes': 'processes/TopExpressingGenes.md'
       - 'Immunarch': 'processes/Immunarch.md'

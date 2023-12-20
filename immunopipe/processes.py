@@ -171,7 +171,11 @@ class SampleInfo(SampleInfo_):
     envs = {"exclude_cols": "TCRData,RNAData"}
 
 
+@annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})
 class ImmunarchLoading(ImmunarchLoading_):
+    """{{Summary | str |
+        replace: '`SeuratMetadataMutater`', '[`IntegratingTCR`](./IntegratingTCR.md)'}}
+    """
     requires = SampleInfo
 
 
@@ -517,7 +521,7 @@ if (
 
     @mark(board_config_hidden=True)
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
-    class TCRClusters2Seurat(SeuratMetadataMutater_):
+    class IntegratingTCRClusters(SeuratMetadataMutater_):
         """Attach TCR clusters as meta columns to Seurat object
 
         {{*Summary.long}}
@@ -555,9 +559,9 @@ if (
             The metadata of the `Seurat` object will be updated with the TCR cluster
             assignments and their sizes:
 
-            ![TCRClusters2Seurat-metadata]({{baseurl}}/processes/images/TCRClusters2Seurat-metadata.png)
+            ![IntegratingTCRClusters-metadata]({{baseurl}}/processes/images/IntegratingTCRClusters-metadata.png)
         """
-        requires = SeuratMetadataMutater, TCRClustering
+        requires = IntegratingTCR, TCRClustering
         input_data = lambda ch1, ch2: tibble(
             srtobj=ch1.rdsfile, metafile=ch2.clusterfile
         )
@@ -566,12 +570,12 @@ if (
         requires = TCRClustering
         input_data = lambda ch1: ch1.iloc[:, [0]]
 
-else:
-    TCRClusters2Seurat = SeuratMetadataMutater
+    IntegratingTCR = IntegratingTCRClusters
+    # >>> IntegratingTCR
 
 
 class SeuratClusterStats(SeuratClusterStats_):
-    requires = TCRClusters2Seurat
+    requires = IntegratingTCR
     order = -1
     envs = {
         "dimplots": {
@@ -605,35 +609,27 @@ class Immunarch(Immunarch_):
     {{*Summary.long | str |
     replace: '!!#biopipennstcrimmunarchloading', './ImmunarchLoading.md'}}
     """
-    requires = ImmunarchLoading, TCRClusters2Seurat
+    requires = ImmunarchLoading, IntegratingTCR
     input_data = lambda ch1, ch2: tibble(
         immdata=ch1.iloc[:, 0],
         metafile=ch2.iloc[:, 0],
     )
 
 
-if "CellsDistribution" in config or just_loading:
+if just_loading or "CellsDistribution" in config:
     class CellsDistribution(CellsDistribution_):
-        requires = TCRClusters2Seurat
+        requires = IntegratingTCR
         order = 8
 
-
-if "CloneResidency" in config or just_loading:
+if just_loading or "CloneResidency" in config:
     class CloneResidency(CloneResidency_):
-        requires = ImmunarchLoading, TCRClusters2Seurat
+        requires = ImmunarchLoading, IntegratingTCR
         input_data = lambda ch1, ch2: tibble(
             immdata=ch1.iloc[:, 0],
             metafile=ch2.iloc[:, 0],
         )
-        order = -3
 
-
-# if "CloneHeterogeneity" in config or just_loading:
-#     class CloneHeterogeneity(CloneHeterogeneity):
-#         requires = SeuratMetadataMutater
-
-
-if "RadarPlots" in config or just_loading:
+if just_loading or "RadarPlots" in config:
     @annotate.format_doc(indent=2)
     class RadarPlots(RadarPlots_):
         """{{Summary}}
@@ -643,17 +639,14 @@ if "RadarPlots" in config or just_loading:
                 See also
                 [`mutating the metadata`](../configurations.md#mutating-the-metadata).
         """
-        requires = TCRClusters2Seurat
-        order = -2
+        requires = IntegratingTCR
 
-
-if "ScFGSEA" in config or just_loading:
+if just_loading or "ScFGSEA" in config:
     class ScFGSEA(ScFGSEA_):
-        requires = TCRClusters2Seurat
+        requires = IntegratingTCR
         order = 4
 
-
-if "MarkersFinder" in config or just_loading:
+if just_loading or "MarkersFinder" in config:
     @annotate.format_doc(indent=2)
     class MarkersFinder(MarkersFinder_):
         """{{Summary.short}}
@@ -763,26 +756,23 @@ if "MarkersFinder" in config or just_loading:
             a section name other than `DEFAULT` for each case to group them
             in the report.
         """
-        requires = TCRClusters2Seurat
+        requires = IntegratingTCR
         envs = {"assay": "RNA"}
         order = 5
 
-
-if "MetaMarkers" in config or just_loading:
+if just_loading or "MetaMarkers" in config:
     class MetaMarkers(MetaMarkers_):
-        requires = TCRClusters2Seurat
+        requires = IntegratingTCR
         order = 6
 
-
-if "CDR3AAPhyschem" in config or just_loading:
+if just_loading or "CDR3AAPhyschem" in config:
     class CDR3AAPhyschem(CDR3AAPhyschem_):
-        requires = ImmunarchLoading, TCRClusters2Seurat
+        requires = ImmunarchLoading, IntegratingTCR
         input_data = lambda ch1, ch2: tibble(
             immdata=ch1.rdsfile,
             srtobj=ch2.rdsfile,
         )
         order = 9
-
 
 if "ScrnaMetabolicLandscape" in config or just_loading:
     anno = annotate(ScrnaMetabolicLandscape)
@@ -794,7 +784,7 @@ if "ScrnaMetabolicLandscape" in config or just_loading:
     anno.Args.is_seurat.attrs["default"] = True
     anno.Args.is_seurat.attrs["value"] = True
     scrna_metabolic_landscape = ScrnaMetabolicLandscape(is_seurat=True)
-    scrna_metabolic_landscape.p_input.requires = TCRClusters2Seurat
+    scrna_metabolic_landscape.p_input.requires = IntegratingTCR
     scrna_metabolic_landscape.p_input.order = 99
     scrna_metabolic_landscape.p_features_intra_subset.__doc__ = (
         scrna_metabolic_landscape.p_features_intra_subset.__doc__.replace(

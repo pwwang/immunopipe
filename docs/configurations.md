@@ -149,7 +149,7 @@ indicator_genes = ["CD3D", "CD3E", "CD3G"]
 
 If [`TCellSelection`](processes/TCellSelection.md) is enabled, [`SeuratClustering`](processes/SeuratClustering.md) will be enabled, and [`ClusterMarkers`](processes/ClusterMarkers.md), and [`TopExpressingGenes`](processes/TopExpressingGenes.md) will be performed on the clusters of selected T cells.
 
-Similarly, if [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusterStats`](processes/TCRClusterStats.md) is enabled, [`TCRClustering`](processes/TCRClustering.md), [`TCRClusters2Seurat`](processes/TCRClusters2Seurat.md), and [`TCRClusterStats`](processes/TCRClusterStats.md) will be enabled automatically.
+Similarly, if [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusterStats`](processes/TCRClusterStats.md) is enabled, [`TCRClustering`](processes/TCRClustering.md), [`IntegratingTCRClusters`](processes/IntegratingTCRClusters.md), and [`TCRClusterStats`](processes/TCRClusterStats.md) will be enabled automatically.
 
 For other processes, make sure you have them configured to enable them.
 

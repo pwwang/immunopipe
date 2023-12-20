@@ -1,4 +1,4 @@
-# TCRClusters2Seurat
+# IntegratingTCRClusters
 
 Attach TCR clusters as meta columns to Seurat object
 
@@ -35,5 +35,5 @@ each = "seurat_clusters"
 The metadata of the `Seurat` object will be updated with the TCR cluster
 assignments and their sizes:<br />
 
-![TCRClusters2Seurat-metadata](../processes/images/TCRClusters2Seurat-metadata.png)
+![IntegratingTCRClusters-metadata](../processes/images/IntegratingTCRClusters-metadata.png)
 
