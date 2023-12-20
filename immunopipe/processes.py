@@ -34,9 +34,12 @@ from biopipen.ns.scrna_metabolic_landscape import ScrnaMetabolicLandscape
 
 # inhouse processes
 from .inhouse import TCellSelection as TCellSelection_
+from .validate_config import validate_config
 
 toml_dumps = FILTERS["toml_dumps"]
 just_loading = is_loading_pipeline()
+config = validate_config(config)
+
 DOC_BASEURL = "https://pwwang.github.io/immunopipe"
 
 
