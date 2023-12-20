@@ -48,7 +48,7 @@ nav:
       - 'TopExpressingGenes': 'processes/TopExpressingGenes.md'
       - 'Immunarch': 'processes/Immunarch.md'
       - 'TESSA': 'processes/TESSA.md'
-      - 'SeuratMetadataMutater': 'processes/SeuratMetadataMutater.md'
+      - 'IntegratingTCR': 'processes/IntegratingTCR.md'
       - 'SeuratClusterStats': 'processes/SeuratClusterStats.md'
       - 'RadarPlots': 'processes/RadarPlots.md'
       - 'CloneResidency': 'processes/CloneResidency.md'

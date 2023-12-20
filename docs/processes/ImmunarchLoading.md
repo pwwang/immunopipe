@@ -16,7 +16,7 @@ If none of the files exists, an error will be raised.<br />
 This process will also generate a text file with the information for each cell.<br />
 The file will be saved at
 `./.pipen/<pipeline-name>/ImmunarchLoading/0/output/<prefix>.tcr.txt`.<br />
-The file can be used by the `SeuratMetadataMutater` process to integrate the
+The file can be used by the [`IntegratingTCR`](./IntegratingTCR.md) process to integrate the
 TCR-seq data into the `Seurat` object for further integrative analysis.<br />
 `envs.metacols` can be used to specify the columns to be exported to the text file.<br />
 

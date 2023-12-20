@@ -135,7 +135,7 @@ By default, only a subset of processes are enabled. These processes include:
 - [`SeuratPreparing`](processes/SeuratPreparing.md)
 - [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md)
 - [`CellTypeAnnotation`](processes/CellTypeAnnotation.md)
-- [`SeuratMetadataMutater`](processes/SeuratMetadataMutater.md)
+- [`IntegratingTCR`](processes/IntegratingTCR.md)
 - [`ClusterMarkers`](processes/ClusterMarkers.md)
 - [`TopExpressingGenes`](processes/TopExpressingGenes.md)
 - [`SeuratClusterStats`](processes/SeuratClusterStats.md)

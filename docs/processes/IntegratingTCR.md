@@ -1,4 +1,4 @@
-# SeuratMetadataMutater
+# IntegratingTCR
 
 Attach TCR clone information as meta columns to Seurat object
 
@@ -19,13 +19,13 @@ by this process.<br />
 You may also use `envs.mutaters` to add new columns to the metadata.<br />
 These columns can be used for downstream analysis.<br />
 An additional column `TCR_Presence` is added so later on we can overlay the
-TCR presence on the UMAP plot in
-[`SeuratClusteringOfTCells`](./SeuratClusteringOfTCells.md) process.<br />
+TCR presence on the dimension reduction plot in
+[`SeuratClusterStats`](./SeuratClusterStats.md) process.<br />
 
 /// Warning
 If you are modifying `envs.mutaters`, make sure you keep the `TCR_Presence` column.<br />
-Because by default, `SeuratClusteringOfTCells` process will use this column to
-overlay the TCR presence on the UMAP plot.<br />
+Because by default, [`SeuratClusterStats`](./SeuratClusterStats.md) process will
+use this column to overlay the TCR presence on the dimension reduction plot.<br />
 ///
 
 
@@ -74,7 +74,7 @@ overlay the TCR presence on the UMAP plot.<br />
 The metadata of the `Seurat` object will be updated with information from TCR
 data:<br />
 
-![SeuratMetadataMutater-metadata](../processes/images/SeuratMetadataMutater-metadata.png)
+![IntegratingTCR-metadata](../processes/images/IntegratingTCR-metadata.png)
 
 All of the columns above can be used for downstream analysis.<br />
 

@@ -450,7 +450,7 @@ if "TESSA" in config or just_loading:
 
 
 @annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})
-class SeuratMetadataMutater(SeuratMetadataMutater_):
+class IntegratingTCR(SeuratMetadataMutater_):
     """Attach TCR clone information as meta columns to Seurat object
 
     This process is used to integrate scTCR-seq data into the `Seurat` object.
@@ -470,13 +470,13 @@ class SeuratMetadataMutater(SeuratMetadataMutater_):
     You may also use `envs.mutaters` to add new columns to the metadata.
     These columns can be used for downstream analysis.
     An additional column `TCR_Presence` is added so later on we can overlay the
-    TCR presence on the UMAP plot in
-    [`SeuratClusteringOfTCells`](./SeuratClusteringOfTCells.md) process.
+    TCR presence on the dimension reduction plot in
+    [`SeuratClusterStats`](./SeuratClusterStats.md) process.
 
     /// Warning
     If you are modifying `envs.mutaters`, make sure you keep the `TCR_Presence` column.
-    Because by default, `SeuratClusteringOfTCells` process will use this column to
-    overlay the TCR presence on the UMAP plot.
+    Because by default, [`SeuratClusterStats`](./SeuratClusterStats.md) process will
+    use this column to overlay the TCR presence on the dimension reduction plot.
     ///
 
     {{*Summary.long}}
@@ -485,11 +485,11 @@ class SeuratMetadataMutater(SeuratMetadataMutater_):
         The metadata of the `Seurat` object will be updated with information from TCR
         data:
 
-        ![SeuratMetadataMutater-metadata]({{baseurl}}/processes/images/SeuratMetadataMutater-metadata.png)
+        ![IntegratingTCR-metadata]({{baseurl}}/processes/images/IntegratingTCR-metadata.png)
 
         All of the columns above can be used for downstream analysis.
     """
-    requires = CellTypeAnnotation, ImmunarchLoading
+    requires = Clustered, ImmunarchLoading
     input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 0], ch2.iloc[:, 1])
     envs = {
         "mutaters": {
