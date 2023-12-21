@@ -127,31 +127,39 @@ To know more about the configuration items for the pipeline, you can also read t
 
 ## Enabling/disabling processes
 
-By default, only a subset of processes are enabled. These processes include:
+By default, only the essential processes are enabled.
+
+If scTCR-seq data is avaiable, these processes include:
 
 - [`SampleInfo`](processes/SampleInfo.md)
 - [`ImmunarchLoading`](processes/ImmunarchLoading.md)
 - [`Immunarch`](processes/Immunarch.md)
 - [`SeuratPreparing`](processes/SeuratPreparing.md)
-- [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md)
-- [`CellTypeAnnotation`](processes/CellTypeAnnotation.md)
+- [`SeuratClustering`](processes/SeuratClustering.md)
 - [`IntegratingTCR`](processes/IntegratingTCR.md)
 - [`ClusterMarkers`](processes/ClusterMarkers.md)
 - [`TopExpressingGenes`](processes/TopExpressingGenes.md)
 - [`SeuratClusterStats`](processes/SeuratClusterStats.md)
 
-To enable more processes, you just need to add configurations for the processes. As long as the process name appears in the configuration file, the process will be enabled. For example, if you want to enable [`TCellSelection`](processes/TCellSelection.md), you can add the following lines to the configuration file:
+If only scRNA-seq data is available, these processes include:
+
+- [`SampleInfo`](processes/SampleInfo.md)
+- [`SeuratPreparing`](processes/SeuratPreparing.md)
+- [`SeuratClustering`](processes/SeuratClustering.md)
+- [`ClusterMarkers`](processes/ClusterMarkers.md)
+- [`TopExpressingGenes`](processes/TopExpressingGenes.md)
+- [`SeuratClusterStats`](processes/SeuratClusterStats.md)
+
+See also [`Routes of the pipeline`](./introduction.md#routes-of-the-pipeline) for more details.
+
+To enable optional processes, you just need to add the corresponding sections for the processes in the configuration file. As long as the process name appears in the configuration file, the process will be enabled. For example, if you want to add module scores (e.g. cell activation score) to the `Seurat` object, you can add the following lines to the configuration file:
 
 ```toml
-[TCellSelection.envs]
-indicator_genes = ["CD3D", "CD3E", "CD3G"]
+[ModuleScoreCalulator.envs.modules.TCell_Terminal_Differentiation]
+features = ["TIGIT", "PDCD1", "CD274", "CTLA4", "LAG3", "HAVCR2", "CD244", "CD160"]
 ```
 
-If [`TCellSelection`](processes/TCellSelection.md) is enabled, [`SeuratClustering`](processes/SeuratClustering.md) will be enabled, and [`ClusterMarkers`](processes/ClusterMarkers.md), and [`TopExpressingGenes`](processes/TopExpressingGenes.md) will be performed on the clusters of selected T cells.
-
-Similarly, if [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusterStats`](processes/TCRClusterStats.md) is enabled, [`TCRClustering`](processes/TCRClustering.md), [`IntegratingTCRClusters`](processes/IntegratingTCRClusters.md), and [`TCRClusterStats`](processes/TCRClusterStats.md) will be enabled automatically.
-
-For other processes, make sure you have them configured to enable them.
+If [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusterStats`](processes/TCRClusterStats.md) is enabled, [`TCRClustering`](processes/TCRClustering.md), [`IntegratingTCRClusters`](processes/IntegratingTCRClusters.md), and [`TCRClusterStats`](processes/TCRClusterStats.md) will be enabled automatically.
 
 /// Tip
 You may find out that for some processes, the default configurations are good enough for you to run. For example, [`TCRClustering`](processes/TCRClustering.md) is not enabled by default. If you don't change any configurations (by not putting in the configuration file nor changing any items on the web interface of `pipen-board`) for the process, it will not be triggered. However, the default configurations are good enough for you to run the process. To enable it, you can either add this process manually in the configuration file:
@@ -180,9 +188,9 @@ infile = [ "samples.txt" ]
 
 The input file is the metadata file mentioned in [`Preparing the input`](./preparing-input.md#metadata).
 
-With the minimal configurations, the pipeline will have [the default processes](#enablingdisabling-processes) enabled. You can take a look at the diagram of the pipeline [here](./ImmunopipeMinimal.svg) to see the processes enabled with the minimal configurations and the relationships between the processes.
+With the minimal configurations, the pipeline will have [the essential processes](#enablingdisabling-processes) enabled, depending on whether scTCR-seq data is available or not.
 
-You can also check the example report [here](http:/imp.pwwang.com/minimal/REPORTS/) to see what you will get with the minimal configurations.
+You can also check the example report [here](http:/imp.pwwang.com/minimal/REPORTS/) to see what you will get with the minimal configurations, with scTCR-seq data available.
 
 ## Environment variable types
 
@@ -403,7 +411,7 @@ df %>% mutate(Expanded = expanded(df, Group, "A", uniq = FALSE))
 15 Clone4  B     NA
 ```
 
-### Filtering the data
+### Filtering/Subsetting the data
 
 In most processes where we need to filter the data, we don't provide an option for you to set the expression for [`dplyr::filter()`][14]. Instead, you can make use of the `mutaters` to create a column for filtering. For example, if you only want to plot clone residency for only one patient/subject (e.g. `MM003-Eariler`) in [`CloneResidency`](processes/CloneResidency.md), you can set the configurations as follows (suppose we have `Sample` and `Source` columns in the metadata):
 

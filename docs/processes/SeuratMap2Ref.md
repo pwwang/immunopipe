@@ -12,11 +12,13 @@ and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
     Used in `future::plan(strategy = "multicore", workers = <ncores>)`
     to parallelize some Seurat procedures.<br />
     See also: <https://satijalab.org/seurat/articles/future_vignette.html>
-- `use`: *Default: `predicted.celltype.l2`*. <br />
+- `use`:
     A column name (e.g. `predicted.celltype.l1`, `predicted.celltype.l2`)
     to use as the final cell types in downstream analysis, which will be stored
     in the `name` column and set as the `Idents` of the seurat object.<br />
     Or an expression to pass to `mutate()` to create a new column.<br />
+    When not specified, `predicted.<key>` will be used if
+    `envs.MapQuery.refdata` has only one key, otherwise an error will be raised.<br />
 - `name`: *Default: `seurat_clusters`*. <br />
     The name of the final cell type column.<br />
     This will be set as the `Idents` of the seurat object.<br />
@@ -45,7 +47,7 @@ and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
             Log-normalize the data matrix
         - `SCT`:
             Scale data using the SCTransform method
-    - `reference-reduction`:
+    - `reference-reduction`: *Default: `spca`*. <br />
         Name of dimensional reduction to use from the reference if running the pcaproject workflow.<br />
         Optionally enables reuse of precomputed reference dimensional reduction.<br />
     - `<more>`:
@@ -53,9 +55,9 @@ and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
         Note that the hyphen (`-`) will be transformed into `.` for the keys.<br />
 - `MapQuery` *(`ns`)*:
     Arguments for [`MapQuery()`](https://satijalab.org/seurat/reference/mapquery)
-    - `reference-reduction`:
+    - `reference-reduction`: *Default: `spca`*. <br />
         Name of reduction to use from the reference for neighbor finding
-    - `reduction-model`:
+    - `reduction-model`: *Default: `wnn.umap`*. <br />
         `DimReduc` object that contains the umap model
     - `refdata` *(`type=json`)*: *Default: `{}`*. <br />
         Data to transfer

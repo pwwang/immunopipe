@@ -5,8 +5,8 @@ Exploration of Single-cell and Bulk T-cell/Antibody Immune Repertoires
 /// Tip | Changed in `0.10.0`
 `envs.mutaters` are now applied at cell level.<br />
 
-Seurat clustering information and other information are added at cell level, which
-can be used to subset the cells for listed analyses.<br />
+Seurat clustering information and other information are added at cell level,
+which can be used to subset the cells for listed analyses.<br />
 
 You can now use `subset` to subset the cells for listed analyses, at cell level.<br />
 ///

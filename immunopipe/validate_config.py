@@ -1,5 +1,6 @@
 import sys
 from typing import Any, Dict
+from pathlib import Path
 from pipen.utils import logger
 
 
@@ -15,7 +16,8 @@ def validate_config(config: Dict[str, Any]) -> Dict[str, Any]:
     if "TCellSelection" not in config and "SeuratClusteringOfAllCells" in config:
         ERRORS.append(
             "All cells are T cells ([TCellSelection] is not set), "
-            "so [SeuratClusteringOfAllCells] should not be used."
+            "so [SeuratClusteringOfAllCells] should not be used, "
+            "use [SeuratClustering] instead."
         )
 
     if "TCellSelection" not in config and "ClusterMarkersOfAllCells" in config:
@@ -39,13 +41,49 @@ def validate_config(config: Dict[str, Any]) -> Dict[str, Any]:
     if "SeuratMap2Ref" in config and "CellTypeAnnotation" in config:
         WARNINGS.append("[CellTypeAnnotation] is ignored when [SeuratMap2Ref] is used.")
 
+    config.has_tcr = True
+    infiles = config.get("SampleInfo", {}).get("in", {}).get("infile", [])
+    if not isinstance(infiles, list):
+        infiles = [infiles]
+    if not infiles:
+        WARNINGS.append(
+            "No input file specified in configuration file [SampleInfo.in.infile], "
+            "assuming passing from CLI."
+        )
+        WARNINGS.append("Assuming scTCR-seq data is present")
+    else:
+        if len(infiles) > 1:
+            WARNINGS.append(
+                "More than one input file specified in configuration file "
+                "[SampleInfo.in.infile], only the first one will be used."
+            )
+            config["SampleInfo"]["in"]["infile"] = [infiles[0]]
+
+        infile = Path(infiles[0])
+        if not infile.is_file():
+            ERRORS.append(f"Input file {infile} does not exist.")
+
+        header = infile.read_text().splitlines()[0]
+        config.has_tcr = "TCRData" in header
+
+    if not config.has_tcr and "TCellSelection" in config:
+        WARNINGS.append(
+            "T cell selection is not supported for scRNA-seq data only, "
+            "[TCellSelection] will be ignored."
+        )
+
     if WARNINGS or ERRORS:
         logger.warning("Miscofigurations detected:")
         for warning in WARNINGS:
             logger.warning(f"- {warning}")
+
         for error in ERRORS:
             logger.error(f"- {error}")
-        logger.warning("")
+
+        if ERRORS:
+            logger.error("")
+        else:
+            logger.warning("")
 
     if ERRORS:
         sys.exit(1)

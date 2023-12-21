@@ -172,12 +172,13 @@ class SampleInfo(SampleInfo_):
     envs = {"exclude_cols": "TCRData,RNAData"}
 
 
-@annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})
-class ImmunarchLoading(ImmunarchLoading_):
-    """{{Summary | str |
-        replace: '`SeuratMetadataMutater`', '[`IntegratingTCR`](./IntegratingTCR.md)'}}
-    """
-    requires = SampleInfo
+if just_loading or config.has_tcr:
+    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
+    class ImmunarchLoading(ImmunarchLoading_):
+        """{{Summary | str |
+            replace: '`SeuratMetadataMutater`', '[`IntegratingTCR`](./IntegratingTCR.md)'}}
+        """  # noqa: E501
+        requires = SampleInfo
 
 
 @annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})
@@ -195,7 +196,7 @@ class SeuratPreparing(SeuratPreparing_):
     requires = SampleInfo
 
 
-if just_loading or "TCellSelection" in config:
+if just_loading or (config.has_tcr and "TCellSelection" in config):
     # No matter "SeuratClusteringOfAllCells" is in the config or not
     @annotate.format_doc(indent=2)
     class SeuratClusteringOfAllCells(SeuratClustering_):
@@ -222,9 +223,9 @@ if just_loading or "TCellSelection" in config:
     # >>> SeuratPreparing
 
 
-if (
-    just_loading
-    or ("TCellSelection" in config and "ClusterMarkersOfAllCells" in config)
+if just_loading or (
+    config.has_tcr
+    and ("TCellSelection" in config and "ClusterMarkersOfAllCells" in config)
 ):
     @annotate.format_doc(indent=2)
     class ClusterMarkersOfAllCells(MarkersFinder_):
@@ -253,9 +254,9 @@ if (
         order = 2
 
 
-if (
-    just_loading
-    or ("TCellSelection" in config and "TopExpressingGenesOfAllCells" in config)
+if just_loading or (
+    config.has_tcr
+    and ("TCellSelection" in config and "TopExpressingGenesOfAllCells" in config)
 ):
     @annotate.format_doc(indent=2)
     class TopExpressingGenesOfAllCells(TopExpressingGenes_):
@@ -283,7 +284,7 @@ if (
         order = 3
 
 
-if just_loading or "TCellSelection" in config:
+if just_loading or (config.has_tcr and "TCellSelection" in config):
     class TCellSelection(TCellSelection_):
         requires = [SeuratPreparing, ImmunarchLoading]
         input_data = lambda ch1, ch2: tibble(ch1, ch2.iloc[:, 1])
@@ -348,7 +349,7 @@ if just_loading or "SeuratMap2Ref" not in config:
     Clustered = SeuratClustering
     # >>> Clustered
 
-if just_loading or "SeuratMap2Ref" not in config:
+if just_loading or ("SeuratMap2Ref" not in config and "CellTypeAnnotation" in config):
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class CellTypeAnnotation(CellTypeAnnotation_):
         """Annotate the T cell clusters.
@@ -471,7 +472,7 @@ class TopExpressingGenes(TopExpressingGenes_):
     order = 3
 
 
-if just_loading or "TESSA" in config:
+if just_loading or (config.has_tcr and "TESSA" in config):
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class TESSA(TESSA_):
         """{{Summary}}
@@ -495,57 +496,64 @@ if just_loading or "TESSA" in config:
     Clustered = TESSA
     # >>> Clustered
 
+if just_loading or config.has_tcr:
+    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
+    class IntegratingTCR(SeuratMetadataMutater_):
+        """Attach TCR clone information as meta columns to Seurat object
 
-@annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})
-class IntegratingTCR(SeuratMetadataMutater_):
-    """Attach TCR clone information as meta columns to Seurat object
+        This process is used to integrate scTCR-seq data into the `Seurat` object.
+        The scTCR-seq data is loaded by [ImmunarchLoading](./ImmunarchLoading.md)
+        process. The integration is done by matching the barcodes from the `Seurat`
+        object and the scTCR-seq data.
+        The barcodes from the scTCR-seq data are prefixed with the sample name,
+        for example, `Sample1_AAACCTGAGAAGGCTA-1`. The prefix is specified by the
+        `prefix` environment variable in the [ImmunarchLoading](./ImmunarchLoading.md)
+        process.
 
-    This process is used to integrate scTCR-seq data into the `Seurat` object.
-    The scTCR-seq data is loaded by [ImmunarchLoading](./ImmunarchLoading.md) process.
-    The integration is done by matching the barcodes from the `Seurat` object and
-    the scTCR-seq data.
-    The barcodes from the scTCR-seq data are prefixed with the sample name,
-    for example, `Sample1_AAACCTGAGAAGGCTA-1`. The prefix is specified by the `prefix`
-    environment variable in the [ImmunarchLoading](./ImmunarchLoading.md) process.
+        [ImmunarchLoading](./ImmunarchLoading.md) process will generate a text file
+        with the information for each cell. `ImmunarchLoading.envs.metacols` can be
+        used to specify the columns to be exported to the text file, which will then be
+        integrated into the `Seurat` object by this process.
 
-    [ImmunarchLoading](./ImmunarchLoading.md) process will generate a text file with
-    the information for each cell.
-    `ImmunarchLoading.envs.metacols` can be used to specify the columns to be exported
-    to the text file, which will then be integrated into the `Seurat` object
-    by this process.
+        You may also use `envs.mutaters` to add new columns to the metadata.
+        These columns can be used for downstream analysis.
+        An additional column `TCR_Presence` is added so later on we can overlay the
+        TCR presence on the dimension reduction plot in
+        [`SeuratClusterStats`](./SeuratClusterStats.md) process.
 
-    You may also use `envs.mutaters` to add new columns to the metadata.
-    These columns can be used for downstream analysis.
-    An additional column `TCR_Presence` is added so later on we can overlay the
-    TCR presence on the dimension reduction plot in
-    [`SeuratClusterStats`](./SeuratClusterStats.md) process.
+        /// Warning
+        If you are modifying `envs.mutaters`, make sure you keep the `TCR_Presence`
+        column. Because by default, [`SeuratClusterStats`](./SeuratClusterStats.md)
+        process will use this column to overlay the TCR presence on the dimension
+        reduction plot.
+        ///
 
-    /// Warning
-    If you are modifying `envs.mutaters`, make sure you keep the `TCR_Presence` column.
-    Because by default, [`SeuratClusterStats`](./SeuratClusterStats.md) process will
-    use this column to overlay the TCR presence on the dimension reduction plot.
-    ///
+        {{*Summary.long}}
 
-    {{*Summary.long}}
+        Metadata:
+            The metadata of the `Seurat` object will be updated with information from
+            TCR data:
 
-    Metadata:
-        The metadata of the `Seurat` object will be updated with information from TCR
-        data:
+            ![IntegratingTCR-metadata]({{baseurl}}/processes/images/IntegratingTCR-metadata.png)
 
-        ![IntegratingTCR-metadata]({{baseurl}}/processes/images/IntegratingTCR-metadata.png)
-
-        All of the columns above can be used for downstream analysis.
-    """
-    requires = Clustered, ImmunarchLoading
-    input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 0], ch2.iloc[:, 1])
-    envs = {
-        "mutaters": {
-            "TCR_Presence": 'if_else(is.na(CDR3.aa), "TCR_absent", "TCR_present")'
+            All of the columns above can be used for downstream analysis.
+        """  # noqa: E501
+        requires = Clustered, ImmunarchLoading
+        input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 0], ch2.iloc[:, 1])
+        envs = {
+            "mutaters": {
+                "TCR_Presence": 'if_else(is.na(CDR3.aa), "TCR_absent", "TCR_present")'
+            }
         }
-    }
+
+    Clustered = IntegratingTCR
+    # >>> Clustered
 
 
-if just_loading or "TCRClustering" in config or "TCRClusterStats" in config:
+if just_loading or (
+    config.has_tcr
+    and ("TCRClustering" in config or "TCRClusterStats" in config)
+):
     @annotate.format_doc(indent=2)
     class TCRClustering(TCRClustering_):
         """{{Summary.short}}
@@ -601,7 +609,7 @@ if just_loading or "TCRClustering" in config or "TCRClusterStats" in config:
 
             ![IntegratingTCRClusters-metadata]({{baseurl}}/processes/images/IntegratingTCRClusters-metadata.png)
         """
-        requires = IntegratingTCR, TCRClustering
+        requires = Clustered, TCRClustering
         input_data = lambda ch1, ch2: tibble(
             srtobj=ch1.rdsfile, metafile=ch2.clusterfile
         )
@@ -610,12 +618,12 @@ if just_loading or "TCRClustering" in config or "TCRClusterStats" in config:
         requires = TCRClustering
         input_data = lambda ch1: ch1.iloc[:, [0]]
 
-    IntegratingTCR = IntegratingTCRClusters
-    # >>> IntegratingTCR
+    Clustered = IntegratingTCRClusters
+    # >>> Clustered
 
 
 class SeuratClusterStats(SeuratClusterStats_):
-    requires = IntegratingTCR
+    requires = Clustered
     order = -1
     envs = {
         "dimplots": {
@@ -624,46 +632,47 @@ class SeuratClusterStats(SeuratClusterStats_):
                 "label-box": True,
                 "repel": True,
             },
-            "TCR presence": {
-                "ident": "TCR_Presence",
-                "order": "TCR_absent",
-                "cols": ["#FF000066", "gray"],
-            },
         },
     }
+    if config.has_tcr:
+        envs["dimplots"]["TCR presence"] = {
+            "ident": "TCR_Presence",
+            "order": "TCR_absent",
+            "cols": ["#FF000066", "gray"],
+        }
 
 
-@annotate.format_doc(indent=1)
-class Immunarch(Immunarch_):
-    """{{Summary.short}}
+if just_loading or config.has_tcr:
+    @annotate.format_doc(indent=2)
+    class Immunarch(Immunarch_):
+        """{{Summary.short}}
 
-    /// Tip | Changed in `0.10.0`
-    `envs.mutaters` are now applied at cell level.
+        /// Tip | Changed in `0.10.0`
+        `envs.mutaters` are now applied at cell level.
 
-    Seurat clustering information and other information are added at cell level, which
-    can be used to subset the cells for listed analyses.
+        Seurat clustering information and other information are added at cell level,
+        which can be used to subset the cells for listed analyses.
 
-    You can now use `subset` to subset the cells for listed analyses, at cell level.
-    ///
+        You can now use `subset` to subset the cells for listed analyses, at cell level.
+        ///
 
-    {{*Summary.long | str |
-    replace: '!!#biopipennstcrimmunarchloading', './ImmunarchLoading.md'}}
-    """
-    requires = ImmunarchLoading, IntegratingTCR
-    input_data = lambda ch1, ch2: tibble(
-        immdata=ch1.iloc[:, 0],
-        metafile=ch2.iloc[:, 0],
-    )
-
+        {{*Summary.long | str |
+            replace: '!!#biopipennstcrimmunarchloading', './ImmunarchLoading.md'}}
+        """
+        requires = ImmunarchLoading, Clustered
+        input_data = lambda ch1, ch2: tibble(
+            immdata=ch1.iloc[:, 0],
+            metafile=ch2.iloc[:, 0],
+        )
 
 if just_loading or "CellsDistribution" in config:
     class CellsDistribution(CellsDistribution_):
-        requires = IntegratingTCR
+        requires = Clustered
         order = 8
 
-if just_loading or "CloneResidency" in config:
+if just_loading or (config.has_tcr and "CloneResidency" in config):
     class CloneResidency(CloneResidency_):
-        requires = ImmunarchLoading, IntegratingTCR
+        requires = ImmunarchLoading, Clustered
         input_data = lambda ch1, ch2: tibble(
             immdata=ch1.iloc[:, 0],
             metafile=ch2.iloc[:, 0],
@@ -679,11 +688,11 @@ if just_loading or "RadarPlots" in config:
                 See also
                 [`mutating the metadata`](../configurations.md#mutating-the-metadata).
         """
-        requires = IntegratingTCR
+        requires = Clustered
 
 if just_loading or "ScFGSEA" in config:
     class ScFGSEA(ScFGSEA_):
-        requires = IntegratingTCR
+        requires = Clustered
         order = 4
 
 if just_loading or "MarkersFinder" in config:
@@ -796,18 +805,18 @@ if just_loading or "MarkersFinder" in config:
             a section name other than `DEFAULT` for each case to group them
             in the report.
         """
-        requires = IntegratingTCR
+        requires = Clustered
         envs = {"assay": "RNA"}
         order = 5
 
 if just_loading or "MetaMarkers" in config:
     class MetaMarkers(MetaMarkers_):
-        requires = IntegratingTCR
+        requires = Clustered
         order = 6
 
-if just_loading or "CDR3AAPhyschem" in config:
+if just_loading or (config.has_tcr and "CDR3AAPhyschem" in config):
     class CDR3AAPhyschem(CDR3AAPhyschem_):
-        requires = ImmunarchLoading, IntegratingTCR
+        requires = ImmunarchLoading, Clustered
         input_data = lambda ch1, ch2: tibble(
             immdata=ch1.rdsfile,
             srtobj=ch2.rdsfile,
@@ -824,7 +833,7 @@ if "ScrnaMetabolicLandscape" in config or just_loading:
     anno.Args.is_seurat.attrs["default"] = True
     anno.Args.is_seurat.attrs["value"] = True
     scrna_metabolic_landscape = ScrnaMetabolicLandscape(is_seurat=True)
-    scrna_metabolic_landscape.p_input.requires = IntegratingTCR
+    scrna_metabolic_landscape.p_input.requires = Clustered
     scrna_metabolic_landscape.p_input.order = 99
     scrna_metabolic_landscape.p_features_intra_subset.__doc__ = (
         scrna_metabolic_landscape.p_features_intra_subset.__doc__.replace(

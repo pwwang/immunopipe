@@ -44,6 +44,11 @@ TCR-seq data into the `Seurat` object for further integrative analysis.<br />
     are not in the same directory, we can link them to a temporary directory
     and pass the temporary directory to `Immunarch`.<br />
     This option is useful when the data files are in different directories.<br />
+- `mode`: *Default: `single`*. <br />
+    Either "single" for single chain data or "paired" for
+    paired chain data. For `single`, only TRB chain will be kept
+    at `immdata$data`, information for other chains will be
+    saved at `immdata$tra` and `immdata$multi`.<br />
 - `extracols` *(`list`)*: *Default: `[]`*. <br />
     The extra columns to be exported to the text file.<br />
     You can refer to the
