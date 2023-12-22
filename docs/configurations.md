@@ -138,7 +138,6 @@ If scTCR-seq data is avaiable, these processes include:
 - [`SeuratClustering`](processes/SeuratClustering.md)
 - [`IntegratingTCR`](processes/IntegratingTCR.md)
 - [`ClusterMarkers`](processes/ClusterMarkers.md)
-- [`TopExpressingGenes`](processes/TopExpressingGenes.md)
 - [`SeuratClusterStats`](processes/SeuratClusterStats.md)
 
 If only scRNA-seq data is available, these processes include:
@@ -147,7 +146,6 @@ If only scRNA-seq data is available, these processes include:
 - [`SeuratPreparing`](processes/SeuratPreparing.md)
 - [`SeuratClustering`](processes/SeuratClustering.md)
 - [`ClusterMarkers`](processes/ClusterMarkers.md)
-- [`TopExpressingGenes`](processes/TopExpressingGenes.md)
 - [`SeuratClusterStats`](processes/SeuratClusterStats.md)
 
 See also [`Routes of the pipeline`](./introduction.md#routes-of-the-pipeline) for more details.

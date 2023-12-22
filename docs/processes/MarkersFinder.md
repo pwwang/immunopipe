@@ -62,7 +62,7 @@ function, and performs enrichment analysis for the markers found.<br />
 - `prefix_each` *(`flag`)*: *Default: `True`*. <br />
     Whether to prefix the `each` column name to the
     value as the case/section name.<br />
-- `dbs` *(`list`)*: *Default: `['GO_Biological_Process_2021', 'GO_Cellular_Component_2021', 'GO_Molecular_Function_2021', 'KEGG_2021_Human']`*. <br />
+- `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />
     The dbs to do enrichment analysis for significant
     markers See below for all libraries.<br />
     <https://maayanlab.cloud/Enrichr/#libraries>

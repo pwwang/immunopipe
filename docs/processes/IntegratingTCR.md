@@ -24,9 +24,17 @@ TCR presence on the dimension reduction plot in
 
 /// Warning
 If you are modifying `envs.mutaters`, make sure you keep the `TCR_Presence`
-column. Because by default, [`SeuratClusterStats`](./SeuratClusterStats.md)
+column if you have scTCR-seq data available by:<br />
+
+```toml
+[IntegratingTCR.envs.mutaters]
+TCR_Presence = 'if_else(is.na(CDR3.aa), "TCR_absent", "TCR_present")'
+# other mutaters
+```
+
+Because by default, [`SeuratClusterStats`](./SeuratClusterStats.md)
 process will use this column to overlay the TCR presence on the dimension
-reduction plot.<br />
+reduction plot with scTCR-seq data available.<br />
 ///
 
 

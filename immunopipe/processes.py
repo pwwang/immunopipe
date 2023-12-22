@@ -238,13 +238,13 @@ if just_loading or (
         See also [ClusterMarkers](./ClusterMarkers.md).
 
         Envs:
-            cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.
-            each (hidden;readonly): {{Envs.each.help | indent: 12}}.
-            ident-1 (hidden;readonly): {{Envs["ident-1"].help | indent: 12}}.
-            ident-2 (hidden;readonly): {{Envs["ident-2"].help | indent: 12}}.
-            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
-            prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 12}}.
-            section (hidden;readonly): {{Envs.section.help | indent: 12}}.
+            cases (hidden;readonly): {{Envs.cases.help | indent: 16}}.
+            each (hidden;readonly): {{Envs.each.help | indent: 16}}.
+            ident-1 (hidden;readonly): {{Envs["ident-1"].help | indent: 16}}.
+            ident-2 (hidden;readonly): {{Envs["ident-2"].help | indent: 16}}.
+            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 16}}.
+            prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 16}}.
+            section (hidden;readonly): {{Envs.section.help | indent: 16}}.
         """
         requires = SeuratPreparing
         envs = {
@@ -271,13 +271,13 @@ if just_loading or (
         See also [TopExpressingGenes](./TopExpressingGenes.md).
 
         Envs:
-            cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.
-            each (hidden;readonly): {{Envs.each.help | indent: 12}}.
-            group-by (hidden;readonly): {{Envs["group-by"].help | indent: 12}}.
-            ident (hidden;readonly): {{Envs.ident.help | indent: 12}}.
-            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
-            prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 12}}.
-            section (hidden;readonly): {{Envs.section.help | indent: 12}}.
+            cases (hidden;readonly): {{Envs.cases.help | indent: 16}}.
+            each (hidden;readonly): {{Envs.each.help | indent: 16}}.
+            group-by (hidden;readonly): {{Envs["group-by"].help | indent: 16}}.
+            ident (hidden;readonly): {{Envs.ident.help | indent: 16}}.
+            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 16}}.
+            prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 16}}.
+            section (hidden;readonly): {{Envs.section.help | indent: 16}}.
         """
         requires = SeuratPreparing
         envs = {"cases": {"Cluster": {}}}
@@ -435,42 +435,44 @@ class ClusterMarkers(MarkersFinder_):
     order = 2
 
 
-@annotate.format_doc(indent=1)
-class TopExpressingGenes(TopExpressingGenes_):
-    """Top expressing genes for clusters of all or selected T cells.
+if just_loading or "TopExpressingGenes" in config:
+    @annotate.format_doc(indent=2)
+    class TopExpressingGenes(TopExpressingGenes_):
+        """Top expressing genes for clusters of all or selected T cells.
 
-    {{*Summary.long}}
+        {{*Summary.long}}
 
-    This process finds the top expressing genes of clusters of T cells, and also
-    performs the enrichment analysis against the genes.
+        This process finds the top expressing genes of clusters of T cells, and also
+        performs the enrichment analysis against the genes.
 
-    The enrichment analysis is done by [`enrichr`](https://maayanlab.cloud/Enrichr/).
+        The enrichment analysis is done by
+        [`enrichr`](https://maayanlab.cloud/Enrichr/).
 
-    /// Note
-    There are other environment variables also available. However, they should not be
-    used in this process. Other environment variables are used for more complicated
-    cases for investigating top genes
-    (See [`biopipen.ns.scrna.TopExpressingGenes`](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.TopExpressingGenes) for more details).
+        /// Note
+        There are other environment variables also available. However, they should not
+        be used in this process. Other environment variables are used for more
+        complicated cases for investigating top genes
+        (See [`biopipen.ns.scrna.TopExpressingGenes`](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.TopExpressingGenes) for more details).
 
-    If you are using `pipen-board` to run the pipeline
-    (see [here](../running.md#run-the-pipeline-via-pipen-board) and
-    [here](../running.md#run-the-pipeline-via-pipen-board-using-docker-image)),
-    you may see the other environment variables of this process are hidden and readonly.
-    ///
+        If you are using `pipen-board` to run the pipeline
+        (see [here](../running.md#run-the-pipeline-via-pipen-board) and
+        [here](../running.md#run-the-pipeline-via-pipen-board-using-docker-image)),
+        you may see the other environment variables of this process are hidden and
+        readonly.
+        ///
 
-    Envs:
-        cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.
-        each (hidden;readonly): {{Envs.each.help | indent: 12}}.
-        group-by (hidden;readonly): {{Envs["group-by"].help | indent: 12}}.
-        ident (hidden;readonly): {{Envs.ident.help | indent: 12}}.
-        mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
-        prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 12}}.
-        section (hidden;readonly): {{Envs.section.help | indent: 12}}.
-    """  # noqa: E501
-    requires = Clustered
-    envs = {"cases": {"Cluster": {}}}
-    order = 3
-
+        Envs:
+            cases (hidden;readonly): {{Envs.cases.help | indent: 16}}.
+            each (hidden;readonly): {{Envs.each.help | indent: 16}}.
+            group-by (hidden;readonly): {{Envs["group-by"].help | indent: 16}}.
+            ident (hidden;readonly): {{Envs.ident.help | indent: 16}}.
+            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 16}}.
+            prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 16}}.
+            section (hidden;readonly): {{Envs.section.help | indent: 16}}.
+        """  # noqa: E501
+        requires = Clustered
+        envs = {"cases": {"Cluster": {}}}
+        order = 3
 
 if just_loading or (config.has_tcr and "TESSA" in config):
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
@@ -523,9 +525,17 @@ if just_loading or config.has_tcr:
 
         /// Warning
         If you are modifying `envs.mutaters`, make sure you keep the `TCR_Presence`
-        column. Because by default, [`SeuratClusterStats`](./SeuratClusterStats.md)
+        column if you have scTCR-seq data available by:
+
+        ```toml
+        [IntegratingTCR.envs.mutaters]
+        TCR_Presence = 'if_else(is.na(CDR3.aa), "TCR_absent", "TCR_present")'
+        # other mutaters
+        ```
+
+        Because by default, [`SeuratClusterStats`](./SeuratClusterStats.md)
         process will use this column to overlay the TCR presence on the dimension
-        reduction plot.
+        reduction plot with scTCR-seq data available.
         ///
 
         {{*Summary.long}}
@@ -601,7 +611,7 @@ if just_loading or (
         ```
 
         Envs:
-            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
+            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 16}}.
 
         Metadata:
             The metadata of the `Seurat` object will be updated with the TCR cluster
@@ -684,7 +694,7 @@ if just_loading or "RadarPlots" in config:
         """{{Summary}}
 
         Envs:
-            mutaters: {{Envs.mutaters.help | indent: 12}}.
+            mutaters: {{Envs.mutaters.help | indent: 16}}.
                 See also
                 [`mutating the metadata`](../configurations.md#mutating-the-metadata).
         """
@@ -705,7 +715,7 @@ if just_loading or "MarkersFinder" in config:
         function, and performs enrichment analysis for the markers found.
 
         Envs:
-            mutaters: {{Envs.mutaters.help | indent: 12}}.
+            mutaters: {{Envs.mutaters.help | indent: 16}}.
                 See also
                 [mutating the metadata](../configurations.md#mutating-the-metadata).
 
