@@ -36,7 +36,7 @@ dependencies:
   - r-hitype
   - r-seuratwrappers
   - r-base=4.2.0
-  - r-seurat=4.3.0
+  - r-seurat=5.0.1
   - r-future
   - r-tidyseurat
   - r-bracer
