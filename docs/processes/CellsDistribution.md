@@ -46,6 +46,13 @@ are groups (i.e. clinic groups).<br />
     * `.predicate`: Showing whether the clone is expanded/collapsed/emerged/vanished.<br />
     * `include_emerged`: Whether to include the emerged group for `expanded` (only works for `expanded`). Default is `FALSE`.<br />
     * `include_vanished`: Whether to include the vanished group for `collapsed` (only works for `collapsed`). Default is `FALSE`.<br />
+- `cluster_orderby`:
+    The order of the clusters to show on the plot.<br />
+    An expression passed to `dplyr::summarise()` on the grouped data frame (by `seurat_clusters`).<br />
+    The summary stat will be passed to `dplyr::arrange()` to order the clusters. It's applied on the whole meta.data before grouping and subsetting.<br />
+    For example, you can order the clusters by the activation score of
+    the cluster: `desc(mean(ActivationScore, na.rm = TRUE))`, suppose you have a column
+    `ActivationScore` in the metadata.<br />
 - `group_by`:
     The column name in metadata to group the cells for the columns of the plot.<br />
 - `group_order` *(`list`)*: *Default: `[]`*. <br />
@@ -76,8 +83,16 @@ are groups (i.e. clinic groups).<br />
     This will be applied prior to `each`.<br />
 - `descr`:
     The description of the case, will be shown in the report.<br />
+- `hm_devpars` *(`ns`)*:
+    The device parameters for the heatmaps.<br />
+    - `res` *(`type=int`)*:
+        The resolution of the heatmaps.<br />
+    - `height` *(`type=int`)*:
+        The height of the heatmaps.<br />
+    - `width` *(`type=int`)*:
+        The width of the heatmaps.<br />
 - `devpars` *(`ns`)*:
-    The device parameters for the plots.<br />
+    The device parameters for the plots of pie charts.<br />
     - `res` *(`type=int`)*:
         The resolution of the plots
     - `height` *(`type=int`)*:
