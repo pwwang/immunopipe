@@ -12,7 +12,7 @@ Annotate the cell clusters. Currently, four ways are supported:<br />
 The annotated cell types will replace the original `seurat_clusters` column in the metadata,
 so that the downstream processes will use the annotated cell types.<br />
 
-The old `seurat_clusters` column will be renamed to `seurat_clusters_old`.<br />
+The old `seurat_clusters` column will be renamed to `seurat_clusters_id`.<br />
 
 If you are using `ScType`, `scCATCH`, or `hitype`, a text file containing the mapping from
 the old `seurat_clusters` to the new cell types will be generated and saved to
