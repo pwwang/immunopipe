@@ -32,7 +32,7 @@ expression, and the control features are randomly selected from each bin.<br />
         the same bin per analyzed feature.<br />
     - `k` *(`flag`)*: *Default: `False`*. <br />
         Use feature clusters returned from `DoKMeans`.<br />
-    - `assay`: *Default: `RNA`*. <br />
+    - `assay`:
         The assay to use.<br />
     - `seed` *(`type=int`)*: *Default: `8525`*. <br />
         Set a random seed.<br />

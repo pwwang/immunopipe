@@ -73,7 +73,7 @@ function, and performs enrichment analysis for the markers found.<br />
     `p_val_adj`. For example, `"p_val_adj < 0.05 & abs(avg_log2FC) > 1"`
     to select markers with adjusted p-value < 0.05 and absolute log2
     fold change > 1.<br />
-- `assay`: *Default: `RNA`*. <br />
+- `assay`:
     The assay to use.<br />
 - `volcano_genes` *(`type=auto`)*: *Default: `True`*. <br />
     The genes to label in the volcano plot if they are

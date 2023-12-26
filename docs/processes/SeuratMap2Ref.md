@@ -31,7 +31,7 @@ and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
 - `SCTransform` *(`ns`)*:
     Arguments for [`SCTransform()`](https://satijalab.org/seurat/reference/sctransform)
     - `do-correct-umi` *(`flag`)*: *Default: `False`*. <br />
-        Place corrected UMI matrix in assay counts slot?<br />
+        Place corrected UMI matrix in assay counts layer?<br />
     - `do-scale` *(`flag`)*: *Default: `False`*. <br />
         Whether to scale residuals to have unit variance?<br />
     - `do-center` *(`flag`)*: *Default: `True`*. <br />
