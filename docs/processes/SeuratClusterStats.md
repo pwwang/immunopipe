@@ -8,6 +8,55 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
 
 ## Environment Variables
 
+- `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
+    The mutaters to mutate the metadata to subset the cells.<br />
+    The mutaters will be applied in the order specified.<br />
+- `hists_defaults` *(`ns`)*:
+    The default parameters for histograms.<br />
+    This will plot histograms for the number of cells along `x`.<br />
+    For example, you can plot the number of cells along cell activity score.<br />
+    - `x`:
+        The column name in metadata to plot as the x-axis.<br />
+        The NA values will be removed.<br />
+        It could be either numeric or factor/character.<br />
+    - `x_order` *(`list`)*: *Default: `[]`*. <br />
+        The order of the x-axis, only works for factor/character `x`.<br />
+        You can also use it to subset `x` (showing only a subset values of `x`).<br />
+    - `cells_by`:
+        A column name in metadata to group the cells.<br />
+        The NA values will be removed. It should be a factor/character.<br />
+        if not specified, all cells will be used.<br />
+    - `cells_order` *(`list`)*: *Default: `[]`*. <br />
+        The order of the cell groups for the plots.<br />
+        It should be a list of strings. You can also use `cells_orderby` and `cells_n`
+        to determine the order.<br />
+    - `cells_orderby`:
+        An expression passed to `dplyr::arrange()` to order the cell groups.<br />
+    - `cells_n`: *Default: `10`*. <br />
+        The number of cell groups to show.<br />
+        Ignored if `cells_order` is specified.<br />
+    - `ncol` *(`type=int`)*: *Default: `2`*. <br />
+        The number of columns for the plots, split by `cells_by`.<br />
+    - `subset`:
+        An expression to subset the cells, will be passed to `dplyr::filter()`.<br />
+    - `each`:
+        Whether to plot each group separately.<br />
+    - `bins`: *Default: `30`*. <br />
+        The number of bins to use, only works for numeric `x`.<br />
+    - `plus` *(`list`)*: *Default: `[]`*. <br />
+        The extra elements to add to the `ggplot` object.<br />
+    - `devpars` *(`ns`)*:
+        The device parameters for the plots.<br />
+        - `res` *(`type=int`)*: *Default: `100`*. <br />
+            The resolution of the plots.<br />
+        - `height` *(`type=int`)*:
+            The height of the plots.<br />
+        - `width` *(`type=int`)*:
+            The width of the plots.<br />
+- `hists` *(`type=json`)*: *Default: `{}`*. <br />
+    The cases for histograms.<br />
+    Keys are the names of the plots and values are the dicts inherited from `env.hists_defaults`.<br />
+    There is no default case.<br />
 - `stats_defaults` *(`ns`)*:
     The default parameters for `stats`.<br />
     The parameters from the cases can overwrite the default parameters.<br />
@@ -79,6 +128,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
         (one per line), or an integer to use the top N features from `VariantFeatures(srtobj)`.<br />
     - `ident`: *Default: `seurat_clusters`*. <br />
         The column name in metadata to use as the identity.<br />
+        If it is from subclustering (reduction `sub_umap_<ident>` exists), the reduction will be used.<br />
     - `subset`:
         An expression to subset the cells, will be passed to `tidyrseurat::filter()`.<br />
     - `devpars` *(`ns`)*:
@@ -99,8 +149,10 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
         It works for `vln`, `feature`, and `dot`.<br />
     - `assay`:
         The assay to use.<br />
-    - `slot`:
-        The slot to use.<br />
+    - `layer`:
+        The layer to use.<br />
+    - `reduction`:
+        The reduction to use. Only works for `feature`.<br />
     - `section`:
         The section to put the plot in the report.<br />
         If not specified, the case title will be used.<br />
@@ -149,6 +201,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     - `ident`: *Default: `seurat_clusters`*. <br />
         The column name in metadata to use as the identity.<br />
         Ignored if `group-by` is specified.<br />
+        If it is from subclustering (reduction `sub_umap_<ident>` exists), the reduction will be used.<br />
     - `group-by`:
         Same as `ident`. How the points are colored.<br />
     - `split-by`:
@@ -170,6 +223,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
         - `dim`:
             Use `Seurat::DimPlot`.<br />
             First searches for `umap`, then `tsne`, then `pca`.<br />
+            If `ident` is from subclustering, `sub_umap_<ident>` will be used.<br />
         - `auto`:
             Same as `dim`
         - `umap`:
