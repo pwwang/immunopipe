@@ -19,6 +19,7 @@ from biopipen.ns.tcr import (
 from biopipen.ns.scrna import (
     SeuratPreparing as SeuratPreparing_,
     SeuratClustering as SeuratClustering_,
+    SeuratSubClustering as SeuratSubClustering_,
     SeuratMap2Ref as SeuratMap2Ref_,
     SeuratClusterStats as SeuratClusterStats_,
     SeuratMetadataMutater as SeuratMetadataMutater_,
@@ -391,6 +392,19 @@ if just_loading or ("SeuratMap2Ref" not in config and "CellTypeAnnotation" in co
         envs = {"tool": "direct", "sctype_db": None}
 
     Clustered = CellTypeAnnotation
+    # >>> Clustered
+
+if just_loading or "SeuratSubClustering" in config:
+    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
+    class SeuratSubClustering(SeuratSubClustering_):
+        """Sub-cluster the selected T cells.
+
+        {{*Summary}}
+        """
+        requires = Clustered
+        input_data = lambda ch1: ch1.iloc[:, [0]]
+
+    Clustered = SeuratSubClustering
     # >>> Clustered
 
 
@@ -816,7 +830,6 @@ if just_loading or "MarkersFinder" in config:
             in the report.
         """
         requires = Clustered
-        envs = {"assay": "RNA"}
         order = 5
 
 if just_loading or "MetaMarkers" in config:

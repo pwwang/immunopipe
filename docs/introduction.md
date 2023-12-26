@@ -42,6 +42,7 @@ As shown in the figure above, `immunopipe` includes a set of processes for scTCR
 - [`SeuratClustering`](processes/SeuratClustering.md): Perform clustering on all or T cells selected above.
 - [`SeuratMap2Ref`](processes/SeuratMap2Ref.md): Map the cells to a reference dataset.
 - [`CellTypeAnnotation`](processes/CellTypeAnnotation.md): Annotate cell types for each T-cell cluster.
+- [`SeuratSubClustering`](processes/SeuratSubClustering.md): Perform sub-clustering on subsets of cells.
 - [`ClusterMarkers`](processes/ClusterMarkers.md): Find markers for each T-cell cluster and perform enrichment analysis.
 - [`TopExpressingGenes`](processes/TopExpressingGenes.md): Find top expressing genes for each T-cell cluster and perform enrichment analysis.
 - [`ModuleScoreCalculator`](processes/ModuleScoreCalculator.md): Calculate module scores or cell cycle scores for each cell.

@@ -42,6 +42,7 @@ nav:
       - 'SeuratClustering': 'processes/SeuratClustering.md'
       - 'SeuratMap2Ref': 'processes/SeuratMap2Ref.md'
       - 'CellTypeAnnotation': 'processes/CellTypeAnnotation.md'
+      - 'SeuratSubClustering': 'processes/SeuratSubClustering.md'
       - 'TCRClustering': 'processes/TCRClustering.md'
       - 'TCRClusterStats': 'processes/TCRClusterStats.md'
       - 'IntegratingTCRClusters': 'processes/IntegratingTCRClusters.md'
