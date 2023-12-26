@@ -219,6 +219,10 @@ Understanding how the data is presented in the pipeline is helpful for the confi
 
 You can refer to the individual process pages for more details. Here we just give an introduction of how it works to set the configurations.
 
+### The assay of the `Seurat` object
+
+The `Seurat` object is the main object used in the pipeline. You can have multiple assays in the `Seurat` object. While preparing the `Seurat` object at [`SeuratPreparing`](processes/SeuratPreparing.md) process, the default assay is determined. If `envs.use_sct` is true, meaning [`SCTransform`](https://satijalab.org/seurat/reference/sctransform) is used, the default assay will be `SCT`. Otherwise, the default assay will be `RNA`. For downstream processes using the expression values, we provide an option to specify the assay to use. However, the default assay is used. Unless you know what you are doing, you are not recommended to change the default assay.
+
 ### Using existing columns in the metadata
 
 In most cases, you can use the existing columns in the metadata to set the configurations. For example, if you want to plot the clone residency for each patient/subject, you need to specify the column name of the sample ID, as well as the column with the paired sample information (i.e. `tumor` vs `blood`).
