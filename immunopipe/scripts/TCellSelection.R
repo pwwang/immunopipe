@@ -31,11 +31,10 @@ immdata = read.table(immfile, header = TRUE, sep = "\t", stringsAsFactors = FALS
 # 1         0      ...
 # ...
 log_info("Fetching indicator gene expression ...")
-indicators = AverageExpression(
-        sobj,
-        features = indicator_genes,
-        assays = "RNA"
-    )$RNA %>%
+assay <- DefaultAssay(sobj)
+indicators = AverageExpression(sobj, features = indicator_genes, assays = assay)[[assay]] %>%
+    # It's a sparse matrix, convert it to a dense matrix
+    as.matrix() %>%
     t() %>%
     scale() %>%  # scale on each gene
     as.data.frame()
@@ -314,7 +313,8 @@ add_report(
 )
 
 log_info("Saving selected T cells as Seurat object ...")
-out = subset(sobj, idents = indicators$Cluster[indicators$is_TCell])
-saveRDS(out, rdsfile)
+outobj = subset(sobj, idents = indicators$Cluster[indicators$is_TCell])
+
+saveRDS(outobj, rdsfile)
 
 save_report(joboutdir)
