@@ -66,6 +66,14 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
         Also output a pie chart?<br />
     - `table` *(`flag`)*: *Default: `False`*. <br />
         Whether to output a table (in tab-delimited format) and in the report.<br />
+    - `frac_ofall(flag)`:
+        Whether to output the fraction against all cells,
+        instead of the fraction in each group.<br />
+        Only works when `frac` is `True` and `group-by` is specified.<br />
+    - `transpose` *(`flag`)*: *Default: `False`*. <br />
+        Whether to transpose the cluster and group, that is,
+        using group as the x-axis and cluster to fill the plot.<br />
+        Only works when `group-by` is specified.<br />
     - `ident`: *Default: `seurat_clusters`*. <br />
         The column name in metadata to use as the identity.<br />
     - `group-by`:
@@ -84,6 +92,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
             The height of the plots.<br />
         - `width` *(`type=int`)*: *Default: `1000`*. <br />
             The width of the plots.<br />
+    - `frac_ofall`: *Default: `False`*. <br />
 - `stats` *(`type=json`)*: *Default: `{'Number of cells in each cluster': Diot({'pie': True}), 'Number of cells in each cluster by Sample': Diot({'group-by': 'Sample', 'table': True, 'frac': True})}`*. <br />
     The number/fraction of cells to plot.<br />
     Keys are the names of the plots and values are the dicts inherited from `env.stats_defaults`.<br />
@@ -92,7 +101,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     ```python
     {
         "nCells_All": {},
-        "nCells_Sample": {"kind": "num", "group-by": "Sample"},
+        "nCells_Sample": {"group-by": "Sample"},
         "fracCells_Sample": {"kind": "frac", "group-by": "Sample"},
     }
     ```
