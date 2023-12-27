@@ -69,11 +69,14 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
     ///
 
 - `gene_qc` *(`ns`)*:
-    Filter genes. Currently only `min_cells` is supported.<br />
+    Filter genes.<br />
     `gene_qc` is applied after `cell_qc`.<br />
     - `min_cells`: *Default: `0`*. <br />
         The minimum number of cells that a gene must be
         expressed in to be kept.<br />
+    - `excludes`: *Default: `[]`*. <br />
+        The genes to exclude. Multiple genes can be specified by
+        comma separated values, or as a list.<br />
 
         /// Tip | Example
         ```toml
