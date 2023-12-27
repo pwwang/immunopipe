@@ -119,6 +119,13 @@ You may read through this documentation to learn more about the pipeline and how
 The results provided by this example configuration files are for demonstration purpose only. They are not intended to be used for any scientific analysis.
 ///
 
+You may also want to try other routes of the pipeline with the prepared data. These routes are defined in:
+
+- `ImmunopipeMinimalNoTCR.config.toml`: The configuration for minimal analyses without scTCR-seq data.
+- `ImmunopipeMinimalSupervised.config.toml`: The configuration for minimal analyses with supervised clustering of T cells.
+- `ImmunopipeNoTCR.config.toml`: The configuration for full analyses without scTCR-seq data.
+- `ImmunopipeSupervised.config.toml`: The configuration for full analyses with supervised clustering of T cells.
+
 
 [1]: https://www.ncbi.nlm.nih.gov/pubmed/32103181
 [2]: https://www.ncbi.nlm.nih.gov/pubmed/35263569
