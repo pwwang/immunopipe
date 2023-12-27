@@ -62,6 +62,8 @@ for supervised clustering.<br />
 - `FindClusters` *(`ns`)*:
     Arguments for [`FindClusters()`](https://satijalab.org/seurat/reference/findclusters).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
+    The cluster labels will be saved in `seurat_clusters` and prefixed with "c".<br />
+    The first cluster will be "c1", instead of "c0".<br />
     - `resolution`: *Default: `0.8`*. <br />
         The resolution of the clustering. You can have multiple resolutions separated by comma.<br />
         The results will be saved in `seurat_clusters_<resolution>`.<br />

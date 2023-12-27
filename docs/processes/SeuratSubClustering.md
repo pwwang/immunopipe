@@ -15,6 +15,10 @@ clustering will be saved in the metadata of the original object using the casena
 
 ## Environment Variables
 
+- `ncores` *(`type=int;order=-100`)*: *Default: `1`*. <br />
+    Number of cores to use.<br />
+    Used in `future::plan(strategy = "multicore", workers = <ncores>)`
+    to parallelize some Seurat procedures.<br />
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
     The mutaters to mutate the metadata to subset the cells.<br />
     The mutaters will be applied in the order specified.<br />
@@ -44,6 +48,7 @@ clustering will be saved in the metadata of the original object using the casena
 - `FindClusters` *(`ns`)*:
     Arguments for [`FindClusters()`](https://satijalab.org/seurat/reference/findclusters).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
+    The cluster labels will be prefixed with "s". The first cluster will be "s1", instead of "s0".<br />
     - `resolution`: *Default: `0.8`*. <br />
         The resolution of the clustering. You can have multiple resolutions separated by comma.<br />
         The results will be saved in `<casename>_<resolution>`.<br />
