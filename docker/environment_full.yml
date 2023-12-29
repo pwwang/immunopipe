@@ -14,13 +14,10 @@ dependencies:
   - scikit-learn=1.2  # for GIANA
   - fontconfig
   - faiss-cpu  # for GIANA
-  - openjdk=8  # vdjtools
   - graphviz  # pipen-diagram
   - git  # for copier, used by pipen-report
   - libiconv # fix git: error while loading shared libraries: libiconv.so.2
   - time  # for pipen-runinfo
-  - procps-ng  # vdjtools: free command not found
-  - vdjtools=1.1.4
   - bioconductor-fgsea
   - bioconductor-scater
   - bioconductor-complexheatmap
@@ -30,7 +27,7 @@ dependencies:
   - r-presto  # MarkersFinder
   - r-hash  # CDR3AAPhyschem
   - r-glmnet  # CDR3AAPhyschem
-  - r-matrix=1.6_1  # CDR3AAPhyschem
+  # - r-matrix=1.6_1  # CDR3AAPhyschem
   - r-broom.mixed  # CDR3AAPhyschem
   - r-ggradar
   - r-hitype
