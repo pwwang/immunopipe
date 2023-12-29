@@ -62,7 +62,7 @@ See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
         The final resolution will be used to define the clusters at `seurat_clusters`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findclusters>
-- `cache` *(`type=auto`)*: *Default: `True`*. <br />
+- `cache` *(`type=auto`)*: *Default: `False`*. <br />
     Whether to cache the seurat object with cluster information.<br />
     If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
     The cached seurat object will be saved as `<signature>.cached.RDS` file, where `<signature>` is the signature determined by

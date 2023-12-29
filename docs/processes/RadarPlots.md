@@ -25,6 +25,24 @@ in different T-cell clusters.<br />
     each value in the column.<br />
     If specified, `section` will be ignored, and the case name will
     be used as the section name.<br />
+- `breakdown`:
+    An additional column with groups to break down the cells
+    distribution in each cluster. For example, if you want to see the
+    distribution of the cells in each cluster in different samples. In
+    this case, you should have multiple values in each `by`. These values
+    won't be plotted in the radar plot, but a barplot will be generated
+    with the mean value of each group and the error bar.<br />
+- `test` *(`choice`)*: *Default: `wilcox`*. <br />
+    The test to use to calculate the p values.<br />
+    If there are more than 2 groups in `by`, the p values will be calculated
+    pairwise group by group. Only works when `breakdown` is specified and
+    `by` has 2 groups or more.<br />
+    - `wilcox`:
+        Wilcoxon rank sum test
+    - `t`:
+        T test
+    - `none`:
+        No test will be performed
 - `order` *(`list`)*:
     The order of the values in `by`. You can also limit
     (filter) the values we have in `by`. For example, if column `Source`
@@ -32,7 +50,7 @@ in different T-cell clusters.<br />
     `Tumor` and `Blood`, you can set `order` to `["Tumor", "Blood"]`.<br />
     This will also have `Tumor` as the first item in the legend and `Blood`
     as the second item.<br />
-- `cluster_col`: *Default: `seurat_clusters`*. <br />
+- `ident`: *Default: `seurat_clusters`*. <br />
     The column name of the cluster information.<br />
 - `cluster_order` *(`list`)*: *Default: `[]`*. <br />
     The order of the clusters.<br />
@@ -55,6 +73,14 @@ in different T-cell clusters.<br />
     If you want to put multiple cases into a same section
     in the report, you can set this option to the name of the section.<br />
     Only used in the report.<br />
+- `bar_devpars` *(`ns`)*:
+    The parameters for `png()` for the barplot
+    - `res` *(`type=int`)*: *Default: `100`*. <br />
+        The resolution of the plot
+    - `height` *(`type=int`)*: *Default: `800`*. <br />
+        The height of the plot
+    - `width` *(`type=int`)*: *Default: `1200`*. <br />
+        The width of the plot
 - `devpars` *(`ns`)*:
     The parameters for `png()`
     - `res` *(`type=int`)*: *Default: `100`*. <br />
@@ -67,7 +93,7 @@ in different T-cell clusters.<br />
     The cases for the multiple radar plots.<br />
     Keys are the names of the cases and values are the arguments for
     the plots (`each`, `by`, `order`, `breaks`, `direction`,
-    `cluster_col`, `cluster_order` and `devpars`).<br />
+    `ident`, `cluster_order` and `devpars`).<br />
     If not cases are given, a default case will be used, with the
     key `DEFAULT`.<br />
     The keys must be valid string as part of the file name.<br />

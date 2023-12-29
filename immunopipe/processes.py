@@ -403,6 +403,12 @@ if just_loading or "SeuratSubClustering" in config:
         """Sub-cluster the selected T cells.
 
         {{*Summary}}
+
+        Metadata:
+            The metadata of the `Seurat` object will be updated with the sub-clusters
+            specified by names (keys) of `envs.cases`:
+
+            ![SeuratSubClustering-metadata]({{baseurl}}/processes/images/SeuratSubClustering-metadata.png)
         """
         requires = Clustered
         input_data = lambda ch1: ch1.iloc[:, [0]]

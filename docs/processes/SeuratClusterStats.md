@@ -59,6 +59,8 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     There is no default case.<br />
 - `stats_defaults` *(`ns`)*:
     The default parameters for `stats`.<br />
+    This is to do some basic statistics on the clusters. For more comprehensive analysis,
+    see `RadarPlots` and `CellsDistribution`.<br />
     The parameters from the cases can overwrite the default parameters.<br />
     - `frac` *(`flag`)*: *Default: `False`*. <br />
         Whether to output the fraction of cells instead of number.<br />
@@ -84,13 +86,21 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     - `subset`:
         An expression to subset the cells, will be passed to
         `dplyr::filter()` on metadata.<br />
+    - `pie_devpars` *(`ns`)*:
+        The device parameters for the pie charts.<br />
+        - `res` *(`type=int`)*: *Default: `100`*. <br />
+            The resolution of the plots.<br />
+        - `height` *(`type=int`)*: *Default: `600`*. <br />
+            The height of the plots.<br />
+        - `width` *(`type=int`)*: *Default: `800`*. <br />
+            The width of the plots.<br />
     - `devpars` *(`ns`)*:
         The device parameters for the plots.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
             The resolution of the plots.<br />
-        - `height` *(`type=int`)*: *Default: `800`*. <br />
+        - `height` *(`type=int`)*: *Default: `600`*. <br />
             The height of the plots.<br />
-        - `width` *(`type=int`)*: *Default: `1000`*. <br />
+        - `width` *(`type=int`)*: *Default: `800`*. <br />
             The width of the plots.<br />
     - `frac_ofall`: *Default: `False`*. <br />
 - `stats` *(`type=json`)*: *Default: `{'Number of cells in each cluster': Diot({'pie': True}), 'Number of cells in each cluster by Sample': Diot({'group-by': 'Sample', 'table': True, 'frac': True})}`*. <br />
@@ -102,7 +112,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     {
         "nCells_All": {},
         "nCells_Sample": {"group-by": "Sample"},
-        "fracCells_Sample": {"kind": "frac", "group-by": "Sample"},
+        "fracCells_Sample": {"frac": True, "group-by": "Sample"},
     }
     ```
 
@@ -138,6 +148,14 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     - `ident`: *Default: `seurat_clusters`*. <br />
         The column name in metadata to use as the identity.<br />
         If it is from subclustering (reduction `sub_umap_<ident>` exists), the reduction will be used.<br />
+    - `cluster_orderby` *(`type=auto`)*:
+        The order of the clusters to show on the plot.<br />
+        An expression passed to `dplyr::summarise()` on the grouped data frame (by `seurat_clusters`).<br />
+        The summary stat will be passed to `dplyr::arrange()` to order the clusters. It's applied on the whole meta.data before grouping and subsetting.<br />
+        For example, you can order the clusters by the activation score of
+        the cluster: `desc(mean(ActivationScore, na.rm = TRUE))`, suppose you have a column
+        `ActivationScore` in the metadata.<br />
+        You may also specify the literal order of the clusters by a list of strings.<br />
     - `subset`:
         An expression to subset the cells, will be passed to `tidyrseurat::filter()`.<br />
     - `devpars` *(`ns`)*:
@@ -197,7 +215,8 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
             Same as `bar`.<br />
         - `heatmap`:
             Use `Seurat::DoHeatmap`.<br />
-            You can specify `average=True` to plot on the average of the expressions.<br />
+        - `avgheatmap`:
+            Plot the average expression of the features in each cluster as a heatmap.<br />
         - `table`:
             The table for the features, only gene expressions are supported.<br />
             (supported keys: ident, subset, and features).<br />
@@ -208,11 +227,13 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
 - `dimplots_defaults` *(`ns`)*:
     The default parameters for `dimplots`.<br />
     - `ident`: *Default: `seurat_clusters`*. <br />
-        The column name in metadata to use as the identity.<br />
-        Ignored if `group-by` is specified.<br />
-        If it is from subclustering (reduction `sub_umap_<ident>` exists), the reduction will be used.<br />
+        The identity to use.<br />
+        If it is from subclustering (reduction `sub_umap_<ident>` exists), this reduction will be used if `reduction`
+        is set to `dim` or `auto`.<br />
     - `group-by`:
-        Same as `ident`. How the points are colored.<br />
+        Same as `ident` if not specified, to define how the points are colored.<br />
+    - `na_group`:
+        The group name for NA values, use `None` to ignore NA values.<br />
     - `split-by`:
         The column name in metadata to split the cells into different plots.<br />
     - `shape-by`:

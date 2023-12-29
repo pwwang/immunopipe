@@ -55,7 +55,7 @@ clustering will be saved in the metadata of the original object using the casena
         The final resolution will be used to define the clusters at `<casename>`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findclusters>
-- `cache` *(`type=auto`)*: *Default: `True`*. <br />
+- `cache` *(`type=auto`)*: *Default: `False`*. <br />
     Whether to cache the seurat object with cluster information.<br />
     If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
     The cached seurat object will be saved as `<signature>.cached.RDS` file, where `<signature>` is the signature determined by
@@ -72,4 +72,11 @@ clustering will be saved in the metadata of the original object using the casena
     The cases to perform subclustering.<br />
     Keys are the names of the cases and values are the dicts inherited from `envs` except `mutaters` and `cache`.<br />
     If empty, a case with name `subcluster` will be created with default parameters.<br />
+
+## Metadata
+
+The metadata of the `Seurat` object will be updated with the sub-clusters
+specified by names (keys) of `envs.cases`:<br />
+
+![SeuratSubClustering-metadata](../processes/images/SeuratSubClustering-metadata.png)
 
