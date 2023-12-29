@@ -81,40 +81,33 @@ As shown in the figure above, `immunopipe` includes a set of processes for scTCR
 
 `immunopipe` is designed to be flexible. It can be used in different ways. Here we list some common routes of the pipeline:
 
-### Both scRNA-seq and scTCR-seq data avaiable and T cell selection is needed
+### Both scRNA-seq and scTCR-seq data avaiable
 
 To enable this route, you need to:
 
 - tell the pipeline that scTCR-seq data is available by adding a column named `TCRData` in the sample information file.
-- tell the pipeline that T cell selection is needed, by adding a section `[TCellSelection]` in the configuration file.
+- put the path of the sample information file in the configuration file `[SampleInfo.in.infile]`, instead of passing it as a command line argument (`--Sample.in.infile`).
 
 Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. If you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters. If so, `SeuratClustering` will be replaced by `SeuratMap2Ref` in the pipeline.
+
+If you need to select T cells from all cells available for later analyses, you need to add `[TCellSelection]` in the configuration file. If so, the processes annotated as `For T cell selection` will be added to the pipeline.
 
 This is the most common route of the pipeline:
 
-![routes-unsupervised-both-nont](routes-both-ts.png)
+![routes-tcr](routes-tcr.png)
 
 The optional processes are enabled only when the corresponding sections are added in the configuration file. For example, if you want to add module scores (e.g. cell activation score) to the `Seurat` object, you need to add `[ModuleScoreCalculator]` in the configuration file.
 
-### Both scRNA-seq and scTCR-seq data avaiable and T cell selection is not needed
-
-This means that all cells in the data are T cells. To enable this route, you need to:
-
-- tell the pipeline that scTCR-seq data is available by adding a column named `TCRData` in the sample information file.
-- make sure that `[TCellSelection]` is not in the configuration file.
-
-Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. If you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters. If so, `SeuratClustering` will be replaced by `SeuratMap2Ref` in the pipeline.
-
-![routes-unsupervised-both](routes-both.png)
-
 ### Only scRNA-seq data avaiable
 
-When you have only scRNA-seq data, you just don't need to add the `TCRData` column in the sample information file. The pipeline will automatically skip the processes related to scTCR-seq data.
+When you have only scRNA-seq data, you just don't need to add the `TCRData` column in the sample information file. The pipeline will automatically skip the processes related to scTCR-seq data analysis.
 
 /// Attention
 You need to specify the sample information file in the configuration file `[SampleInfo.in.infile]` to enable this route. Passing the sample information file as a command line argument (`--Sample.in.infile`) does not trigger this route.
 ///
 
 Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. If you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters. If so, `SeuratClustering` will be replaced by `SeuratMap2Ref` in the pipeline.
+
+If you need to select T cells from all cells available for later analyses, you need to add `[TCellSelection]` in the configuration file. If so, the processes annotated as `For T cell selection` will be added to the pipeline.
 
 ![routes-notcr](routes-notcr.png)
