@@ -180,6 +180,8 @@ if just_loading or config.has_tcr:
             replace: '`SeuratMetadataMutater`', '[`IntegratingTCR`](./IntegratingTCR.md)'}}
         """  # noqa: E501
         requires = SampleInfo
+else:
+    ImmunarchLoading = None
 
 
 @annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})
@@ -197,7 +199,7 @@ class SeuratPreparing(SeuratPreparing_):
     requires = SampleInfo
 
 
-if just_loading or (config.has_tcr and "TCellSelection" in config):
+if just_loading or "TCellSelection" in config:
     # No matter "SeuratClusteringOfAllCells" is in the config or not
     @annotate.format_doc(indent=2)
     class SeuratClusteringOfAllCells(SeuratClustering_):
@@ -225,8 +227,7 @@ if just_loading or (config.has_tcr and "TCellSelection" in config):
 
 
 if just_loading or (
-    config.has_tcr
-    and ("TCellSelection" in config and "ClusterMarkersOfAllCells" in config)
+    "TCellSelection" in config and "ClusterMarkersOfAllCells" in config
 ):
     @annotate.format_doc(indent=2)
     class ClusterMarkersOfAllCells(MarkersFinder_):
@@ -256,8 +257,7 @@ if just_loading or (
 
 
 if just_loading or (
-    config.has_tcr
-    and ("TCellSelection" in config and "TopExpressingGenesOfAllCells" in config)
+    "TCellSelection" in config and "TopExpressingGenesOfAllCells" in config
 ):
     @annotate.format_doc(indent=2)
     class TopExpressingGenesOfAllCells(TopExpressingGenes_):
@@ -285,10 +285,13 @@ if just_loading or (
         order = 3
 
 
-if just_loading or (config.has_tcr and "TCellSelection" in config):
+if just_loading or "TCellSelection" in config:
     class TCellSelection(TCellSelection_):
-        requires = [SeuratPreparing, ImmunarchLoading]
-        input_data = lambda ch1, ch2: tibble(ch1, ch2.iloc[:, 1])
+        if ImmunarchLoading:
+            requires = [SeuratPreparing, ImmunarchLoading]
+            input_data = lambda ch1, ch2: tibble(ch1, ch2.iloc[:, 1])
+        else:
+            requires = SeuratPreparing
 
     SeuratPreparing = TCellSelection
     # >>> SeuratPreparing

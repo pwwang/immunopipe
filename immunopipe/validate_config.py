@@ -66,12 +66,6 @@ def validate_config(config: Dict[str, Any]) -> Dict[str, Any]:
         header = infile.read_text().splitlines()[0]
         config.has_tcr = "TCRData" in header
 
-    if not config.has_tcr and "TCellSelection" in config:
-        WARNINGS.append(
-            "T cell selection is not supported for scRNA-seq data only, "
-            "[TCellSelection] will be ignored."
-        )
-
     if WARNINGS or ERRORS:
         logger.warning("Miscofigurations detected:")
         for warning in WARNINGS:
