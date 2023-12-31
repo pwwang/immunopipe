@@ -10,6 +10,10 @@ def validate_config(config: Dict[str, Any]) -> Dict[str, Any]:
     Args:
         config: The configuration.
     """
+    if not config:  # no arguments
+        config.has_tcr = True
+        return config
+
     WARNINGS = []
     ERRORS = []
 
