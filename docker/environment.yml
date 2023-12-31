@@ -24,6 +24,7 @@ dependencies:
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
   - r-slugify
   - r-sf
+  - proj
   - r-logger
   - r-presto  # MarkersFinder
   - r-hash  # CDR3AAPhyschem
