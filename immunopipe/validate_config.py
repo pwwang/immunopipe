@@ -62,9 +62,9 @@ def validate_config(config: Dict[str, Any]) -> Dict[str, Any]:
         infile = Path(infiles[0])
         if not infile.is_file():
             ERRORS.append(f"Input file {infile} does not exist.")
-
-        header = infile.read_text().splitlines()[0]
-        config.has_tcr = "TCRData" in header
+        else:
+            header = infile.read_text().splitlines()[0]
+            config.has_tcr = "TCRData" in header
 
     if WARNINGS or ERRORS:
         logger.warning("Miscofigurations detected:")
