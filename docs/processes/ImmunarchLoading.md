@@ -44,7 +44,7 @@ TCR-seq data into the `Seurat` object for further integrative analysis.<br />
     are not in the same directory, we can link them to a temporary directory
     and pass the temporary directory to `Immunarch`.<br />
     This option is useful when the data files are in different directories.<br />
-- `mode`: *Default: `single`*. <br />
+- `mode`: *Default: `paired`*. <br />
     Either "single" for single chain data or "paired" for
     paired chain data. For `single`, only TRB chain will be kept
     at `immdata$data`, information for other chains will be
