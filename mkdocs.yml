@@ -27,6 +27,7 @@ nav:
     - 'Introduction': 'introduction.md'
     - 'Installation': 'installation.md'
     - 'Geting started': 'getting-started.md'
+    - 'Gallery': 'gallery.md'
     - 'Running the pipeline': 'running.md'
     - 'Preparing the input': 'preparing-input.md'
     - 'Configurations': 'configurations.md'

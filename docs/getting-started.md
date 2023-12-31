@@ -124,7 +124,10 @@ You may also want to try other routes of the pipeline with the prepared data. Th
 - `ImmunopipeMinimalNoTCR.config.toml`: The configuration for minimal analyses without scTCR-seq data.
 - `ImmunopipeMinimalSupervised.config.toml`: The configuration for minimal analyses with supervised clustering of T cells.
 - `ImmunopipeNoTCR.config.toml`: The configuration for full analyses without scTCR-seq data.
+- `ImmunopipeNoTCRWithSelection.config.toml`: The configuration for full analyses without scTCR-seq data, but with selection of T cells.
 - `ImmunopipeSupervised.config.toml`: The configuration for full analyses with supervised clustering of T cells.
+
+Also check out the [gallery](./gallery.md) for more real-world examples.
 
 
 [1]: https://www.ncbi.nlm.nih.gov/pubmed/32103181
