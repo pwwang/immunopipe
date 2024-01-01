@@ -233,10 +233,6 @@ if just_loading or (
     class ClusterMarkersOfAllCells(MarkersFinder_):
         """Markers for clusters of all cells.
 
-        /// Tip | Added in 0.9.0
-        `ClusterMarkersOfAllCells` is added in `0.9.0` and is optional by default.
-        ///
-
         See also [ClusterMarkers](./ClusterMarkers.md).
 
         Envs:
@@ -262,10 +258,6 @@ if just_loading or (
     @annotate.format_doc(indent=2)
     class TopExpressingGenesOfAllCells(TopExpressingGenes_):
         """Top expressing genes for clusters of all cells.
-
-        /// Tip | Added in 0.9.0
-        `TopExpressingGenesOfAllCells` is added in `0.9.0` and is optional by default.
-        ///
 
         {{*Summary.long}}
 
