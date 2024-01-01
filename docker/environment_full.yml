@@ -23,7 +23,8 @@ dependencies:
   - bioconductor-complexheatmap
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
   - r-slugify
-  - r-sf=1.0_15
+  - r-sf
+  - libgdal
   - r-logger
   - r-presto  # MarkersFinder
   - r-hash  # CDR3AAPhyschem
