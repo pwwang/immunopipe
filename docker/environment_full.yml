@@ -18,6 +18,7 @@ dependencies:
   - git  # for copier, used by pipen-report
   - libiconv # fix git: error while loading shared libraries: libiconv.so.2
   - time  # for pipen-runinfo
+  - wget  # GenomeInfoDbData post-link.sh
   - bioconductor-fgsea
   - bioconductor-scater
   - bioconductor-complexheatmap
