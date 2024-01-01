@@ -32,7 +32,7 @@ expression, and the control features are randomly selected from each bin.<br />
         the same bin per analyzed feature.<br />
     - `k` *(`flag`)*: *Default: `False`*. <br />
         Use feature clusters returned from `DoKMeans`.<br />
-    - `assay`: *Default: `RNA`*. <br />
+    - `assay`:
         The assay to use.<br />
     - `seed` *(`type=int`)*: *Default: `8525`*. <br />
         Set a random seed.<br />
@@ -74,6 +74,21 @@ expression, and the control features are randomly selected from each bin.<br />
     }
     ```
 
+
+    You can also add Diffusion Components (DC) to the modules
+
+    ```python
+    {"DC": {"features": 2, "kind": "diffmap"}}
+    ```
+
+    will perform diffusion map as a reduction and add the first 2
+    components as `DC_1` and `DC_2` to the metadata. `diffmap` is a shortcut
+    for `diffusion_map`. Other key-value pairs will pass to
+    [`destiny::DiffusionMap()`](https://www.rdocumentation.org/packages/destiny/versions/2.0.4/topics/DiffusionMap%20class).<br />
+    You can later plot the diffusion map by using
+    `reduction = "DC"` in `env.dimplots` in `SeuratClusterStats`.<br />
+    This requires [`SingleCellExperiment`](https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html)
+    and [`destiny`](https://bioconductor.org/packages/release/bioc/html/destiny.html) R packages.<br />
 
 ## Metadata
 

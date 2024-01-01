@@ -45,9 +45,10 @@ docker image with tag with `-full` suffix, or install the dependencies manually.
     Whether the TCR networks are constructed only
     within TCRs from the same sample/patient (True) or with all the
     TCRs in the meta data matrix (False).<br />
-- `assay`: *Default: `RNA`*. <br />
+- `assay`:
     Which assay to use to extract the expression matrix.<br />
     Only works if `in.srtobj` is an RDS file of a Seurat object.<br />
+    By default, if `SCTransform` is performed, `SCT` will be used.<br />
 - `predefined_b` *(`flag`)*: *Default: `False`*. <br />
     Whether use the predefined `b` or not.<br />
     Please check the paper of tessa for more details about the b vector.<br />

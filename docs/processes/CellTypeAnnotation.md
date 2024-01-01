@@ -12,7 +12,7 @@ Annotate the cell clusters. Currently, four ways are supported:<br />
 The annotated cell types will replace the original `seurat_clusters` column in the metadata,
 so that the downstream processes will use the annotated cell types.<br />
 
-The old `seurat_clusters` column will be renamed to `seurat_clusters_old`.<br />
+The old `seurat_clusters` column will be renamed to `seurat_clusters_id`.<br />
 
 If you are using `ScType`, `scCATCH`, or `hitype`, a text file containing the mapping from
 the old `seurat_clusters` to the new cell types will be generated and saved to
@@ -20,6 +20,11 @@ the old `seurat_clusters` to the new cell types will be generated and saved to
 
 The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
 by default.<br />
+
+/// Note
+When supervised clustering [`SeuratMap2Ref`](./SeuratMap2Ref.md) is used, this
+process will be ignored.<br />
+///
 
 /// Note
 When cell types are annotated, the old `seurat_clusters` column will be renamed
@@ -115,8 +120,8 @@ The cell types will be assigned as:<br />
 When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
 the `Seurat` object will be kept as is.<br />
 
-When `envs.newcol` is specified, the original `seurat_clusters` column will be
-kept is, and the annotated cell types will be saved in the new column.<br />
+When `envs.newcol` is specified, the original `seurat_clusters` column will
+be kept is, and the annotated cell types will be saved in the new column.<br />
 Otherwise, the original `seurat_clusters` column will be replaced by the
 annotated cell types and the original `seurat_clusters` column will be
 saved at `seurat_clusters_id`.<br />

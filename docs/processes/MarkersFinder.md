@@ -42,7 +42,27 @@ function, and performs enrichment analysis for the markers found.<br />
     * `.sum`: The sum of the sizes of clones in the first and second groups.<br />
     * `.predicate`: Showing whether the clone is expanded/collapsed/emerged/vanished.<br />
     * `include_emerged`: Whether to include the emerged group for `expanded` (only works for `expanded`). Default is `FALSE`.<br />
-    * `include_vanished`: Whether to include the vanished group for `collapsed` (only works for `collapsed`). Default is `FALSE`..<br />
+    * `include_vanished`: Whether to include the vanished group for `collapsed` (only works for `collapsed`). Default is `FALSE`.<br />
+    You can also use `top()` to get the top clones (i.e. the clones with the largest size) in each group.<br />
+    For example, you can use `{"Patient1_Top10_Clones": "top(subset = Patent == 'Patient1', uniq = FALSE)"}` to create a new column in metadata named `Patient1_Top10_Clones`.<br />
+    The values in this columns for other clones will be `NA`.<br />
+    This function takes following arguments:<br />
+    * `df`: The metadata data frame. You can use the `.` to refer to it.<br />
+    * `id`: The column name in metadata for the group ids (i.e. `CDR3.aa`).<br />
+    * `n`: The number of top clones to return. Default is `10`.<br />
+    If n < 1, it will be treated as the percentage of the size of the group.<br />
+    Specify `0` to get all clones.<br />
+    * `compare`: Either a (numeric) column name (i.e. `Clones`) in metadata to compare between groups, or `.n` to compare the number of cells in each group.<br />
+    If numeric column is given, the values should be the same for all cells in the same group.<br />
+    This will not be checked (only the first value is used).<br />
+    It is helpful to use `Clones` to use the raw clone size from TCR data, in case the cells are not completely mapped to RNA data.<br />
+    Also if you have `subset` set or `NA`s in `group.by` column, you should use `.n` to compare the number of cells in each group.<br />
+    * `subset`: An expression to subset the cells, will be passed to `dplyr::filter()`. Default is `TRUE` (no filtering).<br />
+    * `each`: A column name (without quotes) in metadata to split the cells.<br />
+    Each comparison will be done for each value in this column (typically each patient or subject).<br />
+    * `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df |> mutate(expanded = expanded(...))`.<br />
+    * `debug`: Return the data frame with intermediate columns instead of the ids. Default is `FALSE`.<br />
+    * `with_ties`: Whether to include ties (i.e. clones with the same size as the last clone) or not. Default is `FALSE`..<br />
     See also
     [mutating the metadata](../configurations.md#mutating-the-metadata).<br />
 - `ident-1`:
@@ -62,7 +82,7 @@ function, and performs enrichment analysis for the markers found.<br />
 - `prefix_each` *(`flag`)*: *Default: `True`*. <br />
     Whether to prefix the `each` column name to the
     value as the case/section name.<br />
-- `dbs` *(`list`)*: *Default: `['GO_Biological_Process_2021', 'GO_Cellular_Component_2021', 'GO_Molecular_Function_2021', 'KEGG_2021_Human']`*. <br />
+- `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />
     The dbs to do enrichment analysis for significant
     markers See below for all libraries.<br />
     <https://maayanlab.cloud/Enrichr/#libraries>
@@ -73,7 +93,7 @@ function, and performs enrichment analysis for the markers found.<br />
     `p_val_adj`. For example, `"p_val_adj < 0.05 & abs(avg_log2FC) > 1"`
     to select markers with adjusted p-value < 0.05 and absolute log2
     fold change > 1.<br />
-- `assay`: *Default: `RNA`*. <br />
+- `assay`:
     The assay to use.<br />
 - `volcano_genes` *(`type=auto`)*: *Default: `True`*. <br />
     The genes to label in the volcano plot if they are
@@ -91,10 +111,16 @@ function, and performs enrichment analysis for the markers found.<br />
     `each` and case name.<br />
 - `subset`:
     An expression to subset the cells for each case.<br />
+- `use_presto`: *Default: `False`*. <br />
+    Whether to use [`presto::wilcoxauc`](https://rdrr.io/github/immunogenomics/presto/man/wilcoxauc.html)
+    to find markers.<br />
+    [`presto`](https://github.com/immunogenomics/presto) is a package performs
+    fast Wilcoxon rank sum test and auROC analysis.<br />
 - `rest` *(`ns`)*:
     Rest arguments for `Seurat::FindMarkers()`.<br />
     Use `-` to replace `.` in the argument name. For example,
     use `min-pct` instead of `min.pct`.<br />
+    This only works when `use_presto` is `False`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findmarkers>
 - `dotplot` *(`ns`)*:

@@ -4,18 +4,29 @@ Separate T and non-T cells and select T cells.
 
 If all of your cells are T cells, do not set any configurations for this process.<br />
 
-In such a case, [`SeuratClusteringOfAllCells`](SeuratClusteringOfAllCells.md) will
-be clustering all T cells and
-[`SeuratClusteringOfTCells`](SeuratClusteringOfTCells.md) will be skipped.<br />
+In such a case, [`SeuratClusteringOfAllCells`](SeuratClusteringOfAllCells.md) should
+not be used, and [`SeuratClustering`](SeuratClustering.md) will be clustering all
+of the cells, which are all T cells.<br />
 
 There are two ways to separate T and non-T cells:<br />
 
-1. Use the T cell indicator directly from the metadata.<br />
+1. Use the an expression indicator directly from the metadata.<br />
 2. Use the expression values of indicator genes, and the clonotype percentage
 of the clusters.<br />
 
+You can also use indicator gene expression values only to select T cells by setting
+`envs.ignore_tcr` to true.<br />
+
 ## Environment Variables
 
+- `ignore_tcr` *(`flag`)*: *Default: `False`*. <br />
+    Ignore TCR information for T cell selection.<br />
+    Use only the expression values of indicator genes.<br />
+    In this case, the `Clonotype_Pct` column does not exist in the metadata.<br />
+    If you want to use `k-means` to select T cells, you must have more than
+    1 indicator gene, and the first indicator gene in `envs.indicator_genes`
+    must be a positive marker, which will be used to select the cluster with
+    higher expression values as T cells.<br />
 - `tcell_selector`:
     The expression passed to `tidyseurat::mutate(is_TCell = ...)`
     to indicate whether a cell is a T cell. For example, `Clonotype_Pct > 0.25`
@@ -37,6 +48,12 @@ of the clusters.<br />
     clonotype percentage will be used to determine T cells.<br />
     The markers could be either positive, such as `CD3E`, `CD3D`, `CD3G`, or
     negative, such as `CD19`, `CD14`, `CD68`.<br />
+
+- `kmeans` *(`type=json`)*: *Default: `{}`*. <br />
+    The parameters for `kmeans` clustering.<br />
+    Other arguments for [`stats::kmeans`](https://rdrr.io/r/stats/kmeans.html)
+    can be provided here. If there are dots in the argument names, replace them
+    with `-`.<br />
 
 ## Examples
 
@@ -91,6 +108,6 @@ the indicator genes, together with `Clonotype_Pct`, with K=2.<br />
 
 The cluster with higher clonoype percentage will be selected as T cells
 (`is_TCell = TRUE`), and sent to
-[`SeuratClusteringOfTCells`](SeuratClusteringOfTCells.md) for
+[`SeuratClustering`](SeuratClustering.md) for
 further clustering and downstream analysis.<br />
 

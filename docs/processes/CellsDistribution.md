@@ -46,6 +46,36 @@ are groups (i.e. clinic groups).<br />
     * `.predicate`: Showing whether the clone is expanded/collapsed/emerged/vanished.<br />
     * `include_emerged`: Whether to include the emerged group for `expanded` (only works for `expanded`). Default is `FALSE`.<br />
     * `include_vanished`: Whether to include the vanished group for `collapsed` (only works for `collapsed`). Default is `FALSE`.<br />
+
+    You can also use `top()` to get the top clones (i.e. the clones with the largest size) in each group.<br />
+    For example, you can use
+    `{"Patient1_Top10_Clones": "top(subset = Patent == 'Patient1', uniq = FALSE)"}`
+    to create a new column in metadata named `Patient1_Top10_Clones`.<br />
+    The values in this columns for other clones will be `NA`.<br />
+    This function takes following arguments:<br />
+    * `df`: The metadata data frame. You can use the `.` to refer to it.<br />
+    * `id`: The column name in metadata for the group ids (i.e. `CDR3.aa`).<br />
+    * `n`: The number of top clones to return. Default is `10`.<br />
+    If n < 1, it will be treated as the percentage of the size of the group.<br />
+    Specify `0` to get all clones.<br />
+    * `compare`: Either a (numeric) column name (i.e. `Clones`) in metadata to compare between groups, or `.n` to compare the number of cells in each group.<br />
+    If numeric column is given, the values should be the same for all cells in the same group.<br />
+    This will not be checked (only the first value is used).<br />
+    It is helpful to use `Clones` to use the raw clone size from TCR data, in case the cells are not completely mapped to RNA data.<br />
+    Also if you have `subset` set or `NA`s in `group.by` column, you should use `.n` to compare the number of cells in each group.<br />
+    * `subset`: An expression to subset the cells, will be passed to `dplyr::filter()`. Default is `TRUE` (no filtering).<br />
+    * `each`: A column name (without quotes) in metadata to split the cells.<br />
+    Each comparison will be done for each value in this column (typically each patient or subject).<br />
+    * `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df |> mutate(expanded = expanded(...))`.<br />
+    * `debug`: Return the data frame with intermediate columns instead of the ids. Default is `FALSE`.<br />
+    * `with_ties`: Whether to include ties (i.e. clones with the same size as the last clone) or not. Default is `FALSE`.<br />
+- `cluster_orderby`:
+    The order of the clusters to show on the plot.<br />
+    An expression passed to `dplyr::summarise()` on the grouped data frame (by `seurat_clusters`).<br />
+    The summary stat will be passed to `dplyr::arrange()` to order the clusters. It's applied on the whole meta.data before grouping and subsetting.<br />
+    For example, you can order the clusters by the activation score of
+    the cluster: `desc(mean(ActivationScore, na.rm = TRUE))`, suppose you have a column
+    `ActivationScore` in the metadata.<br />
 - `group_by`:
     The column name in metadata to group the cells for the columns of the plot.<br />
 - `group_order` *(`list`)*: *Default: `[]`*. <br />
@@ -76,8 +106,16 @@ are groups (i.e. clinic groups).<br />
     This will be applied prior to `each`.<br />
 - `descr`:
     The description of the case, will be shown in the report.<br />
+- `hm_devpars` *(`ns`)*:
+    The device parameters for the heatmaps.<br />
+    - `res` *(`type=int`)*:
+        The resolution of the heatmaps.<br />
+    - `height` *(`type=int`)*:
+        The height of the heatmaps.<br />
+    - `width` *(`type=int`)*:
+        The width of the heatmaps.<br />
 - `devpars` *(`ns`)*:
-    The device parameters for the plots.<br />
+    The device parameters for the plots of pie charts.<br />
     - `res` *(`type=int`)*:
         The resolution of the plots
     - `height` *(`type=int`)*:

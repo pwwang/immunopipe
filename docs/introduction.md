@@ -22,9 +22,7 @@ See individual process pages for more details about the `envs` of each process.
 
 ![immunopipe](immunopipe.flowchart.png)
 
-As shown in the figure above, `immunopipe` includes a set of processes for scTCR- and scRNA-seq data analysis. The processes are grouped into categories below.
-
-Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/docs/diagram.svg?raw=true) to see how the processes are connected.
+As shown in the figure above, `immunopipe` includes a set of processes for scTCR- and scRNA-seq data analysis. The processes are grouped into categories below:
 
 ### Data input and QC
 
@@ -34,15 +32,17 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 
 ### T cell selection
 
-- [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md): Perform clustering on all cells.
+- [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md): Perform clustering on all cells if non-T cells are present in the data.
 - [`ClusterMarkersOfAllCells`](processes/ClusterMarkersOfAllCells.md): Find markers for each cluster of all the cells and perform enrichment analysis.
 - [`TopExpressingGenesOfAllCells`](processes/TopExpressingGenesOfAllCells.md): Find top expressing genes for each cluster of all the cells and perform enrichment analysis.
 - [`TCellSelection`](processes/TCellSelection.md): Select T cells from all cells.
 
 ### Clustering of T cells
 
-- [`SeuratClusteringOfTCells`](processes/SeuratClusteringOfTCells.md): Perform clustering on T cells selected above.
+- [`SeuratClustering`](processes/SeuratClustering.md): Perform clustering on all or T cells selected above.
+- [`SeuratMap2Ref`](processes/SeuratMap2Ref.md): Map the cells to a reference dataset.
 - [`CellTypeAnnotation`](processes/CellTypeAnnotation.md): Annotate cell types for each T-cell cluster.
+- [`SeuratSubClustering`](processes/SeuratSubClustering.md): Perform sub-clustering on subsets of cells.
 - [`ClusterMarkers`](processes/ClusterMarkers.md): Find markers for each T-cell cluster and perform enrichment analysis.
 - [`TopExpressingGenes`](processes/TopExpressingGenes.md): Find top expressing genes for each T-cell cluster and perform enrichment analysis.
 - [`ModuleScoreCalculator`](processes/ModuleScoreCalculator.md): Calculate module scores or cell cycle scores for each cell.
@@ -58,8 +58,8 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 
 - [`TESSA`](processes/TESSA.md): Perform integrative analyses using [`Tessa`](https://github.com/jcao89757/TESSA).
 - [`SeuratClusterStats`](processes/SeuratClusterStats.md): Investigate statistics for each T-cell cluster (i.e. the number of cells in each cluster, the number of cells in each sample for each cluster, feature/gene expression visualization, dimension reduction plots, etc.). It's also possible to perform stats on TCR clones/clusters for each T-cell cluster.
-- [`TCRClusters2Seurat`](processes/TCRClusters2Seurat.md): Attach TCR clusters to `Seurat` objects.
-- [`SeuratMetadataMutater`](processes/SeuratMetadataMutater.md): Integrate TCR data into `Seurat` objects.
+- [`IntegratingTCRClusters`](processes/IntegratingTCRClusters.md): Attach TCR clusters to `Seurat` objects.
+- [`IntegratingTCR`](processes/IntegratingTCR.md): Integrate TCR data into `Seurat` objects.
 - [`RadarPlots`](processes/RadarPlots.md): Visualize proportion of cells in different groups for each cluster.
 - [`CellsDistribution`](processes/CellsDistribution.md): Investigate the distribution of cells in different groups for each T-cell cluster.<!-- - [`CloneHeterogeneity`](processes/CloneHeterogeneity.md): Investigate the heterogeneity of TCR clones in different groups for each T-cell cluster. -->
 - [`CDR3AAPhyschem`](processes/CDR3AAPhyschem.md): Investigate the physicochemical properties of CDR3 amino acid sequences of one cell type over another (i.e. `Treg` vs `Tconv`).
@@ -76,3 +76,38 @@ Also check the pipeline [diagram](https://github.com/pwwang/immunopipe/blob/dev/
 - [`MetabolicPathwayHeterogeneity`](processes/MetabolicPathwayHeterogeneity.md): Show metabolic pathways enriched in genes with highest contribution to the metabolic heterogeneities.
 - [`MetabolicFeatures`](processes/MetabolicFeatures.md): Perform gene set enrichment analysis against the metabolic pathways for groups in different subsets.
 - [`MetabolicFeaturesIntraSubset`](processes/MetabolicFeaturesIntraSubset.md): Perform gene set enrichment analysis against the metabolic pathways for subsets based on the designed comparison in different groups.
+
+## Routes of the pipeline
+
+`immunopipe` is designed to be flexible. It can be used in different ways. Here we list some common routes of the pipeline:
+
+### Both scRNA-seq and scTCR-seq data avaiable
+
+To enable this route, you need to:
+
+- tell the pipeline that scTCR-seq data is available by adding a column named `TCRData` in the sample information file.
+- put the path of the sample information file in the configuration file `[SampleInfo.in.infile]`, instead of passing it as a command line argument (`--Sample.in.infile`).
+
+Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. If you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters. If so, `SeuratClustering` will be replaced by `SeuratMap2Ref` in the pipeline.
+
+If you need to select T cells from all cells available for later analyses, you need to add `[TCellSelection]` in the configuration file. If so, the processes annotated as `For T cell selection` will be added to the pipeline.
+
+This is the most common route of the pipeline:
+
+![routes-tcr](routes-tcr.png)
+
+The optional processes are enabled only when the corresponding sections are added in the configuration file. For example, if you want to add module scores (e.g. cell activation score) to the `Seurat` object, you need to add `[ModuleScoreCalculator]` in the configuration file.
+
+### Only scRNA-seq data avaiable
+
+When you have only scRNA-seq data, you just don't need to add the `TCRData` column in the sample information file. The pipeline will automatically skip the processes related to scTCR-seq data analysis.
+
+/// Attention
+You need to specify the sample information file in the configuration file `[SampleInfo.in.infile]` to enable this route. Passing the sample information file as a command line argument (`--Sample.in.infile`) does not trigger this route.
+///
+
+Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. If you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters. If so, `SeuratClustering` will be replaced by `SeuratMap2Ref` in the pipeline.
+
+If you need to select T cells from all cells available for later analyses, you need to add `[TCellSelection]` in the configuration file. If so, the processes annotated as `For T cell selection` will be added to the pipeline.
+
+![routes-notcr](routes-notcr.png)

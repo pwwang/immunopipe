@@ -1,6 +1,6 @@
 # ClusterMarkers
 
-Markers for clusters of T cells.
+Markers for clusters of all or selected T cells.
 
 This process is extended from [`MarkersFinder`](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder)
 from the [`biopipen`](https://pwwang.github.io/biopipen) package.<br />
@@ -27,7 +27,7 @@ you may see the other environment variables of this process are hidden and reado
     Number of cores to use for parallel computing for some `Seurat` procedures.<br />
     * Used in `future::plan(strategy = "multicore", workers = <ncores>)` to parallelize some Seurat procedures.<br />
     * See also: <https://satijalab.org/seurat/articles/future_vignette.html>
-- `dbs` *(`list`)*: *Default: `['GO_Biological_Process_2021', 'GO_Cellular_Component_2021', 'GO_Molecular_Function_2021', 'KEGG_2021_Human']`*. <br />
+- `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />
     The dbs to do enrichment analysis for significant
     markers See below for all libraries.<br />
     <https://maayanlab.cloud/Enrichr/#libraries>
@@ -49,10 +49,16 @@ you may see the other environment variables of this process are hidden and reado
     of genes.<br />
 - `subset`:
     An expression to subset the cells for each case.<br />
+- `use_presto`: *Default: `False`*. <br />
+    Whether to use [`presto::wilcoxauc`](https://rdrr.io/github/immunogenomics/presto/man/wilcoxauc.html)
+    to find markers.<br />
+    [`presto`](https://github.com/immunogenomics/presto) is a package performs
+    fast Wilcoxon rank sum test and auROC analysis.<br />
 - `rest` *(`ns`)*:
     Rest arguments for `Seurat::FindMarkers()`.<br />
     Use `-` to replace `.` in the argument name. For example,
     use `min-pct` instead of `min.pct`.<br />
+    This only works when `use_presto` is `False`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findmarkers>
 - `dotplot` *(`ns`)*:

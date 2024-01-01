@@ -16,7 +16,7 @@ If none of the files exists, an error will be raised.<br />
 This process will also generate a text file with the information for each cell.<br />
 The file will be saved at
 `./.pipen/<pipeline-name>/ImmunarchLoading/0/output/<prefix>.tcr.txt`.<br />
-The file can be used by the `SeuratMetadataMutater` process to integrate the
+The file can be used by the [`IntegratingTCR`](./IntegratingTCR.md) process to integrate the
 TCR-seq data into the `Seurat` object for further integrative analysis.<br />
 `envs.metacols` can be used to specify the columns to be exported to the text file.<br />
 
@@ -44,6 +44,11 @@ TCR-seq data into the `Seurat` object for further integrative analysis.<br />
     are not in the same directory, we can link them to a temporary directory
     and pass the temporary directory to `Immunarch`.<br />
     This option is useful when the data files are in different directories.<br />
+- `mode`: *Default: `paired`*. <br />
+    Either "single" for single chain data or "paired" for
+    paired chain data. For `single`, only TRB chain will be kept
+    at `immdata$data`, information for other chains will be
+    saved at `immdata$tra` and `immdata$multi`.<br />
 - `extracols` *(`list`)*: *Default: `[]`*. <br />
     The extra columns to be exported to the text file.<br />
     You can refer to the

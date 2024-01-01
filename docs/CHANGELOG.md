@@ -1,5 +1,69 @@
 # Change Log
 
+## 1.0.0
+
+### Highlights
+
+- feat: support `Seurat` v5 (integration is now down by `Seurat::IntegrateLayers`)
+- feat: support supervised clustering (mapping cells to reference by `Seurat`)
+- feat: support dataset with scRNA-seq data only (no scTCR-seq data)
+- feat: support diffusion map calculation (by `ModuleScoreCalculator`)
+- feat: support subclassing to cluster subsets of cells (by `SeuratSubClustering`)
+- feat: allow to ignore TCR data in `TCellSelection` and pass kmeans arguments
+- feat: allow to set multiple resolutions (`envs.FindClusters.resolution`) in `SeuratClustering`/`SeuratClusteringOfTCells`
+- change: change unsuperved cluster labels to `c1`, `c2`, ... in `SeuratClustering` by default
+- docs: add gallery, which contains real-world examples of datasets from publications
+
+### Breaking changes
+
+- change: rename `SeuratMetadataMutater` to `IntegratingTCR`
+- change: rename `SeuratClusteringOfTCells` to `SeuratClustering`
+- change: rename `TCRClusters2Seurat` to `IntegratingTCRClusters`
+- refactor: make `SeuratClustering` (instead of `SeuratClusteringOfAllCells`) work for all cells when all are T cells
+- change: move data preparation and integration from `SeuratClustering` to `SeuratPreparing`
+- change: default `mode` of `ImmunarchLoading` to `paired` (instead of `single`), which requires both alpha and beta chains (instead of beta chain only) to define a clonotype
+- change: default `dbs` for enrichment analysis wherever applies to `KEGG_2021_Human` and `MSigDB_Hallmark_2020`
+
+### Changes
+
+- feat: make `TopExpressingGenes` optional
+- feat: add `validate_config` to validate configuration schematically
+
+### Features
+
+- feat(SeuratPreparing): allow to filter genes directly (by specifying `envs.gene_qc.excludes`)
+- feat(SeuratClusterStats): add `ngenes` to plot the number of genes expressed in each cluster
+- feat(SeuratClusterStats): add `barplot` for features and allow aggregation of features
+- feat(SeuratClusterStats): add `envs.mutaters` to mutate meta data
+- feat(SeuratClusterStats): add histograms to plot number of cells against another variable
+- feat(SeuratClusterStats): Add `frac_ofall` and `transpose` for stats to calculate fraction within group or against all cells, and transpose ident and group, respectively
+
+### Dependencies
+
+- deps: add `r-presto` to conda environment files to support using presto to fastly find markers
+- deps: add `bioconductor-destiny` to conda environment file to support add diffusion map components in ModuleScoreCalculator
+- deps: add `r-harmony` to support harmony integration by Seurat v5 in conda env file
+- deps: add `r-sf` to conda env file
+- deps: remove `vdjtools` from conda env files
+- deps: bump `pipen-report` to [0.16.3](https://github.com/pwwang/pipen-report/releases/tag/0.16.3)
+- deps: bump `biopipen` to [0.23.3](https://github.com/pwwang/biopipen/releases). Hightlight changes:
+  - scrna.MarkersFinder: Add `envs.use_presto` to use presto to speed up finding markers
+  - scrna.SeuratPreparing: Set envs.gene_qc.min_cells to 0 by default (instead of 3)
+  - scrna.ScFGSEA: Allow to ignore small group when fgsea fails due to all NAs for pre-ranks
+  - scrna.CellsDistribution: Allow to order clusters by envs.cluster_orderby
+  - scrna.CellsDistribution: Add heatmaps
+  - tcr.CloneResidency: Make section works in report
+  - tcr.Immunarch: Support paired chain data for VJ conjuction plots
+  - tcr.TESSA: Change envs.assay to None to use default assay of Seurat object
+  - scrna.SeuratClusterStats: Add `avgheatmap` to plot more elegant heatmap for average gene expressions
+  - scrna.SeuratClusterStats: Fix ident not working for dimplots
+  - scrna.SeuratClusterStats: Add `cluster_orderby` to order clusters for features
+  - scrna.SeuratClusterStats: Add `na_group` to keep NA values in `group-by`
+  - utils.mutate_helpers: Change arguments `id_col` and `compare_col` of `paired` to `id` and `compare`, respectively
+  - utils.mutate_helpers: Fix that subset can't be an expression for expanded family
+  - utils.mutate_helpers: Add `top` to select top entities (e.g clones)
+  - scrna.RadarPlots: Add breakdown and test to break down the cell distribution and run statistic test on the fractions
+
 ## 0.11.2
 
 - docs: move `Immunarch` to the later position in process list

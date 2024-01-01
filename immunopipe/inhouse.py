@@ -8,15 +8,18 @@ class TCellSelection(Proc):
 
     If all of your cells are T cells, do not set any configurations for this process.
 
-    In such a case, [`SeuratClusteringOfAllCells`](SeuratClusteringOfAllCells.md) will
-    be clustering all T cells and
-    [`SeuratClusteringOfTCells`](SeuratClusteringOfTCells.md) will be skipped.
+    In such a case, [`SeuratClusteringOfAllCells`](SeuratClusteringOfAllCells.md) should
+    not be used, and [`SeuratClustering`](SeuratClustering.md) will be clustering all
+    of the cells, which are all T cells.
 
     There are two ways to separate T and non-T cells:
 
-    1. Use the T cell indicator directly from the metadata.
+    1. Use the an expression indicator directly from the metadata.
     2. Use the expression values of indicator genes, and the clonotype percentage
     of the clusters.
+
+    You can also use indicator gene expression values only to select T cells by setting
+    `envs.ignore_tcr` to true.
 
     Examples:
 
@@ -70,7 +73,7 @@ class TCellSelection(Proc):
 
         The cluster with higher clonoype percentage will be selected as T cells
         (`is_TCell = TRUE`), and sent to
-        [`SeuratClusteringOfTCells`](SeuratClusteringOfTCells.md) for
+        [`SeuratClustering`](SeuratClustering.md) for
         further clustering and downstream analysis.
 
     Input:
@@ -82,6 +85,13 @@ class TCellSelection(Proc):
         outdir: Output directory with details
 
     Envs:
+        ignore_tcr (flag): Ignore TCR information for T cell selection.
+            Use only the expression values of indicator genes.
+            In this case, the `Clonotype_Pct` column does not exist in the metadata.
+            If you want to use `k-means` to select T cells, you must have more than
+            1 indicator gene, and the first indicator gene in `envs.indicator_genes`
+            must be a positive marker, which will be used to select the cluster with
+            higher expression values as T cells.
         tcell_selector: The expression passed to `tidyseurat::mutate(is_TCell = ...)`
             to indicate whether a cell is a T cell. For example, `Clonotype_Pct > 0.25`
             to indicate cells with clonotype percentage > 25% are T cells.
@@ -101,12 +111,19 @@ class TCellSelection(Proc):
             clonotype percentage will be used to determine T cells.
             The markers could be either positive, such as `CD3E`, `CD3D`, `CD3G`, or
             negative, such as `CD19`, `CD14`, `CD68`.
+
+        kmeans (type=json): The parameters for `kmeans` clustering.
+            Other arguments for [`stats::kmeans`](https://rdrr.io/r/stats/kmeans.html)
+            can be provided here. If there are dots in the argument names, replace them
+            with `-`.
     """
     input = "srtobj:file, immdata:file"
     output = "rdsfile:file:{{in.srtobj | stem}}.RDS, outdir:dir:details"
     envs = {
+        "ignore_tcr": False,
         "tcell_selector": None,
         "indicator_genes": ["CD3E"],
+        "kmeans": {},
     }
     lang = config.lang.rscript
     script = "file://scripts/TCellSelection.R"

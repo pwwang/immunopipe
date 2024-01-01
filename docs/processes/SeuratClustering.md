@@ -1,21 +1,13 @@
-# SeuratClusteringOfAllCells
+# SeuratClustering
 
-Cluster all cells, including T cells and non-T cells using Seurat
+Cluster all T cells or selected T cells selected by `TCellSelection`.
 
-This process will perform clustering on all cells using
-[`Seurat`](https://satijalab.org/seurat/) package.<br />
-The clusters will then be used to select T cells by
-[`TCellSelection`](TCellSelection.md) process.<br />
+If `[TCellSelection]` is not set in the configuration, meaning
+all cells are T cells, this process will be run on all T cells. Otherwise,
+this process will be run on the selected T cells by
+[`TCellSelection`](./TCellSelection.md).<br />
 
-
-
-/// Note
-If all your cells are all T cells ([`TCellSelection`](TCellSelection.md) is
-not set in configuration), you should not use this process.<br />
-Instead, you should use [`SeuratClustering`](./SeuratClustering.md) process
-for unsupervised clustering, or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process
-for supervised clustering.<br />
-///
+See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
 
 ## Environment Variables
 
@@ -83,4 +75,11 @@ for supervised clustering.<br />
     `<signature>.cached.RDS` in the cache directory.<br />
     If `True`, the cache directory is `.pipen/<Pipeline>/SeuratClustering/0/output/`
     You can also specify customized directory to save the cached seurat object by setting `cache` to the directory path.<br />
+
+## Metadata
+
+The metadata of the `Seurat` object will be updated with the cluster
+assignments:<br />
+
+![SeuratClustering-metadata](../processes/images/SeuratClustering-metadata.png)
 

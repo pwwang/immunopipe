@@ -12,7 +12,7 @@ See also [TopExpressingGenes](./TopExpressingGenes.md).<br />
 
 ## Environment Variables
 
-- `dbs` *(`list`)*: *Default: `['GO_Biological_Process_2021', 'GO_Cellular_Component_2021', 'GO_Molecular_Function_2021', 'KEGG_2021_Human']`*. <br />
+- `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />
     The dbs to do enrichment analysis for significant
     markers See below for all libraries.<br />
     <https://maayanlab.cloud/Enrichr/#libraries>

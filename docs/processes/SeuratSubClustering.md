@@ -1,21 +1,17 @@
-# SeuratClusteringOfAllCells
+# SeuratSubClustering
 
-Cluster all cells, including T cells and non-T cells using Seurat
+Sub-cluster the selected T cells.
 
-This process will perform clustering on all cells using
-[`Seurat`](https://satijalab.org/seurat/) package.<br />
-The clusters will then be used to select T cells by
-[`TCellSelection`](TCellSelection.md) process.<br />
+Find clusters of a subset of cells.<br />
 
+It's unlike [`Seurat::FindSubCluster`], which only finds subclusters of a single
+cluster. Instead, it will perform the whole clustering procedure on the subset of
+cells. One can use metadata to specify the subset of cells to perform clustering on.<br />
 
-
-/// Note
-If all your cells are all T cells ([`TCellSelection`](TCellSelection.md) is
-not set in configuration), you should not use this process.<br />
-Instead, you should use [`SeuratClustering`](./SeuratClustering.md) process
-for unsupervised clustering, or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process
-for supervised clustering.<br />
-///
+For the subset of cells, the reductions will be re-performed on the subset of cells,
+and then the clustering will be performed on the subset of cells. The reduction
+will be saved in `sobj@reduction$sub_umap_<casename>` of the original object and the
+clustering will be saved in the metadata of the original object using the casename     as the column name.<br />
 
 ## Environment Variables
 
@@ -23,26 +19,16 @@ for supervised clustering.<br />
     Number of cores to use.<br />
     Used in `future::plan(strategy = "multicore", workers = <ncores>)`
     to parallelize some Seurat procedures.<br />
-    See also: <https://satijalab.org/seurat/articles/future_vignette.html>
-- `ScaleData` *(`ns`)*:
-    Arguments for [`ScaleData()`](https://satijalab.org/seurat/reference/scaledata).<br />
-    If you want to re-scale the data by regressing to some variables, `Seurat::ScaleData`
-    will be called. If nothing is specified, `Seurat::ScaleData` will not be called.<br />
-    - `vars-to-regress`:
-        The variables to regress on.<br />
-    - `<more>`:
-        See <https://satijalab.org/seurat/reference/scaledata>
-- `SCTransform` *(`ns`)*:
-    Arguments for [`SCTransform()`](https://satijalab.org/seurat/reference/sctransform).<br />
-    If you want to re-scale the data by regressing to some variables, `Seurat::SCTransform`
-    will be called. If nothing is specified, `Seurat::SCTransform` will not be called.<br />
-    - `vars-to-regress`:
-        The variables to regress on.<br />
-    - `<more>`:
-        See <https://satijalab.org/seurat/reference/sctransform>
+- `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
+    The mutaters to mutate the metadata to subset the cells.<br />
+    The mutaters will be applied in the order specified.<br />
+- `subset`:
+    An expression to subset the cells, will be passed to
+    [`tidyseurat::filter()`](https://stemangiola.github.io/tidyseurat/reference/filter.html).<br />
+
 - `RunUMAP` *(`ns`)*:
     Arguments for [`RunUMAP()`](https://satijalab.org/seurat/reference/runumap).<br />
-    `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
+    `object` is specified internally as the subset object, and `-` in the key will be replaced with `.`.<br />
     `dims=N` will be expanded to `dims=1:N`; The maximal value of `N` will be the minimum of `N` and the number of columns - 1 for each sample.<br />
     - `dims` *(`type=int`)*: *Default: `30`*. <br />
         The number of PCs to use
@@ -62,12 +48,11 @@ for supervised clustering.<br />
 - `FindClusters` *(`ns`)*:
     Arguments for [`FindClusters()`](https://satijalab.org/seurat/reference/findclusters).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
-    The cluster labels will be saved in `seurat_clusters` and prefixed with "c".<br />
-    The first cluster will be "c1", instead of "c0".<br />
+    The cluster labels will be prefixed with "s". The first cluster will be "s1", instead of "s0".<br />
     - `resolution`: *Default: `0.8`*. <br />
         The resolution of the clustering. You can have multiple resolutions separated by comma.<br />
-        The results will be saved in `seurat_clusters_<resolution>`.<br />
-        The final resolution will be used to define the clusters at `seurat_clusters`.<br />
+        The results will be saved in `<casename>_<resolution>`.<br />
+        The final resolution will be used to define the clusters at `<casename>`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findclusters>
 - `cache` *(`type=auto`)*: *Default: `False`*. <br />
@@ -83,4 +68,15 @@ for supervised clustering.<br />
     `<signature>.cached.RDS` in the cache directory.<br />
     If `True`, the cache directory is `.pipen/<Pipeline>/SeuratClustering/0/output/`
     You can also specify customized directory to save the cached seurat object by setting `cache` to the directory path.<br />
+- `cases` *(`type=json`)*: *Default: `{'subcluster': Diot({})}`*. <br />
+    The cases to perform subclustering.<br />
+    Keys are the names of the cases and values are the dicts inherited from `envs` except `mutaters` and `cache`.<br />
+    If empty, a case with name `subcluster` will be created with default parameters.<br />
+
+## Metadata
+
+The metadata of the `Seurat` object will be updated with the sub-clusters
+specified by names (keys) of `envs.cases`:<br />
+
+![SeuratSubClustering-metadata](../processes/images/SeuratSubClustering-metadata.png)
 
