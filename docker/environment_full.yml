@@ -34,7 +34,7 @@ dependencies:
   - r-ggradar
   - r-hitype
   - r-seuratwrappers
-  - r-base=4.2.3
+  - r-base=4.2.0
   - r-seurat=5.0.1
   - r-harmony
   - r-future
