@@ -47,6 +47,6 @@ dependencies:
   - r-tidyr
   - r-ggprism
   - r-ggnewscale
-  - r-ggvenndiagram
+  - r-ggvenndiagram=1.2
   - r-assertthat
   - r-enrichr
