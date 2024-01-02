@@ -2,10 +2,6 @@
 
 Top expressing genes for clusters of all cells.
 
-/// Tip | Added in 0.9.0
-`TopExpressingGenesOfAllCells` is added in `0.9.0` and is optional by default.<br />
-///
-
 
 
 See also [TopExpressingGenes](./TopExpressingGenes.md).<br />

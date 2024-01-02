@@ -49,7 +49,7 @@ You can also use indicator gene expression values only to select T cells by sett
     The markers could be either positive, such as `CD3E`, `CD3D`, `CD3G`, or
     negative, such as `CD19`, `CD14`, `CD68`.<br />
 
-- `kmeans` *(`type=json`)*: *Default: `{}`*. <br />
+- `kmeans` *(`type=json`)*: *Default: `{'nstart': 25}`*. <br />
     The parameters for `kmeans` clustering.<br />
     Other arguments for [`stats::kmeans`](https://rdrr.io/r/stats/kmeans.html)
     can be provided here. If there are dots in the argument names, replace them

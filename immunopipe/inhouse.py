@@ -123,7 +123,7 @@ class TCellSelection(Proc):
         "ignore_tcr": False,
         "tcell_selector": None,
         "indicator_genes": ["CD3E"],
-        "kmeans": {},
+        "kmeans": {"nstart": 25},
     }
     lang = config.lang.rscript
     script = "file://scripts/TCellSelection.R"
