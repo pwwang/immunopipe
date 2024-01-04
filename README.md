@@ -19,3 +19,9 @@ If you have any suggestions for more analyses, please feel free to open an issue
 ## Example
 
 [https://github.com/pwwang/immunopipe-example](https://github.com/pwwang/immunopipe-example)
+
+## Gallery
+
+There are some datasets with both scRNA-seq and scTCR-seq data available in the publications. The data were reanalyzed using `immunopipe` with the configurations provided in each repository, where the results are also available.
+
+Check out the [gallery](https://pwwang.github.io/immunopipe/gallery) for more details.

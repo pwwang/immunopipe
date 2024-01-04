@@ -24,6 +24,7 @@ dependencies:
   - bioconductor-complexheatmap
   # - bioconductor-genomeinfodbdata  # depended by other packages
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
+  - r-hdf5r  # Read_10x_h5() by Seurat
   - r-slugify
   - r-sf
   - libgdal

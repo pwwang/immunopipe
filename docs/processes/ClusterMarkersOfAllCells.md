@@ -2,10 +2,6 @@
 
 Markers for clusters of all cells.
 
-/// Tip | Added in 0.9.0
-`ClusterMarkersOfAllCells` is added in `0.9.0` and is optional by default.<br />
-///
-
 See also [ClusterMarkers](./ClusterMarkers.md).<br />
 
 ## Environment Variables
