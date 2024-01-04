@@ -1,5 +1,18 @@
 # Change Log
 
+## 1.0.1
+
+- docs: add gallery section to README.md
+- change: set default `nstart` of kmeans to 25 in `TCellSelection`
+- deps: add `r-hdf5r` in conda env files to support `Read_10x_h5` from Seurat. @yuey11
+- deps: bump biopipen to 0.23.4
+  - scrna.TopExpressingGenes: fix colnames while pulling average expression
+  - scrna.CellsDistribution: fix when `cells_by` has multiple column names
+  - scrna.CellTypeAnnotation: fix the order of the clusters for `direct` method
+  - scrna.SeuratClusterStats: add `position` options for bar plots for stats
+  - scrna.RadarPlots: add `colors` to set the colors of the loops in radar and bar plots
+  - tcr.Immunarch: add `split_by` and `split_order` to put subplots together in one single plots
+
 ## 1.0.0
 
 ### Highlights
