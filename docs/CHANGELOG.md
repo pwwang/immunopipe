@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.0.2
+
+- deps: add bioconductor-glmgampoi to conda env files (#33)
+- docs: correct the Seurat object assay description
+- deps: bump biopipen to 0.23.5
+  - fix: fix when no enriched items found for `scrna.MarkersFinder`, `scrna.MetaMarkers` and `scrna.TopExpressingGenes`
+  - scrna.SeuratClusterStats: fix when `frac` or `frac_ofall` is true and no `group-by` nor `split-by` is specified for `stats`
+  - utils.gsea.R: fix when no enriched items found for `runEnrichr`
+  - scrna_metabolic_landscript: fix adding report when `ncores` > 1
+
 ## 1.0.1
 
 - docs: add gallery section to README.md
