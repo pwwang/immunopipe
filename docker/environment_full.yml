@@ -22,6 +22,7 @@ dependencies:
   - bioconductor-fgsea
   - bioconductor-scater
   - bioconductor-complexheatmap
+  - bioconductor-glmgampoi
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
   - r-hdf5r  # Read_10x_h5() by Seurat
   - r-slugify

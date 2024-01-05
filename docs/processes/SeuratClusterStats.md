@@ -76,6 +76,16 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
         Whether to transpose the cluster and group, that is,
         using group as the x-axis and cluster to fill the plot.<br />
         Only works when `group-by` is specified.<br />
+    - `position` *(`choice`)*: *Default: `auto`*. <br />
+        The position of the bars.<br />
+        - `stack`:
+            Use `position_stack()`.<br />
+        - `fill`:
+            Use `position_fill()`.<br />
+        - `dodge`:
+            Use `position_dodge()`.<br />
+        - `auto`:
+            Use `stack` when there are more than 5 groups, otherwise use `dodge`.<br />
     - `ident`: *Default: `seurat_clusters`*. <br />
         The column name in metadata to use as the identity.<br />
     - `group-by`:

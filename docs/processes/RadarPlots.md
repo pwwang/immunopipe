@@ -50,6 +50,11 @@ in different T-cell clusters.<br />
     `Tumor` and `Blood`, you can set `order` to `["Tumor", "Blood"]`.<br />
     This will also have `Tumor` as the first item in the legend and `Blood`
     as the second item.<br />
+- `colors`:
+    The colors for the groups in `by`. If not specified,
+    the default colors will be used.<br />
+    Multiple colors can be separated by comma (`,`).<br />
+    You can specify `biopipen` to use the `biopipen` palette.<br />
 - `ident`: *Default: `seurat_clusters`*. <br />
     The column name of the cluster information.<br />
 - `cluster_order` *(`list`)*: *Default: `[]`*. <br />

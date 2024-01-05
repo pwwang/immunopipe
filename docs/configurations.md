@@ -221,7 +221,7 @@ You can refer to the individual process pages for more details. Here we just giv
 
 ### The assay of the `Seurat` object
 
-The `Seurat` object is the main object used in the pipeline. You can have multiple assays in the `Seurat` object. While preparing the `Seurat` object at [`SeuratPreparing`](processes/SeuratPreparing.md) process, the default assay is determined. If `envs.use_sct` is true, meaning [`SCTransform`](https://satijalab.org/seurat/reference/sctransform) is used, the default assay will be `SCT`. Otherwise, the default assay will be `RNA`. For downstream processes using the expression values, we provide an option to specify the assay to use. However, the default assay is used. Unless you know what you are doing, you are not recommended to change the default assay.
+The `Seurat` object is the main object used in the pipeline. You can have multiple assays in the `Seurat` object. While preparing the `Seurat` object at [`SeuratPreparing`](processes/SeuratPreparing.md) process, the default assay is determined. If `envs.use_sct` is true, meaning [`SCTransform`](https://satijalab.org/seurat/reference/sctransform) is used, the default assay will be `SCT`. If you are using `cca` or `rpca` integration, `integrated` will be used as the default assay. Otherwise, the default assay will be `RNA`. For downstream processes using the expression values, we provide an option to specify the assay to use. However, the default assay is used. Unless you know what you are doing, you are not recommended to change the default assay.
 
 ### Using existing columns in the metadata
 

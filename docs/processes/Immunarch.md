@@ -443,6 +443,15 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
                 no correction.<br />
     - `separate_by`:
         A column name used to separate the samples into different plots.<br />
+    - `split_by`:
+        A column name used to split the samples into different subplots.<br />
+        Like `separate_by`, but the plots will be put in the same figure.<br />
+        y-axis will be shared, even if `align_y` is `False` or `ymin`/`ymax` are not specified.<br />
+        `ncol` will be ignored.<br />
+    - `split_order`:
+        The order of the values in `split_by` on the x-axis of the plots.<br />
+        It can also be used for `separate_by` to control the order of the plots.<br />
+        Values can be separated by `,`.<br />
     - `align_x` *(`flag`)*: *Default: `False`*. <br />
         Align the x-axis of multiple plots. Only works for `raref`.<br />
     - `align_y` *(`flag`)*: *Default: `False`*. <br />
