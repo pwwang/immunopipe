@@ -1,5 +1,18 @@
 # Change Log
 
+## 1.0.3
+
+- deps: add r-seuratdisk dependency to conda env files. @yuey11
+- deps: pin r-matrixstats to 1.1.0 in conda env files to fix `useNames = NA` error. @yuey11
+- refactor: optimize configuration file validation
+- deps: bump biopipen to 0.23.6
+    - feat: support url for gmtfile wherever GSEA is performed (pwwang/biopipen#113)
+    - tcr.Immunarch: add error message for empty filtered/subset data in diversity
+    - scrna.SeuratPreparing: correct description of default assay in docstr
+    - scrna.SeuratPreparing: run also the normal normalization procedures when `SCTransform` is used (useful for visualization purposes on RNA assay)
+    - scrna.ModuleScoreCalculator: document the names added by cell cycle score (#34)
+    - scrna.SeuratPreparing: support sample names as `reference` for `IntegrateLayers`
+
 ## 1.0.2
 
 - deps: add bioconductor-glmgampoi to conda env files (#33)
