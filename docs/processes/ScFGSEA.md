@@ -93,7 +93,8 @@ each gene set, and GSEA plots for the top gene sets.<br />
     The section name for the report. Worked only when `each` is not specified. Otherwise, the section name will be constructed from `each` and its value.<br />
     This allows different cases to be put into the same section in the report.<br />
 - `gmtfile`: *Default: `""`*. <br />
-    The pathways in GMT format, with the gene names/ids in the same format as the seurat object
+    The pathways in GMT format, with the gene names/ids in the same format as the seurat object.<br />
+    One could also use a URL to a GMT file. For example, from <https://download.baderlab.org/EM_Genesets/current_release/Human/symbol/Pathways/>.<br />
 - `method` *(`choice`)*: *Default: `s2n`*. <br />
     The method to do the preranking.<br />
     - `signal_to_noise`:

@@ -75,6 +75,10 @@ expression, and the control features are randomly selected from each bin.<br />
     ```
 
 
+    For `CellCycle`, the columns `S.Score`, `G2M.Score` and `Phase` will
+    be added to the metadata. `S.Score` and `G2M.Score` are the cell cycle
+    scores for each cell, and `Phase` is the cell cycle phase for each cell.<br />
+
     You can also add Diffusion Components (DC) to the modules
 
     ```python
