@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.4
+
+- deps: bump biopipen to 0.23.7
+    - scrna.SeuratPreparing: update log message for transformation/scaling step
+    - scrna_metabolic_landscape.MetabolicPathwayHeterogeneity: add utils.gsea script source to support `localizeGmtfile`
+
 ## 1.0.3
 
 - deps: add r-seuratdisk dependency to conda env files. @yuey11
