@@ -52,7 +52,7 @@ indicators = AverageExpression(sobj, features = indicator_genes, assays = assay)
     # It's a sparse matrix, convert it to a dense matrix
     as.matrix() %>%
     t() %>%
-    scale() %>%  # scale on each gene
+    # scale() %>%  # scale on each gene
     as.data.frame()
 
 colnames(indicators) = indicator_genes
