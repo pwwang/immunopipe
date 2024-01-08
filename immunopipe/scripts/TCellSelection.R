@@ -55,7 +55,7 @@ indicators = AverageExpression(sobj, features = indicator_genes, assays = assay)
     # scale() %>%  # scale on each gene
     as.data.frame()
 
-colnames(indicators) = indicator_genes
+# colnames(indicators) = indicator_genes
 indicators = indicators %>% rownames_to_column("Cluster") %>%
     mutate(Cluster = sub("^RNA\\.", "", Cluster))
 
