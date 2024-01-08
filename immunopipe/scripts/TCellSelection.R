@@ -393,9 +393,49 @@ add_report(
     ui = "table_of_images"
 )
 
+# Save first. Do not save the other features for visualization to the Seurat object
 log_info("Saving selected T cells as Seurat object ...")
 outobj = subset(sobj, idents = indicators$Cluster[indicators$is_TCell])
 
 saveRDS(outobj, rdsfile)
+
+# feature plots
+log_info("Plotting feature plots ...")
+add_report(
+    list(
+        kind = "descr",
+        content = "Showing feature plots of indicator genes and selected T cells. "
+    ),
+    h1 = "Feature plots"
+)
+# adding TCR information
+features = indicator_genes
+if (!is.null(immdata)) {
+    features = c(features, "Clonotype_Pct", "TCR")
+    sobj@meta.data$TCR = rownames(sobj@meta.data) %in% rownames(immdata)
+    sobj@meta.data$Clonotype_Pct = sobj@meta.data %>% left_join(
+        indicators,
+        by = c(seurat_clusters = "Cluster")
+    ) %>% pull(Clonotype_Pct)
+}
+features = c(features, "Selected_TCells")
+sobj@meta.data$Selected_TCells = sobj@meta.data %>% left_join(
+    indicators,
+    by = c(seurat_clusters = "Cluster")
+) %>% pull(is_TCell)
+for (feature in features) {
+    log_info("- Feature: {feature}")
+    plotfile = file.path(outdir, paste0("feature_", slugify(feature, tolower = FALSE), ".png"))
+    png(plotfile, res=100, height=600, width=800)
+    p <- FeaturePlot(sobj, features = feature)
+    print(p)
+    dev.off()
+
+    add_report(
+        list(src = plotfile, name = feature),
+        h1 = "Feature plots",
+        ui = "table_of_images"
+    )
+}
 
 save_report(joboutdir)
