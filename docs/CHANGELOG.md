@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.1.0
+
+- docs: update table in gallery
+- deps: use [pipen-poplog](https://github.com/pwwang/pipen-poplog) to populate job logs to pipeline running log
+- deps: bump biopipen to 0.24. Hights:
+    - scrna.ScFGSEA: add subset to filter cells (pwwang/biopipen#112) @yuey11
+    - scrna.SeuratClustering/SeuratSubClustering: cache Seurat procedures step by step (#40) @xyfqwlzoe
+    - tcr.Immunarch: add `plot_type` to support boxplots for diversity metrics
+    - see more at <https://github.com/pwwang/biopipen/releases/tag/0.24.0>
+
 ## 1.0.5
 
 - change: do not rescale gene expression in `TCellSelection` any more

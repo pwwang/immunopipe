@@ -33,8 +33,6 @@ You can also use indicator gene expression values only to select T cells by sett
     to indicate cells with clonotype percentage > 25% are T cells.<br />
     If `indicator_genes` is provided, the expression values can also be used
     in the expression. For example, `Clonotype_Pct > 0.25 & CD3E > 0`.<br />
-    The expression is first normalized and scaled to have mean 0 and
-    standard deviation 1, and then averaged for each cluster.<br />
     If not provided, a kmeans clustering will be performed on the expression
     values of `indicator_genes` and `Clonotype_Pct`, with K=2, and the cluster
     with higher clonotype percentage will be selected as T cells.<br />
