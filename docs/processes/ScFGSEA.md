@@ -89,6 +89,8 @@ each gene set, and GSEA plots for the top gene sets.<br />
     The second group of cells to compare, if not provided, the rest of the cells that are not `NA`s in `group-by` column are used for `ident-2`.<br />
 - `each`:
     The column name in metadata to separate the cells into different subsets to do the analysis.<br />
+- `subset`:
+    An expression to subset the cells.<br />
 - `section`: *Default: `DEFAULT`*. <br />
     The section name for the report. Worked only when `each` is not specified. Otherwise, the section name will be constructed from `each` and its value.<br />
     This allows different cases to be put into the same section in the report.<br />

@@ -62,19 +62,15 @@ See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
         The final resolution will be used to define the clusters at `seurat_clusters`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findclusters>
-- `cache` *(`type=auto`)*: *Default: `False`*. <br />
-    Whether to cache the seurat object with cluster information.<br />
+- `cache` *(`type=auto`)*: *Default: `/tmp/user`*. <br />
+    Whether to cache the information at different steps.<br />
     If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
-    The cached seurat object will be saved as `<signature>.cached.RDS` file, where `<signature>` is the signature determined by
+    The cached seurat object will be saved as `<signature>.<kind>.RDS` file, where `<signature>` is the signature determined by
     the input and envs of the process.<br />
-    See -
-    * <https://github.com/satijalab/seurat/issues/7849>
-    * <https://github.com/satijalab/seurat/issues/5358> and
-    * <https://github.com/satijalab/seurat/issues/6748> for more details.<br />
+    See <https://github.com/satijalab/seurat/issues/7849>, <https://github.com/satijalab/seurat/issues/5358> and
+    <https://github.com/satijalab/seurat/issues/6748> for more details also about reproducibility issues.<br />
     To not use the cached seurat object, you can either set `cache` to `False` or delete the cached file at
-    `<signature>.cached.RDS` in the cache directory.<br />
-    If `True`, the cache directory is `.pipen/<Pipeline>/SeuratClustering/0/output/`
-    You can also specify customized directory to save the cached seurat object by setting `cache` to the directory path.<br />
+    `<signature>.RDS` in the cache directory.<br />
 
 ## Metadata
 

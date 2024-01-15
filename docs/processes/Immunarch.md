@@ -389,15 +389,18 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
         - `d50`:
             The D50 index.<br />
             It is the number of types that are needed to cover 50%% of the total abundance.<br />
-        - `dxx`:
-            The Dxx index.<br />
-            It is the number of types that are needed to cover xx%% of the total abundance.<br />
-            The percentage should be specified in the `args` argument using `perc` key.<br />
         - `raref`:
             Species richness from the results of sampling through extrapolation.<br />
     - `by`:
         The variables (column names) to group samples.<br />
         Multiple columns should be separated by `,`.<br />
+    - `plot_type` *(`choice`)*: *Default: `bar`*. <br />
+        The type of the plot, works when `by` is specified.<br />
+        Not working for `raref`.<br />
+        - `box`:
+            Boxplot
+        - `bar`:
+            Barplot with error bars
     - `subset`:
         Subset the data before calculating the clonotype volumes.<br />
         The whole data will be expanded to cell level, and then subsetted.<br />
@@ -471,9 +474,9 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
         The number of columns of the plots.<br />
     - `devpars` *(`ns`)*:
         The parameters for the plotting device.<br />
-        - `width` *(`type=int`)*: *Default: `1000`*. <br />
+        - `width` *(`type=int`)*: *Default: `800`*. <br />
             The width of the device
-        - `height` *(`type=int`)*: *Default: `1000`*. <br />
+        - `height` *(`type=int`)*: *Default: `800`*. <br />
             The height of the device
         - `res` *(`type=int`)*: *Default: `100`*. <br />
             The resolution of the device
@@ -483,7 +486,6 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
         The values will be passed to the corresponding arguments above.<br />
         If NO cases are specified, the default case will be added, with the name of `envs.div.method`.<br />
         The values specified in `envs.div` will be used as the defaults for the cases here.<br />
-    - `filter`:
 - `trackings` *(`ns`)*:
     Parameters to control the clonotype tracking analysis.<br />
     - `targets`:
