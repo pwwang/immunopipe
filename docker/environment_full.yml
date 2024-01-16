@@ -26,7 +26,7 @@ dependencies:
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
   - r-hdf5r  # Read_10x_h5() by Seurat
   - r-seuratdisk  # SCTransform
-  - r-slugify
+  # - r-slugify
   - r-sf
   - libgdal
   - r-logger
