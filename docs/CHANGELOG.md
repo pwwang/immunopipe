@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.1
+
+- deps: Bump biopipen to 0.24.2
+    - chore: use internal slugify instead of slugify library
+    - tcr.Immunarch: fix spectratyping output file extension is not png
+    - scrna.SeuratPreparing: fix displaying filters in report
+    - scrna.SeuratPreparing: fix logging Seurat procedure arguments
+
 ## 1.1.0
 
 - docs: update table in gallery

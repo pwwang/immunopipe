@@ -11,7 +11,6 @@ library(ggpubr)
 library(patchwork)
 library(factoextra)
 library(logger)
-library(slugify)
 library(glue)
 
 srtfile = {{in.srtobj | r}}
@@ -244,7 +243,7 @@ plot_indicator_gene = function(gene, x) {
         theme(legend.title = element_text(size=12)) +
         scale_color_manual(values=pal_biopipen()(2), name="is_TCell")
 
-    plotfile = file.path(outdir, paste0(slugify(gene, tolower = FALSE), "-vs-", x, ".png"))
+    plotfile = file.path(outdir, paste0(slugify(gene), "-vs-", x, ".png"))
     png(plotfile, res=100, height=600, width=1200)
     print(p)
     dev.off()
@@ -425,7 +424,7 @@ sobj@meta.data$Selected_TCells = sobj@meta.data %>% left_join(
 ) %>% pull(is_TCell)
 for (feature in features) {
     log_info("- Feature: {feature}")
-    plotfile = file.path(outdir, paste0("feature_", slugify(feature, tolower = FALSE), ".png"))
+    plotfile = file.path(outdir, paste0("feature_", slugify(feature), ".png"))
     png(plotfile, res=100, height=600, width=800)
     p <- FeaturePlot(sobj, features = feature)
     print(p)
