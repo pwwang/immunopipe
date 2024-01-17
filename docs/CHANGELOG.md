@@ -5,6 +5,7 @@
 - docs: update FAQs to align with Seurat v5
 - docs: add image from manuscript to README.md
 - docs: center the flowchart image in README.md
+- docs: mention `celltypist` model prep in preparing input data
 - deps: bump pipen to 0.13.2
 - deps: bump biopipen to 0.25:
     - scrna.MarkersFinder: allow to cache `FindAllMarkers` results

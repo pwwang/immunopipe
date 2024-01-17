@@ -69,6 +69,10 @@ See [`CellTypeAnnotation`](./processes/CellTypeAnnotation.md) for more details.
 
 Examples can be found here: [ScTypeDB_short.xlsx](https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_short.xlsx) and [ScTypeDB_full.xlsx](https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_full.xlsx).
 
+### Model for cell type annotation by `celltypist`
+
+If you want to perform cell type annotation by `celltypist`, you need to provide a model file. The model file should be fed to `CellTypeAnnotation.envs.celltypist_args.model`. The information of models can be found [here](https://celltypist.cog.sanger.ac.uk/models/models.json). Download the one you want to use and provide the path to the file.
+
 ### Metabolic pathway for Metabolic Landscape Analysis
 
 Similarly, if you want to perform metabolic landscape analysis, you need to provide a file containing the metabolic pathways. The file should be in the [GMT format][1]. You can provide the file to `ScMetabolicLandscape.envs.gmtfile`. This file can also be used for GSEA. A pathway file for KEGG metabolism is provided [here][2].
