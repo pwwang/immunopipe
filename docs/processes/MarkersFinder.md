@@ -148,6 +148,11 @@ function, and performs enrichment analysis for the markers found.<br />
     the default values under `envs` with the name `DEFAULT`.<br />
 - `overlap` *(`list`)*: *Default: `[]`*. <br />
     The sections to do overlap analysis.<br />
+- `cache` *(`type=auto`)*: *Default: `/tmp/user`*. <br />
+    Where to cache to `FindAllMarkers` results.<br />
+    If `True`, cache to `outdir` of the job. If `False`, don't cache.<br />
+    Otherwise, specify the directory to cache to.<br />
+    Only works when `use_presto` is `False` (presto works fast enough).<br />
 
 ## Examples
 

@@ -48,7 +48,7 @@ apptainer run \
 
 //// details | Why does the pipeline stop at [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md) and family without a clear error message?
 
-This is likely because that the pipeline is running out of memory. The [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md) and family processes (e.g. [`SeuratClustering`](processes/SeuratClustering.md)) will run the a series of `Seurat` functions to perform the clustering, especially the [`IntegrateData`](https://satijalab.org/seurat/reference/integratedata) and [`FindIntegrationAnchors`](https://satijalab.org/seurat/reference/findintegrationanchors) functions.
+This is likely because that the pipeline is running out of memory. The [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md) and family processes (e.g. [`SeuratClustering`](processes/SeuratClustering.md)) will run the a series of `Seurat` functions to perform the clustering, especially the [`IntegrateData`](https://satijalab.org/seurat/reference/integratedata) and [`FindIntegrationAnchors`](https://satijalab.org/seurat/reference/findintegrationanchors) functions, and [`IntegrateLayers`](https://satijalab.org/seurat/reference/integratelayers) with `Seurat` v5.
 
 Please see the following issues for more details:
 
@@ -66,11 +66,12 @@ Two possible solutions are:
 
 - Use `reduction = "rpca"` for [`FindIntegrationAnchors`](https://satijalab.org/seurat/reference/findintegrationanchors) under `[SeuratClusteringOfAllCells.envs.FindIntegrationAnchors]`.
 - Use Reference-based integration `reference = [1, 2]` for [`FindIntegrationAnchors`](https://satijalab.org/seurat/reference/findintegrationanchors) under `[SeuratClusteringOfAllCells.envs.FindIntegrationAnchors]`.
+- For `Seurat` v5, use corresponding parameters for [`IntegrateLayers`](https://satijalab.org/seurat/reference/integratelayers).
 
 /// Tip
-You can also pass a list of sample names instead of the sample indices. For example, `reference = ["sample1", "sample2"]` under `[SeuratClusteringOfAllCells.envs.FindIntegrationAnchors]` to use `sample1` and `sample2` as the reference samples.
+You can also pass a list of sample names instead of the sample indices. For example, `reference = ["sample1", "sample2"]` under `[SeuratPreparing.envs.IntegrateLayers]` to use `sample1` and `sample2` as the reference samples.
 
-See also description about `FindIntegrationAnchors` [here](processes/SeuratClusteringOfAllCells.md#environment-variables).
+See also description about `IntegrateLayers` [here](processes/SeuratPreparing.md#environment-variables).
 ///
 
 ////
@@ -105,6 +106,8 @@ You can also use the `-h`/`--help` option to see the brief options of the proces
     attrs: {id: how-to-run-the-pipeline-on-a-cluster}
 
 To run the pipeline on a cluster, it's recommended to install the pipeline locally so that the cluster nodes can access the pipeline.
+
+The idea is that you have to make sure the file system can be accessed within the docker container on the nodes. One trick to use docker on a cluster is to mount the first level of the file system to the container. For example, if your data and environment are under `/research`, you can mount `/research` to `/research` in the container. Then you can use `/research` in the container to access the data and environment under `/research` on the host.
 
 `immunopipe` is built on top of [`pipen`][2] and [`xqute`][3]. A set of schedulers are supported by default. These schedulers are:
 
@@ -150,7 +153,7 @@ You may need to add `--unsquash` option for `apptainer run`.
 
 /// details | How can I use data with soft links while using docker image to run the pipeline?
 
-The container does not have access to the host filesystem. You need to mount the directory containing the data to the container.
+The container does not have access to the host filesystem directly. You need to mount the directory containing the data to the container.
 
 For example, if your real data is under `/path/to/data`, you can mount it to `/data` in the container (using `-v /path/to/data:/data` option for `docker` or `-B /path/to/data:/data` option for `singularity` or `apptainer`).
 
@@ -177,7 +180,7 @@ See also: <https://apptainer.org/docs/user/main/build_env.html#cache-folders>
 
 /// details | `Unable to fork: Cannot allocate memory` or `long vectors not supported yet` during clustering using Seurat?
 
-This is likely because that the pipeline is running out of memory. The [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md) and family processes (e.g. [`SeuratClustering`](processes/SeuratClustering.md)) will run the a series of `Seurat` functions to perform the clustering, especially the [`IntegrateData`](https://satijalab.org/seurat/reference/integratedata) and [`FindIntegrationAnchors`](https://satijalab.org/seurat/reference/findintegrationanchors) functions.
+This is likely because that the pipeline is running out of memory. The [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md) and family processes (e.g. [`SeuratClustering`](processes/SeuratClustering.md)) will run the a series of `Seurat` functions to perform the clustering, especially the [`IntegrateData`](https://satijalab.org/seurat/reference/integratedata) and [`FindIntegrationAnchors`](https://satijalab.org/seurat/reference/findintegrationanchors) functions, and [`IntegrateLayers`](https://satijalab.org/seurat/reference/integratelayers) with `Seurat` v5.
 
 You can try to set `envs.ncores` to a smaller number to reduce the memory usage. For example:
 
@@ -186,10 +189,11 @@ You can try to set `envs.ncores` to a smaller number to reduce the memory usage.
 ncores = 4  # instead of 16
 ```
 
-The other strategy is to use Reference-based integration `reference = [1, 2]` for [`FindIntegrationAnchors`](https://satijalab.org/seurat/reference/findintegrationanchors). See also description about `FindIntegrationAnchors` [here](processes/SeuratClusteringOfAllCells.md#environment-variables). For example:
+The other strategy is to use Reference-based integration `reference = [1, 2]` for [`IntegrateLayers`](https://satijalab.org/seurat/reference/findintegrationanchors) with method `rpca` or `cca`. See also description about `IntegrateLayers` [here](processes/SeuratPreparing.md#environment-variables). For example:
 
 ```toml
-[SeuratClusteringOfAllCells.envs.FindIntegrationAnchors]
+[SeuratPreparing.envs.IntegrateLayers]
+method = "rpca"
 reference = [1, 2]  # You can also use sample names instead of indices
 ```
 
