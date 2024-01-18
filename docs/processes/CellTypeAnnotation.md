@@ -44,6 +44,9 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
     - `sccatch`:
         Use `scCATCH` to annotate cell types.<br />
         See <https://github.com/ZJUFanLab/scCATCH>
+    - `celltypist`:
+        Use `celltypist` to annotate cell types.<br />
+        See <https://github.com/Teichlab/celltypist>
     - `direct`:
         Directly assign cell types
 - `sctype_tissue`:
@@ -93,10 +96,37 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
         Other arguments for [`scCATCH::findmarkergene()`](https://rdrr.io/cran/scCATCH/man/findmarkergene.html).<br />
         You can pass an RDS file to `sccatch_args.marker` to work as custom marker. If so,
         `if_use_custom_marker` will be set to `TRUE` automatically.<br />
+- `celltypist_args` *(`ns`)*:
+    The arguments for `celltypist::celltypist()` if `tool` is `celltypist`.<br />
+    - `model`:
+        The path to model file.<br />
+    - `python`: *Default: `python`*. <br />
+        The python path where celltypist is installed.<br />
+    - `majority_voting`: *Default: `True`*. <br />
+        When true, it refines cell identities within local subclusters after an over-clustering approach
+        at the cost of increased runtime.<br />
+    - `over_clustering` *(`type=auto`)*: *Default: `seurat_clusters`*. <br />
+        The column name in metadata to use as clusters for majority voting.<br />
+        Set to `False` to disable over-clustering.<br />
+    - `assay`:
+        When converting a Seurat object to AnnData, the assay to use.<br />
+        If input is h5seurat, this defaults to RNA.<br />
+        If input is Seurat object in RDS, this defaults to the default assay.<br />
 - `newcol`:
     The new column name to store the cell types.<br />
     If not specified, the `seurat_clusters` column will be overwritten.<br />
     If specified, the original `seurat_clusters` column will be kept and `Idents` will be kept as the original `seurat_clusters`.<br />
+- `outtype` *(`choice`)*: *Default: `input`*. <br />
+    The output file type. Currently only works for `celltypist`.<br />
+    An RDS file will be generated for other tools.<br />
+    - `input`:
+        Use the same file type as the input.<br />
+    - `rds`:
+        Use RDS file.<br />
+    - `h5seurat`:
+        Use h5seurat file.<br />
+    - `h5ad`:
+        Use AnnData file.<br />
 
 ## Examples
 

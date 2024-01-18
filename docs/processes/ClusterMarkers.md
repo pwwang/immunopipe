@@ -79,4 +79,9 @@ you may see the other environment variables of this process are hidden and reado
         See <https://satijalab.org/seurat/reference/doheatmap>
 - `overlap` *(`list`)*: *Default: `[]`*. <br />
     The sections to do overlap analysis.<br />
+- `cache` *(`type=auto`)*: *Default: `/tmp/user`*. <br />
+    Where to cache to `FindAllMarkers` results.<br />
+    If `True`, cache to `outdir` of the job. If `False`, don't cache.<br />
+    Otherwise, specify the directory to cache to.<br />
+    Only works when `use_presto` is `False` (presto works fast enough).<br />
 

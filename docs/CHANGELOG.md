@@ -1,5 +1,17 @@
 # Change Log
 
+## 1.2.0
+
+- docs: update FAQs to align with Seurat v5
+- docs: add image from manuscript to README.md
+- docs: center the flowchart image in README.md
+- docs: mention `celltypist` model prep in preparing input data
+- deps: bump pipen to 0.13.2
+- deps: bump biopipen to 0.25.1:
+    - scrna.MarkersFinder: allow to cache `FindAllMarkers` results
+    - scrna.CellTypeAnnotation: support `celltypist` (pwwang/biopipen#111)
+    - scrna.SeuratSubClustering: add `envs_depth = 1` to replace whole `envs.cases` when new case assigned
+
 ## 1.1.1
 
 - deps: Bump biopipen to 0.24.2

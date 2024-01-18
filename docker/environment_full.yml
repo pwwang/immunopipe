@@ -59,3 +59,4 @@ dependencies:
   - pip:
     - keras  # TESSA
     - tensorflow  # TESSA
+    - celltypist
