@@ -1,5 +1,24 @@
 # Change Log
 
+## 1.3.0
+
+- deps: bump pipen to 0.14.1
+- deps: bump pipen-report to 0.18.2
+- deps: bump biopipen to 0.26.0
+    - fix(scrna.CellTypeAnnotation): keep factor meta data when input and output are RDS for celltypist
+    - deps: bump datar to 0.15.4 (support pandas 2.2)
+    - fix(utils.single_cell.R): fix `immdata_from_expanded` missing other data columns
+    - fix(tcr.Immunarch): fix `mutaters` not working when no subset is set
+    - fix(scrna.CellsDistribution): fix `hm_devpars` not working
+    - fix(scrna.CellsDistribution): fix multiple `cells_by` columns and speed up plotting
+    - choir(tcr.CloneResidency): mark singletons in Venn diagrams more clear
+    - fix(scrna.RadarPlots): fix the order of groups on radar plots
+    - choir(scrna.RadarPlots): transpose the count/percentage table to save to files
+    - fix(scrna.MarkersFinder): fix generating report json file when no significant genes found
+    - choir(scrna.MarkersFinder): Plot maximum 20 genes in dotplots
+    - choir(scrna.MarkersFinder): Do not convert dashes in case names to dots
+    - see more at <https://github.com/pwwang/biopipen/releases/tag/0.26.0>
+
 ## 1.2.0
 
 - docs: update FAQs to align with Seurat v5
