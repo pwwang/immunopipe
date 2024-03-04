@@ -66,18 +66,23 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
         Whether to output the fraction of cells instead of number.<br />
     - `pie` *(`flag`)*: *Default: `False`*. <br />
         Also output a pie chart?<br />
+    - `circos` *(`flag`)*: *Default: `False`*. <br />
+        Also output a circos plot?<br />
     - `table` *(`flag`)*: *Default: `False`*. <br />
         Whether to output a table (in tab-delimited format) and in the report.<br />
     - `frac_ofall(flag)`:
         Whether to output the fraction against all cells,
         instead of the fraction in each group.<br />
+        Does not work for circos plot.<br />
         Only works when `frac` is `True` and `group-by` is specified.<br />
     - `transpose` *(`flag`)*: *Default: `False`*. <br />
         Whether to transpose the cluster and group, that is,
         using group as the x-axis and cluster to fill the plot.<br />
+        For circos plot, when transposed, the arrows will be drawn from the idents (by `ident`) to the
+        the groups (by `group-by`).<br />
         Only works when `group-by` is specified.<br />
     - `position` *(`choice`)*: *Default: `auto`*. <br />
-        The position of the bars.<br />
+        The position of the bars. Does not work for pie and circos plots.<br />
         - `stack`:
             Use `position_stack()`.<br />
         - `fill`:
@@ -93,9 +98,18 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
         Does NOT support for pie charts.<br />
     - `split-by`:
         The column name in metadata to split the cells into different plots.<br />
+        Does NOT support for circos plots.<br />
     - `subset`:
         An expression to subset the cells, will be passed to
         `dplyr::filter()` on metadata.<br />
+    - `circos_devpars` *(`ns`)*:
+        The device parameters for the circos plots.<br />
+        - `res` *(`type=int`)*: *Default: `100`*. <br />
+            The resolution of the plots.<br />
+        - `height` *(`type=int`)*: *Default: `600`*. <br />
+            The height of the plots.<br />
+        - `width` *(`type=int`)*: *Default: `600`*. <br />
+            The width of the plots.<br />
     - `pie_devpars` *(`ns`)*:
         The device parameters for the pie charts.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />

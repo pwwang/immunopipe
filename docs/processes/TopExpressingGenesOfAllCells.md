@@ -14,4 +14,6 @@ See also [TopExpressingGenes](./TopExpressingGenes.md).<br />
     <https://maayanlab.cloud/Enrichr/#libraries>
 - `n` *(`type=int`)*: *Default: `250`*. <br />
     The number of top expressing genes to find.<br />
+- `subset`:
+    An expression to subset the cells for each case.<br />
 
