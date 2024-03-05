@@ -128,8 +128,9 @@ are groups (i.e. clinic groups).<br />
     The section to show in the report. This allows different cases to be put in the same section in report.<br />
     Only works when `each` is not specified.<br />
 - `overlap` *(`list`)*: *Default: `[]`*. <br />
-    Plot the overlap of cells in different cases under the same section.<br />
-    The section must have at least 2 cases.<br />
+    Plot the overlap of cell groups (values of `cells_by`) in different cases
+    under the same section.<br />
+    The section must have at least 2 cases, each case should have a single `cells_by` column.<br />
 - `cases` *(`type=json;order=99`)*: *Default: `{}`*. <br />
     If you have multiple cases, you can specify them here.<br />
     Keys are the names of the cases and values are the options above except `mutaters`.<br />

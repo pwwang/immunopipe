@@ -46,11 +46,11 @@ dependencies:
   - r-tidyseurat
   - r-bracer
   - r-immunarch=0.9.0
-  - r-ggplot2
+  - r-ggplot2=3.4
   - r-dplyr
   - r-tibble
   - r-tidyr
-  - r-ggprism
+  - r-ggprism=1.0.4
   - r-ggnewscale
   - r-ggvenndiagram=1.2
   - r-assertthat
