@@ -1,5 +1,17 @@
 # Change Log
 
+## 1.3.1
+
+- deps: bump pipen to 0.14.3
+- deps: pin ggplot2 to 3.4 for docker due to breaking changes of 3.5
+- deps: bump biopipen to 0.26.2
+    - deps: bump datar-pandas to 0.5.5 to dismiss deprecated warnings
+    - fix(utils.misc.R): replace latin and greek characters with closest ascii chars for slugify()
+    - feat(scrna.TopExpressingGenes): support `subset`
+    - fix(scrna.CellsDistribution): fix the row order of the heatmaps.
+    - enh(tcr.CloneResidency): add legend for multiplets in upset plots.
+    - feat(scrna.SeuratClusterStats): add circos plot for cell composition stats (#46).
+
 ## 1.3.0
 
 - deps: bump pipen to 0.14.1
