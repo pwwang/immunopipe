@@ -56,5 +56,6 @@ dependencies:
   - r-ggvenndiagram=1.2
   - r-assertthat
   - r-enrichr
+  - r-complexupset
   - pip:
     - celltypist
