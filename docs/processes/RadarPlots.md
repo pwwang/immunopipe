@@ -25,6 +25,9 @@ in different T-cell clusters.<br />
     each value in the column.<br />
     If specified, `section` will be ignored, and the case name will
     be used as the section name.<br />
+- `prefix_each` *(`flag`)*: *Default: `True`*. <br />
+    Whether to prefix the `each` column name to the values as the
+    case/section name.<br />
 - `breakdown`:
     An additional column with groups to break down the cells
     distribution in each cluster. For example, if you want to see the
@@ -78,6 +81,8 @@ in different T-cell clusters.<br />
     If you want to put multiple cases into a same section
     in the report, you can set this option to the name of the section.<br />
     Only used in the report.<br />
+- `subset`:
+    The subset of the cells to do the analysis.<br />
 - `bar_devpars` *(`ns`)*:
     The parameters for `png()` for the barplot
     - `res` *(`type=int`)*: *Default: `100`*. <br />

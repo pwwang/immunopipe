@@ -69,6 +69,7 @@ are groups (i.e. clinic groups).<br />
     * `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df |> mutate(expanded = expanded(...))`.<br />
     * `debug`: Return the data frame with intermediate columns instead of the ids. Default is `FALSE`.<br />
     * `with_ties`: Whether to include ties (i.e. clones with the same size as the last clone) or not. Default is `FALSE`.<br />
+
 - `cluster_orderby`:
     The order of the clusters to show on the plot.<br />
     An expression passed to `dplyr::summarise()` on the grouped data frame (by `seurat_clusters`).<br />
@@ -124,9 +125,15 @@ are groups (i.e. clinic groups).<br />
         The width of the plots
 - `each`:
     The column name in metadata to separate the cells into different plots.<br />
+- `prefix_each` *(`flag`)*: *Default: `True`*. <br />
+    Whether to prefix the `each` column name to the
+    value as the case/section name.<br />
 - `section`: *Default: `DEFAULT`*. <br />
     The section to show in the report. This allows different cases to be put in the same section in report.<br />
     Only works when `each` is not specified.<br />
+    The `section` is used to collect cases and put the results under the same directory and the same section in report.<br />
+    When `each` for a case is specified, the `section` will be ignored and case name will be used as `section`.<br />
+    The cases will be the expanded values in `each` column. When `prefix_each` is True, the column name specified by `each` will be prefixed to each value as directory name and expanded case name.<br />
 - `overlap` *(`list`)*: *Default: `[]`*. <br />
     Plot the overlap of cell groups (values of `cells_by`) in different cases
     under the same section.<br />

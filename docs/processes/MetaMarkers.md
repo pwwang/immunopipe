@@ -77,6 +77,7 @@ generates violin plots for the top 10 markers.<br />
     * `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df |> mutate(expanded = expanded(...))`.<br />
     * `debug`: Return the data frame with intermediate columns instead of the ids. Default is `FALSE`.<br />
     * `with_ties`: Whether to include ties (i.e. clones with the same size as the last clone) or not. Default is `FALSE`.<br />
+
 - `group-by`:
     The column name in metadata to group the cells.<br />
     If only `group-by` is specified, and `idents` are
@@ -126,6 +127,9 @@ generates violin plots for the top 10 markers.<br />
     Worked only when `each` is not specified.<br />
     Otherwise, the section name will be constructed from `each` and `group-by`.<br />
     If `DEFAULT`, and it's the only section, it not included in the case/section names.<br />
+    The `section` is used to collect cases and put the results under the same directory and the same section in report.<br />
+    When `each` for a case is specified, the `section` will be ignored and case name will be used as `section`.<br />
+    The cases will be the expanded values in `each` column. When `prefix_each` is True, the column name specified by `each` will be prefixed to each value as directory name and expanded case name.<br />
 - `method` *(`choice`)*: *Default: `anova`*. <br />
     The method for the test.<br />
     - `anova`:
