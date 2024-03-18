@@ -153,17 +153,17 @@ python-simpleconf = ">=0.6,<0.7"
 
 [[package]]
 name = "biopipen"
-version = "0.26.2"
+version = "0.27.0"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = ">=3.9,<4.0"
 files = [
-    {file = "biopipen-0.26.2-py3-none-any.whl", hash = "sha256:cb64117271ceadc2b4e45ed3a822042e6fc05144e055965ed6cabf6edb7a5a9a"},
-    {file = "biopipen-0.26.2.tar.gz", hash = "sha256:f97b887bdf40c4436e045a027ff8b3fc9bdda3c8e4002b3ac40a5750ac529c9f"},
+    {file = "biopipen-0.27.0-py3-none-any.whl", hash = "sha256:898533560360f10bf365aa23a593456053117447327a58f337cddcc3f45536f7"},
+    {file = "biopipen-0.27.0.tar.gz", hash = "sha256:5eadf13d54b6cd91e6994160697b0f10a4a5df46e82f66b5ab23ad7d9836e748"},
 ]
 
 [package.dependencies]
-datar = {version = ">=0.15.5,<0.16.0", extras = ["pandas"]}
+datar = {version = ">=0.15.6,<0.16.0", extras = ["pandas"]}
 pipen-board = {version = ">=0.15,<0.16", extras = ["report"]}
 pipen-cli-run = ">=0.13,<0.14"
 pipen-filters = ">=0.12,<0.13"
@@ -282,25 +282,25 @@ questionary = ">=1.8.1"
 
 [[package]]
 name = "datar"
-version = "0.15.5"
+version = "0.15.6"
 description = "A Grammar of Data Manipulation in python"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "datar-0.15.5-py3-none-any.whl", hash = "sha256:e024a87837bdd1514b96556f639b7f9c0f9664383d773337eb363ee05d9068b5"},
-    {file = "datar-0.15.5.tar.gz", hash = "sha256:e7dc71aff4714cae074a7571d5230254922a59faf1bd27b9be2922b57ebd1f71"},
+    {file = "datar-0.15.6-py3-none-any.whl", hash = "sha256:1736ea0d0c7cffa8ae3dcb78813daedd595a602edceb6069558e83fb3452cc16"},
+    {file = "datar-0.15.6.tar.gz", hash = "sha256:5136c3b0dc4851f0db32e3d44ea137ebaac94f4fdf39f5e4d4de30d875d90b7e"},
 ]
 
 [package.dependencies]
-datar-pandas = {version = ">=0.5.4,<0.6.0", optional = true, markers = "extra == \"pandas\""}
+datar-pandas = {version = ">=0.5.5,<0.6.0", optional = true, markers = "extra == \"pandas\""}
 pipda = ">=0.13.1,<0.14.0"
 python-simpleconf = {version = ">=0.6,<0.7", extras = ["toml"]}
-simplug = ">=0.3,<0.4"
+simplug = ">=0.4,<0.5"
 
 [package.extras]
 arrow = ["datar-arrow (>=0.1,<0.2)"]
-numpy = ["datar-numpy (>=0.3.3,<0.4.0)"]
-pandas = ["datar-pandas (>=0.5.4,<0.6.0)"]
+numpy = ["datar-numpy (>=0.3.4,<0.4.0)"]
+pandas = ["datar-pandas (>=0.5.5,<0.6.0)"]
 
 [[package]]
 name = "datar-numpy"
@@ -457,19 +457,19 @@ files = [
 
 [[package]]
 name = "graphviz"
-version = "0.20.1"
+version = "0.20.2"
 description = "Simple Python interface for Graphviz"
 optional = true
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "graphviz-0.20.1-py3-none-any.whl", hash = "sha256:587c58a223b51611c0cf461132da386edd896a029524ca61a1462b880bf97977"},
-    {file = "graphviz-0.20.1.zip", hash = "sha256:8c58f14adaa3b947daf26c19bc1e98c4e0702cdc31cf99153e6f06904d492bf8"},
+    {file = "graphviz-0.20.2-py3-none-any.whl", hash = "sha256:63d1ae75f1ca60f980e1cd3a61a678eef8de645ef8427736b2bb9bdd035ca44b"},
+    {file = "graphviz-0.20.2.zip", hash = "sha256:d29ca3aadbe5d6e6c584045b7ec4fc1c15af2448dc1c0211b5e94344833243da"},
 ]
 
 [package.extras]
 dev = ["flake8", "pep8-naming", "tox (>=3)", "twine", "wheel"]
-docs = ["sphinx (>=5)", "sphinx-autodoc-typehints", "sphinx-rtd-theme"]
-test = ["coverage", "mock (>=4)", "pytest (>=7)", "pytest-cov", "pytest-mock (>=3)"]
+docs = ["sphinx (>=5,<7)", "sphinx-autodoc-typehints", "sphinx-rtd-theme"]
+test = ["coverage", "pytest (>=7,<8.1)", "pytest-cov", "pytest-mock (>=3)"]
 
 [[package]]
 name = "h11"
@@ -568,22 +568,22 @@ files = [
 
 [[package]]
 name = "importlib-metadata"
-version = "7.0.1"
+version = "7.0.2"
 description = "Read metadata from Python packages"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "importlib_metadata-7.0.1-py3-none-any.whl", hash = "sha256:4805911c3a4ec7c3966410053e9ec6a1fecd629117df5adee56dfc9432a1081e"},
-    {file = "importlib_metadata-7.0.1.tar.gz", hash = "sha256:f238736bb06590ae52ac1fab06a3a9ef1d8dce2b7a35b5ab329371d6c8f5d2cc"},
+    {file = "importlib_metadata-7.0.2-py3-none-any.whl", hash = "sha256:f4bc4c0c070c490abf4ce96d715f68e95923320370efb66143df00199bb6c100"},
+    {file = "importlib_metadata-7.0.2.tar.gz", hash = "sha256:198f568f3230878cb1b44fbd7975f87906c22336dba2e4a7f05278c281fbd792"},
 ]
 
 [package.dependencies]
 zipp = ">=0.5"
 
 [package.extras]
-docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (<7.2.5)", "sphinx (>=3.5)", "sphinx-lint"]
+docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
 perf = ["ipython"]
-testing = ["flufl.flake8", "importlib-resources (>=1.3)", "packaging", "pyfakefs", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-mypy (>=0.9.1)", "pytest-perf (>=0.9.2)", "pytest-ruff"]
+testing = ["flufl.flake8", "importlib-resources (>=1.3)", "packaging", "pyfakefs", "pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-mypy", "pytest-perf (>=0.9.2)", "pytest-ruff (>=0.2.1)"]
 
 [[package]]
 name = "inflection"
@@ -675,13 +675,13 @@ extra = ["markdown (>=3.4,<4.0)", "markdown (>=3.5,<4.0)", "python-dateutil (>=2
 
 [[package]]
 name = "markdown"
-version = "3.5.2"
+version = "3.6"
 description = "Python implementation of John Gruber's Markdown."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "Markdown-3.5.2-py3-none-any.whl", hash = "sha256:d43323865d89fc0cb9b20c75fc8ad313af307cc087e84b657d9eec768eddeadd"},
-    {file = "Markdown-3.5.2.tar.gz", hash = "sha256:e1ac7b3dc550ee80e602e71c1d168002f062e49f1b11e26a36264dafd4df2ef8"},
+    {file = "Markdown-3.6-py3-none-any.whl", hash = "sha256:48f276f4d8cfb8ce6527c8f79e2ee29708508bf4d40aa410fbc3b4ee832c850f"},
+    {file = "Markdown-3.6.tar.gz", hash = "sha256:ed4f41f6daecbeeb96e576ce414c41d2d876daa9a16cb35fa8ed8c2ddfad0224"},
 ]
 
 [package.dependencies]
@@ -842,13 +842,13 @@ files = [
 
 [[package]]
 name = "packaging"
-version = "23.2"
+version = "24.0"
 description = "Core utilities for Python packages"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "packaging-23.2-py3-none-any.whl", hash = "sha256:8c491190033a9af7e1d931d0b5dacc2ef47509b34dd0de67ed209b5203fc88c7"},
-    {file = "packaging-23.2.tar.gz", hash = "sha256:048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5"},
+    {file = "packaging-24.0-py3-none-any.whl", hash = "sha256:2ddfb553fdf02fb784c234c7ba6ccc288296ceabec964ad2eae3777778130bc5"},
+    {file = "packaging-24.0.tar.gz", hash = "sha256:eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"},
 ]
 
 [[package]]
@@ -965,25 +965,25 @@ executing = ">=2.0,<3.0"
 
 [[package]]
 name = "pipen"
-version = "0.14.3"
+version = "0.14.5"
 description = "A pipeline framework for python"
 optional = false
 python-versions = ">=3.9,<4.0"
 files = [
-    {file = "pipen-0.14.3-py3-none-any.whl", hash = "sha256:26a7c45ae8c667e24fc3e0b3c59a25b3369b9f218230eb55bab71f58fcca8237"},
-    {file = "pipen-0.14.3.tar.gz", hash = "sha256:995b5c994a8a5353974f62e3c6d88965975b6fbf0f28bfcf4c3f399e10f503a9"},
+    {file = "pipen-0.14.5-py3-none-any.whl", hash = "sha256:e2ce1bf5c62e70556f2d7ad753f1ca744e06cf39565c13043b1d7e620c9a0e36"},
+    {file = "pipen-0.14.5.tar.gz", hash = "sha256:61807b5e03d5de8a845af6eabd1e4a47c53b5906d73e330421e586a685c1f0b3"},
 ]
 
 [package.dependencies]
 argx = ">=0.2.10,<0.3.0"
 enlighten = ">=1,<2"
 liquidpy = ">=0.8.2,<0.9.0"
-pandas = ">=2,<3"
+pandas = ">=2.0,<3.0"
 pipda = ">=0.13,<0.14"
 python-simpleconf = {version = ">=0.6,<0.7", extras = ["toml"]}
 rtoml = ">=0.8,<0.9"
 varname = ">=0.13,<0.14"
-xqute = ">=0.3.1,<0.4.0"
+xqute = ">=0.4.0,<0.5.0"
 
 [[package]]
 name = "pipen-annotate"
@@ -1126,13 +1126,13 @@ pipen = ">=0.14,<0.15"
 
 [[package]]
 name = "pipen-report"
-version = "0.18.4"
+version = "0.18.5"
 description = "Report generation system for pipen"
 optional = false
 python-versions = ">=3.9,<4.0"
 files = [
-    {file = "pipen_report-0.18.4-py3-none-any.whl", hash = "sha256:07dfc4d4f6e2086a2472d607230207c2b6ab4d3326de29c6a02514e07bdd2399"},
-    {file = "pipen_report-0.18.4.tar.gz", hash = "sha256:305a5f56b6f762482fca856fc2f8c2e9ff2751fa25c5adbdf9c4673992d67768"},
+    {file = "pipen_report-0.18.5-py3-none-any.whl", hash = "sha256:a6c679be6906dd04e0daa7f9020d428a4a320a3677a8fb24ad6c14d34c15bd52"},
+    {file = "pipen_report-0.18.5.tar.gz", hash = "sha256:004e933c5c08ddc1ab5ebea6acae95ca3fe926a90b82ac18c9a455237f4b6f6f"},
 ]
 
 [package.dependencies]
@@ -1256,13 +1256,13 @@ test = ["enum34", "ipaddress", "mock", "pywin32", "wmi"]
 
 [[package]]
 name = "pydantic"
-version = "2.6.3"
+version = "2.6.4"
 description = "Data validation using Python type hints"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pydantic-2.6.3-py3-none-any.whl", hash = "sha256:72c6034df47f46ccdf81869fddb81aade68056003900a8724a4f160700016a2a"},
-    {file = "pydantic-2.6.3.tar.gz", hash = "sha256:e07805c4c7f5c6826e33a1d4c9d47950d7eaf34868e2690f8594d2e30241f11f"},
+    {file = "pydantic-2.6.4-py3-none-any.whl", hash = "sha256:cc46fce86607580867bdc3361ad462bab9c222ef042d3da86f2fb333e1d916c5"},
+    {file = "pydantic-2.6.4.tar.gz", hash = "sha256:b1704e0847db01817624a6b86766967f552dd9dbf3afba4004409f908dcc84e6"},
 ]
 
 [package.dependencies]
@@ -1651,13 +1651,13 @@ files = [
 
 [[package]]
 name = "simplug"
-version = "0.3.2"
+version = "0.4.1"
 description = "A simple plugin system for python with async hooks supported"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "simplug-0.3.2-py3-none-any.whl", hash = "sha256:8897b7bb41c0527bc58cdad11d19d6b4bc9efe4e5076363eb25b514e6f83beaa"},
-    {file = "simplug-0.3.2.tar.gz", hash = "sha256:a940503e3ce4bb8f381403383eb47ba1b38fc2360c66f6c3b930da03bcb841c0"},
+    {file = "simplug-0.4.1-py3-none-any.whl", hash = "sha256:150fcc8f045b4ec23893c448dd0c2d2df4a8ab66d53b7764e273133a37b24b8a"},
+    {file = "simplug-0.4.1.tar.gz", hash = "sha256:26b6dce2ab7d2979de6cdea582dd244c24338ded5d9cc0b8c71524a4ff950410"},
 ]
 
 [package.dependencies]
@@ -1864,13 +1864,13 @@ h11 = ">=0.9.0,<1"
 
 [[package]]
 name = "xqute"
-version = "0.3.1"
+version = "0.4.0"
 description = "A job management system for python"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "xqute-0.3.1-py3-none-any.whl", hash = "sha256:dd126a5e56d47bc8bdda4d10c316ba3b571e7d8f39b378e86b29bf28cfaed192"},
-    {file = "xqute-0.3.1.tar.gz", hash = "sha256:544c4f93ebba14e9eb94c7292d2771dc9856eefe54ac83a1a48af5a83d76665d"},
+    {file = "xqute-0.4.0-py3-none-any.whl", hash = "sha256:fe5d5e264f3e0667de0f6c921e1de02a408518759afc46fabfa41c2306725487"},
+    {file = "xqute-0.4.0.tar.gz", hash = "sha256:2c86dc06ceffa030e6f708b830a62a29f5e70aa7075a921342f6dae893be2fd4"},
 ]
 
 [package.dependencies]
@@ -1881,23 +1881,23 @@ aiopath = [
 ]
 diot = ">=0.2,<0.3"
 rich = ">=13,<14"
-simplug = ">=0.3,<0.4"
+simplug = ">=0.4,<0.5"
 uvloop = ">=0,<1"
 
 [[package]]
 name = "zipp"
-version = "3.17.0"
+version = "3.18.1"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "zipp-3.17.0-py3-none-any.whl", hash = "sha256:0e923e726174922dce09c53c59ad483ff7bbb8e572e00c7f7c46b88556409f31"},
-    {file = "zipp-3.17.0.tar.gz", hash = "sha256:84e64a1c28cf7e91ed2078bb8cc8c259cb19b76942096c8d7b84947690cabaf0"},
+    {file = "zipp-3.18.1-py3-none-any.whl", hash = "sha256:206f5a15f2af3dbaee80769fb7dc6f249695e940acca08dfb2a4769fe61e538b"},
+    {file = "zipp-3.18.1.tar.gz", hash = "sha256:2884ed22e7d8961de1c9a05142eb69a247f120291bc0206a00a7642f09b5b715"},
 ]
 
 [package.extras]
-docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (<7.2.5)", "sphinx (>=3.5)", "sphinx-lint"]
-testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-ignore-flaky", "pytest-mypy (>=0.9.1)", "pytest-ruff"]
+docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
+testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-ignore-flaky", "pytest-mypy", "pytest-ruff (>=0.2.1)"]
 
 [extras]
 diagram = ["pipen-diagram"]
@@ -1906,4 +1906,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "e5cede272e5289f58d27416d64264c85e63e7ea8ace4455c154bded22bbb2727"
+content-hash = "873b0a9c91970c4faac54348e563cf3411143a7e40371f2a1ccd0ca64a8493e2"
