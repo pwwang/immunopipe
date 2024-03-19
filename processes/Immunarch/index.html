@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Immunarch - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Immunarch";
+        var mkdocs_page_input_path = "processes/Immunarch.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-social"><div class="github_repo">
+      <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub" target="_blank">
+        <!-- Icon from https://www.iconfinder.com/search?q=github&category=social-media -->
+        <img src="../../github_icon.png" alt="GitHub repo" />
+      </a>
+    </div></div>
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ImmunarchLoading/">ImmunarchLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCellSelection/">TCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCRClustering/">TCRClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCRClusterStats/">TCRClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../IntegratingTCRClusters/">IntegratingTCRClusters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Immunarch</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variable-design">Environment Variable Design</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../IntegratingTCR/">IntegratingTCR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../RadarPlots/">RadarPlots</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CloneResidency/">CloneResidency</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellsDistribution/">CellsDistribution</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetaMarkers/">MetaMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImpution/">MetabolicExprImpution</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeaturesIntraSubset/">MetabolicFeaturesIntraSubset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
+      <li class="breadcrumb-item active">Immunarch</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/Immunarch.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="immunarch">Immunarch<a class="headerlink" href="#immunarch" title="Permanent link">&para;</a></h2>
+<p>Exploration of Single-cell and Bulk T-cell/Antibody Immune Repertoires</p>
+<div class="admonition tip">
+<p class="admonition-title">Changed in <code>0.10.0</code></p>
+<p><code>envs.mutaters</code> are now applied at cell level.<br /></p>
+<p>Seurat clustering information and other information are added at cell level,
+which can be used to subset the cells for listed analyses.<br /></p>
+<p>You can now use <code>subset</code> to subset the cells for listed analyses, at cell level.<br /></p>
+</div>
+<p>See <a href="https://immunarch.com/articles/web_only/v3_basic_analysis.html">https://immunarch.com/articles/web_only/v3_basic_analysis.html</a></p>
+<p>After <a href="../ImmunarchLoading/"><code>ImmunarchLoading</code></a> loads the raw data into an <a href="https://immunarch.com">immunarch</a> object,
+this process wraps the functions from <a href="https://immunarch.com"><code>immunarch</code></a> to do the following:<br /></p>
+<ul>
+<li>Basic statistics, provided by <a href="https://immunarch.com/reference/repExplore.html"><code>immunarch::repExplore</code></a>, such as number of clones or distributions of lengths and counts.<br /></li>
+<li>The clonality of repertoires, provided by <a href="https://immunarch.com/reference/repClonality.html"><code>immunarch::repClonality</code></a></li>
+<li>The repertoire overlap, provided by <a href="https://immunarch.com/reference/repOverlap.html"><code>immunarch::repOverlap</code></a></li>
+<li>The repertoire overlap, including different clustering procedures and PCA, provided by <a href="https://immunarch.com/reference/repOverlapAnalysis.html"><code>immunarch::repOverlapAnalysis</code></a></li>
+<li>The distributions of V or J genes, provided by <a href="https://immunarch.com/reference/geneUsage.html"><code>immunarch::geneUsage</code></a></li>
+<li>The diversity of repertoires, provided by <a href="https://immunarch.com/reference/repDiversity.html"><code>immunarch::repDiversity</code></a></li>
+<li>The dynamics of repertoires across time points/samples, provided by <a href="https://immunarch.com/reference/trackClonotypes.html"><code>immunarch::trackClonotypes</code></a></li>
+<li>The spectratype of clonotypes, provided by <a href="https://immunarch.com/reference/spectratype.html"><code>immunarch::spectratype</code></a></li>
+<li>The distributions of kmers and sequence profiles, provided by <a href="https://immunarch.com/reference/getKmers.html"><code>immunarch::getKmers</code></a></li>
+<li>The V-J junction circos plots, implemented within the script of this process.<br /></li>
+</ul>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>mutaters</code> <em>(<code>type=json;order=-9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The mutaters passed to <code>dplyr::mutate()</code> on expanded cell-level data
+    to add new columns.<br />
+    The keys will be the names of the columns, and the values will be the expressions.<br />
+    The new names can be used in <code>volumes</code>, <code>lens</code>, <code>counts</code>, <code>top_clones</code>, <code>rare_clones</code>, <code>hom_clones</code>, <code>gene_usages</code>, <code>divs</code>, etc.<br /></li>
+<li><code>prefix</code>:
+    The prefix to the barcodes. You can use placeholder like <code>{Sample}_</code>
+    The prefixed barcodes will be used to match the barcodes in <code>in.metafile</code>.<br />
+    Not used if <code>in.metafile</code> is not specified.<br />
+    If <code>None</code> (default), <code>immdata$prefix</code> will be used.<br /></li>
+<li><code>volumes</code> <em>(<code>ns</code>)</em>:
+    Explore clonotype volume (sizes).<br /><ul>
+<li><code>by</code>:
+    Groupings when visualize clonotype volumes, passed to the <code>.by</code> argument of <code>vis(imm_vol, .by = &lt;values&gt;)</code>.<br />
+    Multiple columns should be separated by <code>,</code>.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>subset</code>:
+    Subset the data before calculating the clonotype volumes.<br />
+    The whole data will be expanded to cell level, and then subsetted.<br />
+    Clone sizes will be re-calculated based on the subsetted data.<br /></li>
+<li><code>cases</code> <em>(<code>type=json;order=9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the values in <code>envs.volumes</code> will be used.<br />
+    If NO cases are specified, the default case will be added, with the name <code>DEFAULT</code> and the
+    values of <code>envs.volume.by</code>, <code>envs.volume.devpars</code>.<br /></li>
+</ul>
+</li>
+<li><code>lens</code> <em>(<code>ns</code>)</em>:
+    Explore clonotype CDR3 lengths.<br /><ul>
+<li><code>by</code>:
+    Groupings when visualize clonotype lengths, passed to the <code>.by</code> argument of <code>vis(imm_len, .by = &lt;values&gt;)</code>.<br />
+    Multiple columns should be separated by <code>,</code>.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>subset</code>:
+    Subset the data before calculating the clonotype volumes.<br />
+    The whole data will be expanded to cell level, and then subsetted.<br />
+    Clone sizes will be re-calculated based on the subsetted data.<br /></li>
+<li><code>cases</code> <em>(<code>type=json;order=9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the values in <code>envs.lens</code> will be used.<br />
+    If NO cases are specified, the default case will be added, with the name <code>DEFAULT</code> and the
+    values of <code>envs.lens.by</code>, <code>envs.lens.devpars</code>.<br /></li>
+</ul>
+</li>
+<li><code>counts</code> <em>(<code>ns</code>)</em>:
+    Explore clonotype counts.<br /><ul>
+<li><code>by</code>:
+    Groupings when visualize clonotype counts, passed to the <code>.by</code> argument of <code>vis(imm_count, .by = &lt;values&gt;)</code>.<br />
+    Multiple columns should be separated by <code>,</code>.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>subset</code>:
+    Subset the data before calculating the clonotype volumes.<br />
+    The whole data will be expanded to cell level, and then subsetted.<br />
+    Clone sizes will be re-calculated based on the subsetted data.<br /></li>
+<li><code>cases</code> <em>(<code>type=json;order=9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the values in <code>envs.counts</code> will be used.<br />
+    If NO cases are specified, the default case will be added, with the name <code>DEFAULT</code> and the
+    values of <code>envs.counts.by</code>, <code>envs.counts.devpars</code>.<br /></li>
+</ul>
+</li>
+<li><code>top_clones</code> <em>(<code>ns</code>)</em>:
+    Explore top clonotypes.<br /><ul>
+<li><code>by</code>:
+    Groupings when visualize top clones, passed to the <code>.by</code> argument of <code>vis(imm_top, .by = &lt;values&gt;)</code>.<br />
+    Multiple columns should be separated by <code>,</code>.<br /></li>
+<li><code>marks</code> <em>(<code>list;itype=int</code>)</em>: <em>Default: <code>[10, 100, 1000, 3000, 10000, 30000, 100000.0]</code></em>. <br />
+    A numerical vector with ranges of the top clonotypes. Passed to the <code>.head</code> argument of <code>repClonoality()</code>.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>subset</code>:
+    Subset the data before calculating the clonotype volumes.<br />
+    The whole data will be expanded to cell level, and then subsetted.<br />
+    Clone sizes will be re-calculated based on the subsetted data.<br /></li>
+<li><code>cases</code> <em>(<code>type=json;order=9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the values in <code>envs.top_clones</code> will be used.<br />
+    If NO cases are specified, the default case will be added, with the name <code>DEFAULT</code> and the
+    values of <code>envs.top_clones.by</code>, <code>envs.top_clones.marks</code> and <code>envs.top_clones.devpars</code>.<br /></li>
+</ul>
+</li>
+<li><code>rare_clones</code> <em>(<code>ns</code>)</em>:
+    Explore rare clonotypes.<br /><ul>
+<li><code>by</code>:
+    Groupings when visualize rare clones, passed to the <code>.by</code> argument of <code>vis(imm_rare, .by = &lt;values&gt;)</code>.<br />
+    Multiple columns should be separated by <code>,</code>.<br /></li>
+<li><code>marks</code> <em>(<code>list;itype=int</code>)</em>: <em>Default: <code>[1, 3, 10, 30, 100]</code></em>. <br />
+    A numerical vector with ranges of abundance for the rare clonotypes in the dataset.<br />
+    Passed to the <code>.bound</code> argument of <code>repClonoality()</code>.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>subset</code>:
+    Subset the data before calculating the clonotype volumes.<br />
+    The whole data will be expanded to cell level, and then subsetted.<br />
+    Clone sizes will be re-calculated based on the subsetted data.<br /></li>
+<li><code>cases</code> <em>(<code>type=json;order=9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the values in <code>envs.rare_clones</code> will be used.<br />
+    If NO cases are specified, the default case will be added, with the name <code>DEFAULT</code> and the
+    values of <code>envs.rare_clones.by</code>, <code>envs.rare_clones.marks</code> and <code>envs.rare_clones.devpars</code>.<br /></li>
+</ul>
+</li>
+<li><code>hom_clones</code> <em>(<code>ns</code>)</em>:
+    Explore homeo clonotypes.<br /><ul>
+<li><code>by</code>:
+    Groupings when visualize homeo clones, passed to the <code>.by</code> argument of <code>vis(imm_hom, .by = &lt;values&gt;)</code>.<br />
+    Multiple columns should be separated by <code>,</code>.<br /></li>
+<li><code>marks</code> <em>(<code>ns</code>)</em>:
+    A dict with the threshold of the half-closed intervals that mark off clonal groups.<br />
+    Passed to the <code>.clone.types</code> arguments of <code>repClonoality()</code>.<br />
+    The keys could be:<br /><ul>
+<li><code>Rare</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>1e-05</code></em>. <br />
+    the rare clonotypes</li>
+<li><code>Small</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.0001</code></em>. <br />
+    the small clonotypes</li>
+<li><code>Medium</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.001</code></em>. <br />
+    the medium clonotypes</li>
+<li><code>Large</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.01</code></em>. <br />
+    the large clonotypes</li>
+<li><code>Hyperexpanded</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>1.0</code></em>. <br />
+    the hyperexpanded clonotypes</li>
+</ul>
+</li>
+<li><code>subset</code>:
+    Subset the data before calculating the clonotype volumes.<br />
+    The whole data will be expanded to cell level, and then subsetted.<br />
+    Clone sizes will be re-calculated based on the subsetted data.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>cases</code> <em>(<code>type=json;order=9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the values in <code>envs.hom_clones</code> will be used.<br />
+    If NO cases are specified, the default case will be added, with the name <code>DEFAULT</code> and the
+    values of <code>envs.hom_clones.by</code>, <code>envs.hom_clones.marks</code> and <code>envs.hom_clones.devpars</code>.<br /></li>
+</ul>
+</li>
+<li><code>overlaps</code> <em>(<code>ns</code>)</em>:
+    Explore clonotype overlaps.<br /><ul>
+<li><code>method</code> <em>(<code>choice</code>)</em>: <em>Default: <code>public</code></em>. <br />
+    The method to calculate overlaps.<br /><ul>
+<li><code>public</code>:
+    number of public clonotypes between two samples.<br /></li>
+<li><code>overlap</code>:
+    a normalised measure of overlap similarity.<br />
+    It is defined as the size of the intersection divided by the smaller of the size of the two sets.<br /></li>
+<li><code>jaccard</code>:
+    conceptually a percentage of how many objects two sets have in common out of how many objects they have total.<br /></li>
+<li><code>tversky</code>:
+    an asymmetric similarity measure on sets that compares a variant to a prototype.<br /></li>
+<li><code>cosine</code>:
+    a measure of similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them.<br /></li>
+<li><code>morisita</code>:
+    how many times it is more likely to randomly select two sampled points from the same quadrat (the dataset is
+    covered by a regular grid of changing size) then it would be in the case of a random distribution generated from
+    a Poisson process. Duplicate objects are merged with their counts are summed up.<br /></li>
+<li><code>inc+public</code>:
+    incremental overlaps of the N most abundant clonotypes with incrementally growing N using the public method.<br /></li>
+<li><code>inc+morisita</code>:
+    incremental overlaps of the N most abundant clonotypes with incrementally growing N using the morisita method.<br /></li>
+</ul>
+</li>
+<li><code>subset</code>:
+    Subset the data before calculating the clonotype volumes.<br />
+    The whole data will be expanded to cell level, and then subsetted.<br />
+    Clone sizes will be re-calculated based on the subsetted data.<br /></li>
+<li><code>vis_args</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Other arguments for the plotting functions <code>vis(imm_ov, ...)</code>.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>analyses</code> <em>(<code>ns;order=8</code>)</em>:
+    Perform overlap analyses.<br /><ul>
+<li><code>method</code>: <em>Default: <code>none</code></em>. <br />
+    Plot the samples with these dimension reduction methods.<br />
+    The methods could be <code>hclust</code>, <code>tsne</code>, <code>mds</code> or combination of them, such as <code>mds+hclust</code>.<br />
+    You can also set to <code>none</code> to skip the analyses.<br />
+    They could also be combined, for example, <code>mds+hclust</code>.<br />
+    See <a href="https://immunarch.com/reference/repOverlapAnalysis.html">https://immunarch.com/reference/repOverlapAnalysis.html</a>.<br /></li>
+<li><code>vis_args</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Other arguments for the plotting functions.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the values in <code>envs.overlaps.analyses</code> will be used.<br />
+    If NO cases are specified, the default case will be added, with the name <code>DEFAULT</code> and the
+    values of <code>envs.overlaps.analyses.method</code>, <code>envs.overlaps.analyses.vis_args</code> and <code>envs.overlaps.analyses.devpars</code>.<br /></li>
+</ul>
+</li>
+<li><code>cases</code> <em>(<code>type=json;order=9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the values in <code>envs.overlaps</code> will be used.<br />
+    If NO cases are specified, the default case will be added, with the key the default method and the
+    values of <code>envs.overlaps.method</code>, <code>envs.overlaps.vis_args</code>, <code>envs.overlaps.devpars</code> and <code>envs.overlaps.analyses</code>.<br /></li>
+</ul>
+</li>
+<li><code>gene_usages</code> <em>(<code>ns</code>)</em>:
+    Explore gene usages.<br /><ul>
+<li><code>top</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>30</code></em>. <br />
+    How many top (ranked by total usage across samples) genes to show in the plots.<br />
+    Use <code>0</code> to use all genes.<br /></li>
+<li><code>norm</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    If True then use proportions of genes, else use counts of genes.<br /></li>
+<li><code>by</code>:
+    Groupings to show gene usages, passed to the <code>.by</code> argument of <code>vis(imm_gu_top, .by = &lt;values&gt;)</code>.<br />
+    Multiple columns should be separated by <code>,</code>.<br /></li>
+<li><code>vis_args</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Other arguments for the plotting functions.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>subset</code>:
+    Subset the data before calculating the clonotype volumes.<br />
+    The whole data will be expanded to cell level, and then subsetted.<br />
+    Clone sizes will be re-calculated based on the subsetted data.<br /></li>
+<li><code>analyses</code> <em>(<code>ns;order=8</code>)</em>:
+    Perform gene usage analyses.<br /><ul>
+<li><code>method</code>: <em>Default: <code>none</code></em>. <br />
+    The method to control how the data is going to be preprocessed and analysed.<br />
+    One of <code>js</code>, <code>cor</code>, <code>cosine</code>, <code>pca</code>, <code>mds</code> and <code>tsne</code>. Can also be combined with following methods
+    for the actual analyses: <code>hclust</code>, <code>kmeans</code>, <code>dbscan</code>, and <code>kruskal</code>. For example: <code>cosine+hclust</code>.<br />
+    You can also set to <code>none</code> to skip the analyses.<br />
+    See <a href="https://immunarch.com/articles/web_only/v5_gene_usage.html">https://immunarch.com/articles/web_only/v5_gene_usage.html</a>.<br /></li>
+<li><code>vis_args</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Other arguments for the plotting functions.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the values in <code>envs.gene_usages.analyses</code> will be used.<br />
+    If NO cases are specified, the default case will be added, with the name <code>DEFAULT</code> and the
+    values of <code>envs.gene_usages.analyses.method</code>, <code>envs.gene_usages.analyses.vis_args</code> and <code>envs.gene_usages.analyses.devpars</code>.<br /></li>
+</ul>
+</li>
+<li><code>cases</code> <em>(<code>type=json;order=9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be used as the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the values in <code>envs.gene_usages</code> will be used.<br />
+    If NO cases are specified, the default case will be added, with the name <code>DEFAULT</code> and the
+    values of <code>envs.gene_usages.top</code>, <code>envs.gene_usages.norm</code>, <code>envs.gene_usages.by</code>, <code>envs.gene_usages.vis_args</code>, <code>envs.gene_usages.devpars</code> and <code>envs.gene_usages.analyses</code>.<br /></li>
+</ul>
+</li>
+<li><code>spects</code> <em>(<code>ns</code>)</em>:
+    Spectratyping analysis.<br /><ul>
+<li><code>quant</code>:
+    Select the column with clonal counts to evaluate.<br />
+    Set to <code>id</code> to count every clonotype once.<br />
+    Set to <code>count</code> to take into the account number of clones per clonotype.<br />
+    Multiple columns should be separated by <code>,</code>.<br /></li>
+<li><code>col</code>:
+    A string that specifies the column(s) to be processed.<br />
+    The output is one of the following strings, separated by the plus sign: "nt" for nucleotide sequences,
+    "aa" for amino acid sequences, "v" for V gene segments, "j" for J gene segments.<br />
+    E.g., pass "aa+v" for spectratyping on CDR3 amino acid sequences paired with V gene segments,
+    i.e., in this case a unique clonotype is a pair of CDR3 amino acid and V gene segment.<br />
+    Clonal counts of equal clonotypes will be summed up.<br /></li>
+<li><code>subset</code>:
+    Subset the data before calculating the clonotype volumes.<br />
+    The whole data will be expanded to cell level, and then subsetted.<br />
+    Clone sizes will be re-calculated based on the subsetted data.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>cases</code> <em>(<code>type=json;order=9</code>)</em>: <em>Default: <code>{'By_Clonotype': Diot({'quant': 'id', 'col': 'nt'}), 'By_Num_Clones': Diot({'quant': 'count', 'col': 'aa+v'})}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the values in <code>envs.spects</code> will be used.<br />
+    By default, a <code>By_Clonotype</code> case will be added, with the values of <code>quant = "id"</code> and <code>col = "nt"</code>, and
+    a <code>By_Num_Clones</code> case will be added, with the values of <code>quant = "count"</code> and <code>col = "aa+v"</code>.<br /></li>
+</ul>
+</li>
+<li><code>divs</code> <em>(<code>ns</code>)</em>:
+    Parameters to control the diversity analysis.<br /><ul>
+<li><code>method</code> <em>(<code>choice</code>)</em>: <em>Default: <code>gini</code></em>. <br />
+    The method to calculate diversity.<br /><ul>
+<li><code>chao1</code>:
+    a nonparameteric asymptotic estimator of species richness.<br />
+    (number of species in a population).<br /></li>
+<li><code>hill</code>:
+    Hill numbers are a mathematically unified family of diversity indices.<br />
+    (differing only by an exponent q).<br /></li>
+<li><code>div</code>:
+    true diversity, or the effective number of types.<br />
+    It refers to the number of equally abundant types needed for the average proportional abundance of the types to equal
+    that observed in the dataset of interest where all types may not be equally abundant.<br /></li>
+<li><code>gini.simp</code>:
+    The Gini-Simpson index.<br />
+    It is the probability of interspecific encounter, i.e., probability that two entities represent different types.<br /></li>
+<li><code>inv.simp</code>:
+    Inverse Simpson index.<br />
+    It is the effective number of types that is obtained when the weighted arithmetic mean is used to quantify
+    average proportional abundance of types in the dataset of interest.<br /></li>
+<li><code>gini</code>:
+    The Gini coefficient.<br />
+    It measures the inequality among values of a frequency distribution (for example levels of income).<br />
+    A Gini coefficient of zero expresses perfect equality, where all values are the same (for example, where everyone has the same income).<br />
+    A Gini coefficient of one (or 100 percents) expresses maximal inequality among values (for example where only one person has all the income).<br /></li>
+<li><code>d50</code>:
+    The D50 index.<br />
+    It is the number of types that are needed to cover 50%% of the total abundance.<br /></li>
+<li><code>raref</code>:
+    Species richness from the results of sampling through extrapolation.<br /></li>
+</ul>
+</li>
+<li><code>by</code>:
+    The variables (column names) to group samples.<br />
+    Multiple columns should be separated by <code>,</code>.<br /></li>
+<li><code>plot_type</code> <em>(<code>choice</code>)</em>: <em>Default: <code>bar</code></em>. <br />
+    The type of the plot, works when <code>by</code> is specified.<br />
+    Not working for <code>raref</code>.<br /><ul>
+<li><code>box</code>:
+    Boxplot</li>
+<li><code>bar</code>:
+    Barplot with error bars</li>
+</ul>
+</li>
+<li><code>subset</code>:
+    Subset the data before calculating the clonotype volumes.<br />
+    The whole data will be expanded to cell level, and then subsetted.<br />
+    Clone sizes will be re-calculated based on the subsetted data.<br /></li>
+<li><code>args</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Other arguments for <code>repDiversity()</code>.<br />
+    Do not include the preceding <code>.</code> and use <code>-</code> instead of <code>.</code> in the argument names.<br />
+    For example, <code>do-norm</code> will be compiled to <code>.do.norm</code>.<br />
+    See all arguments at
+    <a href="https://immunarch.com/reference/repDiversity.html">https://immunarch.com/reference/repDiversity.html</a>.<br /></li>
+<li><code>order</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The order of the values in <code>by</code> on the x-axis of the plots.<br />
+    If not specified, the values will be used as-is.<br /></li>
+<li><code>test</code> <em>(<code>ns</code>)</em>:
+    Perform statistical tests between each pair of groups.<br />
+    Does NOT work for <code>raref</code>.<br /><ul>
+<li><code>method</code> <em>(<code>choice</code>)</em>: <em>Default: <code>none</code></em>. <br />
+    The method to perform the test<ul>
+<li><code>none</code>:
+    No test</li>
+<li><code>t.test</code>:
+    Welch's t-test</li>
+<li><code>wilcox.test</code>:
+    Wilcoxon rank sum test</li>
+</ul>
+</li>
+<li><code>padjust</code> <em>(<code>choice</code>)</em>: <em>Default: <code>none</code></em>. <br />
+    The method to adjust p-values.<br />
+    Defaults to <code>none</code>.<br /><ul>
+<li><code>bonferroni</code>:
+    one-step correction</li>
+<li><code>holm</code>:
+    step-down method using Bonferroni adjustments</li>
+<li><code>hochberg</code>:
+    step-up method (independent)</li>
+<li><code>hommel</code>:
+    closed method based on Simes tests (non-negative)</li>
+<li><code>BH</code>:
+    Benjamini &amp; Hochberg (non-negative)</li>
+<li><code>BY</code>:
+    Benjamini &amp; Yekutieli (negative)</li>
+<li><code>fdr</code>:
+    Benjamini &amp; Hochberg (non-negative)</li>
+<li><code>none</code>:
+    no correction.<br /></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>separate_by</code>:
+    A column name used to separate the samples into different plots.<br /></li>
+<li><code>split_by</code>:
+    A column name used to split the samples into different subplots.<br />
+    Like <code>separate_by</code>, but the plots will be put in the same figure.<br />
+    y-axis will be shared, even if <code>align_y</code> is <code>False</code> or <code>ymin</code>/<code>ymax</code> are not specified.<br />
+    <code>ncol</code> will be ignored.<br /></li>
+<li><code>split_order</code>:
+    The order of the values in <code>split_by</code> on the x-axis of the plots.<br />
+    It can also be used for <code>separate_by</code> to control the order of the plots.<br />
+    Values can be separated by <code>,</code>.<br /></li>
+<li><code>align_x</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Align the x-axis of multiple plots. Only works for <code>raref</code>.<br /></li>
+<li><code>align_y</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Align the y-axis of multiple plots.<br /></li>
+<li><code>ymin</code> <em>(<code>type=float</code>)</em>:
+    The minimum value of the y-axis.<br />
+    The minimum value of the y-axis for plots splitting by <code>separate_by</code>.<br />
+    <code>align_y</code> is forced <code>True</code> when both <code>ymin</code> and <code>ymax</code> are specified.<br /></li>
+<li><code>ymax</code> <em>(<code>type=float</code>)</em>:
+    The maximum value of the y-axis.<br />
+    The maximum value of the y-axis for plots splitting by <code>separate_by</code>.<br />
+    <code>align_y</code> is forced <code>True</code> when both <code>ymin</code> and <code>ymax</code> are specified.<br />
+    Works when both <code>ymin</code> and <code>ymax</code> are specified.<br /></li>
+<li><code>log</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Indicate whether we should plot with log-transformed x-axis using <code>vis(.log = TRUE)</code>. Only works for <code>raref</code>.<br /></li>
+<li><code>ncol</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>2</code></em>. <br />
+    The number of columns of the plots.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>800</code></em>. <br />
+    The width of the device</li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>800</code></em>. <br />
+    The height of the device</li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the device</li>
+</ul>
+</li>
+<li><code>cases</code> <em>(<code>type=json;order=9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be used as the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If NO cases are specified, the default case will be added, with the name of <code>envs.div.method</code>.<br />
+    The values specified in <code>envs.div</code> will be used as the defaults for the cases here.<br /></li>
+</ul>
+</li>
+<li><code>trackings</code> <em>(<code>ns</code>)</em>:
+    Parameters to control the clonotype tracking analysis.<br /><ul>
+<li><code>targets</code>:
+    Either a set of CDR3AA seq of clonotypes to track (separated by <code>,</code>), or simply an integer to track the top N clonotypes.<br /></li>
+<li><code>subject_col</code>: <em>Default: <code>Sample</code></em>. <br />
+    The column name in meta data that contains the subjects/samples on the x-axis of the alluvial plot.<br />
+    If the values in this column are not unique, the values will be merged with the values in <code>subject_col</code> to form the x-axis.<br />
+    This defaults to <code>Sample</code>.<br /></li>
+<li><code>subset</code>:
+    Subset the data before calculating the clonotype volumes.<br />
+    The whole data will be expanded to cell level, and then subsetted.<br />
+    Clone sizes will be re-calculated based on the subsetted data.<br /></li>
+<li><code>subjects</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    A list of values from <code>subject_col</code> to show in the alluvial plot on the x-axis.<br />
+    If not specified, all values in <code>subject_col</code> will be used.<br />
+    This also specifies the order of the x-axis.<br /></li>
+<li><code>cases</code> <em>(<code>type=json;order=9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be used as the names of the cases.<br />
+    The values will be passed to the corresponding arguments (<code>target</code>, <code>subject_col</code>, and <code>subjects</code>).<br />
+    If any of these arguments are not specified, the values in <code>envs.trackings</code> will be used.<br />
+    If NO cases are specified, the default case will be added, with the name <code>DEFAULT</code> and the
+    values of <code>envs.trackings.target</code>, <code>envs.trackings.subject_col</code>, and <code>envs.trackings.subjects</code>.<br /></li>
+</ul>
+</li>
+<li><code>kmers</code> <em>(<code>ns</code>)</em>:
+    Arguments for kmer analysis.<br /><ul>
+<li><code>k</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>5</code></em>. <br />
+    The length of kmer.<br /></li>
+<li><code>head</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>10</code></em>. <br />
+    The number of top kmers to show.<br /></li>
+<li><code>vis_args</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Other arguments for the plotting functions.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>subset</code>:
+    Subset the data before calculating the clonotype volumes.<br />
+    The whole data will be expanded to cell level, and then subsetted.<br />
+    Clone sizes will be re-calculated based on the subsetted data.<br /></li>
+<li><code>profiles</code> <em>(<code>ns;order=8</code>)</em>:
+    Arguments for sequence profilings.<br /><ul>
+<li><code>method</code> <em>(<code>choice</code>)</em>: <em>Default: <code>self</code></em>. <br />
+    The method for the position matrix.<br />
+    For more information see <a href="https://en.wikipedia.org/wiki/Position_weight_matrix">https://en.wikipedia.org/wiki/Position_weight_matrix</a>.<br /><ul>
+<li><code>freq</code>:
+    position frequency matrix (PFM) - a matrix with occurences of each amino acid in each position.<br /></li>
+<li><code>prob</code>:
+    position probability matrix (PPM) - a matrix with probabilities of each amino acid in each position.<br /></li>
+<li><code>wei</code>:
+    position weight matrix (PWM) - a matrix with log likelihoods of PPM elements.<br /></li>
+<li><code>self</code>:
+    self-information matrix (SIM) - a matrix with self-information of elements in PWM.<br /></li>
+</ul>
+</li>
+<li><code>vis_args</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Other arguments for the plotting functions.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the values in <code>envs.kmers.profiles</code> will be used.<br />
+    If NO cases are specified, the default case will be added, with the name <code>DEFAULT</code> and the
+    values of <code>envs.kmers.profiles.method</code>, <code>envs.kmers.profiles.vis_args</code> and <code>envs.kmers.profiles.devpars</code>.<br /></li>
+</ul>
+</li>
+<li><code>cases</code> <em>(<code>type=json;order=9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be used as the names of the cases.<br />
+    The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the default case will be added, with the name <code>DEFAULT</code> and the
+    values of <code>envs.kmers.k</code>, <code>envs.kmers.head</code>, <code>envs.kmers.vis_args</code> and <code>envs.kmers.devpars</code>.<br /></li>
+</ul>
+</li>
+<li><code>vj_junc</code> <em>(<code>ns</code>)</em>:
+    Arguments for VJ junction circos plots.<br />
+    This analysis is not included in <code>immunarch</code>. It is a separate implementation using <a href="https://github.com/jokergoo/circlize"><code>circlize</code></a>.<br /><ul>
+<li><code>by</code>: <em>Default: <code>Sample</code></em>. <br />
+    Groupings to show VJ usages. Typically, this is the <code>Sample</code> column, so that the VJ usages are shown for each sample.<br />
+    But you can also use other columns, such as <code>Subject</code> to show the VJ usages for each subject.<br />
+    Multiple columns should be separated by <code>,</code>.<br /></li>
+<li><code>by_clones</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    If True, the VJ usages will be calculated based on the distinct clonotypes, instead of the individual cells.<br /></li>
+<li><code>subset</code>:
+    Subset the data before plotting VJ usages.<br />
+    The whole data will be expanded to cell level, and then subsetted.<br />
+    Clone sizes will be re-calculated based on the subsetted data, which will affect the VJ usages at cell level (by_clones=False).<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>800</code></em>. <br />
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>800</code></em>. <br />
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>cases</code> <em>(<code>type=json;order=9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can use this argument to specify them.<br />
+    The keys will be used as the names of the cases. The values will be passed to the corresponding arguments above.<br />
+    If any of these arguments are not specified, the values in <code>envs.vj_junc</code> will be used.<br />
+    If NO cases are specified, the default case will be added, with the name <code>DEFAULT</code> and the
+    values of <code>envs.vj_junc.by</code>, <code>envs.vj_junc.by_clones</code> <code>envs.vj_junc.subset</code> and <code>envs.vj_junc.devpars</code>.<br /></li>
+</ul>
+</li>
+</ul>
+<h3 id="environment-variable-design">Environment Variable Design<a class="headerlink" href="#environment-variable-design" title="Permanent link">&para;</a></h3>
+<p>With different sets of arguments, a single function of the above can perform different tasks.<br />
+For example, <code>repExplore</code> can be used to get the statistics of the size of the repertoire,
+the statistics of the length of the CDR3 region, or the statistics of the number of
+the clonotypes. Other than that, you can also have different ways to visualize the results,
+by passing different arguments to the <a href="https://immunarch.com/reference/vis.html"><code>immunarch::vis</code></a> function.<br />
+For example, you can pass <code>.by</code> to <code>vis</code> to visualize the results of <code>repExplore</code> by different groups.<br /></p>
+<p>Before we explain each environment variable in details in the next section, we will give some examples here to show how the environment variables are organized in order for a single function to perform different tasks.<br /></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Repertoire overlapping</span>
+<span class="k">[Immunarch.envs.overlaps]</span>
+<span class="c1"># The method to calculate the overlap, passed to `repOverlap`</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;public&quot;</span>
+</code></pre></div>
+<p>What if we want to calculate the overlap by different methods at the same time? We can use the following configuration:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[Immunarch.envs.overlaps.cases]</span>
+<span class="n">Public</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">Jaccard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;jaccard&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>Then, the <code>repOverlap</code> function will be called twice, once with <code>method = "public"</code> and once with <code>method = "jaccard"</code>. We can also use different arguments to visualize the results. These arguments will be passed to the <code>vis</code> function:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[Immunarch.envs.overlaps.cases.Public]</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;public&quot;</span>
+<span class="n">vis_args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;-plot&quot;</span><span class="err">:</span><span class="w"> </span><span class="s2">&quot;heatmap2&quot;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="k">[Immunarch.envs.overlaps.cases.Jaccard]</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;jaccard&quot;</span>
+<span class="n">vis_args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;-plot&quot;</span><span class="err">:</span><span class="w"> </span><span class="s2">&quot;heatmap2&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><code>-plot</code> will be translated to <code>.plot</code> and then passed to <code>vis</code>.<br /></p>
+<p>If multiple cases share the same arguments, we can use the following configuration:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[Immunarch.envs.overlaps]</span>
+<span class="n">vis_args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;-plot&quot;</span><span class="err">:</span><span class="w"> </span><span class="s2">&quot;heatmap2&quot;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="k">[Immunarch.envs.overlaps.cases]</span>
+<span class="n">Public</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">Jaccard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;jaccard&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>For some results, there are futher analysis that can be performed. For example, for the repertoire overlap, we can perform clustering and PCA (see also <a href="https://immunarch.com/articles/web_only/v4_overlap.html">https://immunarch.com/articles/web_only/v4_overlap.html</a>):<br /></p>
+<div class="highlight"><pre><span></span><code><span class="n">imm_ov1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">repOverlap</span><span class="p">(</span><span class="n">immdata</span><span class="o">$</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">.method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;public&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">.verbose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="p">)</span>
+<span class="nf">repOverlapAnalysis</span><span class="p">(</span><span class="n">imm_ov1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mds&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="nf">vis</span><span class="p">()</span>
+<span class="nf">repOverlapAnalysis</span><span class="p">(</span><span class="n">imm_ov1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tsne&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="nf">vis</span><span class="p">()</span>
+</code></pre></div>
+<p>In such a case, we can use the following configuration:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[Immunarch.envs.overlaps]</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;public&quot;</span>
+
+<span class="k">[Immunarch.envs.overlaps.analyses.cases]</span>
+<span class="n">MDS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;-method&quot;</span><span class="err">:</span><span class="w"> </span><span class="s2">&quot;mds&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">TSNE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;-method&quot;</span><span class="err">:</span><span class="w"> </span><span class="s2">&quot;tsne&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>Then, the <code>repOverlapAnalysis</code> function will be called twice on the result generated by <code>repOverlap(immdata$data, .method = "public")</code>, once with <code>.method = "mds"</code> and once with <code>.method = "tsne"</code>. We can also use different arguments to visualize the results. These arguments will be passed to the <code>vis</code> function:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[Immunarch.envs.overlaps]</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;public&quot;</span>
+
+<span class="k">[Immunarch.envs.overlaps.analyses]</span>
+<span class="c1"># See: &lt;https://immunarch.com/reference/vis.immunr_hclust.html&gt;</span>
+<span class="n">vis_args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;-plot&quot;</span><span class="err">:</span><span class="w"> </span><span class="s2">&quot;best&quot;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="k">[Immunarch.envs.overlaps.analyses.cases]</span>
+<span class="n">MDS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;-method&quot;</span><span class="err">:</span><span class="w"> </span><span class="s2">&quot;mds&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">TSNE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;-method&quot;</span><span class="err">:</span><span class="w"> </span><span class="s2">&quot;tsne&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>Generally, you don't need to specify <code>cases</code> if you only have one case. A default case will be created for you. For multiple cases, the arguments at the same level as <code>cases</code> will be inherited by all cases.<br /></p>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">[Immunarch.envs.kmers]</span>
+<span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+</code></pre></div>
+<p><img alt="Immunarch kmers" src="https://immunarch.com/articles/web_only/v9_kmers_files/figure-html/unnamed-chunk-4-1.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[Immunarch.envs.kmers]</span>
+<span class="c1"># Shared by cases</span>
+<span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+
+<span class="k">[Immunarch.envs.kmers.cases]</span>
+<span class="n">Head5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">-position</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;stack&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">Head10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">-position</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;fill&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">Head30</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="n">-position</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;dodge&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Immunarch kmers" src="https://immunarch.com/articles/web_only/v9_kmers_files/figure-html/unnamed-chunk-6-1.png" /></p>
+<p>With motif profiling:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[Immunarch.envs.kmers]</span>
+<span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+
+<span class="k">[Immnuarch.envs.kmers.profiles.cases]</span>
+<span class="n">TextPlot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;self&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">vis_args</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;-plot&quot;</span><span class="err">:</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="n">SeqPlot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;self&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">vis_args</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;-plot&quot;</span><span class="err">:</span><span class="w"> </span><span class="s2">&quot;seq&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Immunarch kmers" src="https://immunarch.com/articles/web_only/v9_kmers_files/figure-html/unnamed-chunk-10-1.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../TopExpressingGenes/" class="btn btn-neutral float-left" title="TopExpressingGenes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../TESSA/" class="btn btn-neutral float-right" title="TESSA">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../TopExpressingGenes/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../TESSA/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
