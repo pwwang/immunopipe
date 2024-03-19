@@ -74,6 +74,12 @@ There are three types of output from this process
     out singletons.<br />
 - `prefix`: *Default: `{Sample}_`*. <br />
     The prefix of the cell barcodes in the `Seurat` object.<br />
+- `upset_trans`:
+    The transformation to apply to the y axis of upset bar plots.<br />
+    For example, `log10` or `sqrt`. If not specified, the y axis will be
+    plotted as is. Note that the position of the bar plots will be dodged
+    instead of stacked when the transformation is applied.<br />
+    See also <https://github.com/tidyverse/ggplot2/issues/3671>
 - `cases` *(`type=json`)*: *Default: `{}`*. <br />
     If you have multiple cases, you can use this argument
     to specify them. The keys will be used as the names of the cases.<br />

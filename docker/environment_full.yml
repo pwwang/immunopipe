@@ -56,7 +56,8 @@ dependencies:
   - r-assertthat
   - r-enrichr
   - r-laplacesdemon  # TESSA
+  - r-complexupset
   - pip:
     - keras  # TESSA
-    - tensorflow  # TESSA
+    - tensorflow==2.15  # TESSA
     - celltypist

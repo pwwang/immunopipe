@@ -102,6 +102,9 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     - `subset`:
         An expression to subset the cells, will be passed to
         `dplyr::filter()` on metadata.<br />
+    - `circos_labels_rot` *(`flag`)*: *Default: `False`*. <br />
+        Whether to rotate the labels in the circos plot.<br />
+        In case the labels are too long.<br />
     - `circos_devpars` *(`ns`)*:
         The device parameters for the circos plots.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />

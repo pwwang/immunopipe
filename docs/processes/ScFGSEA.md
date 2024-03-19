@@ -81,6 +81,7 @@ each gene set, and GSEA plots for the top gene sets.<br />
     * `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df |> mutate(expanded = expanded(...))`.<br />
     * `debug`: Return the data frame with intermediate columns instead of the ids. Default is `FALSE`.<br />
     * `with_ties`: Whether to include ties (i.e. clones with the same size as the last clone) or not. Default is `FALSE`.<br />
+
 - `group-by`:
     The column name in metadata to group the cells.<br />
 - `ident-1`:
@@ -89,11 +90,16 @@ each gene set, and GSEA plots for the top gene sets.<br />
     The second group of cells to compare, if not provided, the rest of the cells that are not `NA`s in `group-by` column are used for `ident-2`.<br />
 - `each`:
     The column name in metadata to separate the cells into different subsets to do the analysis.<br />
+- `prefix_each` *(`flag`)*: *Default: `True`*. <br />
+    Whether to prefix the `each` column name to the values as the case/section name.<br />
 - `subset`:
     An expression to subset the cells.<br />
 - `section`: *Default: `DEFAULT`*. <br />
     The section name for the report. Worked only when `each` is not specified. Otherwise, the section name will be constructed from `each` and its value.<br />
     This allows different cases to be put into the same section in the report.<br />
+    The `section` is used to collect cases and put the results under the same directory and the same section in report.<br />
+    When `each` for a case is specified, the `section` will be ignored and case name will be used as `section`.<br />
+    The cases will be the expanded values in `each` column. When `prefix_each` is True, the column name specified by `each` will be prefixed to each value as directory name and expanded case name.<br />
 - `gmtfile`: *Default: `""`*. <br />
     The pathways in GMT format, with the gene names/ids in the same format as the seurat object.<br />
     One could also use a URL to a GMT file. For example, from <https://download.baderlab.org/EM_Genesets/current_release/Human/symbol/Pathways/>.<br />

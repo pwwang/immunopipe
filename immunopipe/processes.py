@@ -245,7 +245,7 @@ if just_loading or (
         """
         requires = SeuratPreparing
         envs = {
-            "cases": {"Cluster": {}},
+            "cases": {"Cluster": {"prefix_group": False}},
             "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
         }
         order = 2
@@ -443,7 +443,7 @@ class ClusterMarkers(MarkersFinder_):
     """  # noqa: E501
     requires = Clustered
     envs = {
-        "cases": {"Cluster": {}},
+        "cases": {"Cluster": {"prefix_group": False}},
         "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
     }
     order = 2

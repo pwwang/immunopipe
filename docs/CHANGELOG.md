@@ -1,5 +1,29 @@
 # Change Log
 
+## 1.3.2
+
+- deps: bump pipen to 0.14.5
+- deps: add r-complexupset package to environment.yml and environment_full.yml for CloneResidency
+- deps: pin tensorflow to 2.15 for TESSA
+- deps: bump biopipen to 0.27.1
+    - depr(scrna.MarkersFinder): remove `envs.use_presto` as it's used by Seurat v5 by default
+    - enh(tcr.CloneResidency): support log scale for y axis of upset bar plots
+    - enh(scrna.SeuratClusterStats): allow to rotate labels in circos plot (pwwang/immunopipe#48) @li.ying@mayo.edu
+    - enh(scrna.SeuratClusterStats): use `pal_biopipen` for ident colors in circos plot
+    - fix(scrna.CellsDistribution): fix the row order of the heatmaps
+    - fix(scrna.SeuratClusterStats): fix when `envs.split-by` is specified
+    - feat(scrna.CellsDistribution): support `envs.prefix_each`
+    - feat(scrna.MarkersFinder): allow to set max number of genes to plot in dotplots
+    - feat(scrna.MarkersFinder): support setting detailed arguments for overlapping plots
+    - feat(scrna.MarkersFinder): support `envs.prefix_group`
+    - feat(scrna.ScFGSEA): support `envs.prefix_each`
+    - feat(scrna.RadarPlots): support `envs.prefix_each` and `envs.subset`
+    - choir(scrna.SeuratClusterStats): use logger instead of print for log messages
+    - choir(tcr.TCRClustering): print session info for `clustcr` script
+    - choir(scrna.MarkersFinder): flatten toc when no `section` and no `ident-1` specified
+    - docs: add more detailed docs for `envs.section` for multiple processes
+    - BREAKING(scrna.SeuratMap2Ref): rename envs.name to envs.ident so envs.MapQuery.refdata is not - required anymore. It will be inferred from envs.ident and envs.use. @li.ying@mayo.edu
+
 ## 1.3.1
 
 - deps: bump pipen to 0.14.3
