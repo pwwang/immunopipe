@@ -13,15 +13,13 @@ and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
     to parallelize some Seurat procedures.<br />
     See also: <https://satijalab.org/seurat/articles/future_vignette.html>
 - `use`:
-    A column name (e.g. `predicted.celltype.l1`, `predicted.celltype.l2`)
-    to use as the final cell types in downstream analysis, which will be stored
-    in the `name` column and set as the `Idents` of the seurat object.<br />
-    Or an expression to pass to `mutate()` to create a new column.<br />
-    When not specified, `predicted.<key>` will be used if
-    `envs.MapQuery.refdata` has only one key, otherwise an error will be raised.<br />
-- `name`: *Default: `seurat_clusters`*. <br />
-    The name of the final cell type column.<br />
-    This will be set as the `Idents` of the seurat object.<br />
+    A column name of metadata from the reference
+    (e.g. `celltype.l1`, `celltype.l2`) to transfer to the query as the
+    cell types (ident) for downstream analysis. This field is required.<br />
+    If you want to transfer multiple columns, you can use
+    `envs.MapQuery.refdata`.<br />
+- `ident`: *Default: `seurat_clusters`*. <br />
+    The name of the ident for query transferred from `envs.use` of the reference.<br />
 - `ref`:
     The reference seurat object file.<br />
     Either an RDS file or a h5seurat file that can be loaded by
@@ -58,9 +56,9 @@ and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
     - `reference-reduction`: *Default: `spca`*. <br />
         Name of reduction to use from the reference for neighbor finding
     - `reduction-model`: *Default: `wnn.umap`*. <br />
-        `DimReduc` object that contains the umap model
+        `DimReduc` object that contains the umap model.<br />
     - `refdata` *(`type=json`)*: *Default: `{}`*. <br />
-        Data to transfer
+        Extra data to transfer from the reference to the query.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/mapquery>.<br />
         Note that the hyphen (`-`) will be transformed into `.` for the keys.<br />
