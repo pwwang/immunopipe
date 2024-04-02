@@ -74,6 +74,8 @@ There are three types of output from this process
     out singletons.<br />
 - `prefix`: *Default: `{Sample}_`*. <br />
     The prefix of the cell barcodes in the `Seurat` object.<br />
+- `upset_ymax`:
+    The maximum value of the y-axis in the upset bar plots.<br />
 - `upset_trans`:
     The transformation to apply to the y axis of upset bar plots.<br />
     For example, `log10` or `sqrt`. If not specified, the y axis will be

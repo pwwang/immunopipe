@@ -1,0 +1,5 @@
+name = "SampleInfo"
+outdir = "tests/output/SampleInfo"
+
+[SampleInfo.in]
+infile = "tests/data/sampleinfo.txt"
