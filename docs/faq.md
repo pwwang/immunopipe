@@ -107,8 +107,6 @@ You can also use the `-h`/`--help` option to see the brief options of the proces
 
 To run the pipeline on a cluster, it's recommended to install the pipeline locally so that the cluster nodes can access the pipeline.
 
-The idea is that you have to make sure the file system can be accessed within the docker container on the nodes. One trick to use docker on a cluster is to mount the first level of the file system to the container. For example, if your data and environment are under `/research`, you can mount `/research` to `/research` in the container. Then you can use `/research` in the container to access the data and environment under `/research` on the host.
-
 `immunopipe` is built on top of [`pipen`][2] and [`xqute`][3]. A set of schedulers are supported by default. These schedulers are:
 
 - `local`: Run the pipeline locally.
@@ -137,6 +135,18 @@ sbatch_partition = "1-day"
 
 You can also use profiles to switch between different schedulers. See also <https://pwwang.github.io/pipen/configurations/#profiles>
 
+Unlike the pipeline installed locally, using a doker image to run the pipeline on a cluster, we need to run the whole pipeline as a job. For example, to run the pipeline on a slurm cluster using `apptainer`, you can use `slurm` to submit the job:
+
+```shell
+srun <srun options> \
+    apptainer run --pwd /workdir -B /path/to/workdir:/workdir -c -e -w --unsquash \
+    -B /path/to/tmp:/tmp \
+    docker://justold/immunopipe:<tag> \
+    @config.toml
+```
+
+If you are using docker and its alternatives, please also refer to:
+<https://slurm.schedmd.com/containers.html>
 ///
 
 /// details | Do I have to re-run the entire pipeline if I want to change some parameters?
