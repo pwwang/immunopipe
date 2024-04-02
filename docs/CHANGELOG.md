@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.3.3
+
+- deps: temporary fix copier breaks with pyyaml-include v2 (copier-org/copier#1568)
+- docs: update FAQ.md with instructions for running pipeline on a cluster
+- deps: bump biopipen to 0.27.2
+    - fix(scrna.RadarPlots): fix mutaters not working
+    - feat(tcr.CloneResidency): support `envs.upset_ymax` to set the max value of y axis in upset bar plot.
+
 ## 1.3.2
 
 - deps: bump pipen to 0.14.5
