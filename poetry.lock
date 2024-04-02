@@ -445,41 +445,6 @@ async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
 
 [[package]]
-name = "fsspec"
-version = "2024.3.1"
-description = "File-system specification"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "fsspec-2024.3.1-py3-none-any.whl", hash = "sha256:918d18d41bf73f0e2b261824baeb1b124bcf771767e3a26425cd7dec3332f512"},
-    {file = "fsspec-2024.3.1.tar.gz", hash = "sha256:f39780e282d7d117ffb42bb96992f8a90795e4d0fb0f661a70ca39fe9c43ded9"},
-]
-
-[package.extras]
-abfs = ["adlfs"]
-adl = ["adlfs"]
-arrow = ["pyarrow (>=1)"]
-dask = ["dask", "distributed"]
-devel = ["pytest", "pytest-cov"]
-dropbox = ["dropbox", "dropboxdrivefs", "requests"]
-full = ["adlfs", "aiohttp (!=4.0.0a0,!=4.0.0a1)", "dask", "distributed", "dropbox", "dropboxdrivefs", "fusepy", "gcsfs", "libarchive-c", "ocifs", "panel", "paramiko", "pyarrow (>=1)", "pygit2", "requests", "s3fs", "smbprotocol", "tqdm"]
-fuse = ["fusepy"]
-gcs = ["gcsfs"]
-git = ["pygit2"]
-github = ["requests"]
-gs = ["gcsfs"]
-gui = ["panel"]
-hdfs = ["pyarrow (>=1)"]
-http = ["aiohttp (!=4.0.0a0,!=4.0.0a1)"]
-libarchive = ["libarchive-c"]
-oci = ["ocifs"]
-s3 = ["s3fs"]
-sftp = ["paramiko"]
-smb = ["smbprotocol"]
-ssh = ["paramiko"]
-tqdm = ["tqdm"]
-
-[[package]]
 name = "funcy"
 version = "2.0"
 description = "A fancy and practical functional tools"
@@ -1553,19 +1518,20 @@ files = [
 
 [[package]]
 name = "pyyaml-include"
-version = "2.0"
-description = "An extending constructor of PyYAML: include other YAML files into current YAML document"
+version = "1.4.1"
+description = "Extending PyYAML with a custom constructor for including YAML files within YAML files"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.6"
 files = [
-    {file = "pyyaml-include-2.0.tar.gz", hash = "sha256:e826f0b3121a3818e04a0f45169a8af59b90961a91c7f4984086226c6c72e600"},
-    {file = "pyyaml_include-2.0-py3-none-any.whl", hash = "sha256:b053fb227754af99d3d3326745e1289f91e839b430888eca0b195ebb925141bd"},
+    {file = "pyyaml-include-1.4.1.tar.gz", hash = "sha256:1a96e33a99a3e56235f5221273832464025f02ff3d8539309a3bf00dec624471"},
+    {file = "pyyaml_include-1.4.1-py3-none-any.whl", hash = "sha256:323c7f3a19c82fbc4d73abbaab7ef4f793e146a13383866831631b26ccc7fb00"},
 ]
 
 [package.dependencies]
-fsspec = ">=2021.04.0"
 PyYAML = ">=6.0,<7.0"
-typing-extensions = {version = "*", markers = "python_version < \"3.11\""}
+
+[package.extras]
+toml = ["toml"]
 
 [[package]]
 name = "quart"
@@ -1929,4 +1895,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "35e0b95c94a7a1900aeba86e11147a2f84e933ad249f0e333a2a46cbc261c3ec"
+content-hash = "f0f6110003ab6fb5d5163a88e88d9deb49bb64752286174e3ee480480d66af44"
