@@ -116,7 +116,6 @@ t-*.ipynb
 *_results/
 myoutput/
 
-tests/
 .pipen*
 
 docs/index.md
