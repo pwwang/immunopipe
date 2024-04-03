@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.3.4
+
+- deps: bump biopipen to 0.27.3
+    - deps: bump pipen-poplog to 0.1.2 (quick fix for populating logs when job fails)
+    - deps: temporary fix copier breaks with pyyaml-include v2 (copier-org/copier#1568)
+    - choir(scrna.ScFGSEA): Skip cases when no cells found (#50)
+    - choir(scrna.MarkersFinder): Skip cases when no cells found (#50)
+    - choir(scrna.MetaMarkers): Skip cases when no cells found (#50)
+    - feat(scrna.SeuratPreparing): support `DoubletFinder` (#52)
+
 ## 1.3.3
 
 - deps: temporary fix copier breaks with pyyaml-include v2 (copier-org/copier#1568)
