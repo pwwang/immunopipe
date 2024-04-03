@@ -153,13 +153,13 @@ python-simpleconf = ">=0.6,<0.7"
 
 [[package]]
 name = "biopipen"
-version = "0.27.2"
+version = "0.27.3"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "biopipen-0.27.2-py3-none-any.whl", hash = "sha256:3d08365c91774020afd7e5fcafe2b7010a0667ce6caca630b5f13d23380ceb9b"},
-    {file = "biopipen-0.27.2.tar.gz", hash = "sha256:fb4a379e88b08c6d1c7711c3704ee97f26d8de7f91668febb7da82f96af82cfe"},
+    {file = "biopipen-0.27.3-py3-none-any.whl", hash = "sha256:3d08616c8da0719969bf30ed1a343805f0a0d6583f6b7ab20bd73d2d26f84930"},
+    {file = "biopipen-0.27.3.tar.gz", hash = "sha256:d104dd9884ad1feb47f7bb70560cd3dbc330c54a0465bc9ed80d946b87167e75"},
 ]
 
 [package.dependencies]
@@ -167,8 +167,9 @@ datar = {version = ">=0.15.6,<0.16.0", extras = ["pandas"]}
 pipen-board = {version = ">=0.15,<0.16", extras = ["report"]}
 pipen-cli-run = ">=0.13,<0.14"
 pipen-filters = ">=0.12,<0.13"
-pipen-poplog = ">=0.1,<0.2"
+pipen-poplog = ">=0.1.2,<0.2.0"
 pipen-verbose = ">=0.11,<0.12"
+pyyaml-include = "==1.*"
 
 [package.extras]
 runinfo = ["pipen-runinfo (>=0.6,<0.7)"]
@@ -1112,13 +1113,13 @@ pipen = ">=0.14,<0.15"
 
 [[package]]
 name = "pipen-poplog"
-version = "0.1.0"
+version = "0.1.2"
 description = "Populate logs from jobs to running log of the pipeline"
 optional = false
-python-versions = ">=3.9,<4.0"
+python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_poplog-0.1.0-py3-none-any.whl", hash = "sha256:90cb80cd352cea88ee82aa4ec878fc58c740917babc3b09f3cb42c74a47a427c"},
-    {file = "pipen_poplog-0.1.0.tar.gz", hash = "sha256:ef16c5ddeb593278bf059b047964ee8bc1fc2fbeec76c29b3970cab1f4112b9d"},
+    {file = "pipen_poplog-0.1.2-py3-none-any.whl", hash = "sha256:5a158c7c7c1bf6e2af5dabce5ad0f04a891e4b5204f20a68b5870649ae1d68f5"},
+    {file = "pipen_poplog-0.1.2.tar.gz", hash = "sha256:c007aa43580bd30a826e9af8de217dc9da9ebecd999eca321e97978736f074cd"},
 ]
 
 [package.dependencies]
@@ -1895,4 +1896,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "f0f6110003ab6fb5d5163a88e88d9deb49bb64752286174e3ee480480d66af44"
+content-hash = "e2c0b5d8fec3d6b5cddef3564a472272c9a7f5d645ae0ea149d55fc9410c2525"
