@@ -57,5 +57,6 @@ dependencies:
   - r-assertthat
   - r-enrichr
   - r-complexupset
+  - r-doubletfinder
   - pip:
     - celltypist

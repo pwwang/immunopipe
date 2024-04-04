@@ -57,6 +57,7 @@ dependencies:
   - r-enrichr
   - r-laplacesdemon  # TESSA
   - r-complexupset
+  - r-doubletfinder
   - pip:
     - keras  # TESSA
     - tensorflow==2.15  # TESSA
