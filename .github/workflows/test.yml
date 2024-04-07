@@ -10,7 +10,6 @@ jobs:
         shell: micromamba-shell {0}
     steps:
       - uses: actions/checkout@v4
-        shell: bash
       - uses: mamba-org/setup-micromamba@v1
         with:
           environment-file: docker/environment_full.yml
@@ -19,7 +18,6 @@ jobs:
           # from the conda channels
           cache-downloads: true
           generate-run-shell: true
-        shell: bash
       - name: Install immunopipe
         run: |
           pip install -U poetry
