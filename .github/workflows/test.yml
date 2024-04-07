@@ -34,6 +34,5 @@ jobs:
               exit 1
             fi
           fi
-        with:
-          env:
-            TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-seq data"
+        env:
+          TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-seq data"
