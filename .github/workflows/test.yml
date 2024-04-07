@@ -1,0 +1,21 @@
+name: test
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-file: docker/environment_full.yml
+          environment-name: immunopipe
+      - name: Install immunopipe
+        run: |
+          pip install -U poetry
+          # do not create virtualenv
+          poetry config virtualenvs.create false
+          poetry install -E diagram -E runinfo
+          # check if the package is installed
+          immunopipe --help+ 2>&1 | grep -A 10 -B 10 "Integrative analysis for scRNA-seq and scTCR-seq data"
