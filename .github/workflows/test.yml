@@ -19,5 +19,6 @@ jobs:
         run: |
           pip install -U poetry
           poetry install -E diagram -E runinfo
-          # check if the package is installed
-          immunopipe --help+ 2>&1 | grep -A 10 -B 10 "Integrative analysis for scRNA-seq and scTCR-seq data"
+      - name: Check if immunopipe is installed
+        run: |
+          immunopipe --help+ 2>&1 | grep -A 1000 -B 1000 "Integrative analysis for scRNA-seq and scTCR-seq data"
