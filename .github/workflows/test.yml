@@ -5,8 +5,10 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
+    shell: micromamba-shell {0}
     steps:
       - uses: actions/checkout@v4
+        shell: bash
       - uses: mamba-org/setup-micromamba@v1
         with:
           environment-file: docker/environment_full.yml
@@ -15,11 +17,11 @@ jobs:
           # from the conda channels
           cache-downloads: true
           generate-run-shell: true
+        shell: bash
       - name: Install immunopipe
         run: |
           pip install -U poetry
           poetry install -E diagram -E runinfo
-        shell: micromamba-shell {0}
       - name: Check if immunopipe is installed successfully
         run: |
           if ! immunopipe --help; then
@@ -37,4 +39,3 @@ jobs:
           fi
         env:
           TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-seq data"
-        shell: micromamba-shell {0}
