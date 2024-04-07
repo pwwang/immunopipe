@@ -19,6 +19,21 @@ jobs:
         run: |
           pip install -U poetry
           poetry install -E diagram -E runinfo
-      - name: Check if immunopipe is installed
+      - name: Check if immunopipe is installed successfully
         run: |
-          immunopipe --help+ 2>&1 | grep -A 1000 -B 1000 "Integrative analysis for scRNA-seq and scTCR-seq data"
+          if ! immunopipe --help; then
+            echo "immunopipe is not installed successfully"
+            # print the error
+            immunopipe --help
+            exit 1
+          else # test if the TEST_STRING is in the help message
+            if ! immunopipe --help | grep -q "$TEST_STSRING"; then
+              echo "immunopipe is not installed successfully"
+              # print the error
+              immunopipe --help
+              exit 1
+            fi
+          fi
+        with:
+          env:
+            TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-seq data"
