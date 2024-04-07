@@ -19,6 +19,7 @@ jobs:
         run: |
           pip install -U poetry
           poetry install -E diagram -E runinfo
+        shell: micromamba-shell {0}
       - name: Check if immunopipe is installed successfully
         run: |
           if ! immunopipe --help; then
@@ -36,3 +37,4 @@ jobs:
           fi
         env:
           TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-seq data"
+        shell: micromamba-shell {0}
