@@ -11,6 +11,8 @@ jobs:
         with:
           environment-file: docker/environment_full.yml
           environment-name: immunopipe
+          cache-downloads: true
+          generate-run-shell: true
       - name: Install immunopipe
         run: |
           pip install -U poetry
