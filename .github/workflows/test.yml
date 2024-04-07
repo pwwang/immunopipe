@@ -11,13 +11,13 @@ jobs:
         with:
           environment-file: docker/environment_full.yml
           environment-name: immunopipe
+          # Do not cache the environment in case of the package update
+          # from the conda channels
           cache-downloads: true
           generate-run-shell: true
       - name: Install immunopipe
         run: |
           pip install -U poetry
-          # do not create virtualenv
-          poetry config virtualenvs.create false
           poetry install -E diagram -E runinfo
           # check if the package is installed
           immunopipe --help+ 2>&1 | grep -A 10 -B 10 "Integrative analysis for scRNA-seq and scTCR-seq data"
