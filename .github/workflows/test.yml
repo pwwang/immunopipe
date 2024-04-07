@@ -5,7 +5,9 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
-    shell: micromamba-shell {0}
+    defaults:
+      run:
+        shell: micromamba-shell {0}
     steps:
       - uses: actions/checkout@v4
         shell: bash
