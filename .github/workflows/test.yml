@@ -1,0 +1,41 @@
+name: test
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: micromamba-shell {0}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-file: docker/environment_full.yml
+          environment-name: immunopipe
+          # Do not cache the environment in case of the package update
+          # from the conda channels
+          cache-downloads: true
+          generate-run-shell: true
+      - name: Install immunopipe
+        run: |
+          pip install -U poetry
+          poetry install -E diagram -E runinfo
+      - name: Check if immunopipe is installed successfully
+        run: |
+          if ! immunopipe --help; then
+            echo "immunopipe is not installed successfully"
+            # print the error
+            immunopipe --help
+            exit 1
+          else # test if the TEST_STRING is in the help message
+            if ! immunopipe --help | grep -q "$TEST_STSRING"; then
+              echo "immunopipe is not installed successfully"
+              # print the error
+              immunopipe --help
+              exit 1
+            fi
+          fi
+        env:
+          TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-seq data"

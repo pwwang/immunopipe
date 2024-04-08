@@ -120,7 +120,6 @@ cache = false
             The height of the plot.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
             The resolution of the plot.<br />
-    - `distinct`:
 - `stats` *(`type=json`)*: *Default: `{}`*. <br />
     The statistics to perform.<br />
     The keys are the case names and the values are the parameters
@@ -130,57 +129,85 @@ cache = false
 
 ### Example data
 
-| Subject | Sample | Source | Score |
-| ------- | ------ | ------ | ----- |
-| A       | A1     | Tumor  | 1     |
-| A       | A2     | Numor  | 8     |
-| A       | A3     | Tumor  |3      |
-| A       | A4     | Normal |8      |
-| B       | B1     | Tumor  |2      |
-| B       | B2     | Normal |8      |
-| B       | B3     | Tumor  |4      |
-| B       | B4     | Normal |8      |
-| C       | C1     | Tumor  |9      |
-| C       | C2     | Normal |3      |
-| C       | C3     | Tumor  |7      |
-| C       | C4     | Normal |3      |
-| D       | D1     | Tumor  |10     |
-| D       | D2     | Normal |5      |
-| D       | D3     | Tumor  |10     |
-| D       | D4     | Normal |5      |
-| E       | E1     | Tumor  |6      |
-| E       | E2     | Normal |5      |
-| E       | E3     | Tumor  |6      |
-| E       | E4     | Normal |5      |
-| F       | F1     | Tumor  |8      |
-| F       | F2     | Normal |10     |
-| F       | F3     | Tumor  |8      |
-| F       | F4     | Normal |10     |
+| Sample | Age | Sex | Diagnosis |
+|--------|-----|-----|-----------|
+| C1     | 62  | F   | Colitis   |
+| C2     | 71.2| F   | Colitis   |
+| C3     | 56.2| M   | Colitis   |
+| C4     | 61.5| M   | Colitis   |
+| C5     | 72.8| M   | Colitis   |
+| C6     | 78.4| M   | Colitis   |
+| C7     | 61.6| F   | Colitis   |
+| C8     | 49.5| F   | Colitis   |
+| NC1    | 43.6| M   | NoColitis |
+| NC2    | 68.1| M   | NoColitis |
+| NC3    | 70.5| F   | NoColitis |
+| NC4    | 63.7| M   | NoColitis |
+| NC5    | 58.5| M   | NoColitis |
+| NC6    | 49.3| F   | NoColitis |
+| CT1    | 21.4| F   | Control   |
+| CT2    | 61.7| M   | Control   |
+| CT3    | 50.5| M   | Control   |
+| CT4    | 43.4| M   | Control   |
+| CT5    | 70.6| F   | Control   |
+| CT6    | 44.3| M   | Control   |
+| CT7    | 50.2| M   | Control   |
+| CT8    | 61.5| F   | Control   |
 
-### Count the number of samples per Source
+### Count the number of samples per Diagnosis
 
 ```toml
-[SampleInfo.envs.stats]
-Samples_Source = { "group": "Source" }
-Samples_Source_each_Subject = { "group": "Source", "each": "Subject" }
+[SampleInfo.envs.stats."N_Samples_per_Diagnosis (pie)"]
+on = "sample"
+group = "Diagnosis"
 ```
 
-![Samples_Source](../processes/images/SampleInfo_Samples_Source.png)
+![Samples_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/dev/tests/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis (pie).png)
 
-### Explore the distribution of the Score
+What if we want a bar plot instead of a pie chart?<br />
 
 ```toml
-[SampleInfo.envs.stats.Score_Source_vlnbox]
-on = "Score"
-group = "Source"
-plot = "violin+box"
-
-[SampleInfo.envs.stats.Score_Source_each_Subject_vlnbox]
-on = "Score"
-group = "Source"
-plot = "violin+box"
-each = "Subject"
+[SampleInfo.envs.stats."N_Samples_per_Diagnosis (bar)"]
+on = "sample"
+group = "Diagnosis"
+plot = "barplot"
 ```
 
-![Score_Source](../processes/images/SampleInfo_Score_Source.png)
+![Samples_Diagnosis_bar](https://raw.githubusercontent.com/pwwang/immunopipe/dev/tests/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis (bar).png)
+
+### Explore Age distribution
+
+The distribution of Age of all samples
+
+```toml
+[SampleInfo.envs.stats."Age_distribution (boxplot)"]
+on = "Age"
+```
+
+![Age_distribution](https://raw.githubusercontent.com/pwwang/immunopipe/dev/tests/output/sampleinfo/SampleInfo/Age_distribution (boxplot).png)
+
+How about the distribution of Age in each Diagnosis, and make it violin + boxplot?<br />
+
+```toml
+[SampleInfo.envs.stats."Age_distribution_per_Diagnosis (violin + boxplot)"]
+on = "Age"
+group = "Diagnosis"
+plot = "violin+boxplot"
+```
+
+![Age_distribution_per_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/dev/tests/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis (violin + boxplot).png)
+
+How about Age distribution per Sex in each Diagnosis?<br />
+
+```toml
+[SampleInfo.envs.stats."Age_distribution_per_Sex_in_each_Diagnosis (boxplot)"]
+on = "Age"
+group = "Sex"
+each = "Diagnosis"
+plot = "boxplot"
+ncol = 3
+devpars = {height = 450}
+```
+
+![Age_distribution_per_Sex_in_each_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/dev/tests/output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis (boxplot).png)
 

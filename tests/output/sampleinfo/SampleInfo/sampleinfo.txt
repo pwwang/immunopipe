@@ -1,5 +1,5 @@
 Sample	Age	Sex	Diagnosis	RNAData	TCRData
-C1	62.0	F	Colitis	prepared-data/CD3/C1	prepared-data/CD3/C1
+C1	62	F	Colitis	prepared-data/CD3/C1	prepared-data/CD3/C1
 C2	71.2	F	Colitis	prepared-data/CD3/C2	NA
 C3	56.2	M	Colitis	prepared-data/CD3/C3	prepared-data/CD3/C3
 C4	61.5	M	Colitis	prepared-data/CD3/C4	prepared-data/CD3/C4
