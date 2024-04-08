@@ -35,5 +35,6 @@ jobs:
           cp README.md docs/index.md
           git config user.name github-actions
           git config user.email github-actions@github.com
-          mike deploy --push --force --allow-empty ${{ github.ref_name }}
+          git fetch origin gh-pages --depth=1
+          mike deploy --push --allow-empty ${{ github.ref_name }}
         if: success()
