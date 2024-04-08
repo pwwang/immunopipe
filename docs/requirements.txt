@@ -7,3 +7,4 @@ mkdocs
 # mkdocs-material
 mkdocs-rtd
 pymdown-extensions
+mike

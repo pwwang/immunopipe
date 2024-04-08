@@ -1,7 +1,12 @@
-name: Build Docs (relaese)
+name: Build Docs (dev)
 
-# on release only
-on: [release]
+on: # on dev branch only
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
 
 jobs:
   docs:
@@ -28,5 +33,5 @@ jobs:
         run: |
           python -m pip install -r docs/requirements.txt
           cp README.md docs/index.md
-          mike deploy --push --update-aliases --allow-empty ${{ github.ref_name }} latest
+          mike deploy --push --allow-empty ${{ github.ref_name }}
         if: success()
