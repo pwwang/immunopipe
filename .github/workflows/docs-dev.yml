@@ -4,9 +4,6 @@ on: # on dev branch only
   push:
     branches:
       - dev
-  pull_request:
-    branches:
-      - dev
 
 jobs:
   docs:
@@ -36,5 +33,5 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git fetch origin gh-pages --depth=1
-          mike deploy --push --allow-empty ${{ github.ref_name }}
+          mike deploy --push --allow-empty dev
         if: success()
