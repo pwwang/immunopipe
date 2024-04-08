@@ -1,4 +1,4 @@
-name: Build Docs (relaese)
+name: docs-release
 
 # on release only
 on: [release]

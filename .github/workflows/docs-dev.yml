@@ -1,4 +1,4 @@
-name: Build Docs (dev)
+name: docs-dev
 
 on: # on dev branch only
   push:
