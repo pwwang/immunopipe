@@ -179,6 +179,16 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
             Same as `scVIIntegration`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/integratelayers>
+- `DoubletFinder` *(`ns`)*:
+    Arguments to run [`DoubletFinder`](https://github.com/chris-mcginnis-ucsf/DoubletFinder).<br />
+    See also <https://demultiplexing-doublet-detecting-docs.readthedocs.io/en/latest/DoubletFinder.html>.<br />
+    To disable `DoubletFinder`, set `envs.DoubletFinder` to `None` or `False`; or set `pcs` to `0`.<br />
+    - `PCs` *(`type=int`)*: *Default: `0`*. <br />
+        Number of PCs to use for 'doubletFinder' function.<br />
+    - `doublets` *(`type=float`)*: *Default: `0.075`*. <br />
+        Number of expected doublets as a proportion of the pool size.<br />
+    - `pN` *(`type=float`)*: *Default: `0.25`*. <br />
+        Number of doublets to simulate as a proportion of the pool size.<br />
 
 ## Metadata
 

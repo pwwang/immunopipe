@@ -5,10 +5,12 @@ import sys
 from contextlib import contextmanager
 from pathlib import Path
 
+import pytest
 from pipen import Pipen, Proc
 
 DATADIR = Path(__file__).parent / "data"
 CONFIGDIR = Path(__file__).parent / "configs"
+OUTDIR = Path(__file__).parent / "output"
 
 
 @contextmanager
@@ -20,7 +22,12 @@ def with_argv(argv: list[str]) -> Generator:
     sys.argv = orig_argv
 
 
-def run_process(process: str, configfile: str, tmp_path: Path) -> Path:
+def run_process(
+    process: str,
+    configfile: str,
+    tmp_path: Path,
+    request: pytest.Fixture = None
+) -> Path:
     """Run a process with a given config file.
 
     Args:
@@ -43,10 +50,18 @@ def run_process(process: str, configfile: str, tmp_path: Path) -> Path:
 
         class Pipeline(Pipen):
             starts = proc
-            workdir = tmp_path
             plugin_opts = {"args_flatten": False}
+            if request:
+                name = request.node.name[5:]
+            else:
+                name = process.lower()
 
-        pipe = Pipeline(plugins=["-report", "-diagram"])
+            outdir = OUTDIR / name
+
+        pipe = Pipeline(
+            plugins=["-report", "-diagram"],
+            workdir=tmp_path,
+        )
         pipe.run()
 
-    return pipe.workdir
+    return pipe.outdir / process

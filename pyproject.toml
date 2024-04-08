@@ -30,6 +30,7 @@ runinfo = ["pipen-runinfo"]
 pipen-cli-ref = "^0.3"
 
 [tool.poetry.dev-dependencies]
+pytest = "^8"
 
 [tool.poetry.scripts]
 immunopipe = "immunopipe.pipeline:main"
