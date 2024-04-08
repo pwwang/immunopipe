@@ -28,7 +28,7 @@ jobs:
           python -m pip install -r docs/requirements.txt
           cp README.md docs/index.md
           mkdocs gh-deploy --clean --force
-        if: success() && github.ref == 'refs/heads/master'
+        if: success()
 
   # fix-index:
   #   needs: docs
