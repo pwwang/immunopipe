@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.3.4.post1
+
+- ci/test: init ci for tests
+- docs: introduce versioning for docs
+
 ## 1.3.4
 
 - deps: bump biopipen to 0.27.3
