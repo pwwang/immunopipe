@@ -1,11 +1,5 @@
 name: build
 
-on:
-  workflow_run:
-    workflows: ["test"]
-    types:
-      - completed
-
 jobs:
   build:
     runs-on: ubuntu-latest
