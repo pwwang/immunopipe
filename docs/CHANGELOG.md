@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.3.4-post1
+## 1.3.4-post
 
 - ci/test: init ci for tests
 - docs: introduce versioning for docs
