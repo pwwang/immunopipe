@@ -18,6 +18,8 @@ markdown_extensions:
         permalink: true
 plugins:
     - search # necessary for search to work
+    - mike:
+        version_selector: true
 extra_css:
     - assets/style.css
 extra_javascript:
