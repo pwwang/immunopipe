@@ -1,7 +1,9 @@
 name: docs-release
 
 # on release only
-on: [release]
+on:
+  release:
+    types: [published]
 
 jobs:
   docs:
