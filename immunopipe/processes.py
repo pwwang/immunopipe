@@ -41,7 +41,8 @@ toml_dumps = FILTERS["toml_dumps"]
 just_loading = is_loading_pipeline()
 config = validate_config()
 
-DOC_BASEURL = "https://pwwang.github.io/immunopipe"
+# https://pwwang.github.io/immunopipe/latest/
+DOC_BASEURL = "../../"
 TEST_OUTPUT_BASEURL = "https://raw.githubusercontent.com/pwwang/immunopipe/dev/tests/output"  # noqa: E501
 
 
