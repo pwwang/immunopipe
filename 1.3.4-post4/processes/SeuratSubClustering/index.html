@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>SeuratSubClustering - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "SeuratSubClustering";
+        var mkdocs_page_input_path = "processes/SeuratSubClustering.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-social"><div class="github_repo">
+      <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub" target="_blank">
+        <!-- Icon from https://www.iconfinder.com/search?q=github&category=social-media -->
+        <img src="../../github_icon.png" alt="GitHub repo" />
+      </a>
+    </div></div>
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ImmunarchLoading/">ImmunarchLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCellSelection/">TCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">SeuratSubClustering</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCRClustering/">TCRClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCRClusterStats/">TCRClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../IntegratingTCRClusters/">IntegratingTCRClusters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Immunarch/">Immunarch</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../IntegratingTCR/">IntegratingTCR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../RadarPlots/">RadarPlots</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CloneResidency/">CloneResidency</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellsDistribution/">CellsDistribution</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetaMarkers/">MetaMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImpution/">MetabolicExprImpution</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeaturesIntraSubset/">MetabolicFeaturesIntraSubset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
+      <li class="breadcrumb-item active">SeuratSubClustering</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/SeuratSubClustering.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="seuratsubclustering">SeuratSubClustering<a class="headerlink" href="#seuratsubclustering" title="Permanent link">&para;</a></h2>
+<p>Sub-cluster the selected T cells.</p>
+<p>Find clusters of a subset of cells.<br /></p>
+<p>It's unlike [<code>Seurat::FindSubCluster</code>], which only finds subclusters of a single
+cluster. Instead, it will perform the whole clustering procedure on the subset of
+cells. One can use metadata to specify the subset of cells to perform clustering on.<br /></p>
+<p>For the subset of cells, the reductions will be re-performed on the subset of cells,
+and then the clustering will be performed on the subset of cells. The reduction
+will be saved in <code>sobj@reduction$sub_umap_&lt;casename&gt;</code> of the original object and the
+clustering will be saved in the metadata of the original object using the casename     as the column name.<br /></p>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>ncores</code> <em>(<code>type=int;order=-100</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores to use.<br />
+    Used in <code>future::plan(strategy = "multicore", workers = &lt;ncores&gt;)</code>
+    to parallelize some Seurat procedures.<br /></li>
+<li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The mutaters to mutate the metadata to subset the cells.<br />
+    The mutaters will be applied in the order specified.<br /></li>
+<li>
+<p><code>subset</code>:
+    An expression to subset the cells, will be passed to
+    <a href="https://stemangiola.github.io/tidyseurat/reference/filter.html"><code>tidyseurat::filter()</code></a>.<br /></p>
+</li>
+<li>
+<p><code>RunUMAP</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/runumap"><code>RunUMAP()</code></a>.<br />
+    <code>object</code> is specified internally as the subset object, and <code>-</code> in the key will be replaced with <code>.</code>.<br />
+    <code>dims=N</code> will be expanded to <code>dims=1:N</code>; The maximal value of <code>N</code> will be the minimum of <code>N</code> and the number of columns - 1 for each sample.<br /></p>
+<ul>
+<li><code>dims</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>30</code></em>. <br />
+    The number of PCs to use</li>
+<li><code>reduction</code>:
+    The reduction to use for UMAP.<br />
+    If not provided, <code>sobj@misc$integrated_new_reduction</code> will be used.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/runumap">https://satijalab.org/seurat/reference/runumap</a></li>
+</ul>
+</li>
+<li><code>FindNeighbors</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/findneighbors"><code>FindNeighbors()</code></a>.<br />
+    <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br /><ul>
+<li><code>reduction</code>:
+    The reduction to use.<br />
+    If not provided, <code>sobj@misc$integrated_new_reduction</code> will be used.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/findneighbors">https://satijalab.org/seurat/reference/findneighbors</a></li>
+</ul>
+</li>
+<li><code>FindClusters</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/findclusters"><code>FindClusters()</code></a>.<br />
+    <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br />
+    The cluster labels will be prefixed with "s". The first cluster will be "s1", instead of "s0".<br /><ul>
+<li><code>resolution</code>: <em>Default: <code>0.8</code></em>. <br />
+    The resolution of the clustering. You can have multiple resolutions separated by comma.<br />
+    The results will be saved in <code>&lt;casename&gt;_&lt;resolution&gt;</code>.<br />
+    The final resolution will be used to define the clusters at <code>&lt;casename&gt;</code>.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/findclusters">https://satijalab.org/seurat/reference/findclusters</a></li>
+</ul>
+</li>
+<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
+    Whether to cache the information at different steps.<br />
+    If <code>True</code>, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
+    The cached seurat object will be saved as <code>&lt;signature&gt;.&lt;kind&gt;.RDS</code> file, where <code>&lt;signature&gt;</code> is the signature determined by
+    the input and envs of the process.<br />
+    See <a href="https://github.com/satijalab/seurat/issues/7849">https://github.com/satijalab/seurat/issues/7849</a>, <a href="https://github.com/satijalab/seurat/issues/5358">https://github.com/satijalab/seurat/issues/5358</a> and
+    <a href="https://github.com/satijalab/seurat/issues/6748">https://github.com/satijalab/seurat/issues/6748</a> for more details also about reproducibility issues.<br />
+    To not use the cached seurat object, you can either set <code>cache</code> to <code>False</code> or delete the cached file at
+    <code>&lt;signature&gt;.RDS</code> in the cache directory.<br /></li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'subcluster': Diot({})}</code></em>. <br />
+    The cases to perform subclustering.<br />
+    Keys are the names of the cases and values are the dicts inherited from <code>envs</code> except <code>mutaters</code> and <code>cache</code>.<br />
+    If empty, a case with name <code>subcluster</code> will be created with default parameters.<br /></li>
+</ul>
+<h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
+<p>The metadata of the <code>Seurat</code> object will be updated with the sub-clusters
+specified by names (keys) of <code>envs.cases</code>:<br /></p>
+<p><img alt="SeuratSubClustering-metadata" src="../..//processes/images/SeuratSubClustering-metadata.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../CellTypeAnnotation/" class="btn btn-neutral float-left" title="CellTypeAnnotation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../TCRClustering/" class="btn btn-neutral float-right" title="TCRClustering">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../CellTypeAnnotation/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../TCRClustering/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

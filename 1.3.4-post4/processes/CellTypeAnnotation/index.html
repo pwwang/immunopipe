@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>CellTypeAnnotation - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CellTypeAnnotation";
+        var mkdocs_page_input_path = "processes/CellTypeAnnotation.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-social"><div class="github_repo">
+      <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub" target="_blank">
+        <!-- Icon from https://www.iconfinder.com/search?q=github&category=social-media -->
+        <img src="../../github_icon.png" alt="GitHub repo" />
+      </a>
+    </div></div>
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ImmunarchLoading/">ImmunarchLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCellSelection/">TCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">CellTypeAnnotation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCRClustering/">TCRClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCRClusterStats/">TCRClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../IntegratingTCRClusters/">IntegratingTCRClusters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Immunarch/">Immunarch</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../IntegratingTCR/">IntegratingTCR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../RadarPlots/">RadarPlots</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CloneResidency/">CloneResidency</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellsDistribution/">CellsDistribution</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetaMarkers/">MetaMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImpution/">MetabolicExprImpution</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeaturesIntraSubset/">MetabolicFeaturesIntraSubset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
+      <li class="breadcrumb-item active">CellTypeAnnotation</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/CellTypeAnnotation.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="celltypeannotation">CellTypeAnnotation<a class="headerlink" href="#celltypeannotation" title="Permanent link">&para;</a></h2>
+<p>Annotate the T cell clusters.</p>
+<p>Annotate the cell clusters. Currently, four ways are supported:<br /></p>
+<ol>
+<li>Pass the cell type annotation directly</li>
+<li>Use <a href="https://github.com/IanevskiAleksandr/sc-type"><code>ScType</code></a></li>
+<li>Use <a href="https://github.com/ZJUFanLab/scCATCH"><code>scCATCH</code></a></li>
+<li>Use <a href="https://github.com/pwwang/hitype"><code>hitype</code></a></li>
+</ol>
+<p>The annotated cell types will replace the original <code>seurat_clusters</code> column in the metadata,
+so that the downstream processes will use the annotated cell types.<br /></p>
+<p>The old <code>seurat_clusters</code> column will be renamed to <code>seurat_clusters_id</code>.<br /></p>
+<p>If you are using <code>ScType</code>, <code>scCATCH</code>, or <code>hitype</code>, a text file containing the mapping from
+the old <code>seurat_clusters</code> to the new cell types will be generated and saved to
+<code>cluster2celltype.tsv</code> under <code>&lt;workdir&gt;/&lt;pipline_name&gt;/CellTypeAnnotation/0/output/</code>.<br /></p>
+<p>The <code>&lt;workdir&gt;</code> is typically <code>./.pipen</code> and the <code>&lt;pipline_name&gt;</code> is <code>Immunopipe</code>
+by default.<br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When supervised clustering <a href="../SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> is used, this
+process will be ignored.<br /></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When cell types are annotated, the old <code>seurat_clusters</code> column will be renamed
+to <code>seurat_clusters_id</code>, and the new <code>seurat_clusters</code> column will be added.<br /></p>
+</div>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>tool</code> <em>(<code>choice</code>)</em>: <em>Default: <code>direct</code></em>. <br />
+    The tool to use for cell type annotation.<br /><ul>
+<li><code>sctype</code>:
+    Use <code>scType</code> to annotate cell types.<br />
+    See <a href="https://github.com/IanevskiAleksandr/sc-type">https://github.com/IanevskiAleksandr/sc-type</a></li>
+<li><code>hitype</code>:
+    Use <code>hitype</code> to annotate cell types.<br />
+    See <a href="https://github.com/pwwang/hitype">https://github.com/pwwang/hitype</a></li>
+<li><code>sccatch</code>:
+    Use <code>scCATCH</code> to annotate cell types.<br />
+    See <a href="https://github.com/ZJUFanLab/scCATCH">https://github.com/ZJUFanLab/scCATCH</a></li>
+<li><code>celltypist</code>:
+    Use <code>celltypist</code> to annotate cell types.<br />
+    See <a href="https://github.com/Teichlab/celltypist">https://github.com/Teichlab/celltypist</a></li>
+<li><code>direct</code>:
+    Directly assign cell types</li>
+</ul>
+</li>
+<li><code>sctype_tissue</code>:
+    The tissue to use for <code>sctype</code>.<br />
+    Avaiable tissues should be the first column (<code>tissueType</code>) of <code>sctype_db</code>.<br />
+    If not specified, all rows in <code>sctype_db</code> will be used.<br /></li>
+<li><code>sctype_db</code>:
+    The database to use for sctype.<br />
+    Check examples at <a href="https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_full.xlsx">https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_full.xlsx</a></li>
+<li><code>hitype_tissue</code>:
+    The tissue to use for <code>hitype</code>.<br />
+    Avaiable tissues should be the first column (<code>tissueType</code>) of <code>hitype_db</code>.<br />
+    If not specified, all rows in <code>hitype_db</code> will be used.<br /></li>
+<li><code>hitype_db</code>:
+    The database to use for hitype.<br />
+    Compatible with <code>sctype_db</code>.<br />
+    See also <a href="https://pwwang.github.io/hitype/articles/prepare-gene-sets.html">https://pwwang.github.io/hitype/articles/prepare-gene-sets.html</a>
+    You can also use built-in databases, including <code>hitypedb_short</code>, <code>hitypedb_full</code>, and <code>hitypedb_pbmc3k</code>.<br /></li>
+<li>
+<p><code>cell_types</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The cell types to use for direct annotation.<br />
+    You can use <code>"-"</code> or <code>""</code> as the placeholder for the clusters that
+    you want to keep the original cell types (<code>seurat_clusters</code>).<br />
+    If the length of <code>cell_types</code> is shorter than the number of
+    clusters, the remaining clusters will be kept as the original cell
+    types.<br />
+    You can also use <code>NA</code> to remove the clusters from downstream analysis. This
+    only works when <code>envs.newcol</code> is not specified.<br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code>tool</code> is <code>direct</code> and <code>cell_types</code> is not specified or an empty list,
+the original cell types will be kept and nothing will be changed.<br /></p>
+</div>
+</li>
+<li>
+<p><code>sccatch_args</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>scCATCH::findmarkergene()</code> if <code>tool</code> is <code>sccatch</code>.<br /></p>
+<ul>
+<li><code>species</code> <em>(<code>choice</code>)</em>:
+    The specie of cells.<br /><ul>
+<li><code>Human</code>:
+    Human cells.<br /></li>
+<li><code>Mouse</code>:
+    Mouse cells.<br /></li>
+</ul>
+</li>
+<li><code>cancer</code>:
+    If the sample is from cancer tissue, then the cancer type may be defined.<br /></li>
+<li><code>tissue</code>:
+    Tissue origin of cells must be defined.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    Other arguments for <a href="https://rdrr.io/cran/scCATCH/man/findmarkergene.html"><code>scCATCH::findmarkergene()</code></a>.<br />
+    You can pass an RDS file to <code>sccatch_args.marker</code> to work as custom marker. If so,
+    <code>if_use_custom_marker</code> will be set to <code>TRUE</code> automatically.<br /></li>
+</ul>
+</li>
+<li><code>celltypist_args</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>celltypist::celltypist()</code> if <code>tool</code> is <code>celltypist</code>.<br /><ul>
+<li><code>model</code>:
+    The path to model file.<br /></li>
+<li><code>python</code>: <em>Default: <code>python</code></em>. <br />
+    The python path where celltypist is installed.<br /></li>
+<li><code>majority_voting</code>: <em>Default: <code>True</code></em>. <br />
+    When true, it refines cell identities within local subclusters after an over-clustering approach
+    at the cost of increased runtime.<br /></li>
+<li><code>over_clustering</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>seurat_clusters</code></em>. <br />
+    The column name in metadata to use as clusters for majority voting.<br />
+    Set to <code>False</code> to disable over-clustering.<br /></li>
+<li><code>assay</code>:
+    When converting a Seurat object to AnnData, the assay to use.<br />
+    If input is h5seurat, this defaults to RNA.<br />
+    If input is Seurat object in RDS, this defaults to the default assay.<br /></li>
+</ul>
+</li>
+<li><code>newcol</code>:
+    The new column name to store the cell types.<br />
+    If not specified, the <code>seurat_clusters</code> column will be overwritten.<br />
+    If specified, the original <code>seurat_clusters</code> column will be kept and <code>Idents</code> will be kept as the original <code>seurat_clusters</code>.<br /></li>
+<li><code>outtype</code> <em>(<code>choice</code>)</em>: <em>Default: <code>input</code></em>. <br />
+    The output file type. Currently only works for <code>celltypist</code>.<br />
+    An RDS file will be generated for other tools.<br /><ul>
+<li><code>input</code>:
+    Use the same file type as the input.<br /></li>
+<li><code>rds</code>:
+    Use RDS file.<br /></li>
+<li><code>h5seurat</code>:
+    Use h5seurat file.<br /></li>
+<li><code>h5ad</code>:
+    Use AnnData file.<br /></li>
+</ul>
+</li>
+</ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">[CellTypeAnnotation.envs]</span>
+<span class="n">tool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;direct&quot;</span>
+<span class="n">cell_types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;CellType1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CellType2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CellType4&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p>The cell types will be assigned as:<br /></p>
+<div class="highlight"><pre><span></span><code>0 -&gt; CellType1
+1 -&gt; CellType2
+2 -&gt; 2
+3 -&gt; CellType4
+</code></pre></div>
+<h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
+<p>When <code>envs.tool</code> is <code>direct</code> and <code>envs.cell_types</code> is empty, the metadata of
+the <code>Seurat</code> object will be kept as is.<br /></p>
+<p>When <code>envs.newcol</code> is specified, the original <code>seurat_clusters</code> column will
+be kept is, and the annotated cell types will be saved in the new column.<br />
+Otherwise, the original <code>seurat_clusters</code> column will be replaced by the
+annotated cell types and the original <code>seurat_clusters</code> column will be
+saved at <code>seurat_clusters_id</code>.<br /></p>
+<p><img alt="CellTypeAnnotation-metadata" src="../..//processes/images/CellTypeAnnotation-metadata.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../SeuratMap2Ref/" class="btn btn-neutral float-left" title="SeuratMap2Ref"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../SeuratSubClustering/" class="btn btn-neutral float-right" title="SeuratSubClustering">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../SeuratMap2Ref/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../SeuratSubClustering/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
