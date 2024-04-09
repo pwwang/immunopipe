@@ -538,12 +538,12 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
 <span class="c1"># otherwise, the settings will be inherited here</span>
 <span class="n">nCells_All</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
-<p><img alt="nCells_All" src="https://pwwang.github.io/immunopipe/processes/images/SeuratClusterStats_nCells_All.png" width="80%" /></p>
+<p><img alt="nCells_All" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_nCells_All.png" width="80%" /></p>
 <h4 id="number-of-cells-in-each-cluster-by-groups">Number of cells in each cluster by groups<a class="headerlink" href="#number-of-cells-in-each-cluster-by-groups" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.stats]</span>
 <span class="n">nCells_Sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">group-by</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;Sample&quot;</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
-<p><img alt="nCells_Sample" src="https://pwwang.github.io/immunopipe/processes/images/SeuratClusterStats_nCells_Sample.png" width="80%" /></p>
+<p><img alt="nCells_Sample" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_nCells_Sample.png" width="80%" /></p>
 <h4 id="violin-plots-for-the-gene-expressions">Violin plots for the gene expressions<a class="headerlink" href="#violin-plots-for-the-gene-expressions" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.features]</span>
 <span class="n">features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;CD4,CD8A&quot;</span>
@@ -552,15 +552,15 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
 <span class="c1"># Don&#39;t use the default genes</span>
 <span class="n">vlnplots_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">features</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;FOXP3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;IL2RA&quot;</span><span class="p">],</span><span class="w"> </span><span class="n">pt-size</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;vln&quot;</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
-<p><img alt="vlnplots" src="https://pwwang.github.io/immunopipe/processes/images/SeuratClusterStats_vlnplots.png" width="80%" />
-<img alt="vlnplots_1" src="https://pwwang.github.io/immunopipe/processes/images/SeuratClusterStats_vlnplots_1.png" width="80%" /></p>
+<p><img alt="vlnplots" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_vlnplots.png" width="80%" />
+<img alt="vlnplots_1" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_vlnplots_1.png" width="80%" /></p>
 <h4 id="dimension-reduction-plot-with-labels">Dimension reduction plot with labels<a class="headerlink" href="#dimension-reduction-plot-with-labels" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.dimplots.Idents]</span>
 <span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 <span class="n">label-box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 <span class="n">repel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 </code></pre></div>
-<p><img alt="dimplots" src="https://pwwang.github.io/immunopipe/processes/images/SeuratClusterStats_dimplots.png" width="80%" /></p>
+<p><img alt="dimplots" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_dimplots.png" width="80%" /></p>
               
             </div>
           </div><footer>
