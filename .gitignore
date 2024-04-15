@@ -119,3 +119,4 @@ myoutput/
 .pipen*
 
 docs/index.md
+/tests/output/
