@@ -6,10 +6,6 @@
  */
 (function($) {
     const searchBoxHeight = $('div.wy-side-nav-search').outerHeight(true);
-    $('div.wy-social').css(
-        'left',
-        parseInt($("nav.wy-nav-side").outerWidth() + $("div.wy-nav-content").outerWidth()) + 'px'
-    );
 
     $('div.nav-scrollable-wrapper').css({
         'margin-top': searchBoxHeight + 'px',

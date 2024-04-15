@@ -70,12 +70,8 @@ window.addEventListener("DOMContentLoaded", function() {
       window.location.href = ABS_BASE_URL + "../" + this.value + "/";
     });
 
-    var container = document.querySelector("span.rst-current-version");
-    // wrap select with a span
-    var wrapper = document.createElement("span");
-    wrapper.appendChild(select);
-    // insert the wrapper as the first child of the container
-    container.insertBefore(wrapper, container.firstChild);
+    var container = document.getElementById("mike-versions");
+    container.appendChild(select);
   }).catch((error) => {
     console.error("Failed to fetch versions.json:", error);
   });
