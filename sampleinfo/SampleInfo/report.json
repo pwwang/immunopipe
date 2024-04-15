@@ -1,0 +1,63 @@
+{
+  "Sample Information": {
+    "#": {
+      "#": {
+        "flat": [
+          {
+            "kind": "descr",
+            "content": "The samples used in the analysis. Each row is a sample, and columns are the meta information about the sample. This is literally the input sample information file, but the paths to the scRNA-seq and scTCR-seq data are hidden.",
+            "once": true
+          },
+          {
+            "kind": "table",
+            "pageSize": 50,
+            "data": {
+              "file": "/home/runner/work/immunopipe/immunopipe/tests/output/sampleinfo/SampleInfo/sampleinfo.txt",
+              "sep": "\t",
+              "excluded": ["TCRData", "RNAData"]
+            },
+            "src": false
+          }
+        ]
+      }
+    }
+  },
+  "Statistics": {
+    "#": {
+      "#": {
+        "table_of_images:2": [
+          {
+            "kind": "table_image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis (pie).png",
+            "name": "N_Samples_per_Diagnosis (pie)",
+            "descr": "The number of sample"
+          },
+          {
+            "kind": "table_image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis (bar).png",
+            "name": "N_Samples_per_Diagnosis (bar)",
+            "descr": "The number of sample"
+          },
+          {
+            "kind": "table_image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/sampleinfo/SampleInfo/Age_distribution (boxplot).png",
+            "name": "Age_distribution (boxplot)",
+            "descr": "The distribution of Age"
+          },
+          {
+            "kind": "table_image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis (violin + boxplot).png",
+            "name": "Age_distribution_per_Diagnosis (violin + boxplot)",
+            "descr": "The distribution of Age"
+          },
+          {
+            "kind": "table_image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis (boxplot).png",
+            "name": "Age_distribution_per_Sex_in_each_Diagnosis (boxplot)",
+            "descr": "The distribution of Age"
+          }
+        ]
+      }
+    }
+  }
+}
