@@ -51,3 +51,6 @@ jobs:
           branch: tests-output
           token: ${{ secrets.GITHUB_TOKEN }}
           force: true
+  build:
+    needs: test
+    uses: ./.github/workflows/build.yml
