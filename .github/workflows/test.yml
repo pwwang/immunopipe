@@ -5,7 +5,69 @@ permissions:
   contents: write
 
 jobs:
+  # only when essential files are changed
+  changes:
+    runs-on: ubuntu-latest
+    # Required permissions
+    permissions:
+      pull-requests: read
+    # Set job outputs to values from filter step
+    outputs:
+      changed: ${{ steps.filter.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+      # For pull requests it's not necessary to checkout the code
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            changed:
+              - 'docker/**'
+              - 'immunopipe/**'
+              - 'board.toml'
+              - 'Dockerfile'
+              - 'Dockerfile.full'
+              - 'pyproject.toml'
+
+  local:
+    needs: changes
+    if: ${{ needs.changes.outputs.changed == 'true' }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python # Set Python version
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install poetry
+          poetry config virtualenvs.create false
+          poetry install -v
+      - name: Check if immunopipe is installed successfully
+        run: |
+          if ! immunopipe --help; then
+            echo "immunopipe is not installed successfully"
+            # print the error
+            immunopipe --help
+            exit 1
+          else # test if the TEST_STRING is in the help message
+            if ! immunopipe --help | grep -q "$TEST_STSRING"; then
+              echo "immunopipe is not installed successfully"
+              # print the error
+              immunopipe --help
+              exit 1
+            fi
+          fi
+        env:
+          TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-seq data"
+
   test:
+    needs: local
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -51,3 +113,14 @@ jobs:
           branch: tests-output
           token: ${{ secrets.GITHUB_TOKEN }}
           force: true
+
+  build:
+    needs: test
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+
+  deploy:
+    needs: build
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
