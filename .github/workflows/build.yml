@@ -57,9 +57,3 @@ jobs:
           build-args: |
             SRC_IMAGE=justold/immunopipe:${{ github.ref_name }}
 
-  deploy:
-    needs: [local, docker]
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-    uses: ./.github/workflows/deploy.yml
-    secrets: inherit
