@@ -15,18 +15,19 @@ jobs:
     outputs:
       changed: ${{ steps.filter.outputs.changed }}
     steps:
-    # For pull requests it's not necessary to checkout the code
-    - uses: dorny/paths-filter@v3
-      id: filter
-      with:
-        filters: |
-          changed:
-            - 'docker/**'
-            - 'immunopipe/**'
-            - 'board.toml'
-            - 'Dockerfile'
-            - 'Dockerfile.full'
-            - 'pyproject.toml'
+      - uses: actions/checkout@v4
+      # For pull requests it's not necessary to checkout the code
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            changed:
+              - 'docker/**'
+              - 'immunopipe/**'
+              - 'board.toml'
+              - 'Dockerfile'
+              - 'Dockerfile.full'
+              - 'pyproject.toml'
 
   local:
     needs: changes
