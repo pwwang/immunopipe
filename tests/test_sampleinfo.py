@@ -10,7 +10,7 @@ def test_sampleinfo(tmp_path, request):
     )
     assert outdir.joinpath("Age_distribution (boxplot).png").is_file()
     assert outdir.joinpath(
-        "Age_distribution_in_each_Diagnosis (violin + boxplot).png"
+        "Age_distribution_per_Diagnosis (violin + boxplot).png"
     ).is_file()
     assert outdir.joinpath(
         "Age_distribution_per_Diagnosis (violin + boxplot).png"

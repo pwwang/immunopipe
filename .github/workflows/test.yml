@@ -1,6 +1,8 @@
 name: test
 
 on: push
+permissions:
+  contents: write
 
 jobs:
   test:
@@ -39,3 +41,13 @@ jobs:
           fi
         env:
           TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-seq data"
+      - name: Run tests
+        run: |
+          pytest tests/
+      - name: Deploy output to tests-output branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: tests/output
+          branch: tests-output
+          token: ${{ secrets.GITHUB_TOKEN }}
+          force: true

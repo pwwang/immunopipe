@@ -43,7 +43,7 @@ config = validate_config()
 
 # https://pwwang.github.io/immunopipe/latest/
 DOC_BASEURL = "../../"
-TEST_OUTPUT_BASEURL = "https://raw.githubusercontent.com/pwwang/immunopipe/dev/tests/output"  # noqa: E501
+TEST_OUTPUT_BASEURL = "https://raw.githubusercontent.com/pwwang/immunopipe/tests-output"  # noqa: E501
 
 
 @annotate.format_doc(
