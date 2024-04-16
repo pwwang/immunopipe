@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.3.5
+
+- ci/test: add tests in CI and deploy output in a different branch
+- deps: bump biopipen to 0.27.4
+    - choir(delim.SampleInfo): add alpha to the colors of the plots using biopipen color pallete
+    - docs(tcr/scrna/scrna_metabolic_landscape): update links of images in docs
+
 ## 1.3.4-post
 
 - ci/test: init ci for tests
