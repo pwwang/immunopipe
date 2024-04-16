@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>TESSA - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "TESSA";
+        var mkdocs_page_input_path = "processes/TESSA.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ImmunarchLoading/">ImmunarchLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCellSelection/">TCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCRClustering/">TCRClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCRClusterStats/">TCRClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../IntegratingTCRClusters/">IntegratingTCRClusters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Immunarch/">Immunarch</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">TESSA</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#reference">Reference</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../IntegratingTCR/">IntegratingTCR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../RadarPlots/">RadarPlots</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CloneResidency/">CloneResidency</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellsDistribution/">CellsDistribution</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetaMarkers/">MetaMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImpution/">MetabolicExprImpution</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeaturesIntraSubset/">MetabolicFeaturesIntraSubset</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
+      <li class="breadcrumb-item active">TESSA</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/TESSA.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="tessa">TESSA<a class="headerlink" href="#tessa" title="Permanent link">&para;</a></h2>
+<p>Tessa is a Bayesian model to integrate T cell receptor (TCR) sequence profiling with transcriptomes of T cells.</p>
+<p>Enabled by the recently developed single cell sequencing techniques, which provide
+both TCR sequences and RNA sequences of each T cell concurrently, Tessa maps the
+functional landscape of the TCR repertoire, and generates insights into
+understanding human immune response to diseases. As the first part of tessa,
+BriseisEncoder is employed prior to the Bayesian algorithm to capture the TCR
+sequence features and create numerical embeddings. We showed that the reconstructed
+Atchley Factor matrices and CDR3 sequences, generated through the numerical
+embeddings, are highly similar to their original counterparts. The CDR3 peptide
+sequences are constructed via a RandomForest model applied on the reconstructed
+Atchley Factor matrices.<br /></p>
+<p>See <a href="https://github.com/jcao89757/TESSA">https://github.com/jcao89757/TESSA</a></p>
+<p>When finished, two columns will be added to the <code>meta.data</code> of the <code>Seurat</code> object:<br /></p>
+<ul>
+<li><code>TESSA_Cluster</code>: The cluster assignments from TESSA.<br /></li>
+<li><code>TESSA_Cluster_Size</code>: The number of cells in each cluster.<br /></li>
+</ul>
+<p>These columns can be then used for further downstream analysis to explore the
+functional landscape of the TCR repertoire.<br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The dependencies of TESSA are not included in the docker image of immunopipe
+with tag without <code>-full</code> suffix. If you want to use TESSA, please use the
+docker image with tag with <code>-full</code> suffix, or install the dependencies manually.<br /></p>
+</div>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>python</code>: <em>Default: <code>python</code></em>. <br />
+    The path of python with <code>TESSA</code>'s dependencies installed</li>
+<li><code>prefix</code>:
+    The prefix of the cell barcodes in the <code>Seurat</code> object.<br />
+    Once could use a fixed prefix, or a placeholder with the column
+    name in meta data. For example, <code>"{Sample}_"</code> will replace the
+    placeholder with the value of the column <code>Sample</code> in meta data.<br />
+    If <code>in.immdata</code> is text file, the prefix will be ignored and the
+    barcode should be already prefixed.<br />
+    If <code>None</code> and <code>in.immdata</code> is RDS file, <code>immdata$prefix</code> will be used.<br /></li>
+<li><code>within_sample</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether the TCR networks are constructed only
+    within TCRs from the same sample/patient (True) or with all the
+    TCRs in the meta data matrix (False).<br /></li>
+<li><code>assay</code>:
+    Which assay to use to extract the expression matrix.<br />
+    Only works if <code>in.srtobj</code> is an RDS file of a Seurat object.<br />
+    By default, if <code>SCTransform</code> is performed, <code>SCT</code> will be used.<br /></li>
+<li><code>predefined_b</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether use the predefined <code>b</code> or not.<br />
+    Please check the paper of tessa for more details about the b vector.<br />
+    If True, the tessa will not update b in the MCMC iterations.<br /></li>
+<li><code>max_iter</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The maximum number of iterations for MCMC.<br /></li>
+<li><code>save_tessa</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Save tessa detailed results to seurat object?<br />
+    Only works if <code>in.srtobj</code> is an RDS file of a Seurat object.<br />
+    It will be saved to <code>sobj@misc$tessa</code>.<br /></li>
+</ul>
+<h3 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h3>
+<ul>
+<li>'Mapping the Functional Landscape of TCR Repertoire.',
+    Zhang, Z., Xiong, D., Wang, X. et al. 2021.<br />
+    <a href="https://www.nature.com/articles/s41592-020-01020-3">link</a></li>
+<li>'Deep learning-based prediction of the T cell receptor-antigen
+    binding specificity.', Lu, T., Zhang, Z., Zhu, J. et al. 2021.<br />
+    <a href="https://www.nature.com/articles/s42256-021-00383-2">link</a></li>
+</ul>
+<h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
+<p>The metadata of the <code>Seurat</code> object will be updated with the TESSA clusters
+and the cluster sizes:<br /></p>
+<p><img alt="TESSA-metadata" src="../..//processes/images/TESSA-metadata.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Immunarch/" class="btn btn-neutral float-left" title="Immunarch"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../IntegratingTCR/" class="btn btn-neutral float-right" title="IntegratingTCR">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Immunarch/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../IntegratingTCR/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/version-select.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
