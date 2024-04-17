@@ -70,7 +70,7 @@ jobs:
           TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-seq data"
 
   test:
-    needs: local
+    needs: changes
     if: ${{ needs.changes.outputs.source == 'true' || needs.changes.outputs.tests == 'true' }}
     runs-on: ubuntu-latest
     defaults:
