@@ -17,4 +17,7 @@ api:
 		--hide-sections Input \
 		--hide-sections Output
 
-.PHONY: local api
+test:
+	@poetry run pytest tests
+
+.PHONY: local api test
