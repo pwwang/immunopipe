@@ -18,7 +18,7 @@ api:
 		--hide-sections Output
 
 test:
-	@poetry run pytest tests
+	@poetry run pytest tests -v
 
 test-data:
 	@curl -s https://raw.githubusercontent.com/pwwang/immunopipe-AdrienneML-2020/master/prepare-data.sh | bash /dev/stdin tests/data/prepared false

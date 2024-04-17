@@ -125,6 +125,8 @@ jobs:
           echo "This directory contains the output of the tests for immunopipe" >> tests/output/README.md
           echo "" >> tests/output/README.md
           echo "The output can be used for documentation purposes" >> tests/output/README.md
+      - name: Create .gitignore for tests/output
+        run: echo "**/*.RDS" > tests/output/.gitignore
       - name: Deploy output to tests-output branch
         uses: JamesIves/github-pages-deploy-action@v4
         with:

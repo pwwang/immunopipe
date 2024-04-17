@@ -1,0 +1,5 @@
+[SeuratPreparing.in]
+metafile = "tests/data/sampleinfo.txt"
+
+[SeuratPreparing.envs]
+use_sct = true

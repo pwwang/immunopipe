@@ -55,23 +55,31 @@ def run_process(
     configfile = str(CONFIGDIR / configfile)
 
     with with_argv(["@pipen"]):
-        from immunopipe import processes
+        from immunopipe.pipeline import Immunopipe
+
+    full_pipe = Immunopipe()
+    full_pipe.build_proc_relationships()
+
+    for proc in full_pipe.procs:
+        if proc.name == process:
+            break
+    else:
+        raise ValueError(f"Process {process} not found in the pipeline.")
+
+    # detech dependent procs
+    proc = Proc.from_proc(proc, name=process, **kwargs)
+
+    class Pipeline(Pipen):
+        starts = proc
+        plugin_opts = {"args_flatten": False}
+        if request:
+            name = request.node.name[5:]
+        else:
+            name = process.lower()
+
+        outdir = (OUTDIR if export else INTERMEDIATEDIR) / name
 
     with with_argv(["immunopipe", f"@{configfile}"]):
-        proc = getattr(processes, process)
-        # detech dependent procs
-        proc = Proc.from_proc(proc, name=process, **kwargs)
-
-        class Pipeline(Pipen):
-            starts = proc
-            plugin_opts = {"args_flatten": False}
-            if request:
-                name = request.node.name[5:]
-            else:
-                name = process.lower()
-
-            outdir = (OUTDIR if export else INTERMEDIATEDIR) / name
-
         pipe = Pipeline(
             plugins=["-report", "-diagram"],
             workdir=tmp_path,
