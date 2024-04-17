@@ -134,6 +134,6 @@ jobs:
           force: true
 
   build:
-    needs: test
+    needs: [local, test]
     uses: ./.github/workflows/build.yml
     secrets: inherit
