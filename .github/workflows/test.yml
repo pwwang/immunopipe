@@ -106,6 +106,13 @@ jobs:
       - name: Run tests
         run: |
           pytest tests/
+      - name: Add README.md to tests/output
+        run: |
+          echo "# Tests output for immunopipe" > tests/output/README.md
+          echo "" >> tests/output/README.md
+          echo "This directory contains the output of the tests for immunopipe" >> tests/output/README.md
+          echo "" >> tests/output/README.md
+          echo "The output can be used for documentation purposes" >> tests/output/README.md
       - name: Deploy output to tests-output branch
         uses: JamesIves/github-pages-deploy-action@v4
         with:
