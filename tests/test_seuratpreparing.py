@@ -38,6 +38,7 @@ def test_seuratpreparing_sct(tmp_path, request):
         "SeuratPreparing",
         "seuratpreparing_sct.config.toml",
         tmp_path,
+        export=False,
         request=request,
     )
     assert outdir.joinpath("sampleinfo.seurat.RDS").is_file()
