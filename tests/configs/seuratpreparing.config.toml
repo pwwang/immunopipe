@@ -2,7 +2,9 @@
 metafile = "tests/data/sampleinfo.txt"
 
 [SeuratPreparing.envs]
-cell_qc = "nFeature_RNA > 200 & percent.mt < 5"
+#                                                sample < 10% cells
+cell_qc = "nFeature_RNA > 200 & percent.mt < 5 & runif(n()) < 0.1"
+cell_qc_per_sample = true
 gene_qc = { min_cells = 3 }
 
 [SeuratPreparing.envs.DoubletFinder]
