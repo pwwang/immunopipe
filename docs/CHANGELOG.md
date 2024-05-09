@@ -1,5 +1,23 @@
 # Change Log
 
+## 1.3.6
+
+- ci: fix deploy workflow (#59)
+- ci: add README.md to tests-output branch
+- ci: fix test/test workflow
+- tests: add `make test`
+- tests: init test data preparation
+- tests: add test for ImmunarchLoading
+- tests: add tests for SeuratPreparing
+- tests: Update configs for SeuratPreparing test to subset cells so tests can run on CI
+- tests: update SeuratPreparing test to disable export
+- tests: add tests for SeuratClusteringOfAllCells/SeuratClustering
+- docs: update installation instructions (@stein.mariam@mayo.edu)
+- deps: bump biopipen to version 0.27.5
+    - fix(scrna.SeuratClusterStats): fix color palette for ridge plots (@stein.mariam@mayo.edu)
+    - feat(scrna.SeuratPreparing): add envs.cell_qc_per_sample to filter cells before merging instead after
+    - see: https://github.com/pwwang/biopipen/releases/tag/0.27.5
+
 ## 1.3.5
 
 - ci/test: add tests in CI and deploy output in a different branch
