@@ -216,8 +216,10 @@
 <p>The pipeline itself is NOT included in the conda environment. You need to install it separately.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>activate<span class="w"> </span>immunopipe
 $<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>immunopipe
-$<span class="w"> </span><span class="c1"># if you want to create diagram and generate running information</span>
+$<span class="w"> </span><span class="c1"># If you want to create diagram and generate running information</span>
 $<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>immunopipe<span class="o">[</span>diagram,runinfo<span class="o">]</span>
+$<span class="w"> </span><span class="c1"># You also need to install the frontend dependencies to generate reports</span>
+$<span class="w"> </span>pipen<span class="w"> </span>report<span class="w"> </span>update
 </code></pre></div>
 </div>
 <h3 id="use-the-docker-image">Use the docker image<a class="headerlink" href="#use-the-docker-image" title="Permanent link">&para;</a></h3>
