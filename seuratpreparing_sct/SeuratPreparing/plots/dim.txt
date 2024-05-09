@@ -1,4 +1,0 @@
-when	nCells	nGenes
-Before_Cell_QC	81490	33538
-After_Cell_QC	4915	33538
-After_Gene_QC	4915	10590
