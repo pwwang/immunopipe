@@ -1,0 +1,2 @@
+[SeuratClusteringOfAllCells.in]
+srtobj = "tests/output/seuratpreparing/SeuratPreparing/sampleinfo.seurat.RDS"

@@ -84,6 +84,7 @@ def run_process(
             plugins=["-report", "-diagram"],
             workdir=tmp_path,
         )
-        pipe.run()
+        if not pipe.run():
+            raise RuntimeError("Failed to run the process.")
 
     return pipe.outdir / process
