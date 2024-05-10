@@ -340,10 +340,13 @@
 <li>tests: update SeuratPreparing test to disable export</li>
 <li>tests: add tests for SeuratClusteringOfAllCells/SeuratClustering</li>
 <li>docs: update installation instructions (@stein.mariam@mayo.edu)</li>
-<li>deps: bump biopipen to version 0.27.6<ul>
+<li>deps: bump biopipen to version 0.27.7 (0.27.5-0.27.7)<ul>
 <li>fix(scrna.SeuratClusterStats): fix color palette for ridge plots (@stein.mariam@mayo.edu)</li>
 <li>feat(scrna.SeuratPreparing): add envs.cell_qc_per_sample to filter cells before merging instead after</li>
 <li>fix(scrna_metabolic_landscape.MetabolicFeatures): fix return value of groups with less than 5 cells in <code>do_one_group</code></li>
+<li>fix(scrna_metabolic_landscape): fix mutaters not working.</li>
+<li>fix(scrna_metabolic_landscape.MetabolicFeatures/MetabolicFeaturesIntraSubset): skip groups with less than 5 cells in <code>do_one_group</code> and save a warning file under the case</li>
+<li>chore: fix typo in class name <code>ExprImpution</code> to <code>ExprImputation</code></li>
 </ul>
 </li>
 </ul>
