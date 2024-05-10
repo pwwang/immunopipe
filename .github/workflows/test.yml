@@ -13,7 +13,8 @@ jobs:
       pull-requests: read
     # Set job outputs to values from filter step
     outputs:
-      changed: ${{ steps.filter.outputs.changed }}
+      source: ${{ steps.filter.outputs.source }}
+      tests: ${{ steps.filter.outputs.tests }}
     steps:
       - uses: actions/checkout@v4
       # For pull requests it's not necessary to checkout the code
@@ -21,17 +22,19 @@ jobs:
         id: filter
         with:
           filters: |
-            changed:
+            source:
               - 'docker/**'
               - 'immunopipe/**'
               - 'board.toml'
               - 'Dockerfile'
               - 'Dockerfile.full'
               - 'pyproject.toml'
+            tests:
+              - 'tests/**'
 
   local:
     needs: changes
-    if: ${{ needs.changes.outputs.changed == 'true' }}
+    if: ${{ needs.changes.outputs.source == 'true' }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -67,7 +70,8 @@ jobs:
           TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-seq data"
 
   test:
-    needs: local
+    needs: changes
+    if: ${{ needs.changes.outputs.source == 'true' || needs.changes.outputs.tests == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -103,9 +107,26 @@ jobs:
           fi
         env:
           TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-seq data"
+      - name: Cache input data
+        id: cache-input
+        uses: actions/cache@v3
+        with:
+          path: tests/data/prepared
+          key: input-${{ hashFiles('Makefile') }}
+      - name: Download input data
+        if: steps.cache-input.outputs.cache-hit != 'true'
+        run: make test-data
       - name: Run tests
+        run: make test
+      - name: Add README.md to tests/output
         run: |
-          pytest tests/
+          echo "# Tests output for immunopipe" > tests/output/README.md
+          echo "" >> tests/output/README.md
+          echo "This directory contains the output of the tests for immunopipe" >> tests/output/README.md
+          echo "" >> tests/output/README.md
+          echo "The output can be used for documentation purposes" >> tests/output/README.md
+      - name: Create .gitignore for tests/output
+        run: echo "**/*.RDS" > tests/output/.gitignore
       - name: Deploy output to tests-output branch
         uses: JamesIves/github-pages-deploy-action@v4
         with:
@@ -115,6 +136,6 @@ jobs:
           force: true
 
   build:
-    needs: test
+    needs: [local, test]
     uses: ./.github/workflows/build.yml
     secrets: inherit

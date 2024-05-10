@@ -11,6 +11,16 @@ from pipen import Pipen, Proc
 DATADIR = Path(__file__).parent / "data"
 CONFIGDIR = Path(__file__).parent / "configs"
 OUTDIR = Path(__file__).parent / "output"
+INTERMEDIATEDIR = Path(__file__).parent / "intermediate"
+
+
+def pytest_collection_modifyitems(config, items):
+    """Modify the items collected by pytest."""
+    ordered_items = sorted(
+        items,
+        key=lambda item: item.module.pytest_order
+    )
+    items[:] = ordered_items
 
 
 @contextmanager
@@ -26,7 +36,9 @@ def run_process(
     process: str,
     configfile: str,
     tmp_path: Path,
-    request: pytest.Fixture = None
+    request: pytest.Fixture = None,
+    export: bool = True,
+    **kwargs,
 ) -> Path:
     """Run a process with a given config file.
 
@@ -34,6 +46,8 @@ def run_process(
         process: The process to test
         configfile: The config file to use
         tmp_path: The temporary directory to use
+        request: The pytest request object
+        **kwargs: The arguments to pass to the process
 
     Returns:
         The working directory of the process
@@ -41,27 +55,36 @@ def run_process(
     configfile = str(CONFIGDIR / configfile)
 
     with with_argv(["@pipen"]):
-        from immunopipe import processes
+        from immunopipe.pipeline import Immunopipe
+
+    full_pipe = Immunopipe()
+    full_pipe.build_proc_relationships()
+
+    for proc in full_pipe.procs:
+        if proc.name == process:
+            break
+    else:
+        raise ValueError(f"Process {process} not found in the pipeline.")
+
+    # detech dependent procs
+    proc = Proc.from_proc(proc, name=process, **kwargs)
+
+    class Pipeline(Pipen):
+        starts = proc
+        plugin_opts = {"args_flatten": False}
+        if request:
+            name = request.node.name[5:]
+        else:
+            name = process.lower()
+
+        outdir = (OUTDIR if export else INTERMEDIATEDIR) / name
 
     with with_argv(["immunopipe", f"@{configfile}"]):
-        proc = getattr(processes, process)
-        # detech dependent procs
-        proc = Proc.from_proc(proc, name=process)
-
-        class Pipeline(Pipen):
-            starts = proc
-            plugin_opts = {"args_flatten": False}
-            if request:
-                name = request.node.name[5:]
-            else:
-                name = process.lower()
-
-            outdir = OUTDIR / name
-
         pipe = Pipeline(
             plugins=["-report", "-diagram"],
             workdir=tmp_path,
         )
-        pipe.run()
+        if not pipe.run():
+            raise RuntimeError("Failed to run the process.")
 
     return pipe.outdir / process
