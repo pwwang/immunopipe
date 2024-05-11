@@ -137,5 +137,8 @@ jobs:
 
   build:
     needs: [local, test]
+    if: |
+      !contains(needs.*.result, 'failure')
+      && !contains(needs.*.result, 'cancelled')
     uses: ./.github/workflows/build.yml
     secrets: inherit
