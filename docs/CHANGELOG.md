@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.7
+
+- ci: fix docker images building when no essential changes made
+
 ## 1.3.6
 
 - ci: fix deploy workflow (#59)
