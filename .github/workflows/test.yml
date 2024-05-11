@@ -136,7 +136,7 @@ jobs:
           force: true
 
   build:
-    needs: [local, test]
+    needs: [changes, local, test]
     if: |
       !contains(needs.*.result, 'failure')
       && !contains(needs.*.result, 'cancelled')
