@@ -197,9 +197,13 @@ and <a href="https://satijalab.org/seurat/articles/multimodal_reference_mapping.
 <ul>
 <li><code>ncores</code> <em>(<code>type=int;order=-100</code>)</em>: <em>Default: <code>1</code></em>. <br />
     Number of cores to use.<br />
-    Used in <code>future::plan(strategy = "multicore", workers = &lt;ncores&gt;)</code>
+    When <code>split_by</code> is used, this will be the number of cores for each object to map to the reference.<br />
+    When <code>split_by</code> is not used, this is used in <code>future::plan(strategy = "multicore", workers = &lt;ncores&gt;)</code>
     to parallelize some Seurat procedures.<br />
-    See also: <a href="https://satijalab.org/seurat/articles/future_vignette.html">https://satijalab.org/seurat/articles/future_vignette.html</a></li>
+    See also: <a href="https://satijalab.org/seurat/archive/v3.0/future_vignette.html">https://satijalab.org/seurat/archive/v3.0/future_vignette.html</a></li>
+<li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The mutaters to mutate the metadata.<br />
+    This is helpful when we want to create new columns for <code>split_by</code>.<br /></li>
 <li><code>use</code>:
     A column name of metadata from the reference
     (e.g. <code>celltype.l1</code>, <code>celltype.l2</code>) to transfer to the query as the
@@ -214,6 +218,20 @@ and <a href="https://satijalab.org/seurat/articles/multimodal_reference_mapping.
     <code>Seurat::LoadH5Seurat()</code>.<br />
     The file type is determined by the extension. <code>.rds</code> or <code>.RDS</code> for
     RDS file, <code>.h5seurat</code> or <code>.h5</code> for h5seurat file.<br /></li>
+<li><code>refnorm</code> <em>(<code>choice</code>)</em>: <em>Default: <code>auto</code></em>. <br />
+    Normalization method the reference used. The same method will be used for the query.<br /><ul>
+<li><code>NormalizeData</code>:
+    Using <a href="https://satijalab.org/seurat/reference/normalizedata"><code>NormalizeData</code></a>.<br /></li>
+<li><code>SCTransform</code>:
+    Using <a href="https://satijalab.org/seurat/reference/sctransform"><code>SCTransform</code></a>.<br /></li>
+<li><code>auto</code>:
+    Automatically detect the normalization method.<br />
+    If the default assay of reference is <code>SCT</code>, then <code>SCTransform</code> will be used.<br /></li>
+</ul>
+</li>
+<li><code>split_by</code>:
+    The column name in metadata to split the query into multiple objects.<br />
+    This helps when the original query is too large to process.<br /></li>
 <li><code>SCTransform</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/sctransform"><code>SCTransform()</code></a><ul>
 <li><code>do-correct-umi</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
@@ -227,14 +245,26 @@ and <a href="https://satijalab.org/seurat/articles/multimodal_reference_mapping.
     Note that the hyphen (<code>-</code>) will be transformed into <code>.</code> for the keys.<br /></li>
 </ul>
 </li>
+<li><code>NormalizeData</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/normalizedata"><code>NormalizeData()</code></a><ul>
+<li><code>normalization-method</code>: <em>Default: <code>LogNormalize</code></em>. <br />
+    Normalization method.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/normalizedata">https://satijalab.org/seurat/reference/normalizedata</a>.<br />
+    Note that the hyphen (<code>-</code>) will be transformed into <code>.</code> for the keys.<br /></li>
+</ul>
+</li>
 <li><code>FindTransferAnchors</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/findtransferanchors"><code>FindTransferAnchors()</code></a><ul>
-<li><code>normalization-method</code> <em>(<code>choice</code>)</em>: <em>Default: <code>SCT</code></em>. <br />
+<li><code>normalization-method</code> <em>(<code>choice</code>)</em>:
     Name of normalization method used.<br /><ul>
 <li><code>LogNormalize</code>:
     Log-normalize the data matrix</li>
 <li><code>SCT</code>:
     Scale data using the SCTransform method</li>
+<li><code>auto</code>:
+    Automatically detect the normalization method.<br />
+    See <code>envs.refnorm</code>.<br /></li>
 </ul>
 </li>
 <li><code>reference-reduction</code>: <em>Default: <code>spca</code></em>. <br />

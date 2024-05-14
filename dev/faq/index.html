@@ -204,7 +204,7 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>singularity run \
-    --pwd /workdir -B .:/workdir -c -e -w \
+    --pwd /workdir -B .:/workdir -c -e \
     -B path/to/tmp:/tmp \
   # ^^^^^^^^^^^^^^^^^^^
     docker://justold/immunopipe:&lt;tag&gt; \
@@ -213,7 +213,7 @@
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>apptainer run \
-    --pwd /workdir -B .:/workdir -c -e -w --unsquash \
+    --pwd /workdir -B .:/workdir -c -e --unsquash \
     -B path/to/tmp:/tmp \
   # ^^^^^^^^^^^^^^^^^^^
     docker://justold/immunopipe:&lt;tag&gt; \
@@ -288,7 +288,7 @@
 <p>You can also use profiles to switch between different schedulers. See also <a href="https://pwwang.github.io/pipen/configurations/#profiles">https://pwwang.github.io/pipen/configurations/#profiles</a></p>
 <p>Unlike the pipeline installed locally, using a doker image to run the pipeline on a cluster, we need to run the whole pipeline as a job. For example, to run the pipeline on a slurm cluster using <code>apptainer</code>, you can use <code>slurm</code> to submit the job:</p>
 <div class="highlight"><pre><span></span><code>srun<span class="w"> </span>&lt;srun<span class="w"> </span>options&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>apptainer<span class="w"> </span>run<span class="w"> </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>/path/to/workdir:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>-w<span class="w"> </span>--unsquash<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>apptainer<span class="w"> </span>run<span class="w"> </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>/path/to/workdir:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-B<span class="w"> </span>/path/to/tmp:/tmp<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>@config.toml
