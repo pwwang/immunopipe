@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.3.8
+
+- docs: remove -w option for apptainer/singularity as no writing is necessary since pipen-board 0.15.1
+- deps: update biopipen to version 0.27.8
+    - fix(scrna.SeuratClusterStats): fix selected columns not unique for stats
+    - feat(scrna.SeuratMap2Ref): allow non-SCTransform'ed reference
+    - feat(scrna.SeuratMap2Ref): allow splitting query object for mapping (pwwang/immunopipe#61)
+    - deps: update pipen-board to version 0.15.1 (allow configuration file path in the URL box on Web UI)
+
 ## 1.3.7
 
 - ci: fix docker images building when no essential changes made
