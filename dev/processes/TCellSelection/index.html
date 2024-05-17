@@ -219,21 +219,16 @@ of the clusters.<br /></li>
     1 indicator gene, and the first indicator gene in <code>envs.indicator_genes</code>
     must be a positive marker, which will be used to select the cluster with
     higher expression values as T cells.<br /></li>
-<li>
-<p><code>tcell_selector</code>:
+<li><code>tcell_selector</code>:
     The expression passed to <code>tidyseurat::mutate(is_TCell = ...)</code>
     to indicate whether a cell is a T cell. For example, <code>Clonotype_Pct &gt; 0.25</code>
     to indicate cells with clonotype percentage &gt; 25% are T cells.<br />
     If <code>indicator_genes</code> is provided, the expression values can also be used
     in the expression. For example, <code>Clonotype_Pct &gt; 0.25 &amp; CD3E &gt; 0</code>.<br />
-    If not provided, a kmeans clustering will be performed on the expression
-    values of <code>indicator_genes</code> and <code>Clonotype_Pct</code>, with K=2, and the cluster
-    with higher clonotype percentage will be selected as T cells.<br /></p>
-<div class="admonition tip">
-<p class="admonition-title">Changed in <code>0.11.0</code></p>
-<p><code>envs.tcell_indicator</code> is renamed to <code>envs.tcell_selector</code> in <code>0.11.0</code>.<br /></p>
-</div>
-</li>
+    If <code>tcell_selector</code> is not provided, a kmeans clustering will be performed
+    on the expression values of <code>indicator_genes</code> and <code>Clonotype_Pct</code>,
+    with K=2, and the cluster with higher clonotype percentage will be selected
+    as T cells.<br /></li>
 <li>
 <p><code>indicator_genes</code> <em>(<code>list</code>)</em>: <em>Default: <code>['CD3E']</code></em>. <br />
     A list of indicator genes whose expression values and

@@ -240,6 +240,12 @@
 <li><code>heatmap_meta</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
     The columns of metadata to show on the
     heatmap.<br /></li>
+<li><code>cluster_rows</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    Whether to cluster the rows on the heatmap.<br /></li>
+<li><code>sample_order</code>:
+    The order of the samples on the heatmap.<br />
+    Either a string separated by <code>,</code> or a list of sample names.<br />
+    This only works for columns if <code>cluster_rows</code> is <code>True</code>.<br /></li>
 <li><code>grouping</code>:
     The groups to investigate the shared clusters.<br />
     If specified, venn diagrams will be drawn instead of heatmaps.<br />
