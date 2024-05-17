@@ -97,14 +97,10 @@ class TCellSelection(Proc):
             to indicate cells with clonotype percentage > 25% are T cells.
             If `indicator_genes` is provided, the expression values can also be used
             in the expression. For example, `Clonotype_Pct > 0.25 & CD3E > 0`.
-            If not provided, a kmeans clustering will be performed on the expression
-            values of `indicator_genes` and `Clonotype_Pct`, with K=2, and the cluster
-            with higher clonotype percentage will be selected as T cells.
-
-            /// Tip | Changed in `0.11.0`
-            `envs.tcell_indicator` is renamed to `envs.tcell_selector` in `0.11.0`.
-            ///
-
+            If `tcell_selector` is not provided, a kmeans clustering will be performed
+            on the expression values of `indicator_genes` and `Clonotype_Pct`,
+            with K=2, and the cluster with higher clonotype percentage will be selected
+            as T cells.
         indicator_genes (list): A list of indicator genes whose expression values and
             clonotype percentage will be used to determine T cells.
             The markers could be either positive, such as `CD3E`, `CD3D`, `CD3G`, or
