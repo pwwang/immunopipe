@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.9
+
+- docs: update docs for TCellSelection to avoid confusion
+- deps: bump biopipen to 0.27.9
+    - feat(tcr.TCRClusterStats): add sample_order to set sample order on heatmap and cluster_rows to switch row clustering on/off
+
 ## 1.3.8
 
 - docs: remove -w option for apptainer/singularity as no writing is necessary since pipen-board 0.15.1
