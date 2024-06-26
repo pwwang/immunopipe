@@ -66,7 +66,7 @@ docker run \
 /// tab | Using singularity
 ```bash
 singularity run \
-    --pwd /workdir -B .:/workdir -c -e \
+    --pwd /workdir -B .:/workdir -c -e --writable-tmpfs \
     docker://justold/immunopipe:master \
     @ImmunopipeMinimal.config.toml
 ```
@@ -75,7 +75,7 @@ singularity run \
 /// tab | Using apptainer
 ```bash
 apptainer run \
-    --pwd /workdir -B .:/workdir -c -e --unsquash \
+    --pwd /workdir -B .:/workdir -c -e --unsquash --writable-tmpfs \
     docker://justold/immunopipe:master \
     @ImmunopipeMinimal.config.toml
 ```

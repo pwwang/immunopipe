@@ -114,7 +114,7 @@ You also need to mount the current working directory to the `/workdir` directory
 
 ```shell
 $ singularity run \
-    --pwd /workdir -B .:/workdir -c -e \
+    --pwd /workdir -B .:/workdir -c -e --writable-tmpfs \
     docker://justold/immunopipe:<tag> \
     @config.toml
 ```
@@ -125,7 +125,7 @@ You also need to mount the current working directory to the `/workdir` directory
 
 ```shell
 $ apptainer run \
-    --pwd /workdir -B .:/workdir -c -e --unsquash \
+    --pwd /workdir -B .:/workdir -c -e --unsquash --writable-tmpfs \
     docker://justold/immunopipe:<tag> \
     @config.toml
 ```
@@ -156,7 +156,7 @@ You can also run the pipeline via `pipen-board` using the docker image with `sin
 
 ```shell
 $ singularity run \
-    --pwd /workdir -B .:/workdir -c -e \
+    --pwd /workdir -B .:/workdir -c -e --writable-tmpfs \
     docker://justold/immunopipe:<tag> board \
     immunopipe:Immunopipe \
     -a /immunopipe/board.toml
@@ -172,7 +172,7 @@ You can also run the pipeline via `pipen-board` using the docker image with `app
 
 ```shell
 $ apptainer run \
-    --pwd /workdir -B .:/workdir -c -e --unsquash \
+    --pwd /workdir -B .:/workdir -c -e --unsquash --writable-tmpfs \
     docker://justold/immunopipe:<tag> board \
     immunopipe:Immunopipe \
     -a /immunopipe/board.toml
