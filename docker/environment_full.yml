@@ -29,6 +29,7 @@ dependencies:
   # - r-slugify
   - r-sf
   - libgdal
+  - r-clustree
   - r-logger
   - r-presto  # MarkersFinder
   - r-hash  # CDR3AAPhyschem
