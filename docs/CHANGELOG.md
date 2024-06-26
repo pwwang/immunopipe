@@ -1,5 +1,17 @@
 # Change Log
 
+## 1.3.10
+
+- deps: bump biopipen to 0.29.0
+    - fix(tcr.TCRClusterStats): fix envs.shared_clusters.heatmap_meta being broken by envs.shared_clusters.sample_order (@li.ying@mayo.edu)
+    - choir(scrna.SeuratMap2Ref): present better error message when envs.use or values of envs.MapQuery.refdata not in reference (@li.ying@mayo.edu)
+    - fix(scrna.MarkersFinder): run PrepSCTFindMarkers when needed
+    - choir(scrna.SeuratClustering): use FindClusters to run for multiple resolutions
+    - choir(scrna.SeuratSubClustering): use FindClusters to run for multiple resolutions
+    - feat(scrna.SeuratClustering): add clustree plot (@li.ying@mayo.edu)
+    - feat(scrna.SeuratSubClustering): add clustree plot
+    - tests(scrna.SeuratClusterStats): add assertion for clustree plot generation
+
 ## 1.3.9
 
 - docs: update docs for TCellSelection to avoid confusion
