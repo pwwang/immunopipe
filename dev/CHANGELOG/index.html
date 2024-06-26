@@ -156,6 +156,8 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Change log</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1310">1.3.10</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#139">1.3.9</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#138">1.3.8</a>
@@ -333,6 +335,20 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h2>
+<h3 id="1310">1.3.10<a class="headerlink" href="#1310" title="Permanent link">&para;</a></h3>
+<ul>
+<li>deps: bump biopipen to 0.29.0<ul>
+<li>fix(tcr.TCRClusterStats): fix envs.shared_clusters.heatmap_meta being broken by envs.shared_clusters.sample_order (@li.ying@mayo.edu)</li>
+<li>choir(scrna.SeuratMap2Ref): present better error message when envs.use or values of envs.MapQuery.refdata not in reference (@li.ying@mayo.edu)</li>
+<li>fix(scrna.MarkersFinder): run PrepSCTFindMarkers when needed</li>
+<li>choir(scrna.SeuratClustering): use FindClusters to run for multiple resolutions</li>
+<li>choir(scrna.SeuratSubClustering): use FindClusters to run for multiple resolutions</li>
+<li>feat(scrna.SeuratClustering): add clustree plot (@li.ying@mayo.edu)</li>
+<li>feat(scrna.SeuratSubClustering): add clustree plot</li>
+<li>tests(scrna.SeuratClusterStats): add assertion for clustree plot generation</li>
+</ul>
+</li>
+</ul>
 <h3 id="139">1.3.9<a class="headerlink" href="#139" title="Permanent link">&para;</a></h3>
 <ul>
 <li>docs: update docs for TCellSelection to avoid confusion</li>

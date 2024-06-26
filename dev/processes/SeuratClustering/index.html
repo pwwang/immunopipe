@@ -251,12 +251,23 @@ this process will be run on the selected T cells by
     <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br />
     The cluster labels will be saved in <code>seurat_clusters</code> and prefixed with "c".<br />
     The first cluster will be "c1", instead of "c0".<br /><ul>
-<li><code>resolution</code>: <em>Default: <code>0.8</code></em>. <br />
-    The resolution of the clustering. You can have multiple resolutions separated by comma.<br />
+<li><code>resolution</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>0.8</code></em>. <br />
+    The resolution of the clustering. You can have multiple resolutions as a list or as a string separated by comma.<br />
+    Ranges are also supported, for example: <code>0.1:0.5:0.1</code> will generate <code>0.1, 0.2, 0.3, 0.4, 0.5</code>. The step can be omitted, defaulting to 0.1.<br />
     The results will be saved in <code>seurat_clusters_&lt;resolution&gt;</code>.<br />
     The final resolution will be used to define the clusters at <code>seurat_clusters</code>.<br /></li>
 <li><code>&lt;more&gt;</code>:
     See <a href="https://satijalab.org/seurat/reference/findclusters">https://satijalab.org/seurat/reference/findclusters</a></li>
+</ul>
+</li>
+<li><code>clustree_devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the clustree plots.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>800</code></em>. <br />
+    The width of the plots.<br /></li>
 </ul>
 </li>
 <li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />

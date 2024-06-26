@@ -274,18 +274,16 @@ the original cell types will be kept and nothing will be changed.<br /></p>
 <p><code>sccatch_args</code> <em>(<code>ns</code>)</em>:
     The arguments for <code>scCATCH::findmarkergene()</code> if <code>tool</code> is <code>sccatch</code>.<br /></p>
 <ul>
-<li><code>species</code> <em>(<code>choice</code>)</em>:
-    The specie of cells.<br /><ul>
-<li><code>Human</code>:
-    Human cells.<br /></li>
-<li><code>Mouse</code>:
-    Mouse cells.<br /></li>
-</ul>
-</li>
-<li><code>cancer</code>:
+<li><code>species</code>:
+    The specie of cells.<br /></li>
+<li><code>cancer</code>: <em>Default: <code>Normal</code></em>. <br />
     If the sample is from cancer tissue, then the cancer type may be defined.<br /></li>
 <li><code>tissue</code>:
     Tissue origin of cells must be defined.<br /></li>
+<li><code>marker</code>:
+    The marker genes for cell type identification.<br /></li>
+<li><code>if_use_custom_marker</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to use custom marker genes. If <code>True</code>, no <code>species</code>, <code>cancer</code>, and <code>tissue</code> are needed.<br /></li>
 <li><code>&lt;more&gt;</code>:
     Other arguments for <a href="https://rdrr.io/cran/scCATCH/man/findmarkergene.html"><code>scCATCH::findmarkergene()</code></a>.<br />
     You can pass an RDS file to <code>sccatch_args.marker</code> to work as custom marker. If so,
