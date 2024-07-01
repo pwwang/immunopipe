@@ -348,6 +348,17 @@
 <li>tests(scrna.SeuratClusterStats): add assertion for clustree plot generation</li>
 </ul>
 </li>
+<li>deps: bump biopipen to 0.29.1<ul>
+<li>fix(delim.SampleInfo): fix numbers not split up when each is specified.</li>
+<li>enh(delim.SampleInfo): make sizes of pie charts proportional to number of samples when each is specified</li>
+<li>enh(scrna.MarkersFinder): run PrepSCTFindMarkers when necessary before calling FindMarkers</li>
+<li>feat(scrna.SeuratPreparing): add option to cache Seurat object at different steps</li>
+<li>feat(scrna.SeuratPreparing): allow doubletfinder to run with a different number of cores</li>
+<li>chore(scrna.SeuratClustering): record PrepSCTFindMarkers command in sobj@commands</li>
+<li>tests(scrna.SeuratClusterStats): use less stringent p-value cutoff for DEG/MarkersFinder</li>
+<li>tests(scrna.SeuratPreparing): add doubletfinder in tests</li>
+</ul>
+</li>
 </ul>
 <h3 id="139">1.3.9<a class="headerlink" href="#139" title="Permanent link">&para;</a></h3>
 <ul>
