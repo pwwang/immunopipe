@@ -11,6 +11,15 @@
     - feat(scrna.SeuratClustering): add clustree plot (@li.ying@mayo.edu)
     - feat(scrna.SeuratSubClustering): add clustree plot
     - tests(scrna.SeuratClusterStats): add assertion for clustree plot generation
+- deps: bump biopipen to 0.29.1
+    - fix(delim.SampleInfo): fix numbers not split up when each is specified.
+    - enh(delim.SampleInfo): make sizes of pie charts proportional to number of samples when each is specified
+    - enh(scrna.MarkersFinder): run PrepSCTFindMarkers when necessary before calling FindMarkers
+    - feat(scrna.SeuratPreparing): add option to cache Seurat object at different steps
+    - feat(scrna.SeuratPreparing): allow doubletfinder to run with a different number of cores
+    - chore(scrna.SeuratClustering): record PrepSCTFindMarkers command in sobj@commands
+    - tests(scrna.SeuratClusterStats): use less stringent p-value cutoff for DEG/MarkersFinder
+    - tests(scrna.SeuratPreparing): add doubletfinder in tests
 
 ## 1.3.9
 
