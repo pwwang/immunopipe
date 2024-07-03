@@ -337,6 +337,7 @@
                 <h2 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h2>
 <h3 id="1310">1.3.10<a class="headerlink" href="#1310" title="Permanent link">&para;</a></h3>
 <ul>
+<li>ci: use latest actions</li>
 <li>deps: bump biopipen to 0.29.0<ul>
 <li>fix(tcr.TCRClusterStats): fix envs.shared_clusters.heatmap_meta being broken by envs.shared_clusters.sample_order (@li.ying@mayo.edu)</li>
 <li>choir(scrna.SeuratMap2Ref): present better error message when envs.use or values of envs.MapQuery.refdata not in reference (@li.ying@mayo.edu)</li>
@@ -357,6 +358,13 @@
 <li>chore(scrna.SeuratClustering): record PrepSCTFindMarkers command in sobj@commands</li>
 <li>tests(scrna.SeuratClusterStats): use less stringent p-value cutoff for DEG/MarkersFinder</li>
 <li>tests(scrna.SeuratPreparing): add doubletfinder in tests</li>
+</ul>
+</li>
+<li>deps: bump biopipen to 0.29.2<ul>
+<li>chore(scrna.SeuratClusterStats): use ident label length to adjust default height for feature plots</li>
+<li>fix(scrna.MetaMarkers): fix seurat object not updated when expanding cases and run <code>PrepSCTFindMarkers</code> when necessary before calling meta-markers</li>
+<li>fix(scrna.MarkersFinder): fix fetching command when composing the PrepSCTFindMarkers command</li>
+<li>fix(scrna_metabolic_landscape): handle null values in for loop in MetabolicFeatures and MetabolicFeaturesIntraSubset for report generation</li>
 </ul>
 </li>
 </ul>
