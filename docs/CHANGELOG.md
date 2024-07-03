@@ -1,7 +1,7 @@
 # Change Log
 
 ## 1.3.10
-
+- ci: use latest actions
 - deps: bump biopipen to 0.29.0
     - fix(tcr.TCRClusterStats): fix envs.shared_clusters.heatmap_meta being broken by envs.shared_clusters.sample_order (@li.ying@mayo.edu)
     - choir(scrna.SeuratMap2Ref): present better error message when envs.use or values of envs.MapQuery.refdata not in reference (@li.ying@mayo.edu)
@@ -20,6 +20,11 @@
     - chore(scrna.SeuratClustering): record PrepSCTFindMarkers command in sobj@commands
     - tests(scrna.SeuratClusterStats): use less stringent p-value cutoff for DEG/MarkersFinder
     - tests(scrna.SeuratPreparing): add doubletfinder in tests
+- deps: bump biopipen to 0.29.2
+    - chore(scrna.SeuratClusterStats): use ident label length to adjust default height for feature plots
+    - fix(scrna.MetaMarkers): fix seurat object not updated when expanding cases and run `PrepSCTFindMarkers` when necessary before calling meta-markers
+    - fix(scrna.MarkersFinder): fix fetching command when composing the PrepSCTFindMarkers command
+    - fix(scrna_metabolic_landscape): handle null values in for loop in MetabolicFeatures and MetabolicFeaturesIntraSubset for report generation
 
 ## 1.3.9
 
