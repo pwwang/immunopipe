@@ -1,3 +1,3 @@
 Classification	Droplet_N
-Doublet	326
-Singlet	4589
+doublet	326
+singlet	4589
