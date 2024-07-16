@@ -388,11 +388,24 @@ See <a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-s
     See <a href="https://satijalab.org/seurat/reference/integratelayers">https://satijalab.org/seurat/reference/integratelayers</a></li>
 </ul>
 </li>
+<li><code>doublet_detector</code> <em>(<code>choice</code>)</em>: <em>Default: <code>none</code></em>. <br />
+    The doublet detector to use.<br /><ul>
+<li><code>none</code>:
+    Do not use any doublet detector.<br /></li>
+<li><code>DoubletFinder</code>:
+    Use <code>DoubletFinder</code> to detect doublets.<br /></li>
+<li><code>doubletfinder</code>:
+    Same as <code>DoubletFinder</code>.<br /></li>
+<li><code>scDblFinder</code>:
+    Use <code>scDblFinder</code> to detect doublets.<br /></li>
+<li><code>scdblfinder</code>:
+    Same as <code>scDblFinder</code>.<br /></li>
+</ul>
+</li>
 <li><code>DoubletFinder</code> <em>(<code>ns</code>)</em>:
     Arguments to run <a href="https://github.com/chris-mcginnis-ucsf/DoubletFinder"><code>DoubletFinder</code></a>.<br />
-    See also <a href="https://demultiplexing-doublet-detecting-docs.readthedocs.io/en/latest/DoubletFinder.html">https://demultiplexing-doublet-detecting-docs.readthedocs.io/en/latest/DoubletFinder.html</a>.<br />
-    To disable <code>DoubletFinder</code>, set <code>envs.DoubletFinder</code> to <code>None</code> or <code>False</code>; or set <code>pcs</code> to <code>0</code>.<br /><ul>
-<li><code>PCs</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>0</code></em>. <br />
+    See also <a href="https://demultiplexing-doublet-detecting-docs.readthedocs.io/en/latest/DoubletFinder.html">https://demultiplexing-doublet-detecting-docs.readthedocs.io/en/latest/DoubletFinder.html</a>.<br /><ul>
+<li><code>PCs</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>10</code></em>. <br />
     Number of PCs to use for 'doubletFinder' function.<br /></li>
 <li><code>doublets</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.075</code></em>. <br />
     Number of expected doublets as a proportion of the pool size.<br /></li>
@@ -403,6 +416,17 @@ See <a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-s
     Set to <code>None</code> to use <code>envs.ncores</code>.<br />
     Since parallelization of the function usually exhausts memory, if big <code>envs.ncores</code> does not work
     for <code>DoubletFinder</code>, set this to a smaller number.<br /></li>
+</ul>
+</li>
+<li><code>scDblFinder</code> <em>(<code>ns</code>)</em>:
+    Arguments to run <a href="https://rdrr.io/bioc/scDblFinder/man/scDblFinder.html"><code>scDblFinder</code></a>.<br /><ul>
+<li><code>dbr</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.075</code></em>. <br />
+    The expected doublet rate.<br /></li>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores to use for <code>scDblFinder</code>.<br />
+    Set to <code>None</code> to use <code>envs.ncores</code>.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://rdrr.io/bioc/scDblFinder/man/scDblFinder.html">https://rdrr.io/bioc/scDblFinder/man/scDblFinder.html</a>.<br /></li>
 </ul>
 </li>
 <li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />

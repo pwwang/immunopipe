@@ -308,6 +308,9 @@ the original cell types will be kept and nothing will be changed.<br /></p>
     If input is Seurat object in RDS, this defaults to the default assay.<br /></li>
 </ul>
 </li>
+<li><code>merge</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to merge the clusters with the same cell types.<br />
+    Otherwise, a suffix will be added to the cell types (ie. <code>.1</code>, <code>.2</code>, etc).<br /></li>
 <li><code>newcol</code>:
     The new column name to store the cell types.<br />
     If not specified, the <code>seurat_clusters</code> column will be overwritten.<br />
