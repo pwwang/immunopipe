@@ -10,19 +10,19 @@
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
         <link href="../assets/style.css" rel="stylesheet" />
-    
+
       <script>
         // Current page data
         var mkdocs_page_name = "Geting started";
         var mkdocs_page_input_path = "getting-started.md";
         var mkdocs_page_url = null;
       </script>
-    
+
     <!--[if lt IE 9]>
       <script src="../js/html5shiv.min.js"></script>
     <![endif]-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script>
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -178,7 +178,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="..">immunopipe</a>
-        
+
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
@@ -193,7 +193,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
-              
+
                 <h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
 <p>You can find the nessary files and source code of this tutorial in the <a href="https://github.com/pwwang/immunopipe-example">example repository</a>.</p>
 <p>In this tutorial we will show you how to run the immunopipe pipeline on a small dataset of 3 patients with paired tumor and normal samples. The dataset is part of the data used in the publications below:</p>
@@ -245,14 +245,14 @@ bash<span class="w"> </span>prepare-data.sh
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>singularity<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>docker://justold/immunopipe:master<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>@ImmunopipeMinimal.config.toml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>apptainer<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>docker://justold/immunopipe:master<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>@ImmunopipeMinimal.config.toml
 </code></pre></div>
@@ -296,7 +296,7 @@ bash<span class="w"> </span>prepare-data.sh
 <li><code>ImmunopipeSupervised.config.toml</code>: The configuration for full analyses with supervised clustering of T cells.</li>
 </ul>
 <p>Also check out the <a href="../gallery/">gallery</a> for more real-world examples.</p>
-              
+
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
@@ -311,14 +311,14 @@ bash<span class="w"> </span>prepare-data.sh
   </div>
 
   <div class="footer-notes">
-    
+
     Version: <div id="mike-versions"></div>
     <div class="footer-sep"></div>
     <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
     <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
   </div>
 </footer>
-          
+
         </div>
       </div>
 
@@ -328,13 +328,13 @@ bash<span class="w"> </span>prepare-data.sh
 
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
-    
-    
+
+
       <span><a href="../installation/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
+
+
       <span><a href="../gallery/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
+
   </span>
 </div>
     <script src="../js/jquery-3.6.0.min.js"></script>
