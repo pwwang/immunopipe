@@ -10,19 +10,19 @@
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
         <link href="../assets/style.css" rel="stylesheet" />
-    
+
       <script>
         // Current page data
         var mkdocs_page_name = "FAQ";
         var mkdocs_page_input_path = "faq.md";
         var mkdocs_page_url = null;
       </script>
-    
+
     <!--[if lt IE 9]>
       <script src="../js/html5shiv.min.js"></script>
     <![endif]-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script>
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -168,7 +168,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="..">immunopipe</a>
-        
+
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
@@ -183,7 +183,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
-              
+
                 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
 <details>
 <summary><code>immunopipe</code> command not found?</summary>
@@ -213,7 +213,7 @@
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>apptainer run \
-    --pwd /workdir -B .:/workdir -c -e --unsquash \
+    --pwd /workdir -B .:/workdir -c -e --unsquash --writable-tmpfs \
     -B path/to/tmp:/tmp \
   # ^^^^^^^^^^^^^^^^^^^
     docker://justold/immunopipe:&lt;tag&gt; \
@@ -288,7 +288,7 @@
 <p>You can also use profiles to switch between different schedulers. See also <a href="https://pwwang.github.io/pipen/configurations/#profiles">https://pwwang.github.io/pipen/configurations/#profiles</a></p>
 <p>Unlike the pipeline installed locally, using a doker image to run the pipeline on a cluster, we need to run the whole pipeline as a job. For example, to run the pipeline on a slurm cluster using <code>apptainer</code>, you can use <code>slurm</code> to submit the job:</p>
 <div class="highlight"><pre><span></span><code>srun<span class="w"> </span>&lt;srun<span class="w"> </span>options&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>apptainer<span class="w"> </span>run<span class="w"> </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>/path/to/workdir:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>apptainer<span class="w"> </span>run<span class="w"> </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>/path/to/workdir:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-B<span class="w"> </span>/path/to/tmp:/tmp<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>@config.toml
@@ -346,7 +346,7 @@ apptainer<span class="w"> </span>pull<span class="w"> </span>justold/immunopipe:
 </code></pre></div>
 </details>
 <p> </p>
-              
+
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
@@ -361,14 +361,14 @@ apptainer<span class="w"> </span>pull<span class="w"> </span>justold/immunopipe:
   </div>
 
   <div class="footer-notes">
-    
+
     Version: <div id="mike-versions"></div>
     <div class="footer-sep"></div>
     <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
     <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
   </div>
 </footer>
-          
+
         </div>
       </div>
 
@@ -378,13 +378,13 @@ apptainer<span class="w"> </span>pull<span class="w"> </span>justold/immunopipe:
 
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
-    
-    
+
+
       <span><a href="../processes/MetabolicPathwayHeterogeneity/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
+
+
       <span><a href="../CHANGELOG/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
+
   </span>
 </div>
     <script src="../js/jquery-3.6.0.min.js"></script>
