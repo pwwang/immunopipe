@@ -57,7 +57,7 @@ The easiest way to run the pipeline is to run it within the docker container. We
 /// tab | Using docker
 ```bash
 docker run \
-    --rm -w /workdir -v .:/workdir \
+    --rm -w /workdir -v .:/workdir -v /tmp:/tmp \
     justold/immunopipe:master \
     @ImmunopipeMinimal.config.toml
 ```
@@ -66,7 +66,7 @@ docker run \
 /// tab | Using singularity
 ```bash
 singularity run \
-    --pwd /workdir -B .:/workdir -c -e --writable-tmpfs \
+    --pwd /workdir -B .:/workdir,/tmp -c -e --writable-tmpfs \
     docker://justold/immunopipe:master \
     @ImmunopipeMinimal.config.toml
 ```
@@ -75,7 +75,7 @@ singularity run \
 /// tab | Using apptainer
 ```bash
 apptainer run \
-    --pwd /workdir -B .:/workdir -c -e --unsquash --writable-tmpfs \
+    --pwd /workdir -B .:/workdir,/tmp -c -e --unsquash --writable-tmpfs \
     docker://justold/immunopipe:master \
     @ImmunopipeMinimal.config.toml
 ```

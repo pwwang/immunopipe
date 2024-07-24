@@ -139,7 +139,7 @@ Unlike the pipeline installed locally, using a doker image to run the pipeline o
 
 ```shell
 srun <srun options> \
-    apptainer run --pwd /workdir -B /path/to/workdir:/workdir -c -e --unsquash --writable-tmpfs \
+    apptainer run --pwd /workdir -B /path/to/workdir:/workdir,/tmp -c -e --unsquash --writable-tmpfs \
     -B /path/to/tmp:/tmp \
     docker://justold/immunopipe:<tag> \
     @config.toml
