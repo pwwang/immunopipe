@@ -153,25 +153,25 @@ python-simpleconf = ">=0.6,<0.7"
 
 [[package]]
 name = "biopipen"
-version = "0.30.0"
+version = "0.31.0"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "biopipen-0.30.0-py3-none-any.whl", hash = "sha256:ba639543ac127e862ef656982f9e5ef17cb69131312b4626693e5c601c09e426"},
-    {file = "biopipen-0.30.0.tar.gz", hash = "sha256:4641562bc99a5d4887e2ed73002049f4ed0c29a5fc4848493b0d5d6284f1c568"},
+    {file = "biopipen-0.31.0-py3-none-any.whl", hash = "sha256:8d55a2cf283b6ba34a0422cb88279a2c95c5af4666a388a27978df56f0dc837e"},
+    {file = "biopipen-0.31.0.tar.gz", hash = "sha256:9bd6dfab74d68de0ed671ba35a19a03e01e210f237e13fd70d5861257dde6b90"},
 ]
 
 [package.dependencies]
 datar = {version = ">=0.15.6,<0.16.0", extras = ["pandas"]}
-pipen-board = {version = ">=0.15,<0.16", extras = ["report"]}
-pipen-cli-run = ">=0.13,<0.14"
-pipen-filters = ">=0.13,<0.14"
-pipen-poplog = ">=0.1.2,<0.2.0"
-pipen-verbose = ">=0.11,<0.12"
+pipen-board = {version = ">=0.16,<0.17", extras = ["report"]}
+pipen-cli-run = ">=0.14,<0.15"
+pipen-filters = ">=0.14,<0.15"
+pipen-poplog = ">=0.2.0,<0.3.0"
+pipen-verbose = ">=0.12,<0.13"
 
 [package.extras]
-runinfo = ["pipen-runinfo (>=0.6,<0.7)"]
+runinfo = ["pipen-runinfo (>=0.7,<0.8)"]
 
 [[package]]
 name = "blessed"
@@ -568,13 +568,13 @@ files = [
 
 [[package]]
 name = "importlib-metadata"
-version = "8.0.0"
+version = "8.2.0"
 description = "Read metadata from Python packages"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "importlib_metadata-8.0.0-py3-none-any.whl", hash = "sha256:15584cf2b1bf449d98ff8a6ff1abef57bf20f3ac6454f431736cd3e660921b2f"},
-    {file = "importlib_metadata-8.0.0.tar.gz", hash = "sha256:188bd24e4c346d3f0a933f275c2fec67050326a856b9a359881d7c2a697e8812"},
+    {file = "importlib_metadata-8.2.0-py3-none-any.whl", hash = "sha256:11901fa0c2f97919b288679932bb64febaeacf289d18ac84dd68cb2e74213369"},
+    {file = "importlib_metadata-8.2.0.tar.gz", hash = "sha256:72e8d4399996132204f9a16dcc751af254a48f8d1b20b9ff0f98d4a8f901e73d"},
 ]
 
 [package.dependencies]
@@ -976,13 +976,13 @@ executing = ">=2.0,<3.0"
 
 [[package]]
 name = "pipen"
-version = "0.14.6"
+version = "0.15.0"
 description = "A pipeline framework for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen-0.14.6-py3-none-any.whl", hash = "sha256:aa2322a82c7f45267f8bc686215cf56aa2755f578b16a053e846e286cd155268"},
-    {file = "pipen-0.14.6.tar.gz", hash = "sha256:ce118feec0574e301dbfcf714ac67750d6e333b9f2a4452d64d2eb457e09ef02"},
+    {file = "pipen-0.15.0-py3-none-any.whl", hash = "sha256:ce5ddf0fadc59c967a73ef8371d4748611b70b8c52d8fb54e5167ad5714cd0da"},
+    {file = "pipen-0.15.0.tar.gz", hash = "sha256:d04b000536eb621cdbf7c32a4dfc0cd7c0ca43690f9d980f606aebb0ef3730db"},
 ]
 
 [package.dependencies]
@@ -994,193 +994,192 @@ pipda = ">=0.13,<0.14"
 python-simpleconf = {version = ">=0.6,<0.7", extras = ["toml"]}
 rtoml = ">=0.8,<0.9"
 varname = ">=0.13,<0.14"
-xqute = ">=0.4.0,<0.5.0"
+xqute = ">=0.4.1,<0.5.0"
 
 [[package]]
 name = "pipen-annotate"
-version = "0.13.1"
+version = "0.14.0"
 description = "Use docstring to annotate pipen processes"
 optional = false
-python-versions = ">=3.9,<4.0"
+python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_annotate-0.13.1-py3-none-any.whl", hash = "sha256:e8fac7fce8ac64b7edf98a33ea7961094959832a888326cc9df1beb4b6688ab3"},
-    {file = "pipen_annotate-0.13.1.tar.gz", hash = "sha256:ce2394281d13059c86532e2106b236462e7c2c1f5998a2c44608c111d02e5743"},
+    {file = "pipen_annotate-0.14.0-py3-none-any.whl", hash = "sha256:1a6275897a1483083c403351ff2d294f04dcf47dbb6be07b0c38ff30ef9da404"},
+    {file = "pipen_annotate-0.14.0.tar.gz", hash = "sha256:752ce43f3af009ad17fadd109dfc3a87537e119e1ea9352cbf55a16404f88935"},
 ]
 
 [package.dependencies]
-pipen = ">=0.14,<0.15"
+pipen = ">=0.15.0,<0.16.0"
 
 [[package]]
 name = "pipen-args"
-version = "0.14.5"
+version = "0.15.0"
 description = "Command-line argument parser for pipen."
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_args-0.14.5-py3-none-any.whl", hash = "sha256:c54ab7180462d98d9a6938932876a8fbeb46a8e6f50e9e3c96de45dfab17fa24"},
-    {file = "pipen_args-0.14.5.tar.gz", hash = "sha256:62f7e097b049db90b598d51c3ffaa73c85226876315da735f184ad69dab89f6b"},
+    {file = "pipen_args-0.15.0-py3-none-any.whl", hash = "sha256:a437784c9f8f78aa0409750237c596d524a698fd9b5348bdd4e1c239ed0536a2"},
+    {file = "pipen_args-0.15.0.tar.gz", hash = "sha256:362f4df6984e124ae336aa999c2816dda5c3edb9e758813181bf1a582980b17a"},
 ]
 
 [package.dependencies]
-pipen-annotate = ">=0.13,<0.14"
+pipen-annotate = ">=0.14,<0.15"
 
 [[package]]
 name = "pipen-board"
-version = "0.15.2"
+version = "0.16.0"
 description = "Visualization configuration and running of pipen pipelines on the web"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_board-0.15.2-py3-none-any.whl", hash = "sha256:bdaca4b43a3881cd0ee4a5230de758296d628abd023bc1da027dd72debaebaad"},
-    {file = "pipen_board-0.15.2.tar.gz", hash = "sha256:c3737f1988bb245bf6eddb4998519ee01f1bd4e6ff7c294969feb785f1b2543a"},
+    {file = "pipen_board-0.16.0-py3-none-any.whl", hash = "sha256:3731dc446806ec0d6b3bac3bfc32dddb92c656bc3da5f9f27073510e69d69832"},
+    {file = "pipen_board-0.16.0.tar.gz", hash = "sha256:b9317e0156cd59a1994cc4cc7cc959598bcb8b04e85f6ea6c0c210bb4b85198e"},
 ]
 
 [package.dependencies]
-pipen-args = ">=0.14,<0.15"
-pipen-log2file = ">=0.7,<0.8"
-pipen-report = {version = ">=0.19,<0.20", optional = true, markers = "extra == \"report\""}
+pipen-args = ">=0.15,<0.16"
+pipen-log2file = ">=0.8,<0.9"
+pipen-report = {version = ">=0.20,<0.21", optional = true, markers = "extra == \"report\""}
 psutil = ">=5.9,<6.0"
 python-slugify = ">=8.0,<9.0"
 quart = ">=0.19,<0.20"
-websocket-client = ">=1.7,<2.0"
+websocket-client = ">=1.8,<2.0"
 
 [package.extras]
-diagram = ["pipen-diagram (>=0.11,<0.12)"]
-filters = ["pipen-filters (>=0.12,<0.13)"]
-report = ["pipen-report (>=0.19,<0.20)"]
+diagram = ["pipen-diagram (>=0.12,<0.13)"]
+filters = ["pipen-filters (>=0.14,<0.15)"]
+report = ["pipen-report (>=0.20,<0.21)"]
 
 [[package]]
 name = "pipen-cli-ref"
-version = "0.3.0"
+version = "0.4.0"
 description = "Make API reference documentation for pipen pipeline/processes"
 optional = false
-python-versions = ">=3.9,<4.0"
+python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_cli_ref-0.3.0-py3-none-any.whl", hash = "sha256:99ad841dd20d7beea2f36b98e3b31260bbd5591e1e49d75e147c6b07649ec088"},
-    {file = "pipen_cli_ref-0.3.0.tar.gz", hash = "sha256:5f677c2a8a87c69e07994f900da8217ec002b1090816721cb792110655de4e68"},
+    {file = "pipen_cli_ref-0.4.0-py3-none-any.whl", hash = "sha256:832c0613d27e114e62268172a24c8168b46ec295e040a0187e3c9372be1c556a"},
+    {file = "pipen_cli_ref-0.4.0.tar.gz", hash = "sha256:b51710df77c765f6b366774ea7fe576f102d0062feb363f34c6acd943da8ea76"},
 ]
 
 [package.dependencies]
-pipen = ">=0.14,<0.15"
-pipen-annotate = ">=0.13,<0.14"
+pipen-annotate = ">=0.14,<0.15"
 
 [[package]]
 name = "pipen-cli-run"
-version = "0.13.0"
+version = "0.14.0"
 description = "A pipen cli plugin to run a process or a pipeline"
 optional = false
-python-versions = ">=3.9,<4.0"
+python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_cli_run-0.13.0-py3-none-any.whl", hash = "sha256:f77e3a2945b431eb645aad078f2a091da0bdf421c9df8a0c18483854f798c22a"},
-    {file = "pipen_cli_run-0.13.0.tar.gz", hash = "sha256:cdb754b7f485514a86c01548f78e0116ecd6fc64ae96dc23c6b0f8885a096a24"},
+    {file = "pipen_cli_run-0.14.0-py3-none-any.whl", hash = "sha256:d894609158e5a10f8a4f340834ff22d2ea8b751f97d7ccaf4d2cc4d262c319e7"},
+    {file = "pipen_cli_run-0.14.0.tar.gz", hash = "sha256:bd86a248f71648be971c39b1e0480d31d390f8342fdd258d12b608d0ae0a10be"},
 ]
 
 [package.dependencies]
-pipen-args = ">=0.14,<0.15"
+pipen-args = ">=0.15.0,<0.16.0"
 
 [[package]]
 name = "pipen-diagram"
-version = "0.11.0"
+version = "0.12.0"
 description = "Draw pipeline diagrams for pipen."
 optional = true
-python-versions = ">=3.9,<4.0"
+python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_diagram-0.11.0-py3-none-any.whl", hash = "sha256:4c0d48771b5691014ff1b297bb6205504837fe9f72045721edc554b08973d361"},
-    {file = "pipen_diagram-0.11.0.tar.gz", hash = "sha256:e661545708dbf7b4cf487415ff8776c4dfd7f5139647fff34ce9d6c0c30de19c"},
+    {file = "pipen_diagram-0.12.0-py3-none-any.whl", hash = "sha256:ca208c8968b09dd29ccdea1ea3334b4494d971b2714f89165df78687fea31525"},
+    {file = "pipen_diagram-0.12.0.tar.gz", hash = "sha256:deb03e8e674c11b3b970655e7872bb8006cb4406caf63069dce013cdb86ec1f4"},
 ]
 
 [package.dependencies]
 graphviz = ">=0.20,<0.21"
-pipen = ">=0.14,<0.15"
+pipen = ">=0.15.0,<0.16.0"
 
 [[package]]
 name = "pipen-filters"
-version = "0.13.1"
+version = "0.14.0"
 description = "Add a set of useful filters for pipen templates"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_filters-0.13.1-py3-none-any.whl", hash = "sha256:ba87f13184482a1284981163245c35ecd12b15b9f46fcdd767b1cef684693466"},
-    {file = "pipen_filters-0.13.1.tar.gz", hash = "sha256:6790350e1e928197371aba9d773dfc6d82d503662987e53fd91e4b289d021e40"},
+    {file = "pipen_filters-0.14.0-py3-none-any.whl", hash = "sha256:b7ff4f875d901aee5e2bbe7103224a43b02a269a87bcf58a567ae0dd38a1046b"},
+    {file = "pipen_filters-0.14.0.tar.gz", hash = "sha256:50e6c57786eba0a1760ed8bd4b05dd4ff6ec3dfb3df04a294ad284a4466cb2cd"},
 ]
 
 [package.dependencies]
-pipen = ">=0.14,<0.15"
+pipen = ">=0.15.0,<0.16.0"
 
 [[package]]
 name = "pipen-log2file"
-version = "0.7.0"
+version = "0.8.0"
 description = "Add verbosal information in logs for pipen."
 optional = false
-python-versions = ">=3.9,<4.0"
+python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_log2file-0.7.0-py3-none-any.whl", hash = "sha256:420942adb855e0e204e172b04605195ecd9b582d4e90365a95d52763fab11887"},
-    {file = "pipen_log2file-0.7.0.tar.gz", hash = "sha256:35faeb6b406f8a84f7f48d8fd5655490bbb9d2c79e67d9e41c7811cdb6eda808"},
+    {file = "pipen_log2file-0.8.0-py3-none-any.whl", hash = "sha256:c38a33e21585bd378e27d033da83e1153a3672305902e26cc533328e607e1b15"},
+    {file = "pipen_log2file-0.8.0.tar.gz", hash = "sha256:043c76e2c176140f7ed6e6f82a76ddb1df14b218f190c668ac4373c46a105c97"},
 ]
 
 [package.dependencies]
-pipen = ">=0.14,<0.15"
+pipen = ">=0.15.0,<0.16.0"
 
 [[package]]
 name = "pipen-poplog"
-version = "0.1.2"
+version = "0.2.0"
 description = "Populate logs from jobs to running log of the pipeline"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_poplog-0.1.2-py3-none-any.whl", hash = "sha256:5a158c7c7c1bf6e2af5dabce5ad0f04a891e4b5204f20a68b5870649ae1d68f5"},
-    {file = "pipen_poplog-0.1.2.tar.gz", hash = "sha256:c007aa43580bd30a826e9af8de217dc9da9ebecd999eca321e97978736f074cd"},
+    {file = "pipen_poplog-0.2.0-py3-none-any.whl", hash = "sha256:0cdbf3a86eae24b08e48d9b543f280494349283f9d4c989487253923d46703e8"},
+    {file = "pipen_poplog-0.2.0.tar.gz", hash = "sha256:d1413240755ebfebeade5ea77c89b7aa1dd31f7099e293a4eb9f04cbbb10a4f4"},
 ]
 
 [package.dependencies]
-pipen = ">=0.14,<0.15"
+pipen = ">=0.15.0,<0.16.0"
 
 [[package]]
 name = "pipen-report"
-version = "0.19.0"
+version = "0.20.0"
 description = "Report generation system for pipen"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_report-0.19.0-py3-none-any.whl", hash = "sha256:b94dbac3d295e92aa532909e07ea34b685afd7148013b6367863f34d595abf45"},
-    {file = "pipen_report-0.19.0.tar.gz", hash = "sha256:358b58fa1c9c9d8b98da03f729ed32a13459042e85920edd714a4058667ef3ac"},
+    {file = "pipen_report-0.20.0-py3-none-any.whl", hash = "sha256:8dec7ef4f6523af56c570c5b9d0dab5fec3df7f01126b306e1688ae495a62b80"},
+    {file = "pipen_report-0.20.0.tar.gz", hash = "sha256:332fabaaa3e772e7b2fd4672b04f62875ac1c456d087fdf47af139ee60684259"},
 ]
 
 [package.dependencies]
 copier = ">=9,<10"
 imagesize = ">=1.4,<2.0"
 Markdown = ">=3,<4"
-pipen = ">=0.14,<0.15"
-pipen-runinfo = ">=0.6,<0.7"
+pipen = ">=0.15.0,<0.16.0"
+pipen-runinfo = ">=0.7,<0.8"
 python-slugify = ">=8.0,<9.0"
 
 [[package]]
 name = "pipen-runinfo"
-version = "0.6.0"
+version = "0.7.0"
 description = "Generate running information for jobs in pipen pipelines"
 optional = false
-python-versions = ">=3.9,<4.0"
+python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_runinfo-0.6.0-py3-none-any.whl", hash = "sha256:0290e631e9965724a40e4da9498e20926795f0e178f190f4a0f5f7770a04e288"},
-    {file = "pipen_runinfo-0.6.0.tar.gz", hash = "sha256:47cbb3df58be42280c6e975838dc17316eed0b8a5baf2763b2d9803f66cf748c"},
+    {file = "pipen_runinfo-0.7.0-py3-none-any.whl", hash = "sha256:a1967833ea1e6c7911987d4591a206f96683c1d117ab71bf322df37795f4c873"},
+    {file = "pipen_runinfo-0.7.0.tar.gz", hash = "sha256:ea054ce51ed787231fde598cb53234178d992903cb070f8df2fb933b183ed515"},
 ]
 
 [package.dependencies]
-pipen = ">=0.14,<0.15"
+pipen = ">=0.15.0,<0.16.0"
 
 [[package]]
 name = "pipen-verbose"
-version = "0.11.0"
+version = "0.12.0"
 description = "Add verbosal information in logs for pipen."
 optional = false
-python-versions = ">=3.9,<4.0"
+python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_verbose-0.11.0-py3-none-any.whl", hash = "sha256:6f3ae6f6273856208903fd473f72d6ae712c238a046891ced8ba59c9772426e9"},
-    {file = "pipen_verbose-0.11.0.tar.gz", hash = "sha256:599386eac1fd0d5195e63801e71c01be86a1175f70745375beb1c293f27ce922"},
+    {file = "pipen_verbose-0.12.0-py3-none-any.whl", hash = "sha256:2ad768b50b4d7813180b70ba2255e5bb418246c783b5e8dbe960b82e05ad7f03"},
+    {file = "pipen_verbose-0.12.0.tar.gz", hash = "sha256:c1bfd67539ae6035c7dca9d8a0f27188dcd8387bfffefc394d40049dfbfb0c00"},
 ]
 
 [package.dependencies]
-pipen = ">=0.14,<0.15"
+pipen = ">=0.15.0,<0.16.0"
 
 [[package]]
 name = "pluggy"
@@ -1430,13 +1429,13 @@ windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
 name = "pytest"
-version = "8.2.2"
+version = "8.3.1"
 description = "pytest: simple powerful testing with Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pytest-8.2.2-py3-none-any.whl", hash = "sha256:c434598117762e2bd304e526244f67bf66bbd7b5d6cf22138be51ff661980343"},
-    {file = "pytest-8.2.2.tar.gz", hash = "sha256:de4bb8104e201939ccdc688b27a89a7be2079b22e2bd2b07f806b6ba71117977"},
+    {file = "pytest-8.3.1-py3-none-any.whl", hash = "sha256:e9600ccf4f563976e2c99fa02c7624ab938296551f280835ee6516df8bc4ae8c"},
+    {file = "pytest-8.3.1.tar.gz", hash = "sha256:7e8e5c5abd6e93cb1cc151f23e57adc31fcf8cfd2a3ff2da63e23f732de35db6"},
 ]
 
 [package.dependencies]
@@ -1444,7 +1443,7 @@ colorama = {version = "*", markers = "sys_platform == \"win32\""}
 exceptiongroup = {version = ">=1.0.0rc8", markers = "python_version < \"3.11\""}
 iniconfig = "*"
 packaging = "*"
-pluggy = ">=1.5,<2.0"
+pluggy = ">=1.5,<2"
 tomli = {version = ">=1", markers = "python_version < \"3.11\""}
 
 [package.extras]
@@ -1565,6 +1564,7 @@ files = [
     {file = "PyYAML-6.0.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:69b023b2b4daa7548bcfbd4aa3da05b3a74b772db9e23b982788168117739938"},
     {file = "PyYAML-6.0.1-cp310-cp310-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:81e0b275a9ecc9c0c0c07b4b90ba548307583c125f54d5b6946cfee6360c733d"},
     {file = "PyYAML-6.0.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ba336e390cd8e4d1739f42dfe9bb83a3cc2e80f567d8805e11b46f4a943f5515"},
+    {file = "PyYAML-6.0.1-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:326c013efe8048858a6d312ddd31d56e468118ad4cdeda36c719bf5bb6192290"},
     {file = "PyYAML-6.0.1-cp310-cp310-win32.whl", hash = "sha256:bd4af7373a854424dabd882decdc5579653d7868b8fb26dc7d0e99f823aa5924"},
     {file = "PyYAML-6.0.1-cp310-cp310-win_amd64.whl", hash = "sha256:fd1592b3fdf65fff2ad0004b5e363300ef59ced41c2e6b3a99d4089fa8c5435d"},
     {file = "PyYAML-6.0.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:6965a7bc3cf88e5a1c3bd2e0b5c22f8d677dc88a455344035f03399034eb3007"},
@@ -1572,8 +1572,16 @@ files = [
     {file = "PyYAML-6.0.1-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:42f8152b8dbc4fe7d96729ec2b99c7097d656dc1213a3229ca5383f973a5ed6d"},
     {file = "PyYAML-6.0.1-cp311-cp311-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:062582fca9fabdd2c8b54a3ef1c978d786e0f6b3a1510e0ac93ef59e0ddae2bc"},
     {file = "PyYAML-6.0.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d2b04aac4d386b172d5b9692e2d2da8de7bfb6c387fa4f801fbf6fb2e6ba4673"},
+    {file = "PyYAML-6.0.1-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:e7d73685e87afe9f3b36c799222440d6cf362062f78be1013661b00c5c6f678b"},
     {file = "PyYAML-6.0.1-cp311-cp311-win32.whl", hash = "sha256:1635fd110e8d85d55237ab316b5b011de701ea0f29d07611174a1b42f1444741"},
     {file = "PyYAML-6.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:bf07ee2fef7014951eeb99f56f39c9bb4af143d8aa3c21b1677805985307da34"},
+    {file = "PyYAML-6.0.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:855fb52b0dc35af121542a76b9a84f8d1cd886ea97c84703eaa6d88e37a2ad28"},
+    {file = "PyYAML-6.0.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:40df9b996c2b73138957fe23a16a4f0ba614f4c0efce1e9406a184b6d07fa3a9"},
+    {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a08c6f0fe150303c1c6b71ebcd7213c2858041a7e01975da3a99aed1e7a378ef"},
+    {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6c22bec3fbe2524cde73d7ada88f6566758a8f7227bfbf93a408a9d86bcc12a0"},
+    {file = "PyYAML-6.0.1-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:8d4e9c88387b0f5c7d5f281e55304de64cf7f9c0021a3525bd3b1c542da3b0e4"},
+    {file = "PyYAML-6.0.1-cp312-cp312-win32.whl", hash = "sha256:d483d2cdf104e7c9fa60c544d92981f12ad66a457afae824d146093b8c294c54"},
+    {file = "PyYAML-6.0.1-cp312-cp312-win_amd64.whl", hash = "sha256:0d3304d8c0adc42be59c5f8a4d9e3d7379e6955ad754aa9d6ab7a398b59dd1df"},
     {file = "PyYAML-6.0.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:50550eb667afee136e9a77d6dc71ae76a44df8b3e51e41b77f6de2932bfe0f47"},
     {file = "PyYAML-6.0.1-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:1fe35611261b29bd1de0070f0b2f47cb6ff71fa6595c077e42bd0c419fa27b98"},
     {file = "PyYAML-6.0.1-cp36-cp36m-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:704219a11b772aea0d8ecd7058d0082713c3562b4e271b849ad7dc4a5c90c13c"},
@@ -1590,6 +1598,7 @@ files = [
     {file = "PyYAML-6.0.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a0cd17c15d3bb3fa06978b4e8958dcdc6e0174ccea823003a106c7d4d7899ac5"},
     {file = "PyYAML-6.0.1-cp38-cp38-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:28c119d996beec18c05208a8bd78cbe4007878c6dd15091efb73a30e90539696"},
     {file = "PyYAML-6.0.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7e07cbde391ba96ab58e532ff4803f79c4129397514e1413a7dc761ccd755735"},
+    {file = "PyYAML-6.0.1-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:49a183be227561de579b4a36efbb21b3eab9651dd81b1858589f796549873dd6"},
     {file = "PyYAML-6.0.1-cp38-cp38-win32.whl", hash = "sha256:184c5108a2aca3c5b3d3bf9395d50893a7ab82a38004c8f61c258d4428e80206"},
     {file = "PyYAML-6.0.1-cp38-cp38-win_amd64.whl", hash = "sha256:1e2722cc9fbb45d9b87631ac70924c11d3a401b2d7f410cc0e3bbf249f2dca62"},
     {file = "PyYAML-6.0.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:9eb6caa9a297fc2c2fb8862bc5370d0303ddba53ba97e71f08023b6cd73d16a8"},
@@ -1597,6 +1606,7 @@ files = [
     {file = "PyYAML-6.0.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:5773183b6446b2c99bb77e77595dd486303b4faab2b086e7b17bc6bef28865f6"},
     {file = "PyYAML-6.0.1-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:b786eecbdf8499b9ca1d697215862083bd6d2a99965554781d0d8d1ad31e13a0"},
     {file = "PyYAML-6.0.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bc1bf2925a1ecd43da378f4db9e4f799775d6367bdb94671027b73b393a7c42c"},
+    {file = "PyYAML-6.0.1-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:04ac92ad1925b2cff1db0cfebffb6ffc43457495c9b3c39d3fcae417d7125dc5"},
     {file = "PyYAML-6.0.1-cp39-cp39-win32.whl", hash = "sha256:faca3bdcf85b2fc05d06ff3fbc1f83e1391b3e724afa3feba7d13eeab355484c"},
     {file = "PyYAML-6.0.1-cp39-cp39-win_amd64.whl", hash = "sha256:510c9deebc5c0225e8c96813043e62b680ba2f9c50a08d3724c7f28a747d1486"},
     {file = "PyYAML-6.0.1.tar.gz", hash = "sha256:bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"},
@@ -1709,13 +1719,13 @@ files = [
 
 [[package]]
 name = "simplug"
-version = "0.4.1"
+version = "0.4.3"
 description = "A simple plugin system for python with async hooks supported"
 optional = false
-python-versions = ">=3.8,<4.0"
+python-versions = "<4.0,>=3.8"
 files = [
-    {file = "simplug-0.4.1-py3-none-any.whl", hash = "sha256:150fcc8f045b4ec23893c448dd0c2d2df4a8ab66d53b7764e273133a37b24b8a"},
-    {file = "simplug-0.4.1.tar.gz", hash = "sha256:26b6dce2ab7d2979de6cdea582dd244c24338ded5d9cc0b8c71524a4ff950410"},
+    {file = "simplug-0.4.3-py3-none-any.whl", hash = "sha256:393087afb99e3df83054a967ebf57a2b6fda8addda084d241ddd6470f06de78a"},
+    {file = "simplug-0.4.3.tar.gz", hash = "sha256:2a3332af56ecc1addc72d9950ecb17b7f9e08f04a8a766540946798f8b428672"},
 ]
 
 [package.dependencies]
@@ -1847,13 +1857,13 @@ test = ["Cython (>=0.29.36,<0.30.0)", "aiohttp (==3.9.0b0)", "aiohttp (>=3.8.1)"
 
 [[package]]
 name = "varname"
-version = "0.13.1"
+version = "0.13.3"
 description = "Dark magics about variable names in python."
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "varname-0.13.1-py3-none-any.whl", hash = "sha256:f70f58e2b85584daa4fe6d4f90c5fdd4bf314e5a60b0bd5865bc79da0f404729"},
-    {file = "varname-0.13.1.tar.gz", hash = "sha256:3d3ae868936c908d81e0bef19b29d2f21e9a60247097c9ed39678522cd678c0c"},
+    {file = "varname-0.13.3-py3-none-any.whl", hash = "sha256:c174e42a7c8b149add2a4ec62acd6c4f2949a26413c177a0175abf586ada0a9e"},
+    {file = "varname-0.13.3.tar.gz", hash = "sha256:fcaee413d28dc84301e5b2c6383b8c8b5d15eccc2218b5a1d1c50f21df024e2c"},
 ]
 
 [package.dependencies]
@@ -1922,13 +1932,13 @@ h11 = ">=0.9.0,<1"
 
 [[package]]
 name = "xqute"
-version = "0.4.0"
+version = "0.4.1"
 description = "A job management system for python"
 optional = false
-python-versions = ">=3.8,<4.0"
+python-versions = "<4.0,>=3.8"
 files = [
-    {file = "xqute-0.4.0-py3-none-any.whl", hash = "sha256:fe5d5e264f3e0667de0f6c921e1de02a408518759afc46fabfa41c2306725487"},
-    {file = "xqute-0.4.0.tar.gz", hash = "sha256:2c86dc06ceffa030e6f708b830a62a29f5e70aa7075a921342f6dae893be2fd4"},
+    {file = "xqute-0.4.1-py3-none-any.whl", hash = "sha256:44876fdd7d02f3e9e5f38156bb5887f8e9e130401c04d8f6a7b7dec763696ee7"},
+    {file = "xqute-0.4.1.tar.gz", hash = "sha256:14d47399a61d622025b3d8d3674f9cd56b79902904a8cfa8d5cf73f8ca7ca658"},
 ]
 
 [package.dependencies]
@@ -1964,4 +1974,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "d55ec89ac18a74e31dca2e926c66b869daa36a1c8626b742e087aa0a9097cc67"
+content-hash = "4f3be6198e27b8a4a5856bd96fcf99a7c61db45294b61852b3301ecbac092295"
