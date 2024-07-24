@@ -22,7 +22,7 @@ test:
 
 test-data:
 	curl -s \
-		https://raw.githubusercontent.com/pwwang/immunopipe-AdrienneML-2020/master/prepare-data.sh | \
+		https://raw.githubusercontent.com/pwwang/immunopipe-example/master/prepare-data.sh | \
 		bash /dev/stdin tests/data/prepared false
 
 .PHONY: local api test
