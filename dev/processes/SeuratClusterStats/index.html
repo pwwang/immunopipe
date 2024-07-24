@@ -292,19 +292,30 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
     This is to do some basic statistics on the clusters. For more comprehensive analysis,
     see <code>RadarPlots</code> and <code>CellsDistribution</code>.<br />
     The parameters from the cases can overwrite the default parameters.<br /><ul>
-<li><code>frac</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Whether to output the fraction of cells instead of number.<br /></li>
+<li><code>frac</code> <em>(<code>choice</code>)</em>: <em>Default: <code>none</code></em>. <br />
+    How to calculate the fraction of cells.<br /><ul>
+<li><code>group</code>:
+    calculate the fraction in each group.<br />
+    The total fraction of the cells of idents in each group will be 1.<br />
+    When <code>group-by</code> is not specified, it will be the same as <code>all</code>.<br /></li>
+<li><code>ident</code>:
+    calculate the fraction in each ident.<br />
+    The total fraction of the cells of groups in each ident will be 1.<br />
+    Only works when <code>group-by</code> is specified.<br /></li>
+<li><code>cluster</code>:
+    alias of <code>ident</code>.<br /></li>
+<li><code>all</code>:
+    calculate the fraction against all cells.<br /></li>
+<li><code>none</code>:
+    do not calculate the fraction, use the number of cells instead.<br /></li>
+</ul>
+</li>
 <li><code>pie</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Also output a pie chart?<br /></li>
 <li><code>circos</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Also output a circos plot?<br /></li>
 <li><code>table</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to output a table (in tab-delimited format) and in the report.<br /></li>
-<li><code>frac_ofall</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Whether to output the fraction against all cells,
-    instead of the fraction in each group.<br />
-    Does not work for circos plot.<br />
-    Only works when <code>frac</code> is <code>True</code> and <code>group-by</code> is specified.<br /></li>
 <li><code>transpose</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to transpose the cluster and group, that is,
     using group as the x-axis and cluster to fill the plot.<br />
@@ -370,7 +381,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
 </ul>
 </li>
 <li>
-<p><code>stats</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Number of cells in each cluster': Diot({'pie': True}), 'Number of cells in each cluster by Sample': Diot({'group-by': 'Sample', 'table': True, 'frac': True})}</code></em>. <br />
+<p><code>stats</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Number of cells in each cluster': Diot({'pie': True}), 'Number of cells in each cluster by Sample': Diot({'group-by': 'Sample', 'table': True, 'frac': 'group'})}</code></em>. <br />
     The number/fraction of cells to plot.<br />
     Keys are the names of the plots and values are the dicts inherited from <code>env.stats_defaults</code>.<br />
     Here are some examples -</p>
