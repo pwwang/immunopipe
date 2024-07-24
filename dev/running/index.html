@@ -262,7 +262,7 @@
 <div class="tabbed-block">
 <p>To run the pipeline using the docker image with <code>docker</code>, you need to mount the current working directory to the <code>/workdir</code> directory in the container. You also need to specify the configuration file via <code>@&lt;configfile&gt;</code> option. For example:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span>-v<span class="w"> </span>.:/workdir<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span>-v<span class="w"> </span>.:/workdir<span class="w"> </span>-v<span class="w"> </span>/tmp:/tmp<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>@config.toml
 </code></pre></div>
@@ -270,7 +270,7 @@
 <div class="tabbed-block">
 <p>You also need to mount the current working directory to the <code>/workdir</code> directory in the container if you are using <code>singularity</code>. You also need to specify the configuration file via <code>@&lt;configfile&gt;</code> option. For example:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>singularity<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir,/tmp<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>@config.toml
 </code></pre></div>
@@ -278,7 +278,7 @@
 <div class="tabbed-block">
 <p>You also need to mount the current working directory to the <code>/workdir</code> directory in the container if you are using <code>apptainer</code>. You also need to specify the configuration file via <code>@&lt;configfile&gt;</code> option. For example:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>apptainer<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir,/tmp<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>@config.toml
 </code></pre></div>
@@ -291,7 +291,7 @@
 <div class="tabbed-block">
 <p>You can also run the pipeline via <code>pipen-board</code> using the docker image with <code>docker</code>:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">18521</span>:18521<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span>-v<span class="w"> </span>.:/workdir<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span>-v<span class="w"> </span>.:/workdir<span class="w"> </span>-v<span class="w"> </span>/tmp:/tmp<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>justold/immunopipe:&lt;tag&gt;<span class="w"> </span>board<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>immunopipe:Immunopipe<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-a<span class="w"> </span>/immunopipe/board.toml
@@ -305,7 +305,7 @@
 <div class="tabbed-block">
 <p>You can also run the pipeline via <code>pipen-board</code> using the docker image with <code>singularity</code>:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>singularity<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir,/tmp<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span>board<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>immunopipe:Immunopipe<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-a<span class="w"> </span>/immunopipe/board.toml
@@ -316,7 +316,7 @@
 <div class="tabbed-block">
 <p>You can also run the pipeline via <code>pipen-board</code> using the docker image with <code>apptainer</code>:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>apptainer<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir,/tmp<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span>board<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>immunopipe:Immunopipe<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-a<span class="w"> </span>/immunopipe/board.toml
