@@ -17,12 +17,14 @@ dependencies:
   - libiconv # fix git: error while loading shared libraries: libiconv.so.2
   - time  # for pipen-runinfo
   - wget
+  - scDblFinder
   - pwwang::bioconductor-data-packages
   - bioconductor-fgsea
   - bioconductor-scater
   - bioconductor-complexheatmap
   - bioconductor-glmgampoi
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
+  - bioconductor-scdblfinder
   - r-hdf5r  # Read_10x_h5() by Seurat
   - r-seuratdisk  # SCTransform
   - r-sf

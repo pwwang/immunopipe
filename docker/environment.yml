@@ -23,6 +23,7 @@ dependencies:
   - bioconductor-complexheatmap
   - bioconductor-glmgampoi
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
+  - bioconductor-scdblfinder
   - r-hdf5r  # Read_10x_h5() by Seurat
   - r-seuratdisk  # SCTransform
   - r-sf
