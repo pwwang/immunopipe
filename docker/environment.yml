@@ -51,7 +51,7 @@ dependencies:
   - r-tidyr
   - r-ggprism  #=1.0.4
   - r-ggnewscale
-  - r-ggvenndiagram  #=1.2
+  - r-ggvenndiagram=1.2
   - r-assertthat
   - r-enrichr
   - r-complexupset
