@@ -46,6 +46,8 @@
   - chore(scrna.SeuratMap2Ref): optimize memory usage
   - chore(scrna.MetaMarkers): remove plugin_opts.poplog_max
   - chore(tcr.CloneResidency): improve logging when handling subjects
+- deps: bump biopipen to 0.30.0
+  - enh(scrna.SeuratMap2Ref): check if reference has SCTModel if SCTransform'ed (likely prepared by old Seurat)
 
 ## 1.3.9
 
