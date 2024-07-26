@@ -1,6 +1,5 @@
 channels:
   - pwwang  # r-ggradar, r-seuratwrappers
-  # - svalkiers
   - conda-forge
   - r
   - bioconda
@@ -24,6 +23,7 @@ dependencies:
   - bioconductor-glmgampoi
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
   - bioconductor-scdblfinder
+  - svalkiers::clustcr-gpu
   - r-hdf5r  # Read_10x_h5() by Seurat
   - r-seuratdisk  # SCTransform
   - r-sf
@@ -61,5 +61,6 @@ dependencies:
     - keras  # TESSA
     - tensorflow==2.15  # TESSA
     - celltypist
+    - scipy==1.8.0  # Clustcr
     - biopython==1.79  # for GIANA
-    - scikit-learn==1.2  # for GIANA
+    - scikit-learn==1.5.1  # for GIANA
