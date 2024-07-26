@@ -27,7 +27,7 @@ Note that if pipen-board (the web interface) is running via singularity, you sho
 
 Otherwise, you can copy the command and run it in the terminal.
 """
-command = "singularity run --pwd /workdir -B .:/workdir -c -e -w docker://justold/immunopipe:${tag} @${configfile}"
+command = "singularity run --pwd /workdir -B .:/workdir,/tmp -c -e --writable-tmpfs docker://justold/immunopipe:${tag} @${configfile}"
 
 
 [RUNNING_OPTIONS.SINGULARITY.value.configfile]
@@ -56,7 +56,7 @@ Note that if pipen-board (the web interface) is running via apptainer, you shoul
 
 Otherwise, you can copy the command and run it in the terminal.
 """
-command = "apptainer run --pwd /workdir -B .:/workdir -c -e --unsquash docker://justold/immunopipe:${tag} @${configfile}"
+command = "apptainer run --pwd /workdir -B .:/workdir,/tmp -c -e --unsquash --writable-tmpfs docker://justold/immunopipe:${tag} @${configfile}"
 
 
 [RUNNING_OPTIONS.APPTAINER.value.configfile]
@@ -84,7 +84,7 @@ Note that if pipen-board (the web interface) is running via docker, you should c
 
 Otherwise, you can copy the command and run it in the terminal.
 """
-command = "docker run -p 18521:18521 --rm -w /workdir -v .:/workdir justold/immunopipe:${tag} @${configfile}"
+command = "docker run -p 18521:18521 --rm -w /workdir -v .:/workdir -v /tmp:/tmp justold/immunopipe:${tag} @${configfile}"
 
 
 [RUNNING_OPTIONS.DOCKER.value.configfile]

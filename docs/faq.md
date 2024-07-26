@@ -27,7 +27,7 @@ If you are using `singularity`/`apptainer`, you can try to use the `-B` option t
 /// tab | Singularity
 ```
 singularity run \
-    --pwd /workdir -B .:/workdir -c -e \
+    --pwd /workdir -B .:/workdir -c -e --writable-tmpfs \
     -B path/to/tmp:/tmp \
   # ^^^^^^^^^^^^^^^^^^^
     docker://justold/immunopipe:<tag> \
@@ -37,7 +37,7 @@ singularity run \
 /// tab | Apptainer
 ```
 apptainer run \
-    --pwd /workdir -B .:/workdir -c -e --unsquash \
+    --pwd /workdir -B .:/workdir -c -e --unsquash --writable-tmpfs \
     -B path/to/tmp:/tmp \
   # ^^^^^^^^^^^^^^^^^^^
     docker://justold/immunopipe:<tag> \
@@ -139,7 +139,7 @@ Unlike the pipeline installed locally, using a doker image to run the pipeline o
 
 ```shell
 srun <srun options> \
-    apptainer run --pwd /workdir -B /path/to/workdir:/workdir -c -e --unsquash \
+    apptainer run --pwd /workdir -B /path/to/workdir:/workdir,/tmp -c -e --unsquash --writable-tmpfs \
     -B /path/to/tmp:/tmp \
     docker://justold/immunopipe:<tag> \
     @config.toml

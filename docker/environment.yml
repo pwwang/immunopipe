@@ -1,57 +1,54 @@
 channels:
-  - aroth85  # vdjtools
   - pwwang  # r-ggradar, r-seuratwrappers
-  # - svalkiers
   - conda-forge
   - r
   - bioconda
   - nodefaults
 dependencies:
-  - nodejs=18  # pipen-report
-  - curl=7.86  # force using conda-forge version
-  - python=3.9
-  - biopython=1.78  # for GIANA
-  - scikit-learn=1.2  # for GIANA
+  - nodejs=20  # pipen-report
+  - curl  # force using conda-forge version
+  - python=3.10
+  - pip
   - fontconfig
   - faiss-cpu  # for GIANA
   - graphviz  # pipen-diagram
   - git  # for copier, used by pipen-report
   - libiconv # fix git: error while loading shared libraries: libiconv.so.2
   - time  # for pipen-runinfo
-  - wget  # GenomeInfoDbData post-link.sh
+  - wget
+  - pwwang::bioconductor-data-packages
   - bioconductor-fgsea
   - bioconductor-scater
   - bioconductor-complexheatmap
   - bioconductor-glmgampoi
-  # - bioconductor-genomeinfodbdata  # depended by other packages
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
+  - bioconductor-scdblfinder
   - r-hdf5r  # Read_10x_h5() by Seurat
   - r-seuratdisk  # SCTransform
-  # - r-slugify
   - r-sf
   - libgdal
+  - r-clustree
   - r-logger
   - r-presto  # MarkersFinder
   - r-hash  # CDR3AAPhyschem
   - r-glmnet  # CDR3AAPhyschem
-  # - r-matrix=1.6_1  # CDR3AAPhyschem
   - r-matrixstats=1.1.0  # useNames = NA  deprecated
   - r-broom.mixed  # CDR3AAPhyschem
   - r-ggradar
   - r-hitype
   - r-seuratwrappers
-  - r-base=4.2.0
-  - r-seurat=5.0.1
+  - r-base=4.3
+  - r-seurat=5
   - r-harmony
   - r-future
   - r-tidyseurat
   - r-bracer
-  - r-immunarch=0.9.0
-  - r-ggplot2=3.4
+  - r-immunarch  #=0.9.0
+  - r-ggplot2  #=3.4
   - r-dplyr
   - r-tibble
   - r-tidyr
-  - r-ggprism=1.0.4
+  - r-ggprism  #=1.0.4
   - r-ggnewscale
   - r-ggvenndiagram=1.2
   - r-assertthat
@@ -60,3 +57,5 @@ dependencies:
   - r-doubletfinder
   - pip:
     - celltypist
+    - biopython==1.79  # for GIANA
+    - scikit-learn==1.5.1  # for GIANA
