@@ -1,6 +1,5 @@
 channels:
   - pwwang  # r-ggradar, r-seuratwrappers
-  - pytorch  # clustcr-gpu
   - conda-forge
   - r
   - bioconda
@@ -24,7 +23,6 @@ dependencies:
   - bioconductor-glmgampoi
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
   - bioconductor-scdblfinder
-  - svalkiers::clustcr-gpu
   - r-hdf5r  # Read_10x_h5() by Seurat
   - r-seuratdisk  # SCTransform
   - r-sf
