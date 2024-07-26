@@ -46,8 +46,11 @@
   - chore(scrna.SeuratMap2Ref): optimize memory usage
   - chore(scrna.MetaMarkers): remove plugin_opts.poplog_max
   - chore(tcr.CloneResidency): improve logging when handling subjects
-- deps: bump biopipen to 0.30.0
+- deps: bump biopipen to 0.31.1
   - enh(scrna.SeuratMap2Ref): check if reference has SCTModel if SCTransform'ed (likely prepared by old Seurat)
+- deps: bump biopipen to 0.31.2
+  - fix(tcr.CDR3AAPhyschem): use sequence from TRB chain only
+  - fix(tcr.TCRClustering): fix for multi-chain TCRs, use TRB only if on_multi is false
 
 ## 1.3.9
 
