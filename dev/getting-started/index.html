@@ -196,12 +196,11 @@
               
                 <h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
 <p>You can find the nessary files and source code of this tutorial in the <a href="https://github.com/pwwang/immunopipe-example">example repository</a>.</p>
-<p>In this tutorial we will show you how to run the immunopipe pipeline on a small dataset of 3 patients with paired tumor and normal samples. The dataset is part of the data used in the publications below:</p>
+<p>In this tutorial we will show you how to run the immunopipe pipeline on a small dataset of 6 patients from 3 groups: colitis (n=2), non-colitis(n=2) and control(n=2). The dataset is part of the data used in the publication below:</p>
 <ul>
-<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/32103181">Wu TD, Madireddi S, de Almeida PE, Banchereau R et al. Peripheral T cell expansion predicts tumour infiltration and clinical response. Nature 2020 Mar;579(7798):274-278.</a></li>
-<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/35263569">Banta KL, Xu X, Chitre AS, Au-Yeung A et al. Mechanistic convergence of the TIGIT and PD-1 inhibitory pathways necessitates co-blockade to optimize anti-tumor CD8+ T cell responses. Immunity 2022 Mar 8;55(3):512-526.e9.</a></li>
+<li><a href="https://www.cell.com/cell/fulltext/S0092-8674(20)30688-7">Luoma, Adrienne M., et al. "Molecular pathways of colon inflammation induced by cancer immunotherapy." Cell 182.3 (2020): 655-671.</a></li>
 </ul>
-<p>We are using a small subset of the data to make the tutorial run faster. The full dataset can be downloaded from Gene Expression Omnibus (GEO) <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE139555">GSE139555</a>.</p>
+<p>We are using a small subset of the data to make the tutorial run faster. The full dataset can be downloaded from Gene Expression Omnibus (GEO) <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE144469">GSE144469</a>.</p>
 <h3 id="download-and-prepare-the-data">Download and prepare the data<a class="headerlink" href="#download-and-prepare-the-data" title="Permanent link">&para;</a></h3>
 <p>The data can be downloaded and prepared by running the following commands:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Clone the example repository</span>
@@ -212,14 +211,13 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/pwwan
 
 <span class="c1"># Download and prepare the data</span>
 bash<span class="w"> </span>prepare-data.sh
-<span class="c1"># The data from GSE139555 (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE139555)</span>
+<span class="c1"># The data from GSE144469 (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE144469)</span>
 <span class="c1"># will be downloaded and extracted into:</span>
 <span class="c1">#</span>
-<span class="c1">#   ./prepared-data/LT1</span>
-<span class="c1">#   ./prepared-data/LN2</span>
+<span class="c1">#   ./prepared-data/C1</span>
+<span class="c1">#   ./prepared-data/C2</span>
 <span class="c1">#   ...</span>
 <span class="c1">#</span>
-<span class="c1"># Only first 6 samples (LN, LT) are used.</span>
 </code></pre></div>
 <p>You may also check other files in the <code>data/</code> directory, especially the <code>samples.txt</code> file, which contains the sample information for the dataset we prepared above.</p>
 <h3 id="prepare-the-configuration-file">Prepare the configuration file<a class="headerlink" href="#prepare-the-configuration-file" title="Permanent link">&para;</a></h3>
@@ -238,7 +236,7 @@ bash<span class="w"> </span>prepare-data.sh
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span>-v<span class="w"> </span>.:/workdir<span class="w"> </span>-v<span class="w"> </span>/tmp:/tmp<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span>-v<span class="w"> </span>.:/workdir<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>justold/immunopipe:master<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>@ImmunopipeMinimal.config.toml
 </code></pre></div>
@@ -261,18 +259,18 @@ bash<span class="w"> </span>prepare-data.sh
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Both the <code>docker</code>, <code>singularity</code> and <code>apptainer</code> commands map the current directory (<code>.</code>) to the <code>/workdir</code> directory in the container. To get the detailed directory structure in the container, please refer to the <a href="../installation/#the-directory-structure-in-the-container">The directory structure in the container</a>.</p>
+<p><code>docker</code>, <code>singularity</code> and <code>apptainer</code> commands map the current directory (<code>.</code>) to the <code>/workdir</code> directory in the container. To get the detailed directory structure in the container, please refer to the <a href="https://pwwang.github.io/immunopipe/installation/#the-directory-structure-in-the-container">The directory structure in the container</a>.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>If you want to install and run the pipeline without docker, please refer to the <a href="../installation/">Installation</a> and <a href="../running/">Running the pipeline</a> pages for more details.</p>
+<p>If you want to install and run the pipeline without docker, please refer to the <a href="https://pwwang.github.io/immunopipe/installation/">Installation</a> and <a href="https://pwwang.github.io/immunopipe/running/">Running the pipeline</a> pages for more details.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You need at least 16GB of memory to run the pipeline with the example dataset and minimal configuration.</p>
 <p>You may also need to decrease <code>ncores</code> of some processes to avoid running out of memory. For example:</p>
 <div class="highlight"><pre><span></span><code>[SeuratClusteringOfAllCells.envs]
-<span class="gd">- ncores = 16</span>
+<span class="gd">- ncores = 8</span>
 <span class="gi">+ ncores = 4</span>
 </code></pre></div>
 </div>
@@ -283,8 +281,8 @@ bash<span class="w"> </span>prepare-data.sh
 <h3 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h3>
 <p>You may read through this documentation to learn more about the pipeline and how to configure it. There is also a configuration file, named <a href="https://github.com/pwwang/immunopipe-example/blob/master/Immunopipe.config.toml"><code>Immunopipe.config.toml</code></a> in the example repository, with more processes enabled. You can use it to run the pipeline with the dataset prepared above. Check out the following link for the reports:</p>
 <p><a href="http://imp.pwwang.com/output/REPORTS/index.html">http://imp.pwwang.com/output/REPORTS/index.html</a></p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>The results provided by this example configuration files are for demonstration purpose only. They are not intended to be used for any scientific analysis.</p>
 </div>
 <p>You may also want to try other routes of the pipeline with the prepared data. These routes are defined in:</p>
