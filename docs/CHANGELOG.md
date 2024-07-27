@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.4.1
+
+- docs: update tutorial dataset information and links
+
 ## 1.4.0
 
 - docs: update Singularity and Apptainer commands to include --writable-tmpfs flag
