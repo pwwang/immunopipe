@@ -2,12 +2,11 @@
 
 You can find the nessary files and source code of this tutorial in the [example repository](https://github.com/pwwang/immunopipe-example).
 
-In this tutorial we will show you how to run the immunopipe pipeline on a small dataset of 3 patients with paired tumor and normal samples. The dataset is part of the data used in the publications below:
+In this tutorial we will show you how to run the immunopipe pipeline on a small dataset of 6 patients from 3 groups: colitis (n=2), non-colitis(n=2) and control(n=2). The dataset is part of the data used in the publication below:
 
-- [Wu TD, Madireddi S, de Almeida PE, Banchereau R et al. Peripheral T cell expansion predicts tumour infiltration and clinical response. Nature 2020 Mar;579(7798):274-278.][1]
-- [Banta KL, Xu X, Chitre AS, Au-Yeung A et al. Mechanistic convergence of the TIGIT and PD-1 inhibitory pathways necessitates co-blockade to optimize anti-tumor CD8+ T cell responses. Immunity 2022 Mar 8;55(3):512-526.e9.][2]
+- [Luoma, Adrienne M., et al. "Molecular pathways of colon inflammation induced by cancer immunotherapy." Cell 182.3 (2020): 655-671.][1]
 
-We are using a small subset of the data to make the tutorial run faster. The full dataset can be downloaded from Gene Expression Omnibus (GEO) [GSE139555](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE139555).
+We are using a small subset of the data to make the tutorial run faster. The full dataset can be downloaded from Gene Expression Omnibus (GEO) [GSE144469](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE144469).
 
 ## Download and prepare the data
 
@@ -22,14 +21,13 @@ cd immunopipe-example
 
 # Download and prepare the data
 bash prepare-data.sh
-# The data from GSE139555 (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE139555)
+# The data from GSE144469 (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE144469)
 # will be downloaded and extracted into:
 #
-#   ./prepared-data/LT1
-#   ./prepared-data/LN2
+#   ./prepared-data/C1
+#   ./prepared-data/C2
 #   ...
 #
-# Only first 6 samples (LN, LT) are used.
 ```
 
 You may also check other files in the `data/` directory, especially the `samples.txt` file, which contains the sample information for the dataset we prepared above.
@@ -55,38 +53,44 @@ infile = [ "data/samples.txt" ]
 The easiest way to run the pipeline is to run it within the docker container. We can use the following command to run the pipeline with the configuration file we just created:
 
 /// tab | Using docker
+
 ```bash
 docker run \
-    --rm -w /workdir -v .:/workdir -v /tmp:/tmp \
+    --rm -w /workdir -v .:/workdir \
     justold/immunopipe:master \
     @ImmunopipeMinimal.config.toml
 ```
+
 ///
 
 /// tab | Using singularity
+
 ```bash
 singularity run \
     --pwd /workdir -B .:/workdir,/tmp -c -e --writable-tmpfs \
     docker://justold/immunopipe:master \
     @ImmunopipeMinimal.config.toml
 ```
+
 ///
 
 /// tab | Using apptainer
+
 ```bash
 apptainer run \
     --pwd /workdir -B .:/workdir,/tmp -c -e --unsquash --writable-tmpfs \
     docker://justold/immunopipe:master \
     @ImmunopipeMinimal.config.toml
 ```
+
 ///
 
 /// Tip
-Both the `docker`, `singularity` and `apptainer` commands map the current directory (`.`) to the `/workdir` directory in the container. To get the detailed directory structure in the container, please refer to the [The directory structure in the container](./installation.md#the-directory-structure-in-the-container).
+`docker`, `singularity` and `apptainer` commands map the current directory (`.`) to the `/workdir` directory in the container. To get the detailed directory structure in the container, please refer to the [The directory structure in the container](https://pwwang.github.io/immunopipe/installation/#the-directory-structure-in-the-container).
 ///
 
 /// Tip
-If you want to install and run the pipeline without docker, please refer to the [Installation](./installation.md) and [Running the pipeline](./running.md) pages for more details.
+If you want to install and run the pipeline without docker, please refer to the [Installation](https://pwwang.github.io/immunopipe/installation/) and [Running the pipeline](https://pwwang.github.io/immunopipe/running/) pages for more details.
 ///
 
 /// Note
@@ -96,9 +100,10 @@ You may also need to decrease `ncores` of some processes to avoid running out of
 
 ```diff
 [SeuratClusteringOfAllCells.envs]
-- ncores = 16
+- ncores = 8
 + ncores = 4
 ```
+
 ///
 
 ## Check the results
@@ -111,11 +116,11 @@ You can also visit the following link to see the reports of the pipeline we just
 
 ## Next steps
 
-You may read through this documentation to learn more about the pipeline and how to configure it. There is also a configuration file, named [`Immunopipe.config.toml`][3] in the example repository, with more processes enabled. You can use it to run the pipeline with the dataset prepared above. Check out the following link for the reports:
+You may read through this documentation to learn more about the pipeline and how to configure it. There is also a configuration file, named [`Immunopipe.config.toml`][2] in the example repository, with more processes enabled. You can use it to run the pipeline with the dataset prepared above. Check out the following link for the reports:
 
 <http://imp.pwwang.com/output/REPORTS/index.html>
 
-/// Warning
+/// nOTE
 The results provided by this example configuration files are for demonstration purpose only. They are not intended to be used for any scientific analysis.
 ///
 
@@ -129,7 +134,5 @@ You may also want to try other routes of the pipeline with the prepared data. Th
 
 Also check out the [gallery](./gallery.md) for more real-world examples.
 
-
-[1]: https://www.ncbi.nlm.nih.gov/pubmed/32103181
-[2]: https://www.ncbi.nlm.nih.gov/pubmed/35263569
-[3]: https://github.com/pwwang/immunopipe-example/blob/master/Immunopipe.config.toml
+[1]: https://www.cell.com/cell/fulltext/S0092-8674(20)30688-7
+[2]: https://github.com/pwwang/immunopipe-example/blob/master/Immunopipe.config.toml
