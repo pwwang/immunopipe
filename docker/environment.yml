@@ -20,6 +20,7 @@ dependencies:
   - bioconductor-fgsea
   - bioconductor-scater
   - bioconductor-complexheatmap
+  - bioconductor-destiny
   - bioconductor-glmgampoi
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
   - bioconductor-scdblfinder
