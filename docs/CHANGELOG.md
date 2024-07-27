@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.4.2
+
+- deps: add bioconductor-destiny dependency in docker environment files for ModuleScoreCalculator
+
 ## 1.4.1
 
 - docs: update tutorial dataset information and links
