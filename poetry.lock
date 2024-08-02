@@ -1157,17 +1157,17 @@ runinfo = ["pipen-runinfo (>=0.8,<0.9)"]
 
 [[package]]
 name = "pipen-runinfo"
-version = "0.7.0"
+version = "0.8.0"
 description = "Generate running information for jobs in pipen pipelines"
 optional = true
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_runinfo-0.7.0-py3-none-any.whl", hash = "sha256:a1967833ea1e6c7911987d4591a206f96683c1d117ab71bf322df37795f4c873"},
-    {file = "pipen_runinfo-0.7.0.tar.gz", hash = "sha256:ea054ce51ed787231fde598cb53234178d992903cb070f8df2fb933b183ed515"},
+    {file = "pipen_runinfo-0.8.0-py3-none-any.whl", hash = "sha256:c682f49ee7cb8e5b5e21ec42d0f0a7e74d373d577fb5f8a420f127d6ef22e374"},
+    {file = "pipen_runinfo-0.8.0.tar.gz", hash = "sha256:f29cf3b17422465dcb4946f0a4b0a0ea41e9178859c368580b5cc721c4f85b6b"},
 ]
 
 [package.dependencies]
-pipen = ">=0.15.0,<0.16.0"
+pipen = ">=0.15.2,<0.16.0"
 
 [[package]]
 name = "pipen-verbose"
@@ -1965,4 +1965,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "a293b4632caf18def0d574c9118d12bea97e3bb863d3dabd624d1c7f37728c1f"
+content-hash = "901016fe33700003cf1d4a3a86e027213169cc7cec7f2392e5ddf9324d024e5a"
