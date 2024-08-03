@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.3
+
+- deps: update pipen-runinfo dependency to version 0.8.0 (pipen to 0.15.2)
+- deps: update biopipen dependency to version 0.31.4
+  - fix(scrna.SeuratMap2Ref): fix refnorm not detected for NormlizeData'ed reference
+
 ## 1.4.2
 
 - deps: add bioconductor-destiny dependency in docker environment files for ModuleScoreCalculator
