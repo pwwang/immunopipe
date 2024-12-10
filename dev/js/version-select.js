@@ -1,11 +1,11 @@
-window.addEventListener("DOMContentLoaded", function() {
+window.addEventListener("DOMContentLoaded", function () {
   function expandPath(path) {
     // Get the base directory components.
     var expanded = window.location.pathname.split("/");
     expanded.pop();
     var isSubdir = false;
 
-    path.split("/").forEach(function(bit, i) {
+    path.split("/").forEach(function (bit, i) {
       if (bit === "" && i === 0) {
         isSubdir = false;
         expanded = [""];
@@ -38,13 +38,14 @@ window.addEventListener("DOMContentLoaded", function() {
     console.warn("Failed to parse current version:", error, ". Versioning not enabled?");
     return;
   }
+  var CURRENT_PATH = (new URL(window.location.href)).pathname.slice(ABS_BASE_URL.length);
 
   function makeSelect(options) {
     var select = document.createElement("select");
 
-    options.forEach(function(i) {
+    options.forEach(function (i) {
       var option = new Option(i.text, i.value, undefined,
-                              i.selected);
+        i.selected);
       select.add(option);
     });
 
@@ -54,20 +55,22 @@ window.addEventListener("DOMContentLoaded", function() {
   fetch(ABS_BASE_URL + "../versions.json").then((response) => {
     return response.json();
   }).then((versions) => {
-    var realVersion = versions.find(function(i) {
+    var realVersion = versions.find(function (i) {
       return i.version === CURRENT_VERSION ||
-             i.aliases.includes(CURRENT_VERSION);
+        i.aliases.includes(CURRENT_VERSION);
     }).version;
 
-    var select = makeSelect(versions.filter(function(i) {
+    var select = makeSelect(versions.filter(function (i) {
       return i.version === realVersion || !i.properties || !i.properties.hidden;
-    }).map(function(i) {
-      return {text: i.title, value: i.version,
-              selected: i.version === realVersion};
+    }).map(function (i) {
+      return {
+        text: i.title, value: i.version,
+        selected: i.version === realVersion
+      };
     }));
     select.id = "version-selector";
-    select.addEventListener("change", function(event) {
-      window.location.href = ABS_BASE_URL + "../" + this.value + "/";
+    select.addEventListener("change", function (event) {
+      window.location.href = ABS_BASE_URL + "../" + this.value + "/" + CURRENT_PATH;
     });
 
     var container = document.getElementById("mike-versions");
