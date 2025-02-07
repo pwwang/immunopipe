@@ -91,6 +91,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">ModuleScoreCalculator</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
@@ -199,6 +203,16 @@ for cell cycle scores.<br /></p>
 program on single cell level, subtracted by the aggregated expression of
 control feature sets. All analyzed features are binned based on averaged
 expression, and the control features are randomly selected from each bin.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>srtobj</code>:
+    The seurat object loaded by <code>SeuratClustering</code></li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>rdsfile</code>: <em>Default: <code>{{in.srtobj | stem}}.RDS</code></em>. <br />
+    The seurat object with module scores</li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>defaults</code> <em>(<code>ns</code>)</em>:

@@ -121,6 +121,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">CloneResidency</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     </ul>
@@ -251,6 +255,23 @@ the clones. You may identify different types of clones in the plot based on thei
 <p>Venn diagrams showing the overlap of the clones in the two groups</p>
 <p><img alt="CloneResidency_venn" src="https://pwwang.github.io/immunopipe/latest/processes/images/CloneResidency_venn.png" width="60%" /></p>
 </li>
+</ul>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>immdata</code>:
+    The data loaded by <code>immunarch::repLoad()</code></li>
+<li><code>metafile</code>:
+    A cell-level metafile, where the first column must be the cell barcodes
+    that match the cell barcodes in <code>immdata</code>. The other columns can be any
+    metadata that you want to use for the analysis. The loaded metadata will be
+    left-joined to the converted cell-level data from <code>immdata</code>.<br />
+    This can also be a Seurat object RDS file. If so, the <code>sobj@meta.data</code> will
+    be used as the metadata.<br /></li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outdir</code>: <em>Default: <code>{{in.immdata | stem}}.cloneov</code></em>. <br />
+    The output directory</li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>

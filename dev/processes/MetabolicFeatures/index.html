@@ -142,6 +142,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">MetabolicFeatures</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     </ul>
@@ -191,6 +195,14 @@
 <p>This process performs enrichment analysis for the metabolic pathways for each group in each subset.</p>
 <p>The enrichment analysis is done with <a href="https://bioconductor.org/packages/release/bioc/html/fgsea.html"><code>fgsea</code></a>
 package or the <a href="https://github.com/GSEA-MSigDB/GSEA_R"><code>GSEA_R</code></a> package.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>sobjfile</code>:</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outdir</code>: <em>Default: <code>{{in.sobjfile | stem}}.pathwayfeatures</code></em>. <br /></li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>ncores</code> <em>(<code>type=int;pgarg</code>)</em>: <em>Default: <code>1</code></em>. <br />

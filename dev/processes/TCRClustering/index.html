@@ -101,6 +101,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">TCRClustering</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     </ul>
@@ -219,6 +223,22 @@ downstream analysis.<br /></p>
 cluster has only one unique CDR3 sequence or multiple CDR3 sequences.<br />
 Note that a cluster with <code>S_</code> prefix may still have multiple cells, as the same
 CDR3 sequence may be shared by multiple cells.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>immfile</code>:
+    The immunarch object in RDS</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>immfile</code>: <em>Default: <code>{{in.immfile | basename}}</code></em>. <br />
+    The immnuarch object in RDS with TCR cluster information</li>
+<li><code>clusterfile</code>: <em>Default: <code>{{in.immfile | stem}}.clusters.txt</code></em>. <br />
+    The cluster file.<br />
+    Columns are CDR3.aa, TCR_Cluster, TCR_Cluster_Size and
+    TCR_Cluster_Size1.<br />
+    TCR_Cluster_Size is the number of cells in the cluster.<br />
+    TCR_Cluster_Size1 is the unique CDR3 sequences in the cluster.<br /></li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>tool</code> <em>(<code>choice</code>)</em>: <em>Default: <code>GIANA</code></em>. <br />

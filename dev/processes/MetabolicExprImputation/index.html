@@ -188,6 +188,19 @@
 imputed expression data.<br /></p>
 <p>You can turn off the imputation by setting the <code>noimpute</code> option
 of the process group to <code>True</code>.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>infile</code>:
+    The input file in RDS format of Seurat object</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outfile</code>: <em>Default: <code>{{in.infile | stem}}.imputed.RDS</code></em>. <br />
+    The output file in RDS format of Seurat object
+    Note that with rmagic and alra, the original default assay will be
+    renamed to <code>RAW</code> and the imputed RNA assay will be
+    renamed to <code>RNA</code> and set as default assay.<br /></li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>tool</code> <em>(<code>choice</code>)</em>: <em>Default: <code>alra</code></em>. <br />

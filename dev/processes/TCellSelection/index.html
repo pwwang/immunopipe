@@ -89,6 +89,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">TCellSelection</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
@@ -209,6 +213,20 @@ of the clusters.<br /></li>
 </ol>
 <p>You can also use indicator gene expression values only to select T cells by setting
 <code>envs.ignore_tcr</code> to true.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>srtobj</code>:
+    Seurat object file in RDS</li>
+<li><code>immdata</code>:
+    Immunarch data file in RDS</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>rdsfile</code>: <em>Default: <code>{{in.srtobj | stem}}.RDS</code></em>. <br />
+    Seurat object file in RDS</li>
+<li><code>outdir</code>: <em>Default: <code>details</code></em>. <br />
+    Output directory with details</li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>ignore_tcr</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />

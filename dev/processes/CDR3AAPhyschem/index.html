@@ -131,6 +131,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">CDR3AAPhyschem</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#reference">Reference</a>
@@ -195,6 +199,25 @@
 (e.g. Treg vs Tconv) at different length of CDR3 AA sequences.<br />
 The regression will be performed for each physicochemical feature of the
 AA (hydrophobicity, volume and isolectric point).<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>immdata</code>:
+    The data loaded by <code>immunarch::repLoad()</code>, saved in RDS format</li>
+<li><code>srtobj</code>:
+    The <code>Seurat</code> object, saved in RDS format, used to get the
+    metadata for each cell (e.g. cell type)
+    It could also be a tab delimited file with <code>meta.data</code> of the
+    <code>Seurat</code> object.<br />
+    It has to have a <code>Sample</code> column, which is used to match the
+    <code>immdata</code> object.<br />
+    It is optional, if not provided, the metadata from the <code>immdata</code>
+    object will be used.<br /></li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outdir</code>: <em>Default: <code>{{in.immdata | stem}}.cdr3aaphyschem</code></em>. <br />
+    The output directory</li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>group</code>:

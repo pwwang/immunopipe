@@ -129,6 +129,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">MetaMarkers</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     </ul>
@@ -198,6 +202,16 @@ are then used for enrichment analysis using
 <a href="https://maayanlab.cloud/Enrichr/">enrichr</a> api.<br /></p>
 <p>Other than the markers and the enrichment analysis as outputs, this process also
 generates violin plots for the top 10 markers.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>srtobj</code>:
+    The seurat object loaded by <code>SeuratPreparing</code></li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outdir</code>: <em>Default: <code>{{in.srtobj | stem}}.meta_markers</code></em>. <br />
+    The output directory for the markers</li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />

@@ -95,6 +95,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">SeuratMap2Ref</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
@@ -193,6 +197,18 @@
 <p>Map the seurat object to reference</p>
 <p>See: <a href="https://satijalab.org/seurat/articles/integration_mapping.html">https://satijalab.org/seurat/articles/integration_mapping.html</a>
 and <a href="https://satijalab.org/seurat/articles/multimodal_reference_mapping.html">https://satijalab.org/seurat/articles/multimodal_reference_mapping.html</a></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>sobjfile</code>:
+    The seurat object</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outfile</code>: <em>Default: <code>{{in.sobjfile | stem}}.RDS</code></em>. <br />
+    The rds file of seurat object with cell type annotated.<br />
+    Note that the reduction name will be <code>ref.umap</code> for the mapping.<br />
+    To visualize the mapping, you should use <code>ref.umap</code> as the reduction name.<br /></li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>ncores</code> <em>(<code>type=int;order=-100</code>)</em>: <em>Default: <code>1</code></em>. <br />

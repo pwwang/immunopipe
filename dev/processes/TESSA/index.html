@@ -113,6 +113,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">TESSA</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#reference">Reference</a>
@@ -217,6 +221,30 @@ functional landscape of the TCR repertoire.<br /></p>
 with tag without <code>-full</code> suffix. If you want to use TESSA, please use the
 docker image with tag with <code>-full</code> suffix, or install the dependencies manually.<br /></p>
 </div>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>immdata</code>:
+    The immunarch object in RDS file or text file of TCR data loaded by
+    <a href="!!#biopipennstcrimmunarchloading"><code>ImmunarchLoading</code></a></li>
+<li><code>srtobj</code>:
+    The <code>Seurat</code> object, saved in RDS format, with dimension
+    reduction performed if you want to use them to represent the
+    transcriptome of T cells.<br />
+    This could also be a tab delimited file (can be gzipped) with
+    expression matrix or dimension reduction results.<br /></li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outfile</code>: <em>Default: <code>{%- if in.srtobj.lower().endswith(".rds") -%}
+        {{in.srtobj | stem}}.tessa.RDS
+        {%- else -%}
+        {{in.immdata | stem}}.tessa.txt
+        {%- endif -%}</code></em>. <br />
+    The tab-delimited file with three columns
+    (<code>barcode</code>, <code>TESSA_Cluster</code> and <code>TESSA_Cluster_Size</code>) or
+    an RDS file if  <code>in.srtobj</code> is an RDS file of a Seurat object, with
+    <code>TESSA_Cluster</code> and <code>TESSA_Cluster_Size</code> added to the <code>meta.data</code></li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>python</code>: <em>Default: <code>python</code></em>. <br />

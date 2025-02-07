@@ -107,6 +107,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">ClusterMarkers</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     </ul>
@@ -205,6 +209,19 @@ However, they should not be used in this process. Other environment variables ar
 <a href="../../running/#run-the-pipeline-via-pipen-board-using-docker-image">here</a>),
 you may see the other environment variables of this process are hidden and readonly.<br /></p>
 </div>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>srtobj</code>:
+    The seurat object loaded by <code>SeuratPreparing</code>
+    If you have your <code>Seurat</code> object prepared by yourself, you can also
+    use it here, but you should make sure that the object has been processed
+    by <code>PrepSCTFindMarkers</code> if data is not normalized using <code>SCTransform</code>.<br /></li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outdir</code>: <em>Default: <code>{{in.srtobj | stem0}}.markers</code></em>. <br />
+    The output directory for the markers</li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
@@ -236,6 +253,16 @@ you may see the other environment variables of this process are hidden and reado
     genes will be labeled. Otherwise, specify the genes to label.<br />
     It could be either a string with comma separated genes, or a list
     of genes.<br /></li>
+<li><code>section</code>: <em>Default: <code>DEFAULT</code></em>. <br />
+    The section name for the report. It must not contain colon (<code>:</code>).<br />
+    Ignored when <code>each</code> is not specified and <code>ident-1</code> is specified.<br />
+    When neither <code>each</code> nor <code>ident-1</code> is specified, case name will be used
+    as section name.<br />
+    If <code>each</code> is specified, the section name will be constructed from
+    <code>each</code> and case name.<br />
+    The <code>section</code> is used to collect cases and put the results under the same directory and the same section in report.<br />
+    When <code>each</code> for a case is specified, the <code>section</code> will be ignored and case name will be used as <code>section</code>.<br />
+    The cases will be the expanded values in <code>each</code> column. When <code>prefix_each</code> is True, the column name specified by <code>each</code> will be prefixed to each value as directory name and expanded case name.<br /></li>
 <li><code>subset</code>:
     An expression to subset the cells for each case.<br /></li>
 <li><code>rest</code> <em>(<code>ns</code>)</em>:

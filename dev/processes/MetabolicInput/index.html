@@ -138,6 +138,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">MetabolicInput</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImpution/">MetabolicExprImpution</a>
@@ -188,6 +192,16 @@
                 <h2 id="metabolicinput">MetabolicInput<a class="headerlink" href="#metabolicinput" title="Permanent link">&para;</a></h2>
 <p>This process takes Seurat object as input and pass it to the next processes in the <code>ScrnaMetabolicLandscape</code> group.</p>
 <p>There is no configuration for this process.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>infile</code>:
+    The input file</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outfile</code>: <em>Default: <code>{{in.infile | basename}}</code></em>. <br />
+    The output symbolic link to the input file</li>
+</ul>
               
             </div>
           </div><footer>

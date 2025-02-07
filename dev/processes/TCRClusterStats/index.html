@@ -103,6 +103,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">TCRClusterStats</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
@@ -204,6 +208,16 @@
 <li>The number of cells in each cluster (cluster size)</li>
 <li>Sample diversity using TCR clusters instead of TCR clones</li>
 <li>Shared TCR clusters between samples</li>
+</ul>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>immfile</code>:
+    The immunarch object with TCR clusters attached</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outdir</code>: <em>Default: <code>{{in.immfile | stem}}.tcrclusters_stats</code></em>. <br />
+    The output directory containing the stats and reports</li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>

@@ -77,6 +77,10 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">SampleInfo</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
@@ -234,6 +238,30 @@ and <code>cache</code> of <code>SampleInfo</code> to <code>false</code> to force
 <span class="n">cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
 </code></pre></div>
 </div>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>infile</code> <em>(<code>required</code>)</em>:
+    The input file to list sample information The input file should be a csv/tsv file with header.<br />
+    The input file should have the following columns.<br /><ul>
+<li>Sample: A unique id for each sample.<br /></li>
+<li>TCRData: The directory for single-cell TCR data for this sample.<br />
+Specifically, it should contain filtered_contig_annotations.csv
+or all_contig_annotations.csv from cellranger.<br /></li>
+<li>RNAData: The directory for single-cell RNA data for this sample.<br />
+Specifically, it should be able to be read by
+<code>Seurat::Read10X()</code>.<br />
+See also https://satijalab.org/seurat/reference/read10x.<br /></li>
+<li>Other columns are optional and will be treated as metadata for
+each sample.<br /></li>
+</ul>
+</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outfile</code>: <em>Default: <code>{{in.infile | basename}}</code></em>. <br />
+    The output file with sample information, with mutated columns
+    if <code>envs.save_mutated</code> is True.<br /></li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>sep</code>: <em>Default: <code></code></em>. <br />

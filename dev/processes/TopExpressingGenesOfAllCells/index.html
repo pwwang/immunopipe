@@ -87,6 +87,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">TopExpressingGenesOfAllCells</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     </ul>
@@ -190,6 +194,16 @@
                 <h2 id="topexpressinggenesofallcells">TopExpressingGenesOfAllCells<a class="headerlink" href="#topexpressinggenesofallcells" title="Permanent link">&para;</a></h2>
 <p>Top expressing genes for clusters of all cells.</p>
 <p>See also <a href="../TopExpressingGenes/">TopExpressingGenes</a>.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>srtobj</code>:
+    The seurat object in RDS format</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outdir</code>: <em>Default: <code>{{in.srtobj | stem}}.top_expressing_genes</code></em>. <br />
+    The output directory for the tables and plots</li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>dbs</code> <em>(<code>list</code>)</em>: <em>Default: <code>['KEGG_2021_Human', 'MSigDB_Hallmark_2020']</code></em>. <br />

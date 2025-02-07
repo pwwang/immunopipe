@@ -123,6 +123,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">ScFGSEA</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     </ul>
@@ -200,6 +204,16 @@ The fgsea package is based on the fast algorithm for preranked GSEA described in
 <a href="https://www.pnas.org/content/102/43/15545">Subramanian et al. 2005</a>.<br /></p>
 <p>For each case, the process will generate a table with the enrichment scores for
 each gene set, and GSEA plots for the top gene sets.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>srtobj</code>:
+    The seurat object in RDS format</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outdir</code>: <em>Default: <code>{{(in.casefile or in.srtobj) | stem0}}.fgsea</code></em>. <br />
+    The output directory for the results</li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />

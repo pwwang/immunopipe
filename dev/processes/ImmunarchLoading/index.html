@@ -79,6 +79,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">ImmunarchLoading</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     </ul>
@@ -203,6 +207,29 @@ The file will be saved at
 The file can be used by the <a href="../IntegratingTCR/"><code>IntegratingTCR</code></a> process to integrate the
 TCR-seq data into the <code>Seurat</code> object for further integrative analysis.<br />
 <code>envs.metacols</code> can be used to specify the columns to be exported to the text file.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>metafile</code>:
+    The meta data of the samples
+    A tab-delimited file
+    Two columns are required:<br /><ul>
+<li><code>Sample</code> to specify the sample names.<br /></li>
+<li><code>TCRData</code> to assign the path of the data to the samples,
+and this column will be excluded as metadata.<br />
+Immunarch is able to fetch the sample names from the names of
+the target files. However, 10x data yields result like
+<code>filtered_contig_annotations.csv</code>, which doesn't have any name
+information.<br /></li>
+</ul>
+</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>rdsfile</code>: <em>Default: <code>{{in.metafile | stem}}.immunarch.RDS</code></em>. <br />
+    The RDS file with the data and metadata</li>
+<li><code>metatxt</code>: <em>Default: <code>{{in.metafile | stem}}.tcr.txt</code></em>. <br />
+    The meta data at cell level, which can be used to attach to the Seurat object</li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li>

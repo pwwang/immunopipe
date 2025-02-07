@@ -81,6 +81,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">SeuratPreparing</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
@@ -228,6 +232,24 @@ If you are using <code>cca</code> or <code>rpca</code> interation, the default a
 <p>From <code>biopipen</code> v0.23.0, this requires <code>Seurat</code> v5.0.0 or higher.<br /></p>
 </div>
 <p>See also <a href="../../preparing-input/#scRNA-seq-data">Preparing the input</a>.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>metafile</code>:
+    The metadata of the samples
+    A tab-delimited file
+    Two columns are required:<br />
+    <code>Sample</code> to specify the sample names.<br />
+    <code>RNAData</code> to assign the path of the data to the samples
+    The path will be read by <code>Read10X()</code> from <code>Seurat</code>, or the path
+    to the h5 file that can be read by <code>Read10X_h5()</code> from <code>Seurat</code>.<br /></li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>rdsfile</code>: <em>Default: <code>{{in.metafile | stem}}.seurat.RDS</code></em>. <br />
+    The RDS file with the Seurat object with all samples integrated.<br />
+    Note that the cell ids are preficed with sample names QC plots will be
+    saved in <code>&lt;job.outdir&gt;/before-qc</code> and <code>&lt;job.outdir&gt;/after-qc</code>.<br /></li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />

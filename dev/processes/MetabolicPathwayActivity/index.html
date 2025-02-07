@@ -146,6 +146,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">MetabolicPathwayActivity</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     </ul>
@@ -196,6 +200,14 @@ The heatmap shows the pathway activities for each group and each metabolic pathw
 <p><img alt="MetabolicPathwayActivity_heatmap" src="https://pwwang.github.io/immunopipe/latest/processes/images/MetabolicPathwayActivity_heatmap.png" width="80%" /></p>
 <p>The violin plot shows the distribution of the pathway activities for each group</p>
 <p><img alt="MetabolicPathwayActivity_violin" src="https://pwwang.github.io/immunopipe/latest/processes/images/MetabolicPathwayActivity_violin.png" width="45%" /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>sobjfile</code>:</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outdir</code>: <em>Default: <code>{{in.sobjfile | stem}}.pathwayactivity</code></em>. <br /></li>
+</ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>ntimes</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>5000</code></em>. <br />
