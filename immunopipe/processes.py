@@ -472,7 +472,6 @@ class ClusterMarkers(MarkersFinder_):
         ident-2 (hidden;readonly): {{Envs["ident-2"].help | indent: 12}}.
         mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
         prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 12}}.
-        section (hidden;readonly): {{Envs.section.help | indent: 12}}.
     """  # noqa: E501
     requires = Clustered
     envs = {

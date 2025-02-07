@@ -6,6 +6,16 @@ This generates a set of pie charts with proportion of cells in each cluster
 Rows are the cells identities (i.e. TCR clones or TCR clusters), columns
 are groups (i.e. clinic groups).<br />
 
+## Input
+
+- `srtobj`:
+    The seurat object in RDS format
+
+## Output
+
+- `outdir`: *Default: `{{in.srtobj | stem}}.cells_distribution`*. <br />
+    The output directory
+
 ## Environment Variables
 
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
@@ -161,5 +171,5 @@ group_by = "region"
 group_order = [ "Tumor", "Normal" ]
 ```
 
-![CellsDistribution_example](../processes/images/CellsDistribution_example.png)
+![CellsDistribution_example](../latest/processes/images/CellsDistribution_example.png)
 

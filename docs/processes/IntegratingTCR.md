@@ -38,6 +38,20 @@ reduction plot with scTCR-seq data available.<br />
 ///
 
 
+## Input
+
+- `srtobj`:
+    The seurat object loaded by SeuratPreparing
+- `metafile`:
+    Additional metadata
+    A tab-delimited file with columns as meta columns and rows as
+    cells.<br />
+
+## Output
+
+- `rdsfile`: *Default: `{{in.srtobj | stem}}.RDS`*. <br />
+    The seurat object with the additional metadata
+
 ## Environment Variables
 
 - `mutaters` *(`type=json`)*: *Default: `{'TCR_Presence': 'if_else(is.na(CDR3.aa), "TCR_absent", "TCR_present")'}`*. <br />
@@ -106,7 +120,7 @@ reduction plot with scTCR-seq data available.<br />
 The metadata of the `Seurat` object will be updated with information from
 TCR data:<br />
 
-![IntegratingTCR-metadata](../processes/images/IntegratingTCR-metadata.png)
+![IntegratingTCR-metadata](../..//processes/images/IntegratingTCR-metadata.png)
 
 All of the columns above can be used for downstream analysis.<br />
 

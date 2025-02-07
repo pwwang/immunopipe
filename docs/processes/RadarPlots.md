@@ -6,6 +6,16 @@ This process generates the radar plots for the clusters of T cells.<br />
 It explores the proportion of cells in different groups (e.g. Tumor vs Blood)
 in different T-cell clusters.<br />
 
+## Input
+
+- `srtobj`:
+    The seurat object in RDS format
+
+## Output
+
+- `outdir`: *Default: `{{in.srtobj | stem}}.radar_plots`*. <br />
+    The output directory for the plots
+
 ## Environment Variables
 
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
@@ -53,7 +63,7 @@ in different T-cell clusters.<br />
     `Tumor` and `Blood`, you can set `order` to `["Tumor", "Blood"]`.<br />
     This will also have `Tumor` as the first item in the legend and `Blood`
     as the second item.<br />
-- `colors`:
+- `colors`: *Default: `biopipen`*. <br />
     The colors for the groups in `by`. If not specified,
     the default colors will be used.<br />
     Multiple colors can be separated by comma (`,`).<br />
@@ -132,7 +142,7 @@ by = "Source"
 
 Then we will have a radar plots like this:<br />
 
-![Radar plots](../processes/images/RadarPlots-default.png)
+![Radar plots](../latest/processes/images/RadarPlots-default.png)
 
 We can use `each` to separate the cells into different cases:<br />
 
@@ -144,7 +154,7 @@ each = "Timepoint"
 
 Then we will have two radar plots, one for `Pre` and one for `Post`:<br />
 
-![Radar plots](../processes/images/RadarPlots-each.png)
+![Radar plots](../latest/processes/images/RadarPlots-each.png)
 
 Using `cluster_order` to change the order of the clusters and show only the first 3 clusters:<br />
 
@@ -155,7 +165,7 @@ cluster_order = ["2", "0", "1"]
 breaks = [0, 50, 100]  # also change the breaks
 ```
 
-![Radar plots cluster_order](../processes/images/RadarPlots-cluster_order.png)
+![Radar plots cluster_order](../latest/processes/images/RadarPlots-cluster_order.png)
 
 /// Attention
 All the plots used in the examples are just for demonstration purpose. The real plots will have different appearance.<br />

@@ -17,6 +17,20 @@ of the clusters.<br />
 You can also use indicator gene expression values only to select T cells by setting
 `envs.ignore_tcr` to true.<br />
 
+## Input
+
+- `srtobj`:
+    Seurat object file in RDS
+- `immdata`:
+    Immunarch data file in RDS
+
+## Output
+
+- `rdsfile`: *Default: `{{in.srtobj | stem}}.RDS`*. <br />
+    Seurat object file in RDS
+- `outdir`: *Default: `details`*. <br />
+    Output directory with details
+
 ## Environment Variables
 
 - `ignore_tcr` *(`flag`)*: *Default: `False`*. <br />
@@ -33,14 +47,10 @@ You can also use indicator gene expression values only to select T cells by sett
     to indicate cells with clonotype percentage > 25% are T cells.<br />
     If `indicator_genes` is provided, the expression values can also be used
     in the expression. For example, `Clonotype_Pct > 0.25 & CD3E > 0`.<br />
-    If not provided, a kmeans clustering will be performed on the expression
-    values of `indicator_genes` and `Clonotype_Pct`, with K=2, and the cluster
-    with higher clonotype percentage will be selected as T cells.<br />
-
-    /// Tip | Changed in `0.11.0`
-    `envs.tcell_indicator` is renamed to `envs.tcell_selector` in `0.11.0`.<br />
-    ///
-
+    If `tcell_selector` is not provided, a kmeans clustering will be performed
+    on the expression values of `indicator_genes` and `Clonotype_Pct`,
+    with K=2, and the cluster with higher clonotype percentage will be selected
+    as T cells.<br />
 - `indicator_genes` *(`list`)*: *Default: `['CD3E']`*. <br />
     A list of indicator genes whose expression values and
     clonotype percentage will be used to determine T cells.<br />

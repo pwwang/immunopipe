@@ -20,6 +20,28 @@ The file can be used by the [`IntegratingTCR`](./IntegratingTCR.md) process to i
 TCR-seq data into the `Seurat` object for further integrative analysis.<br />
 `envs.metacols` can be used to specify the columns to be exported to the text file.<br />
 
+## Input
+
+- `metafile`:
+    The meta data of the samples
+    A tab-delimited file
+    Two columns are required:<br />
+    * `Sample` to specify the sample names.<br />
+    * `TCRData` to assign the path of the data to the samples,
+    and this column will be excluded as metadata.<br />
+    Immunarch is able to fetch the sample names from the names of
+    the target files. However, 10x data yields result like
+    `filtered_contig_annotations.csv`, which doesn't have any name
+    information.<br />
+
+## Output
+
+- `rdsfile`: *Default: `{{in.metafile | stem}}.immunarch.RDS`*. <br />
+    The RDS file with the data and metadata, which can be processed by
+    other `immunarch` functions.<br />
+- `metatxt`: *Default: `{{in.metafile | stem}}.tcr.txt`*. <br />
+    The meta data at cell level, which can be used to attach to the Seurat object
+
 ## Environment Variables
 
 - `prefix`: *Default: `{Sample}_`*. <br />

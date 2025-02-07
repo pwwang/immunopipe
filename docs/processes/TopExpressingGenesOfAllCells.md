@@ -6,6 +6,16 @@ Top expressing genes for clusters of all cells.
 
 See also [TopExpressingGenes](./TopExpressingGenes.md).<br />
 
+## Input
+
+- `srtobj`:
+    The seurat object in RDS format
+
+## Output
+
+- `outdir`: *Default: `{{in.srtobj | stem}}.top_expressing_genes`*. <br />
+    The output directory for the tables and plots
+
 ## Environment Variables
 
 - `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />

@@ -13,6 +13,16 @@ are then used for enrichment analysis using
 Other than the markers and the enrichment analysis as outputs, this process also
 generates violin plots for the top 10 markers.<br />
 
+## Input
+
+- `srtobj`:
+    The seurat object loaded by `SeuratPreparing`
+
+## Output
+
+- `outdir`: *Default: `{{in.srtobj | stem}}.meta_markers`*. <br />
+    The output directory for the markers
+
 ## Environment Variables
 
 - `ncores` *(`type=int`)*: *Default: `1`*. <br />

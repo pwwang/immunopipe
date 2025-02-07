@@ -9,7 +9,7 @@ This process will -
 
 See also
 - <https://satijalab.org/seurat/articles/pbmc3k_tutorial.html#standard-pre-processing-workflow-1)>
-- <https://nbisweden.github.io/workshop-scRNAseq/labs/compiled/seurat/seurat_01_qc.html#Create_one_merged_object>
+- <https://satijalab.org/seurat/articles/integration_introduction>
 
 This process will read the scRNA-seq data, based on the information provided by
 `SampleInfo`, specifically, the paths specified by the `RNAData` column.<br />
@@ -44,6 +44,24 @@ From `biopipen` v0.23.0, this requires `Seurat` v5.0.0 or higher.<br />
 
 See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
 
+## Input
+
+- `metafile`:
+    The metadata of the samples
+    A tab-delimited file
+    Two columns are required:<br />
+    `Sample` to specify the sample names.<br />
+    `RNAData` to assign the path of the data to the samples
+    The path will be read by `Read10X()` from `Seurat`, or the path
+    to the h5 file that can be read by `Read10X_h5()` from `Seurat`.<br />
+
+## Output
+
+- `rdsfile`: *Default: `{{in.metafile | stem}}.seurat.RDS`*. <br />
+    The RDS file with the Seurat object with all samples integrated.<br />
+    Note that the cell ids are preficed with sample names QC plots will be
+    saved in `<job.outdir>/before-qc` and `<job.outdir>/after-qc`.<br />
+
 ## Environment Variables
 
 - `ncores` *(`type=int`)*: *Default: `1`*. <br />
@@ -69,6 +87,10 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
     genes.<br />
     ///
 
+- `cell_qc_per_sample` *(`flag`)*: *Default: `False`*. <br />
+    Whether to perform cell QC per sample or not.<br />
+    If `True`, the cell QC will be performed per sample, and the QC will be
+    applied to each sample before merging.<br />
 - `gene_qc` *(`ns`)*:
     Filter genes.<br />
     `gene_qc` is applied after `cell_qc`.<br />
@@ -179,21 +201,55 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
             Same as `scVIIntegration`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/integratelayers>
+- `doublet_detector` *(`choice`)*: *Default: `none`*. <br />
+    The doublet detector to use.<br />
+    - `none`:
+        Do not use any doublet detector.<br />
+    - `DoubletFinder`:
+        Use `DoubletFinder` to detect doublets.<br />
+    - `doubletfinder`:
+        Same as `DoubletFinder`.<br />
+    - `scDblFinder`:
+        Use `scDblFinder` to detect doublets.<br />
+    - `scdblfinder`:
+        Same as `scDblFinder`.<br />
 - `DoubletFinder` *(`ns`)*:
     Arguments to run [`DoubletFinder`](https://github.com/chris-mcginnis-ucsf/DoubletFinder).<br />
     See also <https://demultiplexing-doublet-detecting-docs.readthedocs.io/en/latest/DoubletFinder.html>.<br />
-    To disable `DoubletFinder`, set `envs.DoubletFinder` to `None` or `False`; or set `pcs` to `0`.<br />
-    - `PCs` *(`type=int`)*: *Default: `0`*. <br />
+    - `PCs` *(`type=int`)*: *Default: `10`*. <br />
         Number of PCs to use for 'doubletFinder' function.<br />
     - `doublets` *(`type=float`)*: *Default: `0.075`*. <br />
         Number of expected doublets as a proportion of the pool size.<br />
     - `pN` *(`type=float`)*: *Default: `0.25`*. <br />
         Number of doublets to simulate as a proportion of the pool size.<br />
+    - `ncores` *(`type=int`)*: *Default: `1`*. <br />
+        Number of cores to use for `DoubletFinder::paramSweep`.<br />
+        Set to `None` to use `envs.ncores`.<br />
+        Since parallelization of the function usually exhausts memory, if big `envs.ncores` does not work
+        for `DoubletFinder`, set this to a smaller number.<br />
+- `scDblFinder` *(`ns`)*:
+    Arguments to run [`scDblFinder`](https://rdrr.io/bioc/scDblFinder/man/scDblFinder.html).<br />
+    - `dbr` *(`type=float`)*: *Default: `0.075`*. <br />
+        The expected doublet rate.<br />
+    - `ncores` *(`type=int`)*: *Default: `1`*. <br />
+        Number of cores to use for `scDblFinder`.<br />
+        Set to `None` to use `envs.ncores`.<br />
+    - `<more>`:
+        See <https://rdrr.io/bioc/scDblFinder/man/scDblFinder.html>.<br />
+- `cache` *(`type=auto`)*: *Default: `/tmp/user`*. <br />
+    Whether to cache the information at different steps.<br />
+    If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
+    The cached seurat object will be saved as `<signature>.<kind>.RDS` file, where `<signature>` is the signature determined by
+    the input and envs of the process.<br />
+    See <https://github.com/satijalab/seurat/issues/7849>, <https://github.com/satijalab/seurat/issues/5358> and
+    <https://github.com/satijalab/seurat/issues/6748> for more details also about reproducibility issues.<br />
+    To not use the cached seurat object, you can either set `cache` to `False` or delete the cached file at
+    `<signature>.RDS` in the cache directory.<br />
 
 ## Metadata
 
 Here is the demonstration of basic metadata for the `Seurat` object. Future
 processes will use it and/or add more metadata to the `Seurat` object.<br />
 
-![SeuratPreparing-metadata](../processes/images/SeuratPreparing-metadata.png)
+![SeuratPreparing-metadata](../..//processes/images/SeuratPreparing-metadata.png)
 

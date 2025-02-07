@@ -18,7 +18,7 @@ There are three types of output from this process
 
 - Residency plots showing the residency of clones in the two groups
 
-    ![CloneResidency_residency](../processes/images/CloneResidency.png)
+    ![CloneResidency_residency](../latest/processes/images/CloneResidency.png)
 
     The points in the plot are jittered to avoid overplotting. The x-axis is the residency in the first group and
     the y-axis is the residency in the second group. The size of the points are relative to the normalized size of
@@ -38,7 +38,24 @@ There are three types of output from this process
 
 - Venn diagrams showing the overlap of the clones in the two groups
 
-    ![CloneResidency_venn](../processes/images/CloneResidency_venn.png){: width="60%"}
+    ![CloneResidency_venn](../latest/processes/images/CloneResidency_venn.png){: width="60%"}
+
+## Input
+
+- `immdata`:
+    The data loaded by `immunarch::repLoad()`
+- `metafile`:
+    A cell-level metafile, where the first column must be the cell barcodes
+    that match the cell barcodes in `immdata`. The other columns can be any
+    metadata that you want to use for the analysis. The loaded metadata will be
+    left-joined to the converted cell-level data from `immdata`.<br />
+    This can also be a Seurat object RDS file. If so, the `sobj@meta.data` will
+    be used as the metadata.<br />
+
+## Output
+
+- `outdir`: *Default: `{{in.immdata | stem}}.cloneov`*. <br />
+    The output directory
 
 ## Environment Variables
 

@@ -27,6 +27,23 @@ this process wraps the functions from [`immunarch`](https://immunarch.com) to do
 - The distributions of kmers and sequence profiles, provided by [`immunarch::getKmers`](https://immunarch.com/reference/getKmers.html)
 - The V-J junction circos plots, implemented within the script of this process.<br />
 
+## Input
+
+- `immdata`:
+    The data loaded by `immunarch::repLoad()`
+- `metafile`:
+    A cell-level metafile, where the first column must be the cell barcodes
+    that match the cell barcodes in `immdata`. The other columns can be any
+    metadata that you want to use for the analysis. The loaded metadata will be
+    left-joined to the converted cell-level data from `immdata`.<br />
+    This can also be a Seurat object RDS file. If so, the `sobj@meta.data` will
+    be used as the metadata.<br />
+
+## Output
+
+- `outdir`: *Default: `{{in.immdata | stem}}.immunarch`*. <br />
+    The output directory
+
 ## Environment Variables
 
 - `mutaters` *(`type=json;order=-9`)*: *Default: `{}`*. <br />

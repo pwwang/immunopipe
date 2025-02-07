@@ -13,6 +13,16 @@ and then the clustering will be performed on the subset of cells. The reduction
 will be saved in `sobj@reduction$sub_umap_<casename>` of the original object and the
 clustering will be saved in the metadata of the original object using the casename     as the column name.<br />
 
+## Input
+
+- `srtobj`:
+    The seurat object
+
+## Output
+
+- `rdsfile`: *Default: `{{in.srtobj | stem}}.RDS`*. <br />
+    The seurat object with the subclustering information.<br />
+
 ## Environment Variables
 
 - `ncores` *(`type=int;order=-100`)*: *Default: `1`*. <br />
@@ -49,8 +59,9 @@ clustering will be saved in the metadata of the original object using the casena
     Arguments for [`FindClusters()`](https://satijalab.org/seurat/reference/findclusters).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
     The cluster labels will be prefixed with "s". The first cluster will be "s1", instead of "s0".<br />
-    - `resolution`: *Default: `0.8`*. <br />
-        The resolution of the clustering. You can have multiple resolutions separated by comma.<br />
+    - `resolution` *(`type=auto`)*: *Default: `0.8`*. <br />
+        The resolution of the clustering. You can have multiple resolutions as a list or as a string separated by comma.<br />
+        Ranges are also supported, for example: `0.1:0.5:0.1` will generate `0.1, 0.2, 0.3, 0.4, 0.5`. The step can be omitted, defaulting to 0.1.<br />
         The results will be saved in `<casename>_<resolution>`.<br />
         The final resolution will be used to define the clusters at `<casename>`.<br />
     - `<more>`:
@@ -74,5 +85,5 @@ clustering will be saved in the metadata of the original object using the casena
 The metadata of the `Seurat` object will be updated with the sub-clusters
 specified by names (keys) of `envs.cases`:<br />
 
-![SeuratSubClustering-metadata](../processes/images/SeuratSubClustering-metadata.png)
+![SeuratSubClustering-metadata](../..//processes/images/SeuratSubClustering-metadata.png)
 

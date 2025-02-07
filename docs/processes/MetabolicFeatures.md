@@ -5,6 +5,14 @@ This process performs enrichment analysis for the metabolic pathways for each gr
 The enrichment analysis is done with [`fgsea`](https://bioconductor.org/packages/release/bioc/html/fgsea.html)
 package or the [`GSEA_R`](https://github.com/GSEA-MSigDB/GSEA_R) package.<br />
 
+## Input
+
+- `sobjfile`:
+
+## Output
+
+- `outdir`: *Default: `{{in.sobjfile | stem}}.pathwayfeatures`*. <br />
+
 ## Environment Variables
 
 - `ncores` *(`type=int;pgarg`)*: *Default: `1`*. <br />
