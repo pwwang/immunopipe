@@ -163,6 +163,14 @@ if (!is.null(tcell_selector) || isFALSE(tcell_selector)) {
     print(km_plot)
     dev.off()
 
+    pdf(
+        file.path(outdir, "kmeans.pdf"),
+        height=8,
+        width=10
+    )
+    print(km_plot)
+    dev.off()
+
     add_report(
         list(
             kind = "descr",
@@ -188,7 +196,8 @@ if (!is.null(tcell_selector) || isFALSE(tcell_selector)) {
         ),
         list(
             kind = "image",
-            src = file.path(outdir, "kmeans.png")
+            src = file.path(outdir, "kmeans.png"),
+            download = file.path(outdir, "kmeans.pdf")
         ),
         h1 = "K-means clustering"
     )
@@ -248,8 +257,13 @@ plot_indicator_gene = function(gene, x) {
     print(p)
     dev.off()
 
+    plotfile_pdf = gsub(".png$", ".pdf", plotfile)
+    pdf(plotfile_pdf, height=6, width=12)
+    print(p)
+    dev.off()
+
     add_report(
-        list(src = plotfile, name = gene),
+        list(src = plotfile, name = gene, download = plotfile_pdf),
         h1 = paste0("Indicator gene expression vs ", x_lab),
         ui = "table_of_images"
     )
@@ -338,6 +352,14 @@ log_info("Plotting (selected) T cell composition per sample ...")
     )
     print(p | p_perc)
     dev.off()
+
+    pdf(
+        file.path(outdir, "tcell_per_sample.pdf"),
+        height=6,
+        width=2 * (length(unique(sobj@meta.data$Sample)) * 50 + 100) / 100
+    )
+    print(p | p_perc)
+    dev.off()
 }
 
 # Plot a pie chart of the T cell composition
@@ -375,16 +397,22 @@ log_info("Plotting T cell composition ...")
     )
     print(p_pie)
     dev.off()
+
+    pdf(file.path(outdir, "tcell_pie.pdf"), height=6, width=8)
+    print(p_pie)
+    dev.off()
 }
 
 add_report(
     list(
         src = file.path(outdir, "tcell_pie.png"),
+        download = file.path(outdir, "tcell_pie.pdf"),
         name = "T cells in pie charts",
         desc = "The number and percentage of T cells and other cells in pie charts"
     ),
     list(
         src = file.path(outdir, "tcell_per_sample.png"),
+        download = file.path(outdir, "tcell_per_sample.pdf"),
         name = "T cells in each sample",
         desc = "Absolute number of T cells and other cells in each sample (left) and percentage of T cells and other cells in each sample (right)."
     ),
@@ -424,14 +452,20 @@ sobj@meta.data$Selected_TCells = sobj@meta.data %>% left_join(
 ) %>% pull(is_TCell)
 for (feature in features) {
     log_info("- Feature: {feature}")
+    p <- FeaturePlot(sobj, features = feature)
+
     plotfile = file.path(outdir, paste0("feature_", slugify(feature), ".png"))
     png(plotfile, res=100, height=600, width=800)
-    p <- FeaturePlot(sobj, features = feature)
+    print(p)
+    dev.off()
+
+    plotfile_pdf = file.path(outdir, paste0("feature_", slugify(feature), ".pdf"))
+    pdf(plotfile_pdf, height=6, width=8)
     print(p)
     dev.off()
 
     add_report(
-        list(src = plotfile, name = feature),
+        list(src = plotfile, name = feature, download = plotfile_pdf),
         h1 = "Feature plots",
         ui = "table_of_images"
     )
