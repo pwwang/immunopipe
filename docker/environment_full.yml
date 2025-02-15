@@ -16,6 +16,7 @@ dependencies:
   - libiconv # fix git: error while loading shared libraries: libiconv.so.2
   - time  # for pipen-runinfo
   - wget
+  - gcc_linux-64
   - pwwang::bioconductor-data-packages
   - bioconductor-fgsea
   - bioconductor-scater
