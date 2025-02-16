@@ -38,6 +38,22 @@ cluster has only one unique CDR3 sequence or multiple CDR3 sequences.<br />
 Note that a cluster with `S_` prefix may still have multiple cells, as the same
 CDR3 sequence may be shared by multiple cells.<br />
 
+## Input
+
+- `immfile`:
+    The immunarch object in RDS
+
+## Output
+
+- `immfile`: *Default: `{{in.immfile | basename}}`*. <br />
+    The immnuarch object in RDS with TCR cluster information
+- `clusterfile`: *Default: `{{in.immfile | stem}}.clusters.txt`*. <br />
+    The cluster file.<br />
+    Columns are CDR3.aa, TCR_Cluster, TCR_Cluster_Size and
+    TCR_Cluster_Size1.<br />
+    TCR_Cluster_Size is the number of cells in the cluster.<br />
+    TCR_Cluster_Size1 is the unique CDR3 sequences in the cluster.<br />
+
 ## Environment Variables
 
 - `tool` *(`choice`)*: *Default: `GIANA`*. <br />

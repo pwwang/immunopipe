@@ -6,6 +6,14 @@ Similar to the [`MetabolicFeatures`](./MetabolicFeatures.md)
 process, this process performs enrichment analysis for the metabolic pathways for
 each subset in each group, instead of each group in each subset.<br />
 
+## Input
+
+- `sobjfile`:
+
+## Output
+
+- `outdir`: *Default: `{{in.sobjfile | stem}}.intra-subset-pathwayfeatures`*. <br />
+
 ## Environment Variables
 
 - `ncores` *(`type=int;pgarg`)*: *Default: `1`*. <br />

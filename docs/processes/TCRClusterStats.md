@@ -8,6 +8,16 @@ The statistics include
 - Sample diversity using TCR clusters instead of TCR clones
 - Shared TCR clusters between samples
 
+## Input
+
+- `immfile`:
+    The immunarch object with TCR clusters attached
+
+## Output
+
+- `outdir`: *Default: `{{in.immfile | stem}}.tcrclusters_stats`*. <br />
+    The output directory containing the stats and reports
+
 ## Environment Variables
 
 - `cluster_size` *(`ns`)*:
@@ -39,6 +49,12 @@ The statistics include
     - `heatmap_meta` *(`list`)*: *Default: `[]`*. <br />
         The columns of metadata to show on the
         heatmap.<br />
+    - `cluster_rows` *(`flag`)*: *Default: `True`*. <br />
+        Whether to cluster the rows on the heatmap.<br />
+    - `sample_order`:
+        The order of the samples on the heatmap.<br />
+        Either a string separated by `,` or a list of sample names.<br />
+        This only works for columns if `cluster_rows` is `True`.<br />
     - `grouping`:
         The groups to investigate the shared clusters.<br />
         If specified, venn diagrams will be drawn instead of heatmaps.<br />
@@ -113,7 +129,7 @@ The statistics include
 by = "Sample"
 ```
 
-![Cluster_size](../processes/images/TCRClusteringStats_cluster_size.png){: width="80%"}
+![Cluster_size](../latest/processes/images/TCRClusteringStats_cluster_size.png){: width="80%"}
 
 ### Shared clusters
 
@@ -123,7 +139,7 @@ numbers_on_heatmap = true
 heatmap_meta = ["region"]
 ```
 
-![Shared_clusters](../processes/images/TCRClusteringStats_shared_clusters.png){: width="80%"}
+![Shared_clusters](../latest/processes/images/TCRClusteringStats_shared_clusters.png){: width="80%"}
 
 ### Sample diversity
 
@@ -132,9 +148,9 @@ heatmap_meta = ["region"]
 method = "gini"
 ```
 
-![Sample_diversity](../processes/images/TCRClusteringStats_sample_diversity.png){: width="80%"}
+![Sample_diversity](../latest/processes/images/TCRClusteringStats_sample_diversity.png){: width="80%"}
 
 Compared to the sample diversity using TCR clones:<br />
 
-![Sample_diversity](../processes/images/Immunarch_sample_diversity.png){: width="80%"}
+![Sample_diversity](../latest/processes/images/Immunarch_sample_diversity.png){: width="80%"}
 

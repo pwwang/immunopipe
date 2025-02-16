@@ -16,6 +16,16 @@ The fgsea package is based on the fast algorithm for preranked GSEA described in
 For each case, the process will generate a table with the enrichment scores for
 each gene set, and GSEA plots for the top gene sets.<br />
 
+## Input
+
+- `srtobj`:
+    The seurat object in RDS format
+
+## Output
+
+- `outdir`: *Default: `{{(in.casefile or in.srtobj) | stem0}}.fgsea`*. <br />
+    The output directory for the results
+
 ## Environment Variables
 
 - `ncores` *(`type=int`)*: *Default: `1`*. <br />

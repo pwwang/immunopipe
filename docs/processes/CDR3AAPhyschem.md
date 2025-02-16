@@ -7,6 +7,25 @@ The idea is to perform a regression between two groups of cells
 The regression will be performed for each physicochemical feature of the
 AA (hydrophobicity, volume and isolectric point).<br />
 
+## Input
+
+- `immdata`:
+    The data loaded by `immunarch::repLoad()`, saved in RDS format
+- `srtobj`:
+    The `Seurat` object, saved in RDS format, used to get the
+    metadata for each cell (e.g. cell type)
+    It could also be a tab delimited file with `meta.data` of the
+    `Seurat` object.<br />
+    It has to have a `Sample` column, which is used to match the
+    `immdata` object.<br />
+    It is optional, if not provided, the metadata from the `immdata`
+    object will be used.<br />
+
+## Output
+
+- `outdir`: *Default: `{{in.immdata | stem}}.cdr3aaphyschem`*. <br />
+    The output directory
+
 ## Environment Variables
 
 - `group`:

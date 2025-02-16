@@ -30,10 +30,24 @@ ident-2 = "S_2"
 each = "seurat_clusters"
 ```
 
+## Input
+
+- `srtobj`:
+    The seurat object loaded by SeuratPreparing
+- `metafile`:
+    Additional metadata
+    A tab-delimited file with columns as meta columns and rows as
+    cells.<br />
+
+## Output
+
+- `rdsfile`: *Default: `{{in.srtobj | stem}}.RDS`*. <br />
+    The seurat object with the additional metadata
+
 ## Metadata
 
 The metadata of the `Seurat` object will be updated with the TCR cluster
 assignments and their sizes:<br />
 
-![IntegratingTCRClusters-metadata](../processes/images/IntegratingTCRClusters-metadata.png)
+![IntegratingTCRClusters-metadata](../..//processes/images/IntegratingTCRClusters-metadata.png)
 

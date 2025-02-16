@@ -29,6 +29,31 @@ with tag without `-full` suffix. If you want to use TESSA, please use the
 docker image with tag with `-full` suffix, or install the dependencies manually.<br />
 ///
 
+## Input
+
+- `immdata`:
+    The immunarch object in RDS file or text file of TCR data loaded by
+    [`ImmunarchLoading`](!!#biopipennstcrimmunarchloading)
+- `srtobj`:
+    The `Seurat` object, saved in RDS format, with dimension
+    reduction performed if you want to use them to represent the
+    transcriptome of T cells.<br />
+    This could also be a tab delimited file (can be gzipped) with
+    expression matrix or dimension reduction results.<br />
+
+## Output
+
+- `outfile`: *Default: `
+        {%- if in.srtobj.lower().endswith(".rds") -%}
+        {{in.srtobj | stem}}.tessa.RDS
+        {%- else -%}
+        {{in.immdata | stem}}.tessa.txt
+        {%- endif -%}`*. <br />
+    The tab-delimited file with three columns
+    (`barcode`, `TESSA_Cluster` and `TESSA_Cluster_Size`) or
+    an RDS file if  `in.srtobj` is an RDS file of a Seurat object, with
+    `TESSA_Cluster` and `TESSA_Cluster_Size` added to the `meta.data`
+
 ## Environment Variables
 
 - `python`: *Default: `python`*. <br />
@@ -74,5 +99,5 @@ docker image with tag with `-full` suffix, or install the dependencies manually.
 The metadata of the `Seurat` object will be updated with the TESSA clusters
 and the cluster sizes:<br />
 
-![TESSA-metadata](../processes/images/TESSA-metadata.png)
+![TESSA-metadata](../..//processes/images/TESSA-metadata.png)
 

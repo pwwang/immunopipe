@@ -12,6 +12,16 @@ program on single cell level, subtracted by the aggregated expression of
 control feature sets. All analyzed features are binned based on averaged
 expression, and the control features are randomly selected from each bin.<br />
 
+## Input
+
+- `srtobj`:
+    The seurat object loaded by `SeuratClustering`
+
+## Output
+
+- `rdsfile`: *Default: `{{in.srtobj | stem}}.RDS`*. <br />
+    The seurat object with module scores
+
 ## Environment Variables
 
 - `defaults` *(`ns`)*:
@@ -98,5 +108,5 @@ expression, and the control features are randomly selected from each bin.<br />
 
 The metadata of the `Seurat` object will be updated with the module scores:<br />
 
-![ModuleScoreCalculator-metadata](../processes/images/ModuleScoreCalculator-metadata.png)
+![ModuleScoreCalculator-metadata](../..//processes/images/ModuleScoreCalculator-metadata.png)
 

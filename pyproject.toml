@@ -20,7 +20,7 @@ python = "^3.9"
 pipen-diagram = { version = "^0.12", optional = true }
 pipen-runinfo = { version = "^0.8", optional = true }
 # pipen-report and pipen-board are required by biopipen
-biopipen = "^0.31.4"
+biopipen = "^0.32.3"
 
 [tool.poetry.extras]
 diagram = ["pipen-diagram"]

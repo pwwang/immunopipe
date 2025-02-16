@@ -9,6 +9,17 @@ this process will be run on the selected T cells by
 
 See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
 
+## Input
+
+- `srtobj`:
+    The seurat object loaded by SeuratPreparing
+
+## Output
+
+- `rdsfile`: *Default: `{{in.srtobj | stem}}.RDS`*. <br />
+    The seurat object with cluster information at `seurat_clusters`
+    If `SCTransform` was used, the default Assay will be reset to `RNA`.<br />
+
 ## Environment Variables
 
 - `ncores` *(`type=int;order=-100`)*: *Default: `1`*. <br />
@@ -56,8 +67,9 @@ See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
     The cluster labels will be saved in `seurat_clusters` and prefixed with "c".<br />
     The first cluster will be "c1", instead of "c0".<br />
-    - `resolution`: *Default: `0.8`*. <br />
-        The resolution of the clustering. You can have multiple resolutions separated by comma.<br />
+    - `resolution` *(`type=auto`)*: *Default: `0.8`*. <br />
+        The resolution of the clustering. You can have multiple resolutions as a list or as a string separated by comma.<br />
+        Ranges are also supported, for example: `0.1:0.5:0.1` will generate `0.1, 0.2, 0.3, 0.4, 0.5`. The step can be omitted, defaulting to 0.1.<br />
         The results will be saved in `seurat_clusters_<resolution>`.<br />
         The final resolution will be used to define the clusters at `seurat_clusters`.<br />
     - `<more>`:
@@ -77,5 +89,5 @@ See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
 The metadata of the `Seurat` object will be updated with the cluster
 assignments:<br />
 
-![SeuratClustering-metadata](../processes/images/SeuratClustering-metadata.png)
+![SeuratClustering-metadata](../..//processes/images/SeuratClustering-metadata.png)
 

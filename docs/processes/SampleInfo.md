@@ -17,18 +17,18 @@ infile = [ "path/to/sample_info.txt" ]
 Or with `pipen-board`, find the `SampleInfo` process and click the `Edit` button.<br />
 Then you can specify the input file here
 
-![infile](../processes/images/SampleInfo-infile.png)
+![infile](../..//processes/images/SampleInfo-infile.png)
 
 Theroetically, we can have multiple input files. However, it is not tested yet.<br />
 If you have multiple input files to run, please run it with a different pipeline
 instance (configuration file).<br />
 
 For the content of the input file, please see details
-[here](../preparing-input.md#metadata).<br />
+[here](../..//preparing-input.md#metadata).<br />
 
 Once the pipeline is finished, you can see the sample information in the report
 
-![report](../processes/images/SampleInfo-report.png)
+![report](../..//processes/images/SampleInfo-report.png)
 
 Note that the required `RNAData` and `TCRData` columns are not shown in the report.<br />
 They are used to specify the paths of the `scRNA-seq` and `scTCR-seq` data, respectively.<br />
@@ -53,6 +53,32 @@ cache = "force"
 cache = false
 ```
 ///
+
+## Input
+
+- `infile` *(`required`)*:
+    The input file to list sample information The input file should be a csv/tsv file with header.<br />
+    The input file should have the following columns.<br />
+    * Sample: A unique id for each sample.<br />
+    * TCRData: The directory for single-cell TCR data for this sample.<br />
+    Specifically, it should contain filtered_contig_annotations.csv
+    or all_contig_annotations.csv from cellranger.<br />
+    * RNAData: The directory for single-cell RNA data for this sample.<br />
+    Specifically, it should be able to be read by
+    `Seurat::Read10X()`.<br />
+    See also https://satijalab.org/seurat/reference/read10x.<br />
+    * Other columns are optional and will be treated as metadata for
+    each sample.<br />
+
+## Output
+
+- `outfile`: *Default: `{{in.infile | basename}}`*. <br />
+    The output file with sample information, with mutated columns
+    if `envs.save_mutated` is True.<br />
+    The basename of the output file will be the same as the input file.<br />
+    The file name of each plot will be slugified from the case name.<br />
+    Each plot has 3 formats: pdf, png and code.zip, which contains the
+    data and R code to reproduce the plot.<br />
 
 ## Environment Variables
 
@@ -162,7 +188,7 @@ on = "sample"
 group = "Diagnosis"
 ```
 
-![Samples_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/dev/tests/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis (pie).png)
+![Samples_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis (pie).png)
 
 What if we want a bar plot instead of a pie chart?<br />
 
@@ -173,7 +199,7 @@ group = "Diagnosis"
 plot = "barplot"
 ```
 
-![Samples_Diagnosis_bar](https://raw.githubusercontent.com/pwwang/immunopipe/dev/tests/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis (bar).png)
+![Samples_Diagnosis_bar](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis (bar).png)
 
 ### Explore Age distribution
 
@@ -184,7 +210,7 @@ The distribution of Age of all samples
 on = "Age"
 ```
 
-![Age_distribution](https://raw.githubusercontent.com/pwwang/immunopipe/dev/tests/output/sampleinfo/SampleInfo/Age_distribution (boxplot).png)
+![Age_distribution](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution (boxplot).png)
 
 How about the distribution of Age in each Diagnosis, and make it violin + boxplot?<br />
 
@@ -195,7 +221,7 @@ group = "Diagnosis"
 plot = "violin+boxplot"
 ```
 
-![Age_distribution_per_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/dev/tests/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis (violin + boxplot).png)
+![Age_distribution_per_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis (violin + boxplot).png)
 
 How about Age distribution per Sex in each Diagnosis?<br />
 
@@ -209,5 +235,5 @@ ncol = 3
 devpars = {height = 450}
 ```
 
-![Age_distribution_per_Sex_in_each_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/dev/tests/output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis (boxplot).png)
+![Age_distribution_per_Sex_in_each_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis (boxplot).png)
 

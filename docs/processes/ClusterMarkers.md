@@ -21,6 +21,19 @@ If you are using `pipen-board` to run the pipeline
 you may see the other environment variables of this process are hidden and readonly.<br />
 ///
 
+## Input
+
+- `srtobj`:
+    The seurat object loaded by `SeuratPreparing`
+    If you have your `Seurat` object prepared by yourself, you can also
+    use it here, but you should make sure that the object has been processed
+    by `PrepSCTFindMarkers` if data is not normalized using `SCTransform`.<br />
+
+## Output
+
+- `outdir`: *Default: `{{in.srtobj | stem0}}.markers`*. <br />
+    The output directory for the markers
+
 ## Environment Variables
 
 - `ncores` *(`type=int`)*: *Default: `1`*. <br />

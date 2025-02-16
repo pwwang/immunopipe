@@ -31,6 +31,16 @@ When cell types are annotated, the old `seurat_clusters` column will be renamed
 to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br />
 ///
 
+## Input
+
+- `sobjfile`:
+    The seurat object
+
+## Output
+
+- `outfile`: *Default: `{{in.sobjfile | stem}}.annotated.{{- ext0(in.sobjfile) if envs.outtype == 'input' else envs.outtype -}}`*. <br />
+    The rds file of seurat object with cell type annotated
+
 ## Environment Variables
 
 - `tool` *(`choice`)*: *Default: `direct`*. <br />
@@ -82,16 +92,16 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
 
 - `sccatch_args` *(`ns`)*:
     The arguments for `scCATCH::findmarkergene()` if `tool` is `sccatch`.<br />
-    - `species` *(`choice`)*:
+    - `species`:
         The specie of cells.<br />
-        - `Human`:
-            Human cells.<br />
-        - `Mouse`:
-            Mouse cells.<br />
-    - `cancer`:
+    - `cancer`: *Default: `Normal`*. <br />
         If the sample is from cancer tissue, then the cancer type may be defined.<br />
     - `tissue`:
         Tissue origin of cells must be defined.<br />
+    - `marker`:
+        The marker genes for cell type identification.<br />
+    - `if_use_custom_marker` *(`flag`)*: *Default: `False`*. <br />
+        Whether to use custom marker genes. If `True`, no `species`, `cancer`, and `tissue` are needed.<br />
     - `<more>`:
         Other arguments for [`scCATCH::findmarkergene()`](https://rdrr.io/cran/scCATCH/man/findmarkergene.html).<br />
         You can pass an RDS file to `sccatch_args.marker` to work as custom marker. If so,
@@ -112,6 +122,9 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
         When converting a Seurat object to AnnData, the assay to use.<br />
         If input is h5seurat, this defaults to RNA.<br />
         If input is Seurat object in RDS, this defaults to the default assay.<br />
+- `merge` *(`flag`)*: *Default: `False`*. <br />
+    Whether to merge the clusters with the same cell types.<br />
+    Otherwise, a suffix will be added to the cell types (ie. `.1`, `.2`, etc).<br />
 - `newcol`:
     The new column name to store the cell types.<br />
     If not specified, the `seurat_clusters` column will be overwritten.<br />
@@ -156,5 +169,5 @@ Otherwise, the original `seurat_clusters` column will be replaced by the
 annotated cell types and the original `seurat_clusters` column will be
 saved at `seurat_clusters_id`.<br />
 
-![CellTypeAnnotation-metadata](../processes/images/CellTypeAnnotation-metadata.png)
+![CellTypeAnnotation-metadata](../..//processes/images/CellTypeAnnotation-metadata.png)
 

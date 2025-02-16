@@ -11,7 +11,15 @@ in the permutations.<br />
 The heterogeneity can be reflected by the NES values and the p-values in
 different groups for the metabolic pathways.<br />
 
-![MetabolicPathwayHeterogeneity](../processes/images/MetabolicPathwayHeterogeneity.png)
+![MetabolicPathwayHeterogeneity](../latest/processes/images/MetabolicPathwayHeterogeneity.png)
+
+## Input
+
+- `sobjfile`:
+
+## Output
+
+- `outdir`: *Default: `{{in.sobjfile | stem}}.pathwayhetero`*. <br />
 
 ## Environment Variables
 
