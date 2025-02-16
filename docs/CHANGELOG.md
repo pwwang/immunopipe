@@ -1,5 +1,34 @@
 # Change Log
 
+## 1.4.4
+
+- chore(deps): add gcc_linux-64 to Docker environment dependencies
+- docs: add input and output sections to multiple process documentation files
+- feat: add PDF output for K-means and T cell plots, enhancing report generation
+- deps: bump biopipen to 0.32.3
+  - 0.32.1:
+    - fix(scrna.ScFGSEA): fix case gmtfile not working
+    - fix(TopExpressingGenes): add InlineNotification component to TopExpressingGenes.svelte
+    - fix(scrna.SeuratClusterStats): fix kind not being added to the figure file name for plots of features
+    - feat(scrna.SeuratPreparing): support percent.mt, percent.ribo, percent.hb and percent.plat for mouse
+  - 0.32.2:
+    - feat: add PDF output option for SampleInfo plots
+    - feat: add PDF output options for violin and scatter plots in Seurat preparation scripts
+    - feat: add PDF output options for volcano, dotplot, venn, and upset plots
+    - feat: add PDF output option for Enrichr plots in TopExpressingGenes script
+    - feat: add PDF output options for UMAP plots in SeuratMap2Ref script; update image handling in misc.liq
+    - feat: add PDF output options for cluster size distribution, shared clusters, and sample diversity plots; update plotting functions to handle multiple output formats
+    - feat: add PDF output options for various Immunarch scripts; enhance reporting with downloadable PDF files
+    - feat: add PDF output options for cluster size distribution, dimension plots, and feature plots; enhance reporting with downloadable PDF files
+    - feat: add PDF output options for radar and bar plots; enhance reporting with downloadable PDF files
+    - feat: add PDF output options for CloneResidency script; enhance reporting with downloadable PDF files
+    - feat: add PDF output options for GSEA table and enrichment plots; enhance reporting with downloadable PDF files
+    - feat: add PDF output options for pie charts, heatmaps, Venn plots, and UpSet plots; enhance reporting with downloadable PDF files
+    - feat: add PDF output options for Enrichr plots; enhance reporting with downloadable PDF files
+    - feat: add PDF output options for estimated coefficients and distribution plots; enhance reporting with downloadable PDF files
+  - 0.32.3:
+    - chore: add descriptive summaries for fgsea and enrichr results
+
 ## 1.4.3
 
 - deps: update pipen-runinfo dependency to version 0.8.0 (pipen to 0.15.2)
