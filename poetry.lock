@@ -256,13 +256,13 @@ files = [
 
 [[package]]
 name = "copier"
-version = "9.4.1"
+version = "9.5.0"
 description = "A library for rendering project templates."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "copier-9.4.1-py3-none-any.whl", hash = "sha256:863385b7ba8a9090c832cd12ca072dba9153397dbe7c5f337bf8c3d8859efa32"},
-    {file = "copier-9.4.1.tar.gz", hash = "sha256:cc81d8204cb17fbc8c4a14996a8ce764166c34c77236de38cfbeb960c887b68f"},
+    {file = "copier-9.5.0-py3-none-any.whl", hash = "sha256:d7d9851649ad71518f8e868ab761362af0ee9008025a3f85647e9724983cf540"},
+    {file = "copier-9.5.0.tar.gz", hash = "sha256:db7311075176376ee746fe610ffb5b27db7ac755585d6149894f677ffbce127d"},
 ]
 
 [package.dependencies]
@@ -270,10 +270,11 @@ colorama = ">=0.4.6"
 dunamai = ">=1.7.0"
 eval-type-backport = {version = ">=0.1.3,<0.3.0", markers = "python_version < \"3.10\""}
 funcy = ">=1.17"
-jinja2 = ">=3.1.4"
+jinja2 = ">=3.1.5"
 jinja2-ansible-filters = ">=1.3.1"
 packaging = ">=23.0"
 pathspec = ">=0.9.0"
+platformdirs = ">=4.3.6"
 plumbum = ">=1.6.9"
 pydantic = ">=2.4.2"
 pygments = ">=2.7.1"
@@ -1183,17 +1184,17 @@ runinfo = ["pipen-runinfo (>=0.8,<0.9)"]
 
 [[package]]
 name = "pipen-runinfo"
-version = "0.8.2"
+version = "0.8.3"
 description = "Generate running information for jobs in pipen pipelines"
 optional = true
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pipen_runinfo-0.8.2-py3-none-any.whl", hash = "sha256:390931e015dac5b0ab5795046ed9144b1f895320f5b23210a4b721c8bac3f65b"},
-    {file = "pipen_runinfo-0.8.2.tar.gz", hash = "sha256:cc74fddf14cddf0796ee1b843ae8819c7403804b7f62b14c985e95a2b5c40834"},
+    {file = "pipen_runinfo-0.8.3-py3-none-any.whl", hash = "sha256:27c2612ec966344e818e97bdff50345180bb0d7570db54c3c8925f03fea397a4"},
+    {file = "pipen_runinfo-0.8.3.tar.gz", hash = "sha256:90d6f247e9dde9dc288b7589ab552c0b47a85574755dda0b8617fcb3583c544c"},
 ]
 
 [package.dependencies]
-pipen = ">=0.15.5,<0.16.0"
+pipen = ">=0.15.7,<0.16.0"
 
 [[package]]
 name = "pipen-verbose"
@@ -1208,6 +1209,22 @@ files = [
 
 [package.dependencies]
 pipen = ">=0.15.0,<0.16.0"
+
+[[package]]
+name = "platformdirs"
+version = "4.3.6"
+description = "A small Python package for determining appropriate platform-specific dirs, e.g. a `user data dir`."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "platformdirs-4.3.6-py3-none-any.whl", hash = "sha256:73e575e1408ab8103900836b97580d5307456908a03e92031bab39e4554cc3fb"},
+    {file = "platformdirs-4.3.6.tar.gz", hash = "sha256:357fb2acbc885b0419afd3ce3ed34564c13c9b95c89360cd9563f73aa5e2b907"},
+]
+
+[package.extras]
+docs = ["furo (>=2024.8.6)", "proselint (>=0.14)", "sphinx (>=8.0.2)", "sphinx-autodoc-typehints (>=2.4)"]
+test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=8.3.2)", "pytest-cov (>=5)", "pytest-mock (>=3.14)"]
+type = ["mypy (>=1.11.2)"]
 
 [[package]]
 name = "pluggy"
