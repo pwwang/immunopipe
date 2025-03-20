@@ -1,3 +1,0 @@
-Classification	Droplet_N
-doublet	174
-singlet	2404

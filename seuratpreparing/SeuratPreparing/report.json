@@ -6,144 +6,83 @@
           {
             "kind": "descr",
             "name": "Filters applied",
-            "content": "<p>Cell filters: nFeature_RNA &gt; 200 &amp; percent.mt &lt; 5 &amp; runif(n()) &lt; 0.1<\/p><p>Gene filters: min_cells = 3; excludes = <\/p>"
-          },
+            "content": "<p>Cell filters: nFeature_RNA &gt; 200 &amp; percent.mt &lt; 5 &amp; runif(n()) &lt; 0.1<\/p><p>Gene filters: <\/p><p>- Min Cells: 3<\/p><p>- Excludes: Not set<\/p>"
+          }
+        ]
+      }
+    },
+    "Dimension table": {
+      "#": {
+        "flat": [
           {
             "kind": "descr",
-            "content": "The dimension table for the Seurat object. The table contains the number of cells and genes before and after QC."
+            "content": "The dimension table for the Seurat object. The table contains the number of cells and genes before and after QC. Note that the cell QC is performed before gene QC."
           },
           {
             "kind": "table",
             "data": {
-              "path": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/dim.txt"
-            }
-          }
-        ]
-      }
-    }
-  },
-  "Violin Plots": {
-    "#": {
-      "#": {
-        "flat": [
-          {
-            "kind": "descr",
-            "content": "The violin plots for each feature. The cells are grouped by sample. The cells that fail the QC criteria are colored in red, and the cells that pass the QC criteria are colored in black. The cells that fail the QC criteria are filtered out in the returned Seurat object."
-          }
-        ],
-        "table_of_images": [
-          {
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/nFeature_RNA.vln.png",
-            "name": "nFeature_RNA",
-            "download": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/nFeature_RNA.vln.pdf",
-            "descr": "Distribution of nFeature_RNA for each sample."
-          },
-          {
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/nCount_RNA.vln.png",
-            "name": "nCount_RNA",
-            "download": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/nCount_RNA.vln.pdf",
-            "descr": "Distribution of nCount_RNA for each sample."
-          },
-          {
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-mt.vln.png",
-            "name": "percent.mt",
-            "download": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-mt.vln.pdf",
-            "descr": "Distribution of percent.mt for each sample."
-          },
-          {
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-ribo.vln.png",
-            "name": "percent.ribo",
-            "download": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-ribo.vln.pdf",
-            "descr": "Distribution of percent.ribo for each sample."
-          },
-          {
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-hb.vln.png",
-            "name": "percent.hb",
-            "download": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-hb.vln.pdf",
-            "descr": "Distribution of percent.hb for each sample."
-          },
-          {
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-plat.vln.png",
-            "name": "percent.plat",
-            "download": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-plat.vln.pdf",
-            "descr": "Distribution of percent.plat for each sample."
-          }
-        ]
-      }
-    }
-  },
-  "Scatter Plots": {
-    "#": {
-      "#": {
-        "flat": [
-          {
-            "kind": "descr",
-            "content": "The scatter plots for each feature against nCount_RNA.  The cells that fail the QC criteria are colored in red, and the cells that pass the QC criteria are colored in black. The cells that fail the QC criteria are filtered out in the returned Seurat object."
-          }
-        ],
-        "table_of_images": [
-          {
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/nFeature_RNA-nCount_RNA.scatter.png",
-            "name": "nFeature_RNA vs nCount_RNA",
-            "download": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/nFeature_RNA-nCount_RNA.scatter.pdf",
-            "descr": "Scatter plot for nFeature_RNA against nCount_RNA"
-          },
-          {
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-mt-nCount_RNA.scatter.png",
-            "name": "percent.mt vs nCount_RNA",
-            "download": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-mt-nCount_RNA.scatter.pdf",
-            "descr": "Scatter plot for percent.mt against nCount_RNA"
-          },
-          {
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-ribo-nCount_RNA.scatter.png",
-            "name": "percent.ribo vs nCount_RNA",
-            "download": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-ribo-nCount_RNA.scatter.pdf",
-            "descr": "Scatter plot for percent.ribo against nCount_RNA"
-          },
-          {
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-hb-nCount_RNA.scatter.png",
-            "name": "percent.hb vs nCount_RNA",
-            "download": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-hb-nCount_RNA.scatter.pdf",
-            "descr": "Scatter plot for percent.hb against nCount_RNA"
-          },
-          {
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-plat-nCount_RNA.scatter.png",
-            "name": "percent.plat vs nCount_RNA",
-            "download": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/percent-plat-nCount_RNA.scatter.pdf",
-            "descr": "Scatter plot for percent.plat against nCount_RNA"
-          }
-        ]
-      }
-    }
-  },
-  "DoubletFinder Results": {
-    "The DoubletFinder Summary": {
-      "#": {
-        "flat": [
-          {
-            "kind": "descr",
-            "content": "The table contains the number of cells classified as singlets and doublets."
-          },
-          {
-            "kind": "table",
-            "data": {
-              "path": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/DoubletFinder_summary.txt"
+              "path": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/qc/dim.txt"
             }
           }
         ]
       }
     },
-    "Plots": {
+    "Violin Plots of QC Metrics": {
+      "#": {
+        "flat": [
+          {
+            "kind": "image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/qc/Violin-Plots-of-QC-Metrics_cell_qc.png"
+          }
+        ]
+      }
+    },
+    "Scatter Plots of QC Metrics": {
+      "#": {
+        "flat": [
+          {
+            "kind": "image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/qc/Scatter-Plots-of-QC-Metrics_cell_qc.png"
+          }
+        ]
+      }
+    },
+    "Ridge Plots of QC Metrics": {
+      "#": {
+        "flat": [
+          {
+            "kind": "image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/qc/Ridge-Plots-of-QC-Metrics_cell_qc.png"
+          }
+        ]
+      }
+    }
+  },
+  "Doublet detection using DoubletFinder": {
+    "BC metric vs pK": {
+      "#": {
+        "flat": [
+          {
+            "kind": "descr",
+            "content": "The pK plot from DoubletFinder to select the optimal pK value. See more at https://github.com/chris-mcginnis-ucsf/DoubletFinder"
+          },
+          {
+            "kind": "image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/doublets/doubletfinder_pk.png"
+          }
+        ]
+      }
+    },
+    "Doublets distribution": {
       "#": {
         "table_of_images": [
           {
-            "name": "pK vs BCmetric",
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/DoubletFinder_pK_BCmetric.png"
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/doublets/doublets_dim.png",
+            "descr": "Dimention Reduction Plot"
           },
           {
-            "name": "Dimension Reduction Plot",
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/DoubletFinder_dimplot.png",
-            "download": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/plots/DoubletFinder_dimplot.pdf"
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/doublets/doublets_pie.png",
+            "descr": "Pie Chart"
           }
         ]
       }
