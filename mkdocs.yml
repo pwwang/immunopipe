@@ -61,6 +61,8 @@ nav:
       - 'MarkersFinder': 'processes/MarkersFinder.md'
       - 'MetaMarkers': 'processes/MetaMarkers.md'
       - 'CDR3AAPhyschem': 'processes/CDR3AAPhyschem.md'
+      - 'CellCellCommunication': 'processes/CellCellCommunication.md'
+      - 'CellCellCommunicationPlots': 'processes/CellCellCommunicationPlots.md'
     - 'Metabolic Landscape Analysis':
       - 'Introduction & Group Arguments': 'processes/ScrnaMetabolicLandscape.md'
       - 'MetabolicInput': 'processes/MetabolicInput.md'

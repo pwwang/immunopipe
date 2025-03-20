@@ -14,7 +14,8 @@ are groups (i.e. clinic groups).<br />
 ## Output
 
 - `outdir`: *Default: `{{in.srtobj | stem}}.cells_distribution`*. <br />
-    The output directory
+    The output directory.<br />
+    The results for each case will be saved in a subdirectory.<br />
 
 ## Environment Variables
 

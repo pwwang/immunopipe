@@ -108,44 +108,47 @@ cache = false
     returned ids. Non-paired ids will be `NA`.<br />
 - `save_mutated` *(`flag`)*: *Default: `False`*. <br />
     Whether to save the mutated columns.<br />
-- `exclude_cols`: *Default: `TCRData,RNAData`*. <br />
+- `exclude_cols` *(`auto`)*: *Default: `TCRData,RNAData`*. <br />
     The columns to exclude in the table in the report.<br />
     Could be a list or a string separated by comma.<br />
 - `defaults` *(`ns`)*:
     The default parameters for `envs.stats`.<br />
-    - `on`: *Default: `Sample`*. <br />
-        The column name in the data for the stats.<br />
-        Default is `Sample`. The column could be either continuous or not.<br />
+    - `plot_type`: *Default: `bar`*. <br />
+        The type of the plot.<br />
+        See the supported plot types here:<br />
+        <https://pwwang.github.io/plotthis/reference/index.html>
+        The plot_type should be lower case and the plot function used in
+        `plotthis` should be used. The mapping from plot_type to the
+        plot function is like `bar -> BarPlot`, `box -> BoxPlot`, etc.<br />
+    - `more_formats` *(`list`)*: *Default: `[]`*. <br />
+        The additional formats to save the plot.<br />
+        By default, the plot will be saved in png, which is also used to
+        display in the report. You can add more formats to save the plot.<br />
+        For example, `more_formats = ["pdf", "svg"]`.<br />
+    - `save_code` *(`flag`)*: *Default: `False`*. <br />
+        Whether to save the R code to reproduce the plot.<br />
+        The data used to plot will also be saved.<br />
     - `subset`:
-        An R expression to subset the data.<br />
-        If you want to keep the distinct records, you can use
-        `!duplicated(<col>)`.<br />
-    - `group`:
-        The column name in the data for the group ids.<br />
-        If not provided, all records will be regarded as one group.<br />
-    - `na_group` *(`flag`)*: *Default: `False`*. <br />
-        Whether to include `NA`s in the group.<br />
-    - `each`:
-        The column in the data to split the analysis in different
-        plots.<br />
-    - `ncol` *(`type=int`)*: *Default: `2`*. <br />
-        The number of columns in the plot when `each`
-        is not `NULL`. Default is 2.<br />
-    - `na_each` *(`flag`)*: *Default: `False`*. <br />
-        Whether to include `NA`s in the `each` column.<br />
-    - `plot`:
-        Type of plot. If `on` is continuous, it could be
-        `boxplot` (default), `violin`, `violin+boxplot` or `histogram`.<br />
-        If `on` is not continuous, it could be `barplot` or
-        `pie` (default).<br />
+        An expression to subset the data frame before plotting.<br />
+        The expression should be a string of R expression that will be passed
+        to `dplyr::filter`. For example, `subset = "Sample == 'A'"`.<br />
+    - `section`:
+        The section name in the report.<br />
+        In case you want to group the plots in the report.<br />
     - `devpars` *(`ns`)*:
         The device parameters for the plot.<br />
-        - `width` *(`type=int`)*: *Default: `800`*. <br />
+        - `width` *(`type=int`)*:
             The width of the plot.<br />
-        - `height` *(`type=int`)*: *Default: `600`*. <br />
+        - `height` *(`type=int`)*:
             The height of the plot.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
             The resolution of the plot.<br />
+    - `descr`:
+        The description of the plot, shown in the report.<br />
+    - `<more>`:
+        You can add more parameters to the defaults.<br />
+        These parameters will be expanded to the `envs.stats` for each case,
+        and passed to individual plot functions.<br />
 - `stats` *(`type=json`)*: *Default: `{}`*. <br />
     The statistics to perform.<br />
     The keys are the case names and the values are the parameters

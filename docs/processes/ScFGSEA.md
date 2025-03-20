@@ -24,7 +24,7 @@ each gene set, and GSEA plots for the top gene sets.<br />
 ## Output
 
 - `outdir`: *Default: `{{(in.casefile or in.srtobj) | stem0}}.fgsea`*. <br />
-    The output directory for the results
+    The output directory for the results and plots
 
 ## Environment Variables
 

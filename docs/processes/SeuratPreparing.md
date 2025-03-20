@@ -59,8 +59,8 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
 
 - `rdsfile`: *Default: `{{in.metafile | stem}}.seurat.RDS`*. <br />
     The RDS file with the Seurat object with all samples integrated.<br />
-    Note that the cell ids are preficed with sample names QC plots will be
-    saved in `<job.outdir>/before-qc` and `<job.outdir>/after-qc`.<br />
+    Note that the cell ids are prefixied with sample names.<br />
+    QC plots will be saved in `<job.outdir>/plots`.<br />
 
 ## Environment Variables
 
@@ -108,6 +108,20 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
         ```
         will keep genes that are expressed in at least 3 cells.<br />
         ///
+- `qc_plots` *(`type=json`)*: *Default: `{'Violin Plots of QC Metrics': Diot({'kind': 'cell', 'plot_type': 'violin', 'devpars': Diot({'res': 100, 'height': 600, 'width': 1200})}), 'Scatter Plots of QC Metrics': Diot({'kind': 'cell', 'plot_type': 'scatter', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})}), 'Ridge Plots of QC Metrics': Diot({'kind': 'cell', 'plot_type': 'ridge', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})})}`*. <br />
+    The plots for QC metrics.<br />
+    It should be a json (or python dict) with the keys as the names of the plots and
+    the values also as dicts with the following keys:<br />
+    * kind: The kind of QC. Either `gene` or `cell` (default).<br />
+    * devpars: The device parameters for the plot. A dict with `res`, `height`, and `width`.<br />
+    * more_formats: The formats to save the plots other than `png`.<br />
+    * save_code: Whether to save the code to reproduce the plot.<br />
+    * other arguments passed to
+    [`biopipen.utils::VizSeuratCellQC`](https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratCellQC.html)
+    when `kind` is `cell` or
+    [`biopipen.utils::VizSeuratGeneQC`](https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratGeneQC.html)
+    when `kind` is `gene`.<br />
+
 - `use_sct` *(`flag`)*: *Default: `False`*. <br />
     Whether use SCTransform routine to integrate samples or not.<br />
     Before the following procedures, the `RNA` layer will be split by samples.<br />

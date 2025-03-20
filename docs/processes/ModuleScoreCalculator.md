@@ -20,7 +20,7 @@ expression, and the control features are randomly selected from each bin.<br />
 ## Output
 
 - `rdsfile`: *Default: `{{in.srtobj | stem}}.RDS`*. <br />
-    The seurat object with module scores
+    The seurat object with module scores added to the metadata.<br />
 
 ## Environment Variables
 

@@ -39,7 +39,9 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
 ## Output
 
 - `outfile`: *Default: `{{in.sobjfile | stem}}.annotated.{{- ext0(in.sobjfile) if envs.outtype == 'input' else envs.outtype -}}`*. <br />
-    The rds file of seurat object with cell type annotated
+    The rds file of seurat object with cell type annotated.<br />
+    A text file containing the mapping from the old `seurat_clusters` to the new cell types
+    will be generated and saved to `cluster2celltype.tsv` under the job output directory.<br />
 
 ## Environment Variables
 
