@@ -260,7 +260,11 @@ each sample.<br /></li>
 <ul>
 <li><code>outfile</code>: <em>Default: <code>{{in.infile | basename}}</code></em>. <br />
     The output file with sample information, with mutated columns
-    if <code>envs.save_mutated</code> is True.<br /></li>
+    if <code>envs.save_mutated</code> is True.<br />
+    The basename of the output file will be the same as the input file.<br />
+    The file name of each plot will be slugified from the case name.<br />
+    Each plot has 3 formats: pdf, png and code.zip, which contains the
+    data and R code to reproduce the plot.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
@@ -292,46 +296,49 @@ returned ids. Non-paired ids will be <code>NA</code>.<br /></li>
 </li>
 <li><code>save_mutated</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to save the mutated columns.<br /></li>
-<li><code>exclude_cols</code>: <em>Default: <code>TCRData,RNAData</code></em>. <br />
+<li><code>exclude_cols</code> <em>(<code>auto</code>)</em>: <em>Default: <code>TCRData,RNAData</code></em>. <br />
     The columns to exclude in the table in the report.<br />
     Could be a list or a string separated by comma.<br /></li>
 <li><code>defaults</code> <em>(<code>ns</code>)</em>:
     The default parameters for <code>envs.stats</code>.<br /><ul>
-<li><code>on</code>: <em>Default: <code>Sample</code></em>. <br />
-    The column name in the data for the stats.<br />
-    Default is <code>Sample</code>. The column could be either continuous or not.<br /></li>
+<li><code>plot_type</code>: <em>Default: <code>bar</code></em>. <br />
+    The type of the plot.<br />
+    See the supported plot types here:<br />
+    <a href="https://pwwang.github.io/plotthis/reference/index.html">https://pwwang.github.io/plotthis/reference/index.html</a>
+    The plot_type should be lower case and the plot function used in
+    <code>plotthis</code> should be used. The mapping from plot_type to the
+    plot function is like <code>bar -&gt; BarPlot</code>, <code>box -&gt; BoxPlot</code>, etc.<br /></li>
+<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The additional formats to save the plot.<br />
+    By default, the plot will be saved in png, which is also used to
+    display in the report. You can add more formats to save the plot.<br />
+    For example, <code>more_formats = ["pdf", "svg"]</code>.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the R code to reproduce the plot.<br />
+    The data used to plot will also be saved.<br /></li>
 <li><code>subset</code>:
-    An R expression to subset the data.<br />
-    If you want to keep the distinct records, you can use
-    <code>!duplicated(&lt;col&gt;)</code>.<br /></li>
-<li><code>group</code>:
-    The column name in the data for the group ids.<br />
-    If not provided, all records will be regarded as one group.<br /></li>
-<li><code>na_group</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Whether to include <code>NA</code>s in the group.<br /></li>
-<li><code>each</code>:
-    The column in the data to split the analysis in different
-    plots.<br /></li>
-<li><code>ncol</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>2</code></em>. <br />
-    The number of columns in the plot when <code>each</code>
-    is not <code>NULL</code>. Default is 2.<br /></li>
-<li><code>na_each</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Whether to include <code>NA</code>s in the <code>each</code> column.<br /></li>
-<li><code>plot</code>:
-    Type of plot. If <code>on</code> is continuous, it could be
-    <code>boxplot</code> (default), <code>violin</code>, <code>violin+boxplot</code> or <code>histogram</code>.<br />
-    If <code>on</code> is not continuous, it could be <code>barplot</code> or
-    <code>pie</code> (default).<br /></li>
+    An expression to subset the data frame before plotting.<br />
+    The expression should be a string of R expression that will be passed
+    to <code>dplyr::filter</code>. For example, <code>subset = "Sample == 'A'"</code>.<br /></li>
+<li><code>section</code>:
+    The section name in the report.<br />
+    In case you want to group the plots in the report.<br /></li>
 <li><code>devpars</code> <em>(<code>ns</code>)</em>:
     The device parameters for the plot.<br /><ul>
-<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>800</code></em>. <br />
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
     The width of the plot.<br /></li>
-<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>600</code></em>. <br />
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
     The height of the plot.<br /></li>
 <li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
     The resolution of the plot.<br /></li>
 </ul>
 </li>
+<li><code>descr</code>:
+    The description of the plot, shown in the report.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    You can add more parameters to the defaults.<br />
+    These parameters will be expanded to the <code>envs.stats</code> for each case,
+    and passed to individual plot functions.<br /></li>
 </ul>
 </li>
 <li><code>stats</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />

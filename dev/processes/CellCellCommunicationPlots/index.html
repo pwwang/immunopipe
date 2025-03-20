@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>ModuleScoreCalculator - immunopipe</title>
+    <title>CellCellCommunicationPlots - immunopipe</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "ModuleScoreCalculator";
-        var mkdocs_page_input_path = "processes/ModuleScoreCalculator.md";
+        var mkdocs_page_name = "CellCellCommunicationPlots";
+        var mkdocs_page_input_path = "processes/CellCellCommunicationPlots.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -74,7 +74,7 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ImmunarchLoading/">ImmunarchLoading</a>
@@ -89,17 +89,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../TCellSelection/">TCellSelection</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">ModuleScoreCalculator</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
                   </li>
@@ -182,10 +172,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Processes</li>
-      <li class="breadcrumb-item active">ModuleScoreCalculator</li>
+      <li class="breadcrumb-item active">CellCellCommunicationPlots</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/ModuleScoreCalculator.md">Edit on pwwang/immunopipe</a>
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/CellCellCommunicationPlots.md">Edit on pwwang/immunopipe</a>
     </li>
   </ul>
   <hr/>
@@ -193,116 +182,54 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="modulescorecalculator">ModuleScoreCalculator<a class="headerlink" href="#modulescorecalculator" title="Permanent link">&para;</a></h2>
-<p>Calculate the module scores for each cell</p>
-<p>The module scores are calculated by
-<a href="https://satijalab.org/seurat/reference/addmodulescore"><code>Seurat::AddModuleScore()</code></a>
-or <a href="https://satijalab.org/seurat/reference/cellcyclescoring"><code>Seurat::CellCycleScoring()</code></a>
-for cell cycle scores.<br /></p>
-<p>The module scores are calculated as the average expression levels of each
-program on single cell level, subtracted by the aggregated expression of
-control feature sets. All analyzed features are binned based on averaged
-expression, and the control features are randomly selected from each bin.<br /></p>
+                <h2 id="cellcellcommunicationplots">CellCellCommunicationPlots<a class="headerlink" href="#cellcellcommunicationplots" title="Permanent link">&para;</a></h2>
+<p>Visualization for cell-cell communication inference.</p>
+<p>R package <a href="https://github.com/Sarah145/CCPlotR"><code>CCPlotR</code></a> is used to visualize
+the results.<br /></p>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>srtobj</code>:
-    The seurat object loaded by <code>SeuratClustering</code></li>
+<li><code>cccfile</code>:
+    The output file from <code>CellCellCommunication</code>
+    or a tab-separated file with the following columns: <code>source</code>, <code>target</code>,
+    <code>ligand</code>, <code>receptor</code>, and <code>score</code>.<br />
+    If so, <code>in.expfile</code> can be provided where <code>exp_df</code> is needed.<br /></li>
+<li><code>expfile</code>:
+    The expression file with the expression of ligands and receptors.<br />
+    Columns include: <code>cell_type</code>, <code>gene</code> and <code>mean_exp</code>.<br /></li>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>rdsfile</code>: <em>Default: <code>{{in.srtobj | stem}}.RDS</code></em>. <br />
-    The seurat object with module scores added to the metadata.<br /></li>
+<li><code>outdir</code>: <em>Default: <code>{{in.cccfile | stem}}-ccc_plots</code></em>. <br />
+    The output directory for the plots.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>defaults</code> <em>(<code>ns</code>)</em>:
-    The default parameters for <code>modules</code>.<br /><ul>
-<li><code>features</code>:
-    The features to calculate the scores. Multiple features
-    should be separated by comma.<br />
-    You can also specify <code>cc.genes</code> or <code>cc.genes.updated.2019</code> to
-    use the cell cycle genes to calculate cell cycle scores.<br />
-    If so, three columns will be added to the metadata, including
-    <code>S.Score</code>, <code>G2M.Score</code> and <code>Phase</code>.<br />
-    Only one type of cell cycle scores can be calculated at a time.<br /></li>
-<li><code>nbin</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>24</code></em>. <br />
-    Number of bins of aggregate expression levels
-    for all analyzed features.<br /></li>
-<li><code>ctrl</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
-    Number of control features selected from
-    the same bin per analyzed feature.<br /></li>
-<li><code>k</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Use feature clusters returned from <code>DoKMeans</code>.<br /></li>
-<li><code>assay</code>:
-    The assay to use.<br /></li>
-<li><code>seed</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>8525</code></em>. <br />
-    Set a random seed.<br /></li>
-<li><code>search</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Search for symbol synonyms for features in
-    features that don't match features in object?<br /></li>
-<li><code>keep</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Keep the scores for each feature?<br />
-    Only works for non-cell cycle scores.<br /></li>
-<li><code>agg</code> <em>(<code>choice</code>)</em>: <em>Default: <code>mean</code></em>. <br />
-    The aggregation function to use.<br />
-    Only works for non-cell cycle scores.<br /><ul>
-<li><code>mean</code>:
-    The mean of the expression levels</li>
-<li><code>median</code>:
-    The median of the expression levels</li>
-<li><code>sum</code>:
-    The sum of the expression levels</li>
-<li><code>max</code>:
-    The max of the expression levels</li>
-<li><code>min</code>:
-    The min of the expression levels</li>
-<li><code>var</code>:
-    The variance of the expression levels</li>
-<li><code>sd</code>:
-    The standard deviation of the expression levels</li>
+<li><code>score_col</code>: <em>Default: <code>mag_score</code></em>. <br />
+    The column name in the input file that contains the score, if
+    the input file is from <code>CellCellCommunication</code>.<br />
+    Two alias columns are added in the result file of <code>CellCellCommunication</code>,
+    <code>mag_score</code> and <code>spec_score</code>, which are the magnitude and specificity
+    scores.<br /></li>
+<li><code>subset</code>:
+    An expression to pass to <code>dplyr::filter()</code> to subset the ccc data.<br /></li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The cases for the plots.<br />
+    The keys are the names of the cases and the values are the arguments for
+    the plots. The arguments include:<br /><ul>
+<li>kind: one of <code>arrow</code>, <code>circos</code>, <code>dotplot</code>, <code>heatmap</code>, <code>network</code>,
+and <code>sigmoid</code>.<br /></li>
+<li>devpars: The parameters for <code>png()</code> for the plot, including <code>res</code>,
+<code>width</code>, and <code>height</code>.<br /></li>
+<li>section: The section name for the report to group the plots.<br /></li>
+<li><other>: Other arguments for <code>cc_&lt;kind&gt;</code> function in <code>CCPlotR</code>.<br />
+See the documentation for more details.<br />
+Or you can use <code>?CCPlotR::cc_&lt;kind&gt;</code> in R.<br /></li>
 </ul>
 </li>
 </ul>
-</li>
-<li>
-<p><code>modules</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
-    The modules to calculate the scores.<br />
-    Keys are the names of the expression programs and values are the
-    dicts inherited from <code>env.defaults</code>.<br />
-    Here are some examples -</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="s2">&quot;CellCycle&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="s2">&quot;cc.genes.updated.2019&quot;</span><span class="p">},</span>
-    <span class="s2">&quot;Exhaustion&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="s2">&quot;HAVCR2,ENTPD1,LAYN,LAG3&quot;</span><span class="p">},</span>
-    <span class="s2">&quot;Activation&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="s2">&quot;IFNG&quot;</span><span class="p">},</span>
-    <span class="s2">&quot;Proliferation&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="s2">&quot;STMN1,TUBB&quot;</span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>For <code>CellCycle</code>, the columns <code>S.Score</code>, <code>G2M.Score</code> and <code>Phase</code> will
-be added to the metadata. <code>S.Score</code> and <code>G2M.Score</code> are the cell cycle
-scores for each cell, and <code>Phase</code> is the cell cycle phase for each cell.<br /></p>
-<p>You can also add Diffusion Components (DC) to the modules</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="s2">&quot;DC&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;diffmap&quot;</span><span class="p">}}</span>
-</code></pre></div>
-<p>will perform diffusion map as a reduction and add the first 2
-components as <code>DC_1</code> and <code>DC_2</code> to the metadata. <code>diffmap</code> is a shortcut
-for <code>diffusion_map</code>. Other key-value pairs will pass to
-<a href="https://www.rdocumentation.org/packages/destiny/versions/2.0.4/topics/DiffusionMap%20class"><code>destiny::DiffusionMap()</code></a>.<br />
-You can later plot the diffusion map by using
-<code>reduction = "DC"</code> in <code>env.dimplots</code> in <code>SeuratClusterStats</code>.<br />
-This requires <a href="https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html"><code>SingleCellExperiment</code></a>
-and <a href="https://bioconductor.org/packages/release/bioc/html/destiny.html"><code>destiny</code></a> R packages.<br /></p>
-</li>
-</ul>
-<h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
-<p>The metadata of the <code>Seurat</code> object will be updated with the module scores:<br /></p>
-<p><img alt="ModuleScoreCalculator-metadata" src="../..//processes/images/ModuleScoreCalculator-metadata.png" /></p>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../TCellSelection/" class="btn btn-neutral float-left" title="TCellSelection"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../SeuratClustering/" class="btn btn-neutral float-right" title="SeuratClustering">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -330,10 +257,6 @@ and <a href="https://bioconductor.org/packages/release/bioc/html/destiny.html"><
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../TCellSelection/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../SeuratClustering/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

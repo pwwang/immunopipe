@@ -247,8 +247,8 @@ If you are using <code>cca</code> or <code>rpca</code> interation, the default a
 <ul>
 <li><code>rdsfile</code>: <em>Default: <code>{{in.metafile | stem}}.seurat.RDS</code></em>. <br />
     The RDS file with the Seurat object with all samples integrated.<br />
-    Note that the cell ids are preficed with sample names QC plots will be
-    saved in <code>&lt;job.outdir&gt;/before-qc</code> and <code>&lt;job.outdir&gt;/after-qc</code>.<br /></li>
+    Note that the cell ids are prefixied with sample names.<br />
+    QC plots will be saved in <code>&lt;job.outdir&gt;/plots</code>.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
@@ -300,12 +300,29 @@ genes.<br /></p>
 will keep genes that are expressed in at least 3 cells.<br /></p>
 </div>
 <ul>
-<li><code>use_sct</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Whether use SCTransform routine to integrate samples or not.<br />
-    Before the following procedures, the <code>RNA</code> layer will be split by samples.<br /></li>
+<li><code>qc_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Violin Plots of QC Metrics': Diot({'kind': 'cell', 'plot_type': 'violin', 'devpars': Diot({'res': 100, 'height': 600, 'width': 1200})}), 'Scatter Plots of QC Metrics': Diot({'kind': 'cell', 'plot_type': 'scatter', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})}), 'Ridge Plots of QC Metrics': Diot({'kind': 'cell', 'plot_type': 'ridge', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})})}</code></em>. <br />
+    The plots for QC metrics.<br />
+    It should be a json (or python dict) with the keys as the names of the plots and
+    the values also as dicts with the following keys:<br /><ul>
+<li>kind: The kind of QC. Either <code>gene</code> or <code>cell</code> (default).<br /></li>
+<li>devpars: The device parameters for the plot. A dict with <code>res</code>, <code>height</code>, and <code>width</code>.<br /></li>
+<li>more_formats: The formats to save the plots other than <code>png</code>.<br /></li>
+<li>save_code: Whether to save the code to reproduce the plot.<br /></li>
+<li>other arguments passed to
+<a href="https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratCellQC.html"><code>biopipen.utils::VizSeuratCellQC</code></a>
+when <code>kind</code> is <code>cell</code> or
+<a href="https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratGeneQC.html"><code>biopipen.utils::VizSeuratGeneQC</code></a>
+when <code>kind</code> is <code>gene</code>.<br /></li>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>use_sct</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether use SCTransform routine to integrate samples or not.<br />
+    Before the following procedures, the <code>RNA</code> layer will be split by samples.<br /></p>
 <p>If <code>False</code>, following procedures will be performed in the order:<br />
 * <a href="https://satijalab.org/seurat/reference/normalizedata"><code>NormalizeData</code></a>.<br />
 * <a href="https://satijalab.org/seurat/reference/findvariablefeatures"><code>FindVariableFeatures</code></a>.<br />

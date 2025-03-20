@@ -230,7 +230,9 @@ to <code>seurat_clusters_id</code>, and the new <code>seurat_clusters</code> col
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>outfile</code>: <em>Default: <code>{{in.sobjfile | stem}}.annotated.{{- ext0(in.sobjfile) if envs.outtype == 'input' else envs.outtype -}}</code></em>. <br />
-    The rds file of seurat object with cell type annotated</li>
+    The rds file of seurat object with cell type annotated.<br />
+    A text file containing the mapping from the old <code>seurat_clusters</code> to the new cell types
+    will be generated and saved to <code>cluster2celltype.tsv</code> under the job output directory.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>

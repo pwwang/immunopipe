@@ -220,7 +220,7 @@ you may see the other environment variables of this process are hidden and reado
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>outdir</code>: <em>Default: <code>{{in.srtobj | stem0}}.markers</code></em>. <br />
-    The output directory for the markers</li>
+    The output directory for the markers and plots</li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
@@ -246,25 +246,17 @@ you may see the other environment variables of this process are hidden and reado
     fold change &gt; 1.<br /></li>
 <li><code>assay</code>:
     The assay to use.<br /></li>
-<li><code>volcano_genes</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>True</code></em>. <br />
-    The genes to label in the volcano plot if they are
-    significant markers.<br />
-    If <code>True</code>, all significant markers will be labeled. If <code>False</code>, no
-    genes will be labeled. Otherwise, specify the genes to label.<br />
-    It could be either a string with comma separated genes, or a list
-    of genes.<br /></li>
-<li><code>section</code>: <em>Default: <code>DEFAULT</code></em>. <br />
-    The section name for the report. It must not contain colon (<code>:</code>).<br />
-    Ignored when <code>each</code> is not specified and <code>ident-1</code> is specified.<br />
-    When neither <code>each</code> nor <code>ident-1</code> is specified, case name will be used
-    as section name.<br />
-    If <code>each</code> is specified, the section name will be constructed from
-    <code>each</code> and case name.<br />
-    The <code>section</code> is used to collect cases and put the results under the same directory and the same section in report.<br />
-    When <code>each</code> for a case is specified, the <code>section</code> will be ignored and case name will be used as <code>section</code>.<br />
-    The cases will be the expanded values in <code>each</code> column. When <code>prefix_each</code> is True, the column name specified by <code>each</code> will be prefixed to each value as directory name and expanded case name.<br /></li>
+<li><code>error</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    Error out if no/not enough markers are found or no pathways are enriched.<br />
+    If <code>False</code>, empty results will be returned.<br /></li>
+<li><code>site</code>: <em>Default: <code>Enrichr</code></em>. <br />
+    The site to use for the <code>enrichR</code> enrichment analysis.<br /></li>
 <li><code>subset</code>:
     An expression to subset the cells for each case.<br /></li>
+<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
+    Where to cache to <code>FindAllMarkers</code> results.<br />
+    If <code>True</code>, cache to <code>outdir</code> of the job. If <code>False</code>, don't cache.<br />
+    Otherwise, specify the directory to cache to.<br /></li>
 <li><code>rest</code> <em>(<code>ns</code>)</em>:
     Rest arguments for <code>Seurat::FindMarkers()</code>.<br />
     Use <code>-</code> to replace <code>.</code> in the argument name. For example,
@@ -274,17 +266,84 @@ you may see the other environment variables of this process are hidden and reado
     See <a href="https://satijalab.org/seurat/reference/findmarkers">https://satijalab.org/seurat/reference/findmarkers</a></li>
 </ul>
 </li>
-<li><code>dotplot</code> <em>(<code>ns</code>)</em>:
-    Arguments for <code>Seurat::DotPlot()</code>.<br />
-    Use <code>-</code> to replace <code>.</code> in the argument name. For example,
-    use <code>group-bar</code> instead of <code>group.bar</code>.<br />
-    Note that <code>object</code>, <code>features</code>, and <code>group-by</code> are already specified
-    by this process. So you don't need to specify them here.<br /><ul>
-<li><code>maxgenes</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>20</code></em>. <br />
-    The maximum number of genes to plot.<br /></li>
+<li><code>allmarker_plots_defaults</code> <em>(<code>ns</code>)</em>:
+    Default options for the plots for all markers when <code>ident-1</code> is not specified.<br /><ul>
+<li><code>plot_type</code>:
+    The type of the plot.<br />
+    See <a href="https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html">https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html</a>.<br />
+    Available types are <code>violin</code>, <code>box</code>, <code>bar</code>, <code>ridge</code>, <code>dim</code>, <code>heatmap</code> and <code>dot</code>.<br /></li>
+<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The extra formats to save the plot in.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code to generate the plot.<br /></li>
 <li><code>devpars</code> <em>(<code>ns</code>)</em>:
     The device parameters for the plots.<br /><ul>
-<li><code>res</code> <em>(<code>type=int</code>)</em>:
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>order_by</code>: <em>Default: <code>desc(abs(avg_log2FC))</code></em>. <br />
+    an expression to order the markers, passed by <code>dplyr::arrange()</code>.<br /></li>
+<li><code>genes</code>: <em>Default: <code>10</code></em>. <br />
+    The number of top genes to show or an expression passed to <code>dplyr::filter()</code> to filter the genes.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    Other arguments passed to <a href="https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html"><code>scplotter::FeatureStatPlot()</code></a>.<br /></li>
+</ul>
+</li>
+<li><code>allmarker_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    All marker plot cases.<br />
+    The keys are the names of the cases and the values are the dicts inherited from <code>allmarker_plots_defaults</code>.<br /></li>
+<li><code>marker_plots_defaults</code> <em>(<code>ns</code>)</em>:
+    Default options for the plots to generate for the markers.<br /><ul>
+<li><code>plot_type</code>:
+    The type of the plot.<br />
+    See <a href="https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html">https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html</a>.<br />
+    Available types are <code>violin</code>, <code>box</code>, <code>bar</code>, <code>ridge</code>, <code>dim</code>, <code>heatmap</code> and <code>dot</code>.<br />
+    There are two additional types available - <code>volcano_pct</code> and <code>volcano_log2fc</code>.<br /></li>
+<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The extra formats to save the plot in.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code to generate the plot.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>order_by</code>: <em>Default: <code>desc(abs(avg_log2FC))</code></em>. <br />
+    an expression to order the markers, passed by <code>dplyr::arrange()</code>.<br /></li>
+<li><code>genes</code>: <em>Default: <code>10</code></em>. <br />
+    The number of top genes to show or an expression passed to <code>dplyr::filter()</code> to filter the genes.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    Other arguments passed to <a href="https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html"><code>scplotter::FeatureStatPlot()</code></a>.<br />
+    If <code>plot_type</code> is <code>volcano_pct</code> or <code>volcano_log2fc</code>, they will be passed to
+    <a href="https://pwwang.github.io/plotthis/reference/VolcanoPlot.html"><code>scplotter::VolcanoPlot()</code></a>.<br /></li>
+</ul>
+</li>
+<li><code>marker_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot'})}</code></em>. <br />
+    Cases of the plots to generate for the markers.<br />
+    Plot cases. The keys are the names of the cases and the values are the dicts inherited from <code>marker_plots_defaults</code>.<br /></li>
+<li><code>enrich_plots_defaults</code> <em>(<code>ns</code>)</em>:
+    Default options for the plots to generate for the enrichment analysis.<br /><ul>
+<li><code>plot_type</code>:
+    The type of the plot.<br />
+    See <a href="https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html">https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html</a>.<br />
+    Available types are <code>bar</code>, <code>dot</code>, <code>lollipop</code>, <code>network</code>, <code>enrichmap</code> and <code>wordcloud</code>.<br /></li>
+<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The extra formats to save the plot in.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code to generate the plot.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
     The resolution of the plots.<br /></li>
 <li><code>height</code> <em>(<code>type=int</code>)</em>:
     The height of the plots.<br /></li>
@@ -293,62 +352,75 @@ you may see the other environment variables of this process are hidden and reado
 </ul>
 </li>
 <li><code>&lt;more&gt;</code>:
-    See <a href="https://satijalab.org/seurat/reference/doheatmap">https://satijalab.org/seurat/reference/doheatmap</a></li>
+    See <a href="https://pwwang.github.io/scplotter/reference/EnrichmentPlot.htmll">https://pwwang.github.io/scplotter/reference/EnrichmentPlot.htmll</a>.<br /></li>
 </ul>
 </li>
-<li><code>overlap_defaults</code> <em>(<code>ns</code>)</em>:
-    The default options for overlapping analysis.<br /><ul>
+<li><code>enrich_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Bar Plot': Diot({'plot_type': 'bar', 'ncol': 1, 'top_term': 10})}</code></em>. <br />
+    Cases of the plots to generate for the enrichment analysis.<br />
+    The keys are the names of the cases and the values are the dicts inherited from <code>enrich_plots_defaults</code>.<br /></li>
+<li><code>overlaps_defaults</code> <em>(<code>ns</code>)</em>:
+    Default options for investigating the overlapping of significant markers between different cases.<br /><ul>
+<li><code>cases</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The cases to do the overlapping analysis, including the prefix section name.<br />
+    The case must have <code>ident-1</code> specified. When <code>each</code> is specified, the case will be expanded.<br />
+    For example, <code>case1</code> with <code>each = "group"</code>, where <code>group</code> has <code>g1</code> and <code>g2</code>, will be expanded to
+    <code>case1::g1</code> and <code>case1::g2</code>, or <code>case1::group - g1</code> and <code>case1::group - g2</code> if <code>prefix_each</code> is <code>True</code>.<br />
+    There must be at least 2 cases to do the overlapping analysis.<br /></li>
+<li><code>sigmarkers</code>:
+    The expression to filter the significant markers for each case.<br />
+    If not provided, <code>envs.sigmarkers</code> will be used.<br /></li>
 <li><code>venn</code> <em>(<code>ns</code>)</em>:
-    The options for the Venn diagram.<br />
-    Venn diagram can only be plotted for sections with no more than 4 cases.<br /><ul>
+    The options for the Venn diagram.<br /><ul>
+<li><code>enabled</code> <em>(<code>flag</code>)</em>: <em>Default: <code>auto</code></em>. <br />
+    Whether to enable the Venn diagram.<br />
+    Default is "auto", which means enabled when there are no more than 5 cases.<br /></li>
+<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The extra formats to save the plot in.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code to generate the plot.<br /></li>
 <li><code>devpars</code> <em>(<code>ns</code>)</em>:
     The device parameters for the plots.<br /><ul>
 <li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
     The resolution of the plots.<br /></li>
-<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>600</code></em>. <br />
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
     The height of the plots.<br /></li>
-<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
     The width of the plots.<br /></li>
 </ul>
 </li>
+<li><code>&lt;more&gt;</code>:
+    More arguments pased to <code>plotthis::VennDiagram()</code>.<br />
+    https://pwwang.github.io/plotthis/reference/venndiagram1.html</li>
 </ul>
 </li>
 <li><code>upset</code> <em>(<code>ns</code>)</em>:
     The options for the UpSet plot.<br /><ul>
+<li><code>enabled</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    Whether to enable the UpSet plot.<br /></li>
+<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The extra formats to save the plot in.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code to generate the plot.<br /></li>
 <li><code>devpars</code> <em>(<code>ns</code>)</em>:
     The device parameters for the plots.<br /><ul>
 <li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
     The resolution of the plots.<br /></li>
-<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>600</code></em>. <br />
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
     The height of the plots.<br /></li>
-<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>800</code></em>. <br />
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
     The width of the plots.<br /></li>
 </ul>
 </li>
+<li><code>&lt;more&gt;</code>:
+    More arguments pased to <code>plotthis::UpsetPlot()</code>.<br />
+    https://pwwang.github.io/plotthis/reference/upsetplot1.html</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><code>overlap</code> <em>(<code>json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
-    The sections to do overlaping analysis, including
-    Venn diagram and UpSet plot. The Venn diagram and UpSet plot
-    will be plotted for the overlapping of significant markers between
-    different cases.<br />
-    The keys of this option are the names of the sections. The values are
-    a dict of options with keys <code>venn</code> and <code>upset</code>, values will
-    be inherited from <code>envs.overlap_defaults</code>, recursively.<br />
-    You can set <code>envs.overlap.&lt;section&gt;.venn</code> to <code>False</code>/<code>None</code> to disable
-    the Venn diagram for the section.<br />
-    It works when <code>each</code> is specified. In such a case, the sections will be
-    the case names.<br />
-    This does not work for the cases where <code>ident-1</code> is not specified. In case
-    you want to do such analysis for those cases, you should enumerate the
-    idents in different cases and specify them here.<br /></li>
-<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
-    Where to cache to <code>FindAllMarkers</code> results.<br />
-    If <code>True</code>, cache to <code>outdir</code> of the job. If <code>False</code>, don't cache.<br />
-    Otherwise, specify the directory to cache to.<br />
-    Only works when <code>use_presto</code> is <code>False</code> (presto works fast enough).<br /></li>
+<li><code>overlaps</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Cases for investigating the overlapping of significant markers between different cases.<br />
+    The keys are the names of the cases and the values are the dicts inherited from <code>overlaps_defaults</code>.<br /></li>
 </ul>
               
             </div>
