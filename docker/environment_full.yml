@@ -58,9 +58,12 @@ dependencies:
   - r-laplacesdemon  # TESSA
   - r-complexupset
   - r-doubletfinder
+  - r-gglogger
+  - r-biopipen.utils
   - pip:
     - keras  # TESSA
     - tensorflow==2.15  # TESSA
     - celltypist
     - biopython==1.79  # for GIANA
     - scikit-learn==1.5.1  # for GIANA
+    - liana  # CellCellCommunication
