@@ -1,4 +1,5 @@
 """Process definition"""
+
 from datar.tibble import tibble
 from pipen.utils import mark, is_loading_pipeline
 from pipen_annotate import annotate
@@ -30,6 +31,8 @@ from biopipen.ns.scrna import (
     RadarPlots as RadarPlots_,
     ModuleScoreCalculator as ModuleScoreCalculator_,
     MetaMarkers as MetaMarkers_,
+    CellCellCommunication as CellCellCommunication_,
+    CellCellCommunicationPlots as CellCellCommunicationPlots_,
 )
 from biopipen.ns.scrna_metabolic_landscape import ScrnaMetabolicLandscape
 
@@ -43,7 +46,9 @@ config = validate_config()
 
 # https://pwwang.github.io/immunopipe/latest/
 DOC_BASEURL = "../../"
-TEST_OUTPUT_BASEURL = "https://raw.githubusercontent.com/pwwang/immunopipe/tests-output"  # noqa: E501
+TEST_OUTPUT_BASEURL = (
+    "https://raw.githubusercontent.com/pwwang/immunopipe/tests-output"
+)
 
 
 @annotate.format_doc(
@@ -202,16 +207,20 @@ class SampleInfo(SampleInfo_):
             * Other columns are optional and will be treated as metadata for
                 each sample.
     """  # noqa: E501
+
     envs = {"exclude_cols": "TCRData,RNAData"}
 
 
 if just_loading or config.has_tcr:
+
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class ImmunarchLoading(ImmunarchLoading_):
         """{{Summary | str |
-            replace: '`SeuratMetadataMutater`', '[`IntegratingTCR`](./IntegratingTCR.md)'}}
+        replace: '`SeuratMetadataMutater`', '[`IntegratingTCR`](./IntegratingTCR.md)'}}
         """  # noqa: E501
+
         requires = SampleInfo
+
 else:
     ImmunarchLoading = None
 
@@ -228,6 +237,7 @@ class SeuratPreparing(SeuratPreparing_):
 
         ![SeuratPreparing-metadata]({{baseurl}}/processes/images/SeuratPreparing-metadata.png)
     """  # noqa: E501
+
     requires = SampleInfo
 
 
@@ -252,6 +262,7 @@ if just_loading or "TCellSelection" in config:
         for supervised clustering.
         ///
         """
+
         requires = SeuratPreparing
 
     SeuratPreparing = SeuratClusteringOfAllCells
@@ -261,6 +272,7 @@ if just_loading or "TCellSelection" in config:
 if just_loading or (
     "TCellSelection" in config and "ClusterMarkersOfAllCells" in config
 ):
+
     @annotate.format_doc(indent=2)
     class ClusterMarkersOfAllCells(MarkersFinder_):
         """Markers for clusters of all cells.
@@ -275,6 +287,7 @@ if just_loading or (
             mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 16}}.
             prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 16}}.
         """
+
         requires = SeuratPreparing
         envs = {
             "cases": {"Cluster": {"prefix_group": False}},
@@ -286,6 +299,7 @@ if just_loading or (
 if just_loading or (
     "TCellSelection" in config and "TopExpressingGenesOfAllCells" in config
 ):
+
     @annotate.format_doc(indent=2)
     class TopExpressingGenesOfAllCells(TopExpressingGenes_):
         """Top expressing genes for clusters of all cells.
@@ -303,12 +317,14 @@ if just_loading or (
             prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 16}}.
             section (hidden;readonly): {{Envs.section.help | indent: 16}}.
         """
+
         requires = SeuratPreparing
         envs = {"cases": {"Cluster": {}}}
         order = 3
 
 
 if just_loading or "TCellSelection" in config:
+
     class TCellSelection(TCellSelection_):
         if ImmunarchLoading:
             requires = [SeuratPreparing, ImmunarchLoading]
@@ -320,6 +336,7 @@ if just_loading or "TCellSelection" in config:
     # >>> SeuratPreparing
 
 if just_loading or "ModuleScoreCalculator" in config:
+
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class ModuleScoreCalculator(ModuleScoreCalculator_):
         """{{Summary}}
@@ -329,6 +346,7 @@ if just_loading or "ModuleScoreCalculator" in config:
 
             ![ModuleScoreCalculator-metadata]({{baseurl}}/processes/images/ModuleScoreCalculator-metadata.png)
         """  # noqa: E501
+
         requires = SeuratPreparing
         input_data = lambda ch1: ch1.iloc[:, [0]]
 
@@ -336,6 +354,7 @@ if just_loading or "ModuleScoreCalculator" in config:
     # >>> SeuratPreparing
 
 if just_loading or "SeuratMap2Ref" in config:
+
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class SeuratMap2Ref(SeuratMap2Ref_):
         """{{Summary}}
@@ -346,6 +365,7 @@ if just_loading or "SeuratMap2Ref" in config:
 
             ![SeuratMap2Ref-metadata]({{baseurl}}/processes/images/SeuratClustering-metadata.png)
         """
+
         requires = SeuratPreparing
         input_data = lambda ch1: ch1.iloc[:, [0]]
 
@@ -353,6 +373,7 @@ if just_loading or "SeuratMap2Ref" in config:
     # >>> Clustered
 
 if just_loading or "SeuratMap2Ref" not in config:
+
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class SeuratClustering(SeuratClustering_):
         """Cluster all T cells or selected T cells selected by `TCellSelection`.
@@ -370,6 +391,7 @@ if just_loading or "SeuratMap2Ref" not in config:
 
             ![SeuratClustering-metadata]({{baseurl}}/processes/images/SeuratClustering-metadata.png)
         """
+
         requires = SeuratPreparing
         input_data = lambda ch1: ch1.iloc[:, [0]]
 
@@ -377,6 +399,7 @@ if just_loading or "SeuratMap2Ref" not in config:
     # >>> Clustered
 
 if just_loading or ("SeuratMap2Ref" not in config and "CellTypeAnnotation" in config):
+
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class CellTypeAnnotation(CellTypeAnnotation_):
         """Annotate the T cell clusters.
@@ -409,6 +432,7 @@ if just_loading or ("SeuratMap2Ref" not in config and "CellTypeAnnotation" in co
             ![CellTypeAnnotation-metadata]({{baseurl}}/processes/images/CellTypeAnnotation-metadata.png)
 
         """  # noqa: E501
+
         if just_loading:
             # Make sure both are loaded while just loading the pipeline
             requires = SeuratMap2Ref, SeuratClustering
@@ -421,6 +445,7 @@ if just_loading or ("SeuratMap2Ref" not in config and "CellTypeAnnotation" in co
     # >>> Clustered
 
 if just_loading or "SeuratSubClustering" in config:
+
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class SeuratSubClustering(SeuratSubClustering_):
         """Sub-cluster the selected T cells.
@@ -433,6 +458,7 @@ if just_loading or "SeuratSubClustering" in config:
 
             ![SeuratSubClustering-metadata]({{baseurl}}/processes/images/SeuratSubClustering-metadata.png)
         """
+
         requires = Clustered
         input_data = lambda ch1: ch1.iloc[:, [0]]
 
@@ -472,6 +498,7 @@ class ClusterMarkers(MarkersFinder_):
         mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
         prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 12}}.
     """  # noqa: E501
+
     requires = Clustered
     envs = {
         "cases": {"Cluster": {"prefix_group": False}},
@@ -481,6 +508,7 @@ class ClusterMarkers(MarkersFinder_):
 
 
 if just_loading or "TopExpressingGenes" in config:
+
     @annotate.format_doc(indent=2)
     class TopExpressingGenes(TopExpressingGenes_):
         """Top expressing genes for clusters of all or selected T cells.
@@ -515,11 +543,14 @@ if just_loading or "TopExpressingGenes" in config:
             prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 16}}.
             section (hidden;readonly): {{Envs.section.help | indent: 16}}.
         """  # noqa: E501
+
         requires = Clustered
         envs = {"cases": {"Cluster": {}}}
         order = 3
 
+
 if just_loading or (config.has_tcr and "TESSA" in config):
+
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class TESSA(TESSA_):
         """{{Summary}}
@@ -536,6 +567,7 @@ if just_loading or (config.has_tcr and "TESSA" in config):
 
             ![TESSA-metadata]({{baseurl}}/processes/images/TESSA-metadata.png)
         """
+
         requires = ImmunarchLoading, Clustered
         input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 1], ch2)
         order = 9
@@ -544,6 +576,7 @@ if just_loading or (config.has_tcr and "TESSA" in config):
     # >>> Clustered
 
 if just_loading or config.has_tcr:
+
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class IntegratingTCR(SeuratMetadataMutater_):
         """Attach TCR clone information as meta columns to Seurat object
@@ -593,6 +626,7 @@ if just_loading or config.has_tcr:
 
             All of the columns above can be used for downstream analysis.
         """  # noqa: E501
+
         requires = Clustered, ImmunarchLoading
         input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 0], ch2.iloc[:, 1])
         envs = {
@@ -606,9 +640,9 @@ if just_loading or config.has_tcr:
 
 
 if just_loading or (
-    config.has_tcr
-    and ("TCRClustering" in config or "TCRClusterStats" in config)
+    config.has_tcr and ("TCRClustering" in config or "TCRClusterStats" in config)
 ):
+
     @annotate.format_doc(indent=2)
     class TCRClustering(TCRClustering_):
         """{{Summary.short}}
@@ -618,6 +652,7 @@ if just_loading or (
 
         {{*Summary.long}}
         """
+
         requires = ImmunarchLoading
         input_data = lambda ch1: ch1.iloc[:, [0]]
         order = 9
@@ -664,6 +699,7 @@ if just_loading or (
 
             ![IntegratingTCRClusters-metadata]({{baseurl}}/processes/images/IntegratingTCRClusters-metadata.png)
         """
+
         requires = Clustered, TCRClustering
         input_data = lambda ch1, ch2: tibble(
             srtobj=ch1.rdsfile, metafile=ch2.clusterfile
@@ -675,6 +711,19 @@ if just_loading or (
 
     Clustered = IntegratingTCRClusters
     # >>> Clustered
+
+
+if just_loading or (
+    "CellCellCommunication" in config or "CellCellCommunicationPlots" in config
+):
+
+    class CellCellCommunication(CellCellCommunication_):
+        requires = Clustered
+        order = 8
+
+    class CellCellCommunicationPlots(CellCellCommunicationPlots_):
+        requires = CellCellCommunication
+        order = 8
 
 
 class SeuratClusterStats(SeuratClusterStats_):
@@ -698,6 +747,7 @@ class SeuratClusterStats(SeuratClusterStats_):
 
 
 if just_loading or config.has_tcr:
+
     @annotate.format_doc(indent=2)
     class Immunarch(Immunarch_):
         """{{Summary.short}}
@@ -714,18 +764,23 @@ if just_loading or config.has_tcr:
         {{*Summary.long | str |
             replace: '!!#biopipennstcrimmunarchloading', './ImmunarchLoading.md'}}
         """
+
         requires = ImmunarchLoading, Clustered
         input_data = lambda ch1, ch2: tibble(
             immdata=ch1.iloc[:, 0],
             metafile=ch2.iloc[:, 0],
         )
 
+
 if just_loading or "CellsDistribution" in config:
+
     class CellsDistribution(CellsDistribution_):
         requires = Clustered
         order = 8
 
+
 if just_loading or (config.has_tcr and "CloneResidency" in config):
+
     class CloneResidency(CloneResidency_):
         requires = ImmunarchLoading, Clustered
         input_data = lambda ch1, ch2: tibble(
@@ -733,7 +788,9 @@ if just_loading or (config.has_tcr and "CloneResidency" in config):
             metafile=ch2.iloc[:, 0],
         )
 
+
 if just_loading or "RadarPlots" in config:
+
     @annotate.format_doc(indent=2)
     class RadarPlots(RadarPlots_):
         """{{Summary}}
@@ -743,14 +800,19 @@ if just_loading or "RadarPlots" in config:
                 See also
                 [`mutating the metadata`](../configurations.md#mutating-the-metadata).
         """
+
         requires = Clustered
 
+
 if just_loading or "ScFGSEA" in config:
+
     class ScFGSEA(ScFGSEA_):
         requires = Clustered
         order = 4
 
+
 if just_loading or "MarkersFinder" in config:
+
     @annotate.format_doc(indent=2)
     class MarkersFinder(MarkersFinder_):
         """{{Summary.short}}
@@ -860,15 +922,20 @@ if just_loading or "MarkersFinder" in config:
             a section name other than `DEFAULT` for each case to group them
             in the report.
         """
+
         requires = Clustered
         order = 5
 
+
 if just_loading or "MetaMarkers" in config:
+
     class MetaMarkers(MetaMarkers_):
         requires = Clustered
         order = 6
 
+
 if just_loading or (config.has_tcr and "CDR3AAPhyschem" in config):
+
     class CDR3AAPhyschem(CDR3AAPhyschem_):
         requires = ImmunarchLoading, Clustered
         input_data = lambda ch1, ch2: tibble(
@@ -876,6 +943,7 @@ if just_loading or (config.has_tcr and "CDR3AAPhyschem" in config):
             srtobj=ch2.rdsfile,
         )
         order = 9
+
 
 if "ScrnaMetabolicLandscape" in config or just_loading:
     anno = annotate(ScrnaMetabolicLandscape)

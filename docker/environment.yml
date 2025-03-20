@@ -57,7 +57,10 @@ dependencies:
   - r-enrichr
   - r-complexupset
   - r-doubletfinder
+  - r-gglogger
+  - r-biopipen.utils
   - pip:
     - celltypist
     - biopython==1.79  # for GIANA
     - scikit-learn==1.5.1  # for GIANA
+    - liana
