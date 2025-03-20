@@ -274,7 +274,6 @@ if just_loading or (
             ident-2 (hidden;readonly): {{Envs["ident-2"].help | indent: 16}}.
             mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 16}}.
             prefix_each (hidden;readonly): {{Envs.prefix_each.help | indent: 16}}.
-            section (hidden;readonly): {{Envs.section.help | indent: 16}}.
         """
         requires = SeuratPreparing
         envs = {

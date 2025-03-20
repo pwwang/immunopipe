@@ -17,27 +17,24 @@ generate-setup-file = true
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pipen-diagram = { version = "^0.12", optional = true }
-pipen-runinfo = { version = "^0.8", optional = true }
+pipen-diagram = { version = "^0.13", optional = true }
+pipen-runinfo = { version = "^0.9", optional = true }
 # pipen-report and pipen-board are required by biopipen
-biopipen = "^0.32.3"
+biopipen = "^0.33.0"
 
 [tool.poetry.extras]
 diagram = ["pipen-diagram"]
 runinfo = ["pipen-runinfo"]
 
 [tool.poetry.group.docs.dependencies]
-pipen-cli-ref = "^0.4"
+pipen-cli-ref = "^0.5"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^8"
-pytest-forked = "^1.4"
+pytest-forked = "^1"
 
 [tool.poetry.scripts]
 immunopipe = "immunopipe.pipeline:main"
-
-[tool.poetry.group.dev.dependencies]
-# pipen-dry = "^0.1.0"
 
 [tool.black]
 line-length = 88
