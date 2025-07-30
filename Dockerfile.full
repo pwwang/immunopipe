@@ -1,10 +1,10 @@
-ARG SRC_IMAGE=justold/immunopipe:dev
-FROM ${SRC_IMAGE}
+ARG BASE_TAG=dev
+FROM justold/immunopipe:${BASE_TAG}
 
 # COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
 
 # Install dependencies and make /data for future mounting
-RUN micromamba install -y -n base -f /immunopipe/docker/environment_full.yml && \
+RUN micromamba env update -n base -f /immunopipe/docker/environment_full.yml && \
     micromamba clean --all --yes
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1

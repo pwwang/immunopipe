@@ -9,6 +9,20 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[wip]')"
     steps:
       - uses: actions/checkout@v4
+      - name: Get biopipen version
+        id: biopipen_version
+        run: |
+          VERSION=$(awk '
+            /^\[\[package\]\]/ { in_pkg = 0 }
+            /^name = "biopipen"/ { in_pkg = 1 }
+            in_pkg && /^version = / {
+              gsub(/"/, "", $3)
+              print $3
+              exit
+            }
+          ' poetry.lock)
+          echo "Found version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -23,6 +37,7 @@ jobs:
         with:
           push: true
           tags: justold/immunopipe:${{ github.ref_name }}
+          build-args: BIOPIPEN_TAG=${{ steps.biopipen_version.outputs.version }}
 
   docker-full:
     runs-on: ubuntu-latest
@@ -46,5 +61,4 @@ jobs:
           # load: true
           file: Dockerfile.full
           tags: justold/immunopipe:${{ github.ref_name }}-full
-          build-args: |
-            SRC_IMAGE=justold/immunopipe:${{ github.ref_name }}
+          build-args: BASE_TAG=${{ github.ref_name }}
