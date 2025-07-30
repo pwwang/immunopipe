@@ -29,3 +29,9 @@ If you have any suggestions for more analyses, please feel free to open an issue
 There are some datasets with both scRNA-seq and scTCR-seq data available in the publications. The data were reanalyzed using `immunopipe` with the configurations provided in each repository, where the results are also available.
 
 Check out the [gallery](https://pwwang.github.io/immunopipe/gallery) for more details.
+
+## Citation
+
+If you use `immunopipe` in your research, please cite the following paper:
+
+- [Wang, P., Yu, Y., Dong, H., Zhang, S., Sun, Z., Zeng, H., ... & Li, Y. (2025). Immunopipe: a comprehensive and flexible scRNA-seq and scTCR-seq data analysis pipeline. NAR Genomics and Bioinformatics, 7(2), lqaf063.](https://academic.oup.com/nargab/article/7/2/lqaf063/8136476)
