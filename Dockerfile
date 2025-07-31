@@ -1,5 +1,5 @@
 ARG BIOPIPEN_TAG=dev
-FROM FROM biopipen/base:${BIOPIPEN_TAG}
+FROM biopipen/base:${BIOPIPEN_TAG}
 
 COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
 

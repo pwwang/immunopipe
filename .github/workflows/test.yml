@@ -137,7 +137,7 @@ jobs:
       - name: Delete old test running data cache
         env:
           GH_TOKEN: ${{ github.token }}
-        if: steps.restore-running.outputs.cache-hit != 'true'
+        # if: steps.restore-running.outputs.cache-hit != 'true'
         # Using `--repo` makes it so that this step doesn't require checking out the
         # repo first.
         run: gh cache delete --repo ${{ github.repository }} ${{ steps.restore-running.outputs.cache-primary-key }}
