@@ -38,7 +38,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ${{ env.CONDA }}/envs/immunopipe
-          key: conda-{{ hashFiles('docker/environment_full.yml') }}-{{ env.CACHE_NUMBER }}
+          key: conda-${{ hashFiles('docker/environment_full.yml') }}-${{ env.CACHE_NUMBER }}
         env:
           TAR_OPTIONS: "--no-same-owner --no-same-permissions"
           CACHE_NUMBER: 1
@@ -51,6 +51,7 @@ jobs:
 
       - name: Cache conda environment
         id: cache-conda
+        if: steps.restore-conda.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
           path: ${{ env.CONDA }}/envs/immunopipe
@@ -95,7 +96,7 @@ jobs:
           path: tests/running/
           key: tests-running-${{ env.CACHE_NUMBER }}
         env:
-          TAR_OPTIONS: "--no-same-owner --no-same-permissions"
+          TAR_OPTIONS: "--no-same-owner --no-same-permissions --skip-old-files"
           ACTIONS_CACHE_SERVICE_V2: true
           CACHE_NUMBER: 1
 
