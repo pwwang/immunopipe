@@ -93,7 +93,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: tests/running/
-          key: tests-running-{{ env.CACHE_NUMBER }}
+          key: tests-running-${{ env.CACHE_NUMBER }}
         env:
           TAR_OPTIONS: "--no-same-owner --no-same-permissions"
           ACTIONS_CACHE_SERVICE_V2: true

@@ -1,6 +1,6 @@
 
 [SampleInfo.in]
-infile = "tests/data/sampleinfo.txt"
+infile = "tests/running/data/sampleinfo.txt"
 
 [SampleInfo.envs.stats."N_Samples_per_Diagnosis (pie)"]
 plot_type = "pie"
