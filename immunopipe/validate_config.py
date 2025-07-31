@@ -60,9 +60,11 @@ def validate_config() -> Dict[str, Any]:
 
     if not ERRORS:
         config.has_tcr = True
+
         infiles = config.get("SampleInfo", {}).get("in", {}).get("infile", [])
         if not isinstance(infiles, list):
             infiles = [infiles]
+
         if not infiles:
             WARNINGS.append(
                 "No input file specified in configuration file [SampleInfo.in.infile], "
@@ -83,6 +85,13 @@ def validate_config() -> Dict[str, Any]:
             else:
                 header = infile.read_text().splitlines()[0]
                 config.has_tcr = "TCRData" in header
+
+        if "LoadRNAFromSeurat" in config:
+            config.LoadRNAFromSeurat.setdefault("envs", {})
+            config.LoadRNAFromSeurat.envs.setdefault("prepared", False)
+            config.LoadRNAFromSeurat.envs.setdefault("clustered", False)
+            if config.LoadRNAFromSeurat.envs.clustered:
+                config.LoadRNAFromSeurat.envs.prepared = True
 
     if ERRORS:
         logger.error("Miscofigurations detected:")
