@@ -11,48 +11,98 @@
         ]
       }
     },
-    "Dimension table": {
+    "Cell-level Quality Control": {
       "#": {
-        "flat": [
+        "tabs": [
           {
-            "kind": "descr",
-            "content": "The dimension table for the Seurat object. The table contains the number of cells and genes before and after QC. Note that the cell QC is performed before gene QC."
+            "name": "Cell QC metrics",
+            "contents": [
+              {
+                "kind": "descr",
+                "content": "The table below show the number of cells in each sample that failed and passed the QC filters. The last row shows the total number of cells that failed and passed the QC filters across all samples. "
+              },
+              {
+                "kind": "table",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/seuratpreparing/SeuratPreparing/qc/cell_qc.txt"
+              }
+            ]
           },
           {
-            "kind": "table",
-            "data": {
-              "path": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/qc/dim.txt"
-            }
+            "name": "Violin Plots",
+            "contents": [
+              {
+                "kind": "descr",
+                "content": "Violin Plots"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/seuratpreparing/SeuratPreparing/qc/Violin-Plots.cell_qc.png"
+              }
+            ]
+          },
+          {
+            "name": "Scatter Plots",
+            "contents": [
+              {
+                "kind": "descr",
+                "content": "Scatter Plots"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/seuratpreparing/SeuratPreparing/qc/Scatter-Plots.cell_qc.png"
+              }
+            ]
+          },
+          {
+            "name": "Ridge Plots",
+            "contents": [
+              {
+                "kind": "descr",
+                "content": "Ridge Plots"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/seuratpreparing/SeuratPreparing/qc/Ridge-Plots.cell_qc.png"
+              }
+            ]
           }
         ]
       }
     },
-    "Violin Plots of QC Metrics": {
+    "Gene-level Quality Control": {
       "#": {
-        "flat": [
+        "tabs": [
           {
-            "kind": "image",
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/qc/Violin-Plots-of-QC-Metrics_cell_qc.png"
-          }
-        ]
-      }
-    },
-    "Scatter Plots of QC Metrics": {
-      "#": {
-        "flat": [
+            "name": "Gene QC metrics",
+            "contents": [
+              {
+                "kind": "descr",
+                "content": "The table below show the number of genes in each sample that failed and passed the QC filters. The last row shows the final number of genes that failed and passed the QC filters across all samples. Any gene that failed the QC filters will be excluded in the merged Seurat object."
+              },
+              {
+                "kind": "table",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/seuratpreparing/SeuratPreparing/qc/gene_qc.txt"
+              },
+              {
+                "kind": "list",
+                "items": [
+                  "We may still end up with features slightly less than the final passed ones. For example, when SCTransform is used, the number of features may be less than the number of genes that passed the QC filters. This is because SCTransform selects the top N features based on variance. "
+                ]
+              }
+            ]
+          },
           {
-            "kind": "image",
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/qc/Scatter-Plots-of-QC-Metrics_cell_qc.png"
-          }
-        ]
-      }
-    },
-    "Ridge Plots of QC Metrics": {
-      "#": {
-        "flat": [
-          {
-            "kind": "image",
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/qc/Ridge-Plots-of-QC-Metrics_cell_qc.png"
+            "name": "Distribution of number of cells a gene is expressed in",
+            "contents": [
+              {
+                "kind": "descr",
+                "content": "Distribution of number of cells a gene is expressed in"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/seuratpreparing/SeuratPreparing/qc/Distribution-of-number-of-cells-a-gene-is-expressed-in.gene_qc.png"
+              }
+            ]
           }
         ]
       }
@@ -68,7 +118,7 @@
           },
           {
             "kind": "image",
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/doublets/doubletfinder_pk.png"
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/seuratpreparing/SeuratPreparing/doublets/doubletfinder_pk.png"
           }
         ]
       }
@@ -77,11 +127,11 @@
       "#": {
         "table_of_images": [
           {
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/doublets/doublets_dim.png",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/seuratpreparing/SeuratPreparing/doublets/doublets_dim.png",
             "descr": "Dimention Reduction Plot"
           },
           {
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/output/seuratpreparing/SeuratPreparing/doublets/doublets_pie.png",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/seuratpreparing/SeuratPreparing/doublets/doublets_pie.png",
             "descr": "Pie Chart"
           }
         ]

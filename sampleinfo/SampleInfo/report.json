@@ -1,0 +1,73 @@
+{
+  "Sample Information": {
+    "#": {
+      "#": {
+        "flat": [
+          {
+            "kind": "descr",
+            "content": "The samples used in the analysis. Each row is a sample, and columns are the meta information about the sample. This is literally the input sample information file, but the paths to the scRNA-seq and scTCR-seq data are hidden.",
+            "once": true
+          },
+          {
+            "kind": "table",
+            "pageSize": 50,
+            "data": {
+              "file": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/sampleinfo.txt",
+              "sep": "\t",
+              "excluded": ["TCRData", "RNAData"]
+            },
+            "src": false
+          }
+        ]
+      }
+    }
+  },
+  "Statistics": {
+    "#": {
+      "#": {
+        "table_of_images:2": [
+          {
+            "kind": "table_image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png",
+            "download": [
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png",
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png"
+            ]
+          },
+          {
+            "kind": "table_image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png",
+            "download": [
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png",
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png"
+            ]
+          },
+          {
+            "kind": "table_image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution-Histogram-.png",
+            "download": [
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution-Histogram-.png",
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution-Histogram-.png"
+            ]
+          },
+          {
+            "kind": "table_image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png",
+            "download": [
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png",
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png"
+            ]
+          },
+          {
+            "kind": "table_image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png",
+            "download": [
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png",
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
