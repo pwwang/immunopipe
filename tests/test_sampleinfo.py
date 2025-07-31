@@ -6,8 +6,8 @@ pytest_order = 1
 
 
 @pytest.mark.forked
-def test_sampleinfo(tmp_path, request):
+def test_sampleinfo(request):
     outdir = run_process(
-        "SampleInfo", "sampleinfo.config.toml", tmp_path, request=request
+        "SampleInfo", "sampleinfo.config.toml", request=request
     )
     assert outdir.joinpath("Age_distribution-Histogram-.png").is_file()

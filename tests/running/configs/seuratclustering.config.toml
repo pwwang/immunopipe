@@ -1,5 +1,5 @@
 [SeuratClustering.in]
-srtobj = "tests/output/seuratpreparing/SeuratPreparing/sampleinfo.seurat.RDS"
+srtobj = "tests/running/output/seuratpreparing/SeuratPreparing/sampleinfo.seurat.RDS"
 
 [SeuratClustering.envs.FindClusters]
 resolution = [0.5, 1.2, 0.8]

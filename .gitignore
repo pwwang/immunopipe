@@ -119,8 +119,8 @@ myoutput/
 .pipen*
 
 docs/index.md
-/tests/output/
-/tests/intermediate/
-/tests/data/prepared/
+/tests/running/output/
+/tests/running/intermediate/
+/tests/running/data/prepared/
 Rplots.pdf
 /biopipen

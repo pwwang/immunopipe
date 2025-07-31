@@ -8,10 +8,13 @@ from pathlib import Path
 import pytest
 from pipen import Pipen, Proc
 
-DATADIR = Path(__file__).parent / "data"
-CONFIGDIR = Path(__file__).parent / "configs"
-OUTDIR = Path(__file__).parent / "output"
-INTERMEDIATEDIR = Path(__file__).parent / "intermediate"
+RUNNINGDIR = Path(__file__).parent / "running"
+
+DATADIR = RUNNINGDIR / "data"
+CONFIGDIR = RUNNINGDIR / "configs"
+OUTDIR = RUNNINGDIR / "output"
+INTERMEDIATEDIR = RUNNINGDIR / "intermediate"
+WORKDIR = RUNNINGDIR / "workdir"
 
 
 def pytest_collection_modifyitems(config, items):
@@ -35,7 +38,7 @@ def with_argv(argv: list[str]) -> Generator:
 def run_process(
     process: str,
     configfile: str,
-    tmp_path: Path,
+    tmp_path: Path = WORKDIR,
     request: pytest.Fixture = None,
     export: bool = True,
     **kwargs,

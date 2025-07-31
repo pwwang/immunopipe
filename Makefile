@@ -19,6 +19,6 @@ test:
 test-data:
 	curl -s \
 		https://raw.githubusercontent.com/pwwang/immunopipe-example/master/prepare-data.sh | \
-		bash /dev/stdin tests/data/prepared false
+		bash /dev/stdin tests/running/data/prepared false
 
 .PHONY: local api test

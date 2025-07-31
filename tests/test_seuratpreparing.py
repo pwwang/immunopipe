@@ -6,24 +6,22 @@ pytest_order = 2
 
 
 @pytest.mark.forked
-def test_seuratpreparing(tmp_path, request):
+def test_seuratpreparing(request):
 
     outdir = run_process(
         "SeuratPreparing",
         "seuratpreparing.config.toml",
-        tmp_path,
         request=request,
     )
     assert outdir.joinpath("sampleinfo.seurat.RDS").is_file()
 
 
 @pytest.mark.forked
-def test_seuratpreparing_sct(tmp_path, request):
+def test_seuratpreparing_sct(request):
 
     outdir = run_process(
         "SeuratPreparing",
         "seuratpreparing_sct.config.toml",
-        tmp_path,
         export=False,
         request=request,
     )
