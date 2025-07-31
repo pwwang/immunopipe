@@ -13,7 +13,7 @@ def test_seuratclusteringofallcells(request):
         "seuratclusteringofallcells.config.toml",
         request=request,
     )
-    assert outdir.joinpath("sampleinfo.seurat.RDS").is_file()
+    assert outdir.joinpath("sampleinfo.seurat.qs").is_file()
 
 
 @pytest.mark.forked
@@ -25,4 +25,4 @@ def test_seuratclustering(request):
         export=False,
         request=request,
     )
-    assert outdir.joinpath("sampleinfo.seurat.RDS").is_file()
+    assert outdir.joinpath("sampleinfo.seurat.qs").is_file()

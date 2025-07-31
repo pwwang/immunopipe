@@ -120,6 +120,8 @@ jobs:
         run: |
           echo "**/*.RDS" > $OUTPUT_DIR/.gitignore
           echo "**/*.rds" >> $OUTPUT_DIR/.gitignore
+          echo "**/*.qs" >> $OUTPUT_DIR/.gitignore
+          echo "**/*.qs2" >> $OUTPUT_DIR/.gitignore
         env:
           OUTPUT_DIR: tests/running/output
 

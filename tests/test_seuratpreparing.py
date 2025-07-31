@@ -13,7 +13,7 @@ def test_seuratpreparing(request):
         "seuratpreparing.config.toml",
         request=request,
     )
-    assert outdir.joinpath("sampleinfo.seurat.RDS").is_file()
+    assert outdir.joinpath("sampleinfo.seurat.qs").is_file()
 
 
 @pytest.mark.forked
@@ -25,4 +25,4 @@ def test_seuratpreparing_sct(request):
         export=False,
         request=request,
     )
-    assert outdir.joinpath("sampleinfo.seurat.RDS").is_file()
+    assert outdir.joinpath("sampleinfo.seurat.qs").is_file()
