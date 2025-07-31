@@ -77,11 +77,11 @@ class TCellSelection(Proc):
         further clustering and downstream analysis.
 
     Input:
-        srtobj: Seurat object file in RDS
-        immdata: Immunarch data file in RDS
+        srtobj: Seurat object file in RDS/qs
+        immdata: Immune repertoire data file in RDS/qs
 
     Output:
-        rdsfile: Seurat object file in RDS
+        outfile: Seurat object file in qs format
         outdir: Output directory with details
 
     Envs:
@@ -112,7 +112,7 @@ class TCellSelection(Proc):
             with `-`.
     """
     input = "srtobj:file, immdata:file"
-    output = "rdsfile:file:{{in.srtobj | stem}}.RDS, outdir:dir:details"
+    output = "outfile:file:{{in.srtobj | stem}}.qs, outdir:dir:details"
     envs = {
         "ignore_tcr": False,
         "tcell_selector": None,
