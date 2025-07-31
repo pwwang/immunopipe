@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>ImmunarchLoading - immunopipe</title>
+    <title>ClonalStats - immunopipe</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "ImmunarchLoading";
-        var mkdocs_page_input_path = "processes/ImmunarchLoading.md";
+        var mkdocs_page_name = "ClonalStats";
+        var mkdocs_page_input_path = "processes/ClonalStats.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -74,18 +74,10 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">ImmunarchLoading</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ImmunarchLoading/">ImmunarchLoading</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
                   </li>
@@ -184,10 +176,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Processes</li>
-      <li class="breadcrumb-item active">ImmunarchLoading</li>
+      <li class="breadcrumb-item active">ClonalStats</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/ImmunarchLoading.md">Edit on pwwang/immunopipe</a>
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/ClonalStats.md">Edit on pwwang/immunopipe</a>
     </li>
   </ul>
   <hr/>
@@ -195,96 +186,96 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="immunarchloading">ImmunarchLoading<a class="headerlink" href="#immunarchloading" title="Permanent link">&para;</a></h2>
-<p>Immuarch - Loading data</p>
-<p>Load the raw data into <a href="https://immunarch.com"><code>immunarch</code></a> object,
-using <a href="https://immunarch.com/reference/repLoad.html"><code>immunarch::repLoad()</code></a>.<br /></p>
-<p>For the data path specified at <code>TCRData</code> in the input file, we will first find
-<code>filtered_contig_annotations.csv</code> and <code>filtered_config_annotations.csv.gz</code> in the
-path. If neighter of them exists, we will find <code>all_contig_annotations.csv</code> and
-<code>all_contig_annotations.csv.gz</code> in the path and a warning will be raised
-(You can find it at <code>./.pipen/&lt;pipeline-name&gt;/ImmunarchLoading/0/job.stderr</code>).<br /></p>
-<p>If none of the files exists, an error will be raised.<br /></p>
-<p>This process will also generate a text file with the information for each cell.<br />
-The file will be saved at
-<code>./.pipen/&lt;pipeline-name&gt;/ImmunarchLoading/0/output/&lt;prefix&gt;.tcr.txt</code>.<br />
-The file can be used by the <a href="../IntegratingTCR/"><code>IntegratingTCR</code></a> process to integrate the
-TCR-seq data into the <code>Seurat</code> object for further integrative analysis.<br />
-<code>envs.metacols</code> can be used to specify the columns to be exported to the text file.<br /></p>
+                <h2 id="clonalstats">ClonalStats<a class="headerlink" href="#clonalstats" title="Permanent link">&para;</a></h2>
+<p>Visualize the clonal information.</p>
+<p>Using <a href="https://github.com/pwwang/scplotter"><code>scplotter</code></a> to visualize the clonal
+information.<br /></p>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>metafile</code>:
-    The meta data of the samples
-    A tab-delimited file
-    Two columns are required:<br /><ul>
-<li><code>Sample</code> to specify the sample names.<br /></li>
-<li><code>TCRData</code> to assign the path of the data to the samples,
-and this column will be excluded as metadata.<br />
-Immunarch is able to fetch the sample names from the names of
-the target files. However, 10x data yields result like
-<code>filtered_contig_annotations.csv</code>, which doesn't have any name
-information.<br /></li>
-</ul>
-</li>
+<li><code>screpfile</code>:
+    The <code>scRepertoire</code> object in RDS/qs format</li>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>rdsfile</code>: <em>Default: <code>{{in.metafile | stem}}.immunarch.RDS</code></em>. <br />
-    The RDS file with the data and metadata, which can be processed by
-    other <code>immunarch</code> functions.<br /></li>
-<li><code>metatxt</code>: <em>Default: <code>{{in.metafile | stem}}.tcr.txt</code></em>. <br />
-    The meta data at cell level, which can be used to attach to the Seurat object</li>
+<li><code>outdir</code>: <em>Default: <code>{{in.screpfile | stem}}.clonalstats</code></em>. <br />
+    The output directory containing the plots</li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
-<li>
-<p><code>prefix</code>: <em>Default: <code>{Sample}_</code></em>. <br />
-    The prefix to the barcodes. You can use placeholder like <code>{Sample}_</code>
-    to use the meta data from the <code>immunarch</code> object. The prefixed barcodes will
-    be saved in <code>out.metatxt</code>. The <code>immunarch</code> object keeps the original barcodes, but
-    the prefix is saved at <code>immdata$prefix</code>.<br /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This option is useful because the barcodes for the cells from scRNA-seq
-data are usually prefixed with the sample name, for example,
-<code>Sample1_AAACCTGAGAAGGCTA-1</code>. However, the barcodes for the cells from
-scTCR-seq data are usually not prefixed with the sample name, for example,
-<code>AAACCTGAGAAGGCTA-1</code>. So we need to add the prefix to the barcodes for
-the scTCR-seq data, and it is easier for us to integrate the data from
-different sources later.<br /></p>
-</div>
+<li><code>mutaters</code> <em>(<code>type=json;order=-9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The mutaters passed to <code>dplyr::mutate()</code> to add new variables.<br />
+    When the object loaded form <code>in.screpfile</code> is a list, the mutaters will be applied to each element.<br />
+    The keys are the names of the new variables, and the values are the expressions.<br />
+    When it is a <code>Seurat</code> object, typically an output of <code>scRepertoire::combineExpression()</code>,
+    the mutaters will be applied to the <code>meta.data</code>.<br /></li>
+<li><code>viz_type</code> <em>(<code>choice</code>)</em>:
+    The type of visualization to generate.<br /><ul>
+<li><code>volume</code>:
+    The volume of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalVolumePlot.html"><code>ClonalVolumePlot</code></a></li>
+<li><code>abundance</code>:
+    The abundance of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalAbundancePlot.html"><code>ClonalAbundancePlot</code></a></li>
+<li><code>length</code>:
+    The length of the CDR3 sequences using <a href="https://pwwang.github.io/scplotter/reference/ClonalLengthPlot.html"><code>ClonalLengthPlot</code></a></li>
+<li><code>residency</code>:
+    The residency of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalResidencyPlot.html"><code>ClonalResidencyPlot</code></a></li>
+<li><code>dynamics</code>:
+    The dynamics of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalDynamicsPlot.html"><code>ClonalDynamicsPlot</code></a></li>
+<li><code>composition</code>:
+    The composition of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalCompositionPlot.html"><code>ClonalCompositionPlot</code></a></li>
+<li><code>overlap</code>:
+    The overlap of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalOverlapPlot.html"><code>ClonalOverlapPlot</code></a></li>
+<li><code>diversity</code>:
+    The diversity of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalDiversityPlot.html"><code>ClonalDiversityPlot</code></a></li>
+<li><code>geneusage</code>:
+    The gene usage of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalGeneUsagePlot.html"><code>ClonalGeneUsagePlot</code></a></li>
+<li><code>positional</code>:
+    The positional information of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalPositionalPlot.html"><code>ClonalPositionalPlot</code></a></li>
+<li><code>kmer</code>:
+    The kmer information of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalKmerPlot.html"><code>ClonalKmerPlot</code></a></li>
+<li><code>rarefaction</code>:
+    The rarefaction curve of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalRarefactionPlot.html"><code>ClonalRarefactionPlot</code></a></li>
+</ul>
 </li>
-<li>
-<p><code>tmpdir</code>: <em>Default: <code>/tmp/user</code></em>. <br />
-    The temporary directory to link all data files.<br />
-    <code>Immunarch</code> scans a directory to find the data files. If the data files
-    are not in the same directory, we can link them to a temporary directory
-    and pass the temporary directory to <code>Immunarch</code>.<br />
-    This option is useful when the data files are in different directories.<br /></p>
+<li><code>subset</code>:
+    An expression to subset the data before plotting.<br />
+    Similar to <code>mutaters</code>, it will be applied to each element by <code>dplyr::filter()</code> if the object
+    loaded form <code>in.screpfile</code> is a list; otherwise, it will be applied to
+    <code>subset(sobj, subset = &lt;expr&gt;)</code> if the object is a <code>Seurat</code> object.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the device</li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the device</li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the device</li>
+</ul>
 </li>
-<li><code>mode</code>: <em>Default: <code>paired</code></em>. <br />
-    Either "single" for single chain data or "paired" for
-    paired chain data. For <code>single</code>, only TRB chain will be kept
-    at <code>immdata$data</code>, information for other chains will be
-    saved at <code>immdata$tra</code> and <code>immdata$multi</code>.<br /></li>
-<li><code>extracols</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
-    The extra columns to be exported to the text file.<br />
-    You can refer to the
-    <a href="https://immunarch.com/articles/v2_data.html#immunarch-data-format">immunarch documentation</a>
-    to get a sense for the full list of the columns.<br />
-    The columns may vary depending on the data source.<br />
-    The columns from <code>immdata$meta</code> and some core columns, including
-    <code>Barcode</code>, <code>CDR3.aa</code>, <code>Clones</code>, <code>Proportion</code>, <code>V.name</code>, <code>J.name</code>, and
-    <code>D.name</code> will be exported by default. You can use this option to
-    specify the extra columns to be exported.<br /></li>
+<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The extra formats to save the plots in, other than PNG.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code used to generate the plots
+    Note that the data directly used to generate the plots will also be saved in an <code>rda</code> file.<br />
+    Be careful if the data is large as it may take a lot of disk space.<br /></li>
+<li><code>descr</code>:
+    The description of the plot, used to show in the report.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    The arguments for the plot function
+    See the documentation of the corresponding plot function for the details</li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Clonal Volume': Diot({'viz_type': 'volume'}), 'Clonal Abundance': Diot({'viz_type': 'abundance'}), 'CDR3 Length': Diot({'viz_type': 'length'}), 'Clonal Diversity': Diot({'viz_type': 'diversity'})}</code></em>. <br />
+    The cases to generate the plots if we have multiple cases.<br />
+    The keys are the names of the cases, and the values are the arguments for the plot function.<br />
+    The arguments in <code>envs</code> will be used if not specified in <code>cases</code>, except for <code>mutaters</code>.<br />
+    Sections can be specified as the prefix of the case name, separated by <code>::</code>.<br />
+    For example, if you have a case named <code>Clonal Volume::Case1</code>, the plot will be put in the
+    section <code>Clonal Volume</code>. By default, when there are multiple cases for the same 'viz_type', the name of the 'viz_type' will be used
+    as the default section name (for example, when 'viz_type' is 'volume', the section name will be 'Clonal Volume').<br />
+    When there is only a single case, the section name will default to 'DEFAULT', which will not be shown
+    in the report.<br /></li>
 </ul>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../SampleInfo/" class="btn btn-neutral float-left" title="SampleInfo"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../SeuratPreparing/" class="btn btn-neutral float-right" title="SeuratPreparing">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -312,10 +303,6 @@ different sources later.<br /></p>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../SampleInfo/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../SeuratPreparing/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

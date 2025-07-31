@@ -229,12 +229,12 @@ to <code>seurat_clusters_id</code>, and the new <code>seurat_clusters</code> col
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>sobjfile</code>:
-    The seurat object</li>
+    The single-cell object in RDS/qs/qs2/h5ad format.<br /></li>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>outfile</code>: <em>Default: <code>{{in.sobjfile | stem}}.annotated.{{- ext0(in.sobjfile) if envs.outtype == 'input' else envs.outtype -}}</code></em>. <br />
-    The rds file of seurat object with cell type annotated.<br />
+    The rds/qs/qs2/h5ad file of seurat object with cell type annotated.<br />
     A text file containing the mapping from the old <code>seurat_clusters</code> to the new cell types
     will be generated and saved to <code>cluster2celltype.tsv</code> under the job output directory.<br /></li>
 </ul>
@@ -319,9 +319,11 @@ the original cell types will be kept and nothing will be changed.<br /></p>
 <li><code>majority_voting</code>: <em>Default: <code>True</code></em>. <br />
     When true, it refines cell identities within local subclusters after an over-clustering approach
     at the cost of increased runtime.<br /></li>
-<li><code>over_clustering</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>seurat_clusters</code></em>. <br />
+<li><code>over_clustering</code> <em>(<code>type=auto</code>)</em>:
     The column name in metadata to use as clusters for majority voting.<br />
-    Set to <code>False</code> to disable over-clustering.<br /></li>
+    Set to <code>False</code> to disable over-clustering.<br />
+    When <code>in.sobjfile</code> is rds/qs/qs2 (supposing we have a Seurat object), the default ident is used by default.<br />
+    Otherwise, it is False by default.<br /></li>
 <li><code>assay</code>:
     When converting a Seurat object to AnnData, the assay to use.<br />
     If input is h5seurat, this defaults to RNA.<br />
@@ -342,8 +344,10 @@ the original cell types will be kept and nothing will be changed.<br /></p>
     Use the same file type as the input.<br /></li>
 <li><code>rds</code>:
     Use RDS file.<br /></li>
-<li><code>h5seurat</code>:
-    Use h5seurat file.<br /></li>
+<li><code>qs</code>:
+    Use qs2 file.<br /></li>
+<li><code>qs2</code>:
+    Use qs2 file.<br /></li>
 <li><code>h5ad</code>:
     Use AnnData file.<br /></li>
 </ul>

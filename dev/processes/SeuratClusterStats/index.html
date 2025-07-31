@@ -230,6 +230,12 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
 <li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
     The mutaters to mutate the metadata to subset the cells.<br />
     The mutaters will be applied in the order specified.<br /></li>
+<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
+    Whether to cache the plots.<br />
+    Currently only plots for features are supported, since creating the those
+    plots can be time consuming.<br />
+    If <code>True</code>, the plots will be cached in the job output directory, which will
+    be not cleaned up when job is rerunning.<br /></li>
 <li><code>clustrees_defaults</code> <em>(<code>ns</code>)</em>:
     The parameters for the clustree plots.<br /><ul>
 <li><code>devpars</code> <em>(<code>ns</code>)</em>:
@@ -242,7 +248,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
     The width of the plots.<br /></li>
 </ul>
 </li>
-<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
     The formats to save the plots other than <code>png</code>.<br /></li>
 <li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to save the code to reproduce the plot.<br /></li>
@@ -280,7 +286,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
     The width of the plots.<br /></li>
 </ul>
 </li>
-<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
     The formats to save the plots other than <code>png</code>.<br /></li>
 <li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to save the code to reproduce the plot.<br /></li>
@@ -308,13 +314,8 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
     The default parameters for <code>ngenes</code>.<br />
     The default parameters to plot the number of genes expressed in each cell.<br /></p>
 <ul>
-<li><code>ident</code>: <em>Default: <code>seurat_clusters</code></em>. <br />
-    The column name in metadata to use as the identity.<br /></li>
-<li><code>group-by</code>:
-    The column name in metadata to group the cells.<br />
-    Dodge position will be used to separate the groups.<br /></li>
-<li><code>split-by</code>:
-    The column name in metadata to split the cells into different plots.<br /></li>
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The formats to save the plots other than <code>png</code>.<br /></li>
 <li><code>subset</code>:
     An expression to subset the cells, will be passed to <code>tidyrseurat::filter()</code>.<br /></li>
 <li><code>devpars</code> <em>(<code>ns</code>)</em>:
@@ -334,10 +335,12 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
     Keys are the names of the plots and values are the dicts inherited from <code>env.ngenes_defaults</code>.<br /></li>
 <li><code>features_defaults</code> <em>(<code>ns</code>)</em>:
     The default parameters for <code>features</code>.<br /><ul>
-<li><code>features</code>:
+<li><code>features</code> <em>(<code>type=auto</code>)</em>:
     The features to plot.<br />
     It can be either a string with comma separated features, a list of features, a file path with <code>file://</code> prefix with features
-    (one per line), or an integer to use the top N features from <code>VariantFeatures(srtobj)</code>.<br /></li>
+    (one per line), or an integer to use the top N features from <code>VariantFeatures(srtobj)</code>.<br />
+    It can also be a dict with the keys as the feature group names and the values as the features, which
+    is used for heatmap to group the features.<br /></li>
 <li><code>order_by</code> <em>(<code>type=auto</code>)</em>:
     The order of the clusters to show on the plot.<br />
     An expression passed to <code>dplyr::arrange()</code> on the grouped meta data frame (by <code>ident</code>).<br />
@@ -359,7 +362,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
 </li>
 <li><code>descr</code>:
     The description of the plot, showing in the report.<br /></li>
-<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
     The formats to save the plots other than <code>png</code>.<br /></li>
 <li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to save the code to reproduce the plot.<br /></li>
@@ -413,7 +416,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
     See <a href="https://pwwang.github.io/scplotter/reference/CellDimPlot.html">https://pwwang.github.io/scplotter/reference/CellDimPlot.html</a></li>
 </ul>
 </li>
-<li><code>dimplots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Dimensional reduction plot': Diot({'label': True, 'label_insitu': True, 'label-box': True, 'repel': True}), 'TCR presence': Diot({'ident': 'TCR_Presence', 'order': 'TCR_absent', 'cols': ['#FF000066', 'gray']})}</code></em>. <br />
+<li><code>dimplots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Dimensional reduction plot': Diot({'label': True, 'label_insitu': True}), 'TCR Presence': Diot({'ident': 'CTaa'})}</code></em>. <br />
     The dimensional reduction plots.<br />
     Keys are the titles of the plots and values are the dicts inherited from <code>env.dimplots_defaults</code>. It can also have other parameters from
     <a href="https://pwwang.github.io/scplotter/reference/CellDimPlot.html"><code>scplotter::CellDimPlot</code></a>.<br /></li>
@@ -428,7 +431,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
 <p><img alt="nCells_All" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_nCells_All.png" width="80%" /></p>
 <h4 id="number-of-cells-in-each-cluster-by-groups">Number of cells in each cluster by groups<a class="headerlink" href="#number-of-cells-in-each-cluster-by-groups" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.stats]</span>
-<span class="n">nCells_Sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">group-by</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;Sample&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">nCells_Sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">group_by</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;Sample&quot;</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 <p><img alt="nCells_Sample" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_nCells_Sample.png" width="80%" /></p>
 <h4 id="violin-plots-for-the-gene-expressions">Violin plots for the gene expressions<a class="headerlink" href="#violin-plots-for-the-gene-expressions" title="Permanent link">&para;</a></h4>
@@ -444,8 +447,6 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
 <h4 id="dimension-reduction-plot-with-labels">Dimension reduction plot with labels<a class="headerlink" href="#dimension-reduction-plot-with-labels" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.dimplots.Idents]</span>
 <span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="n">label-box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="n">repel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 </code></pre></div>
 <p><img alt="dimplots" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_dimplots.png" width="80%" /></p>
               

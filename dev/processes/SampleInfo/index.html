@@ -221,9 +221,16 @@ If you have multiple input files to run, please run it with a different pipeline
 instance (configuration file).<br /></p>
 <p>For the content of the input file, please see details
 <a href="../..//preparing-input.md#metadata">here</a>.<br /></p>
+<p>You can add some columns to the input file while doing the statistics or you can even
+pass them on to the next processes. See <code>envs.mutaters</code> and <code>envs.save_mutated</code>.<br />
+But if you are adding a factor (categorical) column with desired levels, the order
+can't be guaranteed, because we are saving them to a text file, where we can't guarantee
+the order of the levels. If you want to add a factor column with desired levels, you can
+set <code>envs.mutaters</code> of the <code>SeuratPreparing</code> process to mutate the column.<br /></p>
 <p>Once the pipeline is finished, you can see the sample information in the report</p>
 <p><img alt="report" src="../..//processes/images/SampleInfo-report.png" /></p>
-<p>Note that the required <code>RNAData</code> and <code>TCRData</code> columns are not shown in the report.<br />
+<p>Note that the required <code>RNAData</code> (if not loaded from a Seurat object) and <code>TCRData</code>
+columns are not shown in the report.<br />
 They are used to specify the paths of the <code>scRNA-seq</code> and <code>scTCR-seq</code> data, respectively.<br /></p>
 <p>You may also perform some statistics on the sample information, for example,
 number of samples per group. See next section for details.<br /></p>
@@ -253,7 +260,7 @@ Specifically, it should contain filtered_contig_annotations.csv
 or all_contig_annotations.csv from cellranger.<br /></li>
 <li>RNAData: The directory for single-cell RNA data for this sample.<br />
 Specifically, it should be able to be read by
-<code>Seurat::Read10X()</code>.<br />
+<code>Seurat::Read10X()</code> or <code>Seurat::Read10X_h5()</code> or <code>SeuratDisk::LoadLoom()</code>.<br />
 See also https://satijalab.org/seurat/reference/read10x.<br /></li>
 <li>Other columns are optional and will be treated as metadata for
 each sample.<br /></li>
@@ -498,40 +505,43 @@ returned ids. Non-paired ids will be <code>NA</code>.<br /></li>
 </table>
 <h4 id="count-the-number-of-samples-per-diagnosis">Count the number of samples per Diagnosis<a class="headerlink" href="#count-the-number-of-samples-per-diagnosis" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;N_Samples_per_Diagnosis (pie)&quot;</span><span class="k">]</span>
-<span class="n">on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sample&quot;</span>
-<span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;pie&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sample&quot;</span>
+<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
 </code></pre></div>
-<p><img alt="Samples_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis (pie).png" /></p>
+<p><img alt="Samples_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png" /></p>
 <p>What if we want a bar plot instead of a pie chart?<br /></p>
 <div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;N_Samples_per_Diagnosis (bar)&quot;</span><span class="k">]</span>
-<span class="n">on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sample&quot;</span>
-<span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
-<span class="n">plot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;barplot&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sample&quot;</span>
+<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
 </code></pre></div>
-<p><img alt="Samples_Diagnosis_bar" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis (bar).png" /></p>
+<p><img alt="Samples_Diagnosis_bar" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png" /></p>
 <h4 id="explore-age-distribution">Explore Age distribution<a class="headerlink" href="#explore-age-distribution" title="Permanent link">&para;</a></h4>
 <p>The distribution of Age of all samples</p>
-<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution (boxplot)&quot;</span><span class="k">]</span>
-<span class="n">on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution (histogram)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;histogram&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
 </code></pre></div>
-<p><img alt="Age_distribution" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution (boxplot).png" /></p>
+<p><img alt="Age_distribution" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution-Histogram-.png" /></p>
 <p>How about the distribution of Age in each Diagnosis, and make it violin + boxplot?<br /></p>
 <div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution_per_Diagnosis (violin + boxplot)&quot;</span><span class="k">]</span>
-<span class="n">on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
-<span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
-<span class="n">plot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;violin+boxplot&quot;</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;violin&quot;</span>
+<span class="n">add_box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 </code></pre></div>
-<p><img alt="Age_distribution_per_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis (violin + boxplot).png" /></p>
+<p><img alt="Age_distribution_per_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png" /></p>
 <p>How about Age distribution per Sex in each Diagnosis?<br /></p>
 <div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution_per_Sex_in_each_Diagnosis (boxplot)&quot;</span><span class="k">]</span>
-<span class="n">on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
-<span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sex&quot;</span>
-<span class="n">each</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
-<span class="n">plot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;boxplot&quot;</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sex&quot;</span>
+<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;box&quot;</span>
 <span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
 <span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">height</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">450</span><span class="p">}</span>
 </code></pre></div>
-<p><img alt="Age_distribution_per_Sex_in_each_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis (boxplot).png" /></p>
+<p><img alt="Age_distribution_per_Sex_in_each_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png" /></p>
               
             </div>
           </div><footer>

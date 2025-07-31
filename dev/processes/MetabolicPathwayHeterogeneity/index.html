@@ -227,32 +227,36 @@ different groups for the metabolic pathways.<br /></p>
 <li><code>ncores</code> <em>(<code>type=int;pgarg</code>)</em>: <em>Default: <code>1</code></em>. <br />
     Number of cores to use for parallelization
     Defaults to <code>ScrnaMetabolicLandscape.ncores</code></li>
-<li><code>bubble_devpars</code> <em>(<code>ns</code>)</em>:
-    The devpars for the bubble plot<ul>
-<li><code>width</code> <em>(<code>type=int</code>)</em>:
-    The width of the plot</li>
-<li><code>height</code> <em>(<code>type=int</code>)</em>:
-    The height of the plot</li>
-<li><code>res</code> <em>(<code>type=int</code>)</em>:
-    The resolution of the plot</li>
-</ul>
-</li>
-<li><code>grouping</code> <em>(<code>type=auto;pgarg;readonly</code>)</em>:
-    Defines the basic groups to
-    investigate the metabolic activity.<br />
-    Defaults to <code>ScrnaMetabolicLandscape.grouping</code></li>
-<li><code>grouping_prefix</code> <em>(<code>type=auto;pgarg;readonly</code>)</em>: <em>Default: <code>""</code></em>. <br />
-    Working as a prefix to group
-    names.<br />
-    Defaults to <code>ScrnaMetabolicLandscape.grouping_prefix</code></li>
-<li><code>subsetting</code> <em>(<code>type=auto;pgarg;readonly</code>)</em>:
-    How do we subset the data.<br />
-    Another column(s) in the metadata.<br />
-    Defaults to <code>ScrnaMetabolicLandscape.subsetting</code></li>
-<li><code>subsetting_prefix</code> <em>(<code>type=auto;pgarg;readonly</code>)</em>:
-    Working as a prefix to
-    subset names.<br />
-    Defaults to <code>ScrnaMetabolicLandscape.subsetting_prefix</code></li>
+<li><code>subset_by</code> <em>(<code>pgarg;readonly</code>)</em>:
+    Subset the data by the given column in the
+    metadata. For example, <code>Response</code>.<br />
+    <code>NA</code> values will be removed in this column.<br />
+    Defaults to <code>ScrnaMetabolicLandscape.subset_by</code>
+    If None, the data will not be subsetted.<br /></li>
+<li><code>group_by</code> <em>(<code>pgarg;readonly</code>)</em>:
+    Group the data by the given column in the
+    metadata. For example, <code>cluster</code>.<br />
+    Defaults to <code>ScrnaMetabolicLandscape.group_by</code></li>
+<li><code>fgsea_args</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'scoreType': 'std', 'nproc': 1}</code></em>. <br />
+    Other arguments for the <code>fgsea::fgsea()</code> function.<br />
+    For example, <code>{"minSize": 15, "maxSize": 500}</code>.<br />
+    See <a href="https://rdrr.io/bioc/fgsea/man/fgsea.html">https://rdrr.io/bioc/fgsea/man/fgsea.html</a> for more details.<br /></li>
+<li><code>plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Pathway Heterogeneity': Diot({'plot_type': 'dot', 'devpars': Diot({'res': 100})})}</code></em>. <br />
+    The plots to generate.<br />
+    Names will be used as the title for the plot. Values will be the arguments
+    passed to <code>biopipen.utils::VizGSEA()</code> function.<br />
+    See <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizGSEA.html">https://pwwang.github.io/biopipen.utils.R/reference/VizGSEA.html</a>.<br /></li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Multiple cases for the analysis.<br />
+    If you only have one case, you can specify the parameters directly to
+    <code>envs.subset_by</code>, <code>envs.group_by</code>, <code>envs.fgsea_args</code>, <code>envs.plots</code>,
+    <code>envs.select_pcs</code>, and <code>envs.pathway_pval_cutoff</code>.<br />
+    The name of this default case will be <code>envs.subset_by</code>.<br />
+    If you have multiple cases, you can specify the parameters for each case
+    in a dictionary. The keys will be the names of the cases and the values
+    will be dictionaries with the parameters for each case, where the values
+    will be inherited from <code>envs.subset_by</code>, <code>envs.group_by</code>, <code>envs.fgsea_args</code>,
+    <code>envs.plots</code>, <code>envs.select_pcs</code>, and <code>envs.pathway_pval_cutoff</code>.<br /></li>
 </ul>
               
             </div>

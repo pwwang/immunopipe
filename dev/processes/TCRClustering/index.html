@@ -198,7 +198,7 @@
                 <h2 id="tcrclustering">TCRClustering<a class="headerlink" href="#tcrclustering" title="Permanent link">&para;</a></h2>
 <p>Cluster the TCR clones by their CDR3 sequences</p>
 <p>You can disable this by remving the whole sections of
-TCRClustering and TCRClusterStats in the config file.<br /></p>
+TCRClustering in the config file.<br /></p>
 <p>This process is used to cluster TCR clones based on their CDR3 sequences.<br /></p>
 <p>It uses either</p>
 <p><a href="https://github.com/s175573/GIANA">GIANA</a></p>
@@ -229,19 +229,15 @@ Note that a cluster with <code>S_</code> prefix may still have multiple cells, a
 CDR3 sequence may be shared by multiple cells.<br /></p>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>immfile</code>:
-    The immunarch object in RDS</li>
+<li><code>screpfile</code>:
+    The TCR data object loaded by <code>scRepertoire::CombineTCR()</code> or
+    <code>scRepertoire::CombineExpression()</code></li>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>immfile</code>: <em>Default: <code>{{in.immfile | basename}}</code></em>. <br />
-    The immnuarch object in RDS with TCR cluster information</li>
-<li><code>clusterfile</code>: <em>Default: <code>{{in.immfile | stem}}.clusters.txt</code></em>. <br />
-    The cluster file.<br />
-    Columns are CDR3.aa, TCR_Cluster, TCR_Cluster_Size and
-    TCR_Cluster_Size1.<br />
-    TCR_Cluster_Size is the number of cells in the cluster.<br />
-    TCR_Cluster_Size1 is the unique CDR3 sequences in the cluster.<br /></li>
+<li><code>outfile</code>: <em>Default: <code>{{in.screpfile | stem}}.tcr_clustered.qs</code></em>. <br />
+    The <code>scRepertoire</code> object in qs with TCR cluster information.<br />
+    Column <code>TCR_Cluster</code> will be added to the metadata.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
@@ -256,20 +252,29 @@ CDR3 sequence may be shared by multiple cells.<br /></p>
     by Sebastiaan Valkiers, etc</li>
 </ul>
 </li>
-<li><code>prefix</code>:
-    The prefix to the barcodes. You can use placeholder like <code>{Sample}_</code>
-    The prefixed barcodes will be used to match the barcodes in <code>in.metafile</code>.<br />
-    Not used if <code>in.metafile</code> is not specified.<br />
-    If <code>None</code> (default), <code>immdata$prefix</code> will be used.<br /></li>
 <li><code>python</code>: <em>Default: <code>python</code></em>. <br />
     The path of python with <code>GIANA</code>'s dependencies installed
     or with <code>clusTCR</code> installed. Depending on the <code>tool</code> you choose.<br /></li>
+<li><code>within_sample</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    Whether to cluster the TCR clones within each sample.<br />
+    When <code>in.screpfile</code> is a <code>Seurat</code> object, the samples are marked by
+    the <code>Sample</code> column in the metadata.<br /></li>
 <li><code>args</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
     The arguments for the clustering tool
     For GIANA, they will be passed to <code>python GIAna.py</code>
     See <a href="https://github.com/s175573/GIANA#usage">https://github.com/s175573/GIANA#usage</a>.<br />
     For ClusTCR, they will be passed to <code>clustcr.Clustering(...)</code>
     See <a href="https://svalkiers.github.io/clusTCR/docs/clustering/how-to-use.html#clustering">https://svalkiers.github.io/clusTCR/docs/clustering/how-to-use.html#clustering</a>.<br /></li>
+<li><code>chain</code> <em>(<code>choice</code>)</em>: <em>Default: <code>both</code></em>. <br />
+    The TCR chain to use for clustering.<br /><ul>
+<li><code>alpha</code>:
+    TCR alpha chain (the first sequence in CTaa, separated by <code>_</code>)</li>
+<li><code>beta</code>:
+    TCR beta chain (the second sequence in CTaa, separated by <code>_</code>)</li>
+<li><code>both</code>:
+    Both TCR alpha and beta chains</li>
+</ul>
+</li>
 </ul>
               
             </div>

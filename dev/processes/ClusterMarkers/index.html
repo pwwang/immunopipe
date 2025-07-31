@@ -234,9 +234,6 @@ you may see the other environment variables of this process are hidden and reado
 <li>See also: <a href="https://satijalab.org/seurat/articles/future_vignette.html">https://satijalab.org/seurat/articles/future_vignette.html</a></li>
 </ul>
 </li>
-<li><code>prefix_group</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
-    When neither <code>ident-1</code> nor <code>ident-2</code> is specified,
-    should we prefix the group name to the section name?<br /></li>
 <li><code>dbs</code> <em>(<code>list</code>)</em>: <em>Default: <code>['KEGG_2021_Human', 'MSigDB_Hallmark_2020']</code></em>. <br />
     The dbs to do enrichment analysis for significant
     markers See below for all libraries.<br />
@@ -248,24 +245,33 @@ you may see the other environment variables of this process are hidden and reado
     <code>p_val_adj</code>. For example, <code>"p_val_adj &lt; 0.05 &amp; abs(avg_log2FC) &gt; 1"</code>
     to select markers with adjusted p-value &lt; 0.05 and absolute log2
     fold change &gt; 1.<br /></li>
+<li><code>enrich_style</code> <em>(<code>choice</code>)</em>: <em>Default: <code>enrichr</code></em>. <br />
+    The style of the enrichment analysis.<br />
+    The enrichment analysis will be done by <code>EnrichIt()</code> from <a href="https://pwwang.github.io/enrichit/"><code>enrichit</code></a>.<br />
+    Two styles are available:<br /><ul>
+<li><code>enrichr</code>:
+    <code>enrichr</code> style enrichment analysis (fisher's exact test will be used).<br /></li>
+<li><code>clusterprofiler</code>:
+    <code>clusterProfiler</code> style enrichment analysis (hypergeometric test will be used).<br /></li>
+<li><code>clusterProfiler</code>:
+    alias for <code>clusterprofiler</code></li>
+</ul>
+</li>
 <li><code>assay</code>:
     The assay to use.<br /></li>
 <li><code>error</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
     Error out if no/not enough markers are found or no pathways are enriched.<br />
     If <code>False</code>, empty results will be returned.<br /></li>
-<li><code>site</code>: <em>Default: <code>Enrichr</code></em>. <br />
-    The site to use for the <code>enrichR</code> enrichment analysis.<br /></li>
 <li><code>subset</code>:
     An expression to subset the cells for each case.<br /></li>
 <li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
-    Where to cache to <code>FindAllMarkers</code> results.<br />
+    Where to cache the results.<br />
     If <code>True</code>, cache to <code>outdir</code> of the job. If <code>False</code>, don't cache.<br />
     Otherwise, specify the directory to cache to.<br /></li>
 <li><code>rest</code> <em>(<code>ns</code>)</em>:
     Rest arguments for <code>Seurat::FindMarkers()</code>.<br />
     Use <code>-</code> to replace <code>.</code> in the argument name. For example,
-    use <code>min-pct</code> instead of <code>min.pct</code>.<br />
-    This only works when <code>use_presto</code> is <code>False</code>.<br /><ul>
+    use <code>min-pct</code> instead of <code>min.pct</code>.<br /><ul>
 <li><code>&lt;more&gt;</code>:
     See <a href="https://satijalab.org/seurat/reference/findmarkers">https://satijalab.org/seurat/reference/findmarkers</a></li>
 </ul>
@@ -276,7 +282,7 @@ you may see the other environment variables of this process are hidden and reado
     The type of the plot.<br />
     See <a href="https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html">https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html</a>.<br />
     Available types are <code>violin</code>, <code>box</code>, <code>bar</code>, <code>ridge</code>, <code>dim</code>, <code>heatmap</code> and <code>dot</code>.<br /></li>
-<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
     The extra formats to save the plot in.<br /></li>
 <li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to save the code to generate the plot.<br /></li>
@@ -301,6 +307,28 @@ you may see the other environment variables of this process are hidden and reado
 <li><code>allmarker_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
     All marker plot cases.<br />
     The keys are the names of the cases and the values are the dicts inherited from <code>allmarker_plots_defaults</code>.<br /></li>
+<li><code>allenrich_plots_defaults</code> <em>(<code>ns</code>)</em>:
+    Default options for the plots to generate for the enrichment analysis.<br /><ul>
+<li><code>plot_type</code>: <em>Default: <code>heatmap</code></em>. <br />
+    The type of the plot.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html">https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html</a>.<br /></li>
+</ul>
+</li>
+<li><code>allenrich_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Cases of the plots to generate for the enrichment analysis.<br />
+    The keys are the names of the cases and the values are the dicts inherited from <code>allenrich_plots_defaults</code>.<br />
+    The cases under <code>envs.cases</code> can inherit this options.<br /></li>
 <li><code>marker_plots_defaults</code> <em>(<code>ns</code>)</em>:
     Default options for the plots to generate for the markers.<br /><ul>
 <li><code>plot_type</code>:
@@ -308,7 +336,7 @@ you may see the other environment variables of this process are hidden and reado
     See <a href="https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html">https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html</a>.<br />
     Available types are <code>violin</code>, <code>box</code>, <code>bar</code>, <code>ridge</code>, <code>dim</code>, <code>heatmap</code> and <code>dot</code>.<br />
     There are two additional types available - <code>volcano_pct</code> and <code>volcano_log2fc</code>.<br /></li>
-<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
     The extra formats to save the plot in.<br /></li>
 <li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to save the code to generate the plot.<br /></li>
@@ -334,14 +362,15 @@ you may see the other environment variables of this process are hidden and reado
 </li>
 <li><code>marker_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot'})}</code></em>. <br />
     Cases of the plots to generate for the markers.<br />
-    Plot cases. The keys are the names of the cases and the values are the dicts inherited from <code>marker_plots_defaults</code>.<br /></li>
+    Plot cases. The keys are the names of the cases and the values are the dicts inherited from <code>marker_plots_defaults</code>.<br />
+    The cases under <code>envs.cases</code> can inherit this options.<br /></li>
 <li><code>enrich_plots_defaults</code> <em>(<code>ns</code>)</em>:
     Default options for the plots to generate for the enrichment analysis.<br /><ul>
 <li><code>plot_type</code>:
     The type of the plot.<br />
     See <a href="https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html">https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html</a>.<br />
     Available types are <code>bar</code>, <code>dot</code>, <code>lollipop</code>, <code>network</code>, <code>enrichmap</code> and <code>wordcloud</code>.<br /></li>
-<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
     The extra formats to save the plot in.<br /></li>
 <li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to save the code to generate the plot.<br /></li>
@@ -361,24 +390,23 @@ you may see the other environment variables of this process are hidden and reado
 </li>
 <li><code>enrich_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Bar Plot': Diot({'plot_type': 'bar', 'ncol': 1, 'top_term': 10})}</code></em>. <br />
     Cases of the plots to generate for the enrichment analysis.<br />
-    The keys are the names of the cases and the values are the dicts inherited from <code>enrich_plots_defaults</code>.<br /></li>
+    The keys are the names of the cases and the values are the dicts inherited from <code>enrich_plots_defaults</code>.<br />
+    The cases under <code>envs.cases</code> can inherit this options.<br /></li>
 <li><code>overlaps_defaults</code> <em>(<code>ns</code>)</em>:
-    Default options for investigating the overlapping of significant markers between different cases.<br /><ul>
-<li><code>cases</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
-    The cases to do the overlapping analysis, including the prefix section name.<br />
-    The case must have <code>ident-1</code> specified. When <code>each</code> is specified, the case will be expanded.<br />
-    For example, <code>case1</code> with <code>each = "group"</code>, where <code>group</code> has <code>g1</code> and <code>g2</code>, will be expanded to
-    <code>case1::g1</code> and <code>case1::g2</code>, or <code>case1::group - g1</code> and <code>case1::group - g2</code> if <code>prefix_each</code> is <code>True</code>.<br />
-    There must be at least 2 cases to do the overlapping analysis.<br /></li>
+    Default options for investigating the overlapping of significant markers between different cases or comparisons.<br />
+    This means either <code>ident-1</code> should be empty, so that they can be expanded to multiple comparisons.<br /><ul>
 <li><code>sigmarkers</code>:
     The expression to filter the significant markers for each case.<br />
     If not provided, <code>envs.sigmarkers</code> will be used.<br /></li>
-<li><code>venn</code> <em>(<code>ns</code>)</em>:
-    The options for the Venn diagram.<br /><ul>
-<li><code>enabled</code> <em>(<code>flag</code>)</em>: <em>Default: <code>auto</code></em>. <br />
-    Whether to enable the Venn diagram.<br />
-    Default is "auto", which means enabled when there are no more than 5 cases.<br /></li>
-<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+<li><code>plot_type</code> <em>(<code>choice</code>)</em>: <em>Default: <code>venn</code></em>. <br />
+    The type of the plot to generate for the overlaps.<br /><ul>
+<li><code>venn</code>:
+    Use <code>plotthis::VennDiagram()</code>.<br /></li>
+<li><code>upset</code>:
+    Use <code>plotthis::UpsetPlot()</code>.<br /></li>
+</ul>
+</li>
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
     The extra formats to save the plot in.<br /></li>
 <li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to save the code to generate the plot.<br /></li>
@@ -393,38 +421,20 @@ you may see the other environment variables of this process are hidden and reado
 </ul>
 </li>
 <li><code>&lt;more&gt;</code>:
-    More arguments pased to <code>plotthis::VennDiagram()</code>.<br />
-    https://pwwang.github.io/plotthis/reference/venndiagram1.html</li>
-</ul>
-</li>
-<li><code>upset</code> <em>(<code>ns</code>)</em>:
-    The options for the UpSet plot.<br /><ul>
-<li><code>enabled</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
-    Whether to enable the UpSet plot.<br /></li>
-<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
-    The extra formats to save the plot in.<br /></li>
-<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Whether to save the code to generate the plot.<br /></li>
-<li><code>devpars</code> <em>(<code>ns</code>)</em>:
-    The device parameters for the plots.<br /><ul>
-<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
-    The resolution of the plots.<br /></li>
-<li><code>height</code> <em>(<code>type=int</code>)</em>:
-    The height of the plots.<br /></li>
-<li><code>width</code> <em>(<code>type=int</code>)</em>:
-    The width of the plots.<br /></li>
-</ul>
-</li>
-<li><code>&lt;more&gt;</code>:
-    More arguments pased to <code>plotthis::UpsetPlot()</code>.<br />
-    https://pwwang.github.io/plotthis/reference/upsetplot1.html</li>
-</ul>
-</li>
+    More arguments pased to <code>plotthis::VennDiagram()</code>
+    (<a href="https://pwwang.github.io/plotthis/reference/venndiagram1.html">https://pwwang.github.io/plotthis/reference/venndiagram1.html</a>)
+    or <code>plotthis::UpsetPlot()</code>
+    (<a href="https://pwwang.github.io/plotthis/reference/upsetplot1.html">https://pwwang.github.io/plotthis/reference/upsetplot1.html</a>)</li>
 </ul>
 </li>
 <li><code>overlaps</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
-    Cases for investigating the overlapping of significant markers between different cases.<br />
-    The keys are the names of the cases and the values are the dicts inherited from <code>overlaps_defaults</code>.<br /></li>
+    Cases for investigating the overlapping of significant markers between different cases or comparisons.<br />
+    The keys are the names of the cases and the values are the dicts inherited from <code>overlaps_defaults</code>.<br />
+    There are two situations that we can perform overlaps:<br /><ol>
+<li>If <code>ident-1</code> is not specified, the overlaps can be performed between different comparisons.<br /></li>
+<li>If <code>each</code> is specified, the overlaps can be performed between different cases, where in each case, <code>ident-1</code> must be specified.<br /></li>
+</ol>
+</li>
 </ul>
               
             </div>

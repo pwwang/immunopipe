@@ -208,7 +208,7 @@ and <a href="https://satijalab.org/seurat/articles/multimodal_reference_mapping.
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>outfile</code>: <em>Default: <code>{{in.sobjfile | stem}}.RDS</code></em>. <br />
+<li><code>outfile</code>: <em>Default: <code>{{in.sobjfile | stem}}.qs</code></em>. <br />
     The rds file of seurat object with cell type annotated.<br />
     Note that the reduction name will be <code>ref.umap</code> for the mapping.<br />
     To visualize the mapping, you should use <code>ref.umap</code> as the reduction name.<br /></li>
@@ -240,10 +240,12 @@ and <a href="https://satijalab.org/seurat/articles/multimodal_reference_mapping.
     RDS file, <code>.h5seurat</code> or <code>.h5</code> for h5seurat file.<br /></li>
 <li><code>refnorm</code> <em>(<code>choice</code>)</em>: <em>Default: <code>auto</code></em>. <br />
     Normalization method the reference used. The same method will be used for the query.<br /><ul>
-<li><code>NormalizeData</code>:
+<li><code>LogNormalize</code>:
     Using <a href="https://satijalab.org/seurat/reference/normalizedata"><code>NormalizeData</code></a>.<br /></li>
 <li><code>SCTransform</code>:
     Using <a href="https://satijalab.org/seurat/reference/sctransform"><code>SCTransform</code></a>.<br /></li>
+<li><code>SCT</code>:
+    Alias of SCTransform.<br /></li>
 <li><code>auto</code>:
     Automatically detect the normalization method.<br />
     If the default assay of reference is <code>SCT</code>, then <code>SCTransform</code> will be used.<br /></li>
@@ -296,7 +298,7 @@ and <a href="https://satijalab.org/seurat/articles/multimodal_reference_mapping.
     See <code>envs.refnorm</code>.<br /></li>
 </ul>
 </li>
-<li><code>reference-reduction</code>: <em>Default: <code>spca</code></em>. <br />
+<li><code>reference-reduction</code>:
     Name of dimensional reduction to use from the reference if running the pcaproject workflow.<br />
     Optionally enables reuse of precomputed reference dimensional reduction.<br /></li>
 <li><code>&lt;more&gt;</code>:
@@ -306,9 +308,9 @@ and <a href="https://satijalab.org/seurat/articles/multimodal_reference_mapping.
 </li>
 <li><code>MapQuery</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/mapquery"><code>MapQuery()</code></a><ul>
-<li><code>reference-reduction</code>: <em>Default: <code>spca</code></em>. <br />
+<li><code>reference-reduction</code>:
     Name of reduction to use from the reference for neighbor finding</li>
-<li><code>reduction-model</code>: <em>Default: <code>wnn.umap</code></em>. <br />
+<li><code>reduction-model</code>:
     <code>DimReduc</code> object that contains the umap model.<br /></li>
 <li><code>refdata</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
     Extra data to transfer from the reference to the query.<br /></li>
@@ -317,14 +319,21 @@ and <a href="https://satijalab.org/seurat/articles/multimodal_reference_mapping.
     Note that the hyphen (<code>-</code>) will be transformed into <code>.</code> for the keys.<br /></li>
 </ul>
 </li>
-<li><code>MappingScore</code> <em>(<code>ns</code>)</em>:
-    Arguments for <a href="https://satijalab.org/seurat/reference/mappingscore"><code>MappingScore()</code></a><ul>
-<li><code>&lt;more&gt;</code>:
-    See <a href="https://satijalab.org/seurat/reference/mappingscore">https://satijalab.org/seurat/reference/mappingscore</a>.<br />
-    Note that the hyphen (<code>-</code>) will be transformed into <code>.</code> for the keys.<br /></li>
-<li><code>ndim</code>: <em>Default: <code>30</code></em>. <br /></li>
-</ul>
-</li>
+<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
+    Whether to cache the information at different steps.<br />
+    If <code>True</code>, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
+    The cached seurat object will be saved as <code>&lt;signature&gt;.&lt;kind&gt;.RDS</code> file, where <code>&lt;signature&gt;</code> is the signature determined by
+    the input and envs of the process.<br />
+    See <a href="https://github.com/satijalab/seurat/issues/7849">https://github.com/satijalab/seurat/issues/7849</a>, <a href="https://github.com/satijalab/seurat/issues/5358">https://github.com/satijalab/seurat/issues/5358</a> and
+    <a href="https://github.com/satijalab/seurat/issues/6748">https://github.com/satijalab/seurat/issues/6748</a> for more details also about reproducibility issues.<br />
+    To not use the cached seurat object, you can either set <code>cache</code> to <code>False</code> or delete the cached file at
+    <code>&lt;signature&gt;.RDS</code> in the cache directory.<br /></li>
+<li><code>plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Mapped Identity': Diot({'features': '{ident}:{use}'}), 'Mapping Score': Diot({'features': '{ident}.score'})}</code></em>. <br />
+    The plots to generate.<br />
+    The keys are the names of the plots and the values are the arguments for the plot.<br />
+    The arguments will be passed to <code>biopipen.utils::VizSeuratMap2Ref()</code> to generate the plots.<br />
+    The plots will be saved to the output directory.<br />
+    See <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratMap2Ref.html">https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratMap2Ref.html</a>.<br /></li>
 </ul>
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
 <p>The metadata of the <code>Seurat</code> object will be updated with the cluster

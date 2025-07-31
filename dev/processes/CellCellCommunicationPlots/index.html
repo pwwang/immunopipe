@@ -197,48 +197,49 @@
               
                 <h2 id="cellcellcommunicationplots">CellCellCommunicationPlots<a class="headerlink" href="#cellcellcommunicationplots" title="Permanent link">&para;</a></h2>
 <p>Visualization for cell-cell communication inference.</p>
-<p>R package <a href="https://github.com/Sarah145/CCPlotR"><code>CCPlotR</code></a> is used to visualize
-the results.<br /></p>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>cccfile</code>:
-    The output file from <code>CellCellCommunication</code>
-    or a tab-separated file with the following columns: <code>source</code>, <code>target</code>,
-    <code>ligand</code>, <code>receptor</code>, and <code>score</code>.<br />
-    If so, <code>in.expfile</code> can be provided where <code>exp_df</code> is needed.<br /></li>
-<li><code>expfile</code>:
-    The expression file with the expression of ligands and receptors.<br />
-    Columns include: <code>cell_type</code>, <code>gene</code> and <code>mean_exp</code>.<br /></li>
+    The output file from <code>CellCellCommunication</code></li>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>outdir</code>: <em>Default: <code>{{in.cccfile | stem}}-ccc_plots</code></em>. <br />
+<li><code>outdir</code>: <em>Default: <code>{{in.cccfile | stem}}_plots</code></em>. <br />
     The output directory for the plots.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>score_col</code>: <em>Default: <code>mag_score</code></em>. <br />
-    The column name in the input file that contains the score, if
-    the input file is from <code>CellCellCommunication</code>.<br />
-    Two alias columns are added in the result file of <code>CellCellCommunication</code>,
-    <code>mag_score</code> and <code>spec_score</code>, which are the magnitude and specificity
-    scores.<br /></li>
 <li><code>subset</code>:
     An expression to pass to <code>dplyr::filter()</code> to subset the ccc data.<br /></li>
+<li><code>magnitude</code>:
+    The column name in the data to use as the magnitude of the
+    communication. By default, the second last column will be used.<br />
+    See <code>li.mt.show_methods()</code> for the available methods in LIANA. or
+    <a href="https://liana-py.readthedocs.io/en/latest/notebooks/basic_usage.html#Tileplot">https://liana-py.readthedocs.io/en/latest/notebooks/basic_usage.html#Tileplot</a></li>
+<li><code>specificity</code>:
+    The column name in the data to use as the specificity of the communication.<br />
+    By default, the last column will be used. If the method doesn't have a specificity, set it to None.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plot.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot</li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plot</li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plot</li>
+</ul>
+</li>
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The additional formats to save the plots.<br /></li>
+<li><code>descr</code>: <em>Default: <code>Cell-cell communication plot</code></em>. <br />
+    The description of the plot.<br /></li>
 <li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
     The cases for the plots.<br />
     The keys are the names of the cases and the values are the arguments for
-    the plots. The arguments include:<br /><ul>
-<li>kind: one of <code>arrow</code>, <code>circos</code>, <code>dotplot</code>, <code>heatmap</code>, <code>network</code>,
-and <code>sigmoid</code>.<br /></li>
-<li>devpars: The parameters for <code>png()</code> for the plot, including <code>res</code>,
-<code>width</code>, and <code>height</code>.<br /></li>
-<li>section: The section name for the report to group the plots.<br /></li>
-<li><other>: Other arguments for <code>cc_&lt;kind&gt;</code> function in <code>CCPlotR</code>.<br />
-See the documentation for more details.<br />
-Or you can use <code>?CCPlotR::cc_&lt;kind&gt;</code> in R.<br /></li>
-</ul>
-</li>
+    the plots. The arguments include the ones inherited from <code>envs</code>.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    Other arguments passed to
+    <a href="https://pwwang.github.io/scplotter/reference/CCCPlot.html">scplotter::CCCPlot</a></li>
 </ul>
               
             </div>
