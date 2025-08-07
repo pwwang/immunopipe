@@ -216,9 +216,8 @@ the sample information in the report.<br /></p>
 <p>Or with <code>pipen-board</code>, find the <code>SampleInfo</code> process and click the <code>Edit</code> button.<br />
 Then you can specify the input file here</p>
 <p><img alt="infile" src="../..//processes/images/SampleInfo-infile.png" /></p>
-<p>Theroetically, we can have multiple input files. However, it is not tested yet.<br />
-If you have multiple input files to run, please run it with a different pipeline
-instance (configuration file).<br /></p>
+<p>Multiple input files are supported by the underlying pipeline framework. However,
+we recommend to run it with a different pipeline instance with configuration files.<br /></p>
 <p>For the content of the input file, please see details
 <a href="../..//preparing-input.md#metadata">here</a>.<br /></p>
 <p>You can add some columns to the input file while doing the statistics or you can even
@@ -231,7 +230,14 @@ set <code>envs.mutaters</code> of the <code>SeuratPreparing</code> process to mu
 <p><img alt="report" src="../..//processes/images/SampleInfo-report.png" /></p>
 <p>Note that the required <code>RNAData</code> (if not loaded from a Seurat object) and <code>TCRData</code>
 columns are not shown in the report.<br />
-They are used to specify the paths of the <code>scRNA-seq</code> and <code>scTCR-seq</code> data, respectively.<br /></p>
+They are used to specify the paths of the <code>scRNA-seq</code> and <code>scTCR-seq</code> data, respectively.<br />
+Also note that when <code>RNAData</code> is loaded from a Seurat object (specified in the
+<code>LoadRNAFromSeurat</code> process), the metadata provided in this process will not be
+integrated into the Seurat object in the downstream processes. To incoporate
+these meta information into the Seurat object, please provide them in the
+Seurat object itself or use the <code>envs.mutaters</code> of the <code>SeuratPreparing</code> process
+to mutate the metadata of the Seurat object. But the meta information provided in this
+process can still be used in the statistics and plots in the report.<br /></p>
 <p>You may also perform some statistics on the sample information, for example,
 number of samples per group. See next section for details.<br /></p>
 <div class="admonition tip">
