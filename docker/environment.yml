@@ -10,7 +10,6 @@ dependencies:
   - curl  # force using conda-forge version
   - pip
   - fontconfig
-  - faiss-cpu  # for GIANA
   - graphviz  # pipen-diagram
   - git  # for copier, used by pipen-report
   - libiconv # fix git: error while loading shared libraries: libiconv.so.2
@@ -25,6 +24,7 @@ dependencies:
   - bioconductor-glmgampoi
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
   - r-hdf5r  # Read_10x_h5() by Seurat
+  - r-laplacesdemon  # TESSA
   - libgdal
   - r-logger
   - r-presto  # MarkersFinder
@@ -38,7 +38,4 @@ dependencies:
   - r-future
   - r-biopipen.utils
   - pip:
-    - celltypist
-    - biopython==1.79  # for GIANA
-    - scikit-learn==1.5.1  # for GIANA
     - liana

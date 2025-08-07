@@ -4,18 +4,20 @@ FROM justold/immunopipe:${BASE_TAG}
 # COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
 
 # Install dependencies and make /data for future mounting
-RUN micromamba env update -n base -f /immunopipe/docker/environment_full.yml && \
+RUN micromamba env create -n numpy_v1 -f /immunopipe/docker/environment_full.yml && \
     micromamba clean --all --yes
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 WORKDIR /data
 WORKDIR /immunopipe
-RUN fc-cache -f -v
-# RUN python -m pip install -U poetry && \
-#     python -m poetry config virtualenvs.create false && \
-#     python -m poetry install -v -E runinfo -E diagram && \
-#     pipen report update
+# The pipeline itself now needs numpy v2. However, TESSA, clustcr and celltypist require numpy < v2.
+# To resolve this, we create a separate virtual environment for the pipeline.
+# To run those processes that require numpy < v2, use <proccess>.envs.python = "python_np1"
+# We also need to symlink the biopipen package as some processes need the path of it to access some builtin scripts.
+RUN ln -s /opt/conda/envs/numpy_v1/bin/python /opt/conda/bin/python_np1 && \
+    ln -s $(conda run --no-capture-output -n immunopipe python -c "import biopipen; print(biopipen.__path__[0])") \
+        $(conda run --no-capture-output -n numpy_v1 python -c "import sysconfig; print(sysconfig.get_path('purelib'))")
 
 WORKDIR /workdir
 ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh", "bash", "/immunopipe/docker/entry.sh" ]
