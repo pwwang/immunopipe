@@ -1,6 +1,5 @@
 """Process definition"""
 
-from datar.tibble import tibble
 from pipen.utils import is_loading_pipeline
 from pipen_annotate import annotate
 from pipen_filters.filters import FILTERS
@@ -75,9 +74,8 @@ class SampleInfo(SampleInfo_):
 
     ![infile]({{baseurl}}/processes/images/SampleInfo-infile.png)
 
-    Theroetically, we can have multiple input files. However, it is not tested yet.
-    If you have multiple input files to run, please run it with a different pipeline
-    instance (configuration file).
+    Multiple input files are supported by the underlying pipeline framework. However,
+    we recommend to run it with a different pipeline instance with configuration files.
 
     For the content of the input file, please see details
     [here]({{baseurl}}/preparing-input.md#metadata).
@@ -96,6 +94,13 @@ class SampleInfo(SampleInfo_):
     Note that the required `RNAData` (if not loaded from a Seurat object) and `TCRData`
     columns are not shown in the report.
     They are used to specify the paths of the `scRNA-seq` and `scTCR-seq` data, respectively.
+    Also note that when `RNAData` is loaded from a Seurat object (specified in the
+    `LoadRNAFromSeurat` process), the metadata provided in this process will not be
+    integrated into the Seurat object in the downstream processes. To incoporate
+    these meta information into the Seurat object, please provide them in the
+    Seurat object itself or use the `envs.mutaters` of the `SeuratPreparing` process
+    to mutate the metadata of the Seurat object. But the meta information provided in this
+    process can still be used in the statistics and plots in the report.
 
     You may also perform some statistics on the sample information, for example,
     number of samples per group. See next section for details.
@@ -593,6 +598,14 @@ if just_loading or "TopExpressingGenes" in config:
         order = 3
 
 
+if just_loading or config.has_tcr:
+    class ScRepCombiningExpression(ScRepCombiningExpression_):
+        requires = ScRepLoading, Clustered
+
+    Clustered = ScRepCombiningExpression
+    # >>> Clustered
+
+
 if just_loading or (config.has_tcr and "TCRClustering" in config):
 
     @annotate.format_doc(indent=2)
@@ -605,12 +618,12 @@ if just_loading or (config.has_tcr and "TCRClustering" in config):
         {{*Summary.long}}
         """
 
-        requires = ScRepLoading
+        requires = Clustered
         input_data = lambda ch1: ch1.iloc[:, [0]]
         order = 4
 
-    ScRepLoading = TCRClustering
-    # >>> ScRepLoading
+    Clustered = TCRClustering
+    # >>> Clustered
 
 
 if just_loading or (config.has_tcr and "TESSA" in config):
@@ -632,19 +645,10 @@ if just_loading or (config.has_tcr and "TESSA" in config):
             ![TESSA-metadata]({{baseurl}}/processes/images/TESSA-metadata.png)
         """
 
-        requires = ScRepLoading, Clustered
-        input_data = lambda ch1, ch2: tibble(ch1.iloc[:, 1], ch2)
+        requires = Clustered
         order = 5
 
     Clustered = TESSA
-    # >>> Clustered
-
-
-if just_loading or config.has_tcr:
-    class ScRepCombiningExpression(ScRepCombiningExpression_):
-        requires = ScRepLoading, Clustered
-
-    Clustered = ScRepCombiningExpression
     # >>> Clustered
 
 
@@ -663,6 +667,7 @@ if just_loading or (
 class SeuratClusterStats(SeuratClusterStats_):
     requires = Clustered
     order = -1
+    envs_depth = 3
     envs = {
         "dimplots": {
             "Dimensional reduction plot": {
@@ -672,7 +677,7 @@ class SeuratClusterStats(SeuratClusterStats_):
     }
     if config.has_tcr:
         envs["dimplots"]["TCR Presence"] = {
-            "ident": "CTaa",
+            "group_by": "TCR_Presence",
         }
 
 
@@ -680,6 +685,7 @@ if just_loading or config.has_tcr:
 
     class ClonalStats(ClonalStats_):
         requires = Clustered
+        envs_depth = 3
         order = 8
 
 
