@@ -59,32 +59,24 @@ def validate_config() -> Dict[str, Any]:
         )
 
     if not ERRORS:
-        config.has_tcr = True
-
         infiles = config.get("SampleInfo", {}).get("in", {}).get("infile", [])
+        config.has_tcr = (
+            config.get("SampleInfo", {}).get("envs", {}).get("has_tcr", True)
+        )
         if not isinstance(infiles, list):
             infiles = [infiles]
-
         if not infiles:
             WARNINGS.append(
                 "No input file specified in configuration file [SampleInfo.in.infile], "
                 "assuming passing from CLI."
             )
             WARNINGS.append("Assuming scTCR-seq data is present")
-        else:
-            if len(infiles) > 1:
-                WARNINGS.append(
-                    "More than one input file specified in configuration file "
-                    "[SampleInfo.in.infile], only the first one will be used."
-                )
-                config["SampleInfo"]["in"]["infile"] = [infiles[0]]
-
-            infile = Path(infiles[0])
-            if not infile.is_file():
-                ERRORS.append(f"Input file {infile} does not exist.")
-            else:
-                header = infile.read_text().splitlines()[0]
-                config.has_tcr = "TCRData" in header
+        elif len(infiles) > 1:
+            WARNINGS.append(
+                "More than one input file specified in configuration file "
+                "[SampleInfo.in.infile], only the first one will be used."
+            )
+            config["SampleInfo"]["in"]["infile"] = [infiles[0]]
 
         if "LoadRNAFromSeurat" in config:
             config.LoadRNAFromSeurat.setdefault("envs", {})
