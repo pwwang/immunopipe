@@ -54,14 +54,14 @@ python-simpleconf = ">=0.7,<0.8"
 
 [[package]]
 name = "biopipen"
-version = "0.34.2"
+version = "0.34.3"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-0.34.2-py3-none-any.whl", hash = "sha256:9d9f2511fa997999880f07c1943308ee4b4b20984289b7b973efbe262dd4fc3a"},
-    {file = "biopipen-0.34.2.tar.gz", hash = "sha256:f378a2d266dde17c0fb45a5a6e1bb5c396147665700d9e1cce29a841da19640d"},
+    {file = "biopipen-0.34.3-py3-none-any.whl", hash = "sha256:40463662745360f04c124fe8cccfbaf4e28068ede154000d3cf19864e56ec8d1"},
+    {file = "biopipen-0.34.3.tar.gz", hash = "sha256:5cd4c52ad78e197bcba226f9ce86f8fef5a2dc870d9c766a54f6ff5e68bf0629"},
 ]
 
 [package.dependencies]
@@ -172,14 +172,14 @@ markers = {dev = "sys_platform == \"win32\""}
 
 [[package]]
 name = "copier"
-version = "9.8.0"
+version = "9.9.0"
 description = "A library for rendering project templates."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "copier-9.8.0-py3-none-any.whl", hash = "sha256:ca0bee47f198b66cec926c4f1a3aa77f11ee0102624369c10e42ca9058c0a891"},
-    {file = "copier-9.8.0.tar.gz", hash = "sha256:343ac1eb65e678aa355690d7f19869ef07cabf837f511a87ed452443c085ec58"},
+    {file = "copier-9.9.0-py3-none-any.whl", hash = "sha256:d3484178560456fc3f138ec67349872dd2b378051c2360f95d7f31005ea9794d"},
+    {file = "copier-9.9.0.tar.gz", hash = "sha256:db48d89bd30d957faa8c96fed757cb5718fdc0fe6b83bebb201424f448cb5216"},
 ]
 
 [package.dependencies]
@@ -1238,14 +1238,14 @@ pipen = "==0.17.*"
 
 [[package]]
 name = "pipen-report"
-version = "0.23.5"
+version = "0.23.6"
 description = "Report generation system for pipen"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_report-0.23.5-py3-none-any.whl", hash = "sha256:9ac14be5e980191929284398fb4f490f8cb379155afa298df41361a0f84dec9c"},
-    {file = "pipen_report-0.23.5.tar.gz", hash = "sha256:fb64bfac262aab145eeff577590263f2ec01e49125e0060c927224a886fc6092"},
+    {file = "pipen_report-0.23.6-py3-none-any.whl", hash = "sha256:cf4bb96d7b1ec99b663ff367f08ed1cde839f3804da27a5ca2ee7cd4d3a94f69"},
+    {file = "pipen_report-0.23.6.tar.gz", hash = "sha256:41c44e48e907e7c8c79b15daa25b3be36dda187ac385f07a8d2f69c8fd88af99"},
 ]
 
 [package.dependencies]
@@ -1276,14 +1276,14 @@ pipen = "==0.17.*"
 
 [[package]]
 name = "pipen-verbose"
-version = "0.14.3"
+version = "0.14.4"
 description = "Add verbosal information in logs for pipen."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_verbose-0.14.3-py3-none-any.whl", hash = "sha256:e42ceefc146513a13652691253c4787aa72ba49621763c88af080a0e3a0e82d1"},
-    {file = "pipen_verbose-0.14.3.tar.gz", hash = "sha256:6d6bbedfd9ef27973fa22c63872a8a56326abbd50976aeb4f92a4be932dd194a"},
+    {file = "pipen_verbose-0.14.4-py3-none-any.whl", hash = "sha256:be836135a2a26a39eb7c6f373cdf01dba98115f7aa5bd40486e4c8573fc0c543"},
+    {file = "pipen_verbose-0.14.4.tar.gz", hash = "sha256:4c5712eae3b5d46cbe93fdc1f8085429fc0a7a647c9d3d4ed41853125f52aac9"},
 ]
 
 [package.dependencies]
@@ -2246,4 +2246,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "f5a389a5a6e6e48e24210e4fc44b8a41c2348899003241b72643a0592e5da9a9"
+content-hash = "0a533cbdc7a4e7044a6f623b6980499776e1f2040b79054a1b255ed206d4bad3"
