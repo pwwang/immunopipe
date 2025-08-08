@@ -276,7 +276,7 @@ package or the <a href="https://github.com/GSEA-MSigDB/GSEA_R"><code>GSEA_R</cod
     <code>1</code>, <code>2</code> and <code>3</code> in the <code>group_by</code> column, we could have
     <code>comparisons = ["1", "2"]</code>, which will compare the group <code>1</code> with groups
     <code>2</code> and <code>3</code>, and the group <code>2</code> with groups <code>1</code> and <code>3</code>. We could also
-    have <code>comparisons = ["1,2", "1,3"]</code>, which will compare the group <code>1</code> with
+    have <code>comparisons = ["1:2", "1:3"]</code>, which will compare the group <code>1</code> with
     group <code>2</code> and group <code>1</code> with group <code>3</code>.<br /></li>
 <li><code>fgsea_args</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
     Other arguments for the <code>fgsea::fgsea()</code> function.<br />

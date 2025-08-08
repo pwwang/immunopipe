@@ -229,7 +229,9 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
 <ul>
 <li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
     The mutaters to mutate the metadata to subset the cells.<br />
-    The mutaters will be applied in the order specified.<br /></li>
+    The mutaters will be applied in the order specified.<br />
+    You can also use the clone selectors to select the TCR clones/clusters.<br />
+    See <a href="https://pwwang.github.io/scplotter/reference/clone_selectors.html">https://pwwang.github.io/scplotter/reference/clone_selectors.html</a>.<br /></li>
 <li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
     Whether to cache the plots.<br />
     Currently only plots for features are supported, since creating the those
@@ -286,6 +288,8 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
     The width of the plots.<br /></li>
 </ul>
 </li>
+<li><code>descr</code>:
+    The description of the plot, showing in the report.<br /></li>
 <li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
     The formats to save the plots other than <code>png</code>.<br /></li>
 <li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
@@ -298,7 +302,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
 </ul>
 </li>
 <li>
-<p><code>stats</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Number of cells in each cluster (Bar Chart)': Diot({'plot_type': 'bar'}), 'Number of cells in each cluster by Sample (Bar Chart)': Diot({'plot_type': 'bar', 'group_by': 'Sample'})}</code></em>. <br />
+<p><code>stats</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Number of cells in each cluster (Bar Chart)': Diot({'plot_type': 'bar', 'x_text_angle': 90}), 'Number of cells in each cluster by Sample (Bar Chart)': Diot({'plot_type': 'bar', 'group_by': 'Sample', 'x_text_angle': 90})}</code></em>. <br />
     The number/fraction of cells to plot.<br />
     Keys are the names of the plots and values are the dicts inherited from <code>env.stats_defaults</code>.<br />
     Here are some examples -</p>
@@ -416,7 +420,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
     See <a href="https://pwwang.github.io/scplotter/reference/CellDimPlot.html">https://pwwang.github.io/scplotter/reference/CellDimPlot.html</a></li>
 </ul>
 </li>
-<li><code>dimplots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Dimensional reduction plot': Diot({'label': True, 'label_insitu': True}), 'TCR Presence': Diot({'group_by': 'TCR_Presence'})}</code></em>. <br />
+<li><code>dimplots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Dimensional reduction plot': Diot({'label': True}), 'TCR Presence': Diot({'group_by': 'TCR_Presence'})}</code></em>. <br />
     The dimensional reduction plots.<br />
     Keys are the titles of the plots and values are the dicts inherited from <code>env.dimplots_defaults</code>. It can also have other parameters from
     <a href="https://pwwang.github.io/scplotter/reference/CellDimPlot.html"><code>scplotter::CellDimPlot</code></a>.<br /></li>
