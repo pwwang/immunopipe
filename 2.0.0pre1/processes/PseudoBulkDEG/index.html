@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>ClusterMarkersOfAllCells - immunopipe</title>
+    <title>PseudoBulkDEG - immunopipe</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "ClusterMarkersOfAllCells";
-        var mkdocs_page_input_path = "processes/ClusterMarkersOfAllCells.md";
+        var mkdocs_page_name = "PseudoBulkDEG";
+        var mkdocs_page_input_path = "processes/PseudoBulkDEG.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -74,7 +74,7 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ImmunarchLoading/">ImmunarchLoading</a>
@@ -83,15 +83,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">ClusterMarkersOfAllCells</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
                   </li>
@@ -184,10 +176,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Processes</li>
-      <li class="breadcrumb-item active">ClusterMarkersOfAllCells</li>
+      <li class="breadcrumb-item active">PseudoBulkDEG</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/ClusterMarkersOfAllCells.md">Edit on pwwang/immunopipe</a>
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/PseudoBulkDEG.md">Edit on pwwang/immunopipe</a>
     </li>
   </ul>
   <hr/>
@@ -195,78 +186,76 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="clustermarkersofallcells">ClusterMarkersOfAllCells<a class="headerlink" href="#clustermarkersofallcells" title="Permanent link">&para;</a></h2>
-<p>Markers for clusters of all cells.</p>
-<p>See also <a href="../ClusterMarkers/">ClusterMarkers</a>.<br /></p>
+                <h2 id="pseudobulkdeg">PseudoBulkDEG<a class="headerlink" href="#pseudobulkdeg" title="Permanent link">&para;</a></h2>
+<p>Pseduo-bulk differential gene expression analysis</p>
+<p>This process performs differential gene expression analysis, instead of
+on single-cell level, on the pseudo-bulk data, aggregated from the single-cell data.<br /></p>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>srtobj</code>:
-    The seurat object loaded by <code>SeuratPreparing</code>
-    If you have your <code>Seurat</code> object prepared by yourself, you can also
-    use it here, but you should make sure that the object has been processed
-    by <code>PrepSCTFindMarkers</code> if data is not normalized using <code>SCTransform</code>.<br /></li>
+<li><code>sobjfile</code>:
+    The seurat object file in RDS or qs/qs2 format.<br /></li>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>outdir</code>: <em>Default: <code>{{in.srtobj | stem0}}.markers</code></em>. <br />
-    The output directory for the markers and plots</li>
+<li><code>outdir</code>: <em>Default: <code>{{in.sobjfile | stem}}.pseudobulk_deg</code></em>. <br />
+    The output containing the results of the differential gene expression
+    analysis.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
-    Number of cores to use for parallel computing for some <code>Seurat</code> procedures.<br /><ul>
-<li>Used in <code>future::plan(strategy = "multicore", workers = &lt;ncores&gt;)</code> to parallelize some Seurat procedures.<br /></li>
-<li>See also: <a href="https://satijalab.org/seurat/articles/future_vignette.html">https://satijalab.org/seurat/articles/future_vignette.html</a></li>
-</ul>
-</li>
-<li><code>group_by</code>:
-    The column name in metadata to group the cells.<br />
-    If only <code>group_by</code> is specified, and <code>ident-1</code> and <code>ident-2</code> are
-    not specified, markers will be found for all groups in this column
-    in the manner of "group vs rest" comparison.<br />
-    <code>NA</code> group will be ignored.<br />
-    If <code>None</code>, <code>Seurat::Idents(srtobj)</code> will be used, which is usually
-    <code>"seurat_clusters"</code> after unsupervised clustering.<br /></li>
-<li><code>dbs</code> <em>(<code>list</code>)</em>: <em>Default: <code>['KEGG_2021_Human', 'MSigDB_Hallmark_2020']</code></em>. <br />
-    The dbs to do enrichment analysis for significant
-    markers See below for all libraries.<br />
-    <a href="https://maayanlab.cloud/Enrichr/#libraries">https://maayanlab.cloud/Enrichr/#libraries</a></li>
-<li><code>sigmarkers</code>: <em>Default: <code>p_val_adj &lt; 0.05 &amp; avg_log2FC &gt; 0</code></em>. <br />
-    An expression passed to <code>dplyr::filter()</code> to filter the
-    significant markers for enrichment analysis.<br />
-    Available variables are <code>p_val</code>, <code>avg_log2FC</code>, <code>pct.1</code>, <code>pct.2</code> and
-    <code>p_val_adj</code>. For example, <code>"p_val_adj &lt; 0.05 &amp; abs(avg_log2FC) &gt; 1"</code>
-    to select markers with adjusted p-value &lt; 0.05 and absolute log2
-    fold change &gt; 1.<br /></li>
-<li><code>enrich_style</code> <em>(<code>choice</code>)</em>: <em>Default: <code>enrichr</code></em>. <br />
-    The style of the enrichment analysis.<br />
-    The enrichment analysis will be done by <code>EnrichIt()</code> from <a href="https://pwwang.github.io/enrichit/"><code>enrichit</code></a>.<br />
-    Two styles are available:<br /><ul>
-<li><code>enrichr</code>:
-    <code>enrichr</code> style enrichment analysis (fisher's exact test will be used).<br /></li>
-<li><code>clusterprofiler</code>:
-    <code>clusterProfiler</code> style enrichment analysis (hypergeometric test will be used).<br /></li>
-<li><code>clusterProfiler</code>:
-    alias for <code>clusterprofiler</code></li>
-</ul>
-</li>
-<li><code>assay</code>:
-    The assay to use.<br /></li>
+<li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Mutaters to mutate the metadata of the
+    seurat object. Keys are the new column names and values are the
+    expressions to mutate the columns. These new columns can be
+    used to define your cases.<br />
+    You can also use the clone selectors to select the TCR clones/clusters.<br />
+    See <a href="https://pwwang.github.io/scplotter/reference/clone_selectors.html">https://pwwang.github.io/scplotter/reference/clone_selectors.html</a>.<br /></li>
+<li><code>each</code>:
+    The column name in metadata to separate the cells into different cases.<br />
+    When specified, the case will be expanded to multiple cases for
+    each value in the column.<br /></li>
+<li><code>subset</code>:
+    An expression in string to subset the cells.<br /></li>
+<li><code>aggregate_by</code>:
+    The column names in metadata to aggregate the cells.<br /></li>
+<li><code>layer</code>: <em>Default: <code>counts</code></em>. <br />
+    The layer to pull and aggregate the data.<br /></li>
+<li><code>assay</code>: <em>Default: <code>RNA</code></em>. <br />
+    The assay to pull and aggregate the data.<br /></li>
 <li><code>error</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
     Error out if no/not enough markers are found or no pathways are enriched.<br />
     If <code>False</code>, empty results will be returned.<br /></li>
-<li><code>subset</code>:
-    An expression to subset the cells for each case.<br /></li>
-<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
-    Where to cache the results.<br />
-    If <code>True</code>, cache to <code>outdir</code> of the job. If <code>False</code>, don't cache.<br />
-    Otherwise, specify the directory to cache to.<br /></li>
-<li><code>rest</code> <em>(<code>ns</code>)</em>:
-    Rest arguments for <code>Seurat::FindMarkers()</code>.<br />
-    Use <code>-</code> to replace <code>.</code> in the argument name. For example,
-    use <code>min-pct</code> instead of <code>min.pct</code>.<br /><ul>
-<li><code>&lt;more&gt;</code>:
-    See <a href="https://satijalab.org/seurat/reference/findmarkers">https://satijalab.org/seurat/reference/findmarkers</a></li>
+<li><code>group_by</code>:
+    The column name in metadata to group the cells.<br /></li>
+<li><code>ident_1</code>:
+    The first identity to compare.<br /></li>
+<li><code>ident_2</code>:
+    The second identity to compare.<br />
+    If not specified, the rest of the identities will be compared with <code>ident_1</code>.<br /></li>
+<li><code>paired_by</code>:
+    The column name in metadata to mark the paired samples.<br />
+    For example, subject. If specified, the paired test will be performed.<br /></li>
+<li><code>dbs</code> <em>(<code>list</code>)</em>: <em>Default: <code>['KEGG_2021_Human', 'MSigDB_Hallmark_2020']</code></em>. <br />
+    The databases to use for enrichment analysis.<br />
+    The databases are passed to <code>biopipen.utils::Enrichr()</code> to do the
+    enrichment analysis. The default databases are <code>KEGG_2021_Human</code> and
+    <code>MSigDB_Hallmark_2020</code>.<br />
+    See <a href="https://maayanlab.cloud/Enrichr/#libraries">https://maayanlab.cloud/Enrichr/#libraries</a> for the available
+    libraries.<br /></li>
+<li><code>sigmarkers</code>: <em>Default: <code>p_val_adj &lt; 0.05</code></em>. <br />
+    An expression passed to <code>dplyr::filter()</code> to filter the
+    significant markers for enrichment analysis.<br />
+    The default is <code>p_val_adj &lt; 0.05</code>.<br />
+    If <code>tool = 'DESeq2'</code>, the variables that can be used for filtering
+    are: <code>baseMean</code>, <code>log2FC</code>, <code>lfcSE</code>, <code>stat</code>, <code>p_val</code>, <code>p_val_adj</code>.<br />
+    If <code>tool = 'edgeR'</code>, the variables that can be used for filtering
+    are: <code>logCPM</code>, <code>log2FC</code>, <code>LR</code>, <code>p_val</code>, <code>p_val_adj</code>.<br /></li>
+<li><code>enrich_style</code> <em>(<code>choice</code>)</em>: <em>Default: <code>enrichr</code></em>. <br />
+    The style of the enrichment analysis.<br /><ul>
+<li><code>enrichr</code>:
+    Use <code>enrichr</code>-style for the enrichment analysis.<br /></li>
+<li><code>clusterProfiler</code>:
+    Use <code>clusterProfiler</code>-style for the enrichment analysis.<br /></li>
 </ul>
 </li>
 <li><code>allmarker_plots_defaults</code> <em>(<code>ns</code>)</em>:
@@ -289,7 +278,7 @@
     The width of the plots.<br /></li>
 </ul>
 </li>
-<li><code>order_by</code>: <em>Default: <code>desc(abs(avg_log2FC))</code></em>. <br />
+<li><code>order_by</code>: <em>Default: <code>desc(abs(log2FC))</code></em>. <br />
     an expression to order the markers, passed by <code>dplyr::arrange()</code>.<br /></li>
 <li><code>genes</code>: <em>Default: <code>10</code></em>. <br />
     The number of top genes to show or an expression passed to <code>dplyr::filter()</code> to filter the genes.<br /></li>
@@ -343,7 +332,7 @@
     The width of the plots.<br /></li>
 </ul>
 </li>
-<li><code>order_by</code>: <em>Default: <code>desc(abs(avg_log2FC))</code></em>. <br />
+<li><code>order_by</code>: <em>Default: <code>desc(abs(log2FC))</code></em>. <br />
     an expression to order the markers, passed by <code>dplyr::arrange()</code>.<br /></li>
 <li><code>genes</code>: <em>Default: <code>10</code></em>. <br />
     The number of top genes to show or an expression passed to <code>dplyr::filter()</code> to filter the genes.<br /></li>
@@ -353,7 +342,7 @@
     <a href="https://pwwang.github.io/plotthis/reference/VolcanoPlot.html"><code>scplotter::VolcanoPlot()</code></a>.<br /></li>
 </ul>
 </li>
-<li><code>marker_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot'})}</code></em>. <br />
+<li><code>marker_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Volcano Plot': Diot({'plot_type': 'volcano'})}</code></em>. <br />
     Cases of the plots to generate for the markers.<br />
     Plot cases. The keys are the names of the cases and the values are the dicts inherited from <code>marker_plots_defaults</code>.<br />
     The cases under <code>envs.cases</code> can inherit this options.<br /></li>
@@ -428,14 +417,36 @@
 <li>If <code>each</code> is specified, the overlaps can be performed between different cases, where in each case, <code>ident-1</code> must be specified.<br /></li>
 </ol>
 </li>
+<li><code>tool</code> <em>(<code>choice</code>)</em>: <em>Default: <code>DESeq2</code></em>. <br />
+    The method to use for the differential expression analysis.<br /><ul>
+<li><code>DESeq2</code>:
+    Use DESeq2 for the analysis.<br /></li>
+<li><code>edgeR</code>:
+    Use edgeR for the analysis.<br /></li>
+</ul>
+</li>
+<li><code>plots_defaults</code> <em>(<code>ns</code>)</em>:
+    The default parameters for the plots.<br /><ul>
+<li><code>&lt;more&gt;</code>:
+    Parameters passed to <code>biopipen.utils::VizBulkDEGs()</code>.<br />
+    See: <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizBulkDEGs.html">https://pwwang.github.io/biopipen.utils.R/reference/VizBulkDEGs.html</a></li>
+</ul>
+</li>
+<li><code>plots</code> <em>(<code>type=json</code>)</em>:
+    The parameters for the plots.<br />
+    The keys are the names of the plots and the values are the parameters
+    for the plots. The parameters will override the defaults in <code>plots_defaults</code>.<br />
+    If not specified, no plots will be generated.<br /></li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The cases for the analysis.<br />
+    The keys are the names of the cases and the values are the arguments for
+    the analysis. The arguments include the ones inherited from <code>envs</code>.<br />
+    If no cases are specified, a default case will be added with
+    the name <code>DEG Analysis</code> and the default values specified above.<br /></li>
 </ul>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../SeuratClusteringOfAllCells/" class="btn btn-neutral float-left" title="SeuratClusteringOfAllCells"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../TopExpressingGenesOfAllCells/" class="btn btn-neutral float-right" title="TopExpressingGenesOfAllCells">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -463,10 +474,6 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../SeuratClusteringOfAllCells/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../TopExpressingGenesOfAllCells/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

@@ -141,6 +141,10 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
               <ul>
@@ -207,7 +211,8 @@
 Those paths should be either paths to directoies containing <code>matrix.mtx</code>,
 <code>barcodes.tsv</code> and <code>features.tsv</code> files that can be loaded by
 <a href="https://satijalab.org/seurat/reference/read10x"><code>Seurat::Read10X()</code></a>,
-or paths to <code>h5</code> files that can be loaded by
+or paths of loom files that can be loaded by <code>SeuratDisk::LoadLoom()</code>, or paths to
+<code>h5</code> files that can be loaded by
 <a href="https://satijalab.org/seurat/reference/read10x_h5"><code>Seurat::Read10X_h5()</code></a>.<br /></p>
 <p>Each sample will be loaded individually and then merged into one <code>Seurat</code> object, and then perform QC.<br /></p>
 <p>In order to perform QC, some additional columns are added to the meta data of the <code>Seurat</code> object. They are:<br /></p>
@@ -245,10 +250,9 @@ If you are using <code>cca</code> or <code>rpca</code> interation, the default a
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>rdsfile</code>: <em>Default: <code>{{in.metafile | stem}}.seurat.RDS</code></em>. <br />
-    The RDS file with the Seurat object with all samples integrated.<br />
-    Note that the cell ids are preficed with sample names QC plots will be
-    saved in <code>&lt;job.outdir&gt;/before-qc</code> and <code>&lt;job.outdir&gt;/after-qc</code>.<br /></li>
+<li><code>outfile</code>: <em>Default: <code>{{in.metafile | stem}}.seurat.qs</code></em>. <br />
+    The qs2 file with the Seurat object with all samples integrated.<br />
+    Note that the cell ids are prefixied with sample names.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
@@ -256,6 +260,20 @@ If you are using <code>cca</code> or <code>rpca</code> interation, the default a
     Number of cores to use.<br />
     Used in <code>future::plan(strategy = "multicore", workers = &lt;ncores&gt;)</code>
     to parallelize some Seurat procedures.<br /></li>
+<li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The mutaters to mutate the metadata to the cells.<br />
+    These new columns will be added to the metadata of the Seurat object and
+    will be saved in the output file.<br /></li>
+<li><code>min_cells</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>0</code></em>. <br />
+    The minimum number of cells that a gene must be
+    expressed in to be kept. This is used in <code>Seurat::CreateSeuratObject()</code>.<br />
+    Futher QC (<code>envs.cell_qc</code>, <code>envs.gene_qc</code>) will be performed after this.<br />
+    It doesn't work when data is loaded from loom files.<br /></li>
+<li><code>min_features</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>0</code></em>. <br />
+    The minimum number of features that a cell must
+    express to be kept. This is used in <code>Seurat::CreateSeuratObject()</code>.<br />
+    Futher QC (<code>envs.cell_qc</code>, <code>envs.gene_qc</code>) will be performed after this.<br />
+    It doesn't work when data is loaded from loom files.<br /></li>
 <li>
 <p><code>cell_qc</code>:
     Filter expression to filter cells, using
@@ -273,12 +291,6 @@ and <code>percent.plat</code>. For example:<br /></p>
 will keep cells with more than 200 genes and less than 5%% mitochondrial
 genes.<br /></p>
 </div>
-</li>
-<li>
-<p><code>cell_qc_per_sample</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Whether to perform cell QC per sample or not.<br />
-    If <code>True</code>, the cell QC will be performed per sample, and the QC will be
-    applied to each sample before merging.<br /></p>
 </li>
 <li>
 <p><code>gene_qc</code> <em>(<code>ns</code>)</em>:
@@ -300,12 +312,29 @@ genes.<br /></p>
 will keep genes that are expressed in at least 3 cells.<br /></p>
 </div>
 <ul>
-<li><code>use_sct</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Whether use SCTransform routine to integrate samples or not.<br />
-    Before the following procedures, the <code>RNA</code> layer will be split by samples.<br /></li>
+<li><code>qc_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Violin Plots': Diot({'kind': 'cell', 'plot_type': 'violin', 'devpars': Diot({'res': 100, 'height': 600, 'width': 1200})}), 'Scatter Plots': Diot({'kind': 'cell', 'plot_type': 'scatter', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})}), 'Ridge Plots': Diot({'kind': 'cell', 'plot_type': 'ridge', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})}), 'Distribution of number of cells a gene is expressed in': Diot({'kind': 'gene', 'plot_type': 'histogram', 'devpars': Diot({'res': 100, 'height': 1200, 'width': 1200})})}</code></em>. <br />
+    The plots for QC metrics.<br />
+    It should be a json (or python dict) with the keys as the names of the plots and
+    the values also as dicts with the following keys:<br /><ul>
+<li>kind: The kind of QC. Either <code>gene</code> or <code>cell</code> (default).<br /></li>
+<li>devpars: The device parameters for the plot. A dict with <code>res</code>, <code>height</code>, and <code>width</code>.<br /></li>
+<li>more_formats: The formats to save the plots other than <code>png</code>.<br /></li>
+<li>save_code: Whether to save the code to reproduce the plot.<br /></li>
+<li>other arguments passed to
+<a href="https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratCellQC.html"><code>biopipen.utils::VizSeuratCellQC</code></a>
+when <code>kind</code> is <code>cell</code> or
+<a href="https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratGeneQC.html"><code>biopipen.utils::VizSeuratGeneQC</code></a>
+when <code>kind</code> is <code>gene</code>.<br /></li>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>use_sct</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether use SCTransform routine to integrate samples or not.<br />
+    Before the following procedures, the <code>RNA</code> layer will be split by samples.<br /></p>
 <p>If <code>False</code>, following procedures will be performed in the order:<br />
 * <a href="https://satijalab.org/seurat/reference/normalizedata"><code>NormalizeData</code></a>.<br />
 * <a href="https://satijalab.org/seurat/reference/findvariablefeatures"><code>FindVariableFeatures</code></a>.<br />
@@ -354,9 +383,9 @@ See <a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-s
 <li><code>SCTransform</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/sctransform"><code>SCTransform()</code></a>.<br />
     <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br /><ul>
-<li><code>return-only-var-genes</code>:
+<li><code>return-only-var-genes</code>: <em>Default: <code>True</code></em>. <br />
     Whether to return only variable genes.<br /></li>
-<li><code>min_cells</code>:
+<li><code>min_cells</code>: <em>Default: <code>5</code></em>. <br />
     The minimum number of cells that a gene must be expressed in to be kept.<br />
     A hidden argument of <code>SCTransform</code> to filter genes.<br />
     If you try to keep all genes in the <code>RNA</code> assay, you can set <code>min_cells</code> to <code>0</code> and
@@ -364,8 +393,7 @@ See <a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-s
     See <a href="https://github.com/satijalab/seurat/issues/3598#issuecomment-715505537">https://github.com/satijalab/seurat/issues/3598#issuecomment-715505537</a></li>
 <li><code>&lt;more&gt;</code>:
     See <a href="https://satijalab.org/seurat/reference/sctransform">https://satijalab.org/seurat/reference/sctransform</a></li>
-<li><code>return-only-var-genes</code>: <em>Default: <code>True</code></em>. <br /></li>
-<li><code>min_cells</code>: <em>Default: <code>5</code></em>. <br /></li>
+<li><code>verbose</code>: <em>Default: <code>True</code></em>. <br /></li>
 </ul>
 </li>
 <li><code>IntegrateLayers</code> <em>(<code>ns</code>)</em>:

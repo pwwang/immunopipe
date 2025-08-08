@@ -141,6 +141,10 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
               <ul>
@@ -246,7 +250,7 @@ reduction plot with scTCR-seq data available.<br /></p>
     The key-value pairs will be passed the <code>dplyr::mutate()</code> to mutate the metadata.<br />
     There are also also 4 helper functions, <code>expanded</code>, <code>collapsed</code>, <code>emerged</code> and <code>vanished</code>,
     which can be used to identify the expanded/collpased/emerged/vanished groups (i.e. TCR clones).<br />
-    See also <a href="https://pwwang.github.io/immunopipe/configurations/#mutater-helpers">https://pwwang.github.io/immunopipe/configurations/#mutater-helpers</a>.<br />
+    See also &lt;../configurations/#mutater-helpers&gt;.<br />
     For example, you can use
     <code>{"Patient1_Tumor_Collapsed_Clones": "expanded(., Source, 'Tumor', subset = Patent == 'Patient1', uniq = FALSE)"}</code>
     to create a new column in metadata named <code>Patient1_Tumor_Collapsed_Clones</code>

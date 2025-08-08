@@ -141,6 +141,10 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
               <ul>
@@ -206,7 +210,8 @@ are groups (i.e. clinic groups).<br /></p>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>outdir</code>: <em>Default: <code>{{in.srtobj | stem}}.cells_distribution</code></em>. <br />
-    The output directory</li>
+    The output directory.<br />
+    The results for each case will be saved in a subdirectory.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
@@ -217,7 +222,7 @@ are groups (i.e. clinic groups).<br /></p>
     passed by <code>dplyr::mutate()</code> to mutate the metadata.<br />
     There are also also 4 helper functions, <code>expanded</code>, <code>collapsed</code>, <code>emerged</code> and <code>vanished</code>,
     which can be used to identify the expanded/collpased/emerged/vanished groups (i.e. TCR clones).<br />
-    See also <a href="https://pwwang.github.io/immunopipe/configurations/#mutater-helpers">https://pwwang.github.io/immunopipe/configurations/#mutater-helpers</a>.<br />
+    See also &lt;../configurations/#mutater-helpers&gt;.<br />
     For example, you can use
     <code>{"Patient1_Tumor_Collapsed_Clones": "expanded(., Source, 'Tumor', subset = Patent == 'Patient1', uniq = FALSE)"}</code>
     to create a new column in metadata named <code>Patient1_Tumor_Collapsed_Clones</code>
@@ -370,7 +375,7 @@ Each comparison will be done for each value in this column (typically each patie
 <span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;region&quot;</span>
 <span class="n">group_order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;Tumor&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Normal&quot;</span><span class="w"> </span><span class="p">]</span>
 </code></pre></div>
-<p><img alt="CellsDistribution_example" src="https://pwwang.github.io/immunopipe/latest/processes/images/CellsDistribution_example.png" /></p>
+<p><img alt="CellsDistribution_example" src="../latest/processes/images/CellsDistribution_example.png" /></p>
               
             </div>
           </div><footer>

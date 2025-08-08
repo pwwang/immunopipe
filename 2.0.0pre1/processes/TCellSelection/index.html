@@ -147,6 +147,10 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
               <ul>
@@ -216,14 +220,14 @@ of the clusters.<br /></li>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>srtobj</code>:
-    Seurat object file in RDS</li>
+    Seurat object file in RDS/qs</li>
 <li><code>immdata</code>:
-    Immunarch data file in RDS</li>
+    Immune repertoire data file in RDS/qs</li>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>rdsfile</code>: <em>Default: <code>{{in.srtobj | stem}}.RDS</code></em>. <br />
-    Seurat object file in RDS</li>
+<li><code>outfile</code>: <em>Default: <code>{{in.srtobj | stem}}.qs</code></em>. <br />
+    Seurat object file in qs format</li>
 <li><code>outdir</code>: <em>Default: <code>details</code></em>. <br />
     Output directory with details</li>
 </ul>

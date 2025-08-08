@@ -149,6 +149,10 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
               <ul>
@@ -212,15 +216,28 @@ the sample information in the report.<br /></p>
 <p>Or with <code>pipen-board</code>, find the <code>SampleInfo</code> process and click the <code>Edit</code> button.<br />
 Then you can specify the input file here</p>
 <p><img alt="infile" src="../..//processes/images/SampleInfo-infile.png" /></p>
-<p>Theroetically, we can have multiple input files. However, it is not tested yet.<br />
-If you have multiple input files to run, please run it with a different pipeline
-instance (configuration file).<br /></p>
+<p>Multiple input files are supported by the underlying pipeline framework. However,
+we recommend to run it with a different pipeline instance with configuration files.<br /></p>
 <p>For the content of the input file, please see details
 <a href="../..//preparing-input.md#metadata">here</a>.<br /></p>
+<p>You can add some columns to the input file while doing the statistics or you can even
+pass them on to the next processes. See <code>envs.mutaters</code> and <code>envs.save_mutated</code>.<br />
+But if you are adding a factor (categorical) column with desired levels, the order
+can't be guaranteed, because we are saving them to a text file, where we can't guarantee
+the order of the levels. If you want to add a factor column with desired levels, you can
+set <code>envs.mutaters</code> of the <code>SeuratPreparing</code> process to mutate the column.<br /></p>
 <p>Once the pipeline is finished, you can see the sample information in the report</p>
 <p><img alt="report" src="../..//processes/images/SampleInfo-report.png" /></p>
-<p>Note that the required <code>RNAData</code> and <code>TCRData</code> columns are not shown in the report.<br />
-They are used to specify the paths of the <code>scRNA-seq</code> and <code>scTCR-seq</code> data, respectively.<br /></p>
+<p>Note that the required <code>RNAData</code> (if not loaded from a Seurat object) and <code>TCRData</code>
+columns are not shown in the report.<br />
+They are used to specify the paths of the <code>scRNA-seq</code> and <code>scTCR-seq</code> data, respectively.<br />
+Also note that when <code>RNAData</code> is loaded from a Seurat object (specified in the
+<code>LoadRNAFromSeurat</code> process), the metadata provided in this process will not be
+integrated into the Seurat object in the downstream processes. To incoporate
+these meta information into the Seurat object, please provide them in the
+Seurat object itself or use the <code>envs.mutaters</code> of the <code>SeuratPreparing</code> process
+to mutate the metadata of the Seurat object. But the meta information provided in this
+process can still be used in the statistics and plots in the report.<br /></p>
 <p>You may also perform some statistics on the sample information, for example,
 number of samples per group. See next section for details.<br /></p>
 <div class="admonition tip">
@@ -249,7 +266,7 @@ Specifically, it should contain filtered_contig_annotations.csv
 or all_contig_annotations.csv from cellranger.<br /></li>
 <li>RNAData: The directory for single-cell RNA data for this sample.<br />
 Specifically, it should be able to be read by
-<code>Seurat::Read10X()</code>.<br />
+<code>Seurat::Read10X()</code> or <code>Seurat::Read10X_h5()</code> or <code>SeuratDisk::LoadLoom()</code>.<br />
 See also https://satijalab.org/seurat/reference/read10x.<br /></li>
 <li>Other columns are optional and will be treated as metadata for
 each sample.<br /></li>
@@ -260,7 +277,11 @@ each sample.<br /></li>
 <ul>
 <li><code>outfile</code>: <em>Default: <code>{{in.infile | basename}}</code></em>. <br />
     The output file with sample information, with mutated columns
-    if <code>envs.save_mutated</code> is True.<br /></li>
+    if <code>envs.save_mutated</code> is True.<br />
+    The basename of the output file will be the same as the input file.<br />
+    The file name of each plot will be slugified from the case name.<br />
+    Each plot has 3 formats: pdf, png and code.zip, which contains the
+    data and R code to reproduce the plot.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
@@ -292,46 +313,49 @@ returned ids. Non-paired ids will be <code>NA</code>.<br /></li>
 </li>
 <li><code>save_mutated</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to save the mutated columns.<br /></li>
-<li><code>exclude_cols</code>: <em>Default: <code>TCRData,RNAData</code></em>. <br />
+<li><code>exclude_cols</code> <em>(<code>auto</code>)</em>: <em>Default: <code>TCRData,RNAData</code></em>. <br />
     The columns to exclude in the table in the report.<br />
     Could be a list or a string separated by comma.<br /></li>
 <li><code>defaults</code> <em>(<code>ns</code>)</em>:
     The default parameters for <code>envs.stats</code>.<br /><ul>
-<li><code>on</code>: <em>Default: <code>Sample</code></em>. <br />
-    The column name in the data for the stats.<br />
-    Default is <code>Sample</code>. The column could be either continuous or not.<br /></li>
+<li><code>plot_type</code>: <em>Default: <code>bar</code></em>. <br />
+    The type of the plot.<br />
+    See the supported plot types here:<br />
+    <a href="https://pwwang.github.io/plotthis/reference/index.html">https://pwwang.github.io/plotthis/reference/index.html</a>
+    The plot_type should be lower case and the plot function used in
+    <code>plotthis</code> should be used. The mapping from plot_type to the
+    plot function is like <code>bar -&gt; BarPlot</code>, <code>box -&gt; BoxPlot</code>, etc.<br /></li>
+<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The additional formats to save the plot.<br />
+    By default, the plot will be saved in png, which is also used to
+    display in the report. You can add more formats to save the plot.<br />
+    For example, <code>more_formats = ["pdf", "svg"]</code>.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the R code to reproduce the plot.<br />
+    The data used to plot will also be saved.<br /></li>
 <li><code>subset</code>:
-    An R expression to subset the data.<br />
-    If you want to keep the distinct records, you can use
-    <code>!duplicated(&lt;col&gt;)</code>.<br /></li>
-<li><code>group</code>:
-    The column name in the data for the group ids.<br />
-    If not provided, all records will be regarded as one group.<br /></li>
-<li><code>na_group</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Whether to include <code>NA</code>s in the group.<br /></li>
-<li><code>each</code>:
-    The column in the data to split the analysis in different
-    plots.<br /></li>
-<li><code>ncol</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>2</code></em>. <br />
-    The number of columns in the plot when <code>each</code>
-    is not <code>NULL</code>. Default is 2.<br /></li>
-<li><code>na_each</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Whether to include <code>NA</code>s in the <code>each</code> column.<br /></li>
-<li><code>plot</code>:
-    Type of plot. If <code>on</code> is continuous, it could be
-    <code>boxplot</code> (default), <code>violin</code>, <code>violin+boxplot</code> or <code>histogram</code>.<br />
-    If <code>on</code> is not continuous, it could be <code>barplot</code> or
-    <code>pie</code> (default).<br /></li>
+    An expression to subset the data frame before plotting.<br />
+    The expression should be a string of R expression that will be passed
+    to <code>dplyr::filter</code>. For example, <code>subset = "Sample == 'A'"</code>.<br /></li>
+<li><code>section</code>:
+    The section name in the report.<br />
+    In case you want to group the plots in the report.<br /></li>
 <li><code>devpars</code> <em>(<code>ns</code>)</em>:
     The device parameters for the plot.<br /><ul>
-<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>800</code></em>. <br />
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
     The width of the plot.<br /></li>
-<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>600</code></em>. <br />
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
     The height of the plot.<br /></li>
 <li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
     The resolution of the plot.<br /></li>
 </ul>
 </li>
+<li><code>descr</code>:
+    The description of the plot, shown in the report.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    You can add more parameters to the defaults.<br />
+    These parameters will be expanded to the <code>envs.stats</code> for each case,
+    and passed to individual plot functions.<br /></li>
 </ul>
 </li>
 <li><code>stats</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
@@ -487,40 +511,43 @@ returned ids. Non-paired ids will be <code>NA</code>.<br /></li>
 </table>
 <h4 id="count-the-number-of-samples-per-diagnosis">Count the number of samples per Diagnosis<a class="headerlink" href="#count-the-number-of-samples-per-diagnosis" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;N_Samples_per_Diagnosis (pie)&quot;</span><span class="k">]</span>
-<span class="n">on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sample&quot;</span>
-<span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;pie&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sample&quot;</span>
+<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
 </code></pre></div>
-<p><img alt="Samples_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis (pie).png" /></p>
+<p><img alt="Samples_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png" /></p>
 <p>What if we want a bar plot instead of a pie chart?<br /></p>
 <div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;N_Samples_per_Diagnosis (bar)&quot;</span><span class="k">]</span>
-<span class="n">on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sample&quot;</span>
-<span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
-<span class="n">plot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;barplot&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sample&quot;</span>
+<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
 </code></pre></div>
-<p><img alt="Samples_Diagnosis_bar" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis (bar).png" /></p>
+<p><img alt="Samples_Diagnosis_bar" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png" /></p>
 <h4 id="explore-age-distribution">Explore Age distribution<a class="headerlink" href="#explore-age-distribution" title="Permanent link">&para;</a></h4>
 <p>The distribution of Age of all samples</p>
-<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution (boxplot)&quot;</span><span class="k">]</span>
-<span class="n">on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution (histogram)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;histogram&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
 </code></pre></div>
-<p><img alt="Age_distribution" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution (boxplot).png" /></p>
+<p><img alt="Age_distribution" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution-Histogram-.png" /></p>
 <p>How about the distribution of Age in each Diagnosis, and make it violin + boxplot?<br /></p>
 <div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution_per_Diagnosis (violin + boxplot)&quot;</span><span class="k">]</span>
-<span class="n">on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
-<span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
-<span class="n">plot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;violin+boxplot&quot;</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;violin&quot;</span>
+<span class="n">add_box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 </code></pre></div>
-<p><img alt="Age_distribution_per_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis (violin + boxplot).png" /></p>
+<p><img alt="Age_distribution_per_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png" /></p>
 <p>How about Age distribution per Sex in each Diagnosis?<br /></p>
 <div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution_per_Sex_in_each_Diagnosis (boxplot)&quot;</span><span class="k">]</span>
-<span class="n">on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
-<span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sex&quot;</span>
-<span class="n">each</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
-<span class="n">plot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;boxplot&quot;</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sex&quot;</span>
+<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;box&quot;</span>
 <span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
 <span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">height</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">450</span><span class="p">}</span>
 </code></pre></div>
-<p><img alt="Age_distribution_per_Sex_in_each_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis (boxplot).png" /></p>
+<p><img alt="Age_distribution_per_Sex_in_each_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png" /></p>
               
             </div>
           </div><footer>

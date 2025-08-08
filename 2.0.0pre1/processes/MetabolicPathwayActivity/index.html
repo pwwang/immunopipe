@@ -131,6 +131,10 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
               <ul class="current">
@@ -202,67 +206,58 @@ The heatmap shows the pathway activities for each group and each metabolic pathw
 <p><img alt="MetabolicPathwayActivity_violin" src="https://pwwang.github.io/immunopipe/latest/processes/images/MetabolicPathwayActivity_violin.png" width="45%" /></p>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>sobjfile</code>:</li>
+<li><code>sobjfile</code>:
+    The Seurat object file.<br />
+    It should be loaded as a Seurat object</li>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>outdir</code>: <em>Default: <code>{{in.sobjfile | stem}}.pathwayactivity</code></em>. <br /></li>
+<li><code>outdir</code>: <em>Default: <code>{{in.sobjfile | stem}}.pathwayactivity</code></em>. <br />
+    The output directory.<br />
+    It will contain the pathway activity score files and plots.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>ntimes</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>5000</code></em>. <br />
-    Number of times to do the permutation</li>
+    Number of permutations to estimate the p-values</li>
 <li><code>ncores</code> <em>(<code>type=int;pgarg</code>)</em>: <em>Default: <code>1</code></em>. <br />
     Number of cores to use for parallelization
     Defaults to <code>ScrnaMetabolicLandscape.ncores</code></li>
-<li><code>heatmap_devpars</code> <em>(<code>ns</code>)</em>:
-    Device parameters for the heatmap<ul>
-<li><code>width</code> <em>(<code>type=int</code>)</em>:
-    Width of the heatmap</li>
-<li><code>height</code> <em>(<code>type=int</code>)</em>:
-    Height of the heatmap</li>
-<li><code>res</code> <em>(<code>type=int</code>)</em>:
-    Resolution of the heatmap</li>
-</ul>
-</li>
-<li><code>violin_devpars</code> <em>(<code>ns</code>)</em>:
-    Device parameters for the violin plot<ul>
-<li><code>width</code> <em>(<code>type=int</code>)</em>:
-    Width of the violin plot</li>
-<li><code>height</code> <em>(<code>type=int</code>)</em>:
-    Height of the violin plot</li>
-<li><code>res</code> <em>(<code>type=int</code>)</em>:
-    Resolution of the violin plot</li>
-</ul>
-</li>
 <li><code>gmtfile</code> <em>(<code>pgarg</code>)</em>:
     The GMT file with the metabolic pathways.<br />
     Defaults to <code>ScrnaMetabolicLandscape.gmtfile</code></li>
-<li><code>grouping</code> <em>(<code>type=auto;pgarg;readonly</code>)</em>:
-    Defines the basic groups to
-    investigate the metabolic activity, typically the clusters.<br />
-    Defaults to <code>ScrnaMetabolicLandscape.grouping</code></li>
-<li><code>grouping_prefix</code> <em>(<code>type=auto;pgarg;readonly</code>)</em>: <em>Default: <code>""</code></em>. <br />
-    Working as a prefix to group
-    names. For example, if we have <code>grouping_prefix = "cluster"</code> and
-    we have <code>1</code> and <code>2</code> in the <code>grouping</code> column, the groups
-    will be named as <code>cluster_1</code> and <code>cluster_2</code>.<br />
-    Defaults to <code>ScrnaMetabolicLandscape.grouping_prefix</code></li>
-<li><code>subsetting</code> <em>(<code>type=auto;pgarg;readonly</code>)</em>:
-    How do we subset the data. Other
-    columns in the metadata to do comparisons. For example,
-    <code>"TimePoint"</code> or <code>["TimePoint", "Response"]</code>.<br />
-    Defaults to <code>ScrnaMetabolicLandscape.subsetting</code></li>
-<li><code>subsetting_prefix</code> <em>(<code>type=auto;pgarg;readonly</code>)</em>:
-    Working as a prefix to
-    subset names.<br />
-    For example, if we have <code>subsetting_prefix = "timepoint"</code> and
-    we have <code>pre</code> and <code>post</code> in the <code>subsetting</code> column, the subsets
-    will be named as <code>timepoint_pre</code> and <code>timepoint_post</code>.<br />
-    If <code>subsetting</code> is a list, then this should also be a
-    same-length list. If a single string is given, it will be
-    repeated to a list with the same length as <code>subsetting</code>.<br />
-    Defaults to <code>ScrnaMetabolicLandscape.subsetting_prefix</code></li>
+<li><code>subset_by</code> <em>(<code>pgarg;readonly</code>)</em>:
+    Subset the data by the given column in the
+    metadata. For example, <code>Response</code>.<br />
+    <code>NA</code> values will be removed in this column.<br />
+    Defaults to <code>ScrnaMetabolicLandscape.subset_by</code>
+    If None, the data will not be subsetted.<br /></li>
+<li><code>group_by</code> <em>(<code>pgarg;readonly</code>)</em>:
+    Group the data by the given column in the
+    metadata. For example, <code>cluster</code>.<br />
+    Defaults to <code>ScrnaMetabolicLandscape.group_by</code></li>
+<li><code>plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Pathway Activity (violin plot)': Diot({'plot_type': 'violin', 'add_box': True, 'devpars': Diot({'res': 100})}), 'Pathway Activity (heatmap)': Diot({'plot_type': 'heatmap', 'devpars': Diot({'res': 100})})}</code></em>. <br />
+    The plots to generate.<br />
+    Names will be used as the prefix for the output files. Values will be
+    a dictionary with the following keys:<br /><ul>
+<li><code>plot_type</code> is the type of plot to generate. One of <code>heatmap</code>,
+<code>box</code>, <code>violin</code> or <code>merged_heatmap</code> (all subsets in one plot).<br /></li>
+<li><code>devpars</code> is a dictionary with the device parameters for the plot.<br /></li>
+<li>Other arguments for <code>plotthis::Heatmap()</code>, <code>plotthis::BoxPlot()</code>
+or <code>plotthis::ViolinPlot()</code>, depending on the <code>plot_type</code>.<br /></li>
+</ul>
+</li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Multiple cases for the analysis.<br />
+    If you only have one case, you can specify the parameters directly to
+    <code>envs.ntimes</code>, <code>envs.subset_by</code>, <code>envs.group_by</code>, <code>envs.group1</code>,
+    <code>envs.group2</code>, and <code>envs.plots</code>. The name of the case will be
+    <code>envs.subset_by</code>.<br />
+    If you have multiple cases, you can specify the parameters for each case
+    in a dictionary. The keys will be the names of the cases and the values
+    will be dictionaries with the parameters for each case, where the values
+    will be inherited from <code>envs.ntimes</code>, <code>envs.subset_by</code>, <code>envs.group_by</code>,
+    <code>envs.group1</code>, <code>envs.group2</code>, and <code>envs.plots</code>.<br /></li>
 </ul>
               
             </div>

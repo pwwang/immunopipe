@@ -131,6 +131,10 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
               <ul class="current">
@@ -197,20 +201,22 @@
 package or the <a href="https://github.com/GSEA-MSigDB/GSEA_R"><code>GSEA_R</code></a> package.<br /></p>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>sobjfile</code>:</li>
+<li><code>sobjfile</code>:
+    The Seurat object file in rds.<br />
+    It should be loaded as a Seurat object</li>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>outdir</code>: <em>Default: <code>{{in.sobjfile | stem}}.pathwayfeatures</code></em>. <br /></li>
+<li><code>outdir</code>: <em>Default: <code>{{in.sobjfile | stem}}.pathwayfeatures</code></em>. <br />
+    The output directory.<br />
+    It will contain the GSEA results and plots.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>ncores</code> <em>(<code>type=int;pgarg</code>)</em>: <em>Default: <code>1</code></em>. <br />
-    Number of cores to use for parallelization.<br />
-    Defaults to <code>ScrnaMetabolicLandscape.ncores</code></li>
-<li><code>fgsea</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
-    Whether to do fast gsea analysis using <code>fgsea</code> package.<br />
-    If <code>False</code>, the <code>GSEA_R</code> package will be used.<br /></li>
+    Number of cores to use for parallelization for
+    the comparisons for each subset and group.<br />
+    Defaults to <code>ScrnaMetabolicLandscape.ncores</code>.<br /></li>
 <li><code>prerank_method</code> <em>(<code>choice</code>)</em>: <em>Default: <code>signal_to_noise</code></em>. <br />
     Method to use for gene preranking.<br />
     Signal to noise: the larger the differences of the means
@@ -247,27 +253,58 @@ package or the <a href="https://github.com/GSEA-MSigDB/GSEA_R"><code>GSEA_R</cod
     Log2 ratio of class means</li>
 </ul>
 </li>
-<li><code>top</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>10</code></em>. <br />
-    N top of enriched pathways to show</li>
 <li><code>gmtfile</code> <em>(<code>pgarg</code>)</em>:
     The GMT file with the metabolic pathways.<br />
     Defaults to <code>ScrnaMetabolicLandscape.gmtfile</code></li>
-<li><code>grouping</code> <em>(<code>type=auto;pgarg;readonly</code>)</em>:
-    Defines the basic groups to
-    investigate the metabolic activity.<br />
-    Defaults to <code>ScrnaMetabolicLandscape.grouping</code></li>
-<li><code>grouping_prefix</code> <em>(<code>type=auto;pgarg;readonly</code>)</em>: <em>Default: <code>""</code></em>. <br />
-    Working as a prefix to
-    group names.<br />
-    Defaults to <code>ScrnaMetabolicLandscape.grouping_prefix</code></li>
-<li><code>subsetting</code> <em>(<code>type=auto;pgarg;readonly</code>)</em>:
-    How do we subset the data.<br />
-    Another column(s) in the metadata.<br />
-    Defaults to <code>ScrnaMetabolicLandscape.subsetting</code></li>
-<li><code>subsetting_prefix</code> <em>(<code>type=auto;pgarg;readonly</code>)</em>:
-    Working as a prefix to
-    subset names.<br />
-    Defaults to <code>ScrnaMetabolicLandscape.subsetting_prefix</code></li>
+<li><code>subset_by</code> <em>(<code>pgarg;readonly</code>)</em>:
+    Subset the data by the given column in the
+    metadata. For example, <code>Response</code>.<br />
+    <code>NA</code> values will be removed in this column.<br />
+    Defaults to <code>ScrnaMetabolicLandscape.subset_by</code>
+    If None, the data will not be subsetted.<br /></li>
+<li><code>group_by</code> <em>(<code>pgarg;readonly</code>)</em>:
+    Group the data by the given column in the
+    metadata. For example, <code>cluster</code>.<br />
+    Defaults to <code>ScrnaMetabolicLandscape.group_by</code></li>
+<li><code>comparisons</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The comparison groups to use for the analysis.<br />
+    If not provided, each group in the <code>group_by</code> column will be used
+    to compare with the other groups.<br />
+    If a single group is provided as an element, it will be used to
+    compare with all the other groups.<br />
+    For example, if we have <code>group_by = "cluster"</code> and we have
+    <code>1</code>, <code>2</code> and <code>3</code> in the <code>group_by</code> column, we could have
+    <code>comparisons = ["1", "2"]</code>, which will compare the group <code>1</code> with groups
+    <code>2</code> and <code>3</code>, and the group <code>2</code> with groups <code>1</code> and <code>3</code>. We could also
+    have <code>comparisons = ["1:2", "1:3"]</code>, which will compare the group <code>1</code> with
+    group <code>2</code> and group <code>1</code> with group <code>3</code>.<br /></li>
+<li><code>fgsea_args</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Other arguments for the <code>fgsea::fgsea()</code> function.<br />
+    For example, <code>{"minSize": 15, "maxSize": 500}</code>.<br />
+    See <a href="https://rdrr.io/bioc/fgsea/man/fgsea.html">https://rdrr.io/bioc/fgsea/man/fgsea.html</a> for more details.<br /></li>
+<li><code>plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Summary Plot': Diot({'plot_type': 'summary', 'top_term': 10, 'devpars': Diot({'res': 100})}), 'Enrichment Plots': Diot({'plot_type': 'gsea', 'top_term': 10, 'devpars': Diot({'res': 100})})}</code></em>. <br />
+    The plots to generate.<br />
+    Names will be used as the title for the plot. Values will be the arguments
+    passed to <code>biopipen.utils::VizGSEA()</code> function.<br />
+    See <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizGSEA.html">https://pwwang.github.io/biopipen.utils.R/reference/VizGSEA.html</a>.<br />
+    A key <code>level</code> is supported to specify the level of the plot.<br />
+    Possible values are <code>case</code>, which includes all subsets and groups in the
+    case; <code>subset</code>, which includes all groups in the subset; otherwise, it
+    will plot for the groups.<br />
+    For <code>case</code>/<code>subset</code> level plots, current <code>plot_type</code> only "dot" is supported
+    for now, then the values will be passed to <code>plotthis::DotPlot()</code></li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Multiple cases for the analysis.<br />
+    If you only have one case, you can specify the parameters directly to
+    <code>envs.prerank_method</code>, <code>envs.subset_by</code>, <code>envs.group_by</code>,
+    <code>envs.comparisons</code>, <code>envs.fgsea_args</code> and <code>envs.plots</code>.<br />
+    The name of this default case will be <code>envs.subset_by</code>.<br />
+    If you have multiple cases, you can specify the parameters for each case
+    in a dictionary. The keys will be the names of the cases and the values
+    will be dictionaries with the parameters for each case, where the values
+    will be inherited from <code>envs.prerank_method</code>,
+    <code>envs.subset_by</code>, <code>envs.group_by</code>, <code>envs.comparisons</code>, <code>envs.fgsea_args</code>
+    and <code>envs.plots</code>.<br /></li>
 </ul>
               
             </div>

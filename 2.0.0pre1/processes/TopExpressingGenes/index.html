@@ -139,6 +139,10 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
               <ul>
@@ -212,7 +216,7 @@ readonly.<br /></p>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>srtobj</code>:
-    The seurat object in RDS format</li>
+    The seurat object in RDS or qs/qs2 format</li>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
@@ -227,6 +231,46 @@ readonly.<br /></p>
     <a href="https://maayanlab.cloud/Enrichr/#libraries">https://maayanlab.cloud/Enrichr/#libraries</a></li>
 <li><code>n</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>250</code></em>. <br />
     The number of top expressing genes to find.<br /></li>
+<li><code>enrich_style</code> <em>(<code>choice</code>)</em>: <em>Default: <code>enrichr</code></em>. <br />
+    The style of the enrichment analysis.<br />
+    The enrichment analysis will be done by <code>EnrichIt()</code> from <a href="https://pwwang.github.io/enrichit/"><code>enrichit</code></a>.<br />
+    Two styles are available:<br /><ul>
+<li><code>enrichr</code>:
+    <code>enrichr</code> style enrichment analysis (fisher's exact test will be used).<br /></li>
+<li><code>clusterprofiler</code>:
+    <code>clusterProfiler</code> style enrichment analysis (hypergeometric test will be used).<br /></li>
+<li><code>clusterProfiler</code>:
+    alias for <code>clusterprofiler</code></li>
+</ul>
+</li>
+<li><code>enrich_plots_defaults</code> <em>(<code>ns</code>)</em>:
+    Default options for the plots to generate for the enrichment analysis.<br /><ul>
+<li><code>plot_type</code>:
+    The type of the plot.<br />
+    See <a href="https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html">https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html</a>.<br />
+    Available types are <code>bar</code>, <code>dot</code>, <code>lollipop</code>, <code>network</code>, <code>enrichmap</code> and <code>wordcloud</code>.<br /></li>
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The extra formats to save the plot in.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code to generate the plot.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://pwwang.github.io/scplotter/reference/EnrichmentPlot.htmll">https://pwwang.github.io/scplotter/reference/EnrichmentPlot.htmll</a>.<br /></li>
+</ul>
+</li>
+<li><code>enrich_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Bar Plot': Diot({'plot_type': 'bar', 'ncol': 1, 'top_term': 10})}</code></em>. <br />
+    Cases of the plots to generate for the enrichment analysis.<br />
+    The keys are the names of the cases and the values are the dicts inherited from <code>enrich_plots_defaults</code>.<br />
+    The cases under <code>envs.cases</code> can inherit this options.<br /></li>
 <li><code>subset</code>:
     An expression to subset the cells for each case.<br /></li>
 </ul>

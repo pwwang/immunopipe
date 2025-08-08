@@ -141,6 +141,10 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
               <ul>
@@ -201,17 +205,18 @@ cluster. Instead, it will perform the whole clustering procedure on the subset o
 cells. One can use metadata to specify the subset of cells to perform clustering on.<br /></p>
 <p>For the subset of cells, the reductions will be re-performed on the subset of cells,
 and then the clustering will be performed on the subset of cells. The reduction
-will be saved in <code>sobj@reduction$sub_umap_&lt;casename&gt;</code> of the original object and the
-clustering will be saved in the metadata of the original object using the casename     as the column name.<br /></p>
+will be saved in <code>object@reduction$&lt;casename&gt;.&lt;reduction&gt;</code> of the original object and the
+clustering will be saved in the metadata of the original object using the casename
+as the column name.<br /></p>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>srtobj</code>:
-    The seurat object</li>
+    The seurat object in RDS or qs/qs2 format.<br /></li>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>rdsfile</code>: <em>Default: <code>{{in.srtobj | stem}}.RDS</code></em>. <br />
-    The seurat object with the subclustering information.<br /></li>
+<li><code>outfile</code>: <em>Default: <code>{{in.srtobj | stem}}.qs</code></em>. <br />
+    The seurat object with the subclustering information in qs/qs2 format.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
@@ -222,18 +227,21 @@ clustering will be saved in the metadata of the original object using the casena
 <li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
     The mutaters to mutate the metadata to subset the cells.<br />
     The mutaters will be applied in the order specified.<br /></li>
-<li>
-<p><code>subset</code>:
+<li><code>subset</code>:
     An expression to subset the cells, will be passed to
-    <a href="https://stemangiola.github.io/tidyseurat/reference/filter.html"><code>tidyseurat::filter()</code></a>.<br /></p>
+    <a href="https://stemangiola.github.io/tidyseurat/reference/filter.html"><code>tidyseurat::filter()</code></a>.<br /></li>
+<li><code>RunPCA</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/runpca"><code>RunPCA()</code></a>.<br />
+    <code>object</code> is specified internally as the subset object, and <code>-</code> in the key will be replaced with <code>.</code>.<br /><ul>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/runpca">https://satijalab.org/seurat/reference/runpca</a></li>
+</ul>
 </li>
-<li>
-<p><code>RunUMAP</code> <em>(<code>ns</code>)</em>:
+<li><code>RunUMAP</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/runumap"><code>RunUMAP()</code></a>.<br />
     <code>object</code> is specified internally as the subset object, and <code>-</code> in the key will be replaced with <code>.</code>.<br />
-    <code>dims=N</code> will be expanded to <code>dims=1:N</code>; The maximal value of <code>N</code> will be the minimum of <code>N</code> and the number of columns - 1 for each sample.<br /></p>
-<ul>
-<li><code>dims</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>30</code></em>. <br />
+    <code>dims=N</code> will be expanded to <code>dims=1:N</code>; The maximal value of <code>N</code> will be the minimum of <code>N</code> and the number of columns - 1 for each sample.<br /><ul>
+<li><code>dims</code> <em>(<code>type=int</code>)</em>:
     The number of PCs to use</li>
 <li><code>reduction</code>:
     The reduction to use for UMAP.<br />
@@ -247,7 +255,7 @@ clustering will be saved in the metadata of the original object using the casena
     <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br /><ul>
 <li><code>reduction</code>:
     The reduction to use.<br />
-    If not provided, <code>sobj@misc$integrated_new_reduction</code> will be used.<br /></li>
+    If not provided, <code>object@misc$integrated_new_reduction</code> will be used.<br /></li>
 <li><code>&lt;more&gt;</code>:
     See <a href="https://satijalab.org/seurat/reference/findneighbors">https://satijalab.org/seurat/reference/findneighbors</a></li>
 </ul>
@@ -266,18 +274,19 @@ clustering will be saved in the metadata of the original object using the casena
 </ul>
 </li>
 <li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
-    Whether to cache the information at different steps.<br />
+    Whether to cache the results.<br />
     If <code>True</code>, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
-    The cached seurat object will be saved as <code>&lt;signature&gt;.&lt;kind&gt;.RDS</code> file, where <code>&lt;signature&gt;</code> is the signature determined by
-    the input and envs of the process.<br />
-    See <a href="https://github.com/satijalab/seurat/issues/7849">https://github.com/satijalab/seurat/issues/7849</a>, <a href="https://github.com/satijalab/seurat/issues/5358">https://github.com/satijalab/seurat/issues/5358</a> and
-    <a href="https://github.com/satijalab/seurat/issues/6748">https://github.com/satijalab/seurat/issues/6748</a> for more details also about reproducibility issues.<br />
-    To not use the cached seurat object, you can either set <code>cache</code> to <code>False</code> or delete the cached file at
-    <code>&lt;signature&gt;.RDS</code> in the cache directory.<br /></li>
-<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'subcluster': Diot({})}</code></em>. <br />
+    Set to <code>False</code> to not cache the results.<br /></li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
     The cases to perform subclustering.<br />
     Keys are the names of the cases and values are the dicts inherited from <code>envs</code> except <code>mutaters</code> and <code>cache</code>.<br />
-    If empty, a case with name <code>subcluster</code> will be created with default parameters.<br /></li>
+    If empty, a case with name <code>subcluster</code> will be created with default parameters.<br />
+    The case name will be passed to <code>biopipen.utils::SeuratSubCluster()</code> as <code>name</code>.<br />
+    It will be used as the prefix for the reduction name, keys and cluster names.<br />
+    For reduction keys, it will be <code>toupper(&lt;name&gt;)</code> + "PC_" and <code>toupper(&lt;name&gt;)</code> + "UMAP_".<br />
+    For cluster names, it will be <code>&lt;name&gt;</code> + "." + resolution.<br />
+    And the final cluster name will be <code>&lt;name&gt;</code>.<br />
+    Note that the <code>name</code> should be alphanumeric and anything other than alphanumeric will be removed.<br /></li>
 </ul>
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
 <p>The metadata of the <code>Seurat</code> object will be updated with the sub-clusters
