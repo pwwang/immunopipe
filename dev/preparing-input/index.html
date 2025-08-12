@@ -152,11 +152,11 @@
               </ul>
               <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="" href="../processes/ScrnaMetabolicLandscape.md">Introduction & Group Arguments</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicInput/">MetabolicInput</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../processes/MetabolicExprImpution.md">MetabolicExprImpution</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicExprImputation/">MetabolicExprImputation</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicFeatures/">MetabolicFeatures</a>
                   </li>
@@ -280,7 +280,7 @@ See also: <a href="https://rdrr.io/github/ncborcherding/scRepertoire/man/loadCon
 <p>If you want to perform cell type annotation by <code>celltypist</code>, you need to provide a model file. The model file should be fed to <code>CellTypeAnnotation.envs.celltypist_args.model</code>. The information of models can be found <a href="https://celltypist.cog.sanger.ac.uk/models/models.json">here</a>. Download the one you want to use and provide the path to the file.</p>
 <h4 id="metabolic-pathway-for-metabolic-landscape-analysis">Metabolic pathway for Metabolic Landscape Analysis<a class="headerlink" href="#metabolic-pathway-for-metabolic-landscape-analysis" title="Permanent link">&para;</a></h4>
 <p>Similarly, if you want to perform metabolic landscape analysis, you need to provide a file containing the metabolic pathways. The file should be in the <a href="https://docs.gsea-msigdb.org/#GSEA/Data_Formats/#gmt-gene-matrix-transposed-file-format-gmt">GMT format</a>. You can provide the file to <code>ScMetabolicLandscape.envs.gmtfile</code>. This file can also be used for GSEA. A pathway file for KEGG metabolism is provided <a href="https://github.com/pwwang/biopipen/blob/master/tests/data/scrna_metabolic/KEGG_metabolism.gmt">here</a>.</p>
-<p>See <a href="./processes/ScrnaMetabolicLandscape.md"><code>ScrnaMetabolicLandscape</code></a> for more details.</p>
+<p>See <a href="../processes/ScrnaMetabolicLandscape/"><code>ScrnaMetabolicLandscape</code></a> for more details.</p>
 <h4 id="reference-for-seurat-mapping-if-you-want-to-perform-supervised-clustering">Reference for Seurat mapping if you want to perform supervised clustering<a class="headerlink" href="#reference-for-seurat-mapping-if-you-want-to-perform-supervised-clustering" title="Permanent link">&para;</a></h4>
 <p>If you want to perform supervised clustering, you need to provide a reference for <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a>. The reference should be a <code>Seurat</code> object in <code>RDS</code> or <code>h5seurat</code> file. You can provide the reference to <code>SeuratMap2Ref.envs.ref</code>.</p>
 <p>See <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> for more details.</p>
