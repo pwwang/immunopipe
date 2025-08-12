@@ -1,5 +1,38 @@
 # Change Log
 
+## 2.0.0 (Cloud support, enhanced visualization, new analyses/features, and more ...)
+
+### Cloud support
+
+- feat: immunopipe can now be run on Google Cloud Batch Jobs, allowing for scalable and efficient processing of larger datasets.
+  See [Run the pipeline using Google Cloud Batch Jobs¶](https://pwwang.github.io/immunopipe/latest/running/#run-the-pipeline-using-google-cloud-batch-jobs) for more details.
+
+### Enhanced visualization
+
+- feat: [scplotter](https://github.com/pwwang/scplotter) and [plotthis](https://github.com/pwwang/plotthis) are now used for plotting, providing enhanced visualization capabilities and uniformity across different processes.
+- feat: default descriptions/captions are now added to plots, making them more informative.
+
+### Enhanced performance
+
+- feat: the pipeline now uses [`qs2`](https://github.com/qsbase/qs2) for store the R objects, which speeds up the loading and saving of Seurat objects.
+- feat: step-wise caching (in addition to process-wise) is now supported, especially for Seurat processes, allowing for faster re-running of the pipeline by caching intermediate results.
+- refactor: [MetabolicLandscapeAnalysis](https://pwwang.github.io/immunopipe/dev/processes/ScrnaMetabolicLandscape/) is refactored for flexibility and performance improvement.
+
+### New analyses/features
+
+- feat: the pipeline now supports [cell-cell communication analysis](https://pwwang.github.io/immunopipe/latest/processes/CellCellCommunication/).
+- feat: plots are supported for all cases for [MarkersFinder](https://pwwang.github.io/immunopipe/latest/processes/MarkersFinder/) and [ScFGSEA](https://pwwang.github.io/immunopipe/latest/processes/ScFGSEA/), allowing plotting the markers (DEGs) and enriched pathways for all cases (e.g. all seurat clusters) in a single plot.
+- BREAKING: the [immunarch](https://immunarch.com) package is now replaced by [scRepertoire](https://github.com/BorchLab/scRepertoire) for more features and allowing customized clonotype definition.
+- feat: `envs.mutaters` is now supported for [SeuratPreparing](https://pwwang.github.io/immunopipe/latest/processes/SeuratPreparing/) to allow create factor (categorical) columns in the metadata.
+- feat: [PseudoBulkDEG](https://pwwang.github.io/immunopipe/latest/processes/PseudoBulkDEG/) is added to perform pseudo-bulk differential expression analysis.
+
+### House keeping
+
+- build: docker images are now built based on the [`biopipen`](https://github.com/pwwang/biopipen) base image.
+- ci: the test workflow now caches the running intermediate files to speed up the tests.
+- docs: the citation information is now added to the documentation, allowing users to easily cite the pipeline in their publications.
+- chore(deps): biopipen is bumped to 0.34.0, which includes various bug fixes and enhancements. See the [biopipen releases](https://github.com/pwwang/biopipen/releases) for more details.
+
 ## 1.4.4
 
 - chore(deps): add gcc_linux-64 to Docker environment dependencies
