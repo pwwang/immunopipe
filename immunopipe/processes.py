@@ -835,6 +835,14 @@ if "ScrnaMetabolicLandscape" in config or just_loading:
     anno.Args.is_seurat.attrs["flag"] = True
     anno.Args.is_seurat.attrs["default"] = True
     anno.Args.is_seurat.attrs["value"] = True
-    scrna_metabolic_landscape = ScrnaMetabolicLandscape(is_seurat=True)
+
+    if just_loading:
+        scrna_metabolic_landscape = ScrnaMetabolicLandscape(
+            is_seurat=True,
+            noimpute=False,
+        )
+    else:
+        scrna_metabolic_landscape = ScrnaMetabolicLandscape(is_seurat=True)
+
     scrna_metabolic_landscape.p_input.requires = Clustered
     scrna_metabolic_landscape.p_input.order = 99
