@@ -12,11 +12,6 @@
     ]
   },
   {
-    "version": "2.0.0pre1",
-    "title": "2.0.0pre1",
-    "aliases": []
-  },
-  {
     "version": "1.4.4",
     "title": "1.4.4",
     "aliases": []
@@ -29,16 +24,6 @@
   {
     "version": "1.4.2",
     "title": "1.4.2",
-    "aliases": []
-  },
-  {
-    "version": "1.4.1",
-    "title": "1.4.1",
-    "aliases": []
-  },
-  {
-    "version": "1.4.0",
-    "title": "1.4.0",
     "aliases": []
   }
 ]
