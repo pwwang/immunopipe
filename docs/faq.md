@@ -25,7 +25,8 @@ docker run --rm -w /workdir -v .:/workdir -v path/to/tmp:/tmp \
 If you are using `singularity`/`apptainer`, you can try to use the `-B` option to bind the local directory to `/tmp` in the container.
 
 /// tab | Singularity
-```
+
+```shell
 singularity run \
     --pwd /workdir -B .:/workdir -c -e --writable-tmpfs \
     -B path/to/tmp:/tmp \
@@ -33,9 +34,12 @@ singularity run \
     docker://justold/immunopipe:<tag> \
     @config.toml
 ```
+
 ///
+
 /// tab | Apptainer
-```
+
+```shell
 apptainer run \
     --pwd /workdir -B .:/workdir -c -e --unsquash --writable-tmpfs \
     -B path/to/tmp:/tmp \
@@ -43,6 +47,7 @@ apptainer run \
     docker://justold/immunopipe:<tag> \
     @config.toml
 ```
+
 ///
 ////
 

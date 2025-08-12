@@ -39,29 +39,32 @@ files = [
 
 [[package]]
 name = "argx"
-version = "0.3.1"
+version = "0.3.2"
 description = "Super-charged argparse for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "docs"]
 files = [
-    {file = "argx-0.3.1-py3-none-any.whl", hash = "sha256:2e57e4a8ce1dd60c1ed8535523e1feb19308561e99144173f50078e6da6d729c"},
-    {file = "argx-0.3.1.tar.gz", hash = "sha256:dbb84a2dedfef40e79a05222d4c2926856b61e0fb52f39cfcf1bd04a5fcb8eaa"},
+    {file = "argx-0.3.2-py3-none-any.whl", hash = "sha256:64b6d49442396c3e1d9d9a1fcbc66c22e1055d7d1dc0a51e7d4989ace6060dde"},
+    {file = "argx-0.3.2.tar.gz", hash = "sha256:994253e89958cda38841947fbbd943a9356af65a237609dcfe392a7e260b153d"},
 ]
 
 [package.dependencies]
 python-simpleconf = ">=0.7,<0.8"
 
+[package.extras]
+anypath = ["cloudpathlib (>=0.21,<0.22)"]
+
 [[package]]
 name = "biopipen"
-version = "0.34.3"
+version = "0.34.4"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-0.34.3-py3-none-any.whl", hash = "sha256:40463662745360f04c124fe8cccfbaf4e28068ede154000d3cf19864e56ec8d1"},
-    {file = "biopipen-0.34.3.tar.gz", hash = "sha256:5cd4c52ad78e197bcba226f9ce86f8fef5a2dc870d9c766a54f6ff5e68bf0629"},
+    {file = "biopipen-0.34.4-py3-none-any.whl", hash = "sha256:e6a7b42a2cf9a86021c4f55001cb69738f3e7969167c857f103aa941cd5eef2b"},
+    {file = "biopipen-0.34.4.tar.gz", hash = "sha256:16ea1aa089f2eaacb14d56036d932dd6dd368f003ca4e47f6cb2ad0fac09d353"},
 ]
 
 [package.dependencies]
@@ -667,6 +670,7 @@ description = "Python port of markdown-it. Markdown parsing, done right!"
 optional = false
 python-versions = ">=3.8"
 groups = ["main", "docs"]
+markers = "python_version < \"3.11\""
 files = [
     {file = "markdown-it-py-3.0.0.tar.gz", hash = "sha256:e3f60a94fa066dc52ec76661e37c851cb232d92f9886b15cb560aaada2df8feb"},
     {file = "markdown_it_py-3.0.0-py3-none-any.whl", hash = "sha256:355216845c60bd96232cd8d8c40e8f9765cc86f46880e43a8fd22dc1a1a8cab1"},
@@ -684,6 +688,31 @@ plugins = ["mdit-py-plugins"]
 profiling = ["gprof2dot"]
 rtd = ["jupyter_sphinx", "mdit-py-plugins", "myst-parser", "pyyaml", "sphinx", "sphinx-copybutton", "sphinx-design", "sphinx_book_theme"]
 testing = ["coverage", "pytest", "pytest-cov", "pytest-regressions"]
+
+[[package]]
+name = "markdown-it-py"
+version = "4.0.0"
+description = "Python port of markdown-it. Markdown parsing, done right!"
+optional = false
+python-versions = ">=3.10"
+groups = ["main", "docs"]
+markers = "python_version >= \"3.11\""
+files = [
+    {file = "markdown_it_py-4.0.0-py3-none-any.whl", hash = "sha256:87327c59b172c5011896038353a81343b6754500a08cd7a4973bb48c6d578147"},
+    {file = "markdown_it_py-4.0.0.tar.gz", hash = "sha256:cb0a2b4aa34f932c007117b194e945bd74e0ec24133ceb5bac59009cda1cb9f3"},
+]
+
+[package.dependencies]
+mdurl = ">=0.1,<1.0"
+
+[package.extras]
+benchmarking = ["psutil", "pytest", "pytest-benchmark"]
+compare = ["commonmark (>=0.9,<1.0)", "markdown (>=3.4,<4.0)", "markdown-it-pyrs", "mistletoe (>=1.0,<2.0)", "mistune (>=3.0,<4.0)", "panflute (>=2.3,<3.0)"]
+linkify = ["linkify-it-py (>=1,<3)"]
+plugins = ["mdit-py-plugins (>=0.5.0)"]
+profiling = ["gprof2dot"]
+rtd = ["ipykernel", "jupyter_sphinx", "mdit-py-plugins (>=0.5.0)", "myst-parser", "pyyaml", "sphinx", "sphinx-book-theme (>=1.0,<2.0)", "sphinx-copybutton", "sphinx-design"]
+testing = ["coverage", "pytest", "pytest-cov", "pytest-regressions", "requests"]
 
 [[package]]
 name = "markupsafe"
@@ -1052,14 +1081,14 @@ executing = ">=2.0,<3.0"
 
 [[package]]
 name = "pipen"
-version = "0.17.8"
+version = "0.17.11"
 description = "A pipeline framework for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "docs"]
 files = [
-    {file = "pipen-0.17.8-py3-none-any.whl", hash = "sha256:5e38f8c8225cc8d5067d9d52fe319b55dd37aa5e20f8e3141223e6a2251a407c"},
-    {file = "pipen-0.17.8.tar.gz", hash = "sha256:7491af06dca83dab0579b918375ae3d3f12eba67dd703c97d42858d0ae0b3845"},
+    {file = "pipen-0.17.11-py3-none-any.whl", hash = "sha256:60c44c12569b47c3ee5177d07c15ead44880625d007eac78c1c0b5d536b8cac5"},
+    {file = "pipen-0.17.11.tar.gz", hash = "sha256:c46d57590e4ec00d97552110d3102435da6709e0e78140a86a5dde6e9809d7f4"},
 ]
 
 [package.dependencies]
@@ -1089,14 +1118,14 @@ pipen = "==0.17.*"
 
 [[package]]
 name = "pipen-args"
-version = "0.17.2"
+version = "0.17.3"
 description = "Command-line argument parser for pipen."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_args-0.17.2-py3-none-any.whl", hash = "sha256:d5400573dd501c0e6a995e606dfa55f6e16211798f56582a5e21d8c534a36b5f"},
-    {file = "pipen_args-0.17.2.tar.gz", hash = "sha256:f4b8910ff3466433886c7048d2499ba32c23860bfd988fc1fffaf2029f53bec8"},
+    {file = "pipen_args-0.17.3-py3-none-any.whl", hash = "sha256:e80685fb3029e988796b8683b4085c659589d177bdd589543f7c7ef54bfa2c50"},
+    {file = "pipen_args-0.17.3.tar.gz", hash = "sha256:3e3cb3fe49c110b802eab7283757e89fcfe9eac9bc37dfcf06fcb489ddb4d132"},
 ]
 
 [package.dependencies]
@@ -1223,14 +1252,14 @@ pipen = "==0.17.*"
 
 [[package]]
 name = "pipen-poplog"
-version = "0.3.1"
+version = "0.3.3"
 description = "Populate logs from jobs to running log of the pipeline"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_poplog-0.3.1-py3-none-any.whl", hash = "sha256:52da1df66a733b311b145683ce8aa5b86b92a859a035dbd6d3175e00a7525eac"},
-    {file = "pipen_poplog-0.3.1.tar.gz", hash = "sha256:25193aac6c449438e88c6411823bd4a539e256474ae8ade475e27143fcffa4b6"},
+    {file = "pipen_poplog-0.3.3-py3-none-any.whl", hash = "sha256:cbc405f69fa28dfaa7a90a3f3aea2863edff91edfeac211e03d1d19cee1a5799"},
+    {file = "pipen_poplog-0.3.3.tar.gz", hash = "sha256:ffccc0e88cc7c63f83a5a6f17a7f3789f361db527193a9ad67b6307ca614f76d"},
 ]
 
 [package.dependencies]
@@ -1238,14 +1267,14 @@ pipen = "==0.17.*"
 
 [[package]]
 name = "pipen-report"
-version = "0.23.6"
+version = "0.23.7"
 description = "Report generation system for pipen"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_report-0.23.6-py3-none-any.whl", hash = "sha256:cf4bb96d7b1ec99b663ff367f08ed1cde839f3804da27a5ca2ee7cd4d3a94f69"},
-    {file = "pipen_report-0.23.6.tar.gz", hash = "sha256:41c44e48e907e7c8c79b15daa25b3be36dda187ac385f07a8d2f69c8fd88af99"},
+    {file = "pipen_report-0.23.7-py3-none-any.whl", hash = "sha256:f97dc087406737598fc42262ea3a248adef8bac83843c356a78a27e4d091a9fb"},
+    {file = "pipen_report-0.23.7.tar.gz", hash = "sha256:32f1b1a6db518dde135a8e74bfb8e9bd701d6775b35feef2bf57463e03c31018"},
 ]
 
 [package.dependencies]
@@ -2181,14 +2210,14 @@ h11 = ">=0.9.0,<1"
 
 [[package]]
 name = "xqute"
-version = "0.10.0"
+version = "0.10.3"
 description = "A job management system for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "docs"]
 files = [
-    {file = "xqute-0.10.0-py3-none-any.whl", hash = "sha256:a632586e1413d7052df23371ee60322a50c90812ac869da24a15da11a6f5394c"},
-    {file = "xqute-0.10.0.tar.gz", hash = "sha256:68d0cc4e1e40e990dc3ef9be34a3e2b091102127032b77e8970e6e2f8da120b0"},
+    {file = "xqute-0.10.3-py3-none-any.whl", hash = "sha256:917c262e49b343c1bc9561442ac90d47d5a4b6e850b1ccec99dcb68f501a07dc"},
+    {file = "xqute-0.10.3.tar.gz", hash = "sha256:d33dde00c1ce450ae8c5ea822952987360b5c39ef6f0b15c65b470929ba4f474"},
 ]
 
 [package.dependencies]
@@ -2246,4 +2275,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "0a533cbdc7a4e7044a6f623b6980499776e1f2040b79054a1b255ed206d4bad3"
+content-hash = "5bf436107a764a078931464550a72970644d7e23787c52901b01ba411b1b2d60"

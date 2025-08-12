@@ -186,3 +186,74 @@ When the command is running, you will see the following message:
 ![singularity-pipen-board](singularity-pipen-board.png)
 
 Then, You can open the dashboard in your browser at `http://localhost:18521`.
+
+## Run the pipeline using Google Cloud Batch Jobs
+
+There are two ways to run the pipeline using Google Cloud Batch Jobs:
+
+### Use the `gbatch` scheduler of `pipen`
+
+When using the [`gbatch`](https://github.com/pwwang/xqute#using-google-batch-jobs-scheduler), the metadata of the processes (job status, job output, etc) are managed locally. Even though they are on the cloud, they are manipuated locally (using the API provided by [`cloudpathlib`](https://cloudpathlib.drivendata.org/stable/)). The processes are submitted to Google Cloud Batch Jobs using `gcloud batch jobs submit`. And the processes are run on Google Cloud Compute Engine VMs, and they need to be sumbitted one after another.
+
+See the documentation of [`cloud support`](https://pwwang.github.io/pipen/cloud/#run-the-pipeline-on-the-cloud) of `pipen`.
+
+### Use Google Cloud Batch Jobs directly
+
+You can also run the pipeline using Google Cloud Batch Jobs directly. In this case, you need to create a job definition file and submit the job using `gcloud batch jobs submit`. The job definition file should specify the container image, the command to run the pipeline, and the resources required for the job.
+
+Here is an example of a job definition file (`job.json`):
+
+```json
+{
+  "allocationPolicy": {
+    "serviceAccount": {
+      "email": "..."
+    },
+    "network": "...",
+    "instances": [
+      {
+        "policy": {
+          "machineType": "n2d-standard-4",
+          "provisioningModel": "SPOT"
+        }
+      }
+    ]
+  },
+  "taskGroups": [
+    {
+      "taskSpec": {
+        "runnables": [
+          {
+            "container": {
+              "image_uri": "docker.io/justold/immunopipe:dev",
+              "entrypoint": "/usr/local/bin/_entrypoint.sh",
+              "commands": [
+                "immunopipe",
+                "@/mnt/disks/workdir/Immunopipe.config.toml"
+              ]
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "gcs": {
+              "remotePath": "<bucket>/path/to/workdir"
+            },
+            "mountPath": "/mnt/disks/workdir"
+          }
+        ]
+      }
+    }
+  ],
+  "logsPolicy": {
+    "destination": "CLOUD_LOGGING"
+  },
+  "labels": "..."
+}
+```
+
+Then you can submit the job using the following command:
+
+```shell
+$ gcloud batch jobs submit <job-name> --location <location> --project <project-id> --config job.json
+```

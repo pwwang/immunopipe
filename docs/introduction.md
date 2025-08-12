@@ -27,7 +27,7 @@ As shown in the figure above, `immunopipe` includes a set of processes for scTCR
 ### Data input and QC
 
 - [`SampleInfo`](processes/SampleInfo.md): Read sample information from a CSV file and list the sample information in the report.
-- [`ImmunarchLoading`](processes/ImmunarchLoading.md): Load the data into `immunarch` objects.
+- [`ScRepLoading`](processes/ScRepLoading.md): Load the VDJ data into `ScRepertoire` objects.
 - [`SeuratPreparing`](processes/SeuratPreparing.md): Read the data into `Seurat` objects and perform QC.
 
 ### T cell selection
@@ -47,25 +47,25 @@ As shown in the figure above, `immunopipe` includes a set of processes for scTCR
 - [`TopExpressingGenes`](processes/TopExpressingGenes.md): Find top expressing genes for each T-cell cluster and perform enrichment analysis.
 - [`ModuleScoreCalculator`](processes/ModuleScoreCalculator.md): Calculate module scores or cell cycle scores for each cell.
 
-### TCR data analyses
+### Clonotype refinement
 
-- [`CloneResidency`](processes/CloneResidency.md): Explore the residency of TCR clones for paired samples (e.g. tumor vs blood) from the same patient.
 - [`TCRClustering`](processes/TCRClustering.md): Perform clustering on TCR clones based on CDR3 amino acid sequences.
-- [`TCRClusterStats`](processes/TCRClusterStats.md): Investigate statistics for TCR clusters (i.e. TCR cluster size distribution, shared TCR clusters among samples, revisited sample diversity using TCR clusters instead of clonotypes, etc.)
-- [`Immunarch`](processes/Immunarch.md): Perform TCR clonotype analyses using [`immunarch`](https://immunarch.com/) package.
-
-### Integrative analyses
-
 - [`TESSA`](processes/TESSA.md): Perform integrative analyses using [`Tessa`](https://github.com/jcao89757/TESSA).
+
+### Integration of scRNA-seq and scTCR-seq data
+
+- [`ScRepCombiningExpression`](processes/ScRepCombiningExpression.md): Combine the VDJ data with the expression data (into a `Seurat` object).
+
+### Downstream analyses
+
 - [`SeuratClusterStats`](processes/SeuratClusterStats.md): Investigate statistics for each T-cell cluster (i.e. the number of cells in each cluster, the number of cells in each sample for each cluster, feature/gene expression visualization, dimension reduction plots, etc.). It's also possible to perform stats on TCR clones/clusters for each T-cell cluster.
-- [`IntegratingTCRClusters`](processes/IntegratingTCRClusters.md): Attach TCR clusters to `Seurat` objects.
-- [`IntegratingTCR`](processes/IntegratingTCR.md): Integrate TCR data into `Seurat` objects.
-- [`RadarPlots`](processes/RadarPlots.md): Visualize proportion of cells in different groups for each cluster.
-- [`CellsDistribution`](processes/CellsDistribution.md): Investigate the distribution of cells in different groups for each T-cell cluster.<!-- - [`CloneHeterogeneity`](processes/CloneHeterogeneity.md): Investigate the heterogeneity of TCR clones in different groups for each T-cell cluster. -->
+- [`ClonalStats`](processes/ClonalStats.md): Investigate statistics for clones.
+- [`MarkersFinder`](processes/MarkersFinder.md): Find markers (differentially expressed genes) for any two groups, including clones or clone groups.
+- [`PseudoBulkDEG`](processes/PseudoBulkDEG.md): Perform pseudo-bulk differential expression analysis.
 - [`CDR3AAPhyschem`](processes/CDR3AAPhyschem.md): Investigate the physicochemical properties of CDR3 amino acid sequences of one cell type over another (i.e. `Treg` vs `Tconv`).
 - [`ScFGSEA`](processes/ScFGSEA.md): Perform GSEA analysis for comparisons between two groups of cells. For example, between two cell types, clone groups, TCR clusters or clinical groups.
-- [`MarkersFinder`](processes/MarkersFinder.md): Find markers (differentially expressed genes) for any two groups, including clones or clone groups.
-- [`MetaMarkers`](processes/MetaMarkers.md): Find meta markers for more than 2 clones or clone groups and perform enrichment analysis.
+- [`CellCellCommunication`](processes/CellCellCommunication.md): Perform cell-cell communication analysis.
+- [`CellCellCommunicationPlots`](processes/CellCellCommunicationPlots.md): Generate plots for cell-cell communication analysis.
 
 ### Metabolic landscape analyses
 
@@ -75,7 +75,6 @@ As shown in the figure above, `immunopipe` includes a set of processes for scTCR
 - [`MetabolicPathwayActivity`](processes/MetabolicPathwayActivity.md): Investigate the metabolic pathways of the cells in different groups and subsets.
 - [`MetabolicPathwayHeterogeneity`](processes/MetabolicPathwayHeterogeneity.md): Show metabolic pathways enriched in genes with highest contribution to the metabolic heterogeneities.
 - [`MetabolicFeatures`](processes/MetabolicFeatures.md): Perform gene set enrichment analysis against the metabolic pathways for groups in different subsets.
-- [`MetabolicFeaturesIntraSubset`](processes/MetabolicFeaturesIntraSubset.md): Perform gene set enrichment analysis against the metabolic pathways for subsets based on the designed comparison in different groups.
 
 ## Routes of the pipeline
 

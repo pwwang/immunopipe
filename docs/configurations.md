@@ -132,13 +132,13 @@ By default, only the essential processes are enabled.
 If scTCR-seq data is avaiable, these processes include:
 
 - [`SampleInfo`](processes/SampleInfo.md)
-- [`ImmunarchLoading`](processes/ImmunarchLoading.md)
-- [`Immunarch`](processes/Immunarch.md)
+- [`ScRepLoading`](processes/ScRepLoading.md)
 - [`SeuratPreparing`](processes/SeuratPreparing.md)
 - [`SeuratClustering`](processes/SeuratClustering.md)
-- [`IntegratingTCR`](processes/IntegratingTCR.md)
+- [`ScRepCombiningExpression`](processes/ScRepCombiningExpression.md)
 - [`ClusterMarkers`](processes/ClusterMarkers.md)
 - [`SeuratClusterStats`](processes/SeuratClusterStats.md)
+- [`ClonalStats`](processes/ClonalStats.md)
 
 If only scRNA-seq data is available, these processes include:
 
@@ -157,8 +157,6 @@ To enable optional processes, you just need to add the corresponding sections fo
 features = ["TIGIT", "PDCD1", "CD274", "CTLA4", "LAG3", "HAVCR2", "CD244", "CD160"]
 ```
 
-If [`TCRClustering`](processes/TCRClustering.md) or [`TCRClusterStats`](processes/TCRClusterStats.md) is enabled, [`TCRClustering`](processes/TCRClustering.md), [`IntegratingTCRClusters`](processes/IntegratingTCRClusters.md), and [`TCRClusterStats`](processes/TCRClusterStats.md) will be enabled automatically.
-
 /// Tip
 You may find out that for some processes, the default configurations are good enough for you to run. For example, [`TCRClustering`](processes/TCRClustering.md) is not enabled by default. If you don't change any configurations (by not putting in the configuration file nor changing any items on the web interface of `pipen-board`) for the process, it will not be triggered. However, the default configurations are good enough for you to run the process. To enable it, you can either add this process manually in the configuration file:
 
@@ -173,6 +171,7 @@ or if you are using `pipen-board`, you can change a configuration item that does
 [TCRClustering]
 forks = 2
 ```
+
 ///
 
 ## Minimal configurations
@@ -194,7 +193,7 @@ You can also check the example report [here](http:/imp.pwwang.com/minimal/REPORT
 
 The types of environment variables are annotated in the brackets next the name of the environment variables. For example, the type of `envs.indicator_genes` of [`TCellSelection`](processes/TCellSelection.md) is `list`, and it's annotated as:
 
-```
+```markdown
 - indicator_genes (list): The genes to be used to select T cells.
 ```
 
@@ -207,7 +206,7 @@ The following types are supported:
 - `float`: The values will be parsed as floats.
 - `flag`: The values will be parsed as boolean values.
 - `list`/`array`: The values will be parsed as lists.
-    - You can also see the `itype` of some environment variables, that specifies the type of the elements in the list. It must be atomatic types, such as `int`, `float`, `string`, and `flag`.
+  - You can also see the `itype` of some environment variables, that specifies the type of the elements in the list. It must be atomatic types, such as `int`, `float`, `string`, and `flag`.
 - `json`: The values will be reciived as JSON strings and parsed as dictionaries (in python).
 - `choice`/`choices`: The value should be chosen from one of the choices listed as sub-items.
 - `mchoice`/`mchoices`: The value should be chosen from one or more of the choices listed as sub-items.
@@ -215,7 +214,7 @@ The following types are supported:
 
 ## Understanding the data
 
-Understanding how the data is presented in the pipeline is helpful for the configuration, especially for the processes, such as [`RadarPlots`](processes/RadarPlots.md) and [`CellsDistribution`](processes/CellsDistribution.md). The configurations of this kind of processes are relying on the metadata.
+Understanding how the data is presented in the pipeline is helpful for the configuration, especially for the processes, such as [`SeuratClusterStats`](processes/SeuratClusterStats.md) and [`ClonalStats`](processes/ClonalStats.md). The configurations of this kind of processes are relying on the metadata.
 
 You can refer to the individual process pages for more details. Here we just give an introduction of how it works to set the configurations.
 
@@ -227,9 +226,9 @@ The `Seurat` object is the main object used in the pipeline. You can have multip
 
 In most cases, you can use the existing columns in the metadata to set the configurations. For example, if you want to plot the clone residency for each patient/subject, you need to specify the column name of the sample ID, as well as the column with the paired sample information (i.e. `tumor` vs `blood`).
 
-Suppose the metadata (sitting in `immdata$meta` in `R` for example) is as follows:
+Suppose the metadata (sitting in `seurat_obj@meta` in `R` for example) is as follows (showing sample-level information only):
 
-|     Sample    | Source |
+| Subject       | Source |
 | ------------- | ------ |
 | MM003-Eariler | BM     |
 | MM003-Eariler | PB     |
@@ -239,9 +238,11 @@ Suppose the metadata (sitting in `immdata$meta` in `R` for example) is as follow
 Then you can set the configurations as follows:
 
 ```toml
-[RadarPlots.envs]
-subject = "Sample"
-group = "Source"
+[SeuratClusterStats.envs.cases.CloneResidency]
+viz_type = "residency"
+split_by = "Subject"
+group_by = "Source"
+groups = ["BM", "PB"]
 ```
 
 And you will get the following plots:
@@ -250,11 +251,11 @@ And you will get the following plots:
 
 ### Mutating the metadata
 
-Sometimes, you may want to mutate the metadata to get the desired information. Of course, you can have them prepared in the input file, as those extra columns with meta information will be attached to the object (either `immunarch$meta` or `srtobj@meta.data`) automatically. See [`Preparing the input`](./preparing-input.md) for more details. However, sometimes the metadata is specific to some processes, you may not want to have them prepared in the input file to get all processes contaminated. Moreover, those derived columns are usually based on the existing columns, so that is also helpful to create them on the fly to keep the input file clean.
+Sometimes, you may want to mutate the metadata to get the desired information. Of course, you can have them prepared in the input file, as those extra columns with meta information will be attached to the object automatically. See [`Preparing the input`](./preparing-input.md) for more details. However, sometimes the metadata is specific to some processes, you may not want to have them prepared in the input file to get all processes contaminated. Moreover, those derived columns are usually based on the existing columns, so that is also helpful to create them on the fly to keep the input file clean.
 
 In such case, for example, if you want to plot the clone residency for two groups (e.g. `BM-Pre` vs. `BM-Post`) of samples for the same group (e.g. `A`). However, the `Source` and `Timepoint` information are not in a single column of metadata. Here is when `mutaters` come in place.
 
-Suppose the metadata (sitting in `immdata$meta` in `R` for example) is as follows:
+Suppose the metadata is as follows:
 
 | Sample | Group | Source | Timepoint |
 | ------ | ----- | ------ | --------- |
@@ -267,13 +268,14 @@ Suppose the metadata (sitting in `immdata$meta` in `R` for example) is as follow
 Then you can set the configurations as follows:
 
 ```toml
-[CloneResidency.envs.mutaters]
+[ClonalStats.envs.mutaters]
 SampleGroup = "paste0(Sample, '-', Timepoint)"
 
-[CloneResidency.envs]
-subject = "Group"
-group = "SampleGroup"
-order = ["BM-Pre", "BM-Post"]
+[ClonalStats.envs.cases.CloneResidency]
+viz_type = "residency"
+split_by = "Group"
+group_by = "SampleGroup"
+groups = ["BM-Pre", "BM-Post"]
 ```
 
 Then you will get a clone residency plot for group `A` with `BM-Pre` as x-axis and `BM-Post` as y-axis.
@@ -304,126 +306,18 @@ The best practice is to use a prefix for the column names you want to create. Fo
 
 The other thing you need to pay attention to is that you should try to avoid `.` or `-` in the column names. For example, if you want to create a column named `Sample-Source`, you can use `Sample_Source` instead. This is because that the column names will be used as the keys of the environment variables, and some processes will translate `-` into `.`. See also [`Namespace environment variables`](#namespace-environment-variables) for more details.
 
-#### Mutater helpers
-
-Other than the direct expressions that are parsed by [`rlang::parse_expr()`](https://rlang.r-lib.org/reference/parse_expr.html), for processes with `envs.mutaters`, we also provide some helper functions to make it easier to create the columns, especially for identifying the clones that are expanded, collapsed, vanished and emerged between two groups. The helper functions are:
-
-- `expanded()`: Identify the expanded clones between two groups.
-- `collapsed()`: Identify the collapsed clones between two groups.
-- `vanished()`: Identify the vanished clones between two groups.
-- `emerged()`: Identify the emerged clones between two groups.
-
-The helper functions take the following arguments:
-
-* `df`: The cell-level data. When used in `dplyr::mutate()`, you can use `.` to refer to the dataframe.
-* `group.by`: The column name in metadata to group the cells.
-* `idents`: The first group or both groups of cells to compare (value in `group-by` column). If only the first group is given, the rest of the cells (with non-NA in `group-by` column) will be used as the second group.
-* `subset`: An expression to subset the cells, will be passed to `dplyr::filter()`. Default is `TRUE` (no filtering).
-* `each`: A column name (without quotes) in metadata to split the cells.
-    Each comparison will be done for each value in this column.
-* `id`: The column name in metadata for the group ids (i.e. `CDR3.aa`).
-* `compare`: Either a (numeric) column name (i.e. `Clones`) in metadata to compare between groups, or `.n` to compare the number of cells in each group.
-    If numeric column is given, the values should be the same for all cells in the same group.
-    This will not be checked (only the first value is used).
-* `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df |> mutate(expanded = expanded(...))`.
-* `debug`: Return the data frame with intermediate columns instead of the ids. Default is `FALSE`.
-* `order`: The expression passed to `dplyr::arrange()` to order intermediate dataframe and get the ids in order accordingly.
-    The intermediate dataframe includes the following columns:
-    * `<id>`: The ids of clones (i.e. `CDR3.aa`).
-    * `<each>`: The values in `each` column.
-    * `ident_1`: The size of clones in the first group.
-    * `ident_2`: The size of clones in the second group.
-    * `.diff`: The difference between the sizes of clones in the first and second groups.
-    * `.sum`: The sum of the sizes of clones in the first and second groups.
-    * `.predicate`: Showing whether the clone is expanded/collapsed/emerged/vanished.
-* `include_emerged`: Whether to include the emerged group for `expanded` (only works for `expanded`). Default is `FALSE`.
-* `include_vanished`: Whether to include the vanished group for `collapsed` (only works for `collapsed`). Default is `FALSE`.
-
-The returned values of the functions depend on the `debug` and `uniq` arguments. If `debug` is `TRUE`, the intermediate data frame will be returned. Otherwise, the ids will be returned.
-If `uniq` is `TRUE`, the ids will be unique. Otherwise, the ids will be the same length as the number of rows in input data frame, which is useful for mutating the metadata.
-
-Let's say we have the following data frame:
-
-| CDR3.aa | Group |
-| ------- | ----- |
-| Clone1  | A     |
-| Clone1  | A     |
-| Clone2  | A     |
-| Clone3  | A     |
-| Clone3  | A     |
-| Clone3  | A     |
-| Clone4  | A     |
-| Clone4  | A     |
-| Clone2  | B     |
-| Clone2  | B     |
-| Clone3  | B     |
-| Clone3  | B     |
-| Clone4  | B     |
-| Clone4  | B     |
-| Clone4  | B     |
-
-To identify the expanded clones between groups `A` and `B`, the intermediate data frame will be like:
-
-```r
-expanded(df, Group, "A", debug = TRUE)
-# A tibble: 4 × 6
-  CDR3.aa ident_1 ident_2 .predicate  .sum .diff
-  <chr>     <int>   <int> <lgl>      <int> <int>
-1 Clone3        3       2 TRUE           5     1
-2 Clone4        2       3 FALSE          5    -1
-3 Clone2        1       2 FALSE          3    -1
-4 Clone1        2       0 FALSE          2     2
-```
-
-So the expanded clones are `Clone3`, and if you want to include the emerged clones, the result will be `Clone3` and `Clone1`.
-
-```r
-expanded(df, Group, "A")
-[1] "Clone3"
-
-expanded(df, Group, "A", include_emerged = TRUE)
-[1] "Clone3" "Clone1"
-
-# Change the order based on the difference
-expanded(df, Group, "A", include_emerged = TRUE, order = desc(.diff))
-[1] "Clone1" "Clone3"
-```
-
-If you want to add a column named `Expanded` to the metadata to save the clone ids:
-
-```r
-df %>% mutate(Expanded = expanded(df, Group, "A", uniq = FALSE))
-# A tibble: 15 × 3
-   CDR3.aa Group Expanded
-   <chr>   <chr> <chr>
- 1 Clone1  A     NA
- 2 Clone1  A     NA
- 3 Clone2  A     NA
- 4 Clone3  A     Clone3
- 5 Clone3  A     Clone3
- 6 Clone3  A     Clone3
- 7 Clone4  A     NA
- 8 Clone4  A     NA
- 9 Clone2  B     NA
-10 Clone2  B     NA
-11 Clone3  B     Clone3
-12 Clone3  B     Clone3
-13 Clone4  B     NA
-14 Clone4  B     NA
-15 Clone4  B     NA
-```
-
 ### Filtering/Subsetting the data
 
-In most processes where we need to filter the data, we don't provide an option for you to set the expression for [`dplyr::filter()`][14]. Instead, you can make use of the `mutaters` to create a column for filtering. For example, if you only want to plot clone residency for only one patient/subject (e.g. `MM003-Eariler`) in [`CloneResidency`](processes/CloneResidency.md), you can set the configurations as follows (suppose we have `Sample` and `Source` columns in the metadata):
+In most processes where we need to filter the data, we don't provide an option for you to set the expression for [`dplyr::filter()`][14]. Instead, you can make use of the `mutaters` to create a column for filtering. For example, if you only want to plot clone residency for only one patient/subject (e.g. `MM003-Eariler`) in [`ClonalStats`](processes/ClonalStats.md), you can set the configurations as follows (suppose we have `Sample` and `Source` columns in the metadata):
 
 ```toml
 [RadarPlots.envs.mutaters]
 SingleSample = "if_else(Sample == 'MM003-Eariler', Sample, NA)"
 
 [RadarPlots.envs]
-subject = "SingleSample"
-group = "Source"
+split_by = "SingleSample"
+group_by = "Source"
+groups = ["BM", "PB"]
 ```
 
 Then you will get only one plot for `MM003-Eariler`, but not for `MM005-Eariler`. The `NA`s will be filtered out automatically.
@@ -480,44 +374,41 @@ You don't need to worry about which environment variables are `namespace` ones. 
 
 ## Multi-case variable design
 
-Some environment variables are designed to support multiple cases. However, in most cases, we only need to set the values for the default case. In such cases, the environment variable is usually a `namespace` environment variable with the sub-keys needed for the default case. In order to support multiple cases, a sub-key `cases` is added to the `namespace` environment variable. The `cases` is a dictionary (key-value pairs), where the keys are the names of the cases, and the values are the sub-keys for the corresponding cases. For example, the `envs.cluster_size` of [`TCRClusterStats`](processes/TCRClusterStats.md) process:
+Some environment variables are designed to support multiple cases. However, in most cases, we only need to set the values for the default case. In such cases, the environment variable is usually a `namespace` environment variable with the sub-keys needed for the default case. In order to support multiple cases, a sub-key `cases` is added to the `namespace` environment variable. The `cases` is a dictionary (key-value pairs), where the keys are the names of the cases, and the values are the sub-keys for the corresponding cases. For example, the `envs.group_by` of [`ScFGSEA`](processes/ScFGSEA.md) process:
 
 ```toml
-[TCRClusterStats.envs.cluster_size]
-by = "Sample"
-devpars = { width = 1000, height = 1000, res = 100 }
+[ScFGSEA.envs]
+group_by = "Group"
 cases = {}
 ```
 
-If `cases` is empty, the default case will be added automatically. The name of the default case is `DEFAULT`. So the above configuration is equivalent to:
+If `cases` is empty, the default case will be added automatically. The name of the default case is `GSEA`. So the above configuration is equivalent to:
 
 ```toml
-[TCRClusterStats.envs.cluster_size]
-by = "Sample"
-devpars = { width = 1000, height = 1000, res = 100 }
-cases = { DEFAULT = {} }
+[ScFGSEA.envs]
+group_by = "Group"
+cases = { GSEA = {} }
 ```
 
 If you want to add more cases, you can add them to the `cases` dictionary. For example, if you want to add a case named `CASE1`, you can do:
 
 ```toml
-[TCRClusterStats.envs.cluster_size]
-by = "Sample"
-devpars = { width = 1000, height = 1000, res = 100 }
-cases = { DEFAULT = {}, CASE1 = {} }
+[ScFGSEA.envs]
+group_by = "Group"
+cases = { GSEA = {}, CASE1 = {} }
 ```
 
-Then you can set the values for the default case and `CASE1` case. For example, if you want to set the `by` column to `Sample` for the default case and `Sample1` for `CASE1`, you can do:
+Then you can set the values for the default case and `CASE1` case. For example, if you want to set the `ident_2` to `g3` for the default case and `g4` for `CASE1`, you can do:
 
 ```toml
-[TCRClusterStats.envs.cluster_size]
-by = "Sample"
-devpars = { width = 1000, height = 1000, res = 100 }
-cases = { DEFAULT = { }, CASE1 = { by = "Sample1" } }
+[ScFGSEA.envs]
+group_by = "Group"
+ident_1 = "g1"
+cases = { GSEA = { ident_2 = "g3" }, CASE1 = { ident_2 = "g4" } }
 ```
 
-If a key in a case is not specified, the value in the default case will be used. In the above example,
-`"Sample"` will be used for `by` of the `DEFAULT` case, and `{ width = 1000, height = 1000, res = 100 }` will be used for `devpars` of the `CASE1` case.
+If a key in a case is not specified, the value in `[ScFGSEA.envs]` case will be used. In the above example, `group_by = "Group"` and
+`ident_1 = "g1"` will be used for both `GSEA` and `CASE1` cases.
 
 ## Security alert
 
@@ -538,7 +429,6 @@ This will cause the pipeline to run the command `cat /etc/passwd` in the shell. 
 
 When you give acess of composing the configuration file to others or the public (not recommended), either via the command line or the web interface by `pipen-board`, you need to be careful about the security issues.
 ///
-
 
 [1]: https://github.com/pwwang/pipen-board
 [2]: https://github.com/pwwang/pipen-verbose
