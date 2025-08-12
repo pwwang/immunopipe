@@ -1,6 +1,6 @@
 import sys
 from typing import Any, Dict
-from pathlib import Path
+from yunpath import AnyPath
 from pipen.utils import logger
 
 
@@ -59,31 +59,74 @@ def validate_config() -> Dict[str, Any]:
         )
 
     if not ERRORS:
-        infiles = config.get("SampleInfo", {}).get("in", {}).get("infile", [])
-        config.has_tcr = (
-            config.get("SampleInfo", {}).get("envs", {}).get("has_tcr", True)
-        )
-        if not isinstance(infiles, list):
-            infiles = [infiles]
-        if not infiles:
-            WARNINGS.append(
-                "No input file specified in configuration file [SampleInfo.in.infile], "
-                "assuming passing from CLI."
-            )
-            WARNINGS.append("Assuming scTCR-seq data is present")
-        elif len(infiles) > 1:
-            WARNINGS.append(
-                "More than one input file specified in configuration file "
-                "[SampleInfo.in.infile], only the first one will be used."
-            )
-            config["SampleInfo"]["in"]["infile"] = [infiles[0]]
-
         if "LoadRNAFromSeurat" in config:
             config.LoadRNAFromSeurat.setdefault("envs", {})
             config.LoadRNAFromSeurat.envs.setdefault("prepared", False)
             config.LoadRNAFromSeurat.envs.setdefault("clustered", False)
             if config.LoadRNAFromSeurat.envs.clustered:
                 config.LoadRNAFromSeurat.envs.prepared = True
+
+            config.has_tcr = "SampleInfo" in config
+
+        else:
+            infiles = config.get("SampleInfo", {}).get("in", {}).get("infile", [])
+            if not isinstance(infiles, list):
+                infiles = [infiles]
+
+            if not infiles:
+                WARNINGS.append(
+                    "No input file specified in configuration file [SampleInfo.in.infile], "
+                    "assuming passing from CLI."
+                )
+                WARNINGS.append("Assuming scTCR-seq data is present")
+
+            elif len(infiles) > 1:
+                WARNINGS.append(
+                    "More than one input file specified in configuration file "
+                    "[SampleInfo.in.infile], only the first one will be used."
+                )
+                config["SampleInfo"]["in"]["infile"] = [infiles[0]]
+
+            infile = AnyPath(infiles[0])
+            if infile.is_file():
+                header = infile.read_text().splitlines()[0]
+                config.has_tcr = "TCRData" in header
+            else:
+                fast_mount = config.get("scheduler_opts", {}).get("fast_mount", [])
+                # Let's check if infile a mounted path
+                # Say infile is /mnt/disks/datadir/data/samples.txt
+                # and we have fast_mout
+                # gs://bucket/path:/mnt/disks/datadir
+                # Then we can restore the cloud path for it:
+                # gs://bucket/path/data/samples.txt
+                if fast_mount:
+                    for mount in fast_mount:
+                        p1, p2 = mount.split(":", 1)
+                        p2 = AnyPath(p2)
+                        if not infile.is_relative_to(p2):
+                            continue
+                        p1 = p1.rstrip("/")
+                        cloud_path = f"{p1}/{infile.relative_to(p2)}"
+                        if AnyPath(cloud_path).is_file():
+                            header = AnyPath(cloud_path).read_text().splitlines()[0]
+                            config.has_tcr = "TCRData" in header
+                        else:
+                            ERRORS.append(
+                                f"Input file {infile} does not exist, "
+                                "and the restored cloud path does not exist either: "
+                                f"{cloud_path}."
+                            )
+                        break
+                    else:
+                        ERRORS.append(
+                            f"Input file {infile} does not exist, "
+                            "and no fast_mount can restore it as a cloud path."
+                        )
+                else:
+                    ERRORS.append(
+                        f"Input file {infile} does not exist, "
+                        "and no fast_mount is specified to restore it as a cloud path."
+                    )
 
     if ERRORS:
         logger.error("Miscofigurations detected:")
