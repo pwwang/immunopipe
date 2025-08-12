@@ -58,9 +58,11 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#clustering-of-t-cells">Clustering of T cells</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tcr-data-analyses">TCR data analyses</a>
+    <li class="toctree-l3"><a class="reference internal" href="#clonotype-refinement">Clonotype refinement</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#integrative-analyses">Integrative analyses</a>
+    <li class="toctree-l3"><a class="reference internal" href="#integration-of-scrna-seq-and-sctcr-seq-data">Integration of scRNA-seq and scTCR-seq data</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#downstream-analyses">Downstream analyses</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#metabolic-landscape-analyses">Metabolic landscape analyses</a>
     </li>
@@ -105,8 +107,6 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SampleInfo/">SampleInfo</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/ImmunarchLoading/">ImmunarchLoading</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratPreparing/">SeuratPreparing</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
@@ -121,41 +121,33 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClustering/">SeuratClustering</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/CellTypeAnnotation/">CellTypeAnnotation</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratSubClustering/">SeuratSubClustering</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCRClustering/">TCRClustering</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCRClusterStats/">TCRClusterStats</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/IntegratingTCRClusters/">IntegratingTCRClusters</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkers/">ClusterMarkers</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenes/">TopExpressingGenes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/Immunarch/">Immunarch</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../processes/ScRepCombineingExpression.md">ScRepCombineingExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCRClustering/">TCRClustering</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/TESSA/">TESSA</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/IntegratingTCR/">IntegratingTCR</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusterStats/">SeuratClusterStats</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/RadarPlots/">RadarPlots</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/CloneResidency/">CloneResidency</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/ScFGSEA/">ScFGSEA</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellsDistribution/">CellsDistribution</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MarkersFinder/">MarkersFinder</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetaMarkers/">MetaMarkers</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClonalStats/">ClonalStats</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/CDR3AAPhyschem/">CDR3AAPhyschem</a>
                   </li>
@@ -166,15 +158,13 @@
               </ul>
               <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  <li class="toctree-l1"><a class="" href="../processes/ScrnaMetabolicLandscape.md">Introduction & Group Arguments</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicInput/">MetabolicInput</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicExprImpution/">MetabolicExprImpution</a>
+                  <li class="toctree-l1"><a class="" href="../processes/MetabolicExprImpution.md">MetabolicExprImpution</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicFeatures/">MetabolicFeatures</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicFeaturesIntraSubset/">MetabolicFeaturesIntraSubset</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
                   </li>
@@ -232,7 +222,7 @@
 <h4 id="data-input-and-qc">Data input and QC<a class="headerlink" href="#data-input-and-qc" title="Permanent link">&para;</a></h4>
 <ul>
 <li><a href="../processes/SampleInfo/"><code>SampleInfo</code></a>: Read sample information from a CSV file and list the sample information in the report.</li>
-<li><a href="../processes/ImmunarchLoading/"><code>ImmunarchLoading</code></a>: Load the data into <code>immunarch</code> objects.</li>
+<li><a href="../processes/ScRepLoading/"><code>ScRepLoading</code></a>: Load the VDJ data into <code>ScRepertoire</code> objects.</li>
 <li><a href="../processes/SeuratPreparing/"><code>SeuratPreparing</code></a>: Read the data into <code>Seurat</code> objects and perform QC.</li>
 </ul>
 <h4 id="t-cell-selection">T cell selection<a class="headerlink" href="#t-cell-selection" title="Permanent link">&para;</a></h4>
@@ -252,35 +242,34 @@
 <li><a href="../processes/TopExpressingGenes/"><code>TopExpressingGenes</code></a>: Find top expressing genes for each T-cell cluster and perform enrichment analysis.</li>
 <li><a href="../processes/ModuleScoreCalculator/"><code>ModuleScoreCalculator</code></a>: Calculate module scores or cell cycle scores for each cell.</li>
 </ul>
-<h4 id="tcr-data-analyses">TCR data analyses<a class="headerlink" href="#tcr-data-analyses" title="Permanent link">&para;</a></h4>
+<h4 id="clonotype-refinement">Clonotype refinement<a class="headerlink" href="#clonotype-refinement" title="Permanent link">&para;</a></h4>
 <ul>
-<li><a href="../processes/CloneResidency/"><code>CloneResidency</code></a>: Explore the residency of TCR clones for paired samples (e.g. tumor vs blood) from the same patient.</li>
 <li><a href="../processes/TCRClustering/"><code>TCRClustering</code></a>: Perform clustering on TCR clones based on CDR3 amino acid sequences.</li>
-<li><a href="../processes/TCRClusterStats/"><code>TCRClusterStats</code></a>: Investigate statistics for TCR clusters (i.e. TCR cluster size distribution, shared TCR clusters among samples, revisited sample diversity using TCR clusters instead of clonotypes, etc.)</li>
-<li><a href="../processes/Immunarch/"><code>Immunarch</code></a>: Perform TCR clonotype analyses using <a href="https://immunarch.com/"><code>immunarch</code></a> package.</li>
-</ul>
-<h4 id="integrative-analyses">Integrative analyses<a class="headerlink" href="#integrative-analyses" title="Permanent link">&para;</a></h4>
-<ul>
 <li><a href="../processes/TESSA/"><code>TESSA</code></a>: Perform integrative analyses using <a href="https://github.com/jcao89757/TESSA"><code>Tessa</code></a>.</li>
+</ul>
+<h4 id="integration-of-scrna-seq-and-sctcr-seq-data">Integration of scRNA-seq and scTCR-seq data<a class="headerlink" href="#integration-of-scrna-seq-and-sctcr-seq-data" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="../processes/ScRepCombiningExpression/"><code>ScRepCombiningExpression</code></a>: Combine the VDJ data with the expression data (into a <code>Seurat</code> object).</li>
+</ul>
+<h4 id="downstream-analyses">Downstream analyses<a class="headerlink" href="#downstream-analyses" title="Permanent link">&para;</a></h4>
+<ul>
 <li><a href="../processes/SeuratClusterStats/"><code>SeuratClusterStats</code></a>: Investigate statistics for each T-cell cluster (i.e. the number of cells in each cluster, the number of cells in each sample for each cluster, feature/gene expression visualization, dimension reduction plots, etc.). It's also possible to perform stats on TCR clones/clusters for each T-cell cluster.</li>
-<li><a href="../processes/IntegratingTCRClusters/"><code>IntegratingTCRClusters</code></a>: Attach TCR clusters to <code>Seurat</code> objects.</li>
-<li><a href="../processes/IntegratingTCR/"><code>IntegratingTCR</code></a>: Integrate TCR data into <code>Seurat</code> objects.</li>
-<li><a href="../processes/RadarPlots/"><code>RadarPlots</code></a>: Visualize proportion of cells in different groups for each cluster.</li>
-<li><a href="../processes/CellsDistribution/"><code>CellsDistribution</code></a>: Investigate the distribution of cells in different groups for each T-cell cluster.<!-- - <a href="processes/CloneHeterogeneity.md">klzzwxh:0074</a>: Investigate the heterogeneity of TCR clones in different groups for each T-cell cluster. --></li>
+<li><a href="../processes/ClonalStats/"><code>ClonalStats</code></a>: Investigate statistics for clones.</li>
+<li><a href="../processes/MarkersFinder/"><code>MarkersFinder</code></a>: Find markers (differentially expressed genes) for any two groups, including clones or clone groups.</li>
+<li><a href="../processes/PseudoBulkDEG/"><code>PseudoBulkDEG</code></a>: Perform pseudo-bulk differential expression analysis.</li>
 <li><a href="../processes/CDR3AAPhyschem/"><code>CDR3AAPhyschem</code></a>: Investigate the physicochemical properties of CDR3 amino acid sequences of one cell type over another (i.e. <code>Treg</code> vs <code>Tconv</code>).</li>
 <li><a href="../processes/ScFGSEA/"><code>ScFGSEA</code></a>: Perform GSEA analysis for comparisons between two groups of cells. For example, between two cell types, clone groups, TCR clusters or clinical groups.</li>
-<li><a href="../processes/MarkersFinder/"><code>MarkersFinder</code></a>: Find markers (differentially expressed genes) for any two groups, including clones or clone groups.</li>
-<li><a href="../processes/MetaMarkers/"><code>MetaMarkers</code></a>: Find meta markers for more than 2 clones or clone groups and perform enrichment analysis.</li>
+<li><a href="../processes/CellCellCommunication/"><code>CellCellCommunication</code></a>: Perform cell-cell communication analysis.</li>
+<li><a href="../processes/CellCellCommunicationPlots/"><code>CellCellCommunicationPlots</code></a>: Generate plots for cell-cell communication analysis.</li>
 </ul>
 <h4 id="metabolic-landscape-analyses">Metabolic landscape analyses<a class="headerlink" href="#metabolic-landscape-analyses" title="Permanent link">&para;</a></h4>
 <ul>
-<li><a href="../processes/ScrnaMetabolicLandscape/"><code>ScrnaMetabolicLandscape</code></a>: A group of folowwing processes to perform metabolic landscape analyses.</li>
+<li><a href="processes/ScrnaMetabolicLandscape.md"><code>ScrnaMetabolicLandscape</code></a>: A group of folowwing processes to perform metabolic landscape analyses.</li>
 <li><a href="../processes/MetabolicInput/"><code>MetabolicInput</code></a>: Prepare the input files for metabolic landscape analyses.</li>
-<li><a href="../processes/MetabolicExprImpution/"><code>MetabolicExprImpution</code></a>: Impute the dropout values in the expression matrix.</li>
+<li><a href="processes/MetabolicExprImpution.md"><code>MetabolicExprImpution</code></a>: Impute the dropout values in the expression matrix.</li>
 <li><a href="../processes/MetabolicPathwayActivity/"><code>MetabolicPathwayActivity</code></a>: Investigate the metabolic pathways of the cells in different groups and subsets.</li>
 <li><a href="../processes/MetabolicPathwayHeterogeneity/"><code>MetabolicPathwayHeterogeneity</code></a>: Show metabolic pathways enriched in genes with highest contribution to the metabolic heterogeneities.</li>
 <li><a href="../processes/MetabolicFeatures/"><code>MetabolicFeatures</code></a>: Perform gene set enrichment analysis against the metabolic pathways for groups in different subsets.</li>
-<li><a href="../processes/MetabolicFeaturesIntraSubset/"><code>MetabolicFeaturesIntraSubset</code></a>: Perform gene set enrichment analysis against the metabolic pathways for subsets based on the designed comparison in different groups.</li>
 </ul>
 <h3 id="routes-of-the-pipeline">Routes of the pipeline<a class="headerlink" href="#routes-of-the-pipeline" title="Permanent link">&para;</a></h3>
 <p><code>immunopipe</code> is designed to be flexible. It can be used in different ways. Here we list some common routes of the pipeline:</p>

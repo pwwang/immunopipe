@@ -101,8 +101,6 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SampleInfo/">SampleInfo</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/ImmunarchLoading/">ImmunarchLoading</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratPreparing/">SeuratPreparing</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
@@ -117,41 +115,33 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClustering/">SeuratClustering</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/CellTypeAnnotation/">CellTypeAnnotation</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratSubClustering/">SeuratSubClustering</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCRClustering/">TCRClustering</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCRClusterStats/">TCRClusterStats</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/IntegratingTCRClusters/">IntegratingTCRClusters</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkers/">ClusterMarkers</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenes/">TopExpressingGenes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/Immunarch/">Immunarch</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../processes/ScRepCombineingExpression.md">ScRepCombineingExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCRClustering/">TCRClustering</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/TESSA/">TESSA</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/IntegratingTCR/">IntegratingTCR</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusterStats/">SeuratClusterStats</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/RadarPlots/">RadarPlots</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/CloneResidency/">CloneResidency</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/ScFGSEA/">ScFGSEA</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellsDistribution/">CellsDistribution</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MarkersFinder/">MarkersFinder</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetaMarkers/">MetaMarkers</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClonalStats/">ClonalStats</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/CDR3AAPhyschem/">CDR3AAPhyschem</a>
                   </li>
@@ -162,15 +152,13 @@
               </ul>
               <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  <li class="toctree-l1"><a class="" href="../processes/ScrnaMetabolicLandscape.md">Introduction & Group Arguments</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicInput/">MetabolicInput</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicExprImpution/">MetabolicExprImpution</a>
+                  <li class="toctree-l1"><a class="" href="../processes/MetabolicExprImpution.md">MetabolicExprImpution</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicFeatures/">MetabolicFeatures</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicFeaturesIntraSubset/">MetabolicFeaturesIntraSubset</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
                   </li>
@@ -212,13 +200,54 @@
               
                 <h2 id="preparing-the-input-data">Preparing the input data<a class="headerlink" href="#preparing-the-input-data" title="Permanent link">&para;</a></h2>
 <h3 id="single-cell-rna-seq-scrna-seq-data">Single-cell RNA-seq (scRNA-seq) data<a class="headerlink" href="#single-cell-rna-seq-scrna-seq-data" title="Permanent link">&para;</a></h3>
-<p>Currently only <a href="https://www.10xgenomics.com/">10X Genomics</a> data are supported.</p>
-<p>For each sample, you need to provide a directory containing the files that are generated by <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger"><code>CellRanger</code></a>. Specifically, the directory should be able to be read by <a href="https://satijalab.org/seurat/reference/read10x"><code>Seurat::Read_10X()</code></a>. For example, the directory should contain <code>matrix.mtx</code>, <code>barcodes.tsv</code> and <code>features.tsv</code>.
+<p>Currently supported data formats:</p>
+<ul>
+<li><a href="https://www.10xgenomics.com/">10X Genomics</a> by <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger"><code>CellRanger</code></a></li>
+<li><a href="https://linnarssonlab.org/loompy/">loom</a></li>
+</ul>
+<p>For each sample, you need to provide the path to the data file or a directory containing the files. Specifically, the directory should be able to be read by <a href="https://satijalab.org/seurat/reference/read10x"><code>Seurat::Read_10X()</code></a>. For example, the directory should contain <code>matrix.mtx</code>, <code>barcodes.tsv</code> and <code>features.tsv</code>.
 These files can also be gzipped.</p>
-<p>You can also use the <code>h5</code> file generated by <code>CellRanger</code>.</p>
+<p>For 10X Genomics data, you can also provide the <code>h5</code> file generated by <code>CellRanger</code>.</p>
+<p>With v2+, we also support loading expression data directly from a <code>Seurat</code> object in <code>RDS</code> or <a href="https://github.com/qsbase/qs2"><code>qs/qs2</code></a> file.
+To do so, you need to enable the <code>LoadRNAFromSeurat</code> process in the configuration file, and provide the path to the <code>RDS</code> or <code>qs2</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[LoadRNAFromSeurat.in]</span>
+<span class="n">infile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;path/to/seurat_object.rds&quot;</span>
+
+<span class="k">[LoadRNAFromSeurat.envs]</span>
+<span class="c1"># When true, SeuratPreparing will be skipped</span>
+<span class="c1"># Suppose the Seurat object is already prepared</span>
+<span class="n">prepared</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+
+<span class="c1"># When true (assuming prepared is also true), SeuratClusteringOfAllCells/SeuratClustering will be skipped</span>
+<span class="c1"># Suppose the Seurat object already contains the clustering information</span>
+<span class="n">clustered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+</code></pre></div>
 <h3 id="single-cell-tcr-seq-sctcr-seq-data">Single-cell TCR-seq (scTCR-seq) data<a class="headerlink" href="#single-cell-tcr-seq-sctcr-seq-data" title="Permanent link">&para;</a></h3>
-<p>The scRNA-seq data is optional for the pipeline. However, the scTCR-seq data is required for the pipeline.</p>
-<p>The scTCR-seq data, if available, should be paired with the scRNA-seq data. Theoratically, as long as the data can be loaded by <a href="https://immunarch.com/reference/repLoad.html"><code>immunarch::repLoad()</code></a>, it should be fine. However, the pipeline is only tested with the data generated by <a href="https://support.10xgenomics.com/single-cell-vdj/software/pipelines/latest/output/annotation"><code>CellRanger</code></a>. Specifically, the directory should contain <code>filtered_contig_annotations.csv</code> file, or at least the <code>all_contig_annotations.csv</code> file.</p>
+<p>The scTCR-seq data is optional for the pipeline. However, the scRNA-seq data is required for the pipeline.</p>
+<p>The scTCR-seq data, if available, should be paired with the scRNA-seq data. Theoratically, as long as the data can be loaded by <a href="https://www.borch.dev/uploads/screpertoire/reference/loadcontigs"><code>scRepertoire::loadContigs()</code></a>, it should be fine. Following formats are supported:</p>
+<ul>
+<li>10X: 10X Genomics data, which is usually in a directory with
+    <code>filtered_contig_annotations.csv</code> file.</li>
+<li>AIRR: AIRR format, which is usually in a file with
+    <code>airr_rearrangement.tsv</code> file.</li>
+<li>BD: Becton Dickinson data, which is usually in a file with
+    <code>Contigs_AIRR.tsv</code> file.</li>
+<li>Dandelion: Dandelion data, which is usually in a file with
+    <code>all_contig_dandelion.tsv</code> file.</li>
+<li>Immcantation: Immcantation data, which is usually in a file with
+    <code>data.tsv</code> file.</li>
+<li>JSON: JSON format, which is usually in a file with <code>.json</code> extension.</li>
+<li>ParseBio: ParseBio data, which is usually in a file with
+    <code>barcode_report.tsv</code> file.</li>
+<li>MiXCR: MiXCR data, which is usually in a file with <code>clones.tsv</code> file.</li>
+<li>Omniscope: Omniscope data, which is usually in a file with <code>.csv</code>
+    extension.</li>
+<li>TRUST4: TRUST4 data, which is usually in a file with
+    <code>barcode_report.tsv</code> file.</li>
+<li>WAT3R: WAT3R data, which is usually in a file with
+    <code>barcode_results.csv</code> file.
+See also: <a href="https://rdrr.io/github/ncborcherding/scRepertoire/man/loadContigs.html">https://rdrr.io/github/ncborcherding/scRepertoire/man/loadContigs.html</a></li>
+</ul>
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
 <p>A metadata file is required as an input file for the pipeline. It should be a <code>TAB</code> delimited file with 3 required columns:</p>
 <ul>
@@ -226,25 +255,14 @@ These files can also be gzipped.</p>
 <li><code>RNAData</code>: The directory or <code>h5</code> file for single-cell RNA data for this sample, as described above.</li>
 <li><code>TCRData</code> (optional): The directory for single-cell TCR data for this sample as described above.</li>
 </ul>
-<p>When <code>TCRData</code> is not provided, the pipeline will skip the processes related to scTCR-seq data (see <a href="../introduction/#only-scrna-seq-data-avaiable">Routes of the pipeline</a> for more details).
-You can also add other columns to the metadata file. The columns will be added to both:</p>
-<ul>
-<li>meta data of the object loaded by <code>immunarch::repLoad()</code> (i.e. <code>data$meta</code>)</li>
-<li>meta data of the seurat object loaded by <code>Seurat::Read10X()</code> or <code>Seurat::Read10X_h5()</code> (i.e. <code>srtobj@meta.data</code>)</li>
-</ul>
+<p>When <code>TCRData</code> is not provided, the pipeline will skip the processes related to scTCR-seq data (see <a href="../introduction/#only-scrna-seq-data-avaiable">Routes of the pipeline</a> for more details).</p>
+<p>You can also add other columns to the metadata file. The columns will be added the <code>Seurat</code> object as metadata, and can be used for downstream analysis. For example, you can add a column <code>Condition</code> to indicate the condition of each sample, or <code>Batch</code> to indicate the batch effect.</p>
 <p>This file should be provided to <code>SampleInfo</code> process. See <a href="../processes/SampleInfo/"><code>SampleInfo</code></a> for more details.</p>
 <p>An example metadata file can be found <a href="https://github.com/pwwang/immunopipe-example/blob/master/data/samples.txt">here</a>.</p>
-<p>You can also use <a href="../processes/SampleInfo/"><code>SampleInfo</code></a> with <code>envs.save_mutated = true</code> and/or <a href="../processes/IntegratingTCR/"><code>IntegratingTCR</code></a> to add columns to metadata by configuration. These columns are persisted for downstream analysis. The difference is that <code>SampleInfo</code> can only use the columns that are already in the metadata file, while <code>IntegratingTCR</code> can use the columns that are generated by the pipeline (e.g. TCR clone information).</p>
+<p>You can also use <a href="../processes/SampleInfo/"><code>SampleInfo</code></a> with <code>envs.save_mutated = true</code> and/or <a href="../processes/SeuratPreparing/"><code>SeuratPreparing</code></a> to add columns to metadata by configuration. These columns are persisted for downstream analysis. The difference is that <code>SampleInfo</code> can not pass along the factor (categorical) columns, while you are able to do so with <code>SeuratPreparing</code>.</p>
 <h3 id="other-optional-files">Other optional files<a class="headerlink" href="#other-optional-files" title="Permanent link">&para;</a></h3>
 <h4 id="genesfeatures-to-visualize-for-seurat-object">Genes/Features to visualize for Seurat object<a class="headerlink" href="#genesfeatures-to-visualize-for-seurat-object" title="Permanent link">&para;</a></h4>
-<p>If you have a set of genes/features of interest, you can provide a file with those genes, one gene per line, to <code>SeuratClusterStats.envs.exprs.features</code> for:</p>
-<ul>
-<li>Ridge plots using <a href="https://satijalab.org/seurat/reference/ridgeplot"><code>Seurat::RidgePlot()</code></a>,</li>
-<li>Violin plots using <a href="https://satijalab.org/seurat/reference/vlnplot"><code>Seurat::VlnPlot()</code></a>,</li>
-<li>Feature plots using <a href="https://satijalab.org/seurat/reference/featureplot"><code>Seurat::FeaturePlot()</code></a>,</li>
-<li>Dot plots using <a href="https://satijalab.org/seurat/reference/dotplot"><code>Seurat::DotPlot()</code></a>, and</li>
-<li>Heatmaps using <a href="https://satijalab.org/seurat/reference/doheatmap"><code>Seurat::DoHeatmap()</code></a>.</li>
-</ul>
+<p>If you have a set of genes/features of interest, you can provide a file with those genes, one gene per line, to <code>SeuratClusterStats.envs.features.features</code> for visualization the feature values, which finally is implemented by <a href="https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html"><code>scplotter::FeatureStatPlot()</code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The genes should exist in the RNA-seq data (i.e <code>features.tsv</code> or the <code>h5</code> file from cellranger).</p>
@@ -262,7 +280,7 @@ You can also add other columns to the metadata file. The columns will be added t
 <p>If you want to perform cell type annotation by <code>celltypist</code>, you need to provide a model file. The model file should be fed to <code>CellTypeAnnotation.envs.celltypist_args.model</code>. The information of models can be found <a href="https://celltypist.cog.sanger.ac.uk/models/models.json">here</a>. Download the one you want to use and provide the path to the file.</p>
 <h4 id="metabolic-pathway-for-metabolic-landscape-analysis">Metabolic pathway for Metabolic Landscape Analysis<a class="headerlink" href="#metabolic-pathway-for-metabolic-landscape-analysis" title="Permanent link">&para;</a></h4>
 <p>Similarly, if you want to perform metabolic landscape analysis, you need to provide a file containing the metabolic pathways. The file should be in the <a href="https://docs.gsea-msigdb.org/#GSEA/Data_Formats/#gmt-gene-matrix-transposed-file-format-gmt">GMT format</a>. You can provide the file to <code>ScMetabolicLandscape.envs.gmtfile</code>. This file can also be used for GSEA. A pathway file for KEGG metabolism is provided <a href="https://github.com/pwwang/biopipen/blob/master/tests/data/scrna_metabolic/KEGG_metabolism.gmt">here</a>.</p>
-<p>See <a href="../processes/ScrnaMetabolicLandscape/"><code>ScrnaMetabolicLandscape</code></a> for more details.</p>
+<p>See <a href="./processes/ScrnaMetabolicLandscape.md"><code>ScrnaMetabolicLandscape</code></a> for more details.</p>
 <h4 id="reference-for-seurat-mapping-if-you-want-to-perform-supervised-clustering">Reference for Seurat mapping if you want to perform supervised clustering<a class="headerlink" href="#reference-for-seurat-mapping-if-you-want-to-perform-supervised-clustering" title="Permanent link">&para;</a></h4>
 <p>If you want to perform supervised clustering, you need to provide a reference for <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a>. The reference should be a <code>Seurat</code> object in <code>RDS</code> or <code>h5seurat</code> file. You can provide the reference to <code>SeuratMap2Ref.envs.ref</code>.</p>
 <p>See <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> for more details.</p>

@@ -77,8 +77,6 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SampleInfo/">SampleInfo</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/ImmunarchLoading/">ImmunarchLoading</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratPreparing/">SeuratPreparing</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
@@ -93,41 +91,33 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClustering/">SeuratClustering</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/CellTypeAnnotation/">CellTypeAnnotation</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratSubClustering/">SeuratSubClustering</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCRClustering/">TCRClustering</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCRClusterStats/">TCRClusterStats</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/IntegratingTCRClusters/">IntegratingTCRClusters</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkers/">ClusterMarkers</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenes/">TopExpressingGenes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/Immunarch/">Immunarch</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../processes/ScRepCombineingExpression.md">ScRepCombineingExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCRClustering/">TCRClustering</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/TESSA/">TESSA</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/IntegratingTCR/">IntegratingTCR</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusterStats/">SeuratClusterStats</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/RadarPlots/">RadarPlots</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/CloneResidency/">CloneResidency</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/ScFGSEA/">ScFGSEA</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellsDistribution/">CellsDistribution</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MarkersFinder/">MarkersFinder</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetaMarkers/">MetaMarkers</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClonalStats/">ClonalStats</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/CDR3AAPhyschem/">CDR3AAPhyschem</a>
                   </li>
@@ -138,15 +128,13 @@
               </ul>
               <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  <li class="toctree-l1"><a class="" href="../processes/ScrnaMetabolicLandscape.md">Introduction & Group Arguments</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicInput/">MetabolicInput</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicExprImpution/">MetabolicExprImpution</a>
+                  <li class="toctree-l1"><a class="" href="../processes/MetabolicExprImpution.md">MetabolicExprImpution</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicFeatures/">MetabolicFeatures</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicFeaturesIntraSubset/">MetabolicFeaturesIntraSubset</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
                   </li>
@@ -196,8 +184,8 @@
 <p>If <code>immunopipe</code> still can't be found from command line, try <code>/path/to/python -m immunopipe</code>.</p>
 </details>
 <details>
-<summary>Why I am getting "Error writing to connection:  No space left on device" while running <a href="../processes/ImmunarchLoading/"><code>ImmunarchLoading</code></a>?</summary>
-<p>If you are running the pipeline and it complains about "No space left on device" at <code>ImmunarchLoading</code>, and you are pretty sure that your working directory is way from full,  it is likely that your temporary directory does not have enough space. This is because that the <code>ImmunarchLoading</code> process will create a temporary directory to store the intermediate files, and the default temporary directory is <code>/tmp</code>. Make sure that you have enough space in <code>/tmp</code> or you can change the temporary directory by setting the environment variable of the process: <a href="../processes/ImmunarchLoading/#environment-variables"><code>envs.tmpdir</code></a>.</p>
+<summary>Why I am getting "Error writing to connection:  No space left on device" while running <a href="processes/ImmunarchLoading.md"><code>ImmunarchLoading</code></a>?</summary>
+<p>If you are running the pipeline and it complains about "No space left on device" at <code>ImmunarchLoading</code>, and you are pretty sure that your working directory is way from full,  it is likely that your temporary directory does not have enough space. This is because that the <code>ImmunarchLoading</code> process will create a temporary directory to store the intermediate files, and the default temporary directory is <code>/tmp</code>. Make sure that you have enough space in <code>/tmp</code> or you can change the temporary directory by setting the environment variable of the process: <a href="processes/ImmunarchLoading.md#environment-variables"><code>envs.tmpdir</code></a>.</p>
 <p>It is also likely that you are running the pipeline in a docker container and the docker container does not have enough space in <code>/tmp</code>. In such case, you can try to run the pipeline with the <code>-v</code> option of docker to local directory to <code>/tmp</code> in the container. For example:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span>-v<span class="w"> </span>.:/workdir<span class="w"> </span>-v<span class="w"> </span>path/to/tmp:/tmp<span class="w"> </span><span class="se">\</span>
 <span class="c1">#                                         ^^^^^^^^^^^^^^^^^^^</span>
@@ -207,21 +195,21 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Singularity</label><label for="__tabbed_1_2">Apptainer</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>singularity run \
-    --pwd /workdir -B .:/workdir -c -e --writable-tmpfs \
-    -B path/to/tmp:/tmp \
-  # ^^^^^^^^^^^^^^^^^^^
-    docker://justold/immunopipe:&lt;tag&gt; \
-    @config.toml
+<div class="highlight"><pre><span></span><code>singularity<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-B<span class="w"> </span>path/to/tmp:/tmp<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="c1"># ^^^^^^^^^^^^^^^^^^^</span>
+<span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>@config.toml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>apptainer run \
-    --pwd /workdir -B .:/workdir -c -e --unsquash --writable-tmpfs \
-    -B path/to/tmp:/tmp \
-  # ^^^^^^^^^^^^^^^^^^^
-    docker://justold/immunopipe:&lt;tag&gt; \
-    @config.toml
+<div class="highlight"><pre><span></span><code>apptainer<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-B<span class="w"> </span>path/to/tmp:/tmp<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="c1"># ^^^^^^^^^^^^^^^^^^^</span>
+<span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>@config.toml
 </code></pre></div>
 </div>
 </div>
