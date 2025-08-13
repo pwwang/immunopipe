@@ -75,8 +75,8 @@ def validate_config() -> Dict[str, Any]:
 
             if not infiles:
                 WARNINGS.append(
-                    "No input file specified in configuration file [SampleInfo.in.infile], "
-                    "assuming passing from CLI."
+                    "No input file specified in configuration file "
+                    "[SampleInfo.in.infile], assuming passing from CLI."
                 )
                 WARNINGS.append("Assuming scTCR-seq data is present")
 
