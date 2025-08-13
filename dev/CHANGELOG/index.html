@@ -373,13 +373,15 @@
 <li>BREAKING: the <a href="https://immunarch.com">immunarch</a> package is now replaced by <a href="https://github.com/BorchLab/scRepertoire">scRepertoire</a> for more features and allowing customized clonotype definition.</li>
 <li>feat: <code>envs.mutaters</code> is now supported for <a href="https://pwwang.github.io/immunopipe/latest/processes/SeuratPreparing/">SeuratPreparing</a> to allow create factor (categorical) columns in the metadata.</li>
 <li>feat: <a href="https://pwwang.github.io/immunopipe/latest/processes/PseudoBulkDEG/">PseudoBulkDEG</a> is added to perform pseudo-bulk differential expression analysis.</li>
+<li>feat: Now <code>Seurat</code> object (in RDS or qs2 format) is supported as input for scRNA-seq data.</li>
+<li>feat: Now loom format is supported for scRNA-seq data, allowing users to use loom files as input for the pipeline.</li>
 </ul>
 <h4 id="house-keeping">House keeping<a class="headerlink" href="#house-keeping" title="Permanent link">&para;</a></h4>
 <ul>
 <li>build: docker images are now built based on the <a href="https://github.com/pwwang/biopipen"><code>biopipen</code></a> base image.</li>
 <li>ci: the test workflow now caches the running intermediate files to speed up the tests.</li>
 <li>docs: the citation information is now added to the documentation, allowing users to easily cite the pipeline in their publications.</li>
-<li>chore(deps): biopipen is bumped to 0.34.0, which includes various bug fixes and enhancements. See the <a href="https://github.com/pwwang/biopipen/releases">biopipen releases</a> for more details.</li>
+<li>chore(deps): biopipen is bumped to 0.34.5, which includes various bug fixes and enhancements. See the <a href="https://github.com/pwwang/biopipen/releases">biopipen releases</a> for more details.</li>
 </ul>
 <h3 id="144">1.4.4<a class="headerlink" href="#144" title="Permanent link">&para;</a></h3>
 <ul>
