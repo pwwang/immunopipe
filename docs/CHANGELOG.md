@@ -25,13 +25,15 @@
 - BREAKING: the [immunarch](https://immunarch.com) package is now replaced by [scRepertoire](https://github.com/BorchLab/scRepertoire) for more features and allowing customized clonotype definition.
 - feat: `envs.mutaters` is now supported for [SeuratPreparing](https://pwwang.github.io/immunopipe/latest/processes/SeuratPreparing/) to allow create factor (categorical) columns in the metadata.
 - feat: [PseudoBulkDEG](https://pwwang.github.io/immunopipe/latest/processes/PseudoBulkDEG/) is added to perform pseudo-bulk differential expression analysis.
+- feat: Now `Seurat` object (in RDS or qs2 format) is supported as input for scRNA-seq data.
+- feat: Now loom format is supported for scRNA-seq data, allowing users to use loom files as input for the pipeline.
 
 ### House keeping
 
 - build: docker images are now built based on the [`biopipen`](https://github.com/pwwang/biopipen) base image.
 - ci: the test workflow now caches the running intermediate files to speed up the tests.
 - docs: the citation information is now added to the documentation, allowing users to easily cite the pipeline in their publications.
-- chore(deps): biopipen is bumped to 0.34.0, which includes various bug fixes and enhancements. See the [biopipen releases](https://github.com/pwwang/biopipen/releases) for more details.
+- chore(deps): biopipen is bumped to 0.34.5, which includes various bug fixes and enhancements. See the [biopipen releases](https://github.com/pwwang/biopipen/releases) for more details.
 
 ## 1.4.4
 
