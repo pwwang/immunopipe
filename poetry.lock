@@ -57,14 +57,14 @@ anypath = ["cloudpathlib (>=0.21,<0.22)"]
 
 [[package]]
 name = "biopipen"
-version = "0.34.4"
+version = "0.34.5"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-0.34.4-py3-none-any.whl", hash = "sha256:e6a7b42a2cf9a86021c4f55001cb69738f3e7969167c857f103aa941cd5eef2b"},
-    {file = "biopipen-0.34.4.tar.gz", hash = "sha256:16ea1aa089f2eaacb14d56036d932dd6dd368f003ca4e47f6cb2ad0fac09d353"},
+    {file = "biopipen-0.34.5-py3-none-any.whl", hash = "sha256:4e6d911754dafcf4360eaffc2926bf8479f9865a8196bccfb374a5232f1df05d"},
+    {file = "biopipen-0.34.5.tar.gz", hash = "sha256:1f04af3aa3772d9549c435e410fd10dc63dcf5cd622cb23a3b432d1acec01204"},
 ]
 
 [package.dependencies]
@@ -2275,4 +2275,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "5bf436107a764a078931464550a72970644d7e23787c52901b01ba411b1b2d60"
+content-hash = "10e9a69a05f7edd3a176c369fa1595e6b841b420bf4fbead708b4101d60c7701"
