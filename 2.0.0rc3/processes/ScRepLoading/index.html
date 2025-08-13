@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>ScRepLoading - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ScRepLoading";
+        var mkdocs_page_input_path = "processes/ScRepLoading.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCellSelection/">TCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">ScRepLoading</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCRClustering/">TCRClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
+      <li class="breadcrumb-item active">ScRepLoading</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/ScRepLoading.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="screploading">ScRepLoading<a class="headerlink" href="#screploading" title="Permanent link">&para;</a></h2>
+<p>Load the single cell TCR/BCR data into a <code>scRepertoire</code> compatible object</p>
+<p>This process loads the single cell TCR/BCR data into a <code>scRepertoire</code>
+(&gt;= v2.0.8, &lt; v2.3.2) compatible object. Later, <code>scRepertoire::combineExpression</code>
+can be used to combine the expression data with the TCR/BCR data.<br /></p>
+<p>For the data path specified at <code>TCRData</code>/<code>BCRData</code> in the input file
+(<code>in.metafile</code>), will be used to find the TCR/BCR data files and
+<code>scRepertoire::loadContigs()</code> will be used to load the data.<br /></p>
+<p>A directory can be specified in <code>TCRData</code>/<code>BCRData</code>, then
+<code>scRepertoire::loadContigs()</code> will be used directly to load the data from the
+directory. Otherwise if a file is specified, it will be symbolically linked to
+a directory for <code>scRepertoire::loadContigs()</code> to load.<br />
+Note that when the file name can not be recognized by <code>scRepertoire::loadContigs()</code>,
+<code>envs.format</code> must be set for the correct format of the data.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>metafile</code>:
+    The meta data of the samples
+    A tab-delimited file
+    Two columns are required:<br /><ul>
+<li><code>Sample</code> to specify the sample names.<br /></li>
+<li><code>TCRData</code>/<code>BCRData</code> to assign the path of the data to the samples,
+and this column will be excluded as metadata.<br /></li>
+</ul>
+</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outfile</code>: <em>Default: <code>{{in.metafile | stem}}.scRep.qs</code></em>. <br />
+    The <code>scRepertoire</code> compatible object in qs/qs2 format</li>
+</ul>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>type</code> <em>(<code>choice</code>)</em>: <em>Default: <code>TCR</code></em>. <br />
+    The type of the data to load.<br /><ul>
+<li><code>TCR</code>:
+    T cell receptor data</li>
+<li><code>BCR</code>:
+    B cell receptor data</li>
+</ul>
+</li>
+<li><code>combineTCR</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'samples': True}</code></em>. <br />
+    The extra arguments for <code>scRepertoire::combineTCR</code>
+    function.<br />
+    See also <a href="https://www.borch.dev/uploads/screpertoire/reference/combinetcr">https://www.borch.dev/uploads/screpertoire/reference/combinetcr</a></li>
+<li><code>combineBCR</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'samples': True}</code></em>. <br />
+    The extra arguments for <code>scRepertoire::combineBCR</code>
+    function.<br />
+    See also <a href="https://www.borch.dev/uploads/screpertoire/reference/combinebcr">https://www.borch.dev/uploads/screpertoire/reference/combinebcr</a></li>
+<li><code>exclude</code> <em>(<code>auto</code>)</em>: <em>Default: <code>['BCRData', 'TCRData', 'RNAData']</code></em>. <br />
+    The columns to exclude from the metadata to add to the object.<br />
+    A list of column names to exclude or a string with column names separated
+    by <code>,</code>. By default, <code>BCRData</code>, <code>TCRData</code> and <code>RNAData</code> will be excluded.<br /></li>
+<li><code>tmpdir</code>: <em>Default: <code>/tmp</code></em>. <br />
+    The temporary directory to store the symbolic links to the
+    TCR/BCR data files.<br /></li>
+<li><code>format</code> <em>(<code>choice</code>)</em>:
+    The format of the TCR/BCR data files.<br /><ul>
+<li><code>10X</code>:
+    10X Genomics data, which is usually in a directory with
+    <code>filtered_contig_annotations.csv</code> file.<br /></li>
+<li><code>AIRR</code>:
+    AIRR format, which is usually in a file with
+    <code>airr_rearrangement.tsv</code> file.<br /></li>
+<li><code>BD</code>:
+    Becton Dickinson data, which is usually in a file with
+    <code>Contigs_AIRR.tsv</code> file.<br /></li>
+<li><code>Dandelion</code>:
+    Dandelion data, which is usually in a file with
+    <code>all_contig_dandelion.tsv</code> file.<br /></li>
+<li><code>Immcantation</code>:
+    Immcantation data, which is usually in a file with
+    <code>data.tsv</code> file.<br /></li>
+<li><code>JSON</code>:
+    JSON format, which is usually in a file with <code>.json</code> extension.<br /></li>
+<li><code>ParseBio</code>:
+    ParseBio data, which is usually in a file with
+    <code>barcode_report.tsv</code> file.<br /></li>
+<li><code>MiXCR</code>:
+    MiXCR data, which is usually in a file with <code>clones.tsv</code> file.<br /></li>
+<li><code>Omniscope</code>:
+    Omniscope data, which is usually in a file with <code>.csv</code>
+    extension.<br /></li>
+<li><code>TRUST4</code>:
+    TRUST4 data, which is usually in a file with
+    <code>barcode_report.tsv</code> file.<br /></li>
+<li><code>WAT3R</code>:
+    WAT3R data, which is usually in a file with
+    <code>barcode_results.csv</code> file.<br />
+    See also: <a href="https://rdrr.io/github/ncborcherding/scRepertoire/man/loadContigs.html">https://rdrr.io/github/ncborcherding/scRepertoire/man/loadContigs.html</a>
+    If not provided, the format will be guessed from the file name by <code>scRepertoire::loadContigs()</code>.<br /></li>
+</ul>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../SeuratSubClustering/" class="btn btn-neutral float-left" title="SeuratSubClustering"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../ScRepCombiningExpression/" class="btn btn-neutral float-right" title="ScRepCombiningExpression">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../SeuratSubClustering/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../ScRepCombiningExpression/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/version-select.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
