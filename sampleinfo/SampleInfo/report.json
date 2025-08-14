@@ -14,7 +14,7 @@
             "data": {
               "file": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/sampleinfo.txt",
               "sep": "\t",
-              "excluded": ["TCRData", "RNAData"]
+              "excluded": ["TCRData", "BCRData", "RNAData"]
             },
             "src": false
           }
