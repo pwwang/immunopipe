@@ -70,7 +70,7 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#single-cell-rna-seq-scrna-seq-data">Single-cell RNA-seq (scRNA-seq) data</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#single-cell-tcr-seq-sctcr-seq-data">Single-cell TCR-seq (scTCR-seq) data</a>
+    <li class="toctree-l2"><a class="reference internal" href="#single-cell-tcr-bcr-seq-sctcr-seqscbcr-seq-data">Single-cell TCR-/BCR-seq (scTCR-seq/scBCR-seq) data</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
     </li>
@@ -109,7 +109,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCellSelection/">TCellSelection</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TOrBCellSelection/">TOrBCellSelection</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/ModuleScoreCalculator/">ModuleScoreCalculator</a>
                   </li>
@@ -222,9 +222,9 @@ To do so, you need to enable the <code>LoadRNAFromSeurat</code> process in the c
 <span class="c1"># Suppose the Seurat object already contains the clustering information</span>
 <span class="n">clustered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
 </code></pre></div>
-<h3 id="single-cell-tcr-seq-sctcr-seq-data">Single-cell TCR-seq (scTCR-seq) data<a class="headerlink" href="#single-cell-tcr-seq-sctcr-seq-data" title="Permanent link">&para;</a></h3>
-<p>The scTCR-seq data is optional for the pipeline. However, the scRNA-seq data is required for the pipeline.</p>
-<p>The scTCR-seq data, if available, should be paired with the scRNA-seq data. Theoratically, as long as the data can be loaded by <a href="https://www.borch.dev/uploads/screpertoire/reference/loadcontigs"><code>scRepertoire::loadContigs()</code></a>, it should be fine. Following formats are supported:</p>
+<h3 id="single-cell-tcr-bcr-seq-sctcr-seqscbcr-seq-data">Single-cell TCR-/BCR-seq (scTCR-seq/scBCR-seq) data<a class="headerlink" href="#single-cell-tcr-bcr-seq-sctcr-seqscbcr-seq-data" title="Permanent link">&para;</a></h3>
+<p>The scTCR-/scBCR-seq data is optional for the pipeline. However, the scRNA-seq data is required for the pipeline.</p>
+<p>The scTCR-/scBCR-seq data, if available, should be paired with the scRNA-seq data. Theoratically, as long as the data can be loaded by <a href="https://www.borch.dev/uploads/screpertoire/reference/loadcontigs"><code>scRepertoire::loadContigs()</code></a>, it should be fine. Following formats are supported:</p>
 <ul>
 <li>10X: 10X Genomics data, which is usually in a directory with
     <code>filtered_contig_annotations.csv</code> file.</li>
@@ -254,8 +254,9 @@ See also: <a href="https://rdrr.io/github/ncborcherding/scRepertoire/man/loadCon
 <li><code>Sample</code>: A unique id for each sample</li>
 <li><code>RNAData</code>: The directory or <code>h5</code> file for single-cell RNA data for this sample, as described above.</li>
 <li><code>TCRData</code> (optional): The directory for single-cell TCR data for this sample as described above.</li>
+<li><code>BCRData</code> (optional): The directory for single-cell BCR data for this sample as described above.</li>
 </ul>
-<p>When <code>TCRData</code> is not provided, the pipeline will skip the processes related to scTCR-seq data (see <a href="../introduction/#only-scrna-seq-data-avaiable">Routes of the pipeline</a> for more details).</p>
+<p>When <code>TCRData</code>/<code>BCRData</code> is not provided, the pipeline will skip the processes related to scTCR-/scBCR-seq data (see <a href="../introduction/#only-scrna-seq-data-avaiable">Routes of the pipeline</a> for more details).</p>
 <p>You can also add other columns to the metadata file. The columns will be added the <code>Seurat</code> object as metadata, and can be used for downstream analysis. For example, you can add a column <code>Condition</code> to indicate the condition of each sample, or <code>Batch</code> to indicate the batch effect.</p>
 <p>This file should be provided to <code>SampleInfo</code> process. See <a href="../processes/SampleInfo/"><code>SampleInfo</code></a> for more details.</p>
 <p>An example metadata file can be found <a href="https://github.com/pwwang/immunopipe-example/blob/master/data/samples.txt">here</a>.</p>

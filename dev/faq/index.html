@@ -85,7 +85,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCellSelection/">TCellSelection</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TOrBCellSelection/">TOrBCellSelection</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/ModuleScoreCalculator/">ModuleScoreCalculator</a>
                   </li>
@@ -300,7 +300,7 @@
 <summary>How can I use data with soft links while using docker image to run the pipeline?</summary>
 <p>The container does not have access to the host filesystem directly. You need to mount the directory containing the data to the container.</p>
 <p>For example, if your real data is under <code>/path/to/data</code>, you can mount it to <code>/data</code> in the container (using <code>-v /path/to/data:/data</code> option for <code>docker</code> or <code>-B /path/to/data:/data</code> option for <code>singularity</code> or <code>apptainer</code>).</p>
-<p>Then you can use <code>/data</code> in the container to access the data under <code>/path/to/data</code> on the host. Also remember to change the path of <code>RNAData</code> and <code>TCRData</code> in the file (e.g. <code>samples.txt</code>) that is passed to <code>SampleInfo</code> process.</p>
+<p>Then you can use <code>/data</code> in the container to access the data under <code>/path/to/data</code> on the host. Also remember to change the path of <code>RNAData</code> and <code>TCRData</code>/<code>BCRData</code> in the file (e.g. <code>samples.txt</code>) that is passed to <code>SampleInfo</code> process.</p>
 <p>Other than <code>/data</code>, there are other directories that you can use for mounting inside the container, including <code>/mnt</code> and <code>/tmp</code>, in case your want to mount multiple directories.</p>
 <p>See also <a href="../installation/#the-directory-structure-in-the-container"><code>The directory structure in the container</code></a>.</p>
 </details>

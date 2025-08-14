@@ -60,7 +60,7 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#clonotype-refinement">Clonotype refinement</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#integration-of-scrna-seq-and-sctcr-seq-data">Integration of scRNA-seq and scTCR-seq data</a>
+    <li class="toctree-l3"><a class="reference internal" href="#integration-of-scrna-seq-and-sctcr-scbcr-seq-data">Integration of scRNA-seq and scTCR-/scBCR-seq data</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#downstream-analyses">Downstream analyses</a>
     </li>
@@ -70,7 +70,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#routes-of-the-pipeline">Routes of the pipeline</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#both-scrna-seq-and-sctcr-seq-data-avaiable">Both scRNA-seq and scTCR-seq data avaiable</a>
+    <li class="toctree-l3"><a class="reference internal" href="#both-scrna-seq-and-sctcr-scbcr-seq-data-avaiable">Both scRNA-seq and scTCR-/scBCR-seq data avaiable</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#only-scrna-seq-data-avaiable">Only scRNA-seq data avaiable</a>
     </li>
@@ -115,7 +115,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCellSelection/">TCellSelection</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TOrBCellSelection/">TOrBCellSelection</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/ModuleScoreCalculator/">ModuleScoreCalculator</a>
                   </li>
@@ -209,7 +209,7 @@
 <p><code>immunopipe</code> is built upon <a href="https://github.com/pwwang/pipen"><code>pipen</code></a>. It is recommended to read the <a href="https://pwwang.github.io/pipen">pipen docs</a> first to get a better understanding of the pipeline.</p>
 <p>Here, we just want to highlight some concepts that are helpful to use the pipeline as a user.</p>
 <p>A <em><a href="https://pwwang.github.io/pipen/defining-proc/">process</a></em> is a unit of work in the pipeline. <code>immunopipe</code> includes a set of processes. Some of them are reused from <a href="https://github.com/pwwang/biopipen"><code>biopipen</code></a> and some are written specifically for <code>immunopipe</code>.</p>
-<p>The input of a process is typically a <a href="https://pandas.pydata.org/"><code>pandas</code></a> <code>DataFrame</code>, which serves as the channel passing data between processes. The rows of the data frame are distributed to the jobs of the process, and columns are spreaded to the input variables of the <em><a href="https://pwwang.github.io/pipen/api/pipen.job/#pipenjobjob">job</a></em> s. See more illustration <a href="https://pwwang.github.io/pipen/channels/">here</a>. In our case, most processes are just single-job processes. Other than the start processes, the input of a process is the output of other process(es). So users don't need to worry about the input of the processes in the configurations.</p>
+<p>The input of a process is typically a <a href="https://pandas.pydata.org/"><code>pandas</code></a> <code>DataFrame</code>, which serves as the channel passing data between processes. The rows of the data frame are distributed to the jobs of the process, and columns are spreaded to the input variables of the <em><a href="https://pwwang.github.io/pipen/api/pipen.job/#pipenjobjob">job</a></em> s. See <a href="https://pwwang.github.io/pipen/channels/">more illustration here</a>. In our case, most processes are just single-job processes. Other than the start processes, the input of a process is the output of other process(es). So users don't need to worry about the input of the processes in the configurations.</p>
 <p><em><code>envs</code></em> of a process is the most important part of <code>immunopipe</code> that a user needs to configure. It defines the environment variables of the process. The environment variables are shared by all the jobs of the process.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -218,7 +218,7 @@
 <p>See individual process pages for more details about the <code>envs</code> of each process.</p>
 <h3 id="analyses-and-processes">Analyses and processes<a class="headerlink" href="#analyses-and-processes" title="Permanent link">&para;</a></h3>
 <p><img alt="immunopipe" src="../immunopipe.flowchart.png" /></p>
-<p>As shown in the figure above, <code>immunopipe</code> includes a set of processes for scTCR- and scRNA-seq data analysis. The processes are grouped into categories below:</p>
+<p>As shown in the figure above, <code>immunopipe</code> includes a set of processes for scRNA-seq and scTCR-/scBCR-seq data analysis. The processes are grouped into categories below:</p>
 <h4 id="data-input-and-qc">Data input and QC<a class="headerlink" href="#data-input-and-qc" title="Permanent link">&para;</a></h4>
 <ul>
 <li><a href="../processes/SampleInfo/"><code>SampleInfo</code></a>: Read sample information from a CSV file and list the sample information in the report.</li>
@@ -230,7 +230,7 @@
 <li><a href="../processes/SeuratClusteringOfAllCells/"><code>SeuratClusteringOfAllCells</code></a>: Perform clustering on all cells if non-T cells are present in the data.</li>
 <li><a href="../processes/ClusterMarkersOfAllCells/"><code>ClusterMarkersOfAllCells</code></a>: Find markers for each cluster of all the cells and perform enrichment analysis.</li>
 <li><a href="../processes/TopExpressingGenesOfAllCells/"><code>TopExpressingGenesOfAllCells</code></a>: Find top expressing genes for each cluster of all the cells and perform enrichment analysis.</li>
-<li><a href="../processes/TCellSelection/"><code>TCellSelection</code></a>: Select T cells from all cells.</li>
+<li><a href="../processes/TOrBCellSelection/"><code>TOrBCellSelection</code></a>: Select T cells from all cells.</li>
 </ul>
 <h4 id="clustering-of-t-cells">Clustering of T cells<a class="headerlink" href="#clustering-of-t-cells" title="Permanent link">&para;</a></h4>
 <ul>
@@ -247,18 +247,18 @@
 <li><a href="../processes/TCRClustering/"><code>TCRClustering</code></a>: Perform clustering on TCR clones based on CDR3 amino acid sequences.</li>
 <li><a href="../processes/TESSA/"><code>TESSA</code></a>: Perform integrative analyses using <a href="https://github.com/jcao89757/TESSA"><code>Tessa</code></a>.</li>
 </ul>
-<h4 id="integration-of-scrna-seq-and-sctcr-seq-data">Integration of scRNA-seq and scTCR-seq data<a class="headerlink" href="#integration-of-scrna-seq-and-sctcr-seq-data" title="Permanent link">&para;</a></h4>
+<h4 id="integration-of-scrna-seq-and-sctcr-scbcr-seq-data">Integration of scRNA-seq and scTCR-/scBCR-seq data<a class="headerlink" href="#integration-of-scrna-seq-and-sctcr-scbcr-seq-data" title="Permanent link">&para;</a></h4>
 <ul>
 <li><a href="../processes/ScRepCombiningExpression/"><code>ScRepCombiningExpression</code></a>: Combine the VDJ data with the expression data (into a <code>Seurat</code> object).</li>
 </ul>
 <h4 id="downstream-analyses">Downstream analyses<a class="headerlink" href="#downstream-analyses" title="Permanent link">&para;</a></h4>
 <ul>
-<li><a href="../processes/SeuratClusterStats/"><code>SeuratClusterStats</code></a>: Investigate statistics for each T-cell cluster (i.e. the number of cells in each cluster, the number of cells in each sample for each cluster, feature/gene expression visualization, dimension reduction plots, etc.). It's also possible to perform stats on TCR clones/clusters for each T-cell cluster.</li>
+<li><a href="../processes/SeuratClusterStats/"><code>SeuratClusterStats</code></a>: Investigate statistics for each T-cell cluster (i.e. the number of cells in each cluster, the number of cells in each sample for each cluster, feature/gene expression visualization, dimension reduction plots, etc.). It's also possible to perform stats on TCR/BCR clones/clusters for each T-cell cluster.</li>
 <li><a href="../processes/ClonalStats/"><code>ClonalStats</code></a>: Investigate statistics for clones.</li>
 <li><a href="../processes/MarkersFinder/"><code>MarkersFinder</code></a>: Find markers (differentially expressed genes) for any two groups, including clones or clone groups.</li>
 <li><a href="../processes/PseudoBulkDEG/"><code>PseudoBulkDEG</code></a>: Perform pseudo-bulk differential expression analysis.</li>
 <li><a href="../processes/CDR3AAPhyschem/"><code>CDR3AAPhyschem</code></a>: Investigate the physicochemical properties of CDR3 amino acid sequences of one cell type over another (i.e. <code>Treg</code> vs <code>Tconv</code>).</li>
-<li><a href="../processes/ScFGSEA/"><code>ScFGSEA</code></a>: Perform GSEA analysis for comparisons between two groups of cells. For example, between two cell types, clone groups, TCR clusters or clinical groups.</li>
+<li><a href="../processes/ScFGSEA/"><code>ScFGSEA</code></a>: Perform GSEA analysis for comparisons between two groups of cells. For example, between two cell types, clone groups, TCR/BCR clusters or clinical groups.</li>
 <li><a href="../processes/CellCellCommunication/"><code>CellCellCommunication</code></a>: Perform cell-cell communication analysis.</li>
 <li><a href="../processes/CellCellCommunicationPlots/"><code>CellCellCommunicationPlots</code></a>: Generate plots for cell-cell communication analysis.</li>
 </ul>
@@ -273,25 +273,24 @@
 </ul>
 <h3 id="routes-of-the-pipeline">Routes of the pipeline<a class="headerlink" href="#routes-of-the-pipeline" title="Permanent link">&para;</a></h3>
 <p><code>immunopipe</code> is designed to be flexible. It can be used in different ways. Here we list some common routes of the pipeline:</p>
-<h4 id="both-scrna-seq-and-sctcr-seq-data-avaiable">Both scRNA-seq and scTCR-seq data avaiable<a class="headerlink" href="#both-scrna-seq-and-sctcr-seq-data-avaiable" title="Permanent link">&para;</a></h4>
+<h4 id="both-scrna-seq-and-sctcr-scbcr-seq-data-avaiable">Both scRNA-seq and scTCR-/scBCR-seq data avaiable<a class="headerlink" href="#both-scrna-seq-and-sctcr-scbcr-seq-data-avaiable" title="Permanent link">&para;</a></h4>
 <p>To enable this route, you need to:</p>
 <ul>
-<li>tell the pipeline that scTCR-seq data is available by adding a column named <code>TCRData</code> in the sample information file.</li>
+<li>tell the pipeline that scTCR-seq data is available by adding a column named <code>TCRData</code>/<code>BCRData</code> in the sample information file.</li>
 <li>put the path of the sample information file in the configuration file <code>[SampleInfo.in.infile]</code>, instead of passing it as a command line argument (<code>--Sample.in.infile</code>).</li>
 </ul>
 <p>Unsupervised clustering <code>[SeuratClustering]</code> on selected T cells is the default setting. If you want to perform supervised clustering, you need to add <code>[SeuratMap2Ref]</code> in the configuration file with necessary parameters. If so, <code>SeuratClustering</code> will be replaced by <code>SeuratMap2Ref</code> in the pipeline.</p>
-<p>If you need to select T cells from all cells available for later analyses, you need to add <code>[TCellSelection]</code> in the configuration file. If so, the processes annotated as <code>For T cell selection</code> will be added to the pipeline.</p>
+<p>If you need to select T/B cells from all cells available for later analyses, you need to add <code>[TOrBCellSelection]</code> in the configuration file. If so, the processes annotated as something like <code>For selected cells</code> will be added to the pipeline.</p>
 <p>This is the most common route of the pipeline:</p>
 <p><img alt="routes-tcr" src="../routes-tcr.png" /></p>
 <p>The optional processes are enabled only when the corresponding sections are added in the configuration file. For example, if you want to add module scores (e.g. cell activation score) to the <code>Seurat</code> object, you need to add <code>[ModuleScoreCalculator]</code> in the configuration file.</p>
 <h4 id="only-scrna-seq-data-avaiable">Only scRNA-seq data avaiable<a class="headerlink" href="#only-scrna-seq-data-avaiable" title="Permanent link">&para;</a></h4>
-<p>When you have only scRNA-seq data, you just don't need to add the <code>TCRData</code> column in the sample information file. The pipeline will automatically skip the processes related to scTCR-seq data analysis.</p>
+<p>When you have only scRNA-seq data, you just don't need to add the <code>TCRData</code>/<code>BCRData</code> column in the sample information file. The pipeline will automatically skip the processes related to scTCR-/scBCR-seq data analysis.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>You need to specify the sample information file in the configuration file <code>[SampleInfo.in.infile]</code> to enable this route. Passing the sample information file as a command line argument (<code>--Sample.in.infile</code>) does not trigger this route.</p>
 </div>
 <p>Unsupervised clustering <code>[SeuratClustering]</code> on selected T cells is the default setting. If you want to perform supervised clustering, you need to add <code>[SeuratMap2Ref]</code> in the configuration file with necessary parameters. If so, <code>SeuratClustering</code> will be replaced by <code>SeuratMap2Ref</code> in the pipeline.</p>
-<p>If you need to select T cells from all cells available for later analyses, you need to add <code>[TCellSelection]</code> in the configuration file. If so, the processes annotated as <code>For T cell selection</code> will be added to the pipeline.</p>
 <p><img alt="routes-notcr" src="../routes-notcr.png" /></p>
               
             </div>

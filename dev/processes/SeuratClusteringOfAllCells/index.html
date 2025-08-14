@@ -93,7 +93,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../TCellSelection/">TCellSelection</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../TOrBCellSelection/">TOrBCellSelection</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
                   </li>
@@ -184,15 +184,15 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="seuratclusteringofallcells">SeuratClusteringOfAllCells<a class="headerlink" href="#seuratclusteringofallcells" title="Permanent link">&para;</a></h2>
-<p>Cluster all cells, including T cells and non-T cells using Seurat</p>
+<p>Cluster all cells, including T cells/non-T cells and B cells/non-Bcells using Seurat.</p>
 <p>This process will perform clustering on all cells using
 <a href="https://satijalab.org/seurat/"><code>Seurat</code></a> package.<br />
-The clusters will then be used to select T cells by
-<a href="../TCellSelection/"><code>TCellSelection</code></a> process.<br /></p>
+The clusters will then be used to select T/B cells by
+<a href="../TOrBCellSelection/"><code>TOrBCellSelection</code></a> process.<br /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If all your cells are all T cells (<a href="../TCellSelection/"><code>TCellSelection</code></a> is
-not set in configuration), you should not use this process.<br />
+<p>If all your cells are all T/B cells (<a href="../TOrBCellSelection/"><code>TOrBCellSelection</code></a>
+is not set in configuration), you should not use this process.<br />
 Instead, you should use <a href="../SeuratClustering/"><code>SeuratClustering</code></a> process
 for unsupervised clustering, or <a href="../SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> process
 for supervised clustering.<br /></p>

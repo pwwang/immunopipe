@@ -103,7 +103,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../TCellSelection/">TCellSelection</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../TOrBCellSelection/">TOrBCellSelection</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
                   </li>
@@ -216,9 +216,9 @@ the order of the levels. If you want to add a factor column with desired levels,
 set <code>envs.mutaters</code> of the <code>SeuratPreparing</code> process to mutate the column.<br /></p>
 <p>Once the pipeline is finished, you can see the sample information in the report</p>
 <p><img alt="report" src="../..//processes/images/SampleInfo-report.png" /></p>
-<p>Note that the required <code>RNAData</code> (if not loaded from a Seurat object) and <code>TCRData</code>
+<p>Note that the required <code>RNAData</code> (if not loaded from a Seurat object) and <code>TCRData</code>/<code>BCRData</code>
 columns are not shown in the report.<br />
-They are used to specify the paths of the <code>scRNA-seq</code> and <code>scTCR-seq</code> data, respectively.<br />
+They are used to specify the paths of the <code>scRNA-seq</code> and <code>scTCR-seq</code>/<code>scBCR-seq</code> data, respectively.<br />
 Also note that when <code>RNAData</code> is loaded from a Seurat object (specified in the
 <code>LoadRNAFromSeurat</code> process), the metadata provided in this process will not be
 integrated into the Seurat object in the downstream processes. To incoporate
@@ -249,7 +249,7 @@ and <code>cache</code> of <code>SampleInfo</code> to <code>false</code> to force
     The input file to list sample information The input file should be a csv/tsv file with header.<br />
     The input file should have the following columns.<br /><ul>
 <li>Sample: A unique id for each sample.<br /></li>
-<li>TCRData: The directory for single-cell TCR data for this sample.<br />
+<li>TCRData/BCRData: The directory for single-cell TCR/BCR data for this sample.<br />
 Specifically, it should contain filtered_contig_annotations.csv
 or all_contig_annotations.csv from cellranger.<br /></li>
 <li>RNAData: The directory for single-cell RNA data for this sample.<br />
@@ -301,7 +301,7 @@ returned ids. Non-paired ids will be <code>NA</code>.<br /></li>
 </li>
 <li><code>save_mutated</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to save the mutated columns.<br /></li>
-<li><code>exclude_cols</code> <em>(<code>auto</code>)</em>: <em>Default: <code>TCRData,RNAData</code></em>. <br />
+<li><code>exclude_cols</code> <em>(<code>auto</code>)</em>: <em>Default: <code>TCRData,BCRData,RNAData</code></em>. <br />
     The columns to exclude in the table in the report.<br />
     Could be a list or a string separated by comma.<br /></li>
 <li><code>defaults</code> <em>(<code>ns</code>)</em>:

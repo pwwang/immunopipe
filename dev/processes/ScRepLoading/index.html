@@ -85,7 +85,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../TCellSelection/">TCellSelection</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../TOrBCellSelection/">TOrBCellSelection</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
                   </li>
@@ -216,12 +216,17 @@ and this column will be excluded as metadata.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>type</code> <em>(<code>choice</code>)</em>: <em>Default: <code>TCR</code></em>. <br />
+<li><code>type</code> <em>(<code>choice</code>)</em>: <em>Default: <code>auto</code></em>. <br />
     The type of the data to load.<br /><ul>
 <li><code>TCR</code>:
     T cell receptor data</li>
 <li><code>BCR</code>:
     B cell receptor data</li>
+<li><code>auto</code>:
+    Automatically detect the type from the metadata.<br />
+    If <code>auto</code> is selected, the type will be determined by the presence of
+    <code>TCRData</code> or <code>BCRData</code> columns in the metadata. If both columns are
+    present, <code>TCR</code> will be selected by default.<br /></li>
 </ul>
 </li>
 <li><code>combineTCR</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'samples': True}</code></em>. <br />

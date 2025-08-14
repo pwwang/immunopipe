@@ -85,7 +85,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCellSelection/">TCellSelection</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TOrBCellSelection/">TOrBCellSelection</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/ModuleScoreCalculator/">ModuleScoreCalculator</a>
                   </li>
@@ -248,7 +248,7 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#added">Added</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#breaking-changes_1">Breaking changes</a>
+    <li class="toctree-l3"><a class="reference internal" href="#breaking-changes-090">Breaking changes-0.9.0</a>
     </li>
         </ul>
     </li>
@@ -262,23 +262,23 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#housekeeping-and-docs-updates">Housekeeping and docs updates</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#added_1">Added</a>
+    <li class="toctree-l3"><a class="reference internal" href="#added-080">Added-0.8.0</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#fixed">Fixed</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#breaking-changes_2">Breaking changes</a>
+    <li class="toctree-l3"><a class="reference internal" href="#breaking-changes-080">Breaking changes-0.8.0</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#070">0.7.0</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#housekeeping-and-docs-updates_1">Housekeeping and docs updates</a>
+    <li class="toctree-l3"><a class="reference internal" href="#housekeeping-and-docs-updates-070">Housekeeping and docs updates-0.7.0</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#added_2">Added</a>
+    <li class="toctree-l3"><a class="reference internal" href="#added-070">Added-0.7.0</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#fixed_1">Fixed</a>
+    <li class="toctree-l3"><a class="reference internal" href="#fixed-070">Fixed-0.7.0</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#breaking-changes_3">Breaking changes</a>
+    <li class="toctree-l3"><a class="reference internal" href="#breaking-changes-070">Breaking changes-0.7.0</a>
     </li>
         </ul>
     </li>
@@ -363,8 +363,9 @@
 <h4 id="enhanced-performance">Enhanced performance<a class="headerlink" href="#enhanced-performance" title="Permanent link">&para;</a></h4>
 <ul>
 <li>feat: the pipeline now uses <a href="https://github.com/qsbase/qs2"><code>qs2</code></a> for store the R objects, which speeds up the loading and saving of Seurat objects.</li>
-<li>feat: step-wise caching (in addition to process-wise) is now supported, especially for Seurat processes, allowing for faster re-running of the pipeline by caching intermediate results.</li>
+<li>feat: step-wise caching (in addition to process-wise) is now supported, especially for Seurat processes, allowing for faster re-running of the pipeline by caching intermediate results and improving results reproducibility.</li>
 <li>refactor: <a href="https://pwwang.github.io/immunopipe/dev/processes/ScrnaMetabolicLandscape/">MetabolicLandscapeAnalysis</a> is refactored for flexibility and performance improvement.</li>
+<li>BREAKING: <a href="https://cran.r-project.org/web/packages/enrichR/vignettes/enrichR.html">enrichR</a> is retired and replaced by <a href="https://github.com/pwwang/enrichit">enrichit</a> for enrichment analysis, making it offline and more flexible. This enables the entire pipline to run without internet connection.</li>
 </ul>
 <h4 id="new-analysesfeatures">New analyses/features<a class="headerlink" href="#new-analysesfeatures" title="Permanent link">&para;</a></h4>
 <ul>
@@ -373,6 +374,7 @@
 <li>BREAKING: the <a href="https://immunarch.com">immunarch</a> package is now replaced by <a href="https://github.com/BorchLab/scRepertoire">scRepertoire</a> for more features and allowing customized clonotype definition.</li>
 <li>feat: <code>envs.mutaters</code> is now supported for <a href="https://pwwang.github.io/immunopipe/latest/processes/SeuratPreparing/">SeuratPreparing</a> to allow create factor (categorical) columns in the metadata.</li>
 <li>feat: <a href="https://pwwang.github.io/immunopipe/latest/processes/PseudoBulkDEG/">PseudoBulkDEG</a> is added to perform pseudo-bulk differential expression analysis.</li>
+<li>feat: BCR-seq data is now supported, allowing users to analyze BCR-seq data paired with scRNA-seq data.</li>
 <li>feat: Now <code>Seurat</code> object (in RDS or qs2 format) is supported as input for scRNA-seq data.</li>
 <li>feat: Now loom format is supported for scRNA-seq data, allowing users to use loom files as input for the pipeline.</li>
 </ul>
@@ -381,7 +383,7 @@
 <li>build: docker images are now built based on the <a href="https://github.com/pwwang/biopipen"><code>biopipen</code></a> base image.</li>
 <li>ci: the test workflow now caches the running intermediate files to speed up the tests.</li>
 <li>docs: the citation information is now added to the documentation, allowing users to easily cite the pipeline in their publications.</li>
-<li>chore(deps): biopipen is bumped to 0.34.5, which includes various bug fixes and enhancements. See the <a href="https://github.com/pwwang/biopipen/releases">biopipen releases</a> for more details.</li>
+<li>chore(deps): biopipen is bumped to 0.34.6, which includes various bug fixes and enhancements. See the <a href="https://github.com/pwwang/biopipen/releases">biopipen releases</a> for more details.</li>
 </ul>
 <h3 id="144">1.4.4<a class="headerlink" href="#144" title="Permanent link">&para;</a></h3>
 <ul>
@@ -898,7 +900,7 @@
 <li>Add <code>ClusterMarkersOfAllCells</code> and <code>TopExpressingGenesOfAllCells</code> and set them as optional</li>
 <li>Add dim plots in <code>SeuratClusterStats</code> to overlay TCR presence/absence of cells (#14)</li>
 </ul>
-<h4 id="breaking-changes_1">Breaking changes<a class="headerlink" href="#breaking-changes_1" title="Permanent link">&para;</a></h4>
+<h4 id="breaking-changes-090">Breaking changes-0.9.0<a class="headerlink" href="#breaking-changes-090" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Rename <code>TCRClusteringStats</code> to <code>TCRClusterStats</code> (#15)</li>
 </ul>
@@ -930,7 +932,7 @@
 <li>Add singularity/apptainer in FAQ for "no space left" question</li>
 <li>Add -w fro apptainer in docs (as we need to save pipen-board file in home directory)</li>
 </ul>
-<h4 id="added_1">Added<a class="headerlink" href="#added_1" title="Permanent link">&para;</a></h4>
+<h4 id="added-080">Added-0.8.0<a class="headerlink" href="#added-080" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Add <code>TESSA</code> process for <a href="https://pwwang.github.io/immunopipe/processes/TESSA/">tessa analysis</a></li>
 <li>Add volcano plot for <code>MarkersFinder</code> and <code>ClusterMarkers</code></li>
@@ -943,12 +945,12 @@
 <li>Fix sample order in plots for <code>SampleInfo</code></li>
 <li>Remove <code>tidyseurat::</code> prefix for <code>filter</code> in scripts of <code>MetaMarkers</code>, <code>ScFGSEA</code> and <code>SeuratClusterStats</code> in case <code>tidyseurat::filter</code> is not exported when installed from <code>conda</code> (but it will make <code>dplyr::filter</code> work anyway on seurat object)</li>
 </ul>
-<h4 id="breaking-changes_2">Breaking changes<a class="headerlink" href="#breaking-changes_2" title="Permanent link">&para;</a></h4>
+<h4 id="breaking-changes-080">Breaking changes-0.8.0<a class="headerlink" href="#breaking-changes-080" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Redesign envs for <code>SeuratClusteringStats</code> to allow setting defaults for cases and switch identities for plots</li>
 </ul>
 <h3 id="070">0.7.0<a class="headerlink" href="#070" title="Permanent link">&para;</a></h3>
-<h4 id="housekeeping-and-docs-updates_1">Housekeeping and docs updates<a class="headerlink" href="#housekeeping-and-docs-updates_1" title="Permanent link">&para;</a></h4>
+<h4 id="housekeeping-and-docs-updates-070">Housekeeping and docs updates-0.7.0<a class="headerlink" href="#housekeeping-and-docs-updates-070" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Fix typos in docs/configurations</li>
 <li><code>TCRClustering</code> should be <code>TCRClusteringStats</code> in Multi-case variable design section</li>
@@ -961,7 +963,7 @@
 <li>Bump <code>pipen-board</code> to <a href="https://github.com/pwwang/pipen-board/releases/tag/0.11.5">0.11.5</a></li>
 <li>Add apptainer to the docs</li>
 </ul>
-<h4 id="added_2">Added<a class="headerlink" href="#added_2" title="Permanent link">&para;</a></h4>
+<h4 id="added-070">Added-0.7.0<a class="headerlink" href="#added-070" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Add <code>ModuleScoreCalculator</code> to calculate module scores or cell cycle scores</li>
 <li>See: <a href="https://pwwang.github.io/immunopipe/processes/ModuleScoreCalculator/">https://pwwang.github.io/immunopipe/processes/ModuleScoreCalculator/</a></li>
@@ -970,12 +972,12 @@
 <li>Add <code>TCR_Cluster_Size</code> and <code>TCR_Cluster_Size1</code> from <code>TCRClustering</code> to metadata for further integrative analysis</li>
 <li>See: <a href="https://pwwang.github.io/immunopipe/processes/TCRClusters2Seurat/">https://pwwang.github.io/immunopipe/processes/TCRClusters2Seurat/</a></li>
 </ul>
-<h4 id="fixed_1">Fixed<a class="headerlink" href="#fixed_1" title="Permanent link">&para;</a></h4>
+<h4 id="fixed-070">Fixed-0.7.0<a class="headerlink" href="#fixed-070" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Fix default height and width for plots in <code>SeuratClusterStats</code></li>
 <li>Fix cluster order not kept after annotation using <code>hitype</code> in <code>CellTypeAnnotation</code></li>
 </ul>
-<h4 id="breaking-changes_3">Breaking changes<a class="headerlink" href="#breaking-changes_3" title="Permanent link">&para;</a></h4>
+<h4 id="breaking-changes-070">Breaking changes-0.7.0<a class="headerlink" href="#breaking-changes-070" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Change <code>seurat_clusters_old</code> to <code>seurat_clusters_id</code> to save old <code>seurat_clusters</code> in <code>CellTypeAnnotation</code></li>
 <li>Remove <code>MarkersForClustersOfAllCells</code> and <code>TopExpressingGenesOfAllCells</code> processes</li>

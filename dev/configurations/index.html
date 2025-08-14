@@ -121,7 +121,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCellSelection/">TCellSelection</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TOrBCellSelection/">TOrBCellSelection</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/ModuleScoreCalculator/">ModuleScoreCalculator</a>
                   </li>
@@ -218,12 +218,12 @@
 <span class="c1"># Other pipeline configurations</span>
 
 <span class="c1"># process configurations</span>
-<span class="k">[TCellSelection]</span>
+<span class="k">[TOrBCellSelection]</span>
 <span class="n">forks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w">  </span><span class="c1"># override the default value</span>
 
 <span class="c1"># envs of the process</span>
 <span class="c1"># e.g</span>
-<span class="k">[TCellSelection.envs]</span>
+<span class="k">[TOrBCellSelection.envs]</span>
 <span class="n">indicator_genes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;CD3D&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CD3E&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CD3G&quot;</span><span class="p">]</span>
 
 <span class="c1"># other processes</span>
@@ -237,24 +237,22 @@
 <li><code>indicator_genes (list)</code>: The genes to be used to select T cells.</li>
 </ul>
 <p>This means that the environment variable <code>indicator_genes</code> should be set as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[TCellSelection.envs]</span>
+<div class="highlight"><pre><span></span><code><span class="k">[TOrBCellSelection.envs]</span>
 <span class="n">indicator_genes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;CD3D&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CD3E&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CD3G&quot;</span><span class="p">]</span>
 </code></pre></div>
 </div>
 <h3 id="pipeline-configurations">Pipeline configurations<a class="headerlink" href="#pipeline-configurations" title="Permanent link">&para;</a></h3>
 <p>There are pipeline level configurations and process level configurations. The pipeline level configurations are used to control the pipeline itself. The process level configurations set here are the default values for all the processes. You can override the default values for each process in the process level configurations.</p>
-<p>You can check all available configuration items and more details <a href="https://pwwang.github.io/pipen/configurations/">here</a>. Here we only list some of the most important ones. The rest ones are not recommended to change unless you know what you are doing.</p>
+<p>You can check all available configuration items and <a href="https://pwwang.github.io/pipen/configurations/">more details here</a>. Here we only list some of the most important ones. The rest ones are not recommended to change unless you know what you are doing.</p>
 <h4 id="pipeline-level-configurations">Pipeline level configurations<a class="headerlink" href="#pipeline-level-configurations" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>name</code>: The name of the pipeline (Default: <code>"Immunopipe"</code>)</li>
 <li>It will change the working directory to <code>./.pipen/&lt;name&gt;</code>, where the pipeline information and intermediate files will be stored.</li>
 <li>It will also change the default output directory to <code>./&lt;name&gt;-output</code>.</li>
-<li><code>outdir</code>: The output directory (Default: <code>"./&lt;name&gt;-output"</code>)<ul>
-<li>See also <a href="#output-directory-and-working-directory"><code>Output directory and working directory</code></a>.</li>
-</ul>
-</li>
+<li><code>outdir</code>: The output directory (Default: <code>"./&lt;name&gt;-output"</code>)</li>
+<li>The output directory is where the final results and reports are stored.</li>
 <li><code>loglevel</code>: The logging level for the logger (Default: <code>"info"</code>)</li>
-<li><code>plugin_opts</code>: The options for the plugins.<ul>
+<li><code>plugin_opts</code>: The options for the plugins.</li>
 <li>Following <code>pipen</code> plugins are installed with <code>immunopipe</code>. You may check the links for more details.</li>
 <li><a href="https://github.com/pwwang/pipen-board"><code>pipen-board</code></a>: Visualizing configuration and running of pipen pipelines on the web.</li>
 <li><a href="https://github.com/pwwang/pipen-verbose"><code>pipen-verbose</code></a>: Adding verbosal information in logs for pipen.</li>
@@ -265,14 +263,10 @@
 <li><a href="https://github.com/pwwang/pipen-report"><code>pipen-report</code></a>: Generating reports for pipen pipelines.</li>
 <li><a href="https://github.com/pwwang/pipen-log2file"><code>pipen-log2file</code></a>: Logging to files for pipen pipelines.</li>
 <li><a href="https://github.com/pwwang/pipen-cli-run"><code>pipen-cli-run</code></a>: Running pipen processes/process groups from command line.</li>
-</ul>
-</li>
 <li><code>scheduler</code>: The scheduler to use (Default: <code>"local"</code>)</li>
-<li><code>scheduler_opts</code>: The options for the scheduler.<ul>
-<li><code>immunopipe</code> is implemented using <code>pipen</code>, which is backended by <a href="https://github.com/pwwang/xqute"><code>xqute</code></a>. Supported schedulers and options are listed <a href="https://github.com/pwwang/xqute">here</a>.</li>
+<li><code>scheduler_opts</code>: The options for the scheduler.</li>
+<li><code>immunopipe</code> is implemented using <code>pipen</code>, which is backended by <a href="https://github.com/pwwang/xqute"><code>xqute</code></a>. Supported schedulers and options are <a href="https://github.com/pwwang/xqute">listed here</a>.</li>
 <li>See also <a href="../faq/#how-to-run-the-pipeline-on-a-cluster"><code>How to run the pipeline on a cluster?</code></a> for more details.</li>
-</ul>
-</li>
 </ul>
 <h4 id="output-and-working-directory">Output and working directory<a class="headerlink" href="#output-and-working-directory" title="Permanent link">&para;</a></h4>
 <p>The output directory is the directory where the final results are stored. The working directory is the directory where the pipeline information and intermediate files are stored. By default, the output directory is <code>./&lt;name&gt;-output</code> and the working directory is <code>./.pipen/&lt;name&gt;</code>.</p>
@@ -303,29 +297,25 @@
 <h4 id="process-level-configurations">Process level configurations<a class="headerlink" href="#process-level-configurations" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>cache</code>: Should we detect whether the jobs are cached. If <code>true</code>, the jobs will be skipped if the output files exist and newer than the input files. (Default: <code>true</code>)</li>
-<li>
-<p><code>error_strategy</code>: The strategy to handle the errors.</p>
-<ul>
+<li><code>error_strategy</code>: The strategy to handle the errors.</li>
 <li><code>halt</code>: Any failure will just halt the entire pipeline (default)</li>
 <li><code>ignore</code>: Ignore the error and keep running (assuming the job runs successfully anyway)</li>
-<li><code>retry</code>: Retry to job running.
-  After <code>num_retries</code> times of retrying, if the job is still failing, halt the pipeline.</li>
-</ul>
+<li>
+<p><code>retry</code>: Retry to job running.
+      After <code>num_retries</code> times of retrying, if the job is still failing, halt the pipeline.</p>
 </li>
 <li>
 <p><code>num_retries</code>: The number of retries for the jobs. (Default: <code>3</code>)</p>
 </li>
 <li><code>forks</code>: How many jobs to run simultaneously? (Default: <code>1</code>)</li>
 <li><code>scheduler</code>: The scheduler to use. If not specified, the scheduler specified in the pipeline level configurations will be used.</li>
-<li><code>scheduler_opts</code>: The options for the scheduler. If not specified, the scheduler options specified in the pipeline level configurations will be used.<ul>
+<li><code>scheduler_opts</code>: The options for the scheduler. If not specified, the scheduler options specified in the pipeline level configurations will be used.</li>
 <li>See also <a href="../faq/#how-to-run-the-pipeline-on-a-cluster"><code>How to run the pipeline on a cluster?</code></a> for more details.</li>
-</ul>
-</li>
 </ul>
 <p>To know more about the configuration items for the pipeline, you can also read the <a href="https://pwwang.github.io/pipen/configurations/">pipen docs</a>.</p>
 <h3 id="enablingdisabling-processes">Enabling/disabling processes<a class="headerlink" href="#enablingdisabling-processes" title="Permanent link">&para;</a></h3>
 <p>By default, only the essential processes are enabled.</p>
-<p>If scTCR-seq data is avaiable, these processes include:</p>
+<p>If scTCR-/scBCR-seq data is avaiable, these processes include:</p>
 <ul>
 <li><a href="../processes/SampleInfo/"><code>SampleInfo</code></a></li>
 <li><a href="../processes/ScRepLoading/"><code>ScRepLoading</code></a></li>
@@ -366,8 +356,8 @@
 <span class="n">infile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;samples.txt&quot;</span><span class="w"> </span><span class="p">]</span>
 </code></pre></div>
 <p>The input file is the metadata file mentioned in <a href="../preparing-input/#metadata"><code>Preparing the input</code></a>.</p>
-<p>With the minimal configurations, the pipeline will have <a href="#enablingdisabling-processes">the essential processes</a> enabled, depending on whether scTCR-seq data is available or not.</p>
-<p>You can also check the example report <a href="http:/imp.pwwang.com/minimal/REPORTS/">here</a> to see what you will get with the minimal configurations, with scTCR-seq data available.</p>
+<p>With the minimal configurations, the pipeline will have <a href="#enablingdisabling-processes">the essential processes</a> enabled, depending on whether scTCR-/scBCR-seq data is available or not.</p>
+<p>You can also check <a href="http:/imp.pwwang.com/minimal/REPORTS/">the example report here</a> to see what you will get with the minimal configurations, with scTCR-/scBCR-seq data available.</p>
 <h3 id="environment-variable-types">Environment variable types<a class="headerlink" href="#environment-variable-types" title="Permanent link">&para;</a></h3>
 <p>The types of environment variables are annotated in the brackets next the name of the environment variables. For example, the type of <code>envs.indicator_genes</code> of <a href="../processes/TCellSelection/"><code>TCellSelection</code></a> is <code>list</code>, and it's annotated as:</p>
 <div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span>indicator_genes (list): The genes to be used to select T cells.
@@ -499,7 +489,7 @@
 </ul>
 <p>and the meta columns in the input file. See also <a href="../preparing-input/"><code>Preparing the input</code></a> for more details.</p>
 <p>There could also be some other columns, depending on the previous processes. For example, if you have the cells clustered, there will be a column named <code>seurat_clusters</code> in the metadata.</p>
-<p>For scTCR-seq data, <code>Sample</code> is the only existing column in the metadata after loaded. Then the meta columns from the input file will be attached to the metadata.</p>
+<p>For scTCR-/scBCR-seq data, <code>Sample</code> is the only existing column in the metadata after loaded. Then the meta columns from the input file will be attached to the metadata.</p>
 <p>The best practice is to use a prefix for the column names you want to create. For example, if you want to create a column named <code>Sample</code>, you can use <code>my_Sample</code> instead. Then you can make sure that the column names are not in the metadata already.</p>
 <p>The other thing you need to pay attention to is that you should try to avoid <code>.</code> or <code>-</code> in the column names. For example, if you want to create a column named <code>Sample-Source</code>, you can use <code>Sample_Source</code> instead. This is because that the column names will be used as the keys of the environment variables, and some processes will translate <code>-</code> into <code>.</code>. See also <a href="#namespace-environment-variables"><code>Namespace environment variables</code></a> for more details.</p>
 <h4 id="filteringsubsetting-the-data">Filtering/Subsetting the data<a class="headerlink" href="#filteringsubsetting-the-data" title="Permanent link">&para;</a></h4>
@@ -528,10 +518,10 @@
 </code></pre></div>
 <p>which is not what we want.</p>
 <p>The reason why <code>.</code> is parsed as sub-key is that we want the argument to be able to be passed from command line. For example, if we want to set <code>do.scale</code> to <code>TRUE</code> from command line, we can do:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>--SeuratClusteringOfAllCells.envs.SCTransform.do-scale<span class="w"> </span><span class="nb">true</span>
+<div class="highlight"><pre><span></span><code>&gt;<span class="w"> </span>immunopipe<span class="w"> </span>--SeuratClusteringOfAllCells.envs.SCTransform.do-scale<span class="w"> </span><span class="nb">true</span>
 </code></pre></div>
 <p>If we use <code>.</code> instead of <code>-</code>:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>--SeuratClusteringOfAllCells.envs.SCTransform.do.scale<span class="w"> </span><span class="nb">true</span>
+<div class="highlight"><pre><span></span><code>&gt;<span class="w"> </span>immunopipe<span class="w"> </span>--SeuratClusteringOfAllCells.envs.SCTransform.do.scale<span class="w"> </span><span class="nb">true</span>
 </code></pre></div>
 <p>Then the <code>pipen-args</code> will parse it as</p>
 <div class="highlight"><pre><span></span><code><span class="k">[SeuratClusteringOfAllCells.envs.SCTransform]</span>
