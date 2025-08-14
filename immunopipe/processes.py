@@ -38,7 +38,10 @@ from biopipen.ns.scrna import (
 from biopipen.ns.scrna_metabolic_landscape import ScrnaMetabolicLandscape
 
 # inhouse processes
-from .inhouse import TCellSelection as TCellSelection_
+from .inhouse import (
+    # TCellSelection as TCellSelection_,
+    TOrBCellSelection as TOrBCellSelection_,
+)
 from .validate_config import validate_config
 
 toml_dumps = FILTERS["toml_dumps"]
@@ -91,9 +94,9 @@ class SampleInfo(SampleInfo_):
 
     ![report]({{baseurl}}/processes/images/SampleInfo-report.png)
 
-    Note that the required `RNAData` (if not loaded from a Seurat object) and `TCRData`
+    Note that the required `RNAData` (if not loaded from a Seurat object) and `TCRData`/`BCRData`
     columns are not shown in the report.
-    They are used to specify the paths of the `scRNA-seq` and `scTCR-seq` data, respectively.
+    They are used to specify the paths of the `scRNA-seq` and `scTCR-seq`/`scBCR-seq` data, respectively.
     Also note that when `RNAData` is loaded from a Seurat object (specified in the
     `LoadRNAFromSeurat` process), the metadata provided in this process will not be
     integrated into the Seurat object in the downstream processes. To incoporate
@@ -215,7 +218,7 @@ class SampleInfo(SampleInfo_):
         infile (required): {{Input.infile.help | indent: 12}}.
             The input file should have the following columns.
             * Sample: A unique id for each sample.
-            * TCRData: The directory for single-cell TCR data for this sample.
+            * TCRData/BCRData: The directory for single-cell TCR/BCR data for this sample.
                 Specifically, it should contain filtered_contig_annotations.csv
                 or all_contig_annotations.csv from cellranger.
             * RNAData: The directory for single-cell RNA data for this sample.
@@ -226,10 +229,10 @@ class SampleInfo(SampleInfo_):
                 each sample.
     """  # noqa: E501
 
-    envs = {"exclude_cols": "TCRData,RNAData"}
+    envs = {"exclude_cols": "TCRData,BCRData,RNAData"}
 
 
-if just_loading or config.has_tcr:
+if just_loading or config.has_vdj:
 
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class ScRepLoading(ScRepLoading_):
@@ -283,22 +286,24 @@ class SeuratPreparing(SeuratPreparing_):
         requires = SampleInfo
 
 
-if just_loading or "TCellSelection" in config:
+# if just_loading or "TCellSelection" in config:
+if just_loading or "TOrBCellSelection" in config:
     # No matter "SeuratClusteringOfAllCells" is in the config or not
     @annotate.format_doc(indent=2)
     class SeuratClusteringOfAllCells(SeuratClustering_):
-        """Cluster all cells, including T cells and non-T cells using Seurat
+        """Cluster all cells, including T cells/non-T cells and B cells/non-Bcells
+        using Seurat.
 
         This process will perform clustering on all cells using
         [`Seurat`](https://satijalab.org/seurat/) package.
-        The clusters will then be used to select T cells by
-        [`TCellSelection`](TCellSelection.md) process.
+        The clusters will then be used to select T/B cells by
+        [`TOrBCellSelection`](TOrBCellSelection.md) process.
 
         {{*Summary.long}}
 
         /// Note
-        If all your cells are all T cells ([`TCellSelection`](TCellSelection.md) is
-        not set in configuration), you should not use this process.
+        If all your cells are all T/B cells ([`TOrBCellSelection`](TOrBCellSelection.md)
+        is not set in configuration), you should not use this process.
         Instead, you should use [`SeuratClustering`](./SeuratClustering.md) process
         for unsupervised clustering, or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process
         for supervised clustering.
@@ -317,7 +322,8 @@ if just_loading or "TCellSelection" in config:
 
 
 if just_loading or (
-    "TCellSelection" in config and "ClusterMarkersOfAllCells" in config
+    # "TCellSelection" in config and "ClusterMarkersOfAllCells" in config
+    "TOrBCellSelection" in config and "ClusterMarkersOfAllCells" in config
 ):
 
     @annotate.format_doc(indent=2)
@@ -344,7 +350,8 @@ if just_loading or (
 
 
 if just_loading or (
-    "TCellSelection" in config and "TopExpressingGenesOfAllCells" in config
+    # "TCellSelection" in config and "TopExpressingGenesOfAllCells" in config
+    "TOrBCellSelection" in config and "TopExpressingGenesOfAllCells" in config
 ):
 
     @annotate.format_doc(indent=2)
@@ -368,15 +375,16 @@ if just_loading or (
         order = 3
 
 
-if just_loading or "TCellSelection" in config:
+# if just_loading or "TCellSelection" in config:
+if just_loading or "TOrBCellSelection" in config:
 
-    class TCellSelection(TCellSelection_):
+    class TOrBCellSelection(TOrBCellSelection_):
         if ScRepLoading:
             requires = [SeuratPreparing, ScRepLoading]
         else:
             requires = SeuratPreparing
 
-    SeuratPreparing = TCellSelection
+    SeuratPreparing = TOrBCellSelection
     # >>> SeuratPreparing
 
 if just_loading or "ModuleScoreCalculator" in config:
@@ -420,12 +428,12 @@ if just_loading or "SeuratMap2Ref" not in config:
 
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class SeuratClustering(SeuratClustering_):
-        """Cluster all T cells or selected T cells selected by `TCellSelection`.
+        """Cluster all cells or selected T/B cells selected by `TOrBCellSelection`.
 
-        If `[TCellSelection]` is not set in the configuration, meaning
-        all cells are T cells, this process will be run on all T cells. Otherwise,
-        this process will be run on the selected T cells by
-        [`TCellSelection`](./TCellSelection.md).
+        If `[TOrBCellSelection]` is not set in the configuration, meaning
+        all cells are T/B cells, this process will be run on all T/B cells. Otherwise,
+        this process will be run on the selected T/B cells by
+        [`TOrBCellSelection`](./TOrBCellSelection.md).
 
         See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).
 
@@ -453,7 +461,7 @@ if just_loading or ("SeuratMap2Ref" not in config and "CellTypeAnnotation" in co
 
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class CellTypeAnnotation(CellTypeAnnotation_):
-        """Annotate the T cell clusters.
+        """Annotate all or selected T/B cell clusters.
 
         {{*Summary}}
 
@@ -499,7 +507,7 @@ if just_loading or "SeuratSubClustering" in config:
 
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class SeuratSubClustering(SeuratSubClustering_):
-        """Sub-cluster the selected T cells.
+        """Sub-clustering for all or selected T/B cells.
 
         {{*Summary}}
 
@@ -519,7 +527,7 @@ if just_loading or "SeuratSubClustering" in config:
 
 @annotate.format_doc(indent=1)
 class ClusterMarkers(MarkersFinder_):
-    """Markers for clusters of all or selected T cells.
+    """Markers for clusters of all or selected T/B cells.
 
     This process is extended from [`MarkersFinder`](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder)
     from the [`biopipen`](https://pwwang.github.io/biopipen) package.
@@ -562,11 +570,11 @@ if just_loading or "TopExpressingGenes" in config:
 
     @annotate.format_doc(indent=2)
     class TopExpressingGenes(TopExpressingGenes_):
-        """Top expressing genes for clusters of all or selected T cells.
+        """Top expressing genes for clusters of all or selected T/B cells.
 
         {{*Summary.long}}
 
-        This process finds the top expressing genes of clusters of T cells, and also
+        This process finds the top expressing genes of clusters of T/B cells, and also
         performs the enrichment analysis against the genes.
 
         The enrichment analysis is done by
@@ -598,7 +606,7 @@ if just_loading or "TopExpressingGenes" in config:
         order = 3
 
 
-if just_loading or config.has_tcr:
+if just_loading or config.has_vdj:
     class ScRepCombiningExpression(ScRepCombiningExpression_):
         requires = ScRepLoading, Clustered
 
@@ -606,7 +614,7 @@ if just_loading or config.has_tcr:
     # >>> Clustered
 
 
-if just_loading or (config.has_tcr and "TCRClustering" in config):
+if just_loading or (config.has_vdj and "TCRClustering" in config):
 
     @annotate.format_doc(indent=2)
     class TCRClustering(TCRClustering_):
@@ -626,7 +634,7 @@ if just_loading or (config.has_tcr and "TCRClustering" in config):
     # >>> Clustered
 
 
-if just_loading or (config.has_tcr and "TESSA" in config):
+if just_loading or (config.has_vdj and "TESSA" in config):
 
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
     class TESSA(TESSA_):
@@ -675,13 +683,13 @@ class SeuratClusterStats(SeuratClusterStats_):
             },
         },
     }
-    if config.has_tcr:
-        envs["dimplots"]["TCR Presence"] = {
-            "group_by": "TCR_Presence",
+    if config.has_vdj:
+        envs["dimplots"]["VDJ Presence"] = {
+            "group_by": "VDJ_Presence",
         }
 
 
-if just_loading or config.has_tcr:
+if just_loading or config.has_vdj:
 
     class ClonalStats(ClonalStats_):
         requires = Clustered
@@ -819,7 +827,7 @@ if just_loading or "MarkersFinder" in config:
         order = 11
 
 
-if just_loading or (config.has_tcr and "CDR3AAPhyschem" in config):
+if just_loading or (config.has_vdj and "CDR3AAPhyschem" in config):
 
     class CDR3AAPhyschem(CDR3AAPhyschem_):
         requires = Clustered

@@ -29,11 +29,11 @@ prepared = false
 clustered = false
 ```
 
-## Single-cell TCR-seq (scTCR-seq) data
+## Single-cell TCR-/BCR-seq (scTCR-seq/scBCR-seq) data
 
-The scTCR-seq data is optional for the pipeline. However, the scRNA-seq data is required for the pipeline.
+The scTCR-/scBCR-seq data is optional for the pipeline. However, the scRNA-seq data is required for the pipeline.
 
-The scTCR-seq data, if available, should be paired with the scRNA-seq data. Theoratically, as long as the data can be loaded by [`scRepertoire::loadContigs()`](https://www.borch.dev/uploads/screpertoire/reference/loadcontigs), it should be fine. Following formats are supported:
+The scTCR-/scBCR-seq data, if available, should be paired with the scRNA-seq data. Theoratically, as long as the data can be loaded by [`scRepertoire::loadContigs()`](https://www.borch.dev/uploads/screpertoire/reference/loadcontigs), it should be fine. Following formats are supported:
 
 - 10X: 10X Genomics data, which is usually in a directory with
     `filtered_contig_annotations.csv` file.
@@ -64,8 +64,9 @@ A metadata file is required as an input file for the pipeline. It should be a `T
 - `Sample`: A unique id for each sample
 - `RNAData`: The directory or `h5` file for single-cell RNA data for this sample, as described above.
 - `TCRData` (optional): The directory for single-cell TCR data for this sample as described above.
+- `BCRData` (optional): The directory for single-cell BCR data for this sample as described above.
 
-When `TCRData` is not provided, the pipeline will skip the processes related to scTCR-seq data (see [Routes of the pipeline](./introduction.md#only-scrna-seq-data-avaiable) for more details).
+When `TCRData`/`BCRData` is not provided, the pipeline will skip the processes related to scTCR-/scBCR-seq data (see [Routes of the pipeline](./introduction.md#only-scrna-seq-data-avaiable) for more details).
 
 You can also add other columns to the metadata file. The columns will be added the `Seurat` object as metadata, and can be used for downstream analysis. For example, you can add a column `Condition` to indicate the condition of each sample, or `Batch` to indicate the batch effect.
 

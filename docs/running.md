@@ -35,7 +35,7 @@ If you want to run the pipeline on a cluster, see [How to run the pipeline on a 
 /// Attention
 For settings that determine the routes of the pipeline, you should define them in the configuration file. For example, if you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters. If you just pass the section as a command line argument (`--SeuratMap2Ref`), it will not trigger the corresponding processes.
 
-To indicator whether the scTCR-seq data is available or not, you also need to specify the sample information file in the configuration file `[SampleInfo.in.infile]`. Passing the sample information file as a command line argument (`--Sample.in.infile`) does not trigger the corresponding processes.
+To indicator whether the scTCR-/scBCR-seq data is available or not, you also need to specify the sample information file in the configuration file `[SampleInfo.in.infile]`. Passing the sample information file as a command line argument (`--Sample.in.infile`) does not trigger the corresponding processes.
 
 See [Routes of the pipeline](./introduction.md#routes-of-the-pipeline) for more details.
 ///

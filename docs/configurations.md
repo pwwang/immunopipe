@@ -11,12 +11,12 @@ forks = 4
 # Other pipeline configurations
 
 # process configurations
-[TCellSelection]
+[TOrBCellSelection]
 forks = 2  # override the default value
 
 # envs of the process
 # e.g
-[TCellSelection.envs]
+[TOrBCellSelection.envs]
 indicator_genes = ["CD3D", "CD3E", "CD3G"]
 
 # other processes
@@ -32,17 +32,17 @@ In the individual process pages, we will list the `envs` of the process. For exa
 This means that the environment variable `indicator_genes` should be set as follows:
 
 ```toml
-[TCellSelection.envs]
+[TOrBCellSelection.envs]
 indicator_genes = ["CD3D", "CD3E", "CD3G"]
 ```
-///
 
+///
 
 ## Pipeline configurations
 
 There are pipeline level configurations and process level configurations. The pipeline level configurations are used to control the pipeline itself. The process level configurations set here are the default values for all the processes. You can override the default values for each process in the process level configurations.
 
-You can check all available configuration items and more details [here](https://pwwang.github.io/pipen/configurations/). Here we only list some of the most important ones. The rest ones are not recommended to change unless you know what you are doing.
+You can check all available configuration items and [more details here](https://pwwang.github.io/pipen/configurations/). Here we only list some of the most important ones. The rest ones are not recommended to change unless you know what you are doing.
 
 ### Pipeline level configurations
 
@@ -50,23 +50,23 @@ You can check all available configuration items and more details [here](https://
   - It will change the working directory to `./.pipen/<name>`, where the pipeline information and intermediate files will be stored.
   - It will also change the default output directory to `./<name>-output`.
 - `outdir`: The output directory (Default: `"./<name>-output"`)
-    - See also [`Output directory and working directory`](#output-directory-and-working-directory).
+  - The output directory is where the final results and reports are stored.
 - `loglevel`: The logging level for the logger (Default: `"info"`)
 - `plugin_opts`: The options for the plugins.
-    - Following `pipen` plugins are installed with `immunopipe`. You may check the links for more details.
-    - [`pipen-board`][1]: Visualizing configuration and running of pipen pipelines on the web.
-    - [`pipen-verbose`][2]: Adding verbosal information in logs for pipen.
-    - [`pipen-runinfo`][3]: Generating running information for jobs in pipen pipelines.
-    - [`pipen-filters`][4]: Adding a set of useful filters for pipen templates.
-    - [`pipen-args`][5]: Command line argument parser for pipen
-    - [`pipen-annotate`][6]: Using docstring to annotate pipen processes.
-    - [`pipen-report`][7]: Generating reports for pipen pipelines.
-    - [`pipen-log2file`][8]: Logging to files for pipen pipelines.
-    - [`pipen-cli-run`][9]: Running pipen processes/process groups from command line.
+  - Following `pipen` plugins are installed with `immunopipe`. You may check the links for more details.
+  - [`pipen-board`][1]: Visualizing configuration and running of pipen pipelines on the web.
+  - [`pipen-verbose`][2]: Adding verbosal information in logs for pipen.
+  - [`pipen-runinfo`][3]: Generating running information for jobs in pipen pipelines.
+  - [`pipen-filters`][4]: Adding a set of useful filters for pipen templates.
+  - [`pipen-args`][5]: Command line argument parser for pipen
+  - [`pipen-annotate`][6]: Using docstring to annotate pipen processes.
+  - [`pipen-report`][7]: Generating reports for pipen pipelines.
+  - [`pipen-log2file`][8]: Logging to files for pipen pipelines.
+  - [`pipen-cli-run`][9]: Running pipen processes/process groups from command line.
 - `scheduler`: The scheduler to use (Default: `"local"`)
 - `scheduler_opts`: The options for the scheduler.
-    - `immunopipe` is implemented using `pipen`, which is backended by [`xqute`][10]. Supported schedulers and options are listed [here](https://github.com/pwwang/xqute).
-    - See also [`How to run the pipeline on a cluster?`](./faq.md#how-to-run-the-pipeline-on-a-cluster) for more details.
+  - `immunopipe` is implemented using `pipen`, which is backended by [`xqute`][10]. Supported schedulers and options are [listed here](https://github.com/pwwang/xqute).
+  - See also [`How to run the pipeline on a cluster?`](./faq.md#how-to-run-the-pipeline-on-a-cluster) for more details.
 
 ### Output and working directory
 
@@ -100,6 +100,7 @@ What if you want to change the working directory anyway? The recommended way is 
 ```bash
 ln -s /path/to/the/real/working/directory ./.pipen
 ```
+
 ///
 
 /// Tip
@@ -112,16 +113,16 @@ You can also find the other information for the jobs at `./.pipen/<name>/<proces
 
 - `cache`: Should we detect whether the jobs are cached. If `true`, the jobs will be skipped if the output files exist and newer than the input files. (Default: `true`)
 - `error_strategy`: The strategy to handle the errors.
-    - `halt`: Any failure will just halt the entire pipeline (default)
-    - `ignore`: Ignore the error and keep running (assuming the job runs successfully anyway)
-    - `retry`: Retry to job running.
+  - `halt`: Any failure will just halt the entire pipeline (default)
+  - `ignore`: Ignore the error and keep running (assuming the job runs successfully anyway)
+  - `retry`: Retry to job running.
       After `num_retries` times of retrying, if the job is still failing, halt the pipeline.
 
 - `num_retries`: The number of retries for the jobs. (Default: `3`)
 - `forks`: How many jobs to run simultaneously? (Default: `1`)
 - `scheduler`: The scheduler to use. If not specified, the scheduler specified in the pipeline level configurations will be used.
 - `scheduler_opts`: The options for the scheduler. If not specified, the scheduler options specified in the pipeline level configurations will be used.
-    - See also [`How to run the pipeline on a cluster?`](./faq.md#how-to-run-the-pipeline-on-a-cluster) for more details.
+  - See also [`How to run the pipeline on a cluster?`](./faq.md#how-to-run-the-pipeline-on-a-cluster) for more details.
 
 To know more about the configuration items for the pipeline, you can also read the [pipen docs](https://pwwang.github.io/pipen/configurations/).
 
@@ -129,7 +130,7 @@ To know more about the configuration items for the pipeline, you can also read t
 
 By default, only the essential processes are enabled.
 
-If scTCR-seq data is avaiable, these processes include:
+If scTCR-/scBCR-seq data is avaiable, these processes include:
 
 - [`SampleInfo`](processes/SampleInfo.md)
 - [`ScRepLoading`](processes/ScRepLoading.md)
@@ -185,9 +186,9 @@ infile = [ "samples.txt" ]
 
 The input file is the metadata file mentioned in [`Preparing the input`](./preparing-input.md#metadata).
 
-With the minimal configurations, the pipeline will have [the essential processes](#enablingdisabling-processes) enabled, depending on whether scTCR-seq data is available or not.
+With the minimal configurations, the pipeline will have [the essential processes](#enablingdisabling-processes) enabled, depending on whether scTCR-/scBCR-seq data is available or not.
 
-You can also check the example report [here](http:/imp.pwwang.com/minimal/REPORTS/) to see what you will get with the minimal configurations, with scTCR-seq data available.
+You can also check [the example report here](http:/imp.pwwang.com/minimal/REPORTS/) to see what you will get with the minimal configurations, with scTCR-/scBCR-seq data available.
 
 ## Environment variable types
 
@@ -300,7 +301,7 @@ and the meta columns in the input file. See also [`Preparing the input`](./prepa
 
 There could also be some other columns, depending on the previous processes. For example, if you have the cells clustered, there will be a column named `seurat_clusters` in the metadata.
 
-For scTCR-seq data, `Sample` is the only existing column in the metadata after loaded. Then the meta columns from the input file will be attached to the metadata.
+For scTCR-/scBCR-seq data, `Sample` is the only existing column in the metadata after loaded. Then the meta columns from the input file will be attached to the metadata.
 
 The best practice is to use a prefix for the column names you want to create. For example, if you want to create a column named `Sample`, you can use `my_Sample` instead. Then you can make sure that the column names are not in the metadata already.
 
@@ -350,13 +351,13 @@ which is not what we want.
 The reason why `.` is parsed as sub-key is that we want the argument to be able to be passed from command line. For example, if we want to set `do.scale` to `TRUE` from command line, we can do:
 
 ```bash
-$ immunopipe --SeuratClusteringOfAllCells.envs.SCTransform.do-scale true
+> immunopipe --SeuratClusteringOfAllCells.envs.SCTransform.do-scale true
 ```
 
 If we use `.` instead of `-`:
 
 ```bash
-$ immunopipe --SeuratClusteringOfAllCells.envs.SCTransform.do.scale true
+> immunopipe --SeuratClusteringOfAllCells.envs.SCTransform.do.scale true
 ```
 
 Then the `pipen-args` will parse it as

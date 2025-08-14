@@ -19,31 +19,31 @@ def validate_config() -> Dict[str, Any]:
         ERRORS.append(repr(e))
 
     if not ERRORS and not config:  # no arguments
-        config.has_tcr = True
+        config.has_vdj = True
         return config
 
     if not ERRORS and (
-        "TCellSelection" not in config and "SeuratClusteringOfAllCells" in config
+        "TOrBCellSelection" not in config and "SeuratClusteringOfAllCells" in config
     ):
         ERRORS.append(
-            "All cells are T cells ([TCellSelection] is not set), "
+            "All cells are T cells ([TOrBCellSelection] is not set), "
             "so [SeuratClusteringOfAllCells] should not be used, "
             "use [SeuratClustering] instead."
         )
 
     if not ERRORS and (
-        "TCellSelection" not in config and "ClusterMarkersOfAllCells" in config
+        "TOrBCellSelection" not in config and "ClusterMarkersOfAllCells" in config
     ):
         WARNINGS.append(
-            "All cells are T cells ([TCellSelection] is not set), "
+            "All cells are T cells ([TOrBCellSelection] is not set), "
             "so [ClusterMarkersOfAllCells] should not be used and will be ignored."
         )
 
     if not ERRORS and (
-        "TCellSelection" not in config and "TopExpressingGenesOfAllCells" in config
+        "TOrBCellSelection" not in config and "TopExpressingGenesOfAllCells" in config
     ):
         WARNINGS.append(
-            "All cells are T cells ([TCellSelection] is not set), "
+            "All cells are T cells ([TOrBCellSelection] is not set), "
             "so [TopExpressingGenesOfAllCells] should not be used and will be ignored."
         )
 
@@ -66,7 +66,7 @@ def validate_config() -> Dict[str, Any]:
             if config.LoadRNAFromSeurat.envs.clustered:
                 config.LoadRNAFromSeurat.envs.prepared = True
 
-            config.has_tcr = "SampleInfo" in config
+            config.has_vdj = "SampleInfo" in config
 
         else:
             infiles = config.get("SampleInfo", {}).get("in", {}).get("infile", [])
@@ -78,7 +78,7 @@ def validate_config() -> Dict[str, Any]:
                     "No input file specified in configuration file "
                     "[SampleInfo.in.infile], assuming passing from CLI."
                 )
-                WARNINGS.append("Assuming scTCR-seq data is present")
+                WARNINGS.append("Assuming scTCR-seq/scBCR-seq data is present")
 
             elif len(infiles) > 1:
                 WARNINGS.append(
@@ -90,7 +90,7 @@ def validate_config() -> Dict[str, Any]:
             infile = AnyPath(infiles[0])
             if infile.is_file():
                 header = infile.read_text().splitlines()[0]
-                config.has_tcr = "TCRData" in header
+                config.has_vdj = "TCRData" in header or "BCRData" in header
             else:
                 fast_mount = config.get("scheduler_opts", {}).get("fast_mount", [])
                 # Let's check if infile a mounted path
@@ -109,7 +109,7 @@ def validate_config() -> Dict[str, Any]:
                         cloud_path = f"{p1}/{infile.relative_to(p2)}"
                         if AnyPath(cloud_path).is_file():
                             header = AnyPath(cloud_path).read_text().splitlines()[0]
-                            config.has_tcr = "TCRData" in header
+                            config.has_vdj = "TCRData" in header or "BCRData" in header
                         else:
                             ERRORS.append(
                                 f"Input file {infile} does not exist, "

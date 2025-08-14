@@ -57,14 +57,14 @@ anypath = ["cloudpathlib (>=0.21,<0.22)"]
 
 [[package]]
 name = "biopipen"
-version = "0.34.5"
+version = "0.34.6"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-0.34.5-py3-none-any.whl", hash = "sha256:4e6d911754dafcf4360eaffc2926bf8479f9865a8196bccfb374a5232f1df05d"},
-    {file = "biopipen-0.34.5.tar.gz", hash = "sha256:1f04af3aa3772d9549c435e410fd10dc63dcf5cd622cb23a3b432d1acec01204"},
+    {file = "biopipen-0.34.6-py3-none-any.whl", hash = "sha256:ce121475e23b049ea3e4f10705cf78f7a54469d9dfa5872625080146bd4ab5bf"},
+    {file = "biopipen-0.34.6.tar.gz", hash = "sha256:bc4d8ef8f2d189f30498ad4842055f5732c8b17ee88ab49f5df6175d5f63d9cb"},
 ]
 
 [package.dependencies]
@@ -1081,14 +1081,14 @@ executing = ">=2.0,<3.0"
 
 [[package]]
 name = "pipen"
-version = "0.17.11"
+version = "0.17.13"
 description = "A pipeline framework for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "docs"]
 files = [
-    {file = "pipen-0.17.11-py3-none-any.whl", hash = "sha256:60c44c12569b47c3ee5177d07c15ead44880625d007eac78c1c0b5d536b8cac5"},
-    {file = "pipen-0.17.11.tar.gz", hash = "sha256:c46d57590e4ec00d97552110d3102435da6709e0e78140a86a5dde6e9809d7f4"},
+    {file = "pipen-0.17.13-py3-none-any.whl", hash = "sha256:6ba4e11d34db18d6b115aed8c71bb4858f6342bf497418400540623c4f94764f"},
+    {file = "pipen-0.17.13.tar.gz", hash = "sha256:335803a538f3e3877b3c6beba93390fdb26f73f38f6690552ffa9a730a742d1c"},
 ]
 
 [package.dependencies]
@@ -1118,14 +1118,14 @@ pipen = "==0.17.*"
 
 [[package]]
 name = "pipen-args"
-version = "0.17.3"
+version = "0.17.4"
 description = "Command-line argument parser for pipen."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_args-0.17.3-py3-none-any.whl", hash = "sha256:e80685fb3029e988796b8683b4085c659589d177bdd589543f7c7ef54bfa2c50"},
-    {file = "pipen_args-0.17.3.tar.gz", hash = "sha256:3e3cb3fe49c110b802eab7283757e89fcfe9eac9bc37dfcf06fcb489ddb4d132"},
+    {file = "pipen_args-0.17.4-py3-none-any.whl", hash = "sha256:f4b0fbdd434aee05902542e8547168c7a98e25a043f13eab60826d48416bc527"},
+    {file = "pipen_args-0.17.4.tar.gz", hash = "sha256:1f392fe6355e7c0e820527bf3dbbe0a675d55cb1e35da92d3b1a7b3488ceb219"},
 ]
 
 [package.dependencies]
@@ -1237,14 +1237,14 @@ pipen = "==0.17.*"
 
 [[package]]
 name = "pipen-log2file"
-version = "0.10.0"
+version = "0.10.1"
 description = "Add verbosal information in logs for pipen."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_log2file-0.10.0-py3-none-any.whl", hash = "sha256:39eaa222d7ead6ac67ee4871dc009bb31f399650b7ddf77070ba6515a08bccb3"},
-    {file = "pipen_log2file-0.10.0.tar.gz", hash = "sha256:522ba7e9c054a63edbe5f4befc073ba7026c0930a3587dbafa82a8980ffa5caa"},
+    {file = "pipen_log2file-0.10.1-py3-none-any.whl", hash = "sha256:08527bc98b352631aa6c9cda1874e9de660dbceb17c78cac73ae1960faec60fe"},
+    {file = "pipen_log2file-0.10.1.tar.gz", hash = "sha256:c965493ff23a99177e23bcaa07fdab9637973ea5ef65bdc9f57d8cf664684485"},
 ]
 
 [package.dependencies]
@@ -1252,14 +1252,14 @@ pipen = "==0.17.*"
 
 [[package]]
 name = "pipen-poplog"
-version = "0.3.3"
+version = "0.3.5"
 description = "Populate logs from jobs to running log of the pipeline"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_poplog-0.3.3-py3-none-any.whl", hash = "sha256:cbc405f69fa28dfaa7a90a3f3aea2863edff91edfeac211e03d1d19cee1a5799"},
-    {file = "pipen_poplog-0.3.3.tar.gz", hash = "sha256:ffccc0e88cc7c63f83a5a6f17a7f3789f361db527193a9ad67b6307ca614f76d"},
+    {file = "pipen_poplog-0.3.5-py3-none-any.whl", hash = "sha256:61481124b066ceaf1a3d64ed3b5fa0ad4b61268a882dadcbfd60cd27e2b0a471"},
+    {file = "pipen_poplog-0.3.5.tar.gz", hash = "sha256:ee53fb6f71f6239f68f4ba60ffd344f2c529638ead96a1d7938bf3c92ef685c0"},
 ]
 
 [package.dependencies]
@@ -1938,14 +1938,14 @@ files = [
 
 [[package]]
 name = "simplug"
-version = "0.5.0"
+version = "0.5.3"
 description = "A simple plugin system for python with async hooks supported"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "docs"]
 files = [
-    {file = "simplug-0.5.0-py3-none-any.whl", hash = "sha256:5c33d4657c5a2f27ddcd5249cc90ef981b00ed4eb09c45e2d0a9ba3a6cb71063"},
-    {file = "simplug-0.5.0.tar.gz", hash = "sha256:f41f901fb0881a4b1ebf606acb802c0da2256554f75471d5a6c0d32eb6975670"},
+    {file = "simplug-0.5.3-py3-none-any.whl", hash = "sha256:317be39b810ca6e2426eafb2db0930ea077ad883a78cc55a1c7ad3285129f09c"},
+    {file = "simplug-0.5.3.tar.gz", hash = "sha256:d5262b01c00aeae4712a448dbb0f8c37dca6d03cda62aadd9a4925c766bac85e"},
 ]
 
 [package.dependencies]
@@ -2210,14 +2210,14 @@ h11 = ">=0.9.0,<1"
 
 [[package]]
 name = "xqute"
-version = "0.10.3"
+version = "0.10.4"
 description = "A job management system for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "docs"]
 files = [
-    {file = "xqute-0.10.3-py3-none-any.whl", hash = "sha256:917c262e49b343c1bc9561442ac90d47d5a4b6e850b1ccec99dcb68f501a07dc"},
-    {file = "xqute-0.10.3.tar.gz", hash = "sha256:d33dde00c1ce450ae8c5ea822952987360b5c39ef6f0b15c65b470929ba4f474"},
+    {file = "xqute-0.10.4-py3-none-any.whl", hash = "sha256:47a35b641e0e02b1b7e3142cb9934c7249fcc07b6c1ac38dfefcbd069578feaf"},
+    {file = "xqute-0.10.4.tar.gz", hash = "sha256:bb88931edccf6a1dc55145834c21aab0b4973057e04e4db50ec753a98a990e62"},
 ]
 
 [package.dependencies]
