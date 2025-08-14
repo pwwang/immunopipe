@@ -15,8 +15,9 @@
 ### Enhanced performance
 
 - feat: the pipeline now uses [`qs2`](https://github.com/qsbase/qs2) for store the R objects, which speeds up the loading and saving of Seurat objects.
-- feat: step-wise caching (in addition to process-wise) is now supported, especially for Seurat processes, allowing for faster re-running of the pipeline by caching intermediate results.
+- feat: step-wise caching (in addition to process-wise) is now supported, especially for Seurat processes, allowing for faster re-running of the pipeline by caching intermediate results and improving results reproducibility.
 - refactor: [MetabolicLandscapeAnalysis](https://pwwang.github.io/immunopipe/dev/processes/ScrnaMetabolicLandscape/) is refactored for flexibility and performance improvement.
+- BREAKING: [enrichR](https://cran.r-project.org/web/packages/enrichR/vignettes/enrichR.html) is retired and replaced by [enrichit](https://github.com/pwwang/enrichit) for enrichment analysis, making it offline and more flexible. This enables the entire pipline to run without internet connection.
 
 ### New analyses/features
 
