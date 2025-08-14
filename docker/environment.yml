@@ -23,6 +23,8 @@ dependencies:
   - bioconductor-destiny
   - bioconductor-glmgampoi
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
+  - bioconda::bioconductor-deseq2
+  - bioconda::bioconductor-edger
   - r-hdf5r  # Read_10x_h5() by Seurat
   - r-laplacesdemon  # TESSA
   - libgdal
