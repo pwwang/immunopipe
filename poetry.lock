@@ -175,14 +175,14 @@ markers = {dev = "sys_platform == \"win32\""}
 
 [[package]]
 name = "copier"
-version = "9.9.0"
+version = "9.9.1"
 description = "A library for rendering project templates."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "copier-9.9.0-py3-none-any.whl", hash = "sha256:d3484178560456fc3f138ec67349872dd2b378051c2360f95d7f31005ea9794d"},
-    {file = "copier-9.9.0.tar.gz", hash = "sha256:db48d89bd30d957faa8c96fed757cb5718fdc0fe6b83bebb201424f448cb5216"},
+    {file = "copier-9.9.1-py3-none-any.whl", hash = "sha256:9439280baca00194933b04885f1376b17e3287c2324053666fbe9a7a0aceaa44"},
+    {file = "copier-9.9.1.tar.gz", hash = "sha256:244bdf3ec5eb460dbe45ef22b825e9897b0bcc9d94ca96dad3ced3d786cfeab7"},
 ]
 
 [package.dependencies]
@@ -367,14 +367,14 @@ tests = ["asttokens (>=2.1.0)", "coverage", "coverage-enable-subprocess", "ipyth
 
 [[package]]
 name = "flask"
-version = "3.1.1"
+version = "3.1.2"
 description = "A simple framework for building complex web applications."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "flask-3.1.1-py3-none-any.whl", hash = "sha256:07aae2bb5eaf77993ef57e357491839f5fd9f4dc281593a81a9e4d79a24f295c"},
-    {file = "flask-3.1.1.tar.gz", hash = "sha256:284c7b8f2f58cb737f0cf1c30fd7eaf0ccfcde196099d24ecede3fc2005aa59e"},
+    {file = "flask-3.1.2-py3-none-any.whl", hash = "sha256:ca1d8112ec8a6158cc29ea4858963350011b5c846a414cdb7a954aa9e967d03c"},
+    {file = "flask-3.1.2.tar.gz", hash = "sha256:bf656c15c80190ed628ad08cdfd3aaa35beb087855e2f494910aa3774cc4fd87"},
 ]
 
 [package.dependencies]
@@ -1267,14 +1267,14 @@ pipen = "==0.17.*"
 
 [[package]]
 name = "pipen-report"
-version = "0.23.7"
+version = "0.23.8"
 description = "Report generation system for pipen"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_report-0.23.7-py3-none-any.whl", hash = "sha256:f97dc087406737598fc42262ea3a248adef8bac83843c356a78a27e4d091a9fb"},
-    {file = "pipen_report-0.23.7.tar.gz", hash = "sha256:32f1b1a6db518dde135a8e74bfb8e9bd701d6775b35feef2bf57463e03c31018"},
+    {file = "pipen_report-0.23.8-py3-none-any.whl", hash = "sha256:14e1f8d189f2f6d5fa6b4648d09b6f6fafc8c66baf6f0a788132d15f55c13dbf"},
+    {file = "pipen_report-0.23.8.tar.gz", hash = "sha256:70512da354e0e0160589431755a46a7ca693d52ab60edbf7906eab29606b915e"},
 ]
 
 [package.dependencies]
