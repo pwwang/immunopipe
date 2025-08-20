@@ -101,7 +101,7 @@ def validate_config() -> Dict[str, Any]:
                 # gs://bucket/path/data/samples.txt
                 if fast_mount:
                     for mount in fast_mount:
-                        p1, p2 = mount.split(":", 1)
+                        p1, p2 = mount.rsplit(":", 1)
                         p2 = AnyPath(p2)
                         if not infile.is_relative_to(p2):
                             continue
