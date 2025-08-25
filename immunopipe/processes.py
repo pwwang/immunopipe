@@ -50,9 +50,7 @@ config = validate_config()
 
 # https://pwwang.github.io/immunopipe/latest/
 DOC_BASEURL = "../../"
-TEST_OUTPUT_BASEURL = (
-    "https://raw.githubusercontent.com/pwwang/immunopipe/tests-output"
-)
+TEST_OUTPUT_BASEURL = "https://raw.githubusercontent.com/pwwang/immunopipe/tests-output"
 
 
 @annotate.format_doc(
@@ -258,6 +256,7 @@ if just_loading or "LoadRNAFromSeurat" in config:
                 `SeuratMap2Ref` is not needed.
                 Force `prepared` to be `True` if this is `True`.
         """
+
         envs = {
             "prepared": False,
             "clustered": False,
@@ -309,6 +308,7 @@ if just_loading or "TOrBCellSelection" in config:
         for supervised clustering.
         ///
         """
+
         if (
             "LoadRNAFromSeurat" in config
             and not config.LoadRNAFromSeurat.envs.clustered
@@ -323,7 +323,8 @@ if just_loading or "TOrBCellSelection" in config:
 
 if just_loading or (
     # "TCellSelection" in config and "ClusterMarkersOfAllCells" in config
-    "TOrBCellSelection" in config and "ClusterMarkersOfAllCells" in config
+    "TOrBCellSelection" in config
+    and "ClusterMarkersOfAllCells" in config
 ):
 
     @annotate.format_doc(indent=2)
@@ -345,13 +346,17 @@ if just_loading or (
             "cases": {"Cluster": {"group_by": "seurat_clusters"}},
             "marker_plots_defaults": {"order_by": "desc(avg_log2FC)"},
             "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
+            "allmarker_plots": {
+                "Top 10 markers of all clusters": {"plot_type": "heatmap"}
+            },
         }
         order = 2
 
 
 if just_loading or (
     # "TCellSelection" in config and "TopExpressingGenesOfAllCells" in config
-    "TOrBCellSelection" in config and "TopExpressingGenesOfAllCells" in config
+    "TOrBCellSelection" in config
+    and "TopExpressingGenesOfAllCells" in config
 ):
 
     @annotate.format_doc(indent=2)
@@ -562,6 +567,7 @@ class ClusterMarkers(MarkersFinder_):
         "cases": {"Cluster": {"group_by": "seurat_clusters"}},
         "marker_plots_defaults": {"order_by": "desc(avg_log2FC)"},
         "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
+        "allmarker_plots": {"Top 10 markers of all clusters": {"plot_type": "heatmap"}},
     }
     order = 2
 
@@ -607,6 +613,7 @@ if just_loading or "TopExpressingGenes" in config:
 
 
 if just_loading or config.has_vdj:
+
     class ScRepCombiningExpression(ScRepCombiningExpression_):
         requires = ScRepLoading, Clustered
 
