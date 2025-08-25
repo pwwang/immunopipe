@@ -200,6 +200,8 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores to use for parallelization.<br /></li>
 <li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
     Mutaters to mutate the metadata of the
     seurat object. Keys are the new column names and values are the
@@ -211,6 +213,10 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     The column name in metadata to separate the cells into different cases.<br />
     When specified, the case will be expanded to multiple cases for
     each value in the column.<br /></li>
+<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
+    Where to cache the results.<br />
+    If <code>True</code>, cache to <code>outdir</code> of the job. If <code>False</code>, don't cache.<br />
+    Otherwise, specify the directory to cache to.<br /></li>
 <li><code>subset</code>:
     An expression in string to subset the cells.<br /></li>
 <li><code>aggregate_by</code>:
