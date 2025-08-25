@@ -35,7 +35,7 @@
 - build: docker images are now built based on the [`biopipen`](https://github.com/pwwang/biopipen) base image.
 - ci: the test workflow now caches the running intermediate files to speed up the tests.
 - docs: the citation information is now added to the documentation, allowing users to easily cite the pipeline in their publications.
-- chore(deps): biopipen is bumped to 0.34.6, which includes various bug fixes and enhancements. See the [biopipen releases](https://github.com/pwwang/biopipen/releases) for more details.
+- chore(deps): biopipen is bumped to 0.34.8, which includes various bug fixes and enhancements. See the [biopipen releases](https://github.com/pwwang/biopipen/releases) for more details.
 
 ## 1.4.4
 
