@@ -92,15 +92,15 @@ def validate_config() -> Dict[str, Any]:
                 header = infile.read_text().splitlines()[0]
                 config.has_vdj = "TCRData" in header or "BCRData" in header
             else:
-                fast_mount = config.get("scheduler_opts", {}).get("fast_mount", [])
+                mount = config.get("scheduler_opts", {}).get("mount", [])
                 # Let's check if infile a mounted path
                 # Say infile is /mnt/disks/datadir/data/samples.txt
                 # and we have fast_mout
                 # gs://bucket/path:/mnt/disks/datadir
                 # Then we can restore the cloud path for it:
                 # gs://bucket/path/data/samples.txt
-                if fast_mount:
-                    for mount in fast_mount:
+                if mount:
+                    for mount in mount:
                         p1, p2 = mount.rsplit(":", 1)
                         p2 = AnyPath(p2)
                         if not infile.is_relative_to(p2):
@@ -120,12 +120,12 @@ def validate_config() -> Dict[str, Any]:
                     else:
                         ERRORS.append(
                             f"Input file {infile} does not exist, "
-                            "and no fast_mount can restore it as a cloud path."
+                            "and no mount can restore it as a cloud path."
                         )
                 else:
                     ERRORS.append(
                         f"Input file {infile} does not exist, "
-                        "and no fast_mount is specified to restore it as a cloud path."
+                        "and no mount is specified to restore it as a cloud path."
                     )
 
     if ERRORS:
