@@ -1398,14 +1398,14 @@ files = [
 
 [[package]]
 name = "prompt-toolkit"
-version = "3.0.51"
+version = "3.0.52"
 description = "Library for building powerful interactive command lines in Python"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "prompt_toolkit-3.0.51-py3-none-any.whl", hash = "sha256:52742911fde84e2d423e2f9a4cf1de7d7ac4e51958f648d9540e0fb8db077b07"},
-    {file = "prompt_toolkit-3.0.51.tar.gz", hash = "sha256:931a162e3b27fc90c86f1b48bb1fb2c528c2761475e57c9c06de13311c7b54ed"},
+    {file = "prompt_toolkit-3.0.52-py3-none-any.whl", hash = "sha256:9aac639a3bbd33284347de5ad8d68ecc044b91a762dc39b7c21095fcd6a19955"},
+    {file = "prompt_toolkit-3.0.52.tar.gz", hash = "sha256:28cde192929c8e7321de85de1ddbe736f1375148b02f2e17edd840042b1be855"},
 ]
 
 [package.dependencies]
@@ -2210,14 +2210,14 @@ h11 = ">=0.9.0,<1"
 
 [[package]]
 name = "xqute"
-version = "0.10.7"
+version = "0.10.8"
 description = "A job management system for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "docs"]
 files = [
-    {file = "xqute-0.10.7-py3-none-any.whl", hash = "sha256:cdd3f449cac8283b6709aec4590b399dab4faf04bb0ec834ddf4a8c47bbd0ad4"},
-    {file = "xqute-0.10.7.tar.gz", hash = "sha256:1e582cf13908a5cfb6cb65bb2cf1e413e99a6140fefc6a3cca3cc9c4706cc59c"},
+    {file = "xqute-0.10.8-py3-none-any.whl", hash = "sha256:57b4074cb2a522f2fef2edaf6f52770a7ff2de7701d01c0ab0f23dacc41743ad"},
+    {file = "xqute-0.10.8.tar.gz", hash = "sha256:5a2d14fee8cdd89cdafaf8da419814128ef2e706be9f228d4405d44d5322b4cb"},
 ]
 
 [package.dependencies]

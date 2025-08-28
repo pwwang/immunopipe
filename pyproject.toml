@@ -38,7 +38,7 @@ pytest-forked = "^1"
 
 [tool.poetry.scripts]
 immunopipe = "immunopipe.pipeline:main"
-#immunopipe = "immunopipe.router:run"
+# immunopipe = "immunopipe.router:run"
 
 [tool.black]
 line-length = 88
