@@ -11,7 +11,7 @@ arguments.
 
 import sys
 import asyncio
-from .version import desc
+from .version import desc, __version__
 
 
 def run():
@@ -46,6 +46,8 @@ def run():
         from .mcp import main as mcp_main
 
         mcp_main(sys.argv[2:])
+    elif "-v" in sys.argv or "--version" in sys.argv:
+        print(__version__)
     else:
         from .pipeline import main as pipeline_main
 
