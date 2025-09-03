@@ -1,6 +1,6 @@
 """Entry for `python -m <name>` to run"""
 
-from .pipeline import main
+from .router import run
 
 if __name__ == "__main__":
-    main()
+    run()

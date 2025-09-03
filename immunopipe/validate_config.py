@@ -92,7 +92,10 @@ def validate_config() -> Dict[str, Any]:
                 header = infile.read_text().splitlines()[0]
                 config.has_vdj = "TCRData" in header or "BCRData" in header
             else:
-                mount = config.get("scheduler_opts", {}).get("mount", [])
+                mount = (
+                    config.get("scheduler_opts", {}).get("mount", [])
+                    or config.get("cli-gbatch", {}).get("mount", [])
+                )
                 # Let's check if infile a mounted path
                 # Say infile is /mnt/disks/datadir/data/samples.txt
                 # and we have fast_mout

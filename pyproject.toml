@@ -22,12 +22,12 @@ pipen-runinfo = { version = "^0.9", optional = true }
 # pipen-report and pipen-board are required by biopipen
 biopipen = "^0.34.8"
 # biopipen = { path = "./biopipen" }
-# google-cloud-storage = { version = "^3.3.0", optional = true }
+pipen-cli-gbatch = { version = "^0.0.3", optional = true }
 
 [tool.poetry.extras]
 diagram = ["pipen-diagram"]
 runinfo = ["pipen-runinfo"]
-# gs = ["google-cloud-storage"]
+cli-gbatch = ["pipen-cli-gbatch"]
 
 [tool.poetry.group.docs.dependencies]
 pipen-cli-ref = "^0.5"
@@ -37,8 +37,8 @@ pytest = "^8"
 pytest-forked = "^1"
 
 [tool.poetry.scripts]
-immunopipe = "immunopipe.pipeline:main"
-# immunopipe = "immunopipe.router:run"
+# immunopipe = "immunopipe.pipeline:main"
+immunopipe = "immunopipe.router:run"
 
 [tool.black]
 line-length = 88

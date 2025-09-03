@@ -124,3 +124,5 @@ docs/index.md
 /tests/running/data/prepared/
 Rplots.pdf
 /biopipen
+# git bundles
+*.bundle
