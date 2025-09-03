@@ -16,7 +16,9 @@ from pipen_cli_gbatch import (
     __version__ as cli_gbatch_version,
     __file__ as cli_gbatch_file,
 )
-from .pipeline import Immunopipe, desc, parser
+from .pipeline import Immunopipe, parser
+
+sys.excepthook = sys.__excepthook__
 
 
 class ImmunopipeGbatchDaemon(CliGbatchDaemon):
