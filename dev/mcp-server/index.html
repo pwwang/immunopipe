@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>MCP Sever - immunopipe</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "MCP Sever";
+        var mkdocs_page_input_path = "mcp-server.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">MCP Sever</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vscode-integration">VSCode Integration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#available-tools">Available Tools</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#discovery-tools">Discovery Tools</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#list_pipeline_options">list_pipeline_options</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#list_processes">list_processes</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#list_gbatch_options">list_gbatch_options</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#get_process_details">get_process_details</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#generation-tools">Generation Tools</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#generate_full_config">generate_full_config</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#generate_pipeline_config">generate_pipeline_config</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#generate_process_config">generate_process_config</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#generate_gbatch_config">generate_gbatch_config</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#template-tools">Template Tools</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#generate_basic_template">generate_basic_template</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#generate_tcr_template">generate_tcr_template</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#generate_gbatch_template">generate_gbatch_template</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#manipulation-tools">Manipulation Tools</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#merge_configs">merge_configs</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#validate_config">validate_config</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#format_config">format_config</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ai-assisted-tools">AI-Assisted Tools</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#configure_immunopipe">configure_immunopipe</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#help_generate_config">help_generate_config</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#suggest_processes">suggest_processes</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#usage-examples">Usage Examples</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#natural-language-configuration">Natural Language Configuration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#process-discovery">Process Discovery</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration-manipulation">Configuration Manipulation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#integration-with-claudeai-assistants">Integration with Claude/AI Assistants</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration-generation">Configuration Generation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#process-selection">Process Selection</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration-management">Configuration Management</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#error-handling">Error Handling</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#development-and-testing">Development and Testing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#performance">Performance</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#support-and-troubleshooting">Support and Troubleshooting</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCRClustering/">TCRClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">MCP Sever</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/mcp-server.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="mcp-server">MCP Server<a class="headerlink" href="#mcp-server" title="Permanent link">&para;</a></h2>
+<p>The <strong>Immunopipe MCP Server</strong> is a Model Context Protocol (MCP) server that provides intelligent configuration generation for immunopipe pipelines. It allows AI assistants like Claude to understand and generate complex TOML configuration files for single-cell RNA-seq and TCR/BCR analysis workflows.</p>
+<h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<p>The MCP server exposes a comprehensive set of tools for:</p>
+<ul>
+<li><strong>Discovery</strong>: List available pipeline options, processes, and Google Batch configurations</li>
+<li><strong>Generation</strong>: Create TOML configuration files, templates, and process-specific configs</li>
+<li><strong>Manipulation</strong>: Merge, validate, and format configuration files</li>
+<li><strong>AI-Assisted Configuration</strong>: Generate configurations from natural language descriptions</li>
+</ul>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h3>
+<p>The MCP server is included with immunopipe. You can run it directly using:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run with stdio transport (for VSCode/Claude integration)</span>
+immunopipe<span class="w"> </span>mcp<span class="w"> </span>--transport<span class="w"> </span>stdio
+
+<span class="c1"># Run with HTTP transport (for testing)</span>
+immunopipe<span class="w"> </span>mcp<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
+</code></pre></div>
+<h3 id="vscode-integration">VSCode Integration<a class="headerlink" href="#vscode-integration" title="Permanent link">&para;</a></h3>
+<p>To integrate with VSCode and Claude, add the following to your VSCode settings:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;mcp.servers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;immunopipe&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-m&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;immunopipe.mcp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--transport&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;stdio&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;env&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="available-tools">Available Tools<a class="headerlink" href="#available-tools" title="Permanent link">&para;</a></h3>
+<h4 id="discovery-tools">Discovery Tools<a class="headerlink" href="#discovery-tools" title="Permanent link">&para;</a></h4>
+<h5 id="list_pipeline_options"><code>list_pipeline_options</code><a class="headerlink" href="#list_pipeline_options" title="Permanent link">&para;</a></h5>
+<p>Lists all available pipeline-level configuration options.</p>
+<p><strong>Parameters</strong>: None</p>
+<p><strong>Returns</strong>: Dictionary of pipeline options with descriptions, types, defaults, and requirements.</p>
+<h5 id="list_processes"><code>list_processes</code><a class="headerlink" href="#list_processes" title="Permanent link">&para;</a></h5>
+<p>Lists all available immunopipe processes.</p>
+<p><strong>Parameters</strong>: None</p>
+<p><strong>Returns</strong>: Dictionary of processes with descriptions, environment variables, and requirements.</p>
+<h5 id="list_gbatch_options"><code>list_gbatch_options</code><a class="headerlink" href="#list_gbatch_options" title="Permanent link">&para;</a></h5>
+<p>Lists all Google Batch configuration options.</p>
+<p><strong>Parameters</strong>: None</p>
+<p><strong>Returns</strong>: Dictionary of Google Batch options with descriptions, types, and defaults.</p>
+<h5 id="get_process_details"><code>get_process_details</code><a class="headerlink" href="#get_process_details" title="Permanent link">&para;</a></h5>
+<p>Gets detailed information about a specific process.</p>
+<p><strong>Parameters</strong>:
+- <code>process_name</code> (string): Name of the process to get details for</p>
+<p><strong>Returns</strong>: Detailed process information including configuration options.</p>
+<h4 id="generation-tools">Generation Tools<a class="headerlink" href="#generation-tools" title="Permanent link">&para;</a></h4>
+<h5 id="generate_full_config"><code>generate_full_config</code><a class="headerlink" href="#generate_full_config" title="Permanent link">&para;</a></h5>
+<p>Generates a complete immunopipe TOML configuration file.</p>
+<p><strong>Parameters</strong>:
+- <code>pipeline_options</code> (object, optional): Pipeline-level options
+- <code>processes</code> (object, optional): Process configurations
+- <code>gbatch_options</code> (object, optional): Google Batch options
+- <code>description</code> (string, optional): Description for the configuration file</p>
+<p><strong>Returns</strong>: Complete TOML configuration as a string.</p>
+<h5 id="generate_pipeline_config"><code>generate_pipeline_config</code><a class="headerlink" href="#generate_pipeline_config" title="Permanent link">&para;</a></h5>
+<p>Generates pipeline-level configuration section.</p>
+<p><strong>Parameters</strong>:
+- <code>options</code> (object): Pipeline options to include</p>
+<p><strong>Returns</strong>: Pipeline configuration TOML section.</p>
+<h5 id="generate_process_config"><code>generate_process_config</code><a class="headerlink" href="#generate_process_config" title="Permanent link">&para;</a></h5>
+<p>Generates configuration for a specific process.</p>
+<p><strong>Parameters</strong>:
+- <code>process_name</code> (string): Name of the process
+- <code>config</code> (object): Process configuration options</p>
+<p><strong>Returns</strong>: Process configuration TOML section.</p>
+<h5 id="generate_gbatch_config"><code>generate_gbatch_config</code><a class="headerlink" href="#generate_gbatch_config" title="Permanent link">&para;</a></h5>
+<p>Generates Google Batch configuration section.</p>
+<p><strong>Parameters</strong>:
+- <code>options</code> (object): Google Batch options</p>
+<p><strong>Returns</strong>: Google Batch configuration TOML section.</p>
+<h4 id="template-tools">Template Tools<a class="headerlink" href="#template-tools" title="Permanent link">&para;</a></h4>
+<h5 id="generate_basic_template"><code>generate_basic_template</code><a class="headerlink" href="#generate_basic_template" title="Permanent link">&para;</a></h5>
+<p>Generates a basic immunopipe configuration template.</p>
+<p><strong>Parameters</strong>: None</p>
+<p><strong>Returns</strong>: Basic TOML template suitable for standard scRNA-seq analysis.</p>
+<h5 id="generate_tcr_template"><code>generate_tcr_template</code><a class="headerlink" href="#generate_tcr_template" title="Permanent link">&para;</a></h5>
+<p>Generates a template optimized for TCR analysis.</p>
+<p><strong>Parameters</strong>: None</p>
+<p><strong>Returns</strong>: TOML template configured for single-cell TCR/BCR analysis.</p>
+<h5 id="generate_gbatch_template"><code>generate_gbatch_template</code><a class="headerlink" href="#generate_gbatch_template" title="Permanent link">&para;</a></h5>
+<p>Generates a template for Google Batch execution.</p>
+<p><strong>Parameters</strong>: None</p>
+<p><strong>Returns</strong>: TOML template configured for cloud execution via Google Batch.</p>
+<h4 id="manipulation-tools">Manipulation Tools<a class="headerlink" href="#manipulation-tools" title="Permanent link">&para;</a></h4>
+<h5 id="merge_configs"><code>merge_configs</code><a class="headerlink" href="#merge_configs" title="Permanent link">&para;</a></h5>
+<p>Merges two TOML configuration files or strings.</p>
+<p><strong>Parameters</strong>:
+- <code>base_config</code> (string): Base configuration (TOML string)
+- <code>new_config</code> (string): New configuration to merge (TOML string)</p>
+<p><strong>Returns</strong>: Merged TOML configuration.</p>
+<h5 id="validate_config"><code>validate_config</code><a class="headerlink" href="#validate_config" title="Permanent link">&para;</a></h5>
+<p>Validates a TOML configuration file.</p>
+<p><strong>Parameters</strong>:
+- <code>config_content</code> (string): TOML configuration content to validate</p>
+<p><strong>Returns</strong>: Validation results with success status and error messages.</p>
+<h5 id="format_config"><code>format_config</code><a class="headerlink" href="#format_config" title="Permanent link">&para;</a></h5>
+<p>Formats and enhances a TOML configuration.</p>
+<p><strong>Parameters</strong>:
+- <code>config_content</code> (string): TOML configuration content to format
+- <code>add_comments</code> (boolean, optional): Whether to add helpful comments</p>
+<p><strong>Returns</strong>: Formatted TOML configuration with optional comments.</p>
+<h4 id="ai-assisted-tools">AI-Assisted Tools<a class="headerlink" href="#ai-assisted-tools" title="Permanent link">&para;</a></h4>
+<h5 id="configure_immunopipe"><code>configure_immunopipe</code><a class="headerlink" href="#configure_immunopipe" title="Permanent link">&para;</a></h5>
+<p>Generates immunopipe configuration from natural language requirements. This is the most intelligent tool that can understand complex analysis requirements and automatically select appropriate processes.</p>
+<p><strong>Parameters</strong>:
+- <code>requirements</code> (string): Natural language description of analysis needs
+- <code>specific_processes</code> (array, optional): Specific process names to configure
+- <code>parameters</code> (object, optional): Specific parameter values to set</p>
+<p><strong>Examples</strong>:
+- "clustering with resolution 0.5"
+- "TCR analysis with clustering"
+- "set SeuratPreparing QC parameters"</p>
+<p><strong>Returns</strong>: Complete TOML configuration tailored to the requirements.</p>
+<h5 id="help_generate_config"><code>help_generate_config</code><a class="headerlink" href="#help_generate_config" title="Permanent link">&para;</a></h5>
+<p>Provides configuration suggestions based on natural language descriptions.</p>
+<p><strong>Parameters</strong>:
+- <code>description</code> (string): Natural language description of analysis goals</p>
+<p><strong>Returns</strong>: Suggestions and recommended tools for the analysis.</p>
+<h5 id="suggest_processes"><code>suggest_processes</code><a class="headerlink" href="#suggest_processes" title="Permanent link">&para;</a></h5>
+<p>Suggests processes based on analysis type.</p>
+<p><strong>Parameters</strong>:
+- <code>analysis_type</code> (string): Type of analysis (e.g., 'tcr', 'bcr', 'clustering', 'differential')</p>
+<p><strong>Returns</strong>: List of recommended processes for the analysis type.</p>
+<h3 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h3>
+<h4 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">immunopipe.mcp.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImmunopipeConfigTools</span>
+
+<span class="c1"># Initialize the tools</span>
+<span class="n">tools</span> <span class="o">=</span> <span class="n">ImmunopipeConfigTools</span><span class="p">()</span>
+
+<span class="c1"># Generate a basic template</span>
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tools</span><span class="o">.</span><span class="n">generate_basic_template</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="natural-language-configuration">Natural Language Configuration<a class="headerlink" href="#natural-language-configuration" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Configure immunopipe using natural language</span>
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tools</span><span class="o">.</span><span class="n">configure_immunopipe</span><span class="p">(</span>
+    <span class="n">requirements</span><span class="o">=</span><span class="s2">&quot;I want to analyze single-cell TCR data with clustering resolution 0.8&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>  <span class="c1"># Complete TOML configuration</span>
+</code></pre></div>
+<h4 id="process-discovery">Process Discovery<a class="headerlink" href="#process-discovery" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># List available processes</span>
+<span class="n">processes</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tools</span><span class="o">.</span><span class="n">list_processes</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">processes</span><span class="o">.</span><span class="n">content</span><span class="p">)</span><span class="si">}</span><span class="s2"> processes&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get details for a specific process</span>
+<span class="n">details</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tools</span><span class="o">.</span><span class="n">get_process_details</span><span class="p">(</span><span class="s2">&quot;SeuratClustering&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">details</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="configuration-manipulation">Configuration Manipulation<a class="headerlink" href="#configuration-manipulation" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate base config</span>
+<span class="n">base</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tools</span><span class="o">.</span><span class="n">generate_basic_template</span><span class="p">()</span>
+
+<span class="c1"># Generate TCR-specific additions</span>
+<span class="n">tcr_config</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tools</span><span class="o">.</span><span class="n">generate_tcr_template</span><span class="p">()</span>
+
+<span class="c1"># Merge configurations</span>
+<span class="n">merged</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tools</span><span class="o">.</span><span class="n">merge_configs</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">tcr_config</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merged</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="integration-with-claudeai-assistants">Integration with Claude/AI Assistants<a class="headerlink" href="#integration-with-claudeai-assistants" title="Permanent link">&para;</a></h3>
+<p>The MCP server is designed to work seamlessly with AI assistants. With <code>immunopipe</code> installed,
+you can add the MCP server to your Claude or VSCode setup to enable intelligent configuration generation:</p>
+<div class="highlight"><pre><span></span><code>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>immunopipe-mcp<span class="w"> </span>http://localhost:80000
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;mcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;servers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;immunopipe&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-m&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;immunopipe&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mcp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--transport&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;stdio&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Here are some example prompts that work well:</p>
+<h4 id="configuration-generation">Configuration Generation<a class="headerlink" href="#configuration-generation" title="Permanent link">&para;</a></h4>
+<ul>
+<li>"Generate an immunopipe configuration for TCR analysis"</li>
+<li>"Create a config for single-cell clustering with resolution 0.5"</li>
+<li>"Set up immunopipe for differential expression analysis"</li>
+</ul>
+<h4 id="process-selection">Process Selection<a class="headerlink" href="#process-selection" title="Permanent link">&para;</a></h4>
+<ul>
+<li>"What processes do I need for BCR analysis?"</li>
+<li>"Suggest processes for clustering analysis"</li>
+<li>"Show me options for Google Batch execution"</li>
+</ul>
+<h4 id="configuration-management">Configuration Management<a class="headerlink" href="#configuration-management" title="Permanent link">&para;</a></h4>
+<ul>
+<li>"Validate this immunopipe configuration"</li>
+<li>"Format and add comments to my config file"</li>
+<li>"Merge these two immunopipe configurations"</li>
+</ul>
+<h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h3>
+<p>The MCP server consists of several key components:</p>
+<ul>
+<li><strong><code>McpServer</code></strong>: Main server implementation with JSON-RPC over HTTP</li>
+<li><strong><code>MCPServer</code></strong>: Standards-compliant MCP server for VSCode integration</li>
+<li><strong><code>ImmunopipeConfigTools</code></strong>: Core tool collection with hierarchical capabilities</li>
+<li><strong><code>OptionsDiscovery</code></strong>: Discovers available configuration options and processes</li>
+<li><strong><code>TOMLGenerator</code></strong>: Generates and manipulates TOML configuration files</li>
+<li><strong><code>ProcessDocumentationExtractor</code></strong>: Extracts process documentation for intelligent configuration</li>
+</ul>
+<h3 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h3>
+<p>The MCP server provides comprehensive error handling:</p>
+<ul>
+<li><strong>Tool Validation</strong>: Validates tool parameters and provides helpful error messages</li>
+<li><strong>Configuration Validation</strong>: Checks TOML syntax and immunopipe-specific requirements</li>
+<li><strong>Process Discovery</strong>: Handles missing or unavailable processes gracefully</li>
+<li><strong>Natural Language Processing</strong>: Provides fallback configurations when analysis fails</li>
+</ul>
+<h3 id="development-and-testing">Development and Testing<a class="headerlink" href="#development-and-testing" title="Permanent link">&para;</a></h3>
+<p>To test the MCP server locally:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run the example demonstration</span>
+python<span class="w"> </span>-m<span class="w"> </span>immunopipe.mcp.example
+
+<span class="c1"># Run interactive demo</span>
+python<span class="w"> </span>-m<span class="w"> </span>immunopipe.mcp.example<span class="w"> </span>interactive
+
+<span class="c1"># Test with HTTP transport</span>
+immunopipe<span class="w"> </span>mcp<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
+</code></pre></div>
+<p>The server includes comprehensive test coverage and example usage patterns to help with development and integration.</p>
+<h3 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h3>
+<p>The MCP server is optimized for:</p>
+<ul>
+<li><strong>Fast Discovery</strong>: Efficient caching of process and option information</li>
+<li><strong>Incremental Configuration</strong>: Tools can be chained for complex configurations</li>
+<li><strong>Memory Efficiency</strong>: Lazy loading of process documentation</li>
+<li><strong>Scalability</strong>: Async/await support for concurrent tool execution</li>
+</ul>
+<h3 id="support-and-troubleshooting">Support and Troubleshooting<a class="headerlink" href="#support-and-troubleshooting" title="Permanent link">&para;</a></h3>
+<p>Common issues and solutions:</p>
+<ol>
+<li><strong>Process Not Found</strong>: Ensure immunopipe is properly installed and processes are available</li>
+<li><strong>Configuration Validation Errors</strong>: Check TOML syntax and parameter validity</li>
+<li><strong>Natural Language Analysis Failures</strong>: Use more specific descriptions or explicit process names</li>
+<li><strong>VSCode Integration Issues</strong>: Verify MCP server configuration in VSCode settings</li>
+</ol>
+<p>For additional help, open an issue on the <a href="https://github.com/pwwang/immunopipe">GitHub repository</a>.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../configurations/" class="btn btn-neutral float-left" title="Configurations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../processes/SampleInfo/" class="btn btn-neutral float-right" title="SampleInfo">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../configurations/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../processes/SampleInfo/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/version-select.js"></script>
+      <script src="../assets/script.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

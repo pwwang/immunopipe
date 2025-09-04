@@ -97,6 +97,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../configurations/">Configurations</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SampleInfo/">SampleInfo</a>
@@ -336,6 +340,7 @@
 <p>When using the <a href="https://github.com/pwwang/xqute#using-google-batch-jobs-scheduler"><code>gbatch</code></a>, the metadata of the processes (job status, job output, etc) are managed locally. Even though they are on the cloud, they are manipuated locally (using the API provided by <a href="https://cloudpathlib.drivendata.org/stable/"><code>cloudpathlib</code></a>). The processes are submitted to Google Cloud Batch Jobs using <code>gcloud batch jobs submit</code>. And the processes are run on Google Cloud Compute Engine VMs, and they need to be sumbitted one after another.</p>
 <p>See the documentation of <a href="https://pwwang.github.io/pipen/cloud/#run-the-pipeline-on-the-cloud"><code>cloud support</code></a> of <code>pipen</code>.</p>
 <h4 id="use-pipen-cli-gbatch">Use <code>pipen-cli-gbatch</code><a class="headerlink" href="#use-pipen-cli-gbatch" title="Permanent link">&para;</a></h4>
+<p>You need install the dependencies via <code>pip install -U immunopipe[cli-gbatch]</code> to use this feature.</p>
 <p><code>immunopipe</code> has integrated with <a href="https://github.com/pwwang/pipen-cli-gbatch"><code>pipen-cli-gbatch</code></a> to provide a seamless way to run the pipeline using Google Cloud Batch Jobs. The entire pipeline is wrapped (like it is running locally) and submitted as a single job to Google Cloud Batch Jobs. You just need to run the following:</p>
 <div class="highlight"><pre><span></span><code>&gt;<span class="w"> </span>immunopipe<span class="w"> </span>gbatch<span class="w"> </span>@config.toml
 </code></pre></div>
