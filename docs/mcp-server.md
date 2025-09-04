@@ -29,11 +29,12 @@ To integrate with VSCode and Claude, add the following to your VSCode settings:
 
 ```json
 {
-  "mcp.servers": {
-    "immunopipe": {
-      "command": "python",
-      "args": ["-m", "immunopipe.mcp", "--transport", "stdio"],
-      "env": {}
+  "mcp": {
+    "servers": {
+      "immunopipe": {
+        "command": "python",
+        "args": ["-m", "immunopipe.mcp", "--transport", "stdio"]
+      }
     }
   }
 }
