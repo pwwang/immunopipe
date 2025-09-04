@@ -17,15 +17,6 @@ INTERMEDIATEDIR = RUNNINGDIR / "intermediate"
 WORKDIR = RUNNINGDIR / "workdir"
 
 
-def pytest_collection_modifyitems(config, items):
-    """Modify the items collected by pytest."""
-    ordered_items = sorted(
-        items,
-        key=lambda item: item.module.pytest_order
-    )
-    items[:] = ordered_items
-
-
 @contextmanager
 def with_argv(argv: list[str]) -> Generator:
     """Temporarily change sys.argv."""
