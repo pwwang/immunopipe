@@ -8,6 +8,8 @@ from immunopipe.mcp.options import (
     GbatchOptionsDiscovery,
     OptionsDiscovery
 )
+# Required for test ordering
+pytest_order = 100
 
 
 class TestConfigOption:

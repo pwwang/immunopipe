@@ -2,6 +2,8 @@
 import pytest
 from unittest.mock import patch, MagicMock
 from immunopipe.mcp.tools import MCPToolResult, ImmunopipeConfigTools
+# Required for test ordering
+pytest_order = 100
 
 
 class TestMCPToolResult:

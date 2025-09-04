@@ -48,17 +48,20 @@ def run_process(
     """
     configfile = str(CONFIGDIR / configfile)
 
+    # with with_argv(["@pipen"]):
+    #     from immunopipe.pipeline import Immunopipe
+
+    # full_pipe = Immunopipe()
+    # full_pipe.build_proc_relationships()
+    # print(full_pipe.procs)
+
+    # for proc in full_pipe.procs:
+    #     if proc.name == process:
+    #         break
+    # else:
+    #     raise ValueError(f"Process {process} not found in the pipeline.")
     with with_argv(["@pipen"]):
-        from immunopipe.pipeline import Immunopipe
-
-    full_pipe = Immunopipe()
-    full_pipe.build_proc_relationships()
-
-    for proc in full_pipe.procs:
-        if proc.name == process:
-            break
-    else:
-        raise ValueError(f"Process {process} not found in the pipeline.")
+        proc = __import__("immunopipe.processes", fromlist=[process]).__dict__[process]
 
     # detech dependent procs
     proc = Proc.from_proc(proc, name=process, **kwargs)

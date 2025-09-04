@@ -7,6 +7,8 @@ from immunopipe.mcp.toml_generator import (
     TOMLGenerator,
     ConfigTemplateGenerator
 )
+# Required for test ordering
+pytest_order = 100
 
 
 class TestConfigSection:
