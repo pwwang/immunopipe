@@ -5,7 +5,9 @@
 ### Cloud support
 
 - feat: immunopipe can now be run on Google Cloud Batch Jobs, allowing for scalable and efficient processing of larger datasets.
-  See [Run the pipeline using Google Cloud Batch Jobs¶](https://pwwang.github.io/immunopipe/latest/running/#run-the-pipeline-using-google-cloud-batch-jobs) for more details.
+  - You can either run the pipeline using the [gbatch scheduler](https://pwwang.github.io/pipen/scheduler/#gbatch); or
+  - run the entire pipeline on Gooble Batch Jobs using `immunopipe gbatch` command.
+  - See [Run the pipeline using Google Cloud Batch Jobs¶](https://pwwang.github.io/immunopipe/latest/running/#run-the-pipeline-using-google-cloud-batch-jobs) for more details.
 
 ### Enhanced visualization
 
