@@ -29,6 +29,7 @@
 - feat: BCR-seq data is now supported, allowing users to analyze BCR-seq data paired with scRNA-seq data.
 - feat: Now `Seurat` object (in RDS or qs2 format) is supported as input for scRNA-seq data.
 - feat: Now loom format is supported for scRNA-seq data, allowing users to use loom files as input for the pipeline.
+- feat: add mcp server functionality to launch mcp server to help compose the configuration file.
 
 ### House keeping
 
