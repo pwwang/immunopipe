@@ -32,6 +32,7 @@ nav:
     - 'Running the pipeline': 'running.md'
     - 'Preparing the input': 'preparing-input.md'
     - 'Configurations': 'configurations.md'
+    - 'MCP Sever': 'mcp-server.md'
     - 'Processes':
       - 'SampleInfo': 'processes/SampleInfo.md'
       # scRNA-seq processes

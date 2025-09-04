@@ -122,7 +122,13 @@ docs/index.md
 /tests/running/output/
 /tests/running/intermediate/
 /tests/running/data/prepared/
+/tests/running/workdir
 Rplots.pdf
 /biopipen
 # git bundles
 *.bundle
+
+CLAUDE.md
+/example.toml
+/run_mcp.sh
+/VSCODE_MCP_SETUP.md
