@@ -24,9 +24,8 @@ for supervised clustering.<br />
 
 ## Output
 
-- `rdsfile`: *Default: `{{in.srtobj | stem}}.RDS`*. <br />
-    The seurat object with cluster information at `seurat_clusters`
-    If `SCTransform` was used, the default Assay will be reset to `RNA`.<br />
+- `outfile`: *Default: `{{in.srtobj | stem}}.qs`*. <br />
+    The seurat object with cluster information at `seurat_clusters`.<br />
 
 ## Environment Variables
 
@@ -35,33 +34,19 @@ for supervised clustering.<br />
     Used in `future::plan(strategy = "multicore", workers = <ncores>)`
     to parallelize some Seurat procedures.<br />
     See also: <https://satijalab.org/seurat/articles/future_vignette.html>
-- `ScaleData` *(`ns`)*:
-    Arguments for [`ScaleData()`](https://satijalab.org/seurat/reference/scaledata).<br />
-    If you want to re-scale the data by regressing to some variables, `Seurat::ScaleData`
-    will be called. If nothing is specified, `Seurat::ScaleData` will not be called.<br />
-    - `vars-to-regress`:
-        The variables to regress on.<br />
-    - `<more>`:
-        See <https://satijalab.org/seurat/reference/scaledata>
-- `SCTransform` *(`ns`)*:
-    Arguments for [`SCTransform()`](https://satijalab.org/seurat/reference/sctransform).<br />
-    If you want to re-scale the data by regressing to some variables, `Seurat::SCTransform`
-    will be called. If nothing is specified, `Seurat::SCTransform` will not be called.<br />
-    - `vars-to-regress`:
-        The variables to regress on.<br />
-    - `<more>`:
-        See <https://satijalab.org/seurat/reference/sctransform>
 - `RunUMAP` *(`ns`)*:
     Arguments for [`RunUMAP()`](https://satijalab.org/seurat/reference/runumap).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
     `dims=N` will be expanded to `dims=1:N`; The maximal value of `N` will be the minimum of `N` and the number of columns - 1 for each sample.<br />
-    - `dims` *(`type=int`)*: *Default: `30`*. <br />
+    - `dims` *(`type=int`)*:
         The number of PCs to use
     - `reduction`:
         The reduction to use for UMAP.<br />
         If not provided, `sobj@misc$integrated_new_reduction` will be used.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/runumap>
+- `RunPCA` *(`ns`)*:
+    Arguments for [`RunPCA()`](https://satijalab.org/seurat/reference/runpca).<br />
 - `FindNeighbors` *(`ns`)*:
     Arguments for [`FindNeighbors()`](https://satijalab.org/seurat/reference/findneighbors).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
@@ -82,13 +67,8 @@ for supervised clustering.<br />
         The final resolution will be used to define the clusters at `seurat_clusters`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findclusters>
-- `cache` *(`type=auto`)*: *Default: `/tmp/user`*. <br />
-    Whether to cache the information at different steps.<br />
+- `cache` *(`type=auto`)*: *Default: `/tmp/m161047`*. <br />
+    Where to cache the information at different steps.<br />
     If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
-    The cached seurat object will be saved as `<signature>.<kind>.RDS` file, where `<signature>` is the signature determined by
-    the input and envs of the process.<br />
-    See <https://github.com/satijalab/seurat/issues/7849>, <https://github.com/satijalab/seurat/issues/5358> and
-    <https://github.com/satijalab/seurat/issues/6748> for more details also about reproducibility issues.<br />
-    To not use the cached seurat object, you can either set `cache` to `False` or delete the cached file at
-    `<signature>.RDS` in the cache directory.<br />
+    Set to `False` to not cache the results.<br />
 

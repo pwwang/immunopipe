@@ -34,12 +34,14 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
 ## Input
 
 - `sobjfile`:
-    The seurat object
+    The single-cell object in RDS/qs/qs2/h5ad format.<br />
 
 ## Output
 
 - `outfile`: *Default: `{{in.sobjfile | stem}}.annotated.{{- ext0(in.sobjfile) if envs.outtype == 'input' else envs.outtype -}}`*. <br />
-    The rds file of seurat object with cell type annotated
+    The rds/qs/qs2/h5ad file of seurat object with cell type annotated.<br />
+    A text file containing the mapping from the old `seurat_clusters` to the new cell types
+    will be generated and saved to `cluster2celltype.tsv` under the job output directory.<br />
 
 ## Environment Variables
 
@@ -115,9 +117,11 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
     - `majority_voting`: *Default: `True`*. <br />
         When true, it refines cell identities within local subclusters after an over-clustering approach
         at the cost of increased runtime.<br />
-    - `over_clustering` *(`type=auto`)*: *Default: `seurat_clusters`*. <br />
+    - `over_clustering` *(`type=auto`)*:
         The column name in metadata to use as clusters for majority voting.<br />
         Set to `False` to disable over-clustering.<br />
+        When `in.sobjfile` is rds/qs/qs2 (supposing we have a Seurat object), the default ident is used by default.<br />
+        Otherwise, it is False by default.<br />
     - `assay`:
         When converting a Seurat object to AnnData, the assay to use.<br />
         If input is h5seurat, this defaults to RNA.<br />
@@ -136,8 +140,10 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
         Use the same file type as the input.<br />
     - `rds`:
         Use RDS file.<br />
-    - `h5seurat`:
-        Use h5seurat file.<br />
+    - `qs`:
+        Use qs2 file.<br />
+    - `qs2`:
+        Use qs2 file.<br />
     - `h5ad`:
         Use AnnData file.<br />
 

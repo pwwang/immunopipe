@@ -16,7 +16,8 @@ This process will read the scRNA-seq data, based on the information provided by
 Those paths should be either paths to directoies containing `matrix.mtx`,
 `barcodes.tsv` and `features.tsv` files that can be loaded by
 [`Seurat::Read10X()`](https://satijalab.org/seurat/reference/read10x),
-or paths to `h5` files that can be loaded by
+or paths of loom files that can be loaded by `SeuratDisk::LoadLoom()`, or paths to
+`h5` files that can be loaded by
 [`Seurat::Read10X_h5()`](https://satijalab.org/seurat/reference/read10x_h5).<br />
 
 Each sample will be loaded individually and then merged into one `Seurat` object, and then perform QC.<br />
@@ -57,10 +58,9 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
 
 ## Output
 
-- `rdsfile`: *Default: `{{in.metafile | stem}}.seurat.RDS`*. <br />
-    The RDS file with the Seurat object with all samples integrated.<br />
-    Note that the cell ids are preficed with sample names QC plots will be
-    saved in `<job.outdir>/before-qc` and `<job.outdir>/after-qc`.<br />
+- `outfile`: *Default: `{{in.metafile | stem}}.seurat.qs`*. <br />
+    The qs2 file with the Seurat object with all samples integrated.<br />
+    Note that the cell ids are prefixied with sample names.<br />
 
 ## Environment Variables
 
@@ -68,6 +68,20 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
     Number of cores to use.<br />
     Used in `future::plan(strategy = "multicore", workers = <ncores>)`
     to parallelize some Seurat procedures.<br />
+- `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
+    The mutaters to mutate the metadata to the cells.<br />
+    These new columns will be added to the metadata of the Seurat object and
+    will be saved in the output file.<br />
+- `min_cells` *(`type=int`)*: *Default: `0`*. <br />
+    The minimum number of cells that a gene must be
+    expressed in to be kept. This is used in `Seurat::CreateSeuratObject()`.<br />
+    Futher QC (`envs.cell_qc`, `envs.gene_qc`) will be performed after this.<br />
+    It doesn't work when data is loaded from loom files.<br />
+- `min_features` *(`type=int`)*: *Default: `0`*. <br />
+    The minimum number of features that a cell must
+    express to be kept. This is used in `Seurat::CreateSeuratObject()`.<br />
+    Futher QC (`envs.cell_qc`, `envs.gene_qc`) will be performed after this.<br />
+    It doesn't work when data is loaded from loom files.<br />
 - `cell_qc`:
     Filter expression to filter cells, using
     `tidyrseurat::filter()`.<br />
@@ -87,10 +101,6 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
     genes.<br />
     ///
 
-- `cell_qc_per_sample` *(`flag`)*: *Default: `False`*. <br />
-    Whether to perform cell QC per sample or not.<br />
-    If `True`, the cell QC will be performed per sample, and the QC will be
-    applied to each sample before merging.<br />
 - `gene_qc` *(`ns`)*:
     Filter genes.<br />
     `gene_qc` is applied after `cell_qc`.<br />
@@ -108,6 +118,20 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
         ```
         will keep genes that are expressed in at least 3 cells.<br />
         ///
+- `qc_plots` *(`type=json`)*: *Default: `{'Violin Plots': Diot({'kind': 'cell', 'plot_type': 'violin', 'devpars': Diot({'res': 100, 'height': 600, 'width': 1200})}), 'Scatter Plots': Diot({'kind': 'cell', 'plot_type': 'scatter', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})}), 'Ridge Plots': Diot({'kind': 'cell', 'plot_type': 'ridge', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})}), 'Distribution of number of cells a gene is expressed in': Diot({'kind': 'gene', 'plot_type': 'histogram', 'devpars': Diot({'res': 100, 'height': 1200, 'width': 1200})})}`*. <br />
+    The plots for QC metrics.<br />
+    It should be a json (or python dict) with the keys as the names of the plots and
+    the values also as dicts with the following keys:<br />
+    * kind: The kind of QC. Either `gene` or `cell` (default).<br />
+    * devpars: The device parameters for the plot. A dict with `res`, `height`, and `width`.<br />
+    * more_formats: The formats to save the plots other than `png`.<br />
+    * save_code: Whether to save the code to reproduce the plot.<br />
+    * other arguments passed to
+    [`biopipen.utils::VizSeuratCellQC`](https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratCellQC.html)
+    when `kind` is `cell` or
+    [`biopipen.utils::VizSeuratGeneQC`](https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratGeneQC.html)
+    when `kind` is `gene`.<br />
+
 - `use_sct` *(`flag`)*: *Default: `False`*. <br />
     Whether use SCTransform routine to integrate samples or not.<br />
     Before the following procedures, the `RNA` layer will be split by samples.<br />
@@ -151,9 +175,9 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
 - `SCTransform` *(`ns`)*:
     Arguments for [`SCTransform()`](https://satijalab.org/seurat/reference/sctransform).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
-    - ``return-only-var-genes``:
+    - `return-only-var-genes`: *Default: `True`*. <br />
         Whether to return only variable genes.<br />
-    - ``min_cells``:
+    - `min_cells`: *Default: `5`*. <br />
         The minimum number of cells that a gene must be expressed in to be kept.<br />
         A hidden argument of `SCTransform` to filter genes.<br />
         If you try to keep all genes in the `RNA` assay, you can set `min_cells` to `0` and
@@ -161,8 +185,7 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
         See <https://github.com/satijalab/seurat/issues/3598#issuecomment-715505537>
     - `<more>`:
         See <https://satijalab.org/seurat/reference/sctransform>
-    - `return-only-var-genes`: *Default: `True`*. <br />
-    - `min_cells`: *Default: `5`*. <br />
+    - `verbose`: *Default: `True`*. <br />
 - `IntegrateLayers` *(`ns`)*:
     Arguments for [`IntegrateLayers()`](https://satijalab.org/seurat/reference/integratelayers).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
@@ -236,7 +259,7 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
         Set to `None` to use `envs.ncores`.<br />
     - `<more>`:
         See <https://rdrr.io/bioc/scDblFinder/man/scDblFinder.html>.<br />
-- `cache` *(`type=auto`)*: *Default: `/tmp/user`*. <br />
+- `cache` *(`type=auto`)*: *Default: `/tmp/m161047`*. <br />
     Whether to cache the information at different steps.<br />
     If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
     The cached seurat object will be saved as `<signature>.<kind>.RDS` file, where `<signature>` is the signature determined by

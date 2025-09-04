@@ -23,50 +23,23 @@ The data preparation, preprocessing and clustering already done by other process
 - [`MetabolicPathwayActivity`](./MetabolicPathwayActivity.md): Calculate the pathway activities for each group
 - [`MetabolicPathwayHeterogeneity`](./MetabolicPathwayHeterogeneity.md): Calculate the pathway heterogeneity
 - [`MetabolicFeatures`](./MetabolicFeatures.md): Inter-subset metabolic features - Enrichment analysis in details
-- [`MetabolicFeaturesIntraSubset`](./MetabolicFeaturesIntraSubset.md): Intra-subset metabolic features
 
 ## Group arguments
 
 - `noimpute` (`flag`): Whether to do imputation for the dropouts.
     If `False`, the values will be left as is.
 - `gmtfile`: The GMT file with the metabolic pathways. The gene names should
-    match the gene names in the gene list in `RNAData` or the `Seurat` object
-- `grouping`: It defines the basic groups to investigate the metabolic activity
-    Typically the clusters.
-- `grouping_prefix`: Working as a prefix to group names
-    For example, if we have `grouping_prefix = "cluster"` and
-    we have `1` and `2` in the `grouping` column, the groups
-    will be named as `cluster_1` and `cluster_2`
-- `subsetting` (`type=auto`): How do we subset the data. Other columns in the
-    metadata to do comparisons. For example, `"TimePoint"` or
-    `["TimePoint", "Response"]`
-- `subsetting_prefix` (type=auto): Working as a prefix to subset names
-    For example, if we have `subsetting_prefix = "timepoint"` and
-    we have `pre` and `post` in the `subsetting` column, the subsets
-    will be named as `timepoint_pre` and `timepoint_post`
-    If `subsetting` is a list, this should also be a same-length
-    list. If a single string is given, it will be repeated to a list
-    with the same length as `subsetting`
-- `subsetting_comparison` (type=json): What kind of comparisons are we
-    doing to compare cells from different subsets.
-    It should be dict with keys as the names of the comparisons and
-    values as the 2 comparison groups from the `subsetting` column.
-    For example, if we have `pre` and `post` in the `subsetting` column,
-    we could have
-    `subsetting_comparison = {"pre_vs_post": ["post", "pre"]}`
-    The second group will be the control group in the comparison.
-    If we also have `1`, `2` and `3` in the `grouping` column,
-    by default, the comparisons are done within each subset for
-    each group. For example, for group `1`, groups `2` and `3`
-    will be used as control, and for group `2`, groups `1` and `3`
-    will be used as control, and for group `3`, groups `1` and `2`
-    will be used as control. It is similar to `Seurat::FindMarkers`
-    procedure. With this option, the comparisons are also done to
-    compare cells from different subsets within each group. With the
-    example above, we will have `pre_vs_post` comparisons within
-    each group.
-    If `subsetting` is a list, this must be a list of dicts with the
-    same length.
+    match the gene names in the gene list in RNAData or
+    the Seurat object.
+    You can also provide a URL to the GMT file.
+    For example, from
+    <https://download.baderlab.org/EM_Genesets/current_release/Human/symbol/>.
+- `subset_by` (pgarg;readonly): Subset the data by the given column in the
+    metadata. For example, `Response`.
+    `NA` values will be removed in this column.
+    If None, the data will not be subsetted.
+- `group_by` (pgarg;readonly): Group the data by the given column in the
+    metadata. For example, `cluster`.
 - `mutaters` (type=json): Add new columns to the metadata for
     grouping/subsetting.
     They are passed to `sobj@meta.data |> mutate(...)`. For example,

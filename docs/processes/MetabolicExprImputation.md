@@ -11,11 +11,11 @@ of the process group to `True`.<br />
 ## Input
 
 - `infile`:
-    The input file in RDS format of Seurat object
+    The input file in RDS/qs format of Seurat object
 
 ## Output
 
-- `outfile`: *Default: `{{in.infile | stem}}.imputed.RDS`*. <br />
+- `outfile`: *Default: `{{in.infile | stem}}.imputed.qs`*. <br />
     The output file in RDS format of Seurat object
     Note that with rmagic and alra, the original default assay will be
     renamed to `RAW` and the imputed RNA assay will be
@@ -39,12 +39,16 @@ of the process group to `True`.<br />
         Number of clusters to use
     - `ncores` *(`type=int`)*: *Default: `1`*. <br />
         Number of cores to use
-    - `refgene`: *Default: `~/reference/hg19/hg19-gene.gtf`*. <br />
+    - `refgene`: *Default: `/home/mayo/m161047/reference/hg19/hg19-gene.gtf`*. <br />
         The reference gene file
 - `rmagic_args` *(`ns`)*:
     The arguments for rmagic
     - `python`: *Default: `python`*. <br />
         The python path where magic-impute is installed.<br />
+    - `threshold` *(`type=float`)*: *Default: `0.5`*. <br />
+        The threshold for magic imputation.<br />
+        Only the genes with dropout rates greater than this threshold (No. of
+        cells with non-zero expression / total number of cells) will be imputed.<br />
 - `alra_args` *(`type=json`)*: *Default: `{}`*. <br />
     The arguments for `RunALRA()`
 

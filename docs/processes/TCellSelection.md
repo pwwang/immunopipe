@@ -20,14 +20,14 @@ You can also use indicator gene expression values only to select T cells by sett
 ## Input
 
 - `srtobj`:
-    Seurat object file in RDS
+    Seurat object file in RDS/qs
 - `immdata`:
-    Immunarch data file in RDS
+    Immune repertoire data file in RDS/qs
 
 ## Output
 
-- `rdsfile`: *Default: `{{in.srtobj | stem}}.RDS`*. <br />
-    Seurat object file in RDS
+- `outfile`: *Default: `{{in.srtobj | stem}}.qs`*. <br />
+    Seurat object file in qs format
 - `outdir`: *Default: `details`*. <br />
     Output directory with details
 

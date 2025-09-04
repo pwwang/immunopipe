@@ -6,58 +6,38 @@ channels:
   - nodefaults
 dependencies:
   - nodejs=20  # pipen-report
-  - curl  # force using conda-forge version
   - python=3.10
+  - curl  # force using conda-forge version
   - pip
   - fontconfig
-  - faiss-cpu  # for GIANA
   - graphviz  # pipen-diagram
   - git  # for copier, used by pipen-report
   - libiconv # fix git: error while loading shared libraries: libiconv.so.2
   - time  # for pipen-runinfo
   - wget
   - gcc_linux-64
+  - r-base=4.3
   - pwwang::bioconductor-data-packages
   - bioconductor-fgsea
   - bioconductor-scater
-  - bioconductor-complexheatmap
   - bioconductor-destiny
   - bioconductor-glmgampoi
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
-  - bioconductor-scdblfinder
+  - bioconda::bioconductor-deseq2
+  - bioconda::bioconductor-edger
   - r-hdf5r  # Read_10x_h5() by Seurat
-  - r-seuratdisk  # SCTransform
-  - r-sf
+  - r-laplacesdemon  # TESSA
   - libgdal
-  - r-clustree
   - r-logger
   - r-presto  # MarkersFinder
   - r-hash  # CDR3AAPhyschem
   - r-glmnet  # CDR3AAPhyschem
   - r-matrixstats=1.1.0  # useNames = NA  deprecated
   - r-broom.mixed  # CDR3AAPhyschem
-  - r-ggradar
   - r-hitype
   - r-seuratwrappers
-  - r-base=4.3
-  - r-seurat=5
   - r-harmony
   - r-future
-  - r-tidyseurat
-  - r-bracer
-  - r-immunarch  #=0.9.0
-  - r-ggplot2  #=3.4
-  - r-dplyr
-  - r-tibble
-  - r-tidyr
-  - r-ggprism  #=1.0.4
-  - r-ggnewscale
-  - r-ggvenndiagram=1.2
-  - r-assertthat
-  - r-enrichr
-  - r-complexupset
-  - r-doubletfinder
+  - r-biopipen.utils
   - pip:
-    - celltypist
-    - biopython==1.79  # for GIANA
-    - scikit-learn==1.5.1  # for GIANA
+    - liana

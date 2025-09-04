@@ -1,5 +1,45 @@
 # Change Log
 
+## 2.0.0 (Cloud support, enhanced visualization, new analyses/features, and more ...)
+
+### Cloud support
+
+- feat: immunopipe can now be run on Google Cloud Batch Jobs, allowing for scalable and efficient processing of larger datasets.
+  - You can either run the pipeline using the [gbatch scheduler](https://pwwang.github.io/pipen/scheduler/#gbatch); or
+  - run the entire pipeline on Gooble Batch Jobs using `immunopipe gbatch` command.
+  - See [Run the pipeline using Google Cloud Batch Jobs¶](https://pwwang.github.io/immunopipe/latest/running/#run-the-pipeline-using-google-cloud-batch-jobs) for more details.
+
+### Enhanced visualization
+
+- feat: [scplotter](https://github.com/pwwang/scplotter) and [plotthis](https://github.com/pwwang/plotthis) are now used for plotting, providing enhanced visualization capabilities and uniformity across different processes.
+- feat: default descriptions/captions are now added to plots, making them more informative.
+
+### Enhanced performance
+
+- feat: the pipeline now uses [`qs2`](https://github.com/qsbase/qs2) for store the R objects, which speeds up the loading and saving of Seurat objects.
+- feat: step-wise caching (in addition to process-wise) is now supported, especially for Seurat processes, allowing for faster re-running of the pipeline by caching intermediate results and improving results reproducibility.
+- refactor: [MetabolicLandscapeAnalysis](https://pwwang.github.io/immunopipe/dev/processes/ScrnaMetabolicLandscape/) is refactored for flexibility and performance improvement.
+- BREAKING: [enrichR](https://cran.r-project.org/web/packages/enrichR/vignettes/enrichR.html) is retired and replaced by [enrichit](https://github.com/pwwang/enrichit) for enrichment analysis, making it offline and more flexible. This enables the entire pipline to run without internet connection.
+
+### New analyses/features
+
+- feat: the pipeline now supports [cell-cell communication analysis](https://pwwang.github.io/immunopipe/latest/processes/CellCellCommunication/).
+- feat: plots are supported for all cases for [MarkersFinder](https://pwwang.github.io/immunopipe/latest/processes/MarkersFinder/) and [ScFGSEA](https://pwwang.github.io/immunopipe/latest/processes/ScFGSEA/), allowing plotting the markers (DEGs) and enriched pathways for all cases (e.g. all seurat clusters) in a single plot.
+- BREAKING: the [immunarch](https://immunarch.com) package is now replaced by [scRepertoire](https://github.com/BorchLab/scRepertoire) for more features and allowing customized clonotype definition.
+- feat: `envs.mutaters` is now supported for [SeuratPreparing](https://pwwang.github.io/immunopipe/latest/processes/SeuratPreparing/) to allow create factor (categorical) columns in the metadata.
+- feat: [PseudoBulkDEG](https://pwwang.github.io/immunopipe/latest/processes/PseudoBulkDEG/) is added to perform pseudo-bulk differential expression analysis.
+- feat: BCR-seq data is now supported, allowing users to analyze BCR-seq data paired with scRNA-seq data.
+- feat: Now `Seurat` object (in RDS or qs2 format) is supported as input for scRNA-seq data.
+- feat: Now loom format is supported for scRNA-seq data, allowing users to use loom files as input for the pipeline.
+- feat: add mcp server functionality to launch mcp server to help compose the configuration file.
+
+### House keeping
+
+- build: docker images are now built based on the [`biopipen`](https://github.com/pwwang/biopipen) base image.
+- ci: the test workflow now caches the running intermediate files to speed up the tests.
+- docs: the citation information is now added to the documentation, allowing users to easily cite the pipeline in their publications.
+- chore(deps): biopipen is bumped to 0.34.8, which includes various bug fixes and enhancements. See the [biopipen releases](https://github.com/pwwang/biopipen/releases) for more details.
+
 ## 1.4.4
 
 - chore(deps): add gcc_linux-64 to Docker environment dependencies
@@ -511,7 +551,7 @@
 - Add `ClusterMarkersOfAllCells` and `TopExpressingGenesOfAllCells` and set them as optional
 - Add dim plots in `SeuratClusterStats` to overlay TCR presence/absence of cells (#14)
 
-### Breaking changes
+### Breaking changes-0.9.0
 
 - Rename `TCRClusteringStats` to `TCRClusterStats` (#15)
 
@@ -544,7 +584,7 @@
 - Add singularity/apptainer in FAQ for "no space left" question
 - Add -w fro apptainer in docs (as we need to save pipen-board file in home directory)
 
-### Added
+### Added-0.8.0
 
 - Add `TESSA` process for [tessa analysis](https://pwwang.github.io/immunopipe/processes/TESSA/)
 - Add volcano plot for `MarkersFinder` and `ClusterMarkers`
@@ -557,13 +597,13 @@
 - Fix sample order in plots for `SampleInfo`
 - Remove `tidyseurat::` prefix for `filter` in scripts of `MetaMarkers`, `ScFGSEA` and `SeuratClusterStats` in case `tidyseurat::filter` is not exported when installed from `conda` (but it will make `dplyr::filter` work anyway on seurat object)
 
-### Breaking changes
+### Breaking changes-0.8.0
 
 - Redesign envs for `SeuratClusteringStats` to allow setting defaults for cases and switch identities for plots
 
 ## 0.7.0
 
-### Housekeeping and docs updates
+### Housekeeping and docs updates-0.7.0
 
 - Fix typos in docs/configurations
   - `TCRClustering` should be `TCRClusteringStats` in Multi-case variable design section
@@ -576,7 +616,7 @@
 - Bump `pipen-board` to [0.11.5](https://github.com/pwwang/pipen-board/releases/tag/0.11.5)
 - Add apptainer to the docs
 
-### Added
+### Added-0.7.0
 
 - Add `ModuleScoreCalculator` to calculate module scores or cell cycle scores
   - See: <https://pwwang.github.io/immunopipe/processes/ModuleScoreCalculator/>
@@ -585,12 +625,12 @@
 - Add `TCR_Cluster_Size` and `TCR_Cluster_Size1` from `TCRClustering` to metadata for further integrative analysis
   - See: <https://pwwang.github.io/immunopipe/processes/TCRClusters2Seurat/>
 
-### Fixed
+### Fixed-0.7.0
 
 - Fix default height and width for plots in `SeuratClusterStats`
 - Fix cluster order not kept after annotation using `hitype` in `CellTypeAnnotation`
 
-### Breaking changes
+### Breaking changes-0.7.0
 
 - Change `seurat_clusters_old` to `seurat_clusters_id` to save old `seurat_clusters` in `CellTypeAnnotation`
 - Remove `MarkersForClustersOfAllCells` and `TopExpressingGenesOfAllCells` processes

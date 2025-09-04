@@ -126,10 +126,10 @@ The results provided by this example configuration files are for demonstration p
 
 You may also want to try other routes of the pipeline with the prepared data. These routes are defined in:
 
-- `ImmunopipeMinimalNoTCR.config.toml`: The configuration for minimal analyses without scTCR-seq data.
+- `ImmunopipeMinimalNoTCR.config.toml`: The configuration for minimal analyses without scTCR-/scBCR-seq data.
 - `ImmunopipeMinimalSupervised.config.toml`: The configuration for minimal analyses with supervised clustering of T cells.
-- `ImmunopipeNoTCR.config.toml`: The configuration for full analyses without scTCR-seq data.
-- `ImmunopipeWSNoTCR.config.toml`: The configuration for full analyses without scTCR-seq data, but with selection of T cells.
+- `ImmunopipeNoTCR.config.toml`: The configuration for full analyses without scTCR-/scBCR-seq data.
+- `ImmunopipeWSNoTCR.config.toml`: The configuration for full analyses without scTCR-/scBCR-seq data, but with selection of T cells.
 - `ImmunopipeSupervised.config.toml`: The configuration for full analyses with supervised clustering of T cells.
 
 Also check out the [gallery](./gallery.md) for more real-world examples.

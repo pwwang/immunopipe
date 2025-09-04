@@ -11,7 +11,7 @@ in the permutations.<br />
 The heterogeneity can be reflected by the NES values and the p-values in
 different groups for the metabolic pathways.<br />
 
-![MetabolicPathwayHeterogeneity](../latest/processes/images/MetabolicPathwayHeterogeneity.png)
+![MetabolicPathwayHeterogeneity](https://pwwang.github.io/immunopipe/latest/processes/images/MetabolicPathwayHeterogeneity.png)
 
 ## Input
 
@@ -34,28 +34,34 @@ different groups for the metabolic pathways.<br />
 - `ncores` *(`type=int;pgarg`)*: *Default: `1`*. <br />
     Number of cores to use for parallelization
     Defaults to `ScrnaMetabolicLandscape.ncores`
-- `bubble_devpars` *(`ns`)*:
-    The devpars for the bubble plot
-    - `width` *(`type=int`)*:
-        The width of the plot
-    - `height` *(`type=int`)*:
-        The height of the plot
-    - `res` *(`type=int`)*:
-        The resolution of the plot
-- `grouping` *(`type=auto;pgarg;readonly`)*:
-    Defines the basic groups to
-    investigate the metabolic activity.<br />
-    Defaults to `ScrnaMetabolicLandscape.grouping`
-- `grouping_prefix` *(`type=auto;pgarg;readonly`)*: *Default: `""`*. <br />
-    Working as a prefix to group
-    names.<br />
-    Defaults to `ScrnaMetabolicLandscape.grouping_prefix`
-- `subsetting` *(`type=auto;pgarg;readonly`)*:
-    How do we subset the data.<br />
-    Another column(s) in the metadata.<br />
-    Defaults to `ScrnaMetabolicLandscape.subsetting`
-- `subsetting_prefix` *(`type=auto;pgarg;readonly`)*:
-    Working as a prefix to
-    subset names.<br />
-    Defaults to `ScrnaMetabolicLandscape.subsetting_prefix`
+- `subset_by` *(`pgarg;readonly`)*:
+    Subset the data by the given column in the
+    metadata. For example, `Response`.<br />
+    `NA` values will be removed in this column.<br />
+    Defaults to `ScrnaMetabolicLandscape.subset_by`
+    If None, the data will not be subsetted.<br />
+- `group_by` *(`pgarg;readonly`)*:
+    Group the data by the given column in the
+    metadata. For example, `cluster`.<br />
+    Defaults to `ScrnaMetabolicLandscape.group_by`
+- `fgsea_args` *(`type=json`)*: *Default: `{'scoreType': 'std', 'nproc': 1}`*. <br />
+    Other arguments for the `fgsea::fgsea()` function.<br />
+    For example, `{"minSize": 15, "maxSize": 500}`.<br />
+    See <https://rdrr.io/bioc/fgsea/man/fgsea.html> for more details.<br />
+- `plots` *(`type=json`)*: *Default: `{'Pathway Heterogeneity': Diot({'plot_type': 'dot', 'devpars': Diot({'res': 100})})}`*. <br />
+    The plots to generate.<br />
+    Names will be used as the title for the plot. Values will be the arguments
+    passed to `biopipen.utils::VizGSEA()` function.<br />
+    See <https://pwwang.github.io/biopipen.utils.R/reference/VizGSEA.html>.<br />
+- `cases` *(`type=json`)*: *Default: `{}`*. <br />
+    Multiple cases for the analysis.<br />
+    If you only have one case, you can specify the parameters directly to
+    `envs.subset_by`, `envs.group_by`, `envs.fgsea_args`, `envs.plots`,
+    `envs.select_pcs`, and `envs.pathway_pval_cutoff`.<br />
+    The name of this default case will be `envs.subset_by`.<br />
+    If you have multiple cases, you can specify the parameters for each case
+    in a dictionary. The keys will be the names of the cases and the values
+    will be dictionaries with the parameters for each case, where the values
+    will be inherited from `envs.subset_by`, `envs.group_by`, `envs.fgsea_args`,
+    `envs.plots`, `envs.select_pcs`, and `envs.pathway_pval_cutoff`.<br />
 

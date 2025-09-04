@@ -1,5 +1,5 @@
 [SeuratPreparing.in]
-metafile = "tests/data/sampleinfo.txt"
+metafile = "tests/running/data/sampleinfo.txt"
 
 [SeuratPreparing.envs]
 #                                                sample < 10% cells

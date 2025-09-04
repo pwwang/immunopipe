@@ -3,7 +3,7 @@
 Cluster the TCR clones by their CDR3 sequences
 
 You can disable this by remving the whole sections of
-TCRClustering and TCRClusterStats in the config file.<br />
+TCRClustering in the config file.<br />
 
 This process is used to cluster TCR clones based on their CDR3 sequences.<br />
 
@@ -40,19 +40,15 @@ CDR3 sequence may be shared by multiple cells.<br />
 
 ## Input
 
-- `immfile`:
-    The immunarch object in RDS
+- `screpfile`:
+    The TCR data object loaded by `scRepertoire::CombineTCR()` or
+    `scRepertoire::CombineExpression()`
 
 ## Output
 
-- `immfile`: *Default: `{{in.immfile | basename}}`*. <br />
-    The immnuarch object in RDS with TCR cluster information
-- `clusterfile`: *Default: `{{in.immfile | stem}}.clusters.txt`*. <br />
-    The cluster file.<br />
-    Columns are CDR3.aa, TCR_Cluster, TCR_Cluster_Size and
-    TCR_Cluster_Size1.<br />
-    TCR_Cluster_Size is the number of cells in the cluster.<br />
-    TCR_Cluster_Size1 is the unique CDR3 sequences in the cluster.<br />
+- `outfile`: *Default: `{{in.screpfile | stem}}.tcr_clustered.qs`*. <br />
+    The `scRepertoire` object in qs with TCR cluster information.<br />
+    Column `TCR_Cluster` will be added to the metadata.<br />
 
 ## Environment Variables
 
@@ -65,18 +61,25 @@ CDR3 sequence may be shared by multiple cells.<br />
         by Li lab at UT Southwestern Medical Center
     - `ClusTCR`:
         by Sebastiaan Valkiers, etc
-- `prefix`:
-    The prefix to the barcodes. You can use placeholder like `{Sample}_`
-    The prefixed barcodes will be used to match the barcodes in `in.metafile`.<br />
-    Not used if `in.metafile` is not specified.<br />
-    If `None` (default), `immdata$prefix` will be used.<br />
 - `python`: *Default: `python`*. <br />
     The path of python with `GIANA`'s dependencies installed
     or with `clusTCR` installed. Depending on the `tool` you choose.<br />
+- `within_sample` *(`flag`)*: *Default: `True`*. <br />
+    Whether to cluster the TCR clones within each sample.<br />
+    When `in.screpfile` is a `Seurat` object, the samples are marked by
+    the `Sample` column in the metadata.<br />
 - `args` *(`type=json`)*: *Default: `{}`*. <br />
     The arguments for the clustering tool
     For GIANA, they will be passed to `python GIAna.py`
     See <https://github.com/s175573/GIANA#usage>.<br />
     For ClusTCR, they will be passed to `clustcr.Clustering(...)`
     See <https://svalkiers.github.io/clusTCR/docs/clustering/how-to-use.html#clustering>.<br />
+- `chain` *(`choice`)*: *Default: `both`*. <br />
+    The TCR chain to use for clustering.<br />
+    - `alpha`:
+        TCR alpha chain (the first sequence in CTaa, separated by `_`)
+    - `beta`:
+        TCR beta chain (the second sequence in CTaa, separated by `_`)
+    - `both`:
+        Both TCR alpha and beta chains
 

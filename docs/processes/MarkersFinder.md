@@ -17,7 +17,7 @@ function, and performs enrichment analysis for the markers found.<br />
 ## Output
 
 - `outdir`: *Default: `{{in.srtobj | stem0}}.markers`*. <br />
-    The output directory for the markers
+    The output directory for the markers and plots
 
 ## Environment Variables
 
@@ -26,78 +26,33 @@ function, and performs enrichment analysis for the markers found.<br />
     * Used in `future::plan(strategy = "multicore", workers = <ncores>)` to parallelize some Seurat procedures.<br />
     * See also: <https://satijalab.org/seurat/articles/future_vignette.html>
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
-    The mutaters to mutate the metadata There are also also 4 helper functions, `expanded`, `collapsed`, `emerged` and `vanished`, which can be used to identify the expanded/collpased/emerged/vanished groups (i.e. TCR clones).<br />
-    See also <../configurations/#mutater-helpers>.<br />
-    For example, you can use `{"Patient1_Tumor_Collapsed_Clones": "expanded(., Source, 'Tumor', subset = Patent == 'Patient1', uniq = FALSE)"}` to create a new column in metadata named `Patient1_Tumor_Collapsed_Clones` with the collapsed clones in the tumor sample (compared to the normal sample) of patient 1.<br />
-    The values in this columns for other clones will be `NA`.<br />
-    Those functions take following arguments:<br />
-    * `df`: The metadata data frame. You can use the `.` to refer to it.<br />
-    * `group.by`: The column name in metadata to group the cells.<br />
-    * `idents`: The first group or both groups of cells to compare (value in `group.by` column). If only the first group is given, the rest of the cells (with non-NA in `group.by` column) will be used as the second group.<br />
-    * `subset`: An expression to subset the cells, will be passed to `dplyr::filter()`. Default is `TRUE` (no filtering).<br />
-    * `each`: A column name (without quotes) in metadata to split the cells.<br />
-    Each comparison will be done for each value in this column (typically each patient or subject).<br />
-    * `id`: The column name in metadata for the group ids (i.e. `CDR3.aa`).<br />
-    * `compare`: Either a (numeric) column name (i.e. `Clones`) in metadata to compare between groups, or `.n` to compare the number of cells in each group.<br />
-    If numeric column is given, the values should be the same for all cells in the same group.<br />
-    This will not be checked (only the first value is used).<br />
-    It is helpful to use `Clones` to use the raw clone size from TCR data, in case the cells are not completely mapped to RNA data.<br />
-    Also if you have `subset` set or `NA`s in `group.by` column, you should use `.n` to compare the number of cells in each group.<br />
-    * `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df |> mutate(expanded = expanded(...))`.<br />
-    * `debug`: Return the data frame with intermediate columns instead of the ids. Default is `FALSE`.<br />
-    * `order`: The expression passed to `dplyr::arrange()` to order intermediate dataframe and get the ids in order accordingly.<br />
-    The intermediate dataframe includes the following columns:<br />
-    * `<id>`: The ids of clones (i.e. `CDR3.aa`).<br />
-    * `<each>`: The values in `each` column.<br />
-    * `ident_1`: The size of clones in the first group.<br />
-    * `ident_2`: The size of clones in the second group.<br />
-    * `.diff`: The difference between the sizes of clones in the first and second groups.<br />
-    * `.sum`: The sum of the sizes of clones in the first and second groups.<br />
-    * `.predicate`: Showing whether the clone is expanded/collapsed/emerged/vanished.<br />
-    * `include_emerged`: Whether to include the emerged group for `expanded` (only works for `expanded`). Default is `FALSE`.<br />
-    * `include_vanished`: Whether to include the vanished group for `collapsed` (only works for `collapsed`). Default is `FALSE`.<br />
-    You can also use `top()` to get the top clones (i.e. the clones with the largest size) in each group.<br />
-    For example, you can use `{"Patient1_Top10_Clones": "top(subset = Patent == 'Patient1', uniq = FALSE)"}` to create a new column in metadata named `Patient1_Top10_Clones`.<br />
-    The values in this columns for other clones will be `NA`.<br />
-    This function takes following arguments:<br />
-    * `df`: The metadata data frame. You can use the `.` to refer to it.<br />
-    * `id`: The column name in metadata for the group ids (i.e. `CDR3.aa`).<br />
-    * `n`: The number of top clones to return. Default is `10`.<br />
-    If n < 1, it will be treated as the percentage of the size of the group.<br />
-    Specify `0` to get all clones.<br />
-    * `compare`: Either a (numeric) column name (i.e. `Clones`) in metadata to compare between groups, or `.n` to compare the number of cells in each group.<br />
-    If numeric column is given, the values should be the same for all cells in the same group.<br />
-    This will not be checked (only the first value is used).<br />
-    It is helpful to use `Clones` to use the raw clone size from TCR data, in case the cells are not completely mapped to RNA data.<br />
-    Also if you have `subset` set or `NA`s in `group.by` column, you should use `.n` to compare the number of cells in each group.<br />
-    * `subset`: An expression to subset the cells, will be passed to `dplyr::filter()`. Default is `TRUE` (no filtering).<br />
-    * `each`: A column name (without quotes) in metadata to split the cells.<br />
-    Each comparison will be done for each value in this column (typically each patient or subject).<br />
-    * `uniq`: Whether to return unique ids or not. Default is `TRUE`. If `FALSE`, you can mutate the meta data frame with the returned ids. For example, `df |> mutate(expanded = expanded(...))`.<br />
-    * `debug`: Return the data frame with intermediate columns instead of the ids. Default is `FALSE`.<br />
-    * `with_ties`: Whether to include ties (i.e. clones with the same size as the last clone) or not. Default is `FALSE`..<br />
+    The mutaters to mutate the metadata.<br />
+    You can also use the clone selectors to select the TCR clones/clusters.<br />
+    See <https://pwwang.github.io/scplotter/reference/clone_selectors.html>..<br />
     See also
     [mutating the metadata](../configurations.md#mutating-the-metadata).<br />
-- `ident-1`:
-    The first group of cells to compare
-- `ident-2`:
-    The second group of cells to compare
-    If not provided, the rest of the cells are used for `ident-2`.<br />
-- `group-by`: *Default: `seurat_clusters`*. <br />
+- `group_by`:
     The column name in metadata to group the cells.<br />
-    If only `group-by` is specified, and `ident-1` and `ident-2` are
+    If only `group_by` is specified, and `ident-1` and `ident-2` are
     not specified, markers will be found for all groups in this column
     in the manner of "group vs rest" comparison.<br />
     `NA` group will be ignored.<br />
+    If `None`, `Seurat::Idents(srtobj)` will be used, which is usually
+    `"seurat_clusters"` after unsupervised clustering.<br />
+- `ident_1`:
+    The first group of cells to compare
+    When this is empty, the comparisons will be expanded to each group v.s. the rest of the cells in `group_by`.<br />
+- `ident_2`:
+    The second group of cells to compare
+    If not provided, the rest of the cells are used for `ident-2`.<br />
 - `each`:
     The column name in metadata to separate the cells into different
     cases.<br />
-- `prefix_each` *(`flag`)*: *Default: `True`*. <br />
-    Whether to prefix the `each` column name to the
-    value as the case/section name.<br />
-- `prefix_group` *(`flag`)*: *Default: `True`*. <br />
-    When neither `ident-1` nor `ident-2` is specified,
-    should we prefix the group name to the section name?<br />
+    When this is specified, the case will be expanded for each value of
+    the column in metadata. For example, when you have `envs.cases."Cluster Markers".each = "Sample"`,
+    then the case will be expanded as `envs.cases."Cluster Markers - Sample1"`, `envs.cases."Cluster Markers - Sample2"`, etc.<br />
+    You can specify `allmarker_plots` and `overlaps` to plot the markers for all cases in the same plot and plot the overlaps of the markers
+    between different cases by values in this column.<br />
 - `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />
     The dbs to do enrichment analysis for significant
     markers See below for all libraries.<br />
@@ -109,102 +64,173 @@ function, and performs enrichment analysis for the markers found.<br />
     `p_val_adj`. For example, `"p_val_adj < 0.05 & abs(avg_log2FC) > 1"`
     to select markers with adjusted p-value < 0.05 and absolute log2
     fold change > 1.<br />
+- `enrich_style` *(`choice`)*: *Default: `enrichr`*. <br />
+    The style of the enrichment analysis.<br />
+    The enrichment analysis will be done by `EnrichIt()` from [`enrichit`](https://pwwang.github.io/enrichit/).<br />
+    Two styles are available:<br />
+    - `enrichr`:
+        `enrichr` style enrichment analysis (fisher's exact test will be used).<br />
+    - `clusterprofiler`:
+        `clusterProfiler` style enrichment analysis (hypergeometric test will be used).<br />
+    - `clusterProfiler`:
+        alias for `clusterprofiler`
 - `assay`:
     The assay to use.<br />
-- `volcano_genes` *(`type=auto`)*: *Default: `True`*. <br />
-    The genes to label in the volcano plot if they are
-    significant markers.<br />
-    If `True`, all significant markers will be labeled. If `False`, no
-    genes will be labeled. Otherwise, specify the genes to label.<br />
-    It could be either a string with comma separated genes, or a list
-    of genes.<br />
-- `section`: *Default: `DEFAULT`*. <br />
-    The section name for the report. It must not contain colon (`:`).<br />
-    Ignored when `each` is not specified and `ident-1` is specified.<br />
-    When neither `each` nor `ident-1` is specified, case name will be used
-    as section name.<br />
-    If `each` is specified, the section name will be constructed from
-    `each` and case name.<br />
-    The `section` is used to collect cases and put the results under the same directory and the same section in report.<br />
-    When `each` for a case is specified, the `section` will be ignored and case name will be used as `section`.<br />
-    The cases will be the expanded values in `each` column. When `prefix_each` is True, the column name specified by `each` will be prefixed to each value as directory name and expanded case name.<br />
+- `error` *(`flag`)*: *Default: `False`*. <br />
+    Error out if no/not enough markers are found or no pathways are enriched.<br />
+    If `False`, empty results will be returned.<br />
 - `subset`:
     An expression to subset the cells for each case.<br />
+- `cache` *(`type=auto`)*: *Default: `/tmp/m161047`*. <br />
+    Where to cache the results.<br />
+    If `True`, cache to `outdir` of the job. If `False`, don't cache.<br />
+    Otherwise, specify the directory to cache to.<br />
 - `rest` *(`ns`)*:
     Rest arguments for `Seurat::FindMarkers()`.<br />
     Use `-` to replace `.` in the argument name. For example,
     use `min-pct` instead of `min.pct`.<br />
-    This only works when `use_presto` is `False`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findmarkers>
-- `dotplot` *(`ns`)*:
-    Arguments for `Seurat::DotPlot()`.<br />
-    Use `-` to replace `.` in the argument name. For example,
-    use `group-bar` instead of `group.bar`.<br />
-    Note that `object`, `features`, and `group-by` are already specified
-    by this process. So you don't need to specify them here.<br />
-    - `maxgenes` *(`type=int`)*: *Default: `20`*. <br />
-        The maximum number of genes to plot.<br />
+- `allmarker_plots_defaults` *(`ns`)*:
+    Default options for the plots for all markers when `ident-1` is not specified.<br />
+    - `plot_type`:
+        The type of the plot.<br />
+        See <https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html>.<br />
+        Available types are `violin`, `box`, `bar`, `ridge`, `dim`, `heatmap` and `dot`.<br />
+    - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
+        The extra formats to save the plot in.<br />
+    - `save_code` *(`flag`)*: *Default: `False`*. <br />
+        Whether to save the code to generate the plot.<br />
     - `devpars` *(`ns`)*:
         The device parameters for the plots.<br />
-        - `res` *(`type=int`)*:
+        - `res` *(`type=int`)*: *Default: `100`*. <br />
+            The resolution of the plots.<br />
+        - `height` *(`type=int`)*:
+            The height of the plots.<br />
+        - `width` *(`type=int`)*:
+            The width of the plots.<br />
+    - `order_by`: *Default: `desc(abs(avg_log2FC))`*. <br />
+        an expression to order the markers, passed by `dplyr::arrange()`.<br />
+    - `genes`: *Default: `10`*. <br />
+        The number of top genes to show or an expression passed to `dplyr::filter()` to filter the genes.<br />
+    - `<more>`:
+        Other arguments passed to [`scplotter::FeatureStatPlot()`](https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html).<br />
+- `allmarker_plots` *(`type=json`)*: *Default: `{}`*. <br />
+    All marker plot cases.<br />
+    The keys are the names of the cases and the values are the dicts inherited from `allmarker_plots_defaults`.<br />
+- `allenrich_plots_defaults` *(`ns`)*:
+    Default options for the plots to generate for the enrichment analysis.<br />
+    - `plot_type`: *Default: `heatmap`*. <br />
+        The type of the plot.<br />
+    - `devpars` *(`ns`)*:
+        The device parameters for the plots.<br />
+        - `res` *(`type=int`)*: *Default: `100`*. <br />
             The resolution of the plots.<br />
         - `height` *(`type=int`)*:
             The height of the plots.<br />
         - `width` *(`type=int`)*:
             The width of the plots.<br />
     - `<more>`:
-        See <https://satijalab.org/seurat/reference/doheatmap>
+        See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
+- `allenrich_plots` *(`type=json`)*: *Default: `{}`*. <br />
+    Cases of the plots to generate for the enrichment analysis.<br />
+    The keys are the names of the cases and the values are the dicts inherited from `allenrich_plots_defaults`.<br />
+    The cases under `envs.cases` can inherit this options.<br />
+- `marker_plots_defaults` *(`ns`)*:
+    Default options for the plots to generate for the markers.<br />
+    - `plot_type`:
+        The type of the plot.<br />
+        See <https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html>.<br />
+        Available types are `violin`, `box`, `bar`, `ridge`, `dim`, `heatmap` and `dot`.<br />
+        There are two additional types available - `volcano_pct` and `volcano_log2fc`.<br />
+    - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
+        The extra formats to save the plot in.<br />
+    - `save_code` *(`flag`)*: *Default: `False`*. <br />
+        Whether to save the code to generate the plot.<br />
+    - `devpars` *(`ns`)*:
+        The device parameters for the plots.<br />
+        - `res` *(`type=int`)*: *Default: `100`*. <br />
+            The resolution of the plots.<br />
+        - `height` *(`type=int`)*:
+            The height of the plots.<br />
+        - `width` *(`type=int`)*:
+            The width of the plots.<br />
+    - `order_by`: *Default: `desc(abs(avg_log2FC))`*. <br />
+        an expression to order the markers, passed by `dplyr::arrange()`.<br />
+    - `genes`: *Default: `10`*. <br />
+        The number of top genes to show or an expression passed to `dplyr::filter()` to filter the genes.<br />
+    - `<more>`:
+        Other arguments passed to [`scplotter::FeatureStatPlot()`](https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html).<br />
+        If `plot_type` is `volcano_pct` or `volcano_log2fc`, they will be passed to
+        [`scplotter::VolcanoPlot()`](https://pwwang.github.io/plotthis/reference/VolcanoPlot.html).<br />
+- `marker_plots` *(`type=json`)*: *Default: `{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot'})}`*. <br />
+    Cases of the plots to generate for the markers.<br />
+    Plot cases. The keys are the names of the cases and the values are the dicts inherited from `marker_plots_defaults`.<br />
+    The cases under `envs.cases` can inherit this options.<br />
+- `enrich_plots_defaults` *(`ns`)*:
+    Default options for the plots to generate for the enrichment analysis.<br />
+    - `plot_type`:
+        The type of the plot.<br />
+        See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
+        Available types are `bar`, `dot`, `lollipop`, `network`, `enrichmap` and `wordcloud`.<br />
+    - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
+        The extra formats to save the plot in.<br />
+    - `save_code` *(`flag`)*: *Default: `False`*. <br />
+        Whether to save the code to generate the plot.<br />
+    - `devpars` *(`ns`)*:
+        The device parameters for the plots.<br />
+        - `res` *(`type=int`)*: *Default: `100`*. <br />
+            The resolution of the plots.<br />
+        - `height` *(`type=int`)*:
+            The height of the plots.<br />
+        - `width` *(`type=int`)*:
+            The width of the plots.<br />
+    - `<more>`:
+        See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.htmll>.<br />
+- `enrich_plots` *(`type=json`)*: *Default: `{'Bar Plot': Diot({'plot_type': 'bar', 'ncol': 1, 'top_term': 10})}`*. <br />
+    Cases of the plots to generate for the enrichment analysis.<br />
+    The keys are the names of the cases and the values are the dicts inherited from `enrich_plots_defaults`.<br />
+    The cases under `envs.cases` can inherit this options.<br />
+- `overlaps_defaults` *(`ns`)*:
+    Default options for investigating the overlapping of significant markers between different cases or comparisons.<br />
+    This means either `ident-1` should be empty, so that they can be expanded to multiple comparisons.<br />
+    - `sigmarkers`:
+        The expression to filter the significant markers for each case.<br />
+        If not provided, `envs.sigmarkers` will be used.<br />
+    - `plot_type` *(`choice`)*: *Default: `venn`*. <br />
+        The type of the plot to generate for the overlaps.<br />
+        - `venn`:
+            Use `plotthis::VennDiagram()`.<br />
+        - `upset`:
+            Use `plotthis::UpsetPlot()`.<br />
+    - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
+        The extra formats to save the plot in.<br />
+    - `save_code` *(`flag`)*: *Default: `False`*. <br />
+        Whether to save the code to generate the plot.<br />
+    - `devpars` *(`ns`)*:
+        The device parameters for the plots.<br />
+        - `res` *(`type=int`)*: *Default: `100`*. <br />
+            The resolution of the plots.<br />
+        - `height` *(`type=int`)*:
+            The height of the plots.<br />
+        - `width` *(`type=int`)*:
+            The width of the plots.<br />
+    - `<more>`:
+        More arguments pased to `plotthis::VennDiagram()`
+        (<https://pwwang.github.io/plotthis/reference/venndiagram1.html>)
+        or `plotthis::UpsetPlot()`
+        (<https://pwwang.github.io/plotthis/reference/upsetplot1.html>)
+- `overlaps` *(`type=json`)*: *Default: `{}`*. <br />
+    Cases for investigating the overlapping of significant markers between different cases or comparisons.<br />
+    The keys are the names of the cases and the values are the dicts inherited from `overlaps_defaults`.<br />
+    There are two situations that we can perform overlaps:<br />
+    1. If `ident-1` is not specified, the overlaps can be performed between different comparisons.<br />
+    2. If `each` is specified, the overlaps can be performed between different cases, where in each case, `ident-1` must be specified.<br />
 - `cases` *(`type=json`)*: *Default: `{}`*. <br />
-    If you have multiple cases, you can specify them
-    here. The keys are the names of the cases and the values are the
-    above options except `ncores` and `mutaters`. If some options are
-    not specified, the default values specified above will be used.<br />
-    If no cases are specified, the default case will be added with
-    the default values under `envs` with the name `DEFAULT`.<br />
-- `overlap_defaults` *(`ns`)*:
-    The default options for overlapping analysis.<br />
-    - `venn` *(`ns`)*:
-        The options for the Venn diagram.<br />
-        Venn diagram can only be plotted for sections with no more than 4 cases.<br />
-        - `devpars` *(`ns`)*:
-            The device parameters for the plots.<br />
-            - `res` *(`type=int`)*: *Default: `100`*. <br />
-                The resolution of the plots.<br />
-            - `height` *(`type=int`)*: *Default: `600`*. <br />
-                The height of the plots.<br />
-            - `width` *(`type=int`)*: *Default: `1000`*. <br />
-                The width of the plots.<br />
-    - `upset` *(`ns`)*:
-        The options for the UpSet plot.<br />
-        - `devpars` *(`ns`)*:
-            The device parameters for the plots.<br />
-            - `res` *(`type=int`)*: *Default: `100`*. <br />
-                The resolution of the plots.<br />
-            - `height` *(`type=int`)*: *Default: `600`*. <br />
-                The height of the plots.<br />
-            - `width` *(`type=int`)*: *Default: `800`*. <br />
-                The width of the plots.<br />
-- `overlap` *(`json`)*: *Default: `{}`*. <br />
-    The sections to do overlaping analysis, including
-    Venn diagram and UpSet plot. The Venn diagram and UpSet plot
-    will be plotted for the overlapping of significant markers between
-    different cases.<br />
-    The keys of this option are the names of the sections. The values are
-    a dict of options with keys `venn` and `upset`, values will
-    be inherited from `envs.overlap_defaults`, recursively.<br />
-    You can set `envs.overlap.<section>.venn` to `False`/`None` to disable
-    the Venn diagram for the section.<br />
-    It works when `each` is specified. In such a case, the sections will be
-    the case names.<br />
-    This does not work for the cases where `ident-1` is not specified. In case
-    you want to do such analysis for those cases, you should enumerate the
-    idents in different cases and specify them here.<br />
-- `cache` *(`type=auto`)*: *Default: `/tmp/user`*. <br />
-    Where to cache to `FindAllMarkers` results.<br />
-    If `True`, cache to `outdir` of the job. If `False`, don't cache.<br />
-    Otherwise, specify the directory to cache to.<br />
-    Only works when `use_presto` is `False` (presto works fast enough).<br />
+    If you have multiple cases for marker discovery, you can specify them
+    here. The keys are the names of the cases and the values are the above options. If some options are
+    not specified, the default values specified above (under `envs`) will be used.<br />
+    If no cases are specified, the default case will be added with the default values under `envs` with the name `Marker Discovery`.<br />
 
 ## Examples
 
@@ -226,7 +252,7 @@ Suppose we have a metadata like this:<br />
 
 ### Default
 
-By default, `group-by` is `seurat_clusters`, and `ident-1` and `ident-2`
+By default, `group_by` is `seurat_clusters`, and `ident_1` and `ident_2`
 are not specified. So markers will be found for all clusters in the manner
 of "cluster vs rest" comparison.<br />
 
@@ -241,12 +267,12 @@ markers as the results.<br />
 
 ### With `each` group
 
-`each` is used to separate the cells into different cases. `group-by`
+`each` is used to separate the cells into different cases. `group_by`
 is still `seurat_clusters`.<br />
 
 ```toml
 [<Proc>.envs]
-group-by = "seurat_clusters"
+group_by = "seurat_clusters"
 each = "Group"
 ```
 
@@ -257,30 +283,30 @@ each = "Group"
     - 3 (vs 4)
     - 4 (vs 3)
 
-### With `ident-1` only
+### With `ident_1` only
 
-`ident-1` is used to specify the first group of cells to compare.<br />
-Then the rest of the cells in the case are used for `ident-2`.<br />
+`ident_1` is used to specify the first group of cells to compare.<br />
+Then the rest of the cells in the case are used for `ident_2`.<br />
 
 ```toml
 [<Proc>.envs]
-group-by = "seurat_clusters"
-ident-1 = "1"
+group_by = "seurat_clusters"
+ident_1 = "1"
 ```
 
 - Cluster
     - 1 (vs 2, 3, 4)
 
-### With both `ident-1` and `ident-2`
+### With both `ident_1` and `ident_2`
 
-`ident-1` and `ident-2` are used to specify the two groups of cells to
+`ident_1` and `ident_2` are used to specify the two groups of cells to
 compare.<br />
 
 ```toml
 [<Proc>.envs]
-group-by = "seurat_clusters"
-ident-1 = "1"
-ident-2 = "2"
+group_by = "seurat_clusters"
+ident_1 = "1"
+ident_2 = "2"
 ```
 
 - Cluster
@@ -290,8 +316,8 @@ ident-2 = "2"
 
 ```toml
 [<Proc>.envs.cases]
-c1_vs_c2 = {ident-1 = "1", ident-2 = "2"}
-c3_vs_c4 = {ident-1 = "3", ident-2 = "4"}
+c1_vs_c2 = {ident_1 = "1", ident_2 = "2"}
+c3_vs_c4 = {ident_1 = "3", ident_2 = "4"}
 ```
 
 - DEFAULT:c1_vs_c2

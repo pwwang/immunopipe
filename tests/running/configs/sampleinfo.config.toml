@@ -1,0 +1,31 @@
+
+[SampleInfo.in]
+infile = "tests/running/data/sampleinfo.txt"
+
+[SampleInfo.envs.stats."N_Samples_per_Diagnosis (pie)"]
+plot_type = "pie"
+x = "Sample"
+split_by = "Diagnosis"
+
+[SampleInfo.envs.stats."N_Samples_per_Diagnosis (bar)"]
+plot_type = "bar"
+x = "Sample"
+split_by = "Diagnosis"
+
+[SampleInfo.envs.stats."Age_distribution (Histogram)"]
+plot_type = "histogram"
+x = "Age"
+
+[SampleInfo.envs.stats."Age_distribution_per_Diagnosis (violin + boxplot)"]
+y = "Age"
+x = "Diagnosis"
+plot_type = "violin"
+add_box = true
+
+[SampleInfo.envs.stats."Age_distribution_per_Sex_in_each_Diagnosis (boxplot)"]
+y = "Age"
+x = "Sex"
+split_by = "Diagnosis"
+plot_type = "box"
+ncol = 3
+devpars = {height = 450}

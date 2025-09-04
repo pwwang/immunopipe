@@ -3,93 +3,75 @@ name: test
 on: push
 permissions:
   contents: write
+  actions: write
 
 jobs:
-  # only when essential files are changed
-  changes:
-    runs-on: ubuntu-latest
-    # Required permissions
-    permissions:
-      pull-requests: read
-    # Set job outputs to values from filter step
-    outputs:
-      source: ${{ steps.filter.outputs.source }}
-      tests: ${{ steps.filter.outputs.tests }}
-    steps:
-      - uses: actions/checkout@v4
-      # For pull requests it's not necessary to checkout the code
-      - uses: dorny/paths-filter@v3
-        id: filter
-        with:
-          filters: |
-            source:
-              - 'docker/**'
-              - 'immunopipe/**'
-              - 'board.toml'
-              - 'Dockerfile'
-              - 'Dockerfile.full'
-              - 'pyproject.toml'
-            tests:
-              - 'tests/**'
 
-  local:
-    needs: changes
-    if: ${{ needs.changes.outputs.source == 'true' }}
+  test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.10"]
+    if: github.ref_name == 'dev'
+    defaults:
+      run:
+        shell: bash -l {0}
+
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Python # Set Python version
-        uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
+          fetch-depth: 0
+
+      - uses: chetan/git-restore-mtime-action@v2
+
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          python-version: "3.10"
+          auto-update-conda: true
+          activate-environment: immunopipe
+          channels: conda-forge,defaults
+
+      - name: Change conda envs permissions
+        # https://github.com/actions/cache/issues/133
+        run: |
+          sudo chown -R $USER $CONDA/envs
+          sudo chmod -R 0777 $CONDA/envs
+
+      - name: Restore conda environment
+        id: restore-conda
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.CONDA }}/envs/immunopipe
+          key: conda-${{ hashFiles('docker/environment.yml') }}-${{ env.CACHE_NUMBER }}
+        env:
+          TAR_OPTIONS: "--no-same-owner --no-same-permissions"
+          CACHE_NUMBER: 1
+
+      - name: Create conda environment (if not restored)
+        if: steps.restore-conda.outputs.cache-hit != 'true'
+        run: |
+          conda env create -f docker/environment.yml --name immunopipe
+          conda activate immunopipe
+
+      - name: Cache conda environment
+        id: cache-conda
+        if: steps.restore-conda.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.CONDA }}/envs/immunopipe
+          key: ${{ steps.restore-conda.outputs.cache-primary-key }}
+
+      - name: List conda information
+        run: |
+          conda info
+          conda list
+          conda config --show-sources
+          conda config --show
+
+      - name: Install immunopipe
         run: |
           python -m pip install --upgrade pip
           python -m pip install poetry
           poetry config virtualenvs.create false
           poetry install -v
-      - name: Check if immunopipe is installed successfully
-        run: |
-          if ! immunopipe --help; then
-            echo "immunopipe is not installed successfully"
-            # print the error
-            immunopipe --help
-            exit 1
-          else # test if the TEST_STRING is in the help message
-            if ! immunopipe --help | grep -q "$TEST_STSRING"; then
-              echo "immunopipe is not installed successfully"
-              # print the error
-              immunopipe --help
-              exit 1
-            fi
-          fi
-        env:
-          TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-seq data"
 
-  test:
-    needs: changes
-    if: ${{ needs.changes.outputs.source == 'true' || needs.changes.outputs.tests == 'true' }}
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: micromamba-shell {0}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: mamba-org/setup-micromamba@v1
-        with:
-          environment-file: docker/environment_full.yml
-          environment-name: immunopipe
-          # Do not cache the environment in case of the package update
-          # from the conda channels
-          cache-downloads: true
-          generate-run-shell: true
-      - name: Install immunopipe
-        run: |
-          pip install -U poetry
-          poetry install -E diagram -E runinfo
       - name: Check if immunopipe is installed successfully
         run: |
           if ! immunopipe --help; then
@@ -106,37 +88,73 @@ jobs:
             fi
           fi
         env:
-          TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-seq data"
-      - name: Cache input data
-        id: cache-input
-        uses: actions/cache@v4
+          TEST_STRING: "Integrative analysis for scRNA-seq and scTCR-/scBCR-seq data"
+
+      - name: Restore running data
+        id: restore-running
+        uses: actions/cache/restore@v4
         with:
-          path: tests/data/prepared
-          key: input-${{ hashFiles('Makefile') }}
-      - name: Download input data
-        if: steps.cache-input.outputs.cache-hit != 'true'
+          path: tests/running/
+          key: tests-running-${{ env.CACHE_NUMBER }}
+        env:
+          TAR_OPTIONS: "--no-same-owner --no-same-permissions --skip-old-files"
+          ACTIONS_CACHE_SERVICE_V2: true
+          CACHE_NUMBER: 1
+
+      - name: Download input data (if not restored)
+        if: steps.restore-running.outputs.cache-hit != 'true'
         run: make test-data
+
       - name: Run tests
         run: make test
-      - name: Add README.md to tests/output
+
+      - name: Add README.md to tests/running/output
         run: |
-          echo "# Tests output for immunopipe" > tests/output/README.md
-          echo "" >> tests/output/README.md
-          echo "This directory contains the output of the tests for immunopipe" >> tests/output/README.md
-          echo "" >> tests/output/README.md
-          echo "The output can be used for documentation purposes" >> tests/output/README.md
-      - name: Create .gitignore for tests/output
-        run: echo "**/*.RDS" > tests/output/.gitignore
+          echo "# Tests output for immunopipe" > $OUTPUT_DIR/README.md
+          echo "" >> $OUTPUT_DIR/README.md
+          echo "This directory contains the output of the tests for immunopipe" >> $OUTPUT_DIR/README.md
+          echo "" >> $OUTPUT_DIR/README.md
+          echo "The output can be used for documentation purposes" >> $OUTPUT_DIR/README.md
+        env:
+          OUTPUT_DIR: tests/running/output
+
+      - name: Create .gitignore for tests/running/output
+        run: |
+          echo "**/*.RDS" > $OUTPUT_DIR/.gitignore
+          echo "**/*.rds" >> $OUTPUT_DIR/.gitignore
+          echo "**/*.qs" >> $OUTPUT_DIR/.gitignore
+          echo "**/*.qs2" >> $OUTPUT_DIR/.gitignore
+        env:
+          OUTPUT_DIR: tests/running/output
+
       - name: Deploy output to tests-output branch
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: tests/output
+          folder: tests/running/output
           branch: tests-output
           token: ${{ secrets.GITHUB_TOKEN }}
           force: true
 
+      - name: Delete old test running data cache
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # if: steps.restore-running.outputs.cache-hit != 'true'
+        # Using `--repo` makes it so that this step doesn't require checking out the
+        # repo first.
+        run: gh cache delete --repo ${{ github.repository }} ${{ steps.restore-running.outputs.cache-primary-key }}
+
+      - name: Cache running data
+        id: cache-running
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: tests/running/
+          key: ${{ steps.restore-running.outputs.cache-primary-key }}
+        env:
+          ACTIONS_CACHE_SERVICE_V2: true
+
   build:
-    needs: [local, test]
+    needs: [test]
     if: |
       always()
       && !contains(needs.*.result, 'failure')

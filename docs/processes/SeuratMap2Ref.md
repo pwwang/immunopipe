@@ -12,7 +12,7 @@ and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
 
 ## Output
 
-- `outfile`: *Default: `{{in.sobjfile | stem}}.RDS`*. <br />
+- `outfile`: *Default: `{{in.sobjfile | stem}}.qs`*. <br />
     The rds file of seurat object with cell type annotated.<br />
     Note that the reduction name will be `ref.umap` for the mapping.<br />
     To visualize the mapping, you should use `ref.umap` as the reduction name.<br />
@@ -44,10 +44,12 @@ and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
     RDS file, `.h5seurat` or `.h5` for h5seurat file.<br />
 - `refnorm` *(`choice`)*: *Default: `auto`*. <br />
     Normalization method the reference used. The same method will be used for the query.<br />
-    - `NormalizeData`:
+    - `LogNormalize`:
         Using [`NormalizeData`](https://satijalab.org/seurat/reference/normalizedata).<br />
     - `SCTransform`:
         Using [`SCTransform`](https://satijalab.org/seurat/reference/sctransform).<br />
+    - `SCT`:
+        Alias of SCTransform.<br />
     - `auto`:
         Automatically detect the normalization method.<br />
         If the default assay of reference is `SCT`, then `SCTransform` will be used.<br />
@@ -92,7 +94,7 @@ and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
         - `auto`:
             Automatically detect the normalization method.<br />
             See `envs.refnorm`.<br />
-    - `reference-reduction`: *Default: `spca`*. <br />
+    - `reference-reduction`:
         Name of dimensional reduction to use from the reference if running the pcaproject workflow.<br />
         Optionally enables reuse of precomputed reference dimensional reduction.<br />
     - `<more>`:
@@ -100,21 +102,30 @@ and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
         Note that the hyphen (`-`) will be transformed into `.` for the keys.<br />
 - `MapQuery` *(`ns`)*:
     Arguments for [`MapQuery()`](https://satijalab.org/seurat/reference/mapquery)
-    - `reference-reduction`: *Default: `spca`*. <br />
+    - `reference-reduction`:
         Name of reduction to use from the reference for neighbor finding
-    - `reduction-model`: *Default: `wnn.umap`*. <br />
+    - `reduction-model`:
         `DimReduc` object that contains the umap model.<br />
     - `refdata` *(`type=json`)*: *Default: `{}`*. <br />
         Extra data to transfer from the reference to the query.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/mapquery>.<br />
         Note that the hyphen (`-`) will be transformed into `.` for the keys.<br />
-- `MappingScore` *(`ns`)*:
-    Arguments for [`MappingScore()`](https://satijalab.org/seurat/reference/mappingscore)
-    - `<more>`:
-        See <https://satijalab.org/seurat/reference/mappingscore>.<br />
-        Note that the hyphen (`-`) will be transformed into `.` for the keys.<br />
-    - `ndim`: *Default: `30`*. <br />
+- `cache` *(`type=auto`)*: *Default: `/tmp/m161047`*. <br />
+    Whether to cache the information at different steps.<br />
+    If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
+    The cached seurat object will be saved as `<signature>.<kind>.RDS` file, where `<signature>` is the signature determined by
+    the input and envs of the process.<br />
+    See <https://github.com/satijalab/seurat/issues/7849>, <https://github.com/satijalab/seurat/issues/5358> and
+    <https://github.com/satijalab/seurat/issues/6748> for more details also about reproducibility issues.<br />
+    To not use the cached seurat object, you can either set `cache` to `False` or delete the cached file at
+    `<signature>.RDS` in the cache directory.<br />
+- `plots` *(`type=json`)*: *Default: `{'Mapped Identity': Diot({'features': '{ident}:{use}'}), 'Mapping Score': Diot({'features': '{ident}.score'})}`*. <br />
+    The plots to generate.<br />
+    The keys are the names of the plots and the values are the arguments for the plot.<br />
+    The arguments will be passed to `biopipen.utils::VizSeuratMap2Ref()` to generate the plots.<br />
+    The plots will be saved to the output directory.<br />
+    See <https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratMap2Ref.html>.<br />
 
 ## Metadata
 

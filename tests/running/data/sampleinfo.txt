@@ -1,0 +1,13 @@
+Sample	Age	Sex	Diagnosis	RNAData	TCRData
+C1	62.0	F	Colitis	tests/running/data/prepared/C1	tests/running/data/prepared/C1
+C2	71.2	F	Colitis	tests/running/data/prepared/C2	tests/running/data/prepared/C2
+C3	56.2	M	Colitis	tests/running/data/prepared/C3	tests/running/data/prepared/C3
+C4	61.5	M	Colitis	tests/running/data/prepared/C4	tests/running/data/prepared/C4
+NC1	43.6	M	NoColitis	tests/running/data/prepared/NC1	tests/running/data/prepared/NC1
+NC2	68.1	M	NoColitis	tests/running/data/prepared/NC2	tests/running/data/prepared/NC2
+NC3	70.5	F	NoColitis	tests/running/data/prepared/NC3	tests/running/data/prepared/NC3
+NC4	63.7	M	NoColitis	tests/running/data/prepared/NC4	tests/running/data/prepared/NC4
+CT1	21.4	F	Control	tests/running/data/prepared/CT1	tests/running/data/prepared/CT1
+CT2	61.7	M	Control	tests/running/data/prepared/CT2	tests/running/data/prepared/CT2
+CT3	50.5	M	Control	tests/running/data/prepared/CT3	tests/running/data/prepared/CT3
+CT4	43.4	M	Control	tests/running/data/prepared/CT4	tests/running/data/prepared/CT4

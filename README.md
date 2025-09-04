@@ -1,10 +1,10 @@
 <p align="center">
   <img height="120" style="height: 120px" src="https://github.com/pwwang/immunopipe/blob/dev/docs/logo.png?raw=true" />
 </p>
-<p align="center">Integrative analysis for single-cell RNA sequencing and single-cell TCR sequencing data</p>
+<p align="center">Integrative analysis for single-cell RNA sequencing and single-cell TCR/BCR sequencing data</p>
 <hr />
 
-`immunopipe` is a pipeline based on [`pipen`](https://github.com/pwwang/pipen) framework. It includes a set of processes for scTCR- and scRNA-seq data analysis in `R`, `python` and `bash`. The pipeline is designed to be flexible and configurable.
+`immunopipe` is a pipeline based on [`pipen`](https://github.com/pwwang/pipen) framework. It includes a set of processes for scRNA-seq and scTCR-/scBCR-seq data analysis in `R`, `python` and `bash`. The pipeline is designed to be flexible and configurable.
 
 <p align="center">
   <img src="https://github.com/pwwang/immunopipe/blob/dev/docs/immunopipe.ms.png?raw=true" />
@@ -26,6 +26,12 @@ If you have any suggestions for more analyses, please feel free to open an issue
 
 ## Gallery
 
-There are some datasets with both scRNA-seq and scTCR-seq data available in the publications. The data were reanalyzed using `immunopipe` with the configurations provided in each repository, where the results are also available.
+There are some datasets with both scRNA-seq and scTCR-/scBCR-seq data available in the publications. The data were reanalyzed using `immunopipe` with the configurations provided in each repository, where the results are also available.
 
 Check out the [gallery](https://pwwang.github.io/immunopipe/gallery) for more details.
+
+## Citation
+
+If you use `immunopipe` in your research, please cite the following paper:
+
+- [Wang, P., Yu, Y., Dong, H., Zhang, S., Sun, Z., Zeng, H., ... & Li, Y. (2025). Immunopipe: a comprehensive and flexible scRNA-seq and scTCR-seq data analysis pipeline. NAR Genomics and Bioinformatics, 7(2), lqaf063.](https://academic.oup.com/nargab/article/7/2/lqaf063/8136476)

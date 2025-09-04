@@ -8,19 +8,13 @@ from pathlib import Path
 import pytest
 from pipen import Pipen, Proc
 
-DATADIR = Path(__file__).parent / "data"
-CONFIGDIR = Path(__file__).parent / "configs"
-OUTDIR = Path(__file__).parent / "output"
-INTERMEDIATEDIR = Path(__file__).parent / "intermediate"
+RUNNINGDIR = Path(__file__).parent / "running"
 
-
-def pytest_collection_modifyitems(config, items):
-    """Modify the items collected by pytest."""
-    ordered_items = sorted(
-        items,
-        key=lambda item: item.module.pytest_order
-    )
-    items[:] = ordered_items
+DATADIR = RUNNINGDIR / "data"
+CONFIGDIR = RUNNINGDIR / "configs"
+OUTDIR = RUNNINGDIR / "output"
+INTERMEDIATEDIR = RUNNINGDIR / "intermediate"
+WORKDIR = RUNNINGDIR / "workdir"
 
 
 @contextmanager
@@ -35,7 +29,7 @@ def with_argv(argv: list[str]) -> Generator:
 def run_process(
     process: str,
     configfile: str,
-    tmp_path: Path,
+    tmp_path: Path = WORKDIR,
     request: pytest.Fixture = None,
     export: bool = True,
     **kwargs,
@@ -54,17 +48,20 @@ def run_process(
     """
     configfile = str(CONFIGDIR / configfile)
 
+    # with with_argv(["@pipen"]):
+    #     from immunopipe.pipeline import Immunopipe
+
+    # full_pipe = Immunopipe()
+    # full_pipe.build_proc_relationships()
+    # print(full_pipe.procs)
+
+    # for proc in full_pipe.procs:
+    #     if proc.name == process:
+    #         break
+    # else:
+    #     raise ValueError(f"Process {process} not found in the pipeline.")
     with with_argv(["@pipen"]):
-        from immunopipe.pipeline import Immunopipe
-
-    full_pipe = Immunopipe()
-    full_pipe.build_proc_relationships()
-
-    for proc in full_pipe.procs:
-        if proc.name == process:
-            break
-    else:
-        raise ValueError(f"Process {process} not found in the pipeline.")
+        proc = __import__("immunopipe.processes", fromlist=[process]).__dict__[process]
 
     # detech dependent procs
     proc = Proc.from_proc(proc, name=process, **kwargs)
