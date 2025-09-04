@@ -199,6 +199,8 @@ See the documentation of [`cloud support`](https://pwwang.github.io/pipen/cloud/
 
 ### Use `pipen-cli-gbatch`
 
+You need install the dependencies via `pip install -U immunopipe[cli-gbatch]` to use this feature.
+
 `immunopipe` has integrated with [`pipen-cli-gbatch`](https://github.com/pwwang/pipen-cli-gbatch) to provide a seamless way to run the pipeline using Google Cloud Batch Jobs. The entire pipeline is wrapped (like it is running locally) and submitted as a single job to Google Cloud Batch Jobs. You just need to run the following:
 
 ```shell
