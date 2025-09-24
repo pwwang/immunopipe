@@ -1,5 +1,24 @@
 # Change Log
 
+## 2.0.1
+
+- feat: add utility cli for gene checking and dimension verification
+- chore: make tests order work as expected
+- chore: bump biopipen to 0.34.9
+  - fix(scrna.CellCellCommunication): handle numpy product attribute error
+  - feat(scrna.ModuleScoreCalculator): add post mutaters functionality to allow compound modules based on added modules
+  - docs(scrna.MarkersFinder): correct URL in documentation
+  - feat(scrna.CellTypeAnnotation): add support for additional direct cell type annotations
+  - feat(scrna.MarkersFinder): enhance enrichment plot descriptions
+  - chore(scrna.CellCellCommunicationPlots): set default case to "Cell-Cell Communication"
+  - feat(scrna.CellCellCommunicationPlots): add table output option for ccc data
+- chore: bump scplotter to 0.6.0 in docker image
+  - chore: optimize clonal_size_data
+  - feat(featurestatplot): add pos_only parameter to filter positive feature values
+  - chore(enrichmentplot) remove preset label_nudge parameter in BarPlot call
+  - feat: add downsample parameter to feature statistic plots
+  - feat(featurestatplot) default options to TRUE to show row and column names when plot_type is heatmap-alike
+
 ## 2.0.0 (Cloud support, enhanced visualization, new analyses/features, and more ...)
 
 ### Cloud support

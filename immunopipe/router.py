@@ -33,6 +33,10 @@ def run():
             "  mcp       "
             "Run MCP (model context protocol) server for configuration generation"
         )
+        print("  utils     Run utility functions ")
+        print(
+            "            (e.g. checking gene symbols, Seurat object dimensions, etc.)"
+        )
         print("")
         sys.exit(0)
 
@@ -46,6 +50,11 @@ def run():
         from .mcp import main as mcp_main
 
         mcp_main(sys.argv[2:])
+
+    elif command == "utils":
+        from .cli_utils import main as utils_main
+
+        utils_main(sys.argv[2:])
     elif "-v" in sys.argv or "--version" in sys.argv:
         print(__version__)
     else:
