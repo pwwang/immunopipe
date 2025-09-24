@@ -3,6 +3,7 @@
 ## 2.0.1
 
 - feat: add utility cli for gene checking and dimension verification
+- chore: make tests order work as expected
 - chore: bump biopipen to 0.34.9
   - fix(scrna.CellCellCommunication): handle numpy product attribute error
   - feat(scrna.ModuleScoreCalculator): add post mutaters functionality to allow compound modules based on added modules

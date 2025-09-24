@@ -231,10 +231,10 @@ def test_validation_function():
         print("Failed tests:")
         for failure in failed_tests:
             print(f"  - {failure}")
-        return False
+        assert False
 
     print("All tests passed!")
-    return True
+    assert True
 
 
 if __name__ == "__main__":

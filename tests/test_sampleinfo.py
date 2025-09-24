@@ -2,7 +2,7 @@ import pytest  # noqa: F401
 
 from .conftest import run_process
 
-pytest_order = 1
+pytestmark = pytest.mark.order(1)
 
 
 @pytest.mark.forked
