@@ -283,6 +283,13 @@ the original cell types will be kept and nothing will be changed.<br /></p>
 </div>
 </li>
 <li>
+<p><code>more_cell_types</code> <em>(<code>type=json</code>)</em>:
+    The additional cell type annotations to add to the metadata.<br />
+    The keys are the new column names and the values are the cell types lists.<br />
+    The cell type lists work the same as <code>cell_types</code> above.<br />
+    This is useful when you want to keep multiple annotations of cell types.<br /></p>
+</li>
+<li>
 <p><code>sccatch_args</code> <em>(<code>ns</code>)</em>:
     The arguments for <code>scCATCH::findmarkergene()</code> if <code>tool</code> is <code>sccatch</code>.<br /></p>
 <ul>

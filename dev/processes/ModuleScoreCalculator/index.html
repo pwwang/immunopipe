@@ -286,7 +286,13 @@ for <code>diffusion_map</code>. Other key-value pairs will pass to
 You can later plot the diffusion map by using
 <code>reduction = "DC"</code> in <code>env.dimplots</code> in <code>SeuratClusterStats</code>.<br />
 This requires <a href="https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html"><code>SingleCellExperiment</code></a>
-and <a href="https://bioconductor.org/packages/release/bioc/html/destiny.html"><code>destiny</code></a> R packages.<br /></p>
+and <a href="https://bioconductor.org/packages/release/bioc/html/destiny.html"><code>destiny</code></a> R packages.<br />
+- <code>post_mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+The mutaters to mutate the metadata after
+calculating the module scores.<br />
+The mutaters will be applied in the order specified.<br />
+This is useful when you want to create new scores based on the
+calculated module scores.<br /></p>
 </li>
 </ul>
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>

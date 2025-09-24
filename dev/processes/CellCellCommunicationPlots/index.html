@@ -228,7 +228,11 @@
 <li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
     The cases for the plots.<br />
     The keys are the names of the cases and the values are the arguments for
-    the plots. The arguments include the ones inherited from <code>envs</code>.<br /></li>
+    the plots. The arguments include the ones inherited from <code>envs</code>.<br />
+    You can have a special <code>plot_type</code> <code>"table"</code> to generate a table for the
+    ccc data to save as a text file and show in the report.<br />
+    If no cases are given, a default case will be used, with the
+    key <code>Cell-Cell Communication</code>.<br /></li>
 <li><code>&lt;more&gt;</code>:
     Other arguments passed to
     <a href="https://pwwang.github.io/scplotter/reference/CCCPlot.html">scplotter::CCCPlot</a></li>
