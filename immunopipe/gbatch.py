@@ -115,6 +115,15 @@ async def main(argv):
         delattr(cli_gbatch_config, f"cli_gbatch.{key}")
     del cli_gbatch_config.cli_gbatch
 
+    def is_valid(val: Any) -> bool:
+        """Check if a value is valid (not None, not empty string, not empty list).
+        """
+        if val is None:
+            return False
+        if isinstance(val, bool):
+            return True
+        return bool(val)
+
     defaults = CliGbatchPlugin._get_defaults_from_config(
         CONFIG_FILES,
         cli_gbatch_config.profile,
@@ -122,9 +131,23 @@ async def main(argv):
     # update parsed with the defaults
     for key, val in defaults.items():
         if (
+            key == "mount"
+            and val
+            and getattr(cli_gbatch_config, key, None)
+        ):
+            if not isinstance(val, (tuple, list)):
+                val = [val]
+            val = list(val)
+
+            kp_mount = getattr(cli_gbatch_config, key)
+            val.extend(kp_mount)
+            setattr(cli_gbatch_config, key, val)
+            continue
+
+        if (
             key == "command"
             or val is None
-            or getattr(cli_gbatch_config, key, None) is not None
+            or is_valid(getattr(cli_gbatch_config, key, None))
         ):
             continue
 
