@@ -270,6 +270,10 @@ If you are using <code>cca</code> or <code>rpca</code> interation, the default a
 <p><code>cell_qc</code>:
     Filter expression to filter cells, using
     <code>tidyrseurat::filter()</code>.<br />
+    It can also be a dictionary of expressions, where the names of the list are
+    sample names.<br />
+    You can have a default expression in the list with the name "DEFAULT" for
+    the samples that are not listed.<br />
     Available QC keys include <code>nFeature_RNA</code>, <code>nCount_RNA</code>,
     <code>percent.mt</code>, <code>percent.ribo</code>, <code>percent.hb</code>, and <code>percent.plat</code>.<br /></p>
 <div class="admonition tip">
