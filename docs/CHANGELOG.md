@@ -1,5 +1,14 @@
 # Change Log
 
+## 2.0.2
+
+- fix: fix immunopipe -h/--help not working as expected
+- feat(gbatch): enhance validation and default handling in main function
+- feat(gbatch): add --mount-as-cwd option to mount a cloudpath as working directory
+- chore: bump biopipen to 0.34.10
+  - docs(scrna.SeuratPreparing): enhance cell_qc parameter description in SeuratPreparing
+  - docs(scrna.ModuleScoreCalculator): update link format in ModuleScoreCalculator docstring
+
 ## 2.0.1
 
 - feat: add utility cli for gene checking and dimension verification

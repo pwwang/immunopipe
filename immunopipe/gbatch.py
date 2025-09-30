@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
+from typing import Any
 
 from simpleconf import Config
 from yunpath import AnyPath
@@ -82,7 +83,7 @@ async def main(argv):
             or "--plain" in arg_args
             or "--workdir" in arg_args
             or "--jobname-prefix" in arg_args
-            or "--cwd" in arg_args
+            # or "--cwd" in arg_args
             or "--entrypoint" in arg_args
             or "--commands" in arg_args
         ):
@@ -115,6 +116,15 @@ async def main(argv):
         delattr(cli_gbatch_config, f"cli_gbatch.{key}")
     del cli_gbatch_config.cli_gbatch
 
+    def is_valid(val: Any) -> bool:
+        """Check if a value is valid (not None, not empty string, not empty list).
+        """
+        if val is None:
+            return False
+        if isinstance(val, bool):
+            return True
+        return bool(val)
+
     defaults = CliGbatchPlugin._get_defaults_from_config(
         CONFIG_FILES,
         cli_gbatch_config.profile,
@@ -122,19 +132,50 @@ async def main(argv):
     # update parsed with the defaults
     for key, val in defaults.items():
         if (
+            key == "mount"
+            and val
+            and getattr(cli_gbatch_config, key, None)
+        ):
+            if not isinstance(val, (tuple, list)):
+                val = [val]
+            val = list(val)
+
+            kp_mount = getattr(cli_gbatch_config, key)
+            val.extend(kp_mount)
+            setattr(cli_gbatch_config, key, val)
+            continue
+
+        if (
             key == "command"
             or val is None
-            or getattr(cli_gbatch_config, key, None) is not None
+            or is_valid(getattr(cli_gbatch_config, key, None))
         ):
             continue
 
         setattr(cli_gbatch_config, key, val)
 
+
+    mount_as_cwd = getattr(cli_gbatch_config, "mount_as_cwd", None)
+    cwd = getattr(cli_gbatch_config, "cwd", None)
+    delattr(cli_gbatch_config, "mount_as_cwd")
+    if mount_as_cwd and cwd:
+        print(
+            "\033[1;4mError\033[0m: --mount-as-cwd and --cwd "
+            "cannot be used together.\n"
+        )
+        sys.exit(1)
+
+    mount = getattr(cli_gbatch_config, "mount", None) or []
+    if mount_as_cwd:
+        mount.append(f"{mount_as_cwd}:/mnt/disks/.cwd")
+        setattr(cli_gbatch_config, "mount", mount)
+        setattr(cli_gbatch_config, "cwd", "/mnt/disks/.cwd")
+
     cli_gbatch_config.name = ".ImmunopipeCliGbatch"
     cli_gbatch_config.plain = False
     cli_gbatch_config.workdir = None  # will infer from command
     cli_gbatch_config.jobname_prefix = "immunopipe-cli-gbatch"
-    cli_gbatch_config.cwd = None
+    # cli_gbatch_config.cwd = None
     cli_gbatch_config.entrypoint = "/usr/local/bin/_entrypoint.sh"
     cli_gbatch_config.commands = ["{lang}", "{script}"]
 

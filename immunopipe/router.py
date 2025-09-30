@@ -16,7 +16,16 @@ from .version import desc, __version__
 
 def run():
     """Route the program execution based on the 2nd argument."""
-    if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help"):
+    if (
+        len(sys.argv) < 2
+        or (
+            len(sys.argv) == 2
+            and "-h" not in sys.argv
+            and "--help" not in sys.argv
+            and "-h+" not in sys.argv
+            and "--help+" not in sys.argv
+        )
+    ):
         print(
             "\033[1;4mUsage\033[0m: immunopipe "
             "[command|options to run pipeline directly]"
