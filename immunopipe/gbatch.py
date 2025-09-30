@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
+from typing import Any
 
 from simpleconf import Config
 from yunpath import AnyPath
@@ -82,7 +83,7 @@ async def main(argv):
             or "--plain" in arg_args
             or "--workdir" in arg_args
             or "--jobname-prefix" in arg_args
-            or "--cwd" in arg_args
+            # or "--cwd" in arg_args
             or "--entrypoint" in arg_args
             or "--commands" in arg_args
         ):
@@ -153,11 +154,28 @@ async def main(argv):
 
         setattr(cli_gbatch_config, key, val)
 
+
+    mount_as_cwd = getattr(cli_gbatch_config, "mount_as_cwd", None)
+    cwd = getattr(cli_gbatch_config, "cwd", None)
+    delattr(cli_gbatch_config, "mount_as_cwd")
+    if mount_as_cwd and cwd:
+        print(
+            "\033[1;4mError\033[0m: --mount-as-cwd and --cwd "
+            "cannot be used together.\n"
+        )
+        sys.exit(1)
+
+    mount = getattr(cli_gbatch_config, "mount", None) or []
+    if mount_as_cwd:
+        mount.append(f"{mount_as_cwd}:/mnt/disks/.cwd")
+        setattr(cli_gbatch_config, "mount", mount)
+        setattr(cli_gbatch_config, "cwd", "/mnt/disks/.cwd")
+
     cli_gbatch_config.name = ".ImmunopipeCliGbatch"
     cli_gbatch_config.plain = False
     cli_gbatch_config.workdir = None  # will infer from command
     cli_gbatch_config.jobname_prefix = "immunopipe-cli-gbatch"
-    cli_gbatch_config.cwd = None
+    # cli_gbatch_config.cwd = None
     cli_gbatch_config.entrypoint = "/usr/local/bin/_entrypoint.sh"
     cli_gbatch_config.commands = ["{lang}", "{script}"]
 
