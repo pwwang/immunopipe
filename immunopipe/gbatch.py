@@ -12,6 +12,7 @@ from xqute.schedulers.gbatch_scheduler import DEFAULT_MOUNTED_ROOT
 from pipen.defaults import CONFIG_FILES
 from pipen_args.plugin import ArgsPlugin
 from pipen_cli_gbatch import (
+    MOUNTED_CWD,
     CliGbatchDaemon,
     CliGbatchPlugin,
     __version__ as cli_gbatch_version,
@@ -33,10 +34,8 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemon):
         print(f"pipen-cli-gbatch version: v{cli_gbatch_version}")
         print(f"pipen version: v{pipen_version}")
 
-    def _infer_name(self):
-        super()._infer_name()
-        immunopipe_name = self._get_arg_from_command("name")
-        self.config["workdir"] = f"{self.config['workdir']}/{immunopipe_name}"
+    def _handle_outdir(self):
+        super()._handle_outdir()
 
         # Copy configuration file over
         cf_at = [cmd.startswith("@") for cmd in self.command]
@@ -153,23 +152,6 @@ async def main(argv):
             continue
 
         setattr(cli_gbatch_config, key, val)
-
-
-    mount_as_cwd = getattr(cli_gbatch_config, "mount_as_cwd", None)
-    cwd = getattr(cli_gbatch_config, "cwd", None)
-    delattr(cli_gbatch_config, "mount_as_cwd")
-    if mount_as_cwd and cwd:
-        print(
-            "\033[1;4mError\033[0m: --mount-as-cwd and --cwd "
-            "cannot be used together.\n"
-        )
-        sys.exit(1)
-
-    mount = getattr(cli_gbatch_config, "mount", None) or []
-    if mount_as_cwd:
-        mount.append(f"{mount_as_cwd}:/mnt/disks/.cwd")
-        setattr(cli_gbatch_config, "mount", mount)
-        setattr(cli_gbatch_config, "cwd", "/mnt/disks/.cwd")
 
     cli_gbatch_config.name = ".ImmunopipeCliGbatch"
     cli_gbatch_config.plain = False
