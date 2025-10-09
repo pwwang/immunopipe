@@ -5,6 +5,8 @@ COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
+WORKDIR /immunopipe
+
 RUN micromamba env update -n base -f /immunopipe/docker/environment.yml && \
     python -m pip install -U poetry && \
     python -m poetry config virtualenvs.create false && \
