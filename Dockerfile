@@ -19,10 +19,11 @@ FROM biopipen/base:${BIOPIPEN_TAG}
 COPY --from=builder --chown=$MAMBA_USER:$MAMBA_USER /immunopipe /immunopipe
 COPY --from=builder --chown=$MAMBA_USER:$MAMBA_USER /opt/conda /opt/conda
 
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
+
 RUN fc-cache -f -v && \
     echo "cache=/tmp/npm-cache" > /home/mambauser/.npmrc
 
-ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 WORKDIR /workdir
 
