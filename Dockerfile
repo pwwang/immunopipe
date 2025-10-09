@@ -1,7 +1,9 @@
 ARG BIOPIPEN_TAG=dev
-FROM biopipen/base:${BIOPIPEN_TAG} as builder
+FROM biopipen/base:${BIOPIPEN_TAG} AS builder
 
 COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
+
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 RUN micromamba env update -n base -f /immunopipe/docker/environment.yml && \
     python -m pip install -U poetry && \
