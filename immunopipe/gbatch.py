@@ -15,6 +15,8 @@ from pipen_cli_gbatch import (
     MOUNTED_CWD,
     CliGbatchDaemon,
     CliGbatchPlugin,
+    GSPath,
+    GbatchScheduler,
     __version__ as cli_gbatch_version,
     __file__ as cli_gbatch_file,
 )
@@ -38,7 +40,25 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemon):
         return super()._get_arg_from_command(arg) or "Immunopipe"
 
     def _handle_outdir(self):
-        super()._handle_outdir()
+        command_outdir = super()._get_arg_from_command("outdir")
+
+        if command_outdir:
+            coudir = AnyPath(command_outdir)
+            if (
+                not isinstance(coudir, GSPath)
+                and not coudir.is_absolute()
+                and self.mount_as_cwd
+            ):
+                self._replace_arg_in_command("outdir", f"{MOUNTED_CWD}/{coudir}")
+            else:
+                self._add_mount(command_outdir, GbatchScheduler.MOUNTED_OUTDIR)
+                self._replace_arg_in_command("outdir", GbatchScheduler.MOUNTED_OUTDIR)
+        elif self.mount_as_cwd:
+            command_name = self._get_arg_from_command("name") or self.config.name
+            self._replace_arg_in_command(
+                "outdir",
+                f"{MOUNTED_CWD}/{command_name}-output",
+            )
 
         # Copy configuration file over
         cf_at = [cmd.startswith("@") for cmd in self.command]
