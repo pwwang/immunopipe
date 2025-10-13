@@ -207,7 +207,7 @@ You need install the dependencies via `pip install -U immunopipe[cli-gbatch]` to
 > immunopipe gbatch @config.toml
 ```
 
-To provide the scheduler options to run the wrapped job (daemon) on Google Cloud Batch Jobs, you can specify them by `--cli-gbatch.machine-type`, `--cli-gbatch.provisioning-model`, `--cli-gbatch.disk-size-gb`, etc. See the help message of `immunopipe gbatch --help` for more details.
+To provide the scheduler options to run the wrapped job (daemon) on Google Cloud Batch Jobs, you can specify them by `--gbatch.machine-type`, `--gbatch.provisioning-model`, `--gbatch.disk-size-gb`, etc. See the help message of `immunopipe gbatch --help` for more details.
 
 ```shell
 > immunopipe gbatch --help
@@ -215,74 +215,76 @@ To provide the scheduler options to run the wrapped job (daemon) on Google Cloud
 # pipeline options
 
 Options For Pipen-cli-gbatch (extra Options):
-  --cli-gbatch.profile PROFILE
+  --gbatch.profile PROFILE
                         Use the `scheduler_opts` as the Scheduler Options of a given profile from pipen configuration files,
                         including ~/.pipen.toml and ./pipen.toml.
                         Note that if not provided, nothing will be loaded from the configuration files.
-  --cli-gbatch.loglevel {DEBUG,INFO,WARNING,ERROR,CRITICAL,debug,info,warning,error,critical}
+  --gbatch.loglevel {DEBUG,INFO,WARNING,ERROR,CRITICAL,debug,info,warning,error,critical}
                         Set the logging level for the daemon process. [default: INFO]
-  --cli-gbatch.error-strategy {retry,halt}
+  --gbatch.error-strategy {retry,halt}
                         The strategy when there is error happened [default: halt]
-  --cli-gbatch.num-retries NUM_RETRIES
+  --gbatch.num-retries NUM_RETRIES
                         The number of retries when there is error happened. Only valid when --error-strategy is 'retry'. [default: 0]
-  --cli-gbatch.prescript PRESCRIPT
+  --gbatch.prescript PRESCRIPT
                         The prescript to run before the main command.
-  --cli-gbatch.postscript POSTSCRIPT
+  --gbatch.postscript POSTSCRIPT
                         The postscript to run after the main command.
-  --cli-gbatch.recheck-interval RECHECK_INTERVAL
+  --gbatch.recheck-interval RECHECK_INTERVAL
                         The interval to recheck the job status, each takes about 0.1 seconds. [default: 600]
-  --cli-gbatch.project PROJECT
+  --gbatch.cwd CWD      The working directory to run the command. If not provided, the current directory is used. You can pass either a mounted path (inside the VM) or a
+                        Google Storage Bucket path (gs://...). If a Google Storage Bucket path is provided, the mounted path will be inferred from the mounted paths of
+                        the VM.
+  --gbatch.project PROJECT
                         The Google Cloud project to run the job.
-  --cli-gbatch.location LOCATION
+  --gbatch.location LOCATION
                         The location to run the job.
-  --cli-gbatch.mount MOUNT
-                        The list of mounts to mount to the VM, each in the format of SOURCE:TARGET, where SOURCE must be either a
-                        Google Storage Bucket path (gs://...).
-                        You can also use named mounts like `INDIR=gs://my-bucket/inputs` and the directory will be mounted to
-                        `/mnt/disks/INDIR` in the VM;
+  --gbatch.mount MOUNT  The list of mounts to mount to the VM, each in the format of SOURCE:TARGET, where SOURCE must be either a Google Storage Bucket path (gs://...).
+                        You can also use named mounts like `INDIR=gs://my-bucket/inputs` and the directory will be mounted to `/mnt/disks/INDIR` in the VM;
                         then you can use environment variable `$INDIR` in the command/script to refer to the mounted path.
-                        You can also mount a file like `INFILE=gs://my-bucket/inputs/file.txt`. The parent directory will be mounted
-                        to `/mnt/disks/INFILE/inputs` in the VM,
-                        and the file will be available at `/mnt/disks/INFILE/inputs/file.txt` in the VM. `$INFILE` can also be used
-                        in the command/script to refer to the mounted path.
+                        You can also mount a file like `INFILE=gs://my-bucket/inputs/file.txt`. The parent directory will be mounted to `/mnt/disks/INFILE/inputs` in the
+                        VM,
+                        and the file will be available at `/mnt/disks/INFILE/inputs/file.txt` in the VM. `$INFILE` can also be used in the command/script to refer to the
+                        mounted path.
                         [default: []]
-  --cli-gbatch.service-account SERVICE_ACCOUNT
+  --gbatch.mount-as-cwd MOUNT_AS_CWD
+                        The directory to mount as the current working directory of the command.
+                        This is a shortcut for `--mount <cloudpath>:/mnt/disks/.cwd --cwd /mnt/disks/.cwd`.
+                        The <cloudpath> must be a Google Storage Bucket path (gs://...). When this option is used,
+                        and `--workdir` is not provided, the workdir will be set to `<cloudpath>/.pipen/<command_name>`,
+                        where <command_name> is the name of the command (or the value of `--name` if provided).
+  --gbatch.service-account SERVICE_ACCOUNT
                         The service account to run the job.
-  --cli-gbatch.network NETWORK
+  --gbatch.network NETWORK
                         The network to run the job.
-  --cli-gbatch.subnetwork SUBNETWORK
+  --gbatch.subnetwork SUBNETWORK
                         The subnetwork to run the job.
-  --cli-gbatch.no-external-ip-address
+  --gbatch.no-external-ip-address
                         Whether to disable external IP address for the VM.
-  --cli-gbatch.machine-type MACHINE_TYPE
+  --gbatch.machine-type MACHINE_TYPE
                         The machine type of the VM.
-  --cli-gbatch.provisioning-model {STANDARD,SPOT}
+  --gbatch.provisioning-model {STANDARD,SPOT}
                         The provisioning model of the VM.
-  --cli-gbatch.image-uri IMAGE_URI
+  --gbatch.image-uri IMAGE_URI
                         The custom image URI of the VM.
-  --cli-gbatch.runnables RUNNABLES
+  --gbatch.runnables RUNNABLES
                         The JSON string of extra settings of runnables add to the job.json.
                         Refer to https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#Runnable for details.
-                        You can have an extra key 'order' for each runnable, where negative values mean to run before the main
-                        command,
+                        You can have an extra key 'order' for each runnable, where negative values mean to run before the main command,
                         and positive values mean to run after the main command.
-  --cli-gbatch.allocationPolicy ALLOCATIONPOLICY
+  --gbatch.allocationPolicy ALLOCATIONPOLICY
                         The JSON string of extra settings of allocationPolicy add to the job.json. Refer to
-                        https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#AllocationPolicy for details.
-                        [default: {}]
-  --cli-gbatch.taskGroups TASKGROUPS
+                        https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#AllocationPolicy for details. [default: {}]
+  --gbatch.taskGroups TASKGROUPS
                         The JSON string of extra settings of taskGroups add to the job.json. Refer to
-                        https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#TaskGroup for details.
-                        [default: []]
-  --cli-gbatch.labels LABELS
+                        https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#TaskGroup for details. [default: []]
+  --gbatch.labels LABELS
                         The strings of labels to add to the job (key=value). Refer to
-                        https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#Job.FIELDS.labels for details.
-                        [default: []]
-  --cli-gbatch.gcloud GCLOUD
+                        https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#Job.FIELDS.labels for details. [default: []]
+  --gbatch.gcloud GCLOUD
                         The path to the gcloud command. [default: gcloud]
 ```
 
-When `--cli-gbatch.profile` is provided, the default scheduler options will be used from `~/.pipen.toml` and `./pipen.toml`. For example, you can add the following to `~/.pipen.toml`:
+When `--gbatch.profile` is provided, the default scheduler options will be used from `~/.pipen.toml` and `./pipen.toml`. For example, you can add the following to `~/.pipen.toml`:
 
 ```toml
 [gbatch.scheduler_opts]
@@ -293,7 +295,7 @@ location = "us-central1"
 Then you can run the pipeline using the following command:
 
 ```shell
-> immunopipe gbatch @config.toml --cli-gbatch.profile gbatch
+> immunopipe gbatch @config.toml --gbatch.profile gbatch
 ```
 
 To use the default `project` and `location`.
