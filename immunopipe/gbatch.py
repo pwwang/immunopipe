@@ -34,6 +34,9 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemon):
         print(f"pipen-cli-gbatch version: v{cli_gbatch_version}")
         print(f"pipen version: v{pipen_version}")
 
+    def _get_arg_from_command(self, arg: str) -> str | None:
+        return super()._get_arg_from_command(arg) or "Immunopipe"
+
     def _handle_outdir(self):
         super()._handle_outdir()
 
@@ -90,11 +93,11 @@ async def main(argv):
 
         for i, aa in enumerate(arg_args):
             if aa.startswith("--"):
-                arg_args[i] = aa.replace("--", "--cli-gbatch.")
+                arg_args[i] = aa.replace("--", "--gbatch.")
             elif aa.startswith("-"):
-                arg_args[i] = aa.replace("-", "--cli-gbatch.")
+                arg_args[i] = aa.replace("-", "--gbatch.")
             else:
-                arg_args[i] = f"cli-gbatch.{aa}"
+                arg_args[i] = f"gbatch.{aa}"
 
         parser.add_extra_argument(
             *arg_args,
@@ -110,10 +113,10 @@ async def main(argv):
     parser.set_cli_args(argv)
 
     cli_gbatch_config = parser.parse_extra_args(fromfile_parse=True, fromfile_keep=True)
-    for key, value in vars(cli_gbatch_config.cli_gbatch).items():
+    for key, value in vars(cli_gbatch_config.gbatch).items():
         setattr(cli_gbatch_config, key, value)
-        delattr(cli_gbatch_config, f"cli_gbatch.{key}")
-    del cli_gbatch_config.cli_gbatch
+        delattr(cli_gbatch_config, f"gbatch.{key}")
+    del cli_gbatch_config.gbatch
 
     def is_valid(val: Any) -> bool:
         """Check if a value is valid (not None, not empty string, not empty list).
@@ -169,10 +172,10 @@ async def main(argv):
         await ArgsPlugin.on_init.impl(pipe)
 
     if not cli_gbatch_config.project:
-        print("\033[1;4mError\033[0m: --cli-gbatch.project is required.\n")
+        print("\033[1;4mError\033[0m: --gbatch.project is required.\n")
         sys.exit(1)
     if not cli_gbatch_config.location:
-        print("\033[1;4mError\033[0m: --cli-gbatch.location is required.\n")
+        print("\033[1;4mError\033[0m: --gbatch.location is required.\n")
         sys.exit(1)
 
     command = ["immunopipe", *parser._cli_args]
