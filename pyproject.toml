@@ -6,7 +6,7 @@ build-backend = "poetry.core.masonry.api"
 name = "immunopipe"
 description = "A pipeline for integrative analysis for scRNA-seq and scTCR-/scBCR-seq data"
 authors = [ "pwwang <pwwang@pwwang.com>",]
-version = "2.0.2"
+version = "2.0.3"
 license = "GNU General Public License v3.0"
 readme = "README.md"
 homepage = "https://github.com/pwwang/immunopipe"
@@ -20,9 +20,9 @@ python = "^3.9"
 pipen-diagram = { version = "^0.13", optional = true }
 pipen-runinfo = { version = "^0.9", optional = true }
 # pipen-report and pipen-board are required by biopipen
-biopipen = "^0.34.9"
+biopipen = "^0.34.14"
 # biopipen = { path = "./biopipen" }
-pipen-cli-gbatch = { version = "^0.0.3", optional = true }
+pipen-cli-gbatch = { version = "^0.0.7", optional = true }
 
 [tool.poetry.extras]
 diagram = ["pipen-diagram"]

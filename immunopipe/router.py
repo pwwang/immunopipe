@@ -24,6 +24,7 @@ def run():
             and "--help" not in sys.argv
             and "-h+" not in sys.argv
             and "--help+" not in sys.argv
+            and not sys.argv[1].startswith("@")
         )
     ):
         print(

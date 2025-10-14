@@ -12,8 +12,11 @@ from xqute.schedulers.gbatch_scheduler import DEFAULT_MOUNTED_ROOT
 from pipen.defaults import CONFIG_FILES
 from pipen_args.plugin import ArgsPlugin
 from pipen_cli_gbatch import (
+    MOUNTED_CWD,
     CliGbatchDaemon,
     CliGbatchPlugin,
+    GSPath,
+    GbatchScheduler,
     __version__ as cli_gbatch_version,
     __file__ as cli_gbatch_file,
 )
@@ -33,10 +36,29 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemon):
         print(f"pipen-cli-gbatch version: v{cli_gbatch_version}")
         print(f"pipen version: v{pipen_version}")
 
-    def _infer_name(self):
-        super()._infer_name()
-        immunopipe_name = self._get_arg_from_command("name")
-        self.config["workdir"] = f"{self.config['workdir']}/{immunopipe_name}"
+    def _get_arg_from_command(self, arg: str) -> str | None:
+        return super()._get_arg_from_command(arg) or "Immunopipe"
+
+    def _handle_outdir(self):
+        command_outdir = super()._get_arg_from_command("outdir")
+
+        if command_outdir:
+            coudir = AnyPath(command_outdir)
+            if (
+                not isinstance(coudir, GSPath)
+                and not coudir.is_absolute()
+                and self.mount_as_cwd
+            ):
+                self._replace_arg_in_command("outdir", f"{MOUNTED_CWD}/{coudir}")
+            else:
+                self._add_mount(command_outdir, GbatchScheduler.MOUNTED_OUTDIR)
+                self._replace_arg_in_command("outdir", GbatchScheduler.MOUNTED_OUTDIR)
+        elif self.mount_as_cwd:
+            command_name = self._get_arg_from_command("name") or self.config.name
+            self._replace_arg_in_command(
+                "outdir",
+                f"{MOUNTED_CWD}/{command_name}-output",
+            )
 
         # Copy configuration file over
         cf_at = [cmd.startswith("@") for cmd in self.command]
@@ -91,11 +113,11 @@ async def main(argv):
 
         for i, aa in enumerate(arg_args):
             if aa.startswith("--"):
-                arg_args[i] = aa.replace("--", "--cli-gbatch.")
+                arg_args[i] = aa.replace("--", "--gbatch.")
             elif aa.startswith("-"):
-                arg_args[i] = aa.replace("-", "--cli-gbatch.")
+                arg_args[i] = aa.replace("-", "--gbatch.")
             else:
-                arg_args[i] = f"cli-gbatch.{aa}"
+                arg_args[i] = f"gbatch.{aa}"
 
         parser.add_extra_argument(
             *arg_args,
@@ -111,10 +133,10 @@ async def main(argv):
     parser.set_cli_args(argv)
 
     cli_gbatch_config = parser.parse_extra_args(fromfile_parse=True, fromfile_keep=True)
-    for key, value in vars(cli_gbatch_config.cli_gbatch).items():
+    for key, value in vars(cli_gbatch_config.gbatch).items():
         setattr(cli_gbatch_config, key, value)
-        delattr(cli_gbatch_config, f"cli_gbatch.{key}")
-    del cli_gbatch_config.cli_gbatch
+        delattr(cli_gbatch_config, f"gbatch.{key}")
+    del cli_gbatch_config.gbatch
 
     def is_valid(val: Any) -> bool:
         """Check if a value is valid (not None, not empty string, not empty list).
@@ -154,23 +176,6 @@ async def main(argv):
 
         setattr(cli_gbatch_config, key, val)
 
-
-    mount_as_cwd = getattr(cli_gbatch_config, "mount_as_cwd", None)
-    cwd = getattr(cli_gbatch_config, "cwd", None)
-    delattr(cli_gbatch_config, "mount_as_cwd")
-    if mount_as_cwd and cwd:
-        print(
-            "\033[1;4mError\033[0m: --mount-as-cwd and --cwd "
-            "cannot be used together.\n"
-        )
-        sys.exit(1)
-
-    mount = getattr(cli_gbatch_config, "mount", None) or []
-    if mount_as_cwd:
-        mount.append(f"{mount_as_cwd}:/mnt/disks/.cwd")
-        setattr(cli_gbatch_config, "mount", mount)
-        setattr(cli_gbatch_config, "cwd", "/mnt/disks/.cwd")
-
     cli_gbatch_config.name = ".ImmunopipeCliGbatch"
     cli_gbatch_config.plain = False
     cli_gbatch_config.workdir = None  # will infer from command
@@ -187,10 +192,10 @@ async def main(argv):
         await ArgsPlugin.on_init.impl(pipe)
 
     if not cli_gbatch_config.project:
-        print("\033[1;4mError\033[0m: --cli-gbatch.project is required.\n")
+        print("\033[1;4mError\033[0m: --gbatch.project is required.\n")
         sys.exit(1)
     if not cli_gbatch_config.location:
-        print("\033[1;4mError\033[0m: --cli-gbatch.location is required.\n")
+        print("\033[1;4mError\033[0m: --gbatch.location is required.\n")
         sys.exit(1)
 
     command = ["immunopipe", *parser._cli_args]

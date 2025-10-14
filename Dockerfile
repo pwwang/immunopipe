@@ -14,6 +14,7 @@ RUN fc-cache -f -v && \
     python -m pip install -U poetry && \
     python -m poetry config virtualenvs.create false && \
     python -m poetry install -v -E runinfo -E diagram && \
+    python -m pip cache purge && \
     pipen report update && \
     echo "cache=/tmp/npm-cache" > /home/mambauser/.npmrc
 

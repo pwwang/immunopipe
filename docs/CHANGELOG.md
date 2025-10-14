@@ -1,5 +1,21 @@
 # Change Log
 
+## 2.0.3
+
+- feat: adopt pipen-cli-gbatch, allowing --mount-as-cwd to infer workdir and outdir
+- fix: fix when running with a configuration file solely
+- fix: fix gbatch deamon workdir not created inside the pipeline working folder for gbatch cli
+- fix: fix outdir not following the pipeline name with gbatch cli
+- docs: update volume mounting syntax in docker and singularity commands
+- docs: update `immunopipe gbatch` options for running the pipeline on Google Cloud Batch Jobs
+- chore: bump pipen-cli-gbatch to 0.0.7 and pipen-report to 0.23.12
+- chore: bump biopipen to 0.34.14
+  - fix(scrna_metabolic_landscape): fix report paging issue
+  - docs(scrna.MarkersFinder): fix links in docs
+  - fix(scrna.SeuratClusterStats): improve error handling in feature plotting when save_code (due to upgrade to ggplot2 v4)
+  - feat(MarkersFinder): use `scplotter::MarkersPlot` (wrapped by `biopipen.utils::VizDEGs` to visualize marker
+  - fix(scrna.CellTypeAnnotation): update logging for celltypist command execution
+
 ## 2.0.2
 
 - fix: fix immunopipe -h/--help not working as expected
