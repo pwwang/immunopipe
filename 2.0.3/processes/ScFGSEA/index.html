@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>ScFGSEA - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ScFGSEA";
+        var mkdocs_page_input_path = "processes/ScFGSEA.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCRClustering/">TCRClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">ScFGSEA</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
+      <li class="breadcrumb-item active">ScFGSEA</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/ScFGSEA.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="scfgsea">ScFGSEA<a class="headerlink" href="#scfgsea" title="Permanent link">&para;</a></h2>
+<p>Gene set enrichment analysis for cells in different groups using <code>fgsea</code></p>
+<p>This process allows us to do Gene Set Enrichment Analysis (GSEA) on the expression data,
+but based on variaties of grouping, including the from the meta data and the
+scTCR-seq data as well.<br /></p>
+<p>The GSEA is done using the
+<a href="https://bioconductor.org/packages/release/bioc/html/fgsea.html">fgsea</a> package,
+which allows to quickly and accurately calculate arbitrarily low GSEA P-values
+for a collection of gene sets.<br />
+The fgsea package is based on the fast algorithm for preranked GSEA described in
+<a href="https://www.pnas.org/content/102/43/15545">Subramanian et al. 2005</a>.<br /></p>
+<p>For each case, the process will generate a table with the enrichment scores for
+each gene set, and GSEA plots for the top gene sets.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>srtobj</code>:
+    The seurat object in RDS format</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outdir</code>: <em>Default: <code>{{(in.casefile or in.srtobj) | stem0}}.fgsea</code></em>. <br />
+    The output directory for the results and plots</li>
+</ul>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores for parallelization
+    Passed to <code>nproc</code> of <code>fgseaMultilevel()</code>.<br /></li>
+<li>
+<p><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The mutaters to mutate the metadata.<br />
+    The key-value pairs will be passed the <code>dplyr::mutate()</code> to mutate the metadata.<br />
+    You can also use the clone selectors to select the TCR clones/clusters.<br />
+    See <a href="https://pwwang.github.io/scplotter/reference/clone_selectors.html">https://pwwang.github.io/scplotter/reference/clone_selectors.html</a>.<br /></p>
+</li>
+<li>
+<p><code>group_by</code>:
+    The column name in metadata to group the cells.<br /></p>
+</li>
+<li><code>ident_1</code>:
+    The first group of cells to compare</li>
+<li><code>ident_2</code>:
+    The second group of cells to compare, if not provided, the rest of the cells that are not <code>NA</code>s in <code>group_by</code> column are used for <code>ident-2</code>.<br /></li>
+<li><code>each</code>:
+    The column name in metadata to separate the cells into different subsets to do the analysis.<br /></li>
+<li><code>subset</code>:
+    An expression to subset the cells.<br /></li>
+<li><code>gmtfile</code>: <em>Default: <code>KEGG_2021_Human</code></em>. <br />
+    The pathways in GMT format, with the gene names/ids in the same format as the seurat object.<br />
+    One could also use a URL to a GMT file. For example, from <a href="https://download.baderlab.org/EM_Genesets/current_release/Human/symbol/Pathways/">https://download.baderlab.org/EM_Genesets/current_release/Human/symbol/Pathways/</a>.<br /></li>
+<li><code>method</code> <em>(<code>choice</code>)</em>: <em>Default: <code>s2n</code></em>. <br />
+    The method to do the preranking.<br /><ul>
+<li><code>signal_to_noise</code>:
+    Signal to noise.<br />
+    The larger the differences of the means (scaled by the standard deviations);
+    that is, the more distinct the gene expression is in each phenotype and the more the gene
+    acts as a "class marker".<br /></li>
+<li><code>s2n</code>:
+    Alias of signal_to_noise.<br /></li>
+<li><code>abs_signal_to_noise</code>:
+    The absolute value of signal_to_noise.<br /></li>
+<li><code>abs_s2n</code>:
+    Alias of abs_signal_to_noise.<br /></li>
+<li><code>t_test</code>:
+    T test.<br />
+    Uses the difference of means scaled by the standard deviation and number of samples.<br /></li>
+<li><code>ratio_of_classes</code>:
+    Also referred to as fold change.<br />
+    Uses the ratio of class means to calculate fold change for natural scale data.<br /></li>
+<li><code>diff_of_classes</code>:
+    Difference of class means.<br />
+    Uses the difference of class means to calculate fold change for nature scale data</li>
+<li><code>log2_ratio_of_classes</code>:
+    Log2 ratio of class means.<br />
+    Uses the log2 ratio of class means to calculate fold change for natural scale data.<br />
+    This is the recommended statistic for calculating fold change for log scale data.<br /></li>
+</ul>
+</li>
+<li><code>top</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>20</code></em>. <br />
+    Do gsea table and enrich plot for top N pathways.<br />
+    If it is &lt; 1, will apply it to <code>padj</code>, selecting pathways with <code>padj</code> &lt; <code>top</code>.<br /></li>
+<li><code>eps</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0</code></em>. <br />
+    This parameter sets the boundary for calculating the p value.<br />
+    See <a href="https://rdrr.io/bioc/fgsea/man/fgseaMultilevel.html">https://rdrr.io/bioc/fgsea/man/fgseaMultilevel.html</a></li>
+<li><code>alleach_plots_defaults</code> <em>(<code>ns</code>)</em>:
+    Default options for the plots to generate for all pathways.<br /><ul>
+<li><code>plot_type</code>: <em>Default: <code>heatmap</code></em>. <br />
+    The type of the plot, currently either dot or heatmap (default)</li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizGSEA.html">https://pwwang.github.io/biopipen.utils.R/reference/VizGSEA.html</a>.<br /></li>
+</ul>
+</li>
+<li><code>alleach_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Cases of the plots to generate for all pathways.<br />
+    The keys are the names of the cases and the values are the dicts inherited from <code>alleach_plots_defaults</code>.<br /></li>
+<li><code>minsize</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>10</code></em>. <br />
+    Minimal size of a gene set to test. All pathways below the threshold are excluded.<br /></li>
+<li><code>maxsize</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    Maximal size of a gene set to test. All pathways above the threshold are excluded.<br /></li>
+<li><code>rest</code> <em>(<code>type=json;order=98</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Rest arguments for <a href="https://rdrr.io/bioc/fgsea/man/fgsea.html"><code>fgsea()</code></a>
+    See also <a href="https://rdrr.io/bioc/fgsea/man/fgseaMultilevel.html">https://rdrr.io/bioc/fgsea/man/fgseaMultilevel.html</a></li>
+<li><code>cases</code> <em>(<code>type=json;order=99</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases, you can specify them here.<br />
+    The keys are the names of the cases and the values are the above options except <code>mutaters</code>.<br />
+    If some options are not specified, the default values specified above will be used.<br />
+    If no cases are specified, the default case will be added with the name <code>GSEA</code>.<br /></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../SeuratClusterStats/" class="btn btn-neutral float-left" title="SeuratClusterStats"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../MarkersFinder/" class="btn btn-neutral float-right" title="MarkersFinder">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../SeuratClusterStats/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../MarkersFinder/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/version-select.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Running the pipeline - immunopipe</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Running the pipeline";
+        var mkdocs_page_input_path = "running.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Running the pipeline</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#run-the-pipeline-locally-via-cli">Run the pipeline locally via CLI</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#run-the-pipeline-via-pipen-board">Run the pipeline via pipen-board</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#run-the-pipeline-using-docker-image">Run the pipeline using docker image</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#choose-the-right-tag-of-the-docker-image">Choose the right tag of the docker image</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#run-the-pipeline-via-pipen-board-using-docker-image">Run the pipeline via pipen-board using docker image</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#run-the-pipeline-using-google-cloud-batch-jobs">Run the pipeline using Google Cloud Batch Jobs</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#use-the-gbatch-scheduler-of-pipen">Use the gbatch scheduler of pipen</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use-pipen-cli-gbatch">Use pipen-cli-gbatch</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use-google-cloud-batch-jobs-directly-not-recommended">Use Google Cloud Batch Jobs directly (not recommended)</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCRClustering/">TCRClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Running the pipeline</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/running.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="running-the-pipeline">Running the pipeline<a class="headerlink" href="#running-the-pipeline" title="Permanent link">&para;</a></h2>
+<h3 id="run-the-pipeline-locally-via-cli">Run the pipeline locally via CLI<a class="headerlink" href="#run-the-pipeline-locally-via-cli" title="Permanent link">&para;</a></h3>
+<p>Once the pipeline is installed, you can run it via CLI:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>--help
+</code></pre></div>
+<p>You can specify the options directly in the CLI. For example:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>--forks<span class="w"> </span><span class="m">4</span><span class="w"> </span>--TopExpressingGenes.envs.n<span class="w"> </span><span class="m">100</span><span class="w"> </span>...
+</code></pre></div>
+<p>It's recommended to use a configuration file to specify all the options. For example:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>@config.toml
+</code></pre></div>
+<p>You can also use both ways together. The options specified in the CLI will override the ones in the configuration file.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>@config.toml<span class="w"> </span>--forks<span class="w"> </span><span class="m">4</span><span class="w"> </span>--TopExpressingGenes.envs.n<span class="w"> </span><span class="m">100</span><span class="w"> </span>...
+</code></pre></div>
+<p>For configuration items, see <a href="../configurations/">configurations</a> for more details.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you want to run the pipeline on a cluster, see <a href="../faq/#how-to-run-the-pipeline-on-a-cluster">How to run the pipeline on a cluster?</a> for more details.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>For settings that determine the routes of the pipeline, you should define them in the configuration file. For example, if you want to perform supervised clustering, you need to add <code>[SeuratMap2Ref]</code> in the configuration file with necessary parameters. If you just pass the section as a command line argument (<code>--SeuratMap2Ref</code>), it will not trigger the corresponding processes.</p>
+<p>To indicator whether the scTCR-/scBCR-seq data is available or not, you also need to specify the sample information file in the configuration file <code>[SampleInfo.in.infile]</code>. Passing the sample information file as a command line argument (<code>--Sample.in.infile</code>) does not trigger the corresponding processes.</p>
+<p>See <a href="../introduction/#routes-of-the-pipeline">Routes of the pipeline</a> for more details.</p>
+</div>
+<h3 id="run-the-pipeline-via-pipen-board">Run the pipeline via <code>pipen-board</code><a class="headerlink" href="#run-the-pipeline-via-pipen-board" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/pwwang/pipen-board"><code>pipen-board</code></a> is a web-based dashboard for <code>pipen</code>. It provides a user-friendly interface to configure and run the pipeline. It also provides a way to monitor the running progress of the pipeline.</p>
+<p><code>pipen-board</code> is installed by default with <code>immunopipe</code>. You can run it via CLI:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pipen<span class="w"> </span>board<span class="w"> </span>immunopipe:Immunopipe
+<span class="w"> </span>*
+<span class="w"> </span>*<span class="w">        </span>__<span class="w">   </span>__<span class="w">  </span>__.<span class="w">  </span>.<span class="w">     </span>__<span class="w">  </span>__<span class="w">   </span>+<span class="w">  </span>__<span class="w">  </span>__
+<span class="w"> </span>*<span class="w">       </span><span class="p">|</span>__<span class="o">)||</span>__<span class="o">)</span><span class="p">|</span>_<span class="w"> </span><span class="p">|</span><span class="se">\ </span><span class="p">|</span><span class="w"> </span>__<span class="w"> </span><span class="p">|</span>__<span class="o">)</span>/<span class="w">  </span><span class="se">\ </span>/<span class="se">\ </span><span class="p">|</span>__<span class="o">)</span><span class="p">|</span><span class="w">  </span><span class="se">\</span>
+<span class="w"> </span>*<span class="w">       </span><span class="p">|</span><span class="w">   </span><span class="o">||</span><span class="w">   </span><span class="p">|</span>__<span class="p">|</span><span class="w"> </span><span class="se">\|</span><span class="w">    </span><span class="p">|</span>__<span class="o">)</span><span class="se">\_</span>_//--<span class="se">\|</span><span class="w"> </span><span class="se">\ </span><span class="p">|</span>__/
+<span class="w"> </span>*
+<span class="w"> </span>*<span class="w">                   </span>version:<span class="w"> </span><span class="m">0</span>.11.1
+<span class="w"> </span>*
+<span class="w"> </span>*<span class="w"> </span>Configure<span class="w"> </span>and<span class="w"> </span>run<span class="w"> </span>pipen<span class="w"> </span>pipelines<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>web
+<span class="w"> </span>*
+<span class="w"> </span>*<span class="w"> </span>Serving<span class="w"> </span>Quart<span class="w"> </span>app<span class="w"> </span><span class="s1">&#39;pipen_board&#39;</span>
+<span class="w"> </span>*<span class="w"> </span>Environment:<span class="w"> </span>development
+<span class="w"> </span>*<span class="w"> </span>Debug<span class="w"> </span>mode:<span class="w"> </span>True
+<span class="w"> </span>*<span class="w"> </span>Running<span class="w"> </span>on<span class="w"> </span>http://0.0.0.0:18521<span class="w"> </span><span class="o">(</span>CTRL<span class="w"> </span>+<span class="w"> </span>C<span class="w"> </span>to<span class="w"> </span>quit<span class="o">)</span>
+<span class="o">[</span><span class="m">07</span>/31/23<span class="w"> </span><span class="m">21</span>:23:27<span class="o">]</span><span class="w"> </span>INFO<span class="w">     </span>Running<span class="w"> </span>on<span class="w"> </span>http://0.0.0.0:18521<span class="w"> </span><span class="o">(</span>CTRL<span class="w"> </span>+<span class="w"> </span>C<span class="w"> </span>to<span class="w"> </span>quit<span class="o">)</span>
+</code></pre></div>
+<p>Then you can open the dashboard in your browser at <code>http://localhost:18521</code>.</p>
+<p><img alt="pipen-board" src="../pipen-board.gif" /></p>
+<p>In the <code>Configuration</code> tab, you can configure the pipeline and the processes. Then you can use the <code>Generate Configuration</code> button to generate the configuration file and then use the generated configuration file to run the pipeline via CLI.</p>
+<p>If you want to run the pipeline via <code>pipen-board</code>, you need an additional configuration file to tell <code>pipen-board</code> how to run the pipeline:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pipen<span class="w"> </span>board<span class="w"> </span>immunopipe:Immunopipe<span class="w"> </span>-a<span class="w"> </span>gh:pwwang/immunopipe/board.toml@dev
+</code></pre></div>
+<p>The additional file is available at <code>immunopipe</code>'s GitHub repo. You can also download it and modify it to fit your needs, but in most cases, you don't have to. With the additional file, you can find four <code>running options</code>, <code>LOCAL</code>, <code>DOCKER</code>, <code>SINGULARITY</code> and <code>APPTAINER</code>, on the left side of the <code>Configuration</code> tab. You can choose one of them to run the pipeline.</p>
+<p>Take <code>LOCAL</code> as an example. When clicking the <code>Run the command</code> button, a configuration file specified by <code>configfile</code> is saved and used to run the pipeline via CLI. Then the <code>Previous Run</code> tab is replaced by the <code>Running</code> tab to track the progress of the pipeline.</p>
+<h3 id="run-the-pipeline-using-docker-image">Run the pipeline using docker image<a class="headerlink" href="#run-the-pipeline-using-docker-image" title="Permanent link">&para;</a></h3>
+<h4 id="choose-the-right-tag-of-the-docker-image">Choose the right tag of the docker image<a class="headerlink" href="#choose-the-right-tag-of-the-docker-image" title="Permanent link">&para;</a></h4>
+<p>The docker image is tagged with the version of <code>immunopipe</code>, together with <code>master</code> and <code>dev</code>. They are listed here: <a href="https://hub.docker.com/repository/docker/justold/immunopipe/tags">https://hub.docker.com/repository/docker/justold/immunopipe/tags</a>.</p>
+<p><code>dev</code> is the latest development version of <code>immunopipe</code>. It may have unstable features. If you want to use a more stable version, please try <code>master</code>, or a specific semantic version.</p>
+<p>Any tags with a <code>-full</code> suffix are the full version of the image. It contains all the dependencies of the pipeline, especially <a href="https://pypi.org/project/keras/"><code>keras</code></a> and <a href="https://pypi.org/project/tensorflow/"><code>tensorflow</code></a> that are required by the embedding procedure of <a href="../processes/TESSA/"><code>TESSA</code></a>. Those packages take quite a lot of the space of the image. If you don't need the <code>TESSA</code> process, you can use the minimal version of the image.</p>
+<p>Any tags without the <code>-full</code> suffix are the minimal version of the image. <code>TESSA</code> process is also NOT supported in the minimal version. <a href="https://pypi.org/project/keras/"><code>keras</code></a> and <a href="https://pypi.org/project/tensorflow/"><code>tensorflow</code></a> are also NOT included in the image.</p>
+<p>Please also keep in mind that there is no GPU support with either type of the image.</p>
+<p>You can pull the images in advance using <code>docker</code>, <code>singularity</code> or <code>apptainer</code>. See help options of <code>docker pull</code>, <code>singularity pull</code> or <code>apptainer pull</code> for more details.</p>
+<p>You can also specify the tag when running the pipeline. See the following sections for more details.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Using docker</label><label for="__tabbed_1_2">Using singularity</label><label for="__tabbed_1_3">Using apptainer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>To run the pipeline using the docker image with <code>docker</code>, you need to mount the current working directory to the <code>/workdir</code> directory in the container. You also need to specify the configuration file via <code>@&lt;configfile&gt;</code> option. For example:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workdir<span class="w"> </span>-v<span class="w"> </span>/tmp:/tmp<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>@config.toml
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>You also need to mount the current working directory to the <code>/workdir</code> directory in the container if you are using <code>singularity</code>. You also need to specify the configuration file via <code>@&lt;configfile&gt;</code> option. For example:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>singularity<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workdir,/tmp<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>@config.toml
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>You also need to mount the current working directory to the <code>/workdir</code> directory in the container if you are using <code>apptainer</code>. You also need to specify the configuration file via <code>@&lt;configfile&gt;</code> option. For example:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>apptainer<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workdir,/tmp<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>@config.toml
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="run-the-pipeline-via-pipen-board-using-docker-image">Run the pipeline via <code>pipen-board</code> using docker image<a class="headerlink" href="#run-the-pipeline-via-pipen-board-using-docker-image" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Using docker</label><label for="__tabbed_2_2">Using singularity</label><label for="__tabbed_2_3">Using apptainer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>You can also run the pipeline via <code>pipen-board</code> using the docker image with <code>docker</code>:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">18521</span>:18521<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workdir<span class="w"> </span>-v<span class="w"> </span>/tmp:/tmp<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>justold/immunopipe:&lt;tag&gt;<span class="w"> </span>board<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>immunopipe:Immunopipe<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-a<span class="w"> </span>/immunopipe/board.toml
+</code></pre></div>
+<p>The under the <code>running options</code>, choose <code>LOCAL</code> to run the pipeline.</p>
+<div class="admonition tip">
+<p class="admonition-title">Note</p>
+<p>You should use <code>LOCAL</code> instead of <code>DOCKER</code> to run the pipeline. Otherwise, the pipeline will be run in a docker container inside the docker container.</p>
+</div>
+</div>
+<div class="tabbed-block">
+<p>You can also run the pipeline via <code>pipen-board</code> using the docker image with <code>singularity</code>:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>singularity<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workdir,/tmp<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span>board<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>immunopipe:Immunopipe<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-a<span class="w"> </span>/immunopipe/board.toml
+</code></pre></div>
+<p>The under the <code>running options</code>, choose <code>LOCAL</code> to run the pipeline.</p>
+<p>Similarly, you should use <code>LOCAL</code> instead of <code>SINGULARITY</code> to run the pipeline. Otherwise, the pipeline will be run in a docker container inside the container.</p>
+</div>
+<div class="tabbed-block">
+<p>You can also run the pipeline via <code>pipen-board</code> using the docker image with <code>apptainer</code>:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>apptainer<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workdir,/tmp<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span>board<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>immunopipe:Immunopipe<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-a<span class="w"> </span>/immunopipe/board.toml
+</code></pre></div>
+<p>Also similarly, you should use <code>LOCAL</code> instead of <code>APPTAINER</code> to run the pipeline. Otherwise, the pipeline will be run in a docker container inside the container.</p>
+</div>
+</div>
+</div>
+<p>When the command is running, you will see the following message:</p>
+<p><img alt="singularity-pipen-board" src="../singularity-pipen-board.png" /></p>
+<p>Then, You can open the dashboard in your browser at <code>http://localhost:18521</code>.</p>
+<h3 id="run-the-pipeline-using-google-cloud-batch-jobs">Run the pipeline using Google Cloud Batch Jobs<a class="headerlink" href="#run-the-pipeline-using-google-cloud-batch-jobs" title="Permanent link">&para;</a></h3>
+<p>There are two ways to run the pipeline using Google Cloud Batch Jobs:</p>
+<h4 id="use-the-gbatch-scheduler-of-pipen">Use the <code>gbatch</code> scheduler of <code>pipen</code><a class="headerlink" href="#use-the-gbatch-scheduler-of-pipen" title="Permanent link">&para;</a></h4>
+<p>When using the <a href="https://github.com/pwwang/xqute#using-google-batch-jobs-scheduler"><code>gbatch</code></a>, the metadata of the processes (job status, job output, etc) are managed locally. Even though they are on the cloud, they are manipuated locally (using the API provided by <a href="https://cloudpathlib.drivendata.org/stable/"><code>cloudpathlib</code></a>). The processes are submitted to Google Cloud Batch Jobs using <code>gcloud batch jobs submit</code>. And the processes are run on Google Cloud Compute Engine VMs, and they need to be sumbitted one after another.</p>
+<p>See the documentation of <a href="https://pwwang.github.io/pipen/cloud/#run-the-pipeline-on-the-cloud"><code>cloud support</code></a> of <code>pipen</code>.</p>
+<h4 id="use-pipen-cli-gbatch">Use <code>pipen-cli-gbatch</code><a class="headerlink" href="#use-pipen-cli-gbatch" title="Permanent link">&para;</a></h4>
+<p>You need install the dependencies via <code>pip install -U immunopipe[cli-gbatch]</code> to use this feature.</p>
+<p><code>immunopipe</code> has integrated with <a href="https://github.com/pwwang/pipen-cli-gbatch"><code>pipen-cli-gbatch</code></a> to provide a seamless way to run the pipeline using Google Cloud Batch Jobs. The entire pipeline is wrapped (like it is running locally) and submitted as a single job to Google Cloud Batch Jobs. You just need to run the following:</p>
+<div class="highlight"><pre><span></span><code>&gt;<span class="w"> </span>immunopipe<span class="w"> </span>gbatch<span class="w"> </span>@config.toml
+</code></pre></div>
+<p>To provide the scheduler options to run the wrapped job (daemon) on Google Cloud Batch Jobs, you can specify them by <code>--gbatch.machine-type</code>, <code>--gbatch.provisioning-model</code>, <code>--gbatch.disk-size-gb</code>, etc. See the help message of <code>immunopipe gbatch --help</code> for more details.</p>
+<div class="highlight"><pre><span></span><code>&gt;<span class="w"> </span>immunopipe<span class="w"> </span>gbatch<span class="w"> </span>--help
+
+<span class="c1"># pipeline options</span>
+
+Options<span class="w"> </span>For<span class="w"> </span>Pipen-cli-gbatch<span class="w"> </span><span class="o">(</span>extra<span class="w"> </span>Options<span class="o">)</span>:
+<span class="w">  </span>--gbatch.profile<span class="w"> </span>PROFILE
+<span class="w">                        </span>Use<span class="w"> </span>the<span class="w"> </span><span class="sb">`</span>scheduler_opts<span class="sb">`</span><span class="w"> </span>as<span class="w"> </span>the<span class="w"> </span>Scheduler<span class="w"> </span>Options<span class="w"> </span>of<span class="w"> </span>a<span class="w"> </span>given<span class="w"> </span>profile<span class="w"> </span>from<span class="w"> </span>pipen<span class="w"> </span>configuration<span class="w"> </span>files,
+<span class="w">                        </span>including<span class="w"> </span>~/.pipen.toml<span class="w"> </span>and<span class="w"> </span>./pipen.toml.
+<span class="w">                        </span>Note<span class="w"> </span>that<span class="w"> </span><span class="k">if</span><span class="w"> </span>not<span class="w"> </span>provided,<span class="w"> </span>nothing<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>loaded<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>configuration<span class="w"> </span>files.
+<span class="w">  </span>--gbatch.loglevel<span class="w"> </span><span class="o">{</span>DEBUG,INFO,WARNING,ERROR,CRITICAL,debug,info,warning,error,critical<span class="o">}</span>
+<span class="w">                        </span>Set<span class="w"> </span>the<span class="w"> </span>logging<span class="w"> </span>level<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>daemon<span class="w"> </span>process.<span class="w"> </span><span class="o">[</span>default:<span class="w"> </span>INFO<span class="o">]</span>
+<span class="w">  </span>--gbatch.error-strategy<span class="w"> </span><span class="o">{</span>retry,halt<span class="o">}</span>
+<span class="w">                        </span>The<span class="w"> </span>strategy<span class="w"> </span>when<span class="w"> </span>there<span class="w"> </span>is<span class="w"> </span>error<span class="w"> </span>happened<span class="w"> </span><span class="o">[</span>default:<span class="w"> </span>halt<span class="o">]</span>
+<span class="w">  </span>--gbatch.num-retries<span class="w"> </span>NUM_RETRIES
+<span class="w">                        </span>The<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>retries<span class="w"> </span>when<span class="w"> </span>there<span class="w"> </span>is<span class="w"> </span>error<span class="w"> </span>happened.<span class="w"> </span>Only<span class="w"> </span>valid<span class="w"> </span>when<span class="w"> </span>--error-strategy<span class="w"> </span>is<span class="w"> </span><span class="s1">&#39;retry&#39;</span>.<span class="w"> </span><span class="o">[</span>default:<span class="w"> </span><span class="m">0</span><span class="o">]</span>
+<span class="w">  </span>--gbatch.prescript<span class="w"> </span>PRESCRIPT
+<span class="w">                        </span>The<span class="w"> </span>prescript<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>before<span class="w"> </span>the<span class="w"> </span>main<span class="w"> </span>command.
+<span class="w">  </span>--gbatch.postscript<span class="w"> </span>POSTSCRIPT
+<span class="w">                        </span>The<span class="w"> </span>postscript<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>after<span class="w"> </span>the<span class="w"> </span>main<span class="w"> </span>command.
+<span class="w">  </span>--gbatch.recheck-interval<span class="w"> </span>RECHECK_INTERVAL
+<span class="w">                        </span>The<span class="w"> </span>interval<span class="w"> </span>to<span class="w"> </span>recheck<span class="w"> </span>the<span class="w"> </span>job<span class="w"> </span>status,<span class="w"> </span>each<span class="w"> </span>takes<span class="w"> </span>about<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>seconds.<span class="w"> </span><span class="o">[</span>default:<span class="w"> </span><span class="m">600</span><span class="o">]</span>
+<span class="w">  </span>--gbatch.cwd<span class="w"> </span>CWD<span class="w">      </span>The<span class="w"> </span>working<span class="w"> </span>directory<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>the<span class="w"> </span>command.<span class="w"> </span>If<span class="w"> </span>not<span class="w"> </span>provided,<span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>directory<span class="w"> </span>is<span class="w"> </span>used.<span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>pass<span class="w"> </span>either<span class="w"> </span>a<span class="w"> </span>mounted<span class="w"> </span>path<span class="w"> </span><span class="o">(</span>inside<span class="w"> </span>the<span class="w"> </span>VM<span class="o">)</span><span class="w"> </span>or<span class="w"> </span>a
+<span class="w">                        </span>Google<span class="w"> </span>Storage<span class="w"> </span>Bucket<span class="w"> </span>path<span class="w"> </span><span class="o">(</span>gs://...<span class="o">)</span>.<span class="w"> </span>If<span class="w"> </span>a<span class="w"> </span>Google<span class="w"> </span>Storage<span class="w"> </span>Bucket<span class="w"> </span>path<span class="w"> </span>is<span class="w"> </span>provided,<span class="w"> </span>the<span class="w"> </span>mounted<span class="w"> </span>path<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>inferred<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>mounted<span class="w"> </span>paths<span class="w"> </span>of
+<span class="w">                        </span>the<span class="w"> </span>VM.
+<span class="w">  </span>--gbatch.project<span class="w"> </span>PROJECT
+<span class="w">                        </span>The<span class="w"> </span>Google<span class="w"> </span>Cloud<span class="w"> </span>project<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>the<span class="w"> </span>job.
+<span class="w">  </span>--gbatch.location<span class="w"> </span>LOCATION
+<span class="w">                        </span>The<span class="w"> </span>location<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>the<span class="w"> </span>job.
+<span class="w">  </span>--gbatch.mount<span class="w"> </span>MOUNT<span class="w">  </span>The<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>mounts<span class="w"> </span>to<span class="w"> </span>mount<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>VM,<span class="w"> </span>each<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>format<span class="w"> </span>of<span class="w"> </span>SOURCE:TARGET,<span class="w"> </span>where<span class="w"> </span>SOURCE<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>either<span class="w"> </span>a<span class="w"> </span>Google<span class="w"> </span>Storage<span class="w"> </span>Bucket<span class="w"> </span>path<span class="w"> </span><span class="o">(</span>gs://...<span class="o">)</span>.
+<span class="w">                        </span>You<span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>use<span class="w"> </span>named<span class="w"> </span>mounts<span class="w"> </span>like<span class="w"> </span><span class="sb">`</span><span class="nv">INDIR</span><span class="o">=</span>gs://my-bucket/inputs<span class="sb">`</span><span class="w"> </span>and<span class="w"> </span>the<span class="w"> </span>directory<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>mounted<span class="w"> </span>to<span class="w"> </span><span class="sb">`</span>/mnt/disks/INDIR<span class="sb">`</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>VM<span class="p">;</span>
+<span class="w">                        </span><span class="k">then</span><span class="w"> </span>you<span class="w"> </span>can<span class="w"> </span>use<span class="w"> </span>environment<span class="w"> </span>variable<span class="w"> </span><span class="sb">`</span><span class="nv">$INDIR</span><span class="sb">`</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>command/script<span class="w"> </span>to<span class="w"> </span>refer<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>mounted<span class="w"> </span>path.
+<span class="w">                        </span>You<span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>mount<span class="w"> </span>a<span class="w"> </span>file<span class="w"> </span>like<span class="w"> </span><span class="sb">`</span><span class="nv">INFILE</span><span class="o">=</span>gs://my-bucket/inputs/file.txt<span class="sb">`</span>.<span class="w"> </span>The<span class="w"> </span>parent<span class="w"> </span>directory<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>mounted<span class="w"> </span>to<span class="w"> </span><span class="sb">`</span>/mnt/disks/INFILE/inputs<span class="sb">`</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>the
+<span class="w">                        </span>VM,
+<span class="w">                        </span>and<span class="w"> </span>the<span class="w"> </span>file<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>available<span class="w"> </span>at<span class="w"> </span><span class="sb">`</span>/mnt/disks/INFILE/inputs/file.txt<span class="sb">`</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>VM.<span class="w"> </span><span class="sb">`</span><span class="nv">$INFILE</span><span class="sb">`</span><span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>be<span class="w"> </span>used<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>command/script<span class="w"> </span>to<span class="w"> </span>refer<span class="w"> </span>to<span class="w"> </span>the
+<span class="w">                        </span>mounted<span class="w"> </span>path.
+<span class="w">                        </span><span class="o">[</span>default:<span class="w"> </span><span class="o">[]]</span>
+<span class="w">  </span>--gbatch.mount-as-cwd<span class="w"> </span>MOUNT_AS_CWD
+<span class="w">                        </span>The<span class="w"> </span>directory<span class="w"> </span>to<span class="w"> </span>mount<span class="w"> </span>as<span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>working<span class="w"> </span>directory<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>command.
+<span class="w">                        </span>This<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>shortcut<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="sb">`</span>--mount<span class="w"> </span>&lt;cloudpath&gt;:/mnt/disks/.cwd<span class="w"> </span>--cwd<span class="w"> </span>/mnt/disks/.cwd<span class="sb">`</span>.
+<span class="w">                        </span>The<span class="w"> </span>&lt;cloudpath&gt;<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>a<span class="w"> </span>Google<span class="w"> </span>Storage<span class="w"> </span>Bucket<span class="w"> </span>path<span class="w"> </span><span class="o">(</span>gs://...<span class="o">)</span>.<span class="w"> </span>When<span class="w"> </span>this<span class="w"> </span>option<span class="w"> </span>is<span class="w"> </span>used,
+<span class="w">                        </span>and<span class="w"> </span><span class="sb">`</span>--workdir<span class="sb">`</span><span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>provided,<span class="w"> </span>the<span class="w"> </span>workdir<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span><span class="nb">set</span><span class="w"> </span>to<span class="w"> </span><span class="sb">`</span>&lt;cloudpath&gt;/.pipen/&lt;command_name&gt;<span class="sb">`</span>,
+<span class="w">                        </span>where<span class="w"> </span>&lt;command_name&gt;<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span><span class="nb">command</span><span class="w"> </span><span class="o">(</span>or<span class="w"> </span>the<span class="w"> </span>value<span class="w"> </span>of<span class="w"> </span><span class="sb">`</span>--name<span class="sb">`</span><span class="w"> </span><span class="k">if</span><span class="w"> </span>provided<span class="o">)</span>.
+<span class="w">  </span>--gbatch.service-account<span class="w"> </span>SERVICE_ACCOUNT
+<span class="w">                        </span>The<span class="w"> </span>service<span class="w"> </span>account<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>the<span class="w"> </span>job.
+<span class="w">  </span>--gbatch.network<span class="w"> </span>NETWORK
+<span class="w">                        </span>The<span class="w"> </span>network<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>the<span class="w"> </span>job.
+<span class="w">  </span>--gbatch.subnetwork<span class="w"> </span>SUBNETWORK
+<span class="w">                        </span>The<span class="w"> </span>subnetwork<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>the<span class="w"> </span>job.
+<span class="w">  </span>--gbatch.no-external-ip-address
+<span class="w">                        </span>Whether<span class="w"> </span>to<span class="w"> </span>disable<span class="w"> </span>external<span class="w"> </span>IP<span class="w"> </span>address<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>VM.
+<span class="w">  </span>--gbatch.machine-type<span class="w"> </span>MACHINE_TYPE
+<span class="w">                        </span>The<span class="w"> </span>machine<span class="w"> </span><span class="nb">type</span><span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>VM.
+<span class="w">  </span>--gbatch.provisioning-model<span class="w"> </span><span class="o">{</span>STANDARD,SPOT<span class="o">}</span>
+<span class="w">                        </span>The<span class="w"> </span>provisioning<span class="w"> </span>model<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>VM.
+<span class="w">  </span>--gbatch.image-uri<span class="w"> </span>IMAGE_URI
+<span class="w">                        </span>The<span class="w"> </span>custom<span class="w"> </span>image<span class="w"> </span>URI<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>VM.
+<span class="w">  </span>--gbatch.runnables<span class="w"> </span>RUNNABLES
+<span class="w">                        </span>The<span class="w"> </span>JSON<span class="w"> </span>string<span class="w"> </span>of<span class="w"> </span>extra<span class="w"> </span>settings<span class="w"> </span>of<span class="w"> </span>runnables<span class="w"> </span>add<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>job.json.
+<span class="w">                        </span>Refer<span class="w"> </span>to<span class="w"> </span>https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#Runnable<span class="w"> </span><span class="k">for</span><span class="w"> </span>details.
+<span class="w">                        </span>You<span class="w"> </span>can<span class="w"> </span>have<span class="w"> </span>an<span class="w"> </span>extra<span class="w"> </span>key<span class="w"> </span><span class="s1">&#39;order&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>runnable,<span class="w"> </span>where<span class="w"> </span>negative<span class="w"> </span>values<span class="w"> </span>mean<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>before<span class="w"> </span>the<span class="w"> </span>main<span class="w"> </span>command,
+<span class="w">                        </span>and<span class="w"> </span>positive<span class="w"> </span>values<span class="w"> </span>mean<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>after<span class="w"> </span>the<span class="w"> </span>main<span class="w"> </span>command.
+<span class="w">  </span>--gbatch.allocationPolicy<span class="w"> </span>ALLOCATIONPOLICY
+<span class="w">                        </span>The<span class="w"> </span>JSON<span class="w"> </span>string<span class="w"> </span>of<span class="w"> </span>extra<span class="w"> </span>settings<span class="w"> </span>of<span class="w"> </span>allocationPolicy<span class="w"> </span>add<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>job.json.<span class="w"> </span>Refer<span class="w"> </span>to
+<span class="w">                        </span>https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#AllocationPolicy<span class="w"> </span><span class="k">for</span><span class="w"> </span>details.<span class="w"> </span><span class="o">[</span>default:<span class="w"> </span><span class="o">{}]</span>
+<span class="w">  </span>--gbatch.taskGroups<span class="w"> </span>TASKGROUPS
+<span class="w">                        </span>The<span class="w"> </span>JSON<span class="w"> </span>string<span class="w"> </span>of<span class="w"> </span>extra<span class="w"> </span>settings<span class="w"> </span>of<span class="w"> </span>taskGroups<span class="w"> </span>add<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>job.json.<span class="w"> </span>Refer<span class="w"> </span>to
+<span class="w">                        </span>https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#TaskGroup<span class="w"> </span><span class="k">for</span><span class="w"> </span>details.<span class="w"> </span><span class="o">[</span>default:<span class="w"> </span><span class="o">[]]</span>
+<span class="w">  </span>--gbatch.labels<span class="w"> </span>LABELS
+<span class="w">                        </span>The<span class="w"> </span>strings<span class="w"> </span>of<span class="w"> </span>labels<span class="w"> </span>to<span class="w"> </span>add<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>job<span class="w"> </span><span class="o">(</span><span class="nv">key</span><span class="o">=</span>value<span class="o">)</span>.<span class="w"> </span>Refer<span class="w"> </span>to
+<span class="w">                        </span>https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#Job.FIELDS.labels<span class="w"> </span><span class="k">for</span><span class="w"> </span>details.<span class="w"> </span><span class="o">[</span>default:<span class="w"> </span><span class="o">[]]</span>
+<span class="w">  </span>--gbatch.gcloud<span class="w"> </span>GCLOUD
+<span class="w">                        </span>The<span class="w"> </span>path<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>gcloud<span class="w"> </span>command.<span class="w"> </span><span class="o">[</span>default:<span class="w"> </span>gcloud<span class="o">]</span>
+</code></pre></div>
+<p>When <code>--gbatch.profile</code> is provided, the default scheduler options will be used from <code>~/.pipen.toml</code> and <code>./pipen.toml</code>. For example, you can add the following to <code>~/.pipen.toml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[gbatch.scheduler_opts]</span>
+<span class="n">project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-project&quot;</span>
+<span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;us-central1&quot;</span>
+</code></pre></div>
+<p>Then you can run the pipeline using the following command:</p>
+<div class="highlight"><pre><span></span><code>&gt;<span class="w"> </span>immunopipe<span class="w"> </span>gbatch<span class="w"> </span>@config.toml<span class="w"> </span>--gbatch.profile<span class="w"> </span>gbatch
+</code></pre></div>
+<p>To use the default <code>project</code> and <code>location</code>.</p>
+<p>You can also specify these options directly in the command line or under a section <code>cli-gbatch</code> in the configuration file. The options specified in the command line will override the ones in the configuration file, which will override the ones in the profile.</p>
+<p>For example, you may have the following in <code>config.toml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Immunopipe&quot;</span>
+<span class="n">workdir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gs://my-bucket/immunopipe_workdir&quot;</span>
+<span class="n">outdir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gs://my-bucket/immunopipe_outdir&quot;</span>
+
+<span class="k">[cli-gbatch]</span>
+<span class="n">project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-project&quot;</span>
+<span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;us-central1&quot;</span>
+<span class="n">machine-type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;n2d-standard-4&quot;</span>
+<span class="n">provisioning-model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;SPOT&quot;</span>
+<span class="p">...</span>
+</code></pre></div>
+<p>There are other actions you can do with <code>gbatch</code>:</p>
+<ul>
+<li><code>immunopipe gbatch @config.toml --nowait</code>: submit the job and exit without waiting for the job to finish.</li>
+<li><code>immunopipe gbatch @config.toml --view-logs</code>: view the logs of the job for the detached job.</li>
+<li><code>immunopipe gbatch @config.toml --version</code>: show the version of <code>immunopipe</code>, <code>pipen-cli-gbatch</code> and <code>pipen</code>.</li>
+</ul>
+<p>Here is a diagram showing the difference between using the <code>gbatch</code> scheduler and using <code>pipen-cli-gbatch</code>:</p>
+<p><img alt="gbatch-vs-pipen-cli-gbatch" src="../immunopipe.gbatch.png" /></p>
+<h4 id="use-google-cloud-batch-jobs-directly-not-recommended">Use Google Cloud Batch Jobs directly (not recommended)<a class="headerlink" href="#use-google-cloud-batch-jobs-directly-not-recommended" title="Permanent link">&para;</a></h4>
+<p>You can also run the pipeline using Google Cloud Batch Jobs directly. In this case, you need to create a job definition file and submit the job using <code>gcloud batch jobs submit</code>. The job definition file should specify the container image, the command to run the pipeline, and the resources required for the job.</p>
+<p>Here is an example of a job definition file (<code>job.json</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;allocationPolicy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;serviceAccount&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;network&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;instances&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;machineType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;n2d-standard-4&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;provisioningModel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SPOT&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;taskGroups&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;taskSpec&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;runnables&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;container&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;image_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;docker.io/justold/immunopipe:dev&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;entrypoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/usr/local/bin/_entrypoint.sh&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;commands&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;immunopipe&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;@/mnt/disks/workdir/Immunopipe.config.toml&quot;</span>
+<span class="w">              </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;volumes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;gcs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;remotePath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;bucket&gt;/path/to/workdir&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;mountPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/mnt/disks/workdir&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;logsPolicy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;destination&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CLOUD_LOGGING&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;labels&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Then you can submit the job using the following command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>gcloud<span class="w"> </span>batch<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>submit<span class="w"> </span>&lt;job-name&gt;<span class="w"> </span>--location<span class="w"> </span>&lt;location&gt;<span class="w"> </span>--project<span class="w"> </span>&lt;project-id&gt;<span class="w"> </span>--config<span class="w"> </span>job.json
+</code></pre></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../gallery/" class="btn btn-neutral float-left" title="Gallery"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../preparing-input/" class="btn btn-neutral float-right" title="Preparing the input">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../gallery/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../preparing-input/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/version-select.js"></script>
+      <script src="../assets/script.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

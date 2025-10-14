@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>SeuratClusterStats - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "SeuratClusterStats";
+        var mkdocs_page_input_path = "processes/SeuratClusterStats.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TCRClustering/">TCRClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">SeuratClusterStats</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#number-of-cells-in-each-cluster">Number of cells in each cluster</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#number-of-cells-in-each-cluster-by-groups">Number of cells in each cluster by groups</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#violin-plots-for-the-gene-expressions">Violin plots for the gene expressions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dimension-reduction-plot-with-labels">Dimension reduction plot with labels</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
+      <li class="breadcrumb-item active">SeuratClusterStats</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/SeuratClusterStats.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="seuratclusterstats">SeuratClusterStats<a class="headerlink" href="#seuratclusterstats" title="Permanent link">&para;</a></h2>
+<p>Statistics of the clustering.</p>
+<p>Including the number/fraction of cells in each cluster, the gene expression values
+and dimension reduction plots. It's also possible to perform stats on
+TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>srtobj</code>:
+    The seurat object loaded by <code>SeuratClustering</code></li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outdir</code>: <em>Default: <code>{{in.srtobj | stem}}.cluster_stats</code></em>. <br />
+    The output directory.<br />
+    Different types of plots will be saved in different subdirectories.<br />
+    For example, <code>clustree</code> plots will be saved in <code>clustrees</code> subdirectory.<br />
+    For each case in <code>envs.clustrees</code>, both the png and pdf files will be saved.<br /></li>
+</ul>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The mutaters to mutate the metadata to subset the cells.<br />
+    The mutaters will be applied in the order specified.<br />
+    You can also use the clone selectors to select the TCR clones/clusters.<br />
+    See <a href="https://pwwang.github.io/scplotter/reference/clone_selectors.html">https://pwwang.github.io/scplotter/reference/clone_selectors.html</a>.<br /></li>
+<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
+    Whether to cache the plots.<br />
+    Currently only plots for features are supported, since creating the those
+    plots can be time consuming.<br />
+    If <code>True</code>, the plots will be cached in the job output directory, which will
+    be not cleaned up when job is rerunning.<br /></li>
+<li><code>clustrees_defaults</code> <em>(<code>ns</code>)</em>:
+    The parameters for the clustree plots.<br /><ul>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the clustree plot.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The formats to save the plots other than <code>png</code>.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code to reproduce the plot.<br /></li>
+<li><code>prefix</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    string indicating columns containing clustering information.<br />
+    The trailing dot is not necessary and will be added automatically.<br />
+    When <code>TRUE</code>, clustrees will be plotted when there is <code>FindClusters</code> or
+    <code>FindClusters.*</code> in the <code>obj@commands</code>.<br />
+    The latter is generated by <code>SeuratSubClustering</code>.<br />
+    This will be ignored when <code>envs.clustrees</code> is specified
+    (the prefix of each case must be specified separately).<br /></li>
+<li><code>&lt;more&gt;</code>:
+    Other arguments passed to <code>scplotter::ClustreePlot</code>.<br />
+    See <a href="https://pwwang.github.io/scplotter/reference/ClustreePlot.html">https://pwwang.github.io/scplotter/reference/ClustreePlot.html</a></li>
+</ul>
+</li>
+<li><code>clustrees</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The cases for clustree plots.<br />
+    Keys are the names of the plots and values are the dicts inherited from <code>env.clustrees_defaults</code> except <code>prefix</code>.<br />
+    There is no default case for <code>clustrees</code>.<br /></li>
+<li><code>stats_defaults</code> <em>(<code>ns</code>)</em>:
+    The default parameters for <code>stats</code>.<br />
+    This is to do some basic statistics on the clusters/cells. For more comprehensive analysis,
+    see <a href="https://pwwang.github.io/scplotter/reference/CellStatPlot.html">https://pwwang.github.io/scplotter/reference/CellStatPlot.html</a>.<br />
+    The parameters from the cases can overwrite the default parameters.<br /><ul>
+<li><code>subset</code>:
+    An expression to subset the cells, will be passed to <code>tidyrseurat::filter()</code>.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the clustree plot.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>descr</code>:
+    The description of the plot, showing in the report.<br /></li>
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The formats to save the plots other than <code>png</code>.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code to reproduce the plot.<br /></li>
+<li><code>save_data</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the data used to generate the plot.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    Other arguments passed to <code>scplotter::CellStatPlot</code>.<br />
+    See <a href="https://pwwang.github.io/scplotter/reference/CellStatPlot.html">https://pwwang.github.io/scplotter/reference/CellStatPlot.html</a>.<br /></li>
+</ul>
+</li>
+<li>
+<p><code>stats</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Number of cells in each cluster (Bar Chart)': Diot({'plot_type': 'bar', 'x_text_angle': 90}), 'Number of cells in each cluster by Sample (Bar Chart)': Diot({'plot_type': 'bar', 'group_by': 'Sample', 'x_text_angle': 90})}</code></em>. <br />
+    The number/fraction of cells to plot.<br />
+    Keys are the names of the plots and values are the dicts inherited from <code>env.stats_defaults</code>.<br />
+    Here are some examples -</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="s2">&quot;nCells_All&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;nCells_Sample&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;group_by&quot;</span><span class="p">:</span> <span class="s2">&quot;Sample&quot;</span><span class="p">},</span>
+    <span class="s2">&quot;fracCells_Sample&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;scale_y&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;group_by&quot;</span><span class="p">:</span> <span class="s2">&quot;Sample&quot;</span><span class="p">,</span> <span class="n">plot_type</span> <span class="o">=</span> <span class="s2">&quot;pie&quot;</span><span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
+</li>
+<li>
+<p><code>ngenes_defaults</code> <em>(<code>ns</code>)</em>:
+    The default parameters for <code>ngenes</code>.<br />
+    The default parameters to plot the number of genes expressed in each cell.<br /></p>
+<ul>
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The formats to save the plots other than <code>png</code>.<br /></li>
+<li><code>subset</code>:
+    An expression to subset the cells, will be passed to <code>tidyrseurat::filter()</code>.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>800</code></em>. <br />
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The width of the plots.<br /></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>ngenes</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Number of genes expressed in each cluster': Diot({})}</code></em>. <br />
+    The number of genes expressed in each cell.<br />
+    Keys are the names of the plots and values are the dicts inherited from <code>env.ngenes_defaults</code>.<br /></li>
+<li><code>features_defaults</code> <em>(<code>ns</code>)</em>:
+    The default parameters for <code>features</code>.<br /><ul>
+<li><code>features</code> <em>(<code>type=auto</code>)</em>:
+    The features to plot.<br />
+    It can be either a string with comma separated features, a list of features, a file path with <code>file://</code> prefix with features
+    (one per line), or an integer to use the top N features from <code>VariantFeatures(srtobj)</code>.<br />
+    It can also be a dict with the keys as the feature group names and the values as the features, which
+    is used for heatmap to group the features.<br /></li>
+<li><code>order_by</code> <em>(<code>type=auto</code>)</em>:
+    The order of the clusters to show on the plot.<br />
+    An expression passed to <code>dplyr::arrange()</code> on the grouped meta data frame (by <code>ident</code>).<br />
+    For example, you can order the clusters by the activation score of
+    the cluster: <code>desc(mean(ActivationScore, na.rm = TRUE))</code>, suppose you have a column
+    <code>ActivationScore</code> in the metadata.<br />
+    You may also specify the literal order of the clusters by a list of strings (at least two).<br /></li>
+<li><code>subset</code>:
+    An expression to subset the cells, will be passed to <code>tidyrseurat::filter()</code>.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots. Does not work for <code>table</code>.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>descr</code>:
+    The description of the plot, showing in the report.<br /></li>
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The formats to save the plots other than <code>png</code>.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code to reproduce the plot.<br /></li>
+<li><code>save_data</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the data used to generate the plot.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    Other arguments passed to <code>scplotter::FeatureStatPlot</code>.<br />
+    See <a href="https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html">https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html</a></li>
+</ul>
+</li>
+<li><code>features</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The plots for features, include gene expressions, and columns from metadata.<br />
+    Keys are the titles of the cases and values are the dicts inherited from <code>env.features_defaults</code>.<br /></li>
+<li><code>dimplots_defaults</code> <em>(<code>ns</code>)</em>:
+    The default parameters for <code>dimplots</code>.<br /><ul>
+<li><code>group_by</code>: <em>Default: <code>seurat_clusters</code></em>. <br />
+    The identity to use.<br />
+    If it is from subclustering (reduction <code>sub_umap_&lt;ident&gt;</code> exists), this reduction will be used if <code>reduction</code>
+    is set to <code>dim</code> or <code>auto</code>.<br /></li>
+<li><code>split_by</code>:
+    The column name in metadata to split the cells into different plots.<br /></li>
+<li><code>subset</code>:
+    An expression to subset the cells, will be passed to <code>tidyrseurat::filter()</code>.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>reduction</code> <em>(<code>choice</code>)</em>: <em>Default: <code>dim</code></em>. <br />
+    Which dimensionality reduction to use.<br /><ul>
+<li><code>dim</code>:
+    Use <code>Seurat::DimPlot</code>.<br />
+    First searches for <code>umap</code>, then <code>tsne</code>, then <code>pca</code>.<br />
+    If <code>ident</code> is from subclustering, <code>sub_umap_&lt;ident&gt;</code> will be used.<br /></li>
+<li><code>auto</code>:
+    Same as <code>dim</code></li>
+<li><code>umap</code>:
+    Use <code>Seurat::UMAPPlot</code>.<br /></li>
+<li><code>tsne</code>:
+    Use <code>Seurat::TSNEPlot</code>.<br /></li>
+<li><code>pca</code>:
+    Use <code>Seurat::PCAPlot</code>.<br /></li>
+</ul>
+</li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://pwwang.github.io/scplotter/reference/CellDimPlot.html">https://pwwang.github.io/scplotter/reference/CellDimPlot.html</a></li>
+</ul>
+</li>
+<li><code>dimplots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Dimensional reduction plot': Diot({'label': True}), 'VDJ Presence': Diot({'group_by': 'VDJ_Presence'})}</code></em>. <br />
+    The dimensional reduction plots.<br />
+    Keys are the titles of the plots and values are the dicts inherited from <code>env.dimplots_defaults</code>. It can also have other parameters from
+    <a href="https://pwwang.github.io/scplotter/reference/CellDimPlot.html"><code>scplotter::CellDimPlot</code></a>.<br /></li>
+</ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<h4 id="number-of-cells-in-each-cluster">Number of cells in each cluster<a class="headerlink" href="#number-of-cells-in-each-cluster" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.stats]</span>
+<span class="c1"># suppose you have nothing set in `envs.stats_defaults`</span>
+<span class="c1"># otherwise, the settings will be inherited here</span>
+<span class="n">nCells_All</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="nCells_All" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_nCells_All.png" width="80%" /></p>
+<h4 id="number-of-cells-in-each-cluster-by-groups">Number of cells in each cluster by groups<a class="headerlink" href="#number-of-cells-in-each-cluster-by-groups" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.stats]</span>
+<span class="n">nCells_Sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">group_by</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;Sample&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="nCells_Sample" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_nCells_Sample.png" width="80%" /></p>
+<h4 id="violin-plots-for-the-gene-expressions">Violin plots for the gene expressions<a class="headerlink" href="#violin-plots-for-the-gene-expressions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.features]</span>
+<span class="n">features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;CD4,CD8A&quot;</span>
+<span class="c1"># Remove the dots in the violin plots</span>
+<span class="n">vlnplots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pt-size</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;vln&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="c1"># Don&#39;t use the default genes</span>
+<span class="n">vlnplots_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">features</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;FOXP3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;IL2RA&quot;</span><span class="p">],</span><span class="w"> </span><span class="n">pt-size</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;vln&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="vlnplots" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_vlnplots.png" width="80%" />
+<img alt="vlnplots_1" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_vlnplots_1.png" width="80%" /></p>
+<h4 id="dimension-reduction-plot-with-labels">Dimension reduction plot with labels<a class="headerlink" href="#dimension-reduction-plot-with-labels" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.dimplots.Idents]</span>
+<span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+<p><img alt="dimplots" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_dimplots.png" width="80%" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../TESSA/" class="btn btn-neutral float-left" title="TESSA"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../ScFGSEA/" class="btn btn-neutral float-right" title="ScFGSEA">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../TESSA/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../ScFGSEA/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/version-select.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
