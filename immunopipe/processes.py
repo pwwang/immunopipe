@@ -230,6 +230,9 @@ class SampleInfo(SampleInfo_):
     envs = {"exclude_cols": "TCRData,BCRData,RNAData"}
 
 
+start_processes = [SampleInfo]
+
+
 if just_loading or config.has_vdj:
 
     @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
@@ -261,6 +264,8 @@ if just_loading or "LoadRNAFromSeurat" in config:
             "prepared": False,
             "clustered": False,
         }
+
+    start_processes.append(LoadRNAFromSeurat)
 
 else:
     LoadRNAFromSeurat = None
