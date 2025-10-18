@@ -284,13 +284,12 @@ class SeuratPreparing(SeuratPreparing_):
         ![SeuratPreparing-metadata]({{baseurl}}/processes/images/SeuratPreparing-metadata.png)
     """  # noqa: E501
 
-    if "LoadRNAFromSeurat" in config and config.LoadRNAFromSeurat.envs.prepared:
+    if "LoadRNAFromSeurat" in config and not config.LoadRNAFromSeurat.envs.prepared:
         requires = LoadRNAFromSeurat
     else:
         requires = SampleInfo
 
 
-# if just_loading or "TCellSelection" in config:
 if just_loading or "TOrBCellSelection" in config:
     # No matter "SeuratClusteringOfAllCells" is in the config or not
     @annotate.format_doc(indent=2)
