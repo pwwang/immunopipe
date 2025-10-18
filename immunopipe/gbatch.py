@@ -185,10 +185,11 @@ async def main(argv):
     cli_gbatch_config.commands = ["{lang}", "{script}"]
 
     pipe = Immunopipe()
-    # Let on_init() hook handle argument parsing
+    # Let on_init() hook handle argument parsing, e.g. print help message
     if len(argv) == 0:
         pipe.run()
     elif not cli_gbatch_config.version and not cli_gbatch_config.view_logs:
+        # Set parser._cli_args
         await ArgsPlugin.on_init.impl(pipe)
 
     if not cli_gbatch_config.project:
