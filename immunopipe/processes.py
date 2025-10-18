@@ -213,7 +213,7 @@ class SampleInfo(SampleInfo_):
         ![Age_distribution_per_Sex_in_each_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png)
 
     Input:
-        infile (required): {{Input.infile.help | indent: 12}}.
+        infile%(required)s: {{Input.infile.help | indent: 12}}.
             The input file should have the following columns.
             * Sample: A unique id for each sample.
             * TCRData/BCRData: The directory for single-cell TCR/BCR data for this sample.
@@ -225,7 +225,7 @@ class SampleInfo(SampleInfo_):
                 See also https://satijalab.org/seurat/reference/read10x.
             * Other columns are optional and will be treated as metadata for
                 each sample.
-    """  # noqa: E501
+    """ % {"required": "LoadRNAFromSeurat" not in config}  # noqa: E501
 
     envs = {"exclude_cols": "TCRData,BCRData,RNAData"}
 
