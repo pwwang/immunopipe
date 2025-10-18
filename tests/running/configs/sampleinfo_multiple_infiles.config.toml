@@ -1,0 +1,6 @@
+
+[SampleInfo.in]
+infile = [
+    "tests/running/data/sampleinfo.txt",
+    "tests/running/data/sampleinfo.txt",
+]
