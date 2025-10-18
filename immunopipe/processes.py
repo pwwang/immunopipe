@@ -51,186 +51,190 @@ config = validate_config()
 # https://pwwang.github.io/immunopipe/latest/
 DOC_BASEURL = "../../"
 TEST_OUTPUT_BASEURL = "https://raw.githubusercontent.com/pwwang/immunopipe/tests-output"
+start_processes = []
 
 
-@annotate.format_doc(
-    indent=1,
-    vars={"baseurl": DOC_BASEURL, "output_baseurl": TEST_OUTPUT_BASEURL},
-)
-class SampleInfo(SampleInfo_):
-    """{{Summary}}
+if just_loading or "SampleInfo" in config:
+    @annotate.format_doc(
+        indent=2,
+        vars={"baseurl": DOC_BASEURL, "output_baseurl": TEST_OUTPUT_BASEURL},
+    )
+    class SampleInfo(SampleInfo_):
+        """{{Summary}}
 
-    This process is the entrance of the pipeline. It just pass by input file and list
-    the sample information in the report.
+        This process is the entrance of the pipeline. It just pass by input file and list
+        the sample information in the report.
 
-    To specify the input file in the configuration file, use the following
-
-    ```toml
-    [SampleInfo.in]
-    infile = [ "path/to/sample_info.txt" ]
-    ```
-
-    Or with `pipen-board`, find the `SampleInfo` process and click the `Edit` button.
-    Then you can specify the input file here
-
-    ![infile]({{baseurl}}/processes/images/SampleInfo-infile.png)
-
-    Multiple input files are supported by the underlying pipeline framework. However,
-    we recommend to run it with a different pipeline instance with configuration files.
-
-    For the content of the input file, please see details
-    [here]({{baseurl}}/preparing-input.md#metadata).
-
-    You can add some columns to the input file while doing the statistics or you can even
-    pass them on to the next processes. See `envs.mutaters` and `envs.save_mutated`.
-    But if you are adding a factor (categorical) column with desired levels, the order
-    can't be guaranteed, because we are saving them to a text file, where we can't guarantee
-    the order of the levels. If you want to add a factor column with desired levels, you can
-    set `envs.mutaters` of the `SeuratPreparing` process to mutate the column.
-
-    Once the pipeline is finished, you can see the sample information in the report
-
-    ![report]({{baseurl}}/processes/images/SampleInfo-report.png)
-
-    Note that the required `RNAData` (if not loaded from a Seurat object) and `TCRData`/`BCRData`
-    columns are not shown in the report.
-    They are used to specify the paths of the `scRNA-seq` and `scTCR-seq`/`scBCR-seq` data, respectively.
-    Also note that when `RNAData` is loaded from a Seurat object (specified in the
-    `LoadRNAFromSeurat` process), the metadata provided in this process will not be
-    integrated into the Seurat object in the downstream processes. To incoporate
-    these meta information into the Seurat object, please provide them in the
-    Seurat object itself or use the `envs.mutaters` of the `SeuratPreparing` process
-    to mutate the metadata of the Seurat object. But the meta information provided in this
-    process can still be used in the statistics and plots in the report.
-
-    You may also perform some statistics on the sample information, for example,
-    number of samples per group. See next section for details.
-
-    /// Tip
-    This is the start process of the pipeline. Once you change the parameters for
-    this process, the whole pipeline will be re-run.
-
-    If you just want to change the parameters for the statistics, and use the
-    cached (previous) results for other processes, you can set `cache` at
-    pipeline level to `"force"` to force the pipeline to use the cached results
-    and `cache` of `SampleInfo` to `false` to force the pipeline to re-run the
-    `SampleInfo` process only.
-
-    ```toml
-    cache = "force"
-
-    [SampleInfo]
-    cache = false
-    ```
-    ///
-
-    Examples:
-        ### Example data
-
-        | Sample | Age | Sex | Diagnosis |
-        |--------|-----|-----|-----------|
-        | C1     | 62  | F   | Colitis   |
-        | C2     | 71.2| F   | Colitis   |
-        | C3     | 56.2| M   | Colitis   |
-        | C4     | 61.5| M   | Colitis   |
-        | C5     | 72.8| M   | Colitis   |
-        | C6     | 78.4| M   | Colitis   |
-        | C7     | 61.6| F   | Colitis   |
-        | C8     | 49.5| F   | Colitis   |
-        | NC1    | 43.6| M   | NoColitis |
-        | NC2    | 68.1| M   | NoColitis |
-        | NC3    | 70.5| F   | NoColitis |
-        | NC4    | 63.7| M   | NoColitis |
-        | NC5    | 58.5| M   | NoColitis |
-        | NC6    | 49.3| F   | NoColitis |
-        | CT1    | 21.4| F   | Control   |
-        | CT2    | 61.7| M   | Control   |
-        | CT3    | 50.5| M   | Control   |
-        | CT4    | 43.4| M   | Control   |
-        | CT5    | 70.6| F   | Control   |
-        | CT6    | 44.3| M   | Control   |
-        | CT7    | 50.2| M   | Control   |
-        | CT8    | 61.5| F   | Control   |
-
-        ### Count the number of samples per Diagnosis
+        To specify the input file in the configuration file, use the following
 
         ```toml
-        [SampleInfo.envs.stats."N_Samples_per_Diagnosis (pie)"]
-        plot_type = "pie"
-        x = "sample"
-        split_by = "Diagnosis"
+        [SampleInfo.in]
+        infile = [ "path/to/sample_info.txt" ]
         ```
 
-        ![Samples_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png)
+        Or with `pipen-board`, find the `SampleInfo` process and click the `Edit` button.
+        Then you can specify the input file here
 
-        What if we want a bar plot instead of a pie chart?
+        ![infile]({{baseurl}}/processes/images/SampleInfo-infile.png)
+
+        Multiple input files are supported by the underlying pipeline framework. However,
+        we recommend to run it with a different pipeline instance with configuration files.
+
+        For the content of the input file, please see details
+        [here]({{baseurl}}/preparing-input.md#metadata).
+
+        You can add some columns to the input file while doing the statistics or you can even
+        pass them on to the next processes. See `envs.mutaters` and `envs.save_mutated`.
+        But if you are adding a factor (categorical) column with desired levels, the order
+        can't be guaranteed, because we are saving them to a text file, where we can't guarantee
+        the order of the levels. If you want to add a factor column with desired levels, you can
+        set `envs.mutaters` of the `SeuratPreparing` process to mutate the column.
+
+        Once the pipeline is finished, you can see the sample information in the report
+
+        ![report]({{baseurl}}/processes/images/SampleInfo-report.png)
+
+        Note that the required `RNAData` (if not loaded from a Seurat object) and `TCRData`/`BCRData`
+        columns are not shown in the report.
+        They are used to specify the paths of the `scRNA-seq` and `scTCR-seq`/`scBCR-seq` data, respectively.
+        Also note that when `RNAData` is loaded from a Seurat object (specified in the
+        `LoadRNAFromSeurat` process), the metadata provided in this process will not be
+        integrated into the Seurat object in the downstream processes. To incoporate
+        these meta information into the Seurat object, please provide them in the
+        Seurat object itself or use the `envs.mutaters` of the `SeuratPreparing` process
+        to mutate the metadata of the Seurat object. But the meta information provided in this
+        process can still be used in the statistics and plots in the report.
+
+        You may also perform some statistics on the sample information, for example,
+        number of samples per group. See next section for details.
+
+        /// Tip
+        This is the start process of the pipeline. Once you change the parameters for
+        this process, the whole pipeline will be re-run.
+
+        If you just want to change the parameters for the statistics, and use the
+        cached (previous) results for other processes, you can set `cache` at
+        pipeline level to `"force"` to force the pipeline to use the cached results
+        and `cache` of `SampleInfo` to `false` to force the pipeline to re-run the
+        `SampleInfo` process only.
 
         ```toml
-        [SampleInfo.envs.stats."N_Samples_per_Diagnosis (bar)"]
-        plot_type = "bar"
-        x = "Sample"
-        split_by = "Diagnosis"
+        cache = "force"
+
+        [SampleInfo]
+        cache = false
         ```
+        ///
 
-        ![Samples_Diagnosis_bar]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png)
+        Examples:
+            ### Example data
 
-        ### Explore Age distribution
+            | Sample | Age | Sex | Diagnosis |
+            |--------|-----|-----|-----------|
+            | C1     | 62  | F   | Colitis   |
+            | C2     | 71.2| F   | Colitis   |
+            | C3     | 56.2| M   | Colitis   |
+            | C4     | 61.5| M   | Colitis   |
+            | C5     | 72.8| M   | Colitis   |
+            | C6     | 78.4| M   | Colitis   |
+            | C7     | 61.6| F   | Colitis   |
+            | C8     | 49.5| F   | Colitis   |
+            | NC1    | 43.6| M   | NoColitis |
+            | NC2    | 68.1| M   | NoColitis |
+            | NC3    | 70.5| F   | NoColitis |
+            | NC4    | 63.7| M   | NoColitis |
+            | NC5    | 58.5| M   | NoColitis |
+            | NC6    | 49.3| F   | NoColitis |
+            | CT1    | 21.4| F   | Control   |
+            | CT2    | 61.7| M   | Control   |
+            | CT3    | 50.5| M   | Control   |
+            | CT4    | 43.4| M   | Control   |
+            | CT5    | 70.6| F   | Control   |
+            | CT6    | 44.3| M   | Control   |
+            | CT7    | 50.2| M   | Control   |
+            | CT8    | 61.5| F   | Control   |
 
-        The distribution of Age of all samples
+            ### Count the number of samples per Diagnosis
 
-        ```toml
-        [SampleInfo.envs.stats."Age_distribution (histogram)"]
-        plot_type = "histogram"
-        x = "Age"
-        ```
+            ```toml
+            [SampleInfo.envs.stats."N_Samples_per_Diagnosis (pie)"]
+            plot_type = "pie"
+            x = "sample"
+            split_by = "Diagnosis"
+            ```
 
-        ![Age_distribution]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution-Histogram-.png)
+            ![Samples_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png)
 
-        How about the distribution of Age in each Diagnosis, and make it violin + boxplot?
+            What if we want a bar plot instead of a pie chart?
 
-        ```toml
-        [SampleInfo.envs.stats."Age_distribution_per_Diagnosis (violin + boxplot)"]
-        y = "Age"
-        x = "Diagnosis"
-        plot_type = "violin"
-        add_box = true
-        ```
+            ```toml
+            [SampleInfo.envs.stats."N_Samples_per_Diagnosis (bar)"]
+            plot_type = "bar"
+            x = "Sample"
+            split_by = "Diagnosis"
+            ```
 
-        ![Age_distribution_per_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png)
+            ![Samples_Diagnosis_bar]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png)
 
-        How about Age distribution per Sex in each Diagnosis?
+            ### Explore Age distribution
 
-        ```toml
-        [SampleInfo.envs.stats."Age_distribution_per_Sex_in_each_Diagnosis (boxplot)"]
-        y = "Age"
-        x = "Sex"
-        split_by = "Diagnosis"
-        plot_type = "box"
-        ncol = 3
-        devpars = {height = 450}
-        ```
+            The distribution of Age of all samples
 
-        ![Age_distribution_per_Sex_in_each_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png)
+            ```toml
+            [SampleInfo.envs.stats."Age_distribution (histogram)"]
+            plot_type = "histogram"
+            x = "Age"
+            ```
 
-    Input:
-        infile%(required)s: {{Input.infile.help | indent: 12}}.
-            The input file should have the following columns.
-            * Sample: A unique id for each sample.
-            * TCRData/BCRData: The directory for single-cell TCR/BCR data for this sample.
-                Specifically, it should contain filtered_contig_annotations.csv
-                or all_contig_annotations.csv from cellranger.
-            * RNAData: The directory for single-cell RNA data for this sample.
-                Specifically, it should be able to be read by
-                `Seurat::Read10X()` or `Seurat::Read10X_h5()` or `SeuratDisk::LoadLoom()`.
-                See also https://satijalab.org/seurat/reference/read10x.
-            * Other columns are optional and will be treated as metadata for
-                each sample.
-    """ % {"required": "LoadRNAFromSeurat" not in config}  # noqa: E501
+            ![Age_distribution]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution-Histogram-.png)
 
-    envs = {"exclude_cols": "TCRData,BCRData,RNAData"}
+            How about the distribution of Age in each Diagnosis, and make it violin + boxplot?
 
+            ```toml
+            [SampleInfo.envs.stats."Age_distribution_per_Diagnosis (violin + boxplot)"]
+            y = "Age"
+            x = "Diagnosis"
+            plot_type = "violin"
+            add_box = true
+            ```
 
-start_processes = [SampleInfo]
+            ![Age_distribution_per_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png)
+
+            How about Age distribution per Sex in each Diagnosis?
+
+            ```toml
+            [SampleInfo.envs.stats."Age_distribution_per_Sex_in_each_Diagnosis (boxplot)"]
+            y = "Age"
+            x = "Sex"
+            split_by = "Diagnosis"
+            plot_type = "box"
+            ncol = 3
+            devpars = {height = 450}
+            ```
+
+            ![Age_distribution_per_Sex_in_each_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png)
+
+        Input:
+            infile%(required)s: {{Input.infile.help | indent: 12}}.
+                The input file should have the following columns.
+                * Sample: A unique id for each sample.
+                * TCRData/BCRData: The directory for single-cell TCR/BCR data for this sample.
+                    Specifically, it should contain filtered_contig_annotations.csv
+                    or all_contig_annotations.csv from cellranger.
+                * RNAData: The directory for single-cell RNA data for this sample.
+                    Specifically, it should be able to be read by
+                    `Seurat::Read10X()` or `Seurat::Read10X_h5()` or `SeuratDisk::LoadLoom()`.
+                    See also https://satijalab.org/seurat/reference/read10x.
+                * Other columns are optional and will be treated as metadata for
+                    each sample.
+        """ % {"required": "LoadRNAFromSeurat" not in config}  # noqa: E501
+
+        envs = {"exclude_cols": "TCRData,BCRData,RNAData"}
+
+    start_processes.append(SampleInfo)
+
+else:
+    SampleInfo = None
 
 
 if just_loading or config.has_vdj:
