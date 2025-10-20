@@ -187,8 +187,7 @@
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>outfile</code>: <em>Default: <code>{{in.infile | basename}}</code></em>. <br />
-    The output symbolic link to the input file</li>
+<li><code>outfile</code>: <em>Default: <code>{{in.infile | basename}}</code></em>. <br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
@@ -200,6 +199,9 @@
     <code>SeuratClustering</code> (<code>SeuratClusteringOfAllCells</code>) process or
     <code>SeuratMap2Ref</code> is not needed.<br />
     Force <code>prepared</code> to be <code>True</code> if this is <code>True</code>.<br /></li>
+<li><code>sample</code>: <em>Default: <code>Sample</code></em>. <br />
+    The column name in the metadata of the Seurat object that
+    indicates the sample name.<br /></li>
 </ul>
               
             </div>

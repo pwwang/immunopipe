@@ -238,7 +238,9 @@ If you are using <code>cca</code> or <code>rpca</code> interation, the default a
     <code>Sample</code> to specify the sample names.<br />
     <code>RNAData</code> to assign the path of the data to the samples
     The path will be read by <code>Read10X()</code> from <code>Seurat</code>, or the path
-    to the h5 file that can be read by <code>Read10X_h5()</code> from <code>Seurat</code>.<br /></li>
+    to the h5 file that can be read by <code>Read10X_h5()</code> from <code>Seurat</code>.<br />
+    It can also be an RDS or qs2 file containing a <code>Seurat</code> object.<br />
+    Note that it must has a column named <code>Sample</code> in the meta.data to specify the sample names.<br /></li>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
@@ -260,12 +262,12 @@ If you are using <code>cca</code> or <code>rpca</code> interation, the default a
     The minimum number of cells that a gene must be
     expressed in to be kept. This is used in <code>Seurat::CreateSeuratObject()</code>.<br />
     Futher QC (<code>envs.cell_qc</code>, <code>envs.gene_qc</code>) will be performed after this.<br />
-    It doesn't work when data is loaded from loom files.<br /></li>
+    It doesn't work when data is loaded from loom files or RDS/qs2 files.<br /></li>
 <li><code>min_features</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>0</code></em>. <br />
     The minimum number of features that a cell must
     express to be kept. This is used in <code>Seurat::CreateSeuratObject()</code>.<br />
     Futher QC (<code>envs.cell_qc</code>, <code>envs.gene_qc</code>) will be performed after this.<br />
-    It doesn't work when data is loaded from loom files.<br /></li>
+    It doesn't work when data is loaded from loom files or RDS/qs2 files.<br /></li>
 <li>
 <p><code>cell_qc</code>:
     Filter expression to filter cells, using
