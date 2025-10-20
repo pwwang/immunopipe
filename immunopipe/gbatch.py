@@ -187,7 +187,12 @@ async def main(argv):
     pipe = Immunopipe()
     # Let on_init() hook handle argument parsing, e.g. print help message
     if len(argv) == 0:
-        pipe.run()
+        # Print a simple usage message
+        print(
+            "Usage: immunopipe gbatch [options to run pipeline on Google Cloud Batch]"
+        )
+        print("Try 'immunopipe gbatch --help' for more information.\n")
+        sys.exit(0)
     elif not cli_gbatch_config.version and not cli_gbatch_config.view_logs:
         # Set parser._cli_args
         await ArgsPlugin.on_init.impl(pipe)

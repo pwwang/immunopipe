@@ -46,7 +46,7 @@ from .inhouse import (
 from .validate_config import validate_config
 
 toml_dumps = FILTERS["toml_dumps"]
-just_loading = is_loading_pipeline("-h", "--help", "-h+", "--help+")
+just_loading = is_loading_pipeline("help", "-h", "--help", "-h+", "--help+")
 config = validate_config()
 
 # https://pwwang.github.io/immunopipe/latest/
