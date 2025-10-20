@@ -1,4 +1,5 @@
 import pytest
+import re
 import sys
 from pathlib import Path
 from subprocess import Popen, PIPE
@@ -61,24 +62,28 @@ def test_log_error_no_message(caplog):
 def test_validate_config_malformed_config():
     args = [f"@{configs_dir}/malformed.config.toml"]
     stdout = _run_with_argv(args)
+    stdout = re.sub(r"\s\n+", " ", stdout)
     assert "Failed to load configuration." in stdout
 
 
 def test_validate_config_gbatch():
     args = ["gbatch"]
     stdout = _run_with_argv(args)
+    stdout = re.sub(r"\s\n+", " ", stdout)
     assert "options to run pipeline on Google Cloud Batch" in stdout
 
 
 def test_validate_config_torbcellselection_seuratclusteringofallcells():
     args = [f"@{configs_dir}/torbcellselection_seuratclusteringofallcells.config.toml"]
     stdout = _run_with_argv(args)
+    stdout = re.sub(r"\s\n+", " ", stdout)
     assert "All cells are T cells" in stdout
 
 
 def test_validate_config_mixed():
     args = [f"@{configs_dir}/mixed.config.toml"]
     stdout = _run_with_argv(args)
+    stdout = re.sub(r"\s\n+", " ", stdout)
     assert "Miscofigurations detected:" in stdout
     assert (
         "[ClusterMarkersOfAllCells] should not be used and will be ignored."
@@ -99,9 +104,11 @@ def test_validate_config_celltypeannotation_seuratmap2ref():
         f"@{configs_dir}/celltypeannotation_seuratmap2ref.config.toml"
     ]
     stdout = _run_with_argv(args)
+    stdout = re.sub(r"\s\n+", " ", stdout)
     assert "Miscofigurations detected:" in stdout
     assert (
-        "[CellTypeAnnotation] is ignored when [SeuratMap2Ref] is used." in stdout
+        "[CellTypeAnnotation] is ignored when [SeuratMap2Ref] is used."
+        in stdout
     )
 
 
@@ -111,6 +118,7 @@ def test_validate_config_loadrnafromseurat():
     ]
     # Runs normally
     stdout = _run_with_argv(args)
+    stdout = re.sub(r"\s\n+", " ", stdout)
     assert "Integrative analysis for scRNA-seq" in stdout
 
 
@@ -121,6 +129,7 @@ def test_validate_config_loadrnafromseurat_clustered():
     ]
     # Runs normally
     stdout = _run_with_argv(args)
+    stdout = re.sub(r"\s\n+", " ", stdout)
     assert "Integrative analysis for scRNA-seq" in stdout
 
 
@@ -130,4 +139,8 @@ def test_validate_config_sampleinfo_multiple_infiles():
     ]
 
     stdout = _run_with_argv(args)
-    assert "More than one input file specified in configuration file" in stdout
+    stdout = re.sub(r"\s\n+", " ", stdout)
+    assert (
+        "More than one input file specified in configuration file"
+        in stdout
+    )
