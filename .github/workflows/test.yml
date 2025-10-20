@@ -74,7 +74,7 @@ jobs:
 
       - name: Check if immunopipe is installed successfully
         run: |
-          if ! immunopipe --help; then
+          if ! immunopipe --help >/dev/null; then
             echo "immunopipe is not installed successfully"
             # print the error
             immunopipe --help
