@@ -80,7 +80,7 @@ jobs:
             immunopipe --help
             exit 1
           else # test if the TEST_STRING is in the help message
-            if ! immunopipe --help | grep -q "$TEST_STSRING"; then
+            if ! immunopipe --help | head | grep -q "$TEST_STRING"; then
               echo "immunopipe is not installed successfully"
               # print the error
               immunopipe --help
