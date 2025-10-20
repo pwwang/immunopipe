@@ -67,7 +67,7 @@ def test_validate_config_malformed_config():
 def test_validate_config_gbatch():
     args = ["gbatch"]
     stdout = _run_with_argv(args)
-    assert "Run entire pipeline as a job on Google Cloud Batch" in stdout
+    assert "options to run pipeline on Google Cloud Batch" in stdout
 
 
 def test_validate_config_torbcellselection_seuratclusteringofallcells():
@@ -81,18 +81,15 @@ def test_validate_config_mixed():
     stdout = _run_with_argv(args)
     assert "Miscofigurations detected:" in stdout
     assert (
-        "All cells are T cells ([TOrBCellSelection] is not set), "
-        "so [ClusterMarkersOfAllCells] should not be used and will be ignored."
+        "[ClusterMarkersOfAllCells] should not be used and will be ignored."
         in stdout
     )
     assert (
-        "All cells are T cells ([TOrBCellSelection] is not set), "
-        "so [TopExpressingGenesOfAllCells] should not be used and will be ignored."
+        "[TopExpressingGenesOfAllCells] should not be used and will be ignored."
         in stdout
     )
     assert (
-        "Cannot do both supervised [SeuratMap2Ref] and "
-        "unsupervised [SeuratClustering] clustering."
+        "Cannot do both supervised [SeuratMap2Ref]"
         in stdout
     )
 

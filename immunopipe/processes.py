@@ -282,7 +282,7 @@ else:
     LoadRNAFromSeurat = None
 
 
-@annotate.format_doc(indent=1, vars={"baseurl": DOC_BASEURL})
+@annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
 class SeuratPreparing(SeuratPreparing_):
     """{{Summary}}
 
@@ -295,10 +295,16 @@ class SeuratPreparing(SeuratPreparing_):
         ![SeuratPreparing-metadata]({{baseurl}}/processes/images/SeuratPreparing-metadata.png)
     """  # noqa: E501
 
-    if "LoadRNAFromSeurat" in config and not config.LoadRNAFromSeurat.envs.prepared:
-        requires = LoadRNAFromSeurat
-    else:
-        requires = SampleInfo
+
+if just_loading or ("SampleInfo" in config and "LoadRNAFromSeurat" not in config):
+    SeuratPreparing.requires = SampleInfo
+elif (
+    just_loading
+    or ("LoadRNAFromSeurat" in config and not config.LoadRNAFromSeurat.envs.prepared)
+):
+    SeuratPreparing.requires = LoadRNAFromSeurat
+elif "LoadRNAFromSeurat" in config and config.LoadRNAFromSeurat.envs.prepared:
+    SeuratPreparing = LoadRNAFromSeurat
 
 
 if just_loading or "TOrBCellSelection" in config:
@@ -323,14 +329,7 @@ if just_loading or "TOrBCellSelection" in config:
         for supervised clustering.
         ///
         """
-
-        if (
-            "LoadRNAFromSeurat" in config
-            and not config.LoadRNAFromSeurat.envs.clustered
-        ):
-            requires = LoadRNAFromSeurat
-        else:
-            requires = SeuratPreparing
+        requires = SeuratPreparing
 
     SeuratPreparing = SeuratClusteringOfAllCells
     # >>> SeuratPreparing
