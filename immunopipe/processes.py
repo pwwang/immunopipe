@@ -5,8 +5,9 @@ from pipen_annotate import annotate
 from pipen_filters.filters import FILTERS
 
 # biopipen processes
+from biopipen.core.config import config as biopipen_config
+from biopipen.core.proc import Proc
 from biopipen.ns.delim import SampleInfo as SampleInfo_
-from biopipen.ns.misc import File2Proc
 from biopipen.ns.tcr import (
     ScRepLoading as ScRepLoading_,
     # Immunarch as Immunarch_,
@@ -249,7 +250,7 @@ else:
 
 if just_loading or "LoadRNAFromSeurat" in config:
 
-    class LoadRNAFromSeurat(File2Proc):
+    class LoadRNAFromSeurat(Proc):
         """Load RNA data from a Seurat object, instead of RNAData from SampleInfo
 
         Input:
@@ -262,12 +263,18 @@ if just_loading or "LoadRNAFromSeurat" in config:
                 `SeuratClustering` (`SeuratClusteringOfAllCells`) process or
                 `SeuratMap2Ref` is not needed.
                 Force `prepared` to be `True` if this is `True`.
+            sample: The column name in the metadata of the Seurat object that
+                indicates the sample name.
         """
-
+        input = "infile:file"
+        output = "outfile:file:{{in.infile | basename}}"
+        lang = biopipen_config.lang.rscript
         envs = {
             "prepared": False,
             "clustered": False,
+            "sample": "Sample",
         }
+        script = "file://scripts/LoadRNAFromSeurat.R"
 
     start_processes.append(LoadRNAFromSeurat)
 
