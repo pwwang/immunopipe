@@ -20,7 +20,7 @@ COMMANDS = {
         "Run utility functions",
         "(e.g. checking gene symbols, Seurat object dimensions, etc.)",
     ),
-    "help": "Show the help message for processes",
+    "help": "Show the help message for specific processes",
 }
 
 

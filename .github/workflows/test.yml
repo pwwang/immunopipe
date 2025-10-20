@@ -74,16 +74,16 @@ jobs:
 
       - name: Check if immunopipe is installed successfully
         run: |
-          if ! immunopipe --help >/dev/null; then
+          if ! immunopipe >/dev/null; then
             echo "immunopipe is not installed successfully"
             # print the error
-            immunopipe --help
+            immunopipe
             exit 1
           else # test if the TEST_STRING is in the help message
-            if ! immunopipe --help | head | grep -q "$TEST_STRING"; then
+            if ! immunopipe | grep -q "$TEST_STRING"; then
               echo "immunopipe is not installed successfully"
               # print the error
-              immunopipe --help
+              immunopipe
               exit 1
             fi
           fi
