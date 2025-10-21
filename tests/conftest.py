@@ -4,9 +4,11 @@ from typing import Generator
 import sys
 from contextlib import contextmanager
 from pathlib import Path
+from importlib import reload
 
 import pytest
 from pipen import Pipen, Proc
+from pipen.utils import LOADING_ARGV0
 
 RUNNINGDIR = Path(__file__).parent / "running"
 
@@ -60,13 +62,24 @@ def run_process(
     #         break
     # else:
     #     raise ValueError(f"Process {process} not found in the pipeline.")
-    with with_argv(["@pipen"]):
-        proc = __import__("immunopipe.processes", fromlist=[process]).__dict__[process]
+    with with_argv([LOADING_ARGV0]):
+        # This is loaded already by pytest
+        # In order to load all process, we need to reload processes module
+        from immunopipe import processes
+        from immunopipe import pipeline
+        reload(processes)
+        reload(pipeline)
+        from immunopipe.pipeline import Immunopipe
+        pipe = Immunopipe()
+        pipe.build_proc_relationships()
+        proc = [p for p in pipe.procs if p.name == process][0]
+        proc.nexts = []
 
     # detech dependent procs
     proc = Proc.from_proc(proc, name=process, **kwargs)
 
     class Pipeline(Pipen):
+        SETUP = True
         starts = proc
         plugin_opts = {"args_flatten": False}
         if request:
