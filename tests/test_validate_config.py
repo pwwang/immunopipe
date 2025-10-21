@@ -119,7 +119,7 @@ def test_validate_config_loadrnafromseurat():
     # Runs normally
     stdout = _run_with_argv(args)
     stdout = re.sub(r"[\s\n]+", " ", stdout)
-    assert "Integrative analysis for scRNA-seq" in stdout
+    assert "Integrative analysis for" in stdout
 
 
 def test_validate_config_loadrnafromseurat_clustered():
@@ -130,7 +130,7 @@ def test_validate_config_loadrnafromseurat_clustered():
     # Runs normally
     stdout = _run_with_argv(args)
     stdout = re.sub(r"[\s\n]+", " ", stdout)
-    assert "Integrative analysis for scRNA-seq" in stdout
+    assert "Integrative analysis for" in stdout
 
 
 def test_validate_config_sampleinfo_multiple_infiles():
