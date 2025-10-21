@@ -44,6 +44,9 @@ pytest-cov = "^7.0.0"
 addopts = "-vv -p no:benchmark -W error::UserWarning --cov=immunopipe --cov-config=.coveragerc --cov-report xml:.coverage.xml --cov-report term-missing"
 console_output_style = "progress"
 junit_family = "xunit1"
+filterwarnings = [
+   "ignore:.+may lead to deadlocks in the child:DeprecationWarning",
+]
 
 [tool.poetry.scripts]
 # immunopipe = "immunopipe.pipeline:main"

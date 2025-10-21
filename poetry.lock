@@ -1240,14 +1240,14 @@ ansicon = {version = "*", markers = "platform_system == \"Windows\""}
 
 [[package]]
 name = "liquidpy"
-version = "0.8.4"
+version = "0.8.6"
 description = "A port of liquid template engine for python"
 optional = false
 python-versions = "<4.0,>=3.7"
 groups = ["main", "docs"]
 files = [
-    {file = "liquidpy-0.8.4-py3-none-any.whl", hash = "sha256:2d2b1039df6ce6ab66782b1bf55f92155ecee9ec86097fd9e217d5f4a6288100"},
-    {file = "liquidpy-0.8.4.tar.gz", hash = "sha256:fc797de8bd4f262f43d0d1a13dd991da424f508da21b7a93edc690debc6c0742"},
+    {file = "liquidpy-0.8.6-py3-none-any.whl", hash = "sha256:202caa21258221261ec6bc723065388ebe4803f41a49c59b4c4cbb4a32afa638"},
+    {file = "liquidpy-0.8.6.tar.gz", hash = "sha256:66628cfc670f74f0fb545487b2b9e22322f62edabb2c70b20227bde48b9a818a"},
 ]
 
 [package.dependencies]
