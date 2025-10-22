@@ -163,7 +163,10 @@ async def main(argv):
             val = list(val)
 
             kp_mount = getattr(cli_gbatch_config, key)
-            val.extend(kp_mount)
+            if not isinstance(kp_mount, (tuple, list)):
+                val.append(kp_mount)
+            else:
+                val.extend(kp_mount)
             setattr(cli_gbatch_config, key, val)
             continue
 
