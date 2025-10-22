@@ -94,20 +94,20 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
         # Let immunopipe in the VM handle the validation
         return config
 
-    if "TOrBCellSelection" in config and "SeuratClusteringOfAllCells" in config:
+    if "TOrBCellSelection" not in config and "SeuratClusteringOfAllCells" in config:
         _log_error(
             "All cells are T cells ([TOrBCellSelection] is not set), "
             "so [SeuratClusteringOfAllCells] should not be used, "
             "use [SeuratClustering] instead."
         )
 
-    if "TOrBCellSelection" in config and "ClusterMarkersOfAllCells" in config:
+    if "TOrBCellSelection" not in config and "ClusterMarkersOfAllCells" in config:
         WARNINGS.append(
             "All cells are T cells ([TOrBCellSelection] is not set), "
             "so [ClusterMarkersOfAllCells] should not be used and will be ignored."
         )
 
-    if "TOrBCellSelection" in config and "TopExpressingGenesOfAllCells" in config:
+    if "TOrBCellSelection" not in config and "TopExpressingGenesOfAllCells" in config:
         WARNINGS.append(
             "All cells are T cells ([TOrBCellSelection] is not set), "
             "so [TopExpressingGenesOfAllCells] should not be used and will be ignored."
