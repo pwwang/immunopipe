@@ -92,6 +92,7 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
     config.has_vdj = True  # Default to True, will be updated later
     if len(args) > 1 and args[1] == "gbatch":
         # Let immunopipe in the VM handle the validation
+        config.has_vdj = False
         return config
 
     if "TOrBCellSelection" not in config and "SeuratClusteringOfAllCells" in config:
