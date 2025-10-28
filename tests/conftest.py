@@ -5,6 +5,7 @@ import sys
 from contextlib import contextmanager
 from pathlib import Path
 from importlib import reload
+from subprocess import Popen, PIPE
 
 import pytest
 from pipen import Pipen, Proc
@@ -67,9 +68,11 @@ def run_process(
         # In order to load all process, we need to reload processes module
         from immunopipe import processes
         from immunopipe import pipeline
+
         reload(processes)
         reload(pipeline)
         from immunopipe.pipeline import Immunopipe
+
         pipe = Immunopipe()
         pipe.build_proc_relationships()
         proc = [p for p in pipe.procs if p.name == process][0]
@@ -98,3 +101,49 @@ def run_process(
             raise RuntimeError("Failed to run the process.")
 
     return pipe.outdir / process
+
+
+def dry_run(*args) -> str:
+    """Run a dry run with given arguments.
+
+    Args:
+        *args: The arguments to pass to the dry run
+
+    Returns:
+        The stdout (logs) of the dry run
+    """
+    command = [
+        sys.executable,
+        "-m",
+        "immunopipe",
+        *args,
+        "--plugins=+dry",
+        "--plugins=-report",
+        "--plugins=-log2file",
+        "--plugins=-board",
+        "--plugins=-poplog",
+        "--plugins=-verbose",
+        "--plugins=-deprecated",
+        "--scheduler=dry",
+    ]
+    print(" ".join(command))
+    process = Popen(command, stdout=PIPE, stderr=PIPE, text=True)
+    stdout, stderr = process.communicate()
+    if process.returncode != 0:
+        raise RuntimeError(
+            "".join(
+                [
+                    "Dry run failed.\n\n",
+                    "Command: \n",
+                    " ".join(command),
+                    "\n\n",
+                    "Stdout:\n",
+                    stdout,
+                    "\n\n",
+                    "Stderr:\n",
+                    stderr,
+                    "\n",
+                ]
+            )
+        )
+    return stdout

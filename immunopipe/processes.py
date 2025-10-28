@@ -1,5 +1,8 @@
 """Process definition"""
 
+from __future__ import annotations
+from typing import Type, Sequence, Callable
+
 from pipen.utils import is_loading_pipeline
 from pipen_annotate import annotate
 from pipen_filters.filters import FILTERS
@@ -55,234 +58,279 @@ TEST_OUTPUT_BASEURL = "https://raw.githubusercontent.com/pwwang/immunopipe/tests
 start_processes = []
 
 
-if just_loading or "SampleInfo" in config:
-    @annotate.format_doc(
-        indent=2,
-        vars={"baseurl": DOC_BASEURL, "output_baseurl": TEST_OUTPUT_BASEURL},
+def when(
+    condition: bool,
+    requires: Type[Proc] | Sequence[Type[Proc]] | None = None,
+) -> Callable[[Type[Proc]], Type[Proc] | None]:
+    """Decorator to conditionally define the processes
+
+    Args:
+        condition: The condition to check
+            If False, None is returned and the process is not defined.
+        requires: The requirements of the process
+
+    Returns:
+        The decorator function
+    """
+
+    def decorator(cls: Type[Proc]) -> Type[Proc]:
+        if condition or just_loading:
+            if requires is not None:
+                cls.requires = requires
+            else:
+                start_processes.append(cls)
+            return cls
+
+        return None
+
+    return decorator
+
+
+# Either has both RNA and VDJ data, or just VDJ data when LoadingRNAFromSeurat is used
+@when("SampleInfo" in config)
+@annotate.format_doc(
+    vars={"baseurl": DOC_BASEURL, "output_baseurl": TEST_OUTPUT_BASEURL}
+)
+class SampleInfo(SampleInfo_):
+    """{{Summary}}
+
+    This process is the entrance of the pipeline. It just pass by input file and list
+    the sample information in the report.
+
+    To specify the input file in the configuration file, use the following
+
+    ```toml
+    [SampleInfo.in]
+    infile = [ "path/to/sample_info.txt" ]
+    ```
+
+    Or with `pipen-board`, find the `SampleInfo` process and click the `Edit` button.
+    Then you can specify the input file here
+
+    ![infile]({{baseurl}}/processes/images/SampleInfo-infile.png)
+
+    Multiple input files are supported by the underlying pipeline framework. However,
+    we recommend to run it with a different pipeline instance with configuration files.
+
+    For the content of the input file, please see details
+    [here]({{baseurl}}/preparing-input.md#metadata).
+
+    You can add some columns to the input file while doing the statistics or you can
+    even pass them on to the next processes. See `envs.mutaters` and
+    `envs.save_mutated`.
+    But if you are adding a factor (categorical) column with desired levels, the order
+    can't be guaranteed, because we are saving them to a text file, where we can't
+    guarantee the order of the levels. If you want to add a factor column with desired
+    levels, you can set `envs.mutaters` of the `SeuratPreparing` process to mutate the
+    column.
+
+    Once the pipeline is finished, you can see the sample information in the report
+
+    ![report]({{baseurl}}/processes/images/SampleInfo-report.png)
+
+    Note that the required `RNAData` (if not loaded from a Seurat object) and
+    `TCRData`/`BCRData` columns are not shown in the report.
+    They are used to specify the paths of the `scRNA-seq` and `scTCR-seq`/`scBCR-seq`
+    data, respectively.
+    Also note that when `RNAData` is loaded from a Seurat object (specified in the
+    `LoadingRNAFromSeurat` process), the metadata provided in this process will not be
+    integrated into the Seurat object in the downstream processes. To incoporate
+    these meta information into the Seurat object, please provide them in the
+    Seurat object itself or use the `envs.mutaters` of the `SeuratPreparing` process
+    to mutate the metadata of the Seurat object. But the meta information provided in
+    this process can still be used in the statistics and plots in the report.
+
+    You may also perform some statistics on the sample information, for example,
+    number of samples per group. See next section for details.
+
+    /// Tip
+    This is the start process of the pipeline. Once you change the parameters for
+    this process, the whole pipeline will be re-run.
+
+    If you just want to change the parameters for the statistics, and use the
+    cached (previous) results for other processes, you can set `cache` at
+    pipeline level to `"force"` to force the pipeline to use the cached results
+    and `cache` of `SampleInfo` to `false` to force the pipeline to re-run the
+    `SampleInfo` process only.
+
+    ```toml
+    cache = "force"
+
+    [SampleInfo]
+    cache = false
+    ```
+    ///
+
+    Examples:
+        ### Example data
+
+        | Sample | Age | Sex | Diagnosis |
+        |--------|-----|-----|-----------|
+        | C1     | 62  | F   | Colitis   |
+        | C2     | 71.2| F   | Colitis   |
+        | C3     | 56.2| M   | Colitis   |
+        | C4     | 61.5| M   | Colitis   |
+        | C5     | 72.8| M   | Colitis   |
+        | C6     | 78.4| M   | Colitis   |
+        | C7     | 61.6| F   | Colitis   |
+        | C8     | 49.5| F   | Colitis   |
+        | NC1    | 43.6| M   | NoColitis |
+        | NC2    | 68.1| M   | NoColitis |
+        | NC3    | 70.5| F   | NoColitis |
+        | NC4    | 63.7| M   | NoColitis |
+        | NC5    | 58.5| M   | NoColitis |
+        | NC6    | 49.3| F   | NoColitis |
+        | CT1    | 21.4| F   | Control   |
+        | CT2    | 61.7| M   | Control   |
+        | CT3    | 50.5| M   | Control   |
+        | CT4    | 43.4| M   | Control   |
+        | CT5    | 70.6| F   | Control   |
+        | CT6    | 44.3| M   | Control   |
+        | CT7    | 50.2| M   | Control   |
+        | CT8    | 61.5| F   | Control   |
+
+        ### Count the number of samples per Diagnosis
+
+        ```toml
+        [SampleInfo.envs.stats."N_Samples_per_Diagnosis (pie)"]
+        plot_type = "pie"
+        x = "sample"
+        split_by = "Diagnosis"
+        ```
+
+        ![Samples_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png)
+
+        What if we want a bar plot instead of a pie chart?
+
+        ```toml
+        [SampleInfo.envs.stats."N_Samples_per_Diagnosis (bar)"]
+        plot_type = "bar"
+        x = "Sample"
+        split_by = "Diagnosis"
+        ```
+
+        ![Samples_Diagnosis_bar]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png)
+
+        ### Explore Age distribution
+
+        The distribution of Age of all samples
+
+        ```toml
+        [SampleInfo.envs.stats."Age_distribution (histogram)"]
+        plot_type = "histogram"
+        x = "Age"
+        ```
+
+        ![Age_distribution]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution-Histogram-.png)
+
+        How about the distribution of Age in each Diagnosis, and make it
+        violin + boxplot?
+
+        ```toml
+        [SampleInfo.envs.stats."Age_distribution_per_Diagnosis (violin + boxplot)"]
+        y = "Age"
+        x = "Diagnosis"
+        plot_type = "violin"
+        add_box = true
+        ```
+
+        ![Age_distribution_per_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png)
+
+        How about Age distribution per Sex in each Diagnosis?
+
+        ```toml
+        [SampleInfo.envs.stats."Age_distribution_per_Sex_in_each_Diagnosis (boxplot)"]
+        y = "Age"
+        x = "Sex"
+        split_by = "Diagnosis"
+        plot_type = "box"
+        ncol = 3
+        devpars = {height = 450}
+        ```
+
+        ![Age_distribution_per_Sex_in_each_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png)
+
+    Input:
+        infile%(required)s: {{Input.infile.help | indent: 8}}.
+            The input file should have the following columns.
+            * Sample: A unique id for each sample.
+            * TCRData/BCRData: The directory for single-cell TCR/BCR data for this
+                sample.
+                Specifically, it should contain filtered_contig_annotations.csv
+                or all_contig_annotations.csv from cellranger.
+            * RNAData: The directory for single-cell RNA data for this sample.
+                Specifically, it should be able to be read by
+                `Seurat::Read10X()` or `Seurat::Read10X_h5()` or
+                `SeuratDisk::LoadLoom()`.
+                See also https://satijalab.org/seurat/reference/read10x.
+            * Other columns are optional and will be treated as metadata for
+                each sample.
+    """ % {
+        "required": "LoadingRNAFromSeurat" not in config
+    }  # noqa: E501
+
+    envs = {"exclude_cols": "TCRData,BCRData,RNAData"}
+
+
+# When SampleInfo is used, it should always have VDJ data to be loaded
+# if has_vdj is True
+@when(SampleInfo and config.has_vdj, requires=SampleInfo)
+@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+class ScRepLoading(ScRepLoading_): ...
+
+
+VDJInput = ScRepLoading
+
+
+# Input from Seurat object, it doesn't require SampleInfo
+@when("LoadingRNAFromSeurat" in config)
+class LoadingRNAFromSeurat(Proc):
+    """Load RNA data from a Seurat object, instead of RNAData from SampleInfo
+
+    Input:
+        infile: An RDS or qs2 format file containing a Seurat object.
+
+    Envs:
+        prepared (flag): Whether the Seurat object is well-prepared for the
+            pipeline (so that SeuratPreparing process is not needed).
+        clustered (flag): Whether the Seurat object is clustered, so that
+            `SeuratClustering` (`SeuratClusteringOfAllCells`) process or
+            `SeuratMap2Ref` is not needed.
+            Force `prepared` to be `True` if this is `True`.
+        sample: The column name in the metadata of the Seurat object that
+            indicates the sample name.
+    """
+
+    input = "infile:file"
+    output = "outfile:file:{{in.infile | basename}}"
+    lang = biopipen_config.lang.rscript
+    envs = {
+        "prepared": False,
+        "clustered": False,
+        "sample": "Sample",
+    }
+    script = "file://scripts/LoadingRNAFromSeurat.R"
+
+
+# Ensured by validate_config that either loads
+RNAInput = LoadingRNAFromSeurat or SampleInfo
+
+
+@when(
+    (
+        # Even when we load RNA-seq data from Seurat, we may still need SeuratPreparing
+        # for QC, transformation, etc.
+        "LoadingRNAFromSeurat" in config
+        and not config.LoadingRNAFromSeurat.envs.prepared
     )
-    class SampleInfo(SampleInfo_):
-        """{{Summary}}
-
-        This process is the entrance of the pipeline. It just pass by input file and list
-        the sample information in the report.
-
-        To specify the input file in the configuration file, use the following
-
-        ```toml
-        [SampleInfo.in]
-        infile = [ "path/to/sample_info.txt" ]
-        ```
-
-        Or with `pipen-board`, find the `SampleInfo` process and click the `Edit` button.
-        Then you can specify the input file here
-
-        ![infile]({{baseurl}}/processes/images/SampleInfo-infile.png)
-
-        Multiple input files are supported by the underlying pipeline framework. However,
-        we recommend to run it with a different pipeline instance with configuration files.
-
-        For the content of the input file, please see details
-        [here]({{baseurl}}/preparing-input.md#metadata).
-
-        You can add some columns to the input file while doing the statistics or you can even
-        pass them on to the next processes. See `envs.mutaters` and `envs.save_mutated`.
-        But if you are adding a factor (categorical) column with desired levels, the order
-        can't be guaranteed, because we are saving them to a text file, where we can't guarantee
-        the order of the levels. If you want to add a factor column with desired levels, you can
-        set `envs.mutaters` of the `SeuratPreparing` process to mutate the column.
-
-        Once the pipeline is finished, you can see the sample information in the report
-
-        ![report]({{baseurl}}/processes/images/SampleInfo-report.png)
-
-        Note that the required `RNAData` (if not loaded from a Seurat object) and `TCRData`/`BCRData`
-        columns are not shown in the report.
-        They are used to specify the paths of the `scRNA-seq` and `scTCR-seq`/`scBCR-seq` data, respectively.
-        Also note that when `RNAData` is loaded from a Seurat object (specified in the
-        `LoadRNAFromSeurat` process), the metadata provided in this process will not be
-        integrated into the Seurat object in the downstream processes. To incoporate
-        these meta information into the Seurat object, please provide them in the
-        Seurat object itself or use the `envs.mutaters` of the `SeuratPreparing` process
-        to mutate the metadata of the Seurat object. But the meta information provided in this
-        process can still be used in the statistics and plots in the report.
-
-        You may also perform some statistics on the sample information, for example,
-        number of samples per group. See next section for details.
-
-        /// Tip
-        This is the start process of the pipeline. Once you change the parameters for
-        this process, the whole pipeline will be re-run.
-
-        If you just want to change the parameters for the statistics, and use the
-        cached (previous) results for other processes, you can set `cache` at
-        pipeline level to `"force"` to force the pipeline to use the cached results
-        and `cache` of `SampleInfo` to `false` to force the pipeline to re-run the
-        `SampleInfo` process only.
-
-        ```toml
-        cache = "force"
-
-        [SampleInfo]
-        cache = false
-        ```
-        ///
-
-        Examples:
-            ### Example data
-
-            | Sample | Age | Sex | Diagnosis |
-            |--------|-----|-----|-----------|
-            | C1     | 62  | F   | Colitis   |
-            | C2     | 71.2| F   | Colitis   |
-            | C3     | 56.2| M   | Colitis   |
-            | C4     | 61.5| M   | Colitis   |
-            | C5     | 72.8| M   | Colitis   |
-            | C6     | 78.4| M   | Colitis   |
-            | C7     | 61.6| F   | Colitis   |
-            | C8     | 49.5| F   | Colitis   |
-            | NC1    | 43.6| M   | NoColitis |
-            | NC2    | 68.1| M   | NoColitis |
-            | NC3    | 70.5| F   | NoColitis |
-            | NC4    | 63.7| M   | NoColitis |
-            | NC5    | 58.5| M   | NoColitis |
-            | NC6    | 49.3| F   | NoColitis |
-            | CT1    | 21.4| F   | Control   |
-            | CT2    | 61.7| M   | Control   |
-            | CT3    | 50.5| M   | Control   |
-            | CT4    | 43.4| M   | Control   |
-            | CT5    | 70.6| F   | Control   |
-            | CT6    | 44.3| M   | Control   |
-            | CT7    | 50.2| M   | Control   |
-            | CT8    | 61.5| F   | Control   |
-
-            ### Count the number of samples per Diagnosis
-
-            ```toml
-            [SampleInfo.envs.stats."N_Samples_per_Diagnosis (pie)"]
-            plot_type = "pie"
-            x = "sample"
-            split_by = "Diagnosis"
-            ```
-
-            ![Samples_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png)
-
-            What if we want a bar plot instead of a pie chart?
-
-            ```toml
-            [SampleInfo.envs.stats."N_Samples_per_Diagnosis (bar)"]
-            plot_type = "bar"
-            x = "Sample"
-            split_by = "Diagnosis"
-            ```
-
-            ![Samples_Diagnosis_bar]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png)
-
-            ### Explore Age distribution
-
-            The distribution of Age of all samples
-
-            ```toml
-            [SampleInfo.envs.stats."Age_distribution (histogram)"]
-            plot_type = "histogram"
-            x = "Age"
-            ```
-
-            ![Age_distribution]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution-Histogram-.png)
-
-            How about the distribution of Age in each Diagnosis, and make it violin + boxplot?
-
-            ```toml
-            [SampleInfo.envs.stats."Age_distribution_per_Diagnosis (violin + boxplot)"]
-            y = "Age"
-            x = "Diagnosis"
-            plot_type = "violin"
-            add_box = true
-            ```
-
-            ![Age_distribution_per_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png)
-
-            How about Age distribution per Sex in each Diagnosis?
-
-            ```toml
-            [SampleInfo.envs.stats."Age_distribution_per_Sex_in_each_Diagnosis (boxplot)"]
-            y = "Age"
-            x = "Sex"
-            split_by = "Diagnosis"
-            plot_type = "box"
-            ncol = 3
-            devpars = {height = 450}
-            ```
-
-            ![Age_distribution_per_Sex_in_each_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png)
-
-        Input:
-            infile%(required)s: {{Input.infile.help | indent: 12}}.
-                The input file should have the following columns.
-                * Sample: A unique id for each sample.
-                * TCRData/BCRData: The directory for single-cell TCR/BCR data for this sample.
-                    Specifically, it should contain filtered_contig_annotations.csv
-                    or all_contig_annotations.csv from cellranger.
-                * RNAData: The directory for single-cell RNA data for this sample.
-                    Specifically, it should be able to be read by
-                    `Seurat::Read10X()` or `Seurat::Read10X_h5()` or `SeuratDisk::LoadLoom()`.
-                    See also https://satijalab.org/seurat/reference/read10x.
-                * Other columns are optional and will be treated as metadata for
-                    each sample.
-        """ % {"required": "LoadRNAFromSeurat" not in config}  # noqa: E501
-
-        envs = {"exclude_cols": "TCRData,BCRData,RNAData"}
-
-    start_processes.append(SampleInfo)
-
-else:
-    SampleInfo = None
-
-
-if just_loading or config.has_vdj:
-
-    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
-    class ScRepLoading(ScRepLoading_):
-        requires = SampleInfo
-
-else:
-    ScRepLoading = None
-
-
-if just_loading or "LoadRNAFromSeurat" in config:
-
-    class LoadRNAFromSeurat(Proc):
-        """Load RNA data from a Seurat object, instead of RNAData from SampleInfo
-
-        Input:
-            infile: An RDS or qs2 format file containing a Seurat object.
-
-        Envs:
-            prepared (flag): Whether the Seurat object is well-prepared for the
-                pipeline (so that SeuratPreparing process is not needed).
-            clustered (flag): Whether the Seurat object is clustered, so that
-                `SeuratClustering` (`SeuratClusteringOfAllCells`) process or
-                `SeuratMap2Ref` is not needed.
-                Force `prepared` to be `True` if this is `True`.
-            sample: The column name in the metadata of the Seurat object that
-                indicates the sample name.
-        """
-        input = "infile:file"
-        output = "outfile:file:{{in.infile | basename}}"
-        lang = biopipen_config.lang.rscript
-        envs = {
-            "prepared": False,
-            "clustered": False,
-            "sample": "Sample",
-        }
-        script = "file://scripts/LoadRNAFromSeurat.R"
-
-    start_processes.append(LoadRNAFromSeurat)
-
-else:
-    LoadRNAFromSeurat = None
-
-
-@annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
+    or (
+        # Or when we load RNA-seq data from SampleInfo
+        SampleInfo
+        and not LoadingRNAFromSeurat
+    ),
+    requires=RNAInput,
+)
+@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
 class SeuratPreparing(SeuratPreparing_):
     """{{Summary}}
 
@@ -296,255 +344,228 @@ class SeuratPreparing(SeuratPreparing_):
     """  # noqa: E501
 
 
-if just_loading or ("SampleInfo" in config and "LoadRNAFromSeurat" not in config):
-    SeuratPreparing.requires = SampleInfo
-elif (
-    just_loading
-    or ("LoadRNAFromSeurat" in config and not config.LoadRNAFromSeurat.envs.prepared)
-):
-    SeuratPreparing.requires = LoadRNAFromSeurat
-elif "LoadRNAFromSeurat" in config and config.LoadRNAFromSeurat.envs.prepared:
-    SeuratPreparing = LoadRNAFromSeurat
-
-
-if just_loading or "TOrBCellSelection" in config:
-    # No matter "SeuratClusteringOfAllCells" is in the config or not
-    @annotate.format_doc(indent=2)
-    class SeuratClusteringOfAllCells(SeuratClustering_):
-        """Cluster all cells, including T cells/non-T cells and B cells/non-Bcells
-        using Seurat.
-
-        This process will perform clustering on all cells using
-        [`Seurat`](https://satijalab.org/seurat/) package.
-        The clusters will then be used to select T/B cells by
-        [`TOrBCellSelection`](TOrBCellSelection.md) process.
-
-        {{*Summary.long}}
-
-        /// Note
-        If all your cells are all T/B cells ([`TOrBCellSelection`](TOrBCellSelection.md)
-        is not set in configuration), you should not use this process.
-        Instead, you should use [`SeuratClustering`](./SeuratClustering.md) process
-        for unsupervised clustering, or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process
-        for supervised clustering.
-        ///
-        """
-        requires = SeuratPreparing
-
-    SeuratPreparing = SeuratClusteringOfAllCells
-    # >>> SeuratPreparing
-
-
-if just_loading or (
-    # "TCellSelection" in config and "ClusterMarkersOfAllCells" in config
-    "TOrBCellSelection" in config
-    and "ClusterMarkersOfAllCells" in config
-):
-
-    @annotate.format_doc(indent=2)
-    class ClusterMarkersOfAllCells(MarkersFinder_):
-        """Markers for clusters of all cells.
-
-        See also [ClusterMarkers](./ClusterMarkers.md).
-
-        Envs:
-            cases (hidden;readonly): {{Envs.cases.help | indent: 16}}.
-            each (hidden;readonly): {{Envs.each.help | indent: 16}}.
-            ident_1 (hidden;readonly): {{Envs["ident_1"].help | indent: 16}}.
-            ident_2 (hidden;readonly): {{Envs["ident_2"].help | indent: 16}}.
-            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 16}}.
-        """
-
-        requires = SeuratPreparing
-        envs = {
-            "cases": {"Cluster": {"group_by": "seurat_clusters"}},
-            "marker_plots_defaults": {"order_by": "desc(avg_log2FC)"},
-            "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
-            "allmarker_plots": {
-                "Top 10 markers of all clusters": {"plot_type": "heatmap"}
-            },
-        }
-        order = 2
-
-
-if just_loading or (
-    # "TCellSelection" in config and "TopExpressingGenesOfAllCells" in config
-    "TOrBCellSelection" in config
-    and "TopExpressingGenesOfAllCells" in config
-):
-
-    @annotate.format_doc(indent=2)
-    class TopExpressingGenesOfAllCells(TopExpressingGenes_):
-        """Top expressing genes for clusters of all cells.
+RNAInput = SeuratPreparing or RNAInput
 
-        {{*Summary.long}}
 
-        See also [TopExpressingGenes](./TopExpressingGenes.md).
+# No matter "SeuratClusteringOfAllCells" is in the config or not
+# if TOrBCellSelection is used, meaning input RNA data has T/B cells and non-T/B cells
+@when("TOrBCellSelection" in config, requires=RNAInput)
+@annotate.format_doc()
+class SeuratClusteringOfAllCells(SeuratClustering_):
+    """Cluster all cells, including T cells/non-T cells and B cells/non-Bcells
+    using Seurat.
 
-        Envs:
-            cases (hidden;readonly): {{Envs.cases.help | indent: 16}}.
-            each (hidden;readonly): {{Envs.each.help | indent: 16}}.
-            group_by (hidden;readonly): {{Envs["group_by"].help | indent: 16}}.
-            ident (hidden;readonly): {{Envs.ident.help | indent: 16}}.
-            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 16}}.
-        """
+    This process will perform clustering on all cells using
+    [`Seurat`](https://satijalab.org/seurat/) package.
+    The clusters will then be used to select T/B cells by
+    [`TOrBCellSelection`](TOrBCellSelection.md) process.
 
-        requires = SeuratPreparing
-        envs = {"cases": {"Cluster": {}}}
-        order = 3
+    {{*Summary.long}}
 
+    /// Note
+    If all your cells are all T/B cells ([`TOrBCellSelection`](TOrBCellSelection.md)
+    is not set in configuration), you should not use this process.
+    Instead, you should use [`SeuratClustering`](./SeuratClustering.md) process
+    for unsupervised clustering, or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process
+    for supervised clustering.
+    ///
+    """
 
-# if just_loading or "TCellSelection" in config:
-if just_loading or "TOrBCellSelection" in config:
 
-    class TOrBCellSelection(TOrBCellSelection_):
-        if ScRepLoading:
-            requires = [SeuratPreparing, ScRepLoading]
-        else:
-            requires = SeuratPreparing
+RNAInput = SeuratClusteringOfAllCells or RNAInput
 
-    SeuratPreparing = TOrBCellSelection
-    # >>> SeuratPreparing
 
-if just_loading or "ModuleScoreCalculator" in config:
+@when(SeuratClusteringOfAllCells, requires=RNAInput)
+@annotate.format_doc()
+class ClusterMarkersOfAllCells(MarkersFinder_):
+    """Markers for clusters of all cells.
 
-    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
-    class ModuleScoreCalculator(ModuleScoreCalculator_):
-        """{{Summary}}
+    See also [ClusterMarkers](./ClusterMarkers.md).
 
-        Metadata:
-            The metadata of the `Seurat` object will be updated with the module scores:
+    Envs:
+        cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.
+        each (hidden;readonly): {{Envs.each.help | indent: 12}}.
+        ident_1 (hidden;readonly): {{Envs["ident_1"].help | indent: 12}}.
+        ident_2 (hidden;readonly): {{Envs["ident_2"].help | indent: 12}}.
+        mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
+    """
 
-            ![ModuleScoreCalculator-metadata]({{baseurl}}/processes/images/ModuleScoreCalculator-metadata.png)
-        """  # noqa: E501
+    envs = {
+        "cases": {"Cluster": {"group_by": "seurat_clusters"}},
+        "marker_plots_defaults": {"order_by": "desc(avg_log2FC)"},
+        "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
+        "allmarker_plots": {"Top 10 markers of all clusters": {"plot_type": "heatmap"}},
+    }
+    order = 2
 
-        requires = SeuratPreparing
-        input_data = lambda ch1: ch1.iloc[:, [0]]
 
-    SeuratPreparing = ModuleScoreCalculator
-    # >>> SeuratPreparing
+@when(
+    SeuratClusteringOfAllCells and "TopExpressingGenesOfAllCells" in config,
+    requires=RNAInput,
+)
+@annotate.format_doc()
+class TopExpressingGenesOfAllCells(TopExpressingGenes_):
+    """Top expressing genes for clusters of all cells.
 
-if just_loading or "SeuratMap2Ref" in config:
+    {{*Summary.long}}
 
-    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
-    class SeuratMap2Ref(SeuratMap2Ref_):
-        """{{Summary}}
+    See also [TopExpressingGenes](./TopExpressingGenes.md).
 
-        Metadata:
-            The metadata of the `Seurat` object will be updated with the cluster
-            assignments (column name determined by `envs.name`):
+    Envs:
+        cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.
+        each (hidden;readonly): {{Envs.each.help | indent: 12}}.
+        group_by (hidden;readonly): {{Envs["group_by"].help | indent: 12}}.
+        ident (hidden;readonly): {{Envs.ident.help | indent: 12}}.
+        mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
+    """
 
-            ![SeuratMap2Ref-metadata]({{baseurl}}/processes/images/SeuratClustering-metadata.png)
-        """
+    envs = {"cases": {"Cluster": {}}}
+    order = 3
 
-        requires = SeuratPreparing
-        input_data = lambda ch1: ch1.iloc[:, [0]]
 
-    Clustered = SeuratMap2Ref
-    # >>> Clustered
+@when(
+    "TOrBCellSelection" in config,
+    requires=[RNAInput, VDJInput] if VDJInput else RNAInput,
+)
+class TOrBCellSelection(TOrBCellSelection_): ...
 
-if just_loading or "SeuratMap2Ref" not in config:
 
-    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
-    class SeuratClustering(SeuratClustering_):
-        """Cluster all cells or selected T/B cells selected by `TOrBCellSelection`.
+RNAInput = TOrBCellSelection or RNAInput
 
-        If `[TOrBCellSelection]` is not set in the configuration, meaning
-        all cells are T/B cells, this process will be run on all T/B cells. Otherwise,
-        this process will be run on the selected T/B cells by
-        [`TOrBCellSelection`](./TOrBCellSelection.md).
 
-        See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).
+@when("ModuleScoreCalculator" in config, requires=RNAInput)
+@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+class ModuleScoreCalculator(ModuleScoreCalculator_):
+    """{{Summary}}
 
-        Metadata:
-            The metadata of the `Seurat` object will be updated with the cluster
-            assignments:
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the module scores:
 
-            ![SeuratClustering-metadata]({{baseurl}}/processes/images/SeuratClustering-metadata.png)
-        """
+        ![ModuleScoreCalculator-metadata]({{baseurl}}/processes/images/ModuleScoreCalculator-metadata.png)
+    """  # noqa: E501
 
-        if (
-            "LoadRNAFromSeurat" in config
-            and not config.LoadRNAFromSeurat.envs.clustered
-        ):
-            requires = LoadRNAFromSeurat
-        else:
-            requires = SeuratPreparing
+    input_data = lambda ch1: ch1.iloc[:, [0]]
 
-        input_data = lambda ch1: ch1.iloc[:, [0]]
 
-    Clustered = SeuratClustering
-    # >>> Clustered
+RNAInput = ModuleScoreCalculator or RNAInput
 
-if just_loading or ("SeuratMap2Ref" not in config and "CellTypeAnnotation" in config):
 
-    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
-    class CellTypeAnnotation(CellTypeAnnotation_):
-        """Annotate all or selected T/B cell clusters.
+@when("SeuratMap2Ref" in config, requires=RNAInput)
+@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+class SeuratMap2Ref(SeuratMap2Ref_):
+    """{{Summary}}
 
-        {{*Summary}}
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the cluster
+        assignments (column name determined by `envs.name`):
 
-        The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
-        by default.
+        ![SeuratMap2Ref-metadata]({{baseurl}}/processes/images/SeuratClustering-metadata.png)
+    """
 
-        /// Note
-        When supervised clustering [`SeuratMap2Ref`](./SeuratMap2Ref.md) is used, this
-        process will be ignored.
-        ///
+    input_data = lambda ch1: ch1.iloc[:, [0]]
 
-        /// Note
-        When cell types are annotated, the old `seurat_clusters` column will be renamed
-        to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.
-        ///
 
-        Metadata:
-            When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
-            the `Seurat` object will be kept as is.
+RNAInput = SeuratMap2Ref or RNAInput
 
-            When `envs.newcol` is specified, the original `seurat_clusters` column will
-            be kept is, and the annotated cell types will be saved in the new column.
-            Otherwise, the original `seurat_clusters` column will be replaced by the
-            annotated cell types and the original `seurat_clusters` column will be
-            saved at `seurat_clusters_id`.
 
-            ![CellTypeAnnotation-metadata]({{baseurl}}/processes/images/CellTypeAnnotation-metadata.png)
+@when(
+    "SeuratClustering" in config
+    or (
+        "SeuratMap2Ref" not in config
+        and "CellTypeAnnotation" not in config
+        and (
+            "LoadingRNAFromSeurat" not in config
+            or not config.LoadingRNAFromSeurat.envs.clustered
+        )
+    ),
+    requires=RNAInput,
+)
+@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+class SeuratClustering(SeuratClustering_):
+    """Cluster all cells or selected T/B cells selected by `TOrBCellSelection`.
 
-        """  # noqa: E501
+    If `[TOrBCellSelection]` is not set in the configuration, meaning
+    all cells are T/B cells, this process will be run on all T/B cells. Otherwise,
+    this process will be run on the selected T/B cells by
+    [`TOrBCellSelection`](./TOrBCellSelection.md).
 
-        if just_loading:
-            # Make sure both are loaded while just loading the pipeline
-            requires = SeuratMap2Ref, SeuratClustering
-        else:
-            requires = Clustered
-        # Change the default to direct, which doesn't do any annotation
-        envs = {"tool": "direct", "sctype_db": None}
+    See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).
 
-    Clustered = CellTypeAnnotation
-    # >>> Clustered
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the cluster
+        assignments:
 
-if just_loading or "SeuratSubClustering" in config:
+        ![SeuratClustering-metadata]({{baseurl}}/processes/images/SeuratClustering-metadata.png)
+    """
 
-    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
-    class SeuratSubClustering(SeuratSubClustering_):
-        """Sub-clustering for all or selected T/B cells.
+    input_data = lambda ch1: ch1.iloc[:, [0]]
 
-        {{*Summary}}
 
-        Metadata:
-            The metadata of the `Seurat` object will be updated with the sub-clusters
-            specified by names (keys) of `envs.cases`:
+RNAInput = SeuratClustering or RNAInput
 
-            ![SeuratSubClustering-metadata]({{baseurl}}/processes/images/SeuratSubClustering-metadata.png)
-        """
 
-        requires = Clustered
-        input_data = lambda ch1: ch1.iloc[:, [0]]
+@when("CellTypeAnnotation" in config, requires=RNAInput)
+@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+class CellTypeAnnotation(CellTypeAnnotation_):
+    """Annotate all or selected T/B cell clusters.
 
-    Clustered = SeuratSubClustering
-    # >>> Clustered
+    {{*Summary}}
 
+    The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
+    by default.
 
-@annotate.format_doc(indent=1)
+    /// Note
+    When supervised clustering [`SeuratMap2Ref`](./SeuratMap2Ref.md) is used, this
+    process will be ignored.
+    ///
+
+    /// Note
+    When cell types are annotated, the old `seurat_clusters` column will be renamed
+    to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.
+    ///
+
+    Metadata:
+        When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
+        the `Seurat` object will be kept as is.
+
+        When `envs.newcol` is specified, the original `seurat_clusters` column will
+        be kept is, and the annotated cell types will be saved in the new column.
+        Otherwise, the original `seurat_clusters` column will be replaced by the
+        annotated cell types and the original `seurat_clusters` column will be
+        saved at `seurat_clusters_id`.
+
+        ![CellTypeAnnotation-metadata]({{baseurl}}/processes/images/CellTypeAnnotation-metadata.png)
+
+    """  # noqa: E501
+
+    # Change the default to direct, which doesn't do any annotation
+    envs = {"tool": "direct", "sctype_db": None}
+
+
+RNAInput = CellTypeAnnotation or RNAInput
+
+
+@when("SeuratSubClustering" in config, requires=RNAInput)
+@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+class SeuratSubClustering(SeuratSubClustering_):
+    """Sub-clustering for all or selected T/B cells.
+
+    {{*Summary}}
+
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the sub-clusters
+        specified by names (keys) of `envs.cases`:
+
+        ![SeuratSubClustering-metadata]({{baseurl}}/processes/images/SeuratSubClustering-metadata.png)
+    """
+
+    input_data = lambda ch1: ch1.iloc[:, [0]]
+
+
+RNAInput = SeuratSubClustering or RNAInput
+
+
+@annotate.format_doc()
 class ClusterMarkers(MarkersFinder_):
     """Markers for clusters of all or selected T/B cells.
 
@@ -576,7 +597,7 @@ class ClusterMarkers(MarkersFinder_):
         mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
     """  # noqa: E501
 
-    requires = Clustered
+    requires = RNAInput
     envs = {
         "cases": {"Cluster": {"group_by": "seurat_clusters"}},
         "marker_plots_defaults": {"order_by": "desc(avg_log2FC)"},
@@ -586,115 +607,110 @@ class ClusterMarkers(MarkersFinder_):
     order = 2
 
 
-if just_loading or "TopExpressingGenes" in config:
+@when("TopExpressingGenes" in config, requires=RNAInput)
+@annotate.format_doc()
+class TopExpressingGenes(TopExpressingGenes_):
+    """Top expressing genes for clusters of all or selected T/B cells.
 
-    @annotate.format_doc(indent=2)
-    class TopExpressingGenes(TopExpressingGenes_):
-        """Top expressing genes for clusters of all or selected T/B cells.
+    {{*Summary.long}}
 
-        {{*Summary.long}}
+    This process finds the top expressing genes of clusters of T/B cells, and also
+    performs the enrichment analysis against the genes.
 
-        This process finds the top expressing genes of clusters of T/B cells, and also
-        performs the enrichment analysis against the genes.
+    The enrichment analysis is done by
+    [`enrichr`](https://maayanlab.cloud/Enrichr/).
 
-        The enrichment analysis is done by
-        [`enrichr`](https://maayanlab.cloud/Enrichr/).
+    /// Note
+    There are other environment variables also available. However, they should not
+    be used in this process. Other environment variables are used for more
+    complicated cases for investigating top genes
+    (See [`biopipen.ns.scrna.TopExpressingGenes`](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.TopExpressingGenes) for more details).
 
-        /// Note
-        There are other environment variables also available. However, they should not
-        be used in this process. Other environment variables are used for more
-        complicated cases for investigating top genes
-        (See [`biopipen.ns.scrna.TopExpressingGenes`](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.TopExpressingGenes) for more details).
+    If you are using `pipen-board` to run the pipeline
+    (see [here](../running.md#run-the-pipeline-via-pipen-board) and
+    [here](../running.md#run-the-pipeline-via-pipen-board-using-docker-image)),
+    you may see the other environment variables of this process are hidden and
+    readonly.
+    ///
 
-        If you are using `pipen-board` to run the pipeline
-        (see [here](../running.md#run-the-pipeline-via-pipen-board) and
-        [here](../running.md#run-the-pipeline-via-pipen-board-using-docker-image)),
-        you may see the other environment variables of this process are hidden and
-        readonly.
-        ///
+    Envs:
+        cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.
+        each (hidden;readonly): {{Envs.each.help | indent: 12}}.
+        group_by (hidden;readonly): {{Envs["group_by"].help | indent: 12}}.
+        ident (hidden;readonly): {{Envs.ident.help | indent: 12}}.
+        mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
+    """  # noqa: E501
 
-        Envs:
-            cases (hidden;readonly): {{Envs.cases.help | indent: 16}}.
-            each (hidden;readonly): {{Envs.each.help | indent: 16}}.
-            group_by (hidden;readonly): {{Envs["group_by"].help | indent: 16}}.
-            ident (hidden;readonly): {{Envs.ident.help | indent: 16}}.
-            mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 16}}.
-        """  # noqa: E501
-
-        requires = Clustered
-        envs = {"cases": {"Cluster": {}}}
-        order = 3
+    envs = {"cases": {"Cluster": {}}}
+    order = 3
 
 
-if just_loading or config.has_vdj:
-
-    class ScRepCombiningExpression(ScRepCombiningExpression_):
-        requires = ScRepLoading, Clustered
-
-    Clustered = ScRepCombiningExpression
-    # >>> Clustered
+@when(VDJInput, requires=[RNAInput, VDJInput])
+class ScRepCombiningExpression(ScRepCombiningExpression_): ...
 
 
-if just_loading or (config.has_vdj and "TCRClustering" in config):
-
-    @annotate.format_doc(indent=2)
-    class TCRClustering(TCRClustering_):
-        """{{Summary.short}}
-
-        You can disable this by remving the whole sections of
-        TCRClustering in the config file.
-
-        {{*Summary.long}}
-        """
-
-        requires = Clustered
-        input_data = lambda ch1: ch1.iloc[:, [0]]
-        order = 4
-
-    Clustered = TCRClustering
-    # >>> Clustered
+CombinedInput = ScRepCombiningExpression or RNAInput
 
 
-if just_loading or (config.has_vdj and "TESSA" in config):
+@when(VDJInput and "TCRClustering" in config, requires=CombinedInput)
+@annotate.format_doc()
+class TCRClustering(TCRClustering_):
+    """{{Summary.short}}
 
-    @annotate.format_doc(indent=2, vars={"baseurl": DOC_BASEURL})
-    class TESSA(TESSA_):
-        """{{Summary}}
+    You can disable this by remving the whole sections of
+    TCRClustering in the config file.
 
-        /// Note
-        The dependencies of TESSA are not included in the docker image of immunopipe
-        with tag without `-full` suffix. If you want to use TESSA, please use the
-        docker image with tag with `-full` suffix, or install the dependencies manually.
-        ///
+    {{*Summary.long}}
+    """
 
-        Metadata:
-            The metadata of the `Seurat` object will be updated with the TESSA clusters
-            and the cluster sizes:
-
-            ![TESSA-metadata]({{baseurl}}/processes/images/TESSA-metadata.png)
-        """
-
-        requires = Clustered
-        order = 5
-
-    Clustered = TESSA
-    # >>> Clustered
+    input_data = lambda ch1: ch1.iloc[:, [0]]
+    order = 4
 
 
-if just_loading or (
-    "CellCellCommunication" in config or "CellCellCommunicationPlots" in config
-):
+CombinedInput = TCRClustering or CombinedInput
 
-    class CellCellCommunication(CellCellCommunication_):
-        requires = Clustered
-        order = 7
 
-    class CellCellCommunicationPlots(CellCellCommunicationPlots_):
-        requires = CellCellCommunication
+@when(VDJInput and "TESSA" in config, requires=CombinedInput)
+@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+class TESSA(TESSA_):
+    """{{Summary}}
+
+    /// Note
+    The dependencies of TESSA are not included in the docker image of immunopipe
+    with tag without `-full` suffix. If you want to use TESSA, please use the
+    docker image with tag with `-full` suffix, or install the dependencies manually.
+    ///
+
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the TESSA clusters
+        and the cluster sizes:
+
+        ![TESSA-metadata]({{baseurl}}/processes/images/TESSA-metadata.png)
+    """
+
+    order = 5
+
+
+CombinedInput = TESSA or CombinedInput
+
+
+@when(
+    "CellCellCommunication" in config or "CellCellCommunicationPlots" in config,
+    requires=CombinedInput,
+)
+class CellCellCommunication(CellCellCommunication_):
+    order = 7
+
+
+@when(
+    "CellCellCommunication" in config or "CellCellCommunicationPlots" in config,
+    requires=CellCellCommunication,
+)
+class CellCellCommunicationPlots(CellCellCommunicationPlots_): ...
 
 
 class SeuratClusterStats(SeuratClusterStats_):
-    requires = Clustered
+    requires = CombinedInput
     order = -1
     envs_depth = 3
     envs = {
@@ -704,155 +720,145 @@ class SeuratClusterStats(SeuratClusterStats_):
             },
         },
     }
-    if config.has_vdj:
+    if VDJInput:
         envs["dimplots"]["VDJ Presence"] = {
             "group_by": "VDJ_Presence",
         }
 
 
-if just_loading or config.has_vdj:
-
-    class ClonalStats(ClonalStats_):
-        requires = Clustered
-        envs_depth = 3
-        order = 8
+@when(VDJInput, requires=CombinedInput)
+class ClonalStats(ClonalStats_):
+    envs_depth = 3
+    order = 8
 
 
-if just_loading or "ScFGSEA" in config:
-
-    class ScFGSEA(ScFGSEA_):
-        requires = Clustered
-        order = 9
+@when("ScFGSEA" in config, requires=CombinedInput)
+class ScFGSEA(ScFGSEA_):
+    order = 9
 
 
-if just_loading or "PseudoBulkDEG" in config:
-
-    class PseudoBulkDEG(PseudoBulkDEG_):
-        requires = Clustered
-        order = 10
+@when("PseudoBulkDEG" in config, requires=CombinedInput)
+class PseudoBulkDEG(PseudoBulkDEG_):
+    order = 10
 
 
-if just_loading or "MarkersFinder" in config:
+@when("MarkersFinder" in config, requires=CombinedInput)
+@annotate.format_doc()
+class MarkersFinder(MarkersFinder_):
+    """{{Summary.short}}
 
-    @annotate.format_doc(indent=2)
-    class MarkersFinder(MarkersFinder_):
-        """{{Summary.short}}
+    `MarkersFinder` is a process that wraps the
+    [`Seurat::FindMarkers()`](https://satijalab.org/seurat/reference/findmarkers)
+    function, and performs enrichment analysis for the markers found.
 
-        `MarkersFinder` is a process that wraps the
-        [`Seurat::FindMarkers()`](https://satijalab.org/seurat/reference/findmarkers)
-        function, and performs enrichment analysis for the markers found.
+    Envs:
+        mutaters: {{Envs.mutaters.help | indent: 12}}.
+            See also
+            [mutating the metadata](../configurations.md#mutating-the-metadata).
 
-        Envs:
-            mutaters: {{Envs.mutaters.help | indent: 16}}.
-                See also
-                [mutating the metadata](../configurations.md#mutating-the-metadata).
+    Examples:
+        The examples are for more general use of `MarkersFinder`, in order to
+        demonstrate how the final cases are constructed.
 
-        Examples:
-            The examples are for more general use of `MarkersFinder`, in order to
-            demonstrate how the final cases are constructed.
+        Suppose we have a metadata like this:
 
-            Suppose we have a metadata like this:
+        | id | seurat_clusters | Group |
+        |----|-----------------|-------|
+        | 1  | 1               | A     |
+        | 2  | 1               | A     |
+        | 3  | 2               | A     |
+        | 4  | 2               | A     |
+        | 5  | 3               | B     |
+        | 6  | 3               | B     |
+        | 7  | 4               | B     |
+        | 8  | 4               | B     |
 
-            | id | seurat_clusters | Group |
-            |----|-----------------|-------|
-            | 1  | 1               | A     |
-            | 2  | 1               | A     |
-            | 3  | 2               | A     |
-            | 4  | 2               | A     |
-            | 5  | 3               | B     |
-            | 6  | 3               | B     |
-            | 7  | 4               | B     |
-            | 8  | 4               | B     |
+        ### Default
 
-            ### Default
+        By default, `group_by` is `seurat_clusters`, and `ident_1` and `ident_2`
+        are not specified. So markers will be found for all clusters in the manner
+        of "cluster vs rest" comparison.
 
-            By default, `group_by` is `seurat_clusters`, and `ident_1` and `ident_2`
-            are not specified. So markers will be found for all clusters in the manner
-            of "cluster vs rest" comparison.
+        - Cluster
+            - 1 (vs 2, 3, 4)
+            - 2 (vs 1, 3, 4)
+            - 3 (vs 1, 2, 4)
+            - 4 (vs 1, 2, 3)
 
-            - Cluster
-                - 1 (vs 2, 3, 4)
-                - 2 (vs 1, 3, 4)
-                - 3 (vs 1, 2, 4)
-                - 4 (vs 1, 2, 3)
+        Each case will have the markers and the enrichment analysis for the
+        markers as the results.
 
-            Each case will have the markers and the enrichment analysis for the
-            markers as the results.
+        ### With `each` group
 
-            ### With `each` group
+        `each` is used to separate the cells into different cases. `group_by`
+        is still `seurat_clusters`.
 
-            `each` is used to separate the cells into different cases. `group_by`
-            is still `seurat_clusters`.
+        ```toml
+        [<Proc>.envs]
+        group_by = "seurat_clusters"
+        each = "Group"
+        ```
 
-            ```toml
-            [<Proc>.envs]
-            group_by = "seurat_clusters"
-            each = "Group"
-            ```
+        - A:Cluster
+            - 1 (vs 2)
+            - 2 (vs 1)
+        - B:Cluster
+            - 3 (vs 4)
+            - 4 (vs 3)
 
-            - A:Cluster
-                - 1 (vs 2)
-                - 2 (vs 1)
-            - B:Cluster
-                - 3 (vs 4)
-                - 4 (vs 3)
+        ### With `ident_1` only
 
-            ### With `ident_1` only
+        `ident_1` is used to specify the first group of cells to compare.
+        Then the rest of the cells in the case are used for `ident_2`.
 
-            `ident_1` is used to specify the first group of cells to compare.
-            Then the rest of the cells in the case are used for `ident_2`.
+        ```toml
+        [<Proc>.envs]
+        group_by = "seurat_clusters"
+        ident_1 = "1"
+        ```
 
-            ```toml
-            [<Proc>.envs]
-            group_by = "seurat_clusters"
-            ident_1 = "1"
-            ```
+        - Cluster
+            - 1 (vs 2, 3, 4)
 
-            - Cluster
-                - 1 (vs 2, 3, 4)
+        ### With both `ident_1` and `ident_2`
 
-            ### With both `ident_1` and `ident_2`
+        `ident_1` and `ident_2` are used to specify the two groups of cells to
+        compare.
 
-            `ident_1` and `ident_2` are used to specify the two groups of cells to
-            compare.
+        ```toml
+        [<Proc>.envs]
+        group_by = "seurat_clusters"
+        ident_1 = "1"
+        ident_2 = "2"
+        ```
 
-            ```toml
-            [<Proc>.envs]
-            group_by = "seurat_clusters"
-            ident_1 = "1"
-            ident_2 = "2"
-            ```
+        - Cluster
+            - 1 (vs 2)
 
-            - Cluster
-                - 1 (vs 2)
+        ### Multiple cases
 
-            ### Multiple cases
+        ```toml
+        [<Proc>.envs.cases]
+        c1_vs_c2 = {ident_1 = "1", ident_2 = "2"}
+        c3_vs_c4 = {ident_1 = "3", ident_2 = "4"}
+        ```
 
-            ```toml
-            [<Proc>.envs.cases]
-            c1_vs_c2 = {ident_1 = "1", ident_2 = "2"}
-            c3_vs_c4 = {ident_1 = "3", ident_2 = "4"}
-            ```
+        - DEFAULT:c1_vs_c2
+            - 1 (vs 2)
+        - DEFAULT:c3_vs_c4
+            - 3 (vs 4)
 
-            - DEFAULT:c1_vs_c2
-                - 1 (vs 2)
-            - DEFAULT:c3_vs_c4
-                - 3 (vs 4)
+        The `DEFAULT` section name will be ignored in the report. You can specify
+        a section name other than `DEFAULT` for each case to group them
+        in the report.
+    """
 
-            The `DEFAULT` section name will be ignored in the report. You can specify
-            a section name other than `DEFAULT` for each case to group them
-            in the report.
-        """
-
-        requires = Clustered
-        order = 11
+    order = 11
 
 
-if just_loading or (config.has_vdj and "CDR3AAPhyschem" in config):
-
-    class CDR3AAPhyschem(CDR3AAPhyschem_):
-        requires = Clustered
-        order = 12
+@when(VDJInput and "CDR3AAPhyschem" in config, requires=CombinedInput)
+class CDR3AAPhyschem(CDR3AAPhyschem_):
+    order = 12
 
 
 if "ScrnaMetabolicLandscape" in config or just_loading:
@@ -873,5 +879,5 @@ if "ScrnaMetabolicLandscape" in config or just_loading:
     else:
         scrna_metabolic_landscape = ScrnaMetabolicLandscape(is_seurat=True)
 
-    scrna_metabolic_landscape.p_input.requires = Clustered
+    scrna_metabolic_landscape.p_input.requires = CombinedInput
     scrna_metabolic_landscape.p_input.order = 99
