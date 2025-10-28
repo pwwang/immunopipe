@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import Generator
 
+import re
 import sys
 from contextlib import contextmanager
 from pathlib import Path
@@ -153,4 +154,6 @@ def dry_run(*args) -> str:
                 ]
             )
         )
+
+    stdout = re.sub(r"[\n\s]+", " ", stdout)
     return stdout
