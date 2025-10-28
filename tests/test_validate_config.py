@@ -80,38 +80,6 @@ def test_validate_config_torbcellselection_seuratclusteringofallcells():
     assert "All cells are T cells" in stdout
 
 
-def test_validate_config_mixed():
-    args = [f"@{configs_dir}/mixed.config.toml"]
-    stdout = _run_with_argv(args)
-    stdout = re.sub(r"[\s\n]+", " ", stdout)
-    assert "Miscofigurations detected:" in stdout
-    assert (
-        "[ClusterMarkersOfAllCells] should not be used and will be ignored."
-        in stdout
-    )
-    assert (
-        "[TopExpressingGenesOfAllCells] should not be used and will be ignored."
-        in stdout
-    )
-    assert (
-        "Cannot do both supervised [SeuratMap2Ref]"
-        in stdout
-    )
-
-
-def test_validate_config_celltypeannotation_seuratmap2ref():
-    args = [
-        f"@{configs_dir}/celltypeannotation_seuratmap2ref.config.toml"
-    ]
-    stdout = _run_with_argv(args)
-    stdout = re.sub(r"[\s\n]+", " ", stdout)
-    assert "Miscofigurations detected:" in stdout
-    assert (
-        "[CellTypeAnnotation] is ignored when [SeuratMap2Ref] is used."
-        in stdout
-    )
-
-
 def test_validate_config_loadingrnafromseurat():
     args = [
         f"@{configs_dir}/loadingrnafromseurat.config.toml"

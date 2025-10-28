@@ -114,17 +114,6 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
             "so [TopExpressingGenesOfAllCells] should not be used and will be ignored."
         )
 
-    if "SeuratMap2Ref" in config and "SeuratClustering" in config:
-        _log_error(
-            "Cannot do both supervised [SeuratMap2Ref] and "
-            "unsupervised [SeuratClustering] clustering."
-        )
-
-    if "SeuratMap2Ref" in config and "CellTypeAnnotation" in config:
-        WARNINGS.append(
-            "[CellTypeAnnotation] is ignored when [SeuratMap2Ref] is used."
-        )
-
     # Input from Seurat object
     if "LoadingRNAFromSeurat" in config:
         LoadingRNAFromSeurat_prepared = _get_arg_from_cli(
