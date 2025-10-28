@@ -107,16 +107,17 @@ class ProcessDiscovery:
 
                 mock_config_content = """
 [TOrBCellSelection]
-enabled = true
+envs = {}
 
 [ClusterMarkersOfAllCells]
-enabled = true
+envs = {}
 
 [TopExpressingGenesOfAllCells]
-enabled = true
+envs = {}
 
-[LoadRNAFromSeurat]
-enabled = true
+[LoadingRNAFromSeurat.envs]
+prepared = false
+clustered = false
 """
 
                 # Write mock config to temp file

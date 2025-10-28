@@ -40,7 +40,7 @@ Note that the required `RNAData` (if not loaded from a Seurat object) and `TCRDa
 columns are not shown in the report.<br />
 They are used to specify the paths of the `scRNA-seq` and `scTCR-seq` data, respectively.<br />
 Also note that when `RNAData` is loaded from a Seurat object (specified in the
-`LoadRNAFromSeurat` process), the metadata provided in this process will not be
+`LoadingRNAFromSeurat` process), the metadata provided in this process will not be
 integrated into the Seurat object in the downstream processes. To incoporate
 these meta information into the Seurat object, please provide them in the
 Seurat object itself or use the `envs.mutaters` of the `SeuratPreparing` process

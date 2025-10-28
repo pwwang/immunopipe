@@ -126,29 +126,29 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
         )
 
     # Input from Seurat object
-    if "LoadRNAFromSeurat" in config:
-        loadrnafromseurat_prepared = _get_arg_from_cli(
-            "LoadRNAFromSeurat.envs.prepared",
-            config.get("LoadRNAFromSeurat", {}).get("envs", {}).get("prepared"),
+    if "LoadingRNAFromSeurat" in config:
+        LoadingRNAFromSeurat_prepared = _get_arg_from_cli(
+            "LoadingRNAFromSeurat.envs.prepared",
+            config.get("LoadingRNAFromSeurat", {}).get("envs", {}).get("prepared"),
             is_flag=True,
         )
-        if loadrnafromseurat_prepared is None:
-            loadrnafromseurat_prepared = False
+        if LoadingRNAFromSeurat_prepared is None:
+            LoadingRNAFromSeurat_prepared = False
 
-        loadrnafromseurat_clustered = _get_arg_from_cli(
-            "LoadRNAFromSeurat.envs.clustered",
-            config.get("LoadRNAFromSeurat", {}).get("envs", {}).get("clustered"),
+        LoadingRNAFromSeurat_clustered = _get_arg_from_cli(
+            "LoadingRNAFromSeurat.envs.clustered",
+            config.get("LoadingRNAFromSeurat", {}).get("envs", {}).get("clustered"),
             is_flag=True,
         )
-        if loadrnafromseurat_clustered is None:
-            loadrnafromseurat_clustered = False
+        if LoadingRNAFromSeurat_clustered is None:
+            LoadingRNAFromSeurat_clustered = False
 
-        if loadrnafromseurat_clustered:
-            loadrnafromseurat_prepared = True
+        if LoadingRNAFromSeurat_clustered:
+            LoadingRNAFromSeurat_prepared = True
 
-        config.setdefault("LoadRNAFromSeurat", {}).setdefault("envs", {})
-        config.LoadRNAFromSeurat.envs.prepared = loadrnafromseurat_prepared
-        config.LoadRNAFromSeurat.envs.clustered = loadrnafromseurat_clustered
+        config.setdefault("LoadingRNAFromSeurat", {}).setdefault("envs", {})
+        config.LoadingRNAFromSeurat.envs.prepared = LoadingRNAFromSeurat_prepared
+        config.LoadingRNAFromSeurat.envs.clustered = LoadingRNAFromSeurat_clustered
         config.has_vdj = "SampleInfo" in config
 
     # Input from sample info file

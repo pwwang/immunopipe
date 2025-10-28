@@ -36,6 +36,7 @@ nav:
     - 'Processes':
       - 'SampleInfo': 'processes/SampleInfo.md'
       # scRNA-seq processes
+      - 'LoadingRNAFromSeurat': 'processes/LoadingRNAFromSeurat.md'
       - 'SeuratPreparing': 'processes/SeuratPreparing.md'
       - 'SeuratClusteringOfAllCells': 'processes/SeuratClusteringOfAllCells.md'
       - 'ClusterMarkersOfAllCells': 'processes/ClusterMarkersOfAllCells.md'

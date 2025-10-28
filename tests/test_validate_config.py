@@ -112,9 +112,9 @@ def test_validate_config_celltypeannotation_seuratmap2ref():
     )
 
 
-def test_validate_config_loadrnafromseurat():
+def test_validate_config_loadingrnafromseurat():
     args = [
-        f"@{configs_dir}/loadrnafromseurat.config.toml"
+        f"@{configs_dir}/loadingrnafromseurat.config.toml"
     ]
     # Runs normally
     stdout = _run_with_argv(args)
@@ -122,10 +122,10 @@ def test_validate_config_loadrnafromseurat():
     assert "Integrative analysis for" in stdout
 
 
-def test_validate_config_loadrnafromseurat_clustered():
+def test_validate_config_loadingrnafromseurat_clustered():
     args = [
-        f"@{configs_dir}/loadrnafromseurat.config.toml",
-        "--LoadRNAFromSeurat.envs.clustered",
+        f"@{configs_dir}/loadingrnafromseurat.config.toml",
+        "--LoadingRNAFromSeurat.envs.clustered",
     ]
     # Runs normally
     stdout = _run_with_argv(args)
