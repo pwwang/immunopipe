@@ -276,7 +276,8 @@ class SampleInfo(SampleInfo_):
 # if has_vdj is True
 @when(SampleInfo and config.has_vdj, requires=SampleInfo)
 @annotate.format_doc(vars={"baseurl": DOC_BASEURL})
-class ScRepLoading(ScRepLoading_): ...
+class ScRepLoading(ScRepLoading_):
+    pass
 
 
 VDJInput = ScRepLoading
@@ -427,7 +428,8 @@ class TopExpressingGenesOfAllCells(TopExpressingGenes_):
     "TOrBCellSelection" in config,
     requires=[RNAInput, VDJInput] if VDJInput else RNAInput,
 )
-class TOrBCellSelection(TOrBCellSelection_): ...
+class TOrBCellSelection(TOrBCellSelection_):
+    pass
 
 
 RNAInput = TOrBCellSelection or RNAInput
@@ -646,7 +648,8 @@ class TopExpressingGenes(TopExpressingGenes_):
 
 
 @when(VDJInput, requires=[RNAInput, VDJInput])
-class ScRepCombiningExpression(ScRepCombiningExpression_): ...
+class ScRepCombiningExpression(ScRepCombiningExpression_):
+    pass
 
 
 CombinedInput = ScRepCombiningExpression or RNAInput
@@ -706,7 +709,8 @@ class CellCellCommunication(CellCellCommunication_):
     "CellCellCommunication" in config or "CellCellCommunicationPlots" in config,
     requires=CellCellCommunication,
 )
-class CellCellCommunicationPlots(CellCellCommunicationPlots_): ...
+class CellCellCommunicationPlots(CellCellCommunicationPlots_):
+    pass
 
 
 class SeuratClusterStats(SeuratClusterStats_):
