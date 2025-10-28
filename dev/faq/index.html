@@ -81,6 +81,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SampleInfo/">SampleInfo</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratPreparing/">SeuratPreparing</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
@@ -188,8 +190,8 @@
 <p>If <code>immunopipe</code> still can't be found from command line, try <code>/path/to/python -m immunopipe</code>.</p>
 </details>
 <details>
-<summary>Why I am getting "Error writing to connection:  No space left on device" while running <a href="processes/ImmunarchLoading.md"><code>ImmunarchLoading</code></a>?</summary>
-<p>If you are running the pipeline and it complains about "No space left on device" at <code>ImmunarchLoading</code>, and you are pretty sure that your working directory is way from full,  it is likely that your temporary directory does not have enough space. This is because that the <code>ImmunarchLoading</code> process will create a temporary directory to store the intermediate files, and the default temporary directory is <code>/tmp</code>. Make sure that you have enough space in <code>/tmp</code> or you can change the temporary directory by setting the environment variable of the process: <a href="processes/ImmunarchLoading.md#environment-variables"><code>envs.tmpdir</code></a>.</p>
+<summary>Why I am getting "Error writing to connection:  No space left on device"?</summary>
+<p>If you are running the pipeline and it complains about "No space left on device", and you are pretty sure that your working directory is way from full,  it is likely that your temporary directory does not have enough space. This is because that the pipeline will create a temporary directory to store the intermediate files, and the default temporary directory is <code>/tmp</code>. Make sure that you have enough space in <code>/tmp</code> or you can change the temporary directory by setting the environment variable of the process: <code>envs.tmpdir</code>.</p>
 <p>It is also likely that you are running the pipeline in a docker container and the docker container does not have enough space in <code>/tmp</code>. In such case, you can try to run the pipeline with the <code>-v</code> option of docker to local directory to <code>/tmp</code> in the container. For example:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span>-v<span class="w"> </span>.:/workdir<span class="w"> </span>-v<span class="w"> </span>path/to/tmp:/tmp<span class="w"> </span><span class="se">\</span>
 <span class="c1">#                                         ^^^^^^^^^^^^^^^^^^^</span>

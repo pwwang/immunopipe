@@ -117,6 +117,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SampleInfo/">SampleInfo</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratPreparing/">SeuratPreparing</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
@@ -363,7 +365,7 @@
 <p>With the minimal configurations, the pipeline will have <a href="#enablingdisabling-processes">the essential processes</a> enabled, depending on whether scTCR-/scBCR-seq data is available or not.</p>
 <p>You can also check <a href="http:/imp.pwwang.com/minimal/REPORTS/">the example report here</a> to see what you will get with the minimal configurations, with scTCR-/scBCR-seq data available.</p>
 <h3 id="environment-variable-types">Environment variable types<a class="headerlink" href="#environment-variable-types" title="Permanent link">&para;</a></h3>
-<p>The types of environment variables are annotated in the brackets next the name of the environment variables. For example, the type of <code>envs.indicator_genes</code> of <a href="../processes/TCellSelection/"><code>TCellSelection</code></a> is <code>list</code>, and it's annotated as:</p>
+<p>The types of environment variables are annotated in the brackets next the name of the environment variables. For example, the type of <code>envs.indicator_genes</code> of <a href="../processes/TOrBCellSelection/"><code>TOrBCellSelection</code></a> is <code>list</code>, and it's annotated as:</p>
 <div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span>indicator_genes (list): The genes to be used to select T cells.
 </code></pre></div>
 <p>By default, the type of environment variables is <code>string</code>. The annotated types are helpful for the environment variables to be passed from the command line. It defines the argument and helps parse the argument from the command line. It is also useful to define the input elements from the <a href="https://github.com/pwwang/pipen-board"><code>pipen-board</code></a> web interface and parse the values passed from the web interface as desired types.</p>
