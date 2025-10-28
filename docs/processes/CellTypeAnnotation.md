@@ -1,13 +1,13 @@
 # CellTypeAnnotation
 
-Annotate the T cell clusters.
+Annotate all or selected T/B cell clusters.
 
 Annotate the cell clusters. Currently, four ways are supported:<br />
 
 1. Pass the cell type annotation directly
 2. Use [`ScType`](https://github.com/IanevskiAleksandr/sc-type)
 3. Use [`scCATCH`](https://github.com/ZJUFanLab/scCATCH)
-4. Use [`hitype`](https://github.com/pwwang/hitype)
+4. Use [`hitype`](https://github.com/user/hitype)
 
 The annotated cell types will replace the original `seurat_clusters` column in the metadata,
 so that the downstream processes will use the annotated cell types.<br />
@@ -52,7 +52,7 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
         See <https://github.com/IanevskiAleksandr/sc-type>
     - `hitype`:
         Use `hitype` to annotate cell types.<br />
-        See <https://github.com/pwwang/hitype>
+        See <https://github.com/user/hitype>
     - `sccatch`:
         Use `scCATCH` to annotate cell types.<br />
         See <https://github.com/ZJUFanLab/scCATCH>
@@ -75,7 +75,7 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
 - `hitype_db`:
     The database to use for hitype.<br />
     Compatible with `sctype_db`.<br />
-    See also <https://pwwang.github.io/hitype/articles/prepare-gene-sets.html>
+    See also <https://user.github.io/hitype/articles/prepare-gene-sets.html>
     You can also use built-in databases, including `hitypedb_short`, `hitypedb_full`, and `hitypedb_pbmc3k`.<br />
 - `cell_types` *(`list`)*: *Default: `[]`*. <br />
     The cell types to use for direct annotation.<br />
@@ -91,6 +91,12 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
     If `tool` is `direct` and `cell_types` is not specified or an empty list,
     the original cell types will be kept and nothing will be changed.<br />
     ///
+
+- `more_cell_types` *(`type=json`)*:
+    The additional cell type annotations to add to the metadata.<br />
+    The keys are the new column names and the values are the cell types lists.<br />
+    The cell type lists work the same as `cell_types` above.<br />
+    This is useful when you want to keep multiple annotations of cell types.<br />
 
 - `sccatch_args` *(`ns`)*:
     The arguments for `scCATCH::findmarkergene()` if `tool` is `sccatch`.<br />
@@ -175,5 +181,5 @@ Otherwise, the original `seurat_clusters` column will be replaced by the
 annotated cell types and the original `seurat_clusters` column will be
 saved at `seurat_clusters_id`.<br />
 
-![CellTypeAnnotation-metadata](../..//processes/images/CellTypeAnnotation-metadata.png)
+![CellTypeAnnotation-metadata](images/CellTypeAnnotation-metadata.png)
 

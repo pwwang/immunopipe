@@ -192,7 +192,7 @@ You can also check [the example report here](http:/imp.pwwang.com/minimal/REPORT
 
 ## Environment variable types
 
-The types of environment variables are annotated in the brackets next the name of the environment variables. For example, the type of `envs.indicator_genes` of [`TCellSelection`](processes/TCellSelection.md) is `list`, and it's annotated as:
+The types of environment variables are annotated in the brackets next the name of the environment variables. For example, the type of `envs.indicator_genes` of [`TOrBCellSelection`](processes/TOrBCellSelection.md) is `list`, and it's annotated as:
 
 ```markdown
 - indicator_genes (list): The genes to be used to select T cells.

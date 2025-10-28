@@ -1,61 +1,62 @@
-# TCellSelection
+# TOrBCellSelection
 
-Separate T and non-T cells and select T cells.
+Separate T and non-T cells and select T cells; or separate B and non-B cells and select B cells.
 
-If all of your cells are T cells, do not set any configurations for this process.<br />
+If all of your cells are T/B cells, do not set any configurations for this process.<br />
 
 In such a case, [`SeuratClusteringOfAllCells`](SeuratClusteringOfAllCells.md) should
 not be used, and [`SeuratClustering`](SeuratClustering.md) will be clustering all
-of the cells, which are all T cells.<br />
+of the cells, which are all T/B cells.<br />
 
-There are two ways to separate T and non-T cells:<br />
+There are two ways to separate T and non-T cells; or B and non-B cells:<br />
 
 1. Use the an expression indicator directly from the metadata.<br />
 2. Use the expression values of indicator genes, and the clonotype percentage
 of the clusters.<br />
 
-You can also use indicator gene expression values only to select T cells by setting
-`envs.ignore_tcr` to true.<br />
+You can also use indicator gene expression values only to select T/B cells by
+setting `envs.ignore_vdj` to true.<br />
 
 ## Input
 
 - `srtobj`:
-    Seurat object file in RDS/qs
+    Seurat object file in RDS/qs2
 - `immdata`:
-    Immune repertoire data file in RDS/qs
+    Immune repertoire data file in RDS/qs2
 
 ## Output
 
 - `outfile`: *Default: `{{in.srtobj | stem}}.qs`*. <br />
-    Seurat object file in qs format
+    Seurat object file in qs2 format
 - `outdir`: *Default: `details`*. <br />
     Output directory with details
 
 ## Environment Variables
 
-- `ignore_tcr` *(`flag`)*: *Default: `False`*. <br />
-    Ignore TCR information for T cell selection.<br />
-    Use only the expression values of indicator genes.<br />
+- `ignore_vdj` *(`flag`)*: *Default: `False`*. <br />
+    Ignore VDJ information for T/B cell selection.<br />
+    Use only the expression values of indicator genes if True.<br />
     In this case, the `Clonotype_Pct` column does not exist in the metadata.<br />
-    If you want to use `k-means` to select T cells, you must have more than
+    If you want to use `k-means` to select T/B cells, you must have more than
     1 indicator gene, and the first indicator gene in `envs.indicator_genes`
     must be a positive marker, which will be used to select the cluster with
-    higher expression values as T cells.<br />
-- `tcell_selector`:
+    higher expression values as T/B cells.<br />
+- `selector`:
     The expression passed to `tidyseurat::mutate(is_TCell = ...)`
     to indicate whether a cell is a T cell. For example, `Clonotype_Pct > 0.25`
     to indicate cells with clonotype percentage > 25% are T cells.<br />
     If `indicator_genes` is provided, the expression values can also be used
     in the expression. For example, `Clonotype_Pct > 0.25 & CD3E > 0`.<br />
-    If `tcell_selector` is not provided, a kmeans clustering will be performed
+    If `selector` is not provided, a kmeans clustering will be performed
     on the expression values of `indicator_genes` and `Clonotype_Pct`,
     with K=2, and the cluster with higher clonotype percentage will be selected
-    as T cells.<br />
+    as T/B cells.<br />
 - `indicator_genes` *(`list`)*: *Default: `['CD3E']`*. <br />
     A list of indicator genes whose expression values and
-    clonotype percentage will be used to determine T cells.<br />
+    clonotype percentage will be used to determine T/B cells.<br />
     The markers could be either positive, such as `CD3E`, `CD3D`, `CD3G`, or
-    negative, such as `CD19`, `CD14`, `CD68`.<br />
+    negative, such as `CD19`, `CD14`, `CD68`, for T cells. For B cells,
+    markers such as `CD19`, `MS4A1` (CD20), `CD79A`, `CD79B` could be used.<br />
 
 - `kmeans` *(`type=json`)*: *Default: `{'nstart': 25}`*. <br />
     The parameters for `kmeans` clustering.<br />
@@ -79,8 +80,8 @@ If you have a metadata like this:<br />
 With the configuration below:<br />
 
 ```toml
-[TCellSelection.envs]
-tcell_selector = "Clonotype_Pct > 0.25"
+[TOrBCellSelection.envs]
+selector = "Clonotype_Pct > 0.25"
 ```
 
 The T cells will be selected as:<br />
@@ -114,8 +115,8 @@ the indicator genes, together with `Clonotype_Pct`, with K=2.<br />
 
 ![kmeans](images/TCellSelection-kmeans.png)
 
-The cluster with higher clonoype percentage will be selected as T cells
-(`is_TCell = TRUE`), and sent to
+The cluster with higher clonoype percentage will be selected as T/B cells
+(`is_selected = TRUE`), and sent to
 [`SeuratClustering`](SeuratClustering.md) for
 further clustering and downstream analysis.<br />
 

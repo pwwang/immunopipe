@@ -1,17 +1,17 @@
 # SeuratClusteringOfAllCells
 
-Cluster all cells, including T cells and non-T cells using Seurat
+Cluster all cells, including T cells/non-T cells and B cells/non-Bcells using Seurat.
 
 This process will perform clustering on all cells using
 [`Seurat`](https://satijalab.org/seurat/) package.<br />
-The clusters will then be used to select T cells by
-[`TCellSelection`](TCellSelection.md) process.<br />
+The clusters will then be used to select T/B cells by
+[`TOrBCellSelection`](TOrBCellSelection.md) process.<br />
 
 
 
 /// Note
-If all your cells are all T cells ([`TCellSelection`](TCellSelection.md) is
-not set in configuration), you should not use this process.<br />
+If all your cells are all T/B cells ([`TOrBCellSelection`](TOrBCellSelection.md)
+is not set in configuration), you should not use this process.<br />
 Instead, you should use [`SeuratClustering`](./SeuratClustering.md) process
 for unsupervised clustering, or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process
 for supervised clustering.<br />
@@ -67,7 +67,7 @@ for supervised clustering.<br />
         The final resolution will be used to define the clusters at `seurat_clusters`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findclusters>
-- `cache` *(`type=auto`)*: *Default: `/tmp/m161047`*. <br />
+- `cache` *(`type=auto`)*: *Default: `/tmp`*. <br />
     Where to cache the information at different steps.<br />
     If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
     Set to `False` to not cache the results.<br />

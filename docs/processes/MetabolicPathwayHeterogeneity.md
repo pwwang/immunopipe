@@ -11,7 +11,7 @@ in the permutations.<br />
 The heterogeneity can be reflected by the NES values and the p-values in
 different groups for the metabolic pathways.<br />
 
-![MetabolicPathwayHeterogeneity](https://pwwang.github.io/immunopipe/latest/processes/images/MetabolicPathwayHeterogeneity.png)
+![MetabolicPathwayHeterogeneity](images/MetabolicPathwayHeterogeneity.png)
 
 ## Input
 
@@ -52,7 +52,7 @@ different groups for the metabolic pathways.<br />
     The plots to generate.<br />
     Names will be used as the title for the plot. Values will be the arguments
     passed to `biopipen.utils::VizGSEA()` function.<br />
-    See <https://pwwang.github.io/biopipen.utils.R/reference/VizGSEA.html>.<br />
+    See <https://user.github.io/biopipen.utils.R/reference/VizGSEA.html>.<br />
 - `cases` *(`type=json`)*: *Default: `{}`*. <br />
     Multiple cases for the analysis.<br />
     If you only have one case, you can specify the parameters directly to

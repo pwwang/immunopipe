@@ -90,7 +90,7 @@ package or the [`GSEA_R`](https://github.com/GSEA-MSigDB/GSEA_R) package.<br />
     The plots to generate.<br />
     Names will be used as the title for the plot. Values will be the arguments
     passed to `biopipen.utils::VizGSEA()` function.<br />
-    See <https://pwwang.github.io/biopipen.utils.R/reference/VizGSEA.html>.<br />
+    See <https://user.github.io/biopipen.utils.R/reference/VizGSEA.html>.<br />
     A key `level` is supported to specify the level of the plot.<br />
     Possible values are `case`, which includes all subsets and groups in the
     case; `subset`, which includes all groups in the subset; otherwise, it

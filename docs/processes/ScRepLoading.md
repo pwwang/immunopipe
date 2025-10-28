@@ -34,12 +34,17 @@ Note that when the file name can not be recognized by `scRepertoire::loadContigs
 
 ## Environment Variables
 
-- `type` *(`choice`)*: *Default: `TCR`*. <br />
+- `type` *(`choice`)*: *Default: `auto`*. <br />
     The type of the data to load.<br />
     - `TCR`:
         T cell receptor data
     - `BCR`:
         B cell receptor data
+    - `auto`:
+        Automatically detect the type from the metadata.<br />
+        If `auto` is selected, the type will be determined by the presence of
+        `TCRData` or `BCRData` columns in the metadata. If both columns are
+        present, `TCR` will be selected by default.<br />
 - `combineTCR` *(`type=json`)*: *Default: `{'samples': True}`*. <br />
     The extra arguments for `scRepertoire::combineTCR`
     function.<br />
@@ -52,7 +57,7 @@ Note that when the file name can not be recognized by `scRepertoire::loadContigs
     The columns to exclude from the metadata to add to the object.<br />
     A list of column names to exclude or a string with column names separated
     by `,`. By default, `BCRData`, `TCRData` and `RNAData` will be excluded.<br />
-- `tmpdir`: *Default: `/tmp/m161047`*. <br />
+- `tmpdir`: *Default: `/tmp`*. <br />
     The temporary directory to store the symbolic links to the
     TCR/BCR data files.<br />
 - `format` *(`choice`)*:

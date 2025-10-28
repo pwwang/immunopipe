@@ -1,11 +1,11 @@
 # SeuratClustering
 
-Cluster all T cells or selected T cells selected by `TCellSelection`.
+Cluster all cells or selected T/B cells selected by `TOrBCellSelection`.
 
-If `[TCellSelection]` is not set in the configuration, meaning
-all cells are T cells, this process will be run on all T cells. Otherwise,
-this process will be run on the selected T cells by
-[`TCellSelection`](./TCellSelection.md).<br />
+If `[TOrBCellSelection]` is not set in the configuration, meaning
+all cells are T/B cells, this process will be run on all T/B cells. Otherwise,
+this process will be run on the selected T/B cells by
+[`TOrBCellSelection`](./TOrBCellSelection.md).<br />
 
 See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
 
@@ -59,7 +59,7 @@ See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
         The final resolution will be used to define the clusters at `seurat_clusters`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findclusters>
-- `cache` *(`type=auto`)*: *Default: `/tmp/m161047`*. <br />
+- `cache` *(`type=auto`)*: *Default: `/tmp`*. <br />
     Where to cache the information at different steps.<br />
     If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
     Set to `False` to not cache the results.<br />
@@ -69,5 +69,5 @@ See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
 The metadata of the `Seurat` object will be updated with the cluster
 assignments:<br />
 
-![SeuratClustering-metadata](../..//processes/images/SeuratClustering-metadata.png)
+![SeuratClustering-metadata](images/SeuratClustering-metadata.png)
 

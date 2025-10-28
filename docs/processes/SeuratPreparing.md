@@ -43,7 +43,7 @@ If you are using `cca` or `rpca` interation, the default assay will be `integrat
 From `biopipen` v0.23.0, this requires `Seurat` v5.0.0 or higher.<br />
 ///
 
-See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
+See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-seq-data).<br />
 
 ## Input
 
@@ -55,6 +55,8 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
     `RNAData` to assign the path of the data to the samples
     The path will be read by `Read10X()` from `Seurat`, or the path
     to the h5 file that can be read by `Read10X_h5()` from `Seurat`.<br />
+    It can also be an RDS or qs2 file containing a `Seurat` object.<br />
+    Note that it must has a column named `Sample` in the meta.data to specify the sample names.<br />
 
 ## Output
 
@@ -76,15 +78,19 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
     The minimum number of cells that a gene must be
     expressed in to be kept. This is used in `Seurat::CreateSeuratObject()`.<br />
     Futher QC (`envs.cell_qc`, `envs.gene_qc`) will be performed after this.<br />
-    It doesn't work when data is loaded from loom files.<br />
+    It doesn't work when data is loaded from loom files or RDS/qs2 files.<br />
 - `min_features` *(`type=int`)*: *Default: `0`*. <br />
     The minimum number of features that a cell must
     express to be kept. This is used in `Seurat::CreateSeuratObject()`.<br />
     Futher QC (`envs.cell_qc`, `envs.gene_qc`) will be performed after this.<br />
-    It doesn't work when data is loaded from loom files.<br />
+    It doesn't work when data is loaded from loom files or RDS/qs2 files.<br />
 - `cell_qc`:
     Filter expression to filter cells, using
     `tidyrseurat::filter()`.<br />
+    It can also be a dictionary of expressions, where the names of the list are
+    sample names.<br />
+    You can have a default expression in the list with the name "DEFAULT" for
+    the samples that are not listed.<br />
     Available QC keys include `nFeature_RNA`, `nCount_RNA`,
     `percent.mt`, `percent.ribo`, `percent.hb`, and `percent.plat`.<br />
 
@@ -127,9 +133,9 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
     * more_formats: The formats to save the plots other than `png`.<br />
     * save_code: Whether to save the code to reproduce the plot.<br />
     * other arguments passed to
-    [`biopipen.utils::VizSeuratCellQC`](https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratCellQC.html)
+    [`biopipen.utils::VizSeuratCellQC`](https://user.github.io/biopipen.utils.R/reference/VizSeuratCellQC.html)
     when `kind` is `cell` or
-    [`biopipen.utils::VizSeuratGeneQC`](https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratGeneQC.html)
+    [`biopipen.utils::VizSeuratGeneQC`](https://user.github.io/biopipen.utils.R/reference/VizSeuratGeneQC.html)
     when `kind` is `gene`.<br />
 
 - `use_sct` *(`flag`)*: *Default: `False`*. <br />
@@ -259,7 +265,7 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
         Set to `None` to use `envs.ncores`.<br />
     - `<more>`:
         See <https://rdrr.io/bioc/scDblFinder/man/scDblFinder.html>.<br />
-- `cache` *(`type=auto`)*: *Default: `/tmp/m161047`*. <br />
+- `cache` *(`type=auto`)*: *Default: `/tmp`*. <br />
     Whether to cache the information at different steps.<br />
     If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
     The cached seurat object will be saved as `<signature>.<kind>.RDS` file, where `<signature>` is the signature determined by
@@ -274,5 +280,5 @@ See also [Preparing the input](../preparing-input.md#scRNA-seq-data).<br />
 Here is the demonstration of basic metadata for the `Seurat` object. Future
 processes will use it and/or add more metadata to the `Seurat` object.<br />
 
-![SeuratPreparing-metadata](../..//processes/images/SeuratPreparing-metadata.png)
+![SeuratPreparing-metadata](images/SeuratPreparing-metadata.png)
 

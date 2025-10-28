@@ -1,6 +1,6 @@
 # SeuratSubClustering
 
-Sub-cluster the selected T cells.
+Sub-clustering for all or selected T/B cells.
 
 Find clusters of a subset of cells.<br />
 
@@ -71,7 +71,7 @@ as the column name.<br />
         The final resolution will be used to define the clusters at `<casename>`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findclusters>
-- `cache` *(`type=auto`)*: *Default: `/tmp/m161047`*. <br />
+- `cache` *(`type=auto`)*: *Default: `/tmp`*. <br />
     Whether to cache the results.<br />
     If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
     Set to `False` to not cache the results.<br />
@@ -91,5 +91,5 @@ as the column name.<br />
 The metadata of the `Seurat` object will be updated with the sub-clusters
 specified by names (keys) of `envs.cases`:<br />
 
-![SeuratSubClustering-metadata](../..//processes/images/SeuratSubClustering-metadata.png)
+![SeuratSubClustering-metadata](images/SeuratSubClustering-metadata.png)
 

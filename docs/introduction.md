@@ -71,7 +71,7 @@ As shown in the figure above, `immunopipe` includes a set of processes for scRNA
 
 - [`ScrnaMetabolicLandscape`](processes/ScrnaMetabolicLandscape.md): A group of folowwing processes to perform metabolic landscape analyses.
 - [`MetabolicInput`](processes/MetabolicInput.md): Prepare the input files for metabolic landscape analyses.
-- [`MetabolicExprImpution`](processes/MetabolicExprImpution.md): Impute the dropout values in the expression matrix.
+- [`MetabolicExprImputation`](processes/MetabolicExprImputation.md): Impute the dropout values in the expression matrix.
 - [`MetabolicPathwayActivity`](processes/MetabolicPathwayActivity.md): Investigate the metabolic pathways of the cells in different groups and subsets.
 - [`MetabolicPathwayHeterogeneity`](processes/MetabolicPathwayHeterogeneity.md): Show metabolic pathways enriched in genes with highest contribution to the metabolic heterogeneities.
 - [`MetabolicFeatures`](processes/MetabolicFeatures.md): Perform gene set enrichment analysis against the metabolic pathways for groups in different subsets.

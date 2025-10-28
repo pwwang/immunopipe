@@ -42,7 +42,11 @@ Visualization for cell-cell communication inference.
     The cases for the plots.<br />
     The keys are the names of the cases and the values are the arguments for
     the plots. The arguments include the ones inherited from `envs`.<br />
+    You can have a special `plot_type` `"table"` to generate a table for the
+    ccc data to save as a text file and show in the report.<br />
+    If no cases are given, a default case will be used, with the
+    key `Cell-Cell Communication`.<br />
 - `<more>`:
     Other arguments passed to
-    [scplotter::CCCPlot](https://pwwang.github.io/scplotter/reference/CCCPlot.html)
+    [scplotter::CCCPlot](https://user.github.io/scplotter/reference/CCCPlot.html)
 
