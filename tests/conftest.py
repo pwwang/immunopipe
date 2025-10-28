@@ -126,8 +126,15 @@ def dry_run(*args) -> str:
         "--plugins=-deprecated",
         "--scheduler=dry",
     ]
-    print(" ".join(command))
-    process = Popen(command, stdout=PIPE, stderr=PIPE, text=True)
+    process = Popen(
+        command,
+        stdout=PIPE,
+        stderr=PIPE,
+        text=True,
+        bufsize=1,
+        encoding="utf-8",
+    )
+    process.wait()
     stdout, stderr = process.communicate()
     if process.returncode != 0:
         raise RuntimeError(
