@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.1.1
+
+- fix: correct order of input requirements for ScRepCombiningExpression
+
 ## 2.1.0
 
 - BREAKING: rename process LoadRNAFromSeurat to LoadingRNAFromSeurat
