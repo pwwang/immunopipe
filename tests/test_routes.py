@@ -58,7 +58,7 @@ def test_route_sampleinfo_torbselection(tmp_path):
         "ScRepLoading: >>> ['TOrBCellSelection', 'ScRepCombiningExpression']" in output
     )
     assert (
-        "ScRepCombiningExpression: <<< ['SeuratClustering', 'ScRepLoading']" in output
+        "ScRepCombiningExpression: <<< ['ScRepLoading', 'SeuratClustering']" in output
     )
     assert (
         "ScRepCombiningExpression: >>> ['SeuratClusterStats', 'ClonalStats']" in output
@@ -255,7 +255,7 @@ def test_route_loadingrnafromseurat_and_sampleinfo(tmp_path):
         "SeuratClustering: >>> ['ClusterMarkers', 'ScRepCombiningExpression']" in output
     )
     assert (
-        "ScRepCombiningExpression: <<< ['SeuratClustering', 'ScRepLoading']" in output
+        "ScRepCombiningExpression: <<< ['ScRepLoading', 'SeuratClustering']" in output
     )
     assert (
         "ScRepCombiningExpression: >>> ['SeuratClusterStats', 'ClonalStats']" in output
@@ -324,7 +324,7 @@ def test_route_loadingrnafromseurat_and_sampleinfo_torbselection(tmp_path):
         "SeuratClustering: >>> ['ClusterMarkers', 'ScRepCombiningExpression']" in output
     )
     assert (
-        "ScRepCombiningExpression: <<< ['SeuratClustering', 'ScRepLoading']" in output
+        "ScRepCombiningExpression: <<< ['ScRepLoading', 'SeuratClustering']" in output
     )
     assert (
         "ScRepCombiningExpression: >>> ['SeuratClusterStats', 'ClonalStats']" in output
@@ -409,7 +409,7 @@ def test_route_sampleinfo_full(tmp_path):
         "'ScRepCombiningExpression']" in output
     )
     assert (
-        "ScRepCombiningExpression: <<< ['SeuratSubClustering', 'ScRepLoading']"
+        "ScRepCombiningExpression: <<< ['ScRepLoading', 'SeuratSubClustering']"
         in output
     )
     assert "ScRepCombiningExpression: >>> ['TCRClustering']" in output
