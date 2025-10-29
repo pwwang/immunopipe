@@ -228,6 +228,7 @@
 <h4 id="data-input-and-qc">Data input and QC<a class="headerlink" href="#data-input-and-qc" title="Permanent link">&para;</a></h4>
 <ul>
 <li><a href="../processes/SampleInfo/"><code>SampleInfo</code></a>: Read sample information from a CSV file and list the sample information in the report.</li>
+<li><a href="../processes/LoadingRNAFromSeurat/"><code>LoadingRNAFromSeurat</code></a>: Load the scRNA-seq data from existing <code>Seurat</code> objects.</li>
 <li><a href="../processes/ScRepLoading/"><code>ScRepLoading</code></a>: Load the VDJ data into <code>ScRepertoire</code> objects.</li>
 <li><a href="../processes/SeuratPreparing/"><code>SeuratPreparing</code></a>: Read the data into <code>Seurat</code> objects and perform QC.</li>
 </ul>
@@ -290,13 +291,15 @@
 <p>This is the most common route of the pipeline:</p>
 <p><img alt="routes-tcr" src="../routes-tcr.png" /></p>
 <p>The optional processes are enabled only when the corresponding sections are added in the configuration file. For example, if you want to add module scores (e.g. cell activation score) to the <code>Seurat</code> object, you need to add <code>[ModuleScoreCalculator]</code> in the configuration file.</p>
+<p>When you have a processed <code>Seurat</code> object with scRNA-seq data, you can use <code>LoadingRNAFromSeurat</code> to load the data into the pipeline directly, which will take the place of <code>[SampleInfo]</code>. When <code>LoadingRNAFromSeurat.envs.prepared</code> is set to <code>true</code>, <code>SeuratPreparing</code> will be skipped. When <code>LoadingRNAFromSeurat.envs.clustered</code> is set to <code>true</code>, both <code>SeuratPreparing</code> and <code>SeuratClusteringOfAllCells</code>/<code>SeuratClustering</code> will be skipped. See <a href="../processes/LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a> for more details.</p>
 <h4 id="only-scrna-seq-data-avaiable">Only scRNA-seq data avaiable<a class="headerlink" href="#only-scrna-seq-data-avaiable" title="Permanent link">&para;</a></h4>
 <p>When you have only scRNA-seq data, you just don't need to add the <code>TCRData</code>/<code>BCRData</code> column in the sample information file. The pipeline will automatically skip the processes related to scTCR-/scBCR-seq data analysis.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>You need to specify the sample information file in the configuration file <code>[SampleInfo.in.infile]</code> to enable this route. Passing the sample information file as a command line argument (<code>--Sample.in.infile</code>) does not trigger this route.</p>
 </div>
-<p>Unsupervised clustering <code>[SeuratClustering]</code> on selected T cells is the default setting. If you want to perform supervised clustering, you need to add <code>[SeuratMap2Ref]</code> in the configuration file with necessary parameters. If so, <code>SeuratClustering</code> will be replaced by <code>SeuratMap2Ref</code> in the pipeline.</p>
+<p>Unsupervised clustering <code>[SeuratClustering]</code> on selected T cells is the default setting. If you want to perform supervised clustering, you need to add <code>[SeuratMap2Ref]</code> in the configuration file with necessary parameters.</p>
+<p>Similar to the previous route, you can also load a processed <code>Seurat</code> object with scRNA-seq data using <code>LoadingRNAFromSeurat</code>.</p>
 <p><img alt="routes-notcr" src="../routes-notcr.png" /></p>
               
             </div>

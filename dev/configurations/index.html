@@ -102,7 +102,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#namespace-environment-variables">Namespace environment variables</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#multi-case-variable-design">Multi-case variable design</a>
+    <li class="toctree-l2"><a class="reference internal" href="#multi-casing-design">Multi-casing design</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#security-alert">Security alert</a>
     </li>
@@ -247,6 +247,11 @@
 <span class="n">indicator_genes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;CD3D&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CD3E&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CD3G&quot;</span><span class="p">]</span>
 </code></pre></div>
 </div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>With <a href="https://github.com/pwwang/pipen-args"><code>pipen-args</code></a> plugin, the arguments can also be passed from command line directly. For example, you can pass <code>--TESSA.envs.python python_np1</code> from command line to set the <code>python</code> with dependencies installed for <code>TESSA</code> process.</p>
+<p>We know that when a process name appears in the configuration file, the process will be enabled. However, this won't work for the arguments passed from command line. You need to make sure that the process is enabled in the configuration file first. Then you can override the environment variables from command line.</p>
+</div>
 <h3 id="pipeline-configurations">Pipeline configurations<a class="headerlink" href="#pipeline-configurations" title="Permanent link">&para;</a></h3>
 <p>There are pipeline level configurations and process level configurations. The pipeline level configurations are used to control the pipeline itself. The process level configurations set here are the default values for all the processes. You can override the default values for each process in the process level configurations.</p>
 <p>You can check all available configuration items and <a href="https://pwwang.github.io/pipen/configurations/">more details here</a>. Here we only list some of the most important ones. The rest ones are not recommended to change unless you know what you are doing.</p>
@@ -334,9 +339,9 @@
 </ul>
 <p>If only scRNA-seq data is available, these processes include:</p>
 <ul>
-<li><a href="../processes/SampleInfo/"><code>SampleInfo</code></a></li>
-<li><a href="../processes/SeuratPreparing/"><code>SeuratPreparing</code></a></li>
-<li><a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a></li>
+<li><a href="../processes/SampleInfo/"><code>SampleInfo</code></a> (or <a href="../processes/LoadingRNAFromSeurat/"><code>LoadingRNAFromSeurat</code></a> if loading from existing <code>Seurat</code> objects)</li>
+<li><a href="../processes/SeuratPreparing/"><code>SeuratPreparing</code></a> (or skipped if loading from existing <code>Seurat</code> objects with <code>LoadingRNAFromSeurat.envs.prepared</code> or <code>LoadingRNAFromSeurat.envs.prepared.clustered</code> set to <code>true</code>)</li>
+<li><a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a> (or skipped if loading from existing <code>Seurat</code> objects with <code>LoadingRNAFromSeurat.envs.clustered</code> set to <code>true</code>)</li>
 <li><a href="../processes/ClusterMarkers/"><code>ClusterMarkers</code></a></li>
 <li><a href="../processes/SeuratClusterStats/"><code>SeuratClusterStats</code></a></li>
 </ul>
@@ -500,10 +505,10 @@
 <p>The other thing you need to pay attention to is that you should try to avoid <code>.</code> or <code>-</code> in the column names. For example, if you want to create a column named <code>Sample-Source</code>, you can use <code>Sample_Source</code> instead. This is because that the column names will be used as the keys of the environment variables, and some processes will translate <code>-</code> into <code>.</code>. See also <a href="#namespace-environment-variables"><code>Namespace environment variables</code></a> for more details.</p>
 <h4 id="filteringsubsetting-the-data">Filtering/Subsetting the data<a class="headerlink" href="#filteringsubsetting-the-data" title="Permanent link">&para;</a></h4>
 <p>In most processes where we need to filter the data, we don't provide an option for you to set the expression for <a href="https://dplyr.tidyverse.org/reference/filter.html"><code>dplyr::filter()</code></a>. Instead, you can make use of the <code>mutaters</code> to create a column for filtering. For example, if you only want to plot clone residency for only one patient/subject (e.g. <code>MM003-Eariler</code>) in <a href="../processes/ClonalStats/"><code>ClonalStats</code></a>, you can set the configurations as follows (suppose we have <code>Sample</code> and <code>Source</code> columns in the metadata):</p>
-<div class="highlight"><pre><span></span><code><span class="k">[RadarPlots.envs.mutaters]</span>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.mutaters]</span>
 <span class="n">SingleSample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;if_else(Sample == &#39;MM003-Eariler&#39;, Sample, NA)&quot;</span>
 
-<span class="k">[RadarPlots.envs]</span>
+<span class="k">[SeuratClusterStats.envs.stats.CloneResidency]</span>
 <span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;SingleSample&quot;</span>
 <span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Source&quot;</span>
 <span class="n">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;BM&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;PB&quot;</span><span class="p">]</span>
@@ -538,7 +543,7 @@
 <p class="admonition-title">Tip</p>
 <p>You don't need to worry about which environment variables are <code>namespace</code> ones. We will mention it in the individual process pages and the description of the environment variables in <code>pipen-board</code> configuration descriptions.</p>
 </div>
-<h3 id="multi-case-variable-design">Multi-case variable design<a class="headerlink" href="#multi-case-variable-design" title="Permanent link">&para;</a></h3>
+<h3 id="multi-casing-design">Multi-casing design<a class="headerlink" href="#multi-casing-design" title="Permanent link">&para;</a></h3>
 <p>Some environment variables are designed to support multiple cases. However, in most cases, we only need to set the values for the default case. In such cases, the environment variable is usually a <code>namespace</code> environment variable with the sub-keys needed for the default case. In order to support multiple cases, a sub-key <code>cases</code> is added to the <code>namespace</code> environment variable. The <code>cases</code> is a dictionary (key-value pairs), where the keys are the names of the cases, and the values are the sub-keys for the corresponding cases. For example, the <code>envs.group_by</code> of <a href="../processes/ScFGSEA/"><code>ScFGSEA</code></a> process:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[ScFGSEA.envs]</span>
 <span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Group&quot;</span>
