@@ -300,7 +300,7 @@ Then you can run the pipeline using the following command:
 
 To use the default `project` and `location`.
 
-You can also specify these options directly in the command line or under a section `cli-gbatch` in the configuration file. The options specified in the command line will override the ones in the configuration file, which will override the ones in the profile.
+You can also specify these options directly in the command line or under a section `gbatch` in the configuration file. The options specified in the command line will override the ones in the configuration file, which will override the ones in the profile.
 
 For example, you may have the following in `config.toml`:
 
@@ -309,12 +309,12 @@ name = "Immunopipe"
 workdir = "gs://my-bucket/immunopipe_workdir"
 outdir = "gs://my-bucket/immunopipe_outdir"
 
-[cli-gbatch]
+[gbatch]
 project = "my-project"
 location = "us-central1"
 machine-type = "n2d-standard-4"
 provisioning-model = "SPOT"
-...
+# More scheduler options...
 ```
 
 There are other actions you can do with `gbatch`:
