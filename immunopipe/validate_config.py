@@ -16,12 +16,13 @@ def _get_arg_from_cli(
     is_flag: bool = False,
     args: list[str] | None = None,
 ) -> Any:
-    """Get argument first from configration file then from command line.
+    """Get argument from command line.
 
     Args:
-        config: The configuration from the configuration file.
         argname: The argument name.
         default: The default value if the argument is not found.
+        is_flag: Whether the argument is a flag.
+        args: The argument list to search. If None, use sys.argv.
 
     Returns:
         The argument value.
