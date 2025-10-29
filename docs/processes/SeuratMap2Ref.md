@@ -111,7 +111,7 @@ and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
     - `<more>`:
         See <https://satijalab.org/seurat/reference/mapquery>.<br />
         Note that the hyphen (`-`) will be transformed into `.` for the keys.<br />
-- `cache` *(`type=auto`)*: *Default: `/tmp/m161047`*. <br />
+- `cache` *(`type=auto`)*: *Default: `/tmp`*. <br />
     Whether to cache the information at different steps.<br />
     If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
     The cached seurat object will be saved as `<signature>.<kind>.RDS` file, where `<signature>` is the signature determined by
@@ -125,12 +125,12 @@ and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
     The keys are the names of the plots and the values are the arguments for the plot.<br />
     The arguments will be passed to `biopipen.utils::VizSeuratMap2Ref()` to generate the plots.<br />
     The plots will be saved to the output directory.<br />
-    See <https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratMap2Ref.html>.<br />
+    See <https://user.github.io/biopipen.utils.R/reference/VizSeuratMap2Ref.html>.<br />
 
 ## Metadata
 
 The metadata of the `Seurat` object will be updated with the cluster
 assignments (column name determined by `envs.name`):<br />
 
-![SeuratMap2Ref-metadata](../..//processes/images/SeuratClustering-metadata.png)
+![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
 

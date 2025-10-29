@@ -5,12 +5,12 @@ from pipen_args import parser
 from .version import __version__, desc  # noqa: F401
 
 # Import your processeses
-from .processes import SampleInfo
+from .processes import start_processes
 
 
 class Immunopipe(Pipen):
     """The pipeline class"""
-    starts = [SampleInfo]
+    starts = start_processes
     desc = desc
 
 

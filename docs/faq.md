@@ -10,9 +10,9 @@ If `immunopipe` still can't be found from command line, try `/path/to/python -m 
 
 ///
 
-//// details | Why I am getting "Error writing to connection:  No space left on device" while running [`ImmunarchLoading`](processes/ImmunarchLoading.md)?
+//// details | Why I am getting "Error writing to connection:  No space left on device"?
 
-If you are running the pipeline and it complains about "No space left on device" at `ImmunarchLoading`, and you are pretty sure that your working directory is way from full,  it is likely that your temporary directory does not have enough space. This is because that the `ImmunarchLoading` process will create a temporary directory to store the intermediate files, and the default temporary directory is `/tmp`. Make sure that you have enough space in `/tmp` or you can change the temporary directory by setting the environment variable of the process: [`envs.tmpdir`](processes/ImmunarchLoading.md#environment-variables).
+If you are running the pipeline and it complains about "No space left on device", and you are pretty sure that your working directory is way from full,  it is likely that your temporary directory does not have enough space. This is because that the pipeline will create a temporary directory to store the intermediate files, and the default temporary directory is `/tmp`. Make sure that you have enough space in `/tmp` or you can change the temporary directory by setting the environment variable of the process: `envs.tmpdir`.
 
 It is also likely that you are running the pipeline in a docker container and the docker container does not have enough space in `/tmp`. In such case, you can try to run the pipeline with the `-v` option of docker to local directory to `/tmp` in the container. For example:
 

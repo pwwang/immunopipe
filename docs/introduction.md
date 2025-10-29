@@ -27,6 +27,7 @@ As shown in the figure above, `immunopipe` includes a set of processes for scRNA
 ### Data input and QC
 
 - [`SampleInfo`](processes/SampleInfo.md): Read sample information from a CSV file and list the sample information in the report.
+- [`LoadingRNAFromSeurat`](processes/LoadingRNAFromSeurat.md): Load the scRNA-seq data from existing `Seurat` objects.
 - [`ScRepLoading`](processes/ScRepLoading.md): Load the VDJ data into `ScRepertoire` objects.
 - [`SeuratPreparing`](processes/SeuratPreparing.md): Read the data into `Seurat` objects and perform QC.
 
@@ -71,7 +72,7 @@ As shown in the figure above, `immunopipe` includes a set of processes for scRNA
 
 - [`ScrnaMetabolicLandscape`](processes/ScrnaMetabolicLandscape.md): A group of folowwing processes to perform metabolic landscape analyses.
 - [`MetabolicInput`](processes/MetabolicInput.md): Prepare the input files for metabolic landscape analyses.
-- [`MetabolicExprImpution`](processes/MetabolicExprImpution.md): Impute the dropout values in the expression matrix.
+- [`MetabolicExprImputation`](processes/MetabolicExprImputation.md): Impute the dropout values in the expression matrix.
 - [`MetabolicPathwayActivity`](processes/MetabolicPathwayActivity.md): Investigate the metabolic pathways of the cells in different groups and subsets.
 - [`MetabolicPathwayHeterogeneity`](processes/MetabolicPathwayHeterogeneity.md): Show metabolic pathways enriched in genes with highest contribution to the metabolic heterogeneities.
 - [`MetabolicFeatures`](processes/MetabolicFeatures.md): Perform gene set enrichment analysis against the metabolic pathways for groups in different subsets.
@@ -97,6 +98,8 @@ This is the most common route of the pipeline:
 
 The optional processes are enabled only when the corresponding sections are added in the configuration file. For example, if you want to add module scores (e.g. cell activation score) to the `Seurat` object, you need to add `[ModuleScoreCalculator]` in the configuration file.
 
+When you have a processed `Seurat` object with scRNA-seq data, you can use `LoadingRNAFromSeurat` to load the data into the pipeline directly, which will take the place of `[SampleInfo]`. When `LoadingRNAFromSeurat.envs.prepared` is set to `true`, `SeuratPreparing` will be skipped. When `LoadingRNAFromSeurat.envs.clustered` is set to `true`, both `SeuratPreparing` and `SeuratClusteringOfAllCells`/`SeuratClustering` will be skipped. See [LoadingRNAFromSeurat](processes/LoadingRNAFromSeurat.md) for more details.
+
 ### Only scRNA-seq data avaiable
 
 When you have only scRNA-seq data, you just don't need to add the `TCRData`/`BCRData` column in the sample information file. The pipeline will automatically skip the processes related to scTCR-/scBCR-seq data analysis.
@@ -105,6 +108,8 @@ When you have only scRNA-seq data, you just don't need to add the `TCRData`/`BCR
 You need to specify the sample information file in the configuration file `[SampleInfo.in.infile]` to enable this route. Passing the sample information file as a command line argument (`--Sample.in.infile`) does not trigger this route.
 ///
 
-Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. If you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters. If so, `SeuratClustering` will be replaced by `SeuratMap2Ref` in the pipeline.
+Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. If you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters.
+
+Similar to the previous route, you can also load a processed `Seurat` object with scRNA-seq data using `LoadingRNAFromSeurat`.
 
 ![routes-notcr](routes-notcr.png)

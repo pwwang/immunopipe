@@ -5,17 +5,6 @@ from .conftest import run_process
 pytestmark = pytest.mark.order(3)
 
 
-# @pytest.mark.forked
-# def test_seuratclusteringofallcells(request):
-
-#     outdir = run_process(
-#         "SeuratClusteringOfAllCells",
-#         "seuratclusteringofallcells.config.toml",
-#         request=request,
-#     )
-#     assert outdir.joinpath("sampleinfo.seurat.qs").is_file()
-
-
 @pytest.mark.forked
 def test_seuratclustering(request):
 

@@ -1,5 +1,25 @@
 # Change Log
 
+## 2.1.0
+
+- BREAKING: rename process LoadRNAFromSeurat to LoadingRNAFromSeurat
+- feat: enhance configuration validation logic
+- feat: implement LoadRNAFromSeurat process to allow specifying sample column
+- feat: allow SeuratClustering, SeuratMap2Ref and CellTypeAnnotation at the same time in a run
+- feat: add "help" subcommand to show help for specific processes
+- fix: make sure the routes of the pipeline work as expected (tests added)
+- fix: ensure correct handling of kp_mount in main function
+- docs: documentation and update processes for T/B cell selection and clustering
+- ci: improve immunopipe installation check
+- docs: update configurations and introduction for LoadingRNAFromSeurat process
+- chore: bump xqute to 0.10.17
+- chore: bump pipen to 0.17.24
+- chore: bump pipen-cli-gbatch to v0.1.3
+- chore: bump pipen-args to v0.17.7
+- chore: bump pipen-report to 0.23.13
+- chore: update biopipen to version 0.34.16
+  - feat(scrna.MarkersFinder): allow using other metadata columns from object for enrichment plot of all subcases
+
 ## 2.0.3
 
 - feat: adopt pipen-cli-gbatch, allowing --mount-as-cwd to infer workdir and outdir

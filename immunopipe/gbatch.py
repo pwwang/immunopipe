@@ -163,7 +163,10 @@ async def main(argv):
             val = list(val)
 
             kp_mount = getattr(cli_gbatch_config, key)
-            val.extend(kp_mount)
+            if not isinstance(kp_mount, (tuple, list)):
+                val.append(kp_mount)
+            else:
+                val.extend(kp_mount)
             setattr(cli_gbatch_config, key, val)
             continue
 
@@ -185,10 +188,16 @@ async def main(argv):
     cli_gbatch_config.commands = ["{lang}", "{script}"]
 
     pipe = Immunopipe()
-    # Let on_init() hook handle argument parsing
+    # Let on_init() hook handle argument parsing, e.g. print help message
     if len(argv) == 0:
-        pipe.run()
+        # Print a simple usage message
+        print(
+            "Usage: immunopipe gbatch [options to run pipeline on Google Cloud Batch]"
+        )
+        print("Try 'immunopipe gbatch --help' for more information.\n")
+        sys.exit(0)
     elif not cli_gbatch_config.version and not cli_gbatch_config.view_logs:
+        # Set parser._cli_args
         await ArgsPlugin.on_init.impl(pipe)
 
     if not cli_gbatch_config.project:

@@ -79,5 +79,5 @@ docker image with tag with `-full` suffix, or install the dependencies manually.
 The metadata of the `Seurat` object will be updated with the TESSA clusters
 and the cluster sizes:<br />
 
-![TESSA-metadata](../..//processes/images/TESSA-metadata.png)
+![TESSA-metadata](images/TESSA-metadata.png)
 

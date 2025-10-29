@@ -1,101 +1,172 @@
+from __future__ import annotations
+
+import re
 import sys
 from typing import Any, Dict
+
 from yunpath import AnyPath
 from pipen.utils import logger
 
+WARNINGS = []
 
-def validate_config() -> Dict[str, Any]:
+
+def _get_arg_from_cli(
+    argname: str,
+    default: Any | None = None,
+    is_flag: bool = False,
+    args: list[str] | None = None,
+) -> Any:
+    """Get argument from command line.
+
+    Args:
+        argname: The argument name.
+        default: The default value if the argument is not found.
+        is_flag: Whether the argument is a flag.
+        args: The argument list to search. If None, use sys.argv.
+
+    Returns:
+        The argument value.
+    """
+    if args is None:
+        args = sys.argv
+
+    rex_eq = re.compile(f"--{re.escape(argname)}=(.+)")
+    match_eq = [re.match(rex_eq, item) for item in args]
+
+    rex_sp = re.compile(f"--{re.escape(argname)}")
+    match_sp = [re.match(rex_sp, item) for item in args]
+
+    for m1, m2 in zip(match_eq, match_sp):
+        if not m1 and not m2:
+            continue
+        if m1:
+            index = match_eq.index(m1)
+            value = args[index].split("=", 1)[1]
+            if is_flag:
+                value = value.lower() in ("1", "true", "yes", "on")
+            return value
+        elif is_flag:
+            return True
+        else:
+            index = match_sp.index(m2)
+
+            if index + 1 < len(args):
+                value = args[index + 1]
+                return value
+
+    return default
+
+
+def _log_error(message: str | None = None) -> None:
+    """Log an error message and exit.
+
+    Args:
+        message: The error message.
+    """
+    logger.error("Miscofigurations detected:")
+    for warning in WARNINGS:
+        logger.warning(f"- {warning}")
+
+    if message:
+        for line in message.splitlines():
+            logger.error(f"- {line}")
+        logger.error("")
+        sys.exit(1)
+
+    logger.warning("")
+
+
+def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
     """Validate the configuration.
 
     Args:
         config: The configuration.
     """
-    WARNINGS = []
-    ERRORS = []
+    if args is None:
+        args = sys.argv
 
     try:
         from pipen_args import config
     except Exception as e:
-        ERRORS.append(repr(e))
+        _log_error(f"Failed to load configuration.\n{e}")
 
-    if not ERRORS and not config:  # no arguments
-        config.has_vdj = True
+    config.has_vdj = True  # Default to True, will be updated later
+    if len(args) > 1 and args[1] == "gbatch":
+        # Let immunopipe in the VM handle the validation
+        config.has_vdj = False
         return config
 
-    if not ERRORS and (
-        "TOrBCellSelection" not in config and "SeuratClusteringOfAllCells" in config
-    ):
-        ERRORS.append(
+    if "TOrBCellSelection" not in config and "SeuratClusteringOfAllCells" in config:
+        _log_error(
             "All cells are T cells ([TOrBCellSelection] is not set), "
             "so [SeuratClusteringOfAllCells] should not be used, "
             "use [SeuratClustering] instead."
         )
 
-    if not ERRORS and (
-        "TOrBCellSelection" not in config and "ClusterMarkersOfAllCells" in config
-    ):
+    if "TOrBCellSelection" not in config and "ClusterMarkersOfAllCells" in config:
         WARNINGS.append(
             "All cells are T cells ([TOrBCellSelection] is not set), "
             "so [ClusterMarkersOfAllCells] should not be used and will be ignored."
         )
 
-    if not ERRORS and (
-        "TOrBCellSelection" not in config and "TopExpressingGenesOfAllCells" in config
-    ):
+    if "TOrBCellSelection" not in config and "TopExpressingGenesOfAllCells" in config:
         WARNINGS.append(
             "All cells are T cells ([TOrBCellSelection] is not set), "
             "so [TopExpressingGenesOfAllCells] should not be used and will be ignored."
         )
 
-    if not ERRORS and "SeuratMap2Ref" in config and "SeuratClustering" in config:
-        ERRORS.append(
-            "Cannot do both supervised [SeuratMap2Ref] and "
-            "unsupervised [SeuratClustering] clustering."
+    # Input from Seurat object
+    if "LoadingRNAFromSeurat" in config:
+        LoadingRNAFromSeurat_prepared = _get_arg_from_cli(
+            "LoadingRNAFromSeurat.envs.prepared",
+            config.get("LoadingRNAFromSeurat", {}).get("envs", {}).get("prepared"),
+            is_flag=True,
+        )
+        if LoadingRNAFromSeurat_prepared is None:
+            LoadingRNAFromSeurat_prepared = False
+
+        LoadingRNAFromSeurat_clustered = _get_arg_from_cli(
+            "LoadingRNAFromSeurat.envs.clustered",
+            config.get("LoadingRNAFromSeurat", {}).get("envs", {}).get("clustered"),
+            is_flag=True,
+        )
+        if LoadingRNAFromSeurat_clustered is None:
+            LoadingRNAFromSeurat_clustered = False
+
+        if LoadingRNAFromSeurat_clustered:
+            LoadingRNAFromSeurat_prepared = True
+
+        config.setdefault("LoadingRNAFromSeurat", {}).setdefault("envs", {})
+        config.LoadingRNAFromSeurat.envs.prepared = LoadingRNAFromSeurat_prepared
+        config.LoadingRNAFromSeurat.envs.clustered = LoadingRNAFromSeurat_clustered
+        config.has_vdj = "SampleInfo" in config
+
+    # Input from sample info file
+    else:
+        infiles = _get_arg_from_cli(
+            "SampleInfo.in.infile",
+            config.get("SampleInfo", {}).get("in", {}).get("infile"),
         )
 
-    if not ERRORS and "SeuratMap2Ref" in config and "CellTypeAnnotation" in config:
-        WARNINGS.append(
-            "[CellTypeAnnotation] is ignored when [SeuratMap2Ref] is used."
-        )
+        if not isinstance(infiles, list):
+            infiles = [infiles]
 
-    if not ERRORS:
-        if "LoadRNAFromSeurat" in config:
-            config.LoadRNAFromSeurat.setdefault("envs", {})
-            config.LoadRNAFromSeurat.envs.setdefault("prepared", False)
-            config.LoadRNAFromSeurat.envs.setdefault("clustered", False)
-            if config.LoadRNAFromSeurat.envs.clustered:
-                config.LoadRNAFromSeurat.envs.prepared = True
+        if len(infiles) > 1:
+            _log_error(
+                "More than one input file specified in configuration file "
+                "[SampleInfo.in.infile]."
+            )
 
-            config.has_vdj = "SampleInfo" in config
-
-        else:
-            infiles = config.get("SampleInfo", {}).get("in", {}).get("infile", [])
-            if not isinstance(infiles, list):
-                infiles = [infiles]
-
-            if not infiles:
-                WARNINGS.append(
-                    "No input file specified in configuration file "
-                    "[SampleInfo.in.infile], assuming passing from CLI."
-                )
-                WARNINGS.append("Assuming scTCR-seq/scBCR-seq data is present")
-
-            elif len(infiles) > 1:
-                WARNINGS.append(
-                    "More than one input file specified in configuration file "
-                    "[SampleInfo.in.infile], only the first one will be used."
-                )
-                config["SampleInfo"]["in"]["infile"] = [infiles[0]]
-
+        if len(infiles) == 1 and infiles[0] is not None:
             infile = AnyPath(infiles[0])
             if infile.is_file():
                 header = infile.read_text().splitlines()[0]
                 config.has_vdj = "TCRData" in header or "BCRData" in header
             else:
-                mount = (
-                    config.get("scheduler_opts", {}).get("mount", [])
-                    or config.get("cli-gbatch", {}).get("mount", [])
-                )
+                mount = config.get("scheduler_opts", {}).get("mount", [])
+                if not isinstance(mount, list):
+                    mount = [mount]
+
                 # Let's check if infile a mounted path
                 # Say infile is /mnt/disks/datadir/data/samples.txt
                 # and we have fast_mout
@@ -114,34 +185,24 @@ def validate_config() -> Dict[str, Any]:
                             header = AnyPath(cloud_path).read_text().splitlines()[0]
                             config.has_vdj = "TCRData" in header or "BCRData" in header
                         else:
-                            ERRORS.append(
+                            _log_error(
                                 f"Input file {infile} does not exist, "
                                 "and the restored cloud path does not exist either: "
                                 f"{cloud_path}."
                             )
                         break
                     else:
-                        ERRORS.append(
+                        _log_error(
                             f"Input file {infile} does not exist, "
                             "and no mount can restore it as a cloud path."
                         )
                 else:
-                    ERRORS.append(
+                    _log_error(
                         f"Input file {infile} does not exist, "
                         "and no mount is specified to restore it as a cloud path."
                     )
 
-    if ERRORS:
-        logger.error("Miscofigurations detected:")
-        for error in ERRORS:
-            logger.error(f"- {error}")
-        logger.error("")
-        sys.exit(1)
-
     if WARNINGS:
-        logger.warning("Miscofigurations detected:")
-        for warning in WARNINGS:
-            logger.warning(f"- {warning}")
-        logger.warning("")
+        _log_error()
 
     return config

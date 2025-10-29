@@ -2,7 +2,7 @@
 
 Visualize the clonal information.
 
-Using [`scplotter`](https://github.com/pwwang/scplotter) to visualize the clonal
+Using [`scplotter`](https://github.com/user/scplotter) to visualize the clonal
 information.<br />
 
 ## Input
@@ -26,29 +26,29 @@ information.<br />
 - `viz_type` *(`choice`)*:
     The type of visualization to generate.<br />
     - `volume`:
-        The volume of the clones using [`ClonalVolumePlot`](https://pwwang.github.io/scplotter/reference/ClonalVolumePlot.html)
+        The volume of the clones using [`ClonalVolumePlot`](https://user.github.io/scplotter/reference/ClonalVolumePlot.html)
     - `abundance`:
-        The abundance of the clones using [`ClonalAbundancePlot`](https://pwwang.github.io/scplotter/reference/ClonalAbundancePlot.html)
+        The abundance of the clones using [`ClonalAbundancePlot`](https://user.github.io/scplotter/reference/ClonalAbundancePlot.html)
     - `length`:
-        The length of the CDR3 sequences using [`ClonalLengthPlot`](https://pwwang.github.io/scplotter/reference/ClonalLengthPlot.html)
+        The length of the CDR3 sequences using [`ClonalLengthPlot`](https://user.github.io/scplotter/reference/ClonalLengthPlot.html)
     - `residency`:
-        The residency of the clones using [`ClonalResidencyPlot`](https://pwwang.github.io/scplotter/reference/ClonalResidencyPlot.html)
+        The residency of the clones using [`ClonalResidencyPlot`](https://user.github.io/scplotter/reference/ClonalResidencyPlot.html)
     - `dynamics`:
-        The dynamics of the clones using [`ClonalDynamicsPlot`](https://pwwang.github.io/scplotter/reference/ClonalDynamicsPlot.html)
+        The dynamics of the clones using [`ClonalDynamicsPlot`](https://user.github.io/scplotter/reference/ClonalDynamicsPlot.html)
     - `composition`:
-        The composition of the clones using [`ClonalCompositionPlot`](https://pwwang.github.io/scplotter/reference/ClonalCompositionPlot.html)
+        The composition of the clones using [`ClonalCompositionPlot`](https://user.github.io/scplotter/reference/ClonalCompositionPlot.html)
     - `overlap`:
-        The overlap of the clones using [`ClonalOverlapPlot`](https://pwwang.github.io/scplotter/reference/ClonalOverlapPlot.html)
+        The overlap of the clones using [`ClonalOverlapPlot`](https://user.github.io/scplotter/reference/ClonalOverlapPlot.html)
     - `diversity`:
-        The diversity of the clones using [`ClonalDiversityPlot`](https://pwwang.github.io/scplotter/reference/ClonalDiversityPlot.html)
+        The diversity of the clones using [`ClonalDiversityPlot`](https://user.github.io/scplotter/reference/ClonalDiversityPlot.html)
     - `geneusage`:
-        The gene usage of the clones using [`ClonalGeneUsagePlot`](https://pwwang.github.io/scplotter/reference/ClonalGeneUsagePlot.html)
+        The gene usage of the clones using [`ClonalGeneUsagePlot`](https://user.github.io/scplotter/reference/ClonalGeneUsagePlot.html)
     - `positional`:
-        The positional information of the clones using [`ClonalPositionalPlot`](https://pwwang.github.io/scplotter/reference/ClonalPositionalPlot.html)
+        The positional information of the clones using [`ClonalPositionalPlot`](https://user.github.io/scplotter/reference/ClonalPositionalPlot.html)
     - `kmer`:
-        The kmer information of the clones using [`ClonalKmerPlot`](https://pwwang.github.io/scplotter/reference/ClonalKmerPlot.html)
+        The kmer information of the clones using [`ClonalKmerPlot`](https://user.github.io/scplotter/reference/ClonalKmerPlot.html)
     - `rarefaction`:
-        The rarefaction curve of the clones using [`ClonalRarefactionPlot`](https://pwwang.github.io/scplotter/reference/ClonalRarefactionPlot.html)
+        The rarefaction curve of the clones using [`ClonalRarefactionPlot`](https://user.github.io/scplotter/reference/ClonalRarefactionPlot.html)
 - `subset`:
     An expression to subset the data before plotting.<br />
     Similar to `mutaters`, it will be applied to each element by `dplyr::filter()` if the object

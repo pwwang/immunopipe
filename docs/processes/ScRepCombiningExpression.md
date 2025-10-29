@@ -22,7 +22,7 @@ See also: <https://www.borch.dev/uploads/screpertoire/reference/combineexpressio
 - `outfile`: *Default: `{{in.screpfile | stem}}.qs`*. <br />
     The `Seurat` object with the TCR/BCR data combined
     In addition to the meta columns added by
-    `scRepertoire::combineExpression()`, a new column `TCR_Presence` will be
+    `scRepertoire::combineExpression()`, a new column `VDJ_Presence` will be
     added to the metadata. It indicates whether the cell has a TCR/BCR
     sequence or not. The value is `TRUE` if the cell has a TCR/BCR sequence,
     and `FALSE` otherwise.<br />

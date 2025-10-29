@@ -70,20 +70,20 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install poetry
           poetry config virtualenvs.create false
-          poetry install -v
+          poetry install -v -E cli-gbatch
 
       - name: Check if immunopipe is installed successfully
         run: |
-          if ! immunopipe --help; then
+          if ! immunopipe >/dev/null; then
             echo "immunopipe is not installed successfully"
             # print the error
-            immunopipe --help
+            immunopipe
             exit 1
           else # test if the TEST_STRING is in the help message
-            if ! immunopipe --help | grep -q "$TEST_STSRING"; then
+            if ! immunopipe | grep -q "$TEST_STRING"; then
               echo "immunopipe is not installed successfully"
               # print the error
-              immunopipe --help
+              immunopipe
               exit 1
             fi
           fi

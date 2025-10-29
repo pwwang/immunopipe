@@ -19,7 +19,7 @@ The processes in this group implement part of the pipeline below from the origin
 The data preparation, preprocessing and clustering already done by other processes of this pipeline. The processes in this group are used to analyze the metabolic landscape of the data.
 
 - [`MetabolicInput`](./MetabolicInput.md): Input for the metabolic pathway analysis pipeline for scRNA-seq data
-- [`MetabolicExprImpution`](./MetabolicExprImpution.md): Impute the missing values in the  expression data
+- [`MetabolicExprImputation`](./MetabolicExprImputation.md): Impute the missing values in the  expression data
 - [`MetabolicPathwayActivity`](./MetabolicPathwayActivity.md): Calculate the pathway activities for each group
 - [`MetabolicPathwayHeterogeneity`](./MetabolicPathwayHeterogeneity.md): Calculate the pathway heterogeneity
 - [`MetabolicFeatures`](./MetabolicFeatures.md): Inter-subset metabolic features - Enrichment analysis in details

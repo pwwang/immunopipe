@@ -98,15 +98,21 @@ expression, and the control features are randomly selected from each bin.<br />
     will perform diffusion map as a reduction and add the first 2
     components as `DC_1` and `DC_2` to the metadata. `diffmap` is a shortcut
     for `diffusion_map`. Other key-value pairs will pass to
-    [`destiny::DiffusionMap()`](https://www.rdocumentation.org/packages/destiny/versions/2.0.4/topics/DiffusionMap%20class).<br />
+    [`destiny::DiffusionMap()`](https://www.rdocumentation.org/packages/destiny/versions/2.0.4/topics/DiffusionMap class).<br />
     You can later plot the diffusion map by using
     `reduction = "DC"` in `env.dimplots` in `SeuratClusterStats`.<br />
     This requires [`SingleCellExperiment`](https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html)
     and [`destiny`](https://bioconductor.org/packages/release/bioc/html/destiny.html) R packages.<br />
+- `post_mutaters` *(`type=json`)*: *Default: `{}`*. <br />
+    The mutaters to mutate the metadata after
+    calculating the module scores.<br />
+    The mutaters will be applied in the order specified.<br />
+    This is useful when you want to create new scores based on the
+    calculated module scores.<br />
 
 ## Metadata
 
 The metadata of the `Seurat` object will be updated with the module scores:<br />
 
-![ModuleScoreCalculator-metadata](../..//processes/images/ModuleScoreCalculator-metadata.png)
+![ModuleScoreCalculator-metadata](images/ModuleScoreCalculator-metadata.png)
 
