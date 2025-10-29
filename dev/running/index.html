@@ -429,18 +429,18 @@ Options<span class="w"> </span>For<span class="w"> </span>Pipen-cli-gbatch<span 
 <div class="highlight"><pre><span></span><code>&gt;<span class="w"> </span>immunopipe<span class="w"> </span>gbatch<span class="w"> </span>@config.toml<span class="w"> </span>--gbatch.profile<span class="w"> </span>gbatch
 </code></pre></div>
 <p>To use the default <code>project</code> and <code>location</code>.</p>
-<p>You can also specify these options directly in the command line or under a section <code>cli-gbatch</code> in the configuration file. The options specified in the command line will override the ones in the configuration file, which will override the ones in the profile.</p>
+<p>You can also specify these options directly in the command line or under a section <code>gbatch</code> in the configuration file. The options specified in the command line will override the ones in the configuration file, which will override the ones in the profile.</p>
 <p>For example, you may have the following in <code>config.toml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Immunopipe&quot;</span>
 <span class="n">workdir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gs://my-bucket/immunopipe_workdir&quot;</span>
 <span class="n">outdir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gs://my-bucket/immunopipe_outdir&quot;</span>
 
-<span class="k">[cli-gbatch]</span>
+<span class="k">[gbatch]</span>
 <span class="n">project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-project&quot;</span>
 <span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;us-central1&quot;</span>
 <span class="n">machine-type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;n2d-standard-4&quot;</span>
 <span class="n">provisioning-model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;SPOT&quot;</span>
-<span class="p">...</span>
+<span class="c1"># More scheduler options...</span>
 </code></pre></div>
 <p>There are other actions you can do with <code>gbatch</code>:</p>
 <ul>
