@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>FAQ - immunopipe</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "FAQ";
+        var mkdocs_page_input_path = "faq.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TCRClustering/">TCRClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">FAQ</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">FAQ</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/faq.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
+<details>
+<summary><code>immunopipe</code> command not found?</summary>
+<p>Please make sure if you have installed <code>immunopipe</code> on the right <code>python</code>. If you have used <code>pip</code> to install <code>immunopipe</code>, make sure the <code>pip</code> is associated with the right <code>python</code>.</p>
+<p>You may try <code>/path/to/python -m pip install -U immunopipe</code> to ensure <code>immunopipe</code> is installed with the <code>python</code> you wanted.</p>
+<p>If <code>immunopipe</code> still can't be found from command line, try <code>/path/to/python -m immunopipe</code>.</p>
+</details>
+<details>
+<summary>Why I am getting "Error writing to connection:  No space left on device"?</summary>
+<p>If you are running the pipeline and it complains about "No space left on device", and you are pretty sure that your working directory is way from full,  it is likely that your temporary directory does not have enough space. This is because that the pipeline will create a temporary directory to store the intermediate files, and the default temporary directory is <code>/tmp</code>. Make sure that you have enough space in <code>/tmp</code> or you can change the temporary directory by setting the environment variable of the process: <code>envs.tmpdir</code>.</p>
+<p>It is also likely that you are running the pipeline in a docker container and the docker container does not have enough space in <code>/tmp</code>. In such case, you can try to run the pipeline with the <code>-v</code> option of docker to local directory to <code>/tmp</code> in the container. For example:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span>-v<span class="w"> </span>.:/workdir<span class="w"> </span>-v<span class="w"> </span>path/to/tmp:/tmp<span class="w"> </span><span class="se">\</span>
+<span class="c1">#                                         ^^^^^^^^^^^^^^^^^^^</span>
+<span class="w">    </span>justold/immunopipe:&lt;tag&gt;<span class="w"> </span>@config.toml
+</code></pre></div>
+<p>If you are using <code>singularity</code>/<code>apptainer</code>, you can try to use the <code>-B</code> option to bind the local directory to <code>/tmp</code> in the container.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Singularity</label><label for="__tabbed_1_2">Apptainer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>singularity<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-B<span class="w"> </span>path/to/tmp:/tmp<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="c1"># ^^^^^^^^^^^^^^^^^^^</span>
+<span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>@config.toml
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>apptainer<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>.:/workdir<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-B<span class="w"> </span>path/to/tmp:/tmp<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="c1"># ^^^^^^^^^^^^^^^^^^^</span>
+<span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>@config.toml
+</code></pre></div>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary>Why does the pipeline stop at <a href="../processes/SeuratClusteringOfAllCells/"><code>SeuratClusteringOfAllCells</code></a> and family without a clear error message?</summary>
+<p>This is likely because that the pipeline is running out of memory. The <a href="../processes/SeuratClusteringOfAllCells/"><code>SeuratClusteringOfAllCells</code></a> and family processes (e.g. <a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a>) will run the a series of <code>Seurat</code> functions to perform the clustering, especially the <a href="https://satijalab.org/seurat/reference/integratedata"><code>IntegrateData</code></a> and <a href="https://satijalab.org/seurat/reference/findintegrationanchors"><code>FindIntegrationAnchors</code></a> functions, and <a href="https://satijalab.org/seurat/reference/integratelayers"><code>IntegrateLayers</code></a> with <code>Seurat</code> v5.</p>
+<p>Please see the following issues for more details:</p>
+<ul>
+<li><a href="https://github.com/satijalab/seurat/issues/3326">https://github.com/satijalab/seurat/issues/3326</a></li>
+<li><a href="https://github.com/satijalab/seurat/issues/1720">https://github.com/satijalab/seurat/issues/1720</a></li>
+<li><a href="https://github.com/satijalab/seurat/issues/2828">https://github.com/satijalab/seurat/issues/2828</a></li>
+<li><a href="https://github.com/satijalab/seurat/issues/1254">https://github.com/satijalab/seurat/issues/1254</a></li>
+<li><a href="https://github.com/satijalab/seurat/issues/7027">https://github.com/satijalab/seurat/issues/7027</a></li>
+</ul>
+<p>Also check out the tips by the Seurat team:</p>
+<p><a href="https://satijalab.org/seurat/articles/integration_large_datasets">https://satijalab.org/seurat/articles/integration_large_datasets</a></p>
+<p>Two possible solutions are:</p>
+<ul>
+<li>Use <code>reduction = "rpca"</code> for <a href="https://satijalab.org/seurat/reference/findintegrationanchors"><code>FindIntegrationAnchors</code></a> under <code>[SeuratClusteringOfAllCells.envs.FindIntegrationAnchors]</code>.</li>
+<li>Use Reference-based integration <code>reference = [1, 2]</code> for <a href="https://satijalab.org/seurat/reference/findintegrationanchors"><code>FindIntegrationAnchors</code></a> under <code>[SeuratClusteringOfAllCells.envs.FindIntegrationAnchors]</code>.</li>
+<li>For <code>Seurat</code> v5, use corresponding parameters for <a href="https://satijalab.org/seurat/reference/integratelayers"><code>IntegrateLayers</code></a>.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can also pass a list of sample names instead of the sample indices. For example, <code>reference = ["sample1", "sample2"]</code> under <code>[SeuratPreparing.envs.IntegrateLayers]</code> to use <code>sample1</code> and <code>sample2</code> as the reference samples.</p>
+<p>See also description about <code>IntegrateLayers</code> <a href="../processes/SeuratPreparing/#environment-variables">here</a>.</p>
+</div>
+</details>
+<details>
+<summary>Can I run one of the processes from the pipeline separately if I have the input files prepared?</summary>
+<p>Only for some of the processes. <code>immunopipe</code> depends on <a href="https://github.com/pwwang/biopipen"><code>biopipen</code></a>. Most of the processes in <code>immunopipe</code> are subclasses of processes in <code>biopipen</code>. You can run the processes in <code>biopipen</code> separately by:</p>
+<div class="highlight"><pre><span></span><code>pipen<span class="w"> </span>run<span class="w"> </span>scrna<span class="w"> </span>SeuratClustering<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
+</code></pre></div>
+<p>Note that only the processes from <a href="https://github.com/pwwang/biopipen"><code>biopipen</code></a> can be run separately. The processes in <code>immunopipe</code> are not designed to be run separately. For example, the <code>SeuratClusteringOfAllCells</code> process in <code>immunopipe</code> is a subclass of the <code>SeuratClustering</code> process in <code>biopipen</code>. It's specialized for the <code>immunopipe</code> pipeline. If you want to run a similar process separately, you should use the <code>SeuratClustering</code> process in <code>biopipen</code> instead.</p>
+<p>Like <code>immunopipe</code>, you can also either provide a configuration file:</p>
+<div class="highlight"><pre><span></span><code>pipen<span class="w"> </span>run<span class="w"> </span>scrna<span class="w"> </span>SeuratClustering<span class="w"> </span>@config.toml
+</code></pre></div>
+<p>or specify the options in the command line:</p>
+<div class="highlight"><pre><span></span><code>pipen<span class="w"> </span>run<span class="w"> </span>scrna<span class="w"> </span>SeuratClustering<span class="w"> </span>--in.srtobj<span class="w"> </span>path/to/srtobj.RDS<span class="w"> </span>...
+</code></pre></div>
+<p>You can also use the <code>-h</code>/<code>--help</code> option to see the brief options of the process, or use <code>-h+</code>/<code>--help+</code> to see the full options of the process.</p>
+</details>
+<details id="how-to-run-the-pipeline-on-a-cluster">
+<summary>How to run the pipeline on a cluster?</summary>
+<p>To run the pipeline on a cluster, it's recommended to install the pipeline locally so that the cluster nodes can access the pipeline.</p>
+<p><code>immunopipe</code> is built on top of <a href="https://github.com/pwwang/pipen"><code>pipen</code></a> and <a href="https://github.com/pwwang/xqute"><code>xqute</code></a>. A set of schedulers are supported by default. These schedulers are:</p>
+<ul>
+<li><code>local</code>: Run the pipeline locally.</li>
+<li><code>slurm</code>: Run the pipeline on a slurm cluster.</li>
+<li><code>sge</code>: Run the pipeline on a sge cluster.</li>
+<li><code>ssh</code>: Run the pipeline on a remote host via ssh.</li>
+</ul>
+<p>The scheduler can be specified via <code>scheduler_opts</code> for the whole pipeline or for a specific process. For example, to run the whole pipeline on a slurm cluster, you can use the following configuration file:</p>
+<div class="highlight"><pre><span></span><code><span class="n">scheduler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span>
+
+<span class="k">[scheduler_opts]</span>
+<span class="n">sbatch_partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1-day&quot;</span>
+</code></pre></div>
+<p>To run a specific process on a slurm cluster, you can use the following configuration file:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[</span><span class="err">&lt;</span><span class="k">Process</span><span class="err">&gt;</span><span class="k">]</span>
+<span class="n">scheduler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span>
+
+<span class="k">[</span><span class="err">&lt;</span><span class="k">Process</span><span class="err">&gt;</span><span class="k">.scheduler_opts]</span>
+<span class="n">sbatch_partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1-day&quot;</span>
+</code></pre></div>
+<p>You can also use profiles to switch between different schedulers. See also <a href="https://pwwang.github.io/pipen/configurations/#profiles">https://pwwang.github.io/pipen/configurations/#profiles</a></p>
+<p>Unlike the pipeline installed locally, using a doker image to run the pipeline on a cluster, we need to run the whole pipeline as a job. For example, to run the pipeline on a slurm cluster using <code>apptainer</code>, you can use <code>slurm</code> to submit the job:</p>
+<div class="highlight"><pre><span></span><code>srun<span class="w"> </span>&lt;srun<span class="w"> </span>options&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>apptainer<span class="w"> </span>run<span class="w"> </span>--pwd<span class="w"> </span>/workdir<span class="w"> </span>-B<span class="w"> </span>/path/to/workdir:/workdir,/tmp<span class="w"> </span>-c<span class="w"> </span>-e<span class="w"> </span>--unsquash<span class="w"> </span>--writable-tmpfs<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-B<span class="w"> </span>/path/to/tmp:/tmp<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>docker://justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>@config.toml
+</code></pre></div>
+<p>If you are using docker and its alternatives, please also refer to:
+<a href="https://slurm.schedmd.com/containers.html">https://slurm.schedmd.com/containers.html</a></p>
+</details>
+<details>
+<summary>Do I have to re-run the entire pipeline if I want to change some parameters?</summary>
+<p>If you want to change some parameters for a specific process, you just modify the configuration file and re-run the pipeline. The pipeline will detect the changes and re-run the necessary processes. For example, if you are changing some environment variables for <a href="../processes/ScFGSEA/"><code>ScFGSEA</code></a>, the prior processes, such as the ones for clustering and differential expression analysis, will be cached and will not be re-run.</p>
+</details>
+<details>
+<summary>Why I am getting this error when running with <a href="https://apptainer.org/"><code>apptainer</code></a>: <code>FATAL:   no SIF writable overlay partition found in /tmp/apptainer_cache_xxx/...</code>?</summary>
+<p>You may need to add <code>--unsquash</code> option for <code>apptainer run</code>.</p>
+</details>
+<details>
+<summary>How can I use data with soft links while using docker image to run the pipeline?</summary>
+<p>The container does not have access to the host filesystem directly. You need to mount the directory containing the data to the container.</p>
+<p>For example, if your real data is under <code>/path/to/data</code>, you can mount it to <code>/data</code> in the container (using <code>-v /path/to/data:/data</code> option for <code>docker</code> or <code>-B /path/to/data:/data</code> option for <code>singularity</code> or <code>apptainer</code>).</p>
+<p>Then you can use <code>/data</code> in the container to access the data under <code>/path/to/data</code> on the host. Also remember to change the path of <code>RNAData</code> and <code>TCRData</code>/<code>BCRData</code> in the file (e.g. <code>samples.txt</code>) that is passed to <code>SampleInfo</code> process.</p>
+<p>Other than <code>/data</code>, there are other directories that you can use for mounting inside the container, including <code>/mnt</code> and <code>/tmp</code>, in case your want to mount multiple directories.</p>
+<p>See also <a href="../installation/#the-directory-structure-in-the-container"><code>The directory structure in the container</code></a>.</p>
+</details>
+<details>
+<summary>Why I am getting <code>disk quota exceeded</code> error while pulling the docker image using <code>apptainer</code> with still plenty of space on the disk?</summary>
+<p>It's probably because that the cache directory of <code>apptainer</code> is full. You can try to use a different cache directory by setting the environment variable <code>APPTAINER_CACHEDIR</code> to a different directory. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">APPTAINER_CACHEDIR</span><span class="o">=</span>/path/to/cache
+apptainer<span class="w"> </span>pull<span class="w"> </span>justold/immunopipe:&lt;tag&gt;
+</code></pre></div>
+<p>See also: <a href="https://apptainer.org/docs/user/main/build_env.html#cache-folders">https://apptainer.org/docs/user/main/build_env.html#cache-folders</a></p>
+</details>
+<details>
+<summary><code>Unable to fork: Cannot allocate memory</code> or <code>long vectors not supported yet</code> during clustering using Seurat?</summary>
+<p>This is likely because that the pipeline is running out of memory. The <a href="../processes/SeuratClusteringOfAllCells/"><code>SeuratClusteringOfAllCells</code></a> and family processes (e.g. <a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a>) will run the a series of <code>Seurat</code> functions to perform the clustering, especially the <a href="https://satijalab.org/seurat/reference/integratedata"><code>IntegrateData</code></a> and <a href="https://satijalab.org/seurat/reference/findintegrationanchors"><code>FindIntegrationAnchors</code></a> functions, and <a href="https://satijalab.org/seurat/reference/integratelayers"><code>IntegrateLayers</code></a> with <code>Seurat</code> v5.</p>
+<p>You can try to set <code>envs.ncores</code> to a smaller number to reduce the memory usage. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusteringOfAllCells.envs]</span>
+<span class="n">ncores</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w">  </span><span class="c1"># instead of 16</span>
+</code></pre></div>
+<p>The other strategy is to use Reference-based integration <code>reference = [1, 2]</code> for <a href="https://satijalab.org/seurat/reference/findintegrationanchors"><code>IntegrateLayers</code></a> with method <code>rpca</code> or <code>cca</code>. See also description about <code>IntegrateLayers</code> <a href="../processes/SeuratPreparing/#environment-variables">here</a>. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratPreparing.envs.IntegrateLayers]</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;rpca&quot;</span>
+<span class="n">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w">  </span><span class="c1"># You can also use sample names instead of indices</span>
+</code></pre></div>
+<p>See also these issues for more details:</p>
+<ul>
+<li><a href="https://github.com/satijalab/seurat/issues/1029">https://github.com/satijalab/seurat/issues/1029</a></li>
+<li><a href="https://github.com/satijalab/seurat/issues/7419">https://github.com/satijalab/seurat/issues/7419</a></li>
+</ul>
+</details>
+<details>
+<summary>Got error <code>Not all stats values are finite numbers</code> while running <a href="../processes/ScFGSEA/"><code>ScFGSEA</code></a>?</summary>
+<p>It's probably because that there are too many missing values in the expression matrix and <code>signal_to_noise</code> is not able to detect the rank of the genes. You can try a different method for gene preranking. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[ScFGSEA.envs]</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;diff_of_classes&quot;</span>
+</code></pre></div>
+</details>
+<p> </p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../processes/MetabolicPathwayHeterogeneity/" class="btn btn-neutral float-left" title="MetabolicPathwayHeterogeneity"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../CHANGELOG/" class="btn btn-neutral float-right" title="Change log">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../processes/MetabolicPathwayHeterogeneity/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../CHANGELOG/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/version-select.js"></script>
+      <script src="../assets/script.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
