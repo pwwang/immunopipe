@@ -38,6 +38,14 @@ indicator_genes = ["CD3D", "CD3E", "CD3G"]
 
 ///
 
+/// Attention
+
+With [`pipen-args`][5] plugin, the arguments can also be passed from command line directly. For example, you can pass `--TESSA.envs.python python_np1` from command line to set the `python` with dependencies installed for `TESSA` process.
+
+We know that when a process name appears in the configuration file, the process will be enabled. However, this won't work for the arguments passed from command line. You need to make sure that the process is enabled in the configuration file first. Then you can override the environment variables from command line.
+
+///
+
 ## Pipeline configurations
 
 There are pipeline level configurations and process level configurations. The pipeline level configurations are used to control the pipeline itself. The process level configurations set here are the default values for all the processes. You can override the default values for each process in the process level configurations.
@@ -143,9 +151,9 @@ If scTCR-/scBCR-seq data is avaiable, these processes include:
 
 If only scRNA-seq data is available, these processes include:
 
-- [`SampleInfo`](processes/SampleInfo.md)
-- [`SeuratPreparing`](processes/SeuratPreparing.md)
-- [`SeuratClustering`](processes/SeuratClustering.md)
+- [`SampleInfo`](processes/SampleInfo.md) (or [`LoadingRNAFromSeurat`](processes/LoadingRNAFromSeurat.md) if loading from existing `Seurat` objects)
+- [`SeuratPreparing`](processes/SeuratPreparing.md) (or skipped if loading from existing `Seurat` objects with `LoadingRNAFromSeurat.envs.prepared` or `LoadingRNAFromSeurat.envs.prepared.clustered` set to `true`)
+- [`SeuratClustering`](processes/SeuratClustering.md) (or skipped if loading from existing `Seurat` objects with `LoadingRNAFromSeurat.envs.clustered` set to `true`)
 - [`ClusterMarkers`](processes/ClusterMarkers.md)
 - [`SeuratClusterStats`](processes/SeuratClusterStats.md)
 
@@ -312,10 +320,10 @@ The other thing you need to pay attention to is that you should try to avoid `.`
 In most processes where we need to filter the data, we don't provide an option for you to set the expression for [`dplyr::filter()`][14]. Instead, you can make use of the `mutaters` to create a column for filtering. For example, if you only want to plot clone residency for only one patient/subject (e.g. `MM003-Eariler`) in [`ClonalStats`](processes/ClonalStats.md), you can set the configurations as follows (suppose we have `Sample` and `Source` columns in the metadata):
 
 ```toml
-[RadarPlots.envs.mutaters]
+[SeuratClusterStats.envs.mutaters]
 SingleSample = "if_else(Sample == 'MM003-Eariler', Sample, NA)"
 
-[RadarPlots.envs]
+[SeuratClusterStats.envs.stats.CloneResidency]
 split_by = "SingleSample"
 group_by = "Source"
 groups = ["BM", "PB"]
@@ -373,7 +381,7 @@ again.
 You don't need to worry about which environment variables are `namespace` ones. We will mention it in the individual process pages and the description of the environment variables in `pipen-board` configuration descriptions.
 ///
 
-## Multi-case variable design
+## Multi-casing design
 
 Some environment variables are designed to support multiple cases. However, in most cases, we only need to set the values for the default case. In such cases, the environment variable is usually a `namespace` environment variable with the sub-keys needed for the default case. In order to support multiple cases, a sub-key `cases` is added to the `namespace` environment variable. The `cases` is a dictionary (key-value pairs), where the keys are the names of the cases, and the values are the sub-keys for the corresponding cases. For example, the `envs.group_by` of [`ScFGSEA`](processes/ScFGSEA.md) process:
 
