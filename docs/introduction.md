@@ -88,7 +88,7 @@ To enable this route, you need to:
 - tell the pipeline that scTCR-seq data is available by adding a column named `TCRData`/`BCRData` in the sample information file.
 - put the path of the sample information file in the configuration file `[SampleInfo.in.infile]`, instead of passing it as a command line argument (`--Sample.in.infile`).
 
-Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. If you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters. If so, `SeuratClustering` will be replaced by `SeuratMap2Ref` in the pipeline.
+Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. If you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters. You can also assign cell types to clusters using `[CellTypeAnnotation]`.
 
 If you need to select T/B cells from all cells available for later analyses, you need to add `[TOrBCellSelection]` in the configuration file. If so, the processes annotated as something like `For selected cells` will be added to the pipeline.
 
@@ -105,7 +105,7 @@ When you have a processed `Seurat` object with scRNA-seq data, you can use `Load
 When you have only scRNA-seq data, you just don't need to add the `TCRData`/`BCRData` column in the sample information file. The pipeline will automatically skip the processes related to scTCR-/scBCR-seq data analysis.
 
 /// Attention
-You need to specify the sample information file in the configuration file `[SampleInfo.in.infile]` to enable this route. Passing the sample information file as a command line argument (`--Sample.in.infile`) does not trigger this route.
+You need to specify the sample information file in the configuration file `[SampleInfo.in.infile]` to enable this route. Passing the sample information file as a command line argument (`--Sample.in.infile`) does not trigger this route if you don't have `SampleInfo` defined in your configuration file.
 ///
 
 Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. If you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters.
