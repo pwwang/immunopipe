@@ -286,7 +286,7 @@
 <li>tell the pipeline that scTCR-seq data is available by adding a column named <code>TCRData</code>/<code>BCRData</code> in the sample information file.</li>
 <li>put the path of the sample information file in the configuration file <code>[SampleInfo.in.infile]</code>, instead of passing it as a command line argument (<code>--Sample.in.infile</code>).</li>
 </ul>
-<p>Unsupervised clustering <code>[SeuratClustering]</code> on selected T cells is the default setting. If you want to perform supervised clustering, you need to add <code>[SeuratMap2Ref]</code> in the configuration file with necessary parameters. If so, <code>SeuratClustering</code> will be replaced by <code>SeuratMap2Ref</code> in the pipeline.</p>
+<p>Unsupervised clustering <code>[SeuratClustering]</code> on selected T cells is the default setting. If you want to perform supervised clustering, you need to add <code>[SeuratMap2Ref]</code> in the configuration file with necessary parameters. You can also assign cell types to clusters using <code>[CellTypeAnnotation]</code>.</p>
 <p>If you need to select T/B cells from all cells available for later analyses, you need to add <code>[TOrBCellSelection]</code> in the configuration file. If so, the processes annotated as something like <code>For selected cells</code> will be added to the pipeline.</p>
 <p>This is the most common route of the pipeline:</p>
 <p><img alt="routes-tcr" src="../routes-tcr.png" /></p>
@@ -296,7 +296,7 @@
 <p>When you have only scRNA-seq data, you just don't need to add the <code>TCRData</code>/<code>BCRData</code> column in the sample information file. The pipeline will automatically skip the processes related to scTCR-/scBCR-seq data analysis.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>You need to specify the sample information file in the configuration file <code>[SampleInfo.in.infile]</code> to enable this route. Passing the sample information file as a command line argument (<code>--Sample.in.infile</code>) does not trigger this route.</p>
+<p>You need to specify the sample information file in the configuration file <code>[SampleInfo.in.infile]</code> to enable this route. Passing the sample information file as a command line argument (<code>--Sample.in.infile</code>) does not trigger this route if you don't have <code>SampleInfo</code> defined in your configuration file.</p>
 </div>
 <p>Unsupervised clustering <code>[SeuratClustering]</code> on selected T cells is the default setting. If you want to perform supervised clustering, you need to add <code>[SeuratMap2Ref]</code> in the configuration file with necessary parameters.</p>
 <p>Similar to the previous route, you can also load a processed <code>Seurat</code> object with scRNA-seq data using <code>LoadingRNAFromSeurat</code>.</p>

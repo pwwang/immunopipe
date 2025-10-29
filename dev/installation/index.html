@@ -60,6 +60,8 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#prepare-to-run-the-pipeline-via-google-batch-jobs">Prepare to run the pipeline via Google Batch Jobs</a>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -194,7 +196,7 @@
 <h3 id="install-the-pipline-and-the-dependencies-using-conda">Install the pipline and the dependencies using conda<a class="headerlink" href="#install-the-pipline-and-the-dependencies-using-conda" title="Permanent link">&para;</a></h3>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>If you plan to use the docker image, you can skip this section.</p>
+<p>If you plan to use the docker image to run the pipeline locally, you can skip this section.</p>
 </div>
 <p><code>immunopipe</code> is built upon <a href="https://github.com/pwwang/pipen"><code>pipen</code></a> framework, and a number of packages written in <code>R</code> and <code>python</code>. It's not recommended to install the packages manually. Instead, you can use the provided <code>environment.yml</code> to create a conda environment.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
@@ -248,6 +250,26 @@ $<span class="w"> </span>pipen<span class="w"> </span>report<span class="w"> </s
 <li><code>/workdir</code>: The working directory. It is the directory where the pipeline is run. It is recommended to map the current directory (<code>.</code>) to this directory.</li>
 <li><code>/data</code>: An empty directory. You can map your data directory to this directory.</li>
 </ul>
+<h3 id="prepare-to-run-the-pipeline-via-google-batch-jobs">Prepare to run the pipeline via Google Batch Jobs<a class="headerlink" href="#prepare-to-run-the-pipeline-via-google-batch-jobs" title="Permanent link">&para;</a></h3>
+<p>There are two ways of running the pipeline via Google Batch Jobs: using the <code>gbatch</code> scheduler (provided by <a href="https://github.com/pwwang/xqute"><code>xqute</code></a>) or using <a href="https://github.com/pwwang/pipen-cli-gbatch"><code>pipen-cli-gbatch</code></a>. See more details in <a href="../running/#run-the-pipeline-using-google-cloud-batch-jobs">Running the pipeline via Google Batch Jobs</a>.</p>
+<p>In addition to prepare the docker image in the artifact registry (or docker hub if your google cloud project allows pulling from docker hub), you also need to install some dependencies locally.</p>
+<p>If you choose to use the <code>gbatch</code> scheduler, in addition to installing the pipeline:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>immunopipe
+
+<span class="c1"># install cloud dependencies</span>
+$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>cloudpathlib<span class="o">[</span>gs<span class="o">]</span>
+</code></pre></div>
+<p>You still have to install the following dependencies to generate reports:</p>
+<ul>
+<li><a href="https://nodejs.org/"><code>nodejs</code></a>: Follow the instructions at <a href="https://nodejs.org/en/download/package-manager/">https://nodejs.org/en/download/package-manager/</a> to install <code>nodejs</code> for your system (v20+ is required); or</li>
+<li><a href="https://bun.sh/"><code>bunjs</code></a>: Follow the instructions at <a href="https://bun.sh/docs/install">https://bun.sh/docs/install</a> to install <code>bunjs</code> for your system.</li>
+</ul>
+<p>Then you need to install frontend dependencies for report generation:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pipen<span class="w"> </span>report<span class="w"> </span>update
+</code></pre></div>
+<p>If you choose to use <a href="https://github.com/pwwang/pipen-cli-gbatch"><code>pipen-cli-gbatch</code></a> (running the pipeline via <code>immunopipe gbatch</code>), you just need to install the pipeline with the <code>cli-gbatch</code> extra:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>immunopipe<span class="o">[</span>cli-gbatch<span class="o">]</span>
+</code></pre></div>
               
             </div>
           </div><footer>
