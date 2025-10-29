@@ -647,7 +647,7 @@ class TopExpressingGenes(TopExpressingGenes_):
     order = 3
 
 
-@when(VDJInput, requires=[RNAInput, VDJInput])
+@when(VDJInput, requires=[VDJInput, RNAInput])
 class ScRepCombiningExpression(ScRepCombiningExpression_):
     pass
 
