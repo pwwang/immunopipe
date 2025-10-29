@@ -87,7 +87,7 @@ def when(
 
 
 # Either has both RNA and VDJ data, or just VDJ data when LoadingRNAFromSeurat is used
-@when("SampleInfo" in config)
+@when("SampleInfo" in config or "LoadingRNAFromSeurat" not in config)
 @annotate.format_doc(
     vars={"baseurl": DOC_BASEURL, "output_baseurl": TEST_OUTPUT_BASEURL}
 )

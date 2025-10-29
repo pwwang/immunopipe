@@ -454,3 +454,23 @@ def test_route_sampleinfo_full(tmp_path):
     assert "MetabolicFeatures: >>> [END]" in output
     assert "MetabolicPathwayHeterogeneity: <<< ['MetabolicInput']" in output
     assert "MetabolicPathwayHeterogeneity: >>> [END]" in output
+
+
+@pytest.mark.forked
+def test_route_no_input(tmp_path):
+    """Test route when neither LoadingRNAFromSeurat nor SampleInfo is provided."""
+    config = tmp_path / "route_no_input.config.toml"
+    config.write_text(
+        f"""
+        workdir = "{tmp_path}/workdir"
+        outdir = "{tmp_path}/outdir"
+    """
+    )
+    with pytest.raises(RuntimeError):
+        output = dry_run(f"@{config}")
+
+        assert "SampleInfo: <<< [START]" in output
+        assert (
+            "SampleInfo: This is a start process, "
+            "but no 'input_data' specified." in output
+        )
