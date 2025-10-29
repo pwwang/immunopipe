@@ -64,7 +64,7 @@ def run_process(
     #         break
     # else:
     #     raise ValueError(f"Process {process} not found in the pipeline.")
-    with with_argv([LOADING_ARGV0]):
+    with with_argv([LOADING_ARGV0, f"@{configfile}"]):
         # This is loaded already by pytest
         # In order to load all process, we need to reload processes module
         from immunopipe import processes
@@ -81,9 +81,9 @@ def run_process(
 
     # detech dependent procs
     proc = Proc.from_proc(proc, name=process, **kwargs)
+    Pipen.SETUP = True
 
     class Pipeline(Pipen):
-        SETUP = True
         starts = proc
         plugin_opts = {"args_flatten": False}
         if request:
