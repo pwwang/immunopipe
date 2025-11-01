@@ -1,5 +1,12 @@
 # Change Log
 
+## 2.1.2
+
+- test: update order of ScRepLoading and SeuratClustering in assertions in route tests
+- docs: update configuration section name from cli-gbatch to gbatch
+- docs: enhance installation and introduction documentation
+- fix: better infer has_vdj when running by gbatch
+
 ## 2.1.1
 
 - fix: correct order of input requirements for ScRepCombiningExpression
