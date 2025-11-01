@@ -93,7 +93,17 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
     config.has_vdj = True  # Default to True, will be updated later
     if len(args) > 1 and args[1] == "gbatch":
         # Let immunopipe in the VM handle the validation
-        config.has_vdj = False
+        # But we need to enable essential processes if we do have VDJ data
+        config.has_vdj = (
+            ("SampleInfo" in config and "LoadingRNAFromSeurat" not in config)
+            or "ScRepLoading" in config
+            or "TOrBCellSelection" in config
+            or "ScRepCombiningExpression" in config
+            or "TCRClustering" in config
+            or "TESSA" in config
+            or "ClonalStats" in config
+            or "CDR3AAPhyschem" in config
+        )
         return config
 
     if "TOrBCellSelection" not in config and "SeuratClusteringOfAllCells" in config:
