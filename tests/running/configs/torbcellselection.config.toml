@@ -1,0 +1,5 @@
+[TOrBCellSelection.in]
+srtobj = "tests/running/intermediate/seuratclustering/SeuratClustering/sampleinfo.seurat.qs"
+
+[TOrBCellSelection.envs]
+indicator_genes = ["CD3E", "CD3D", "CD3G"]

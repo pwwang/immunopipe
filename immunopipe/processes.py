@@ -423,7 +423,9 @@ class TopExpressingGenesOfAllCells(TopExpressingGenes_):
 
     {{*Summary.long}}
 
-    See also [TopExpressingGenes](./TopExpressingGenes.md).
+    SeeAlso:
+        - [TopExpressingGenes](./TopExpressingGenes.md)
+        - [ClusterMarkers](./ClusterMarkers.md) for examples of enrichment plots
 
     Envs:
         cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.
@@ -772,6 +774,10 @@ class TopExpressingGenes(TopExpressingGenes_):
     you may see the other environment variables of this process are hidden and
     readonly.
     ///
+
+    SeeAlso:
+        - [TopExpressingGenesOfAllCells](./TopExpressingGenesOfAllCells.md)
+        - [ClusterMarkers](./ClusterMarkers.md) for examples of enrichment plots
 
     Envs:
         cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.

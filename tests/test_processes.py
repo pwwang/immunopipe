@@ -34,7 +34,6 @@ def test_seuratpreparing_sct(request):
 
 @pytest.mark.forked
 def test_seuratclustering(request):
-
     outdir = run_process(
         "SeuratClustering",
         "seuratclustering.config.toml",
@@ -46,7 +45,6 @@ def test_seuratclustering(request):
 
 @pytest.mark.forked
 def test_clustermarkers(request):
-
     outdir = run_process(
         "ClusterMarkers",
         "clustermarkers.config.toml",
@@ -57,3 +55,14 @@ def test_clustermarkers(request):
         "sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/"
         "Top-10-markers-of-all-clusters.png"
     ).is_file()
+
+
+@pytest.mark.forked
+def test_torbcellselection(request):
+    outdir = run_process(
+        "TOrBCellSelection",
+        "torbcellselection.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath("sampleinfo.seurat.qs").is_file()
