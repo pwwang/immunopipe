@@ -129,6 +129,7 @@ jobs:
           echo "**/*.json" >> $OUTPUT_DIR/.gitignore
           echo "**/*.txt" >> $OUTPUT_DIR/.gitignore
           echo "**/*.tsv" >> $OUTPUT_DIR/.gitignore
+          echo "**/*.pdf" >> $OUTPUT_DIR/.gitignore
         env:
           OUTPUT_DIR: tests/running/output
 

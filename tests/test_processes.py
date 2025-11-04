@@ -66,3 +66,38 @@ def test_torbcellselection(request):
         request=request,
     )
     assert outdir.joinpath("sampleinfo.seurat.qs").is_file()
+
+
+@pytest.mark.forked
+def test_screploading(request):
+    outdir = run_process(
+        "ScRepLoading",
+        "screp.config.toml",
+        export=False,
+        request=request,
+    )
+    assert outdir.joinpath("sampleinfo.scRep.qs").is_file()
+
+
+@pytest.mark.forked
+def test_screpcombiningexpression(request):
+    outdir = run_process(
+        "ScRepCombiningExpression",
+        "screp.config.toml",
+        export=False,
+        request=request,
+    )
+    assert outdir.joinpath("sampleinfo.scRep.qs").is_file()
+
+
+@pytest.mark.forked
+def test_seuratclusterstats(request):
+    outdir = run_process(
+        "SeuratClusterStats",
+        "seuratclusterstats.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath(
+        "sampleinfo.scRep.cluster_stats/clustrees/seurat_clusters.clustree.png"
+    ).is_file()
