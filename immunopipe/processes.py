@@ -886,7 +886,14 @@ class ScFGSEA(ScFGSEA_):
 
 
 @when("PseudoBulkDEG" in config, requires=CombinedInput)
+@annotate.format_doc()
 class PseudoBulkDEG(PseudoBulkDEG_):
+    """{{Summary}}
+
+    SeeAlso:
+        - [biopipen.ns.scrna.PseudoBulkDEG](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.PseudoBulkDEG)
+        - [ClusterMarkers](./ClusterMarkers.md) for examples of marker and enrichment plots
+    """  # noqa: E501
     order = 10
 
 
@@ -898,6 +905,10 @@ class MarkersFinder(MarkersFinder_):
     `MarkersFinder` is a process that wraps the
     [`Seurat::FindMarkers()`](https://satijalab.org/seurat/reference/findmarkers)
     function, and performs enrichment analysis for the markers found.
+
+    SeeAlso:
+        - [biopipen.ns.scrna.MarkersFinder](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder)
+        - [ClusterMarkers](./ClusterMarkers.md)
 
     Envs:
         mutaters: {{Envs.mutaters.help | indent: 12}}.
@@ -999,7 +1010,7 @@ class MarkersFinder(MarkersFinder_):
         The `DEFAULT` section name will be ignored in the report. You can specify
         a section name other than `DEFAULT` for each case to group them
         in the report.
-    """
+    """  # noqa: E501
 
     order = 11
 
