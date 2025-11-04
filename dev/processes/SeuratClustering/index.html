@@ -103,6 +103,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#seealso">SeeAlso</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
     </li>
     </ul>
@@ -197,7 +199,6 @@
 all cells are T/B cells, this process will be run on all T/B cells. Otherwise,
 this process will be run on the selected T/B cells by
 <a href="../TOrBCellSelection/"><code>TOrBCellSelection</code></a>.<br /></p>
-<p>See also: <a href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>.<br /></p>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>srtobj</code>:
@@ -259,10 +260,14 @@ this process will be run on the selected T/B cells by
     If <code>True</code>, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
     Set to <code>False</code> to not cache the results.<br /></li>
 </ul>
+<h3 id="seealso">SeeAlso<a class="headerlink" href="#seealso" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a></li>
+</ul>
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
 <p>The metadata of the <code>Seurat</code> object will be updated with the cluster
 assignments:<br /></p>
-<p><img alt="SeuratClustering-metadata" src="../..//processes/images/SeuratClustering-metadata.png" /></p>
+<p><img alt="SeuratClustering-metadata" src="../images/SeuratClustering-metadata.png" /></p>
               
             </div>
           </div><footer>

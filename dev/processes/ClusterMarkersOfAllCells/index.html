@@ -95,6 +95,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#seealso">SeeAlso</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
@@ -191,7 +193,11 @@
               
                 <h2 id="clustermarkersofallcells">ClusterMarkersOfAllCells<a class="headerlink" href="#clustermarkersofallcells" title="Permanent link">&para;</a></h2>
 <p>Markers for clusters of all cells.</p>
-<p>See also <a href="../ClusterMarkers/">ClusterMarkers</a>.<br /></p>
+<p>When only <code>group_by</code> is specified as <code>"seurat_clusters"</code> in
+<code>envs.cases</code>, the markers will be found for all the clusters.<br /></p>
+<p>You can also find the differentially expressed genes between
+any two groups of cells by setting <code>group_by</code> to a different
+column name in metadata. Follow <code>envs.cases</code> for more details.<br /></p>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>srtobj</code>:
@@ -414,6 +420,12 @@
 <li>If <code>each</code> is specified, the overlaps can be performed between different cases, where in each case, <code>ident-1</code> must be specified.<br /></li>
 </ol>
 </li>
+</ul>
+<h3 id="seealso">SeeAlso<a class="headerlink" href="#seealso" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../ClusterMarkers/">ClusterMarkers</a></li>
+<li><a href="../MarkersFinder/">MarkersFinder</a></li>
+<li><a href="https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder">biopipen.ns.scrna.MarkersFinder</a></li>
 </ul>
               
             </div>
