@@ -1,0 +1,61 @@
+[ClusterMarkers.in]
+srtobj = "tests/running/workdir/seuratclustering/SeuratClustering/0/output/sampleinfo.seurat.qs"
+
+[ClusterMarkers.envs]
+# Let's only do markers for clusters c1, c2, and c3
+# to save space for deployment
+subset = "seurat_clusters %in% c('c1', 'c2', 'c3')"
+dbs = ["MSigDB_Hallmark_2020"]
+
+[ClusterMarkers.envs.marker_plots."Volcano Plot (diff_pct)"]
+plot_type = "volcano_pct"
+
+[ClusterMarkers.envs.marker_plots."Volcano Plot (log2FC)"]
+plot_type = "volcano_log2fc"
+
+[ClusterMarkers.envs.marker_plots."Dot Plot"]
+plot_type = "dot"
+order_by = "desc(avg_log2FC)"
+
+# We can also visualize expressions
+[ClusterMarkers.envs.marker_plots."Heatmap of Expressions of Top Markers"]
+plot_type = "heatmap"
+order_by = "desc(avg_log2FC)"
+
+[ClusterMarkers.envs.marker_plots."Violin Plots for Top Markers"]
+plot_type = "violin"
+devpars = {width = 640}
+
+# Visualize enrichment of markers
+[ClusterMarkers.envs.enrich_plots."Bar Plot"]  # Default
+plot_type = "bar"
+
+[ClusterMarkers.envs.enrich_plots."Network"]
+plot_type = "network"
+
+[ClusterMarkers.envs.enrich_plots."Enrichmap"]
+plot_type = "enrichmap"
+
+[ClusterMarkers.envs.enrich_plots."Word Cloud"]
+plot_type = "wordcloud"
+
+# Visualize all markers together of all clusters together
+[ClusterMarkers.envs.allmarker_plots."Top 10 markers of all clusters"]
+plot_type = "heatmap"
+
+[ClusterMarkers.envs.allmarker_plots."Log2FC of all clusters"]
+plot_type = "heatmap_log2fc"
+subset_by = "seurat_clusters"
+
+[ClusterMarkers.envs.allmarker_plots."Jitter Plots for all clusters"]
+plot_type = "jitter"
+subset_by = "seurat_clusters"
+devpars = {width = 640, height = 480}
+
+# Visualize all enrichments together of all clusters together
+[ClusterMarkers.envs.allenrich_plots."Heatmap of enriched terms of all clusters"]
+plot_type = "heatmap"
+
+# Find overlapping markers among clusters
+[ClusterMarkers.envs.overlaps."Overlapping Markers"]
+plot_type = "venn"
