@@ -1,0 +1,391 @@
+{
+  "Cluster": {
+    "seurat_clusters: c1": {
+      "Markers": {
+        "tabs": [
+          {
+            "name": "Table",
+            "contents": [
+              {
+                "kind": "descr",
+                "content": "Showing top 100 markers ordered by p_val_adj ascendingly, then abs(avg_log2FC) descendingly. Use 'Download the entire data' button to download all significant markers by 'p_val_adj &lt; 0.05 &amp; avg_log2FC &gt; 0'."
+              },
+              {
+                "kind": "table",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/sigmarkers.tsv",
+                "data": {
+                  "nrows": 100
+                }
+              }
+            ]
+          },
+          {
+            "name": "Volcano Plot (diff_pct)",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-diff_pct-.png"
+              }
+            ]
+          },
+          {
+            "name": "Volcano Plot (log2FC)",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-log2FC-.png"
+              }
+            ]
+          },
+          {
+            "name": "Dot Plot",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Dot-Plot.png"
+              }
+            ]
+          },
+          {
+            "name": "Heatmap of Expressions of Top Markers",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Heatmap-of-Expressions-of-Top-Markers.png"
+              }
+            ]
+          },
+          {
+            "name": "Violin Plots for Top Markers",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Violin-Plots-for-Top-Markers.png"
+              }
+            ]
+          }
+        ]
+      },
+      "Enrichment Analysis": {
+        "tabs": [
+          {
+            "name": "Table",
+            "contents": [
+              {
+                "kind": "table",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.tsv",
+                "data": {
+                  "nrows": 100
+                }
+              }
+            ]
+          },
+          {
+            "name": "MSigDB_Hallmark_2020",
+            "contents": [
+              {
+                "kind": "descr",
+                "content": "The bar plot shows the top enriched terms in database 'MSigDB_Hallmark_2020', the x-axis shows the -log10 of the adjusted p-values, and the y-axis shows the term names. The number next to each bar indicates the overlap gene count."
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Bar-Plot.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Network.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Enrichmap.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Word-Cloud.png"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "seurat_clusters: c2": {
+      "Markers": {
+        "tabs": [
+          {
+            "name": "Table",
+            "contents": [
+              {
+                "kind": "descr",
+                "content": "Showing top 100 markers ordered by p_val_adj ascendingly, then abs(avg_log2FC) descendingly. Use 'Download the entire data' button to download all significant markers by 'p_val_adj &lt; 0.05 &amp; avg_log2FC &gt; 0'."
+              },
+              {
+                "kind": "table",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/sigmarkers.tsv",
+                "data": {
+                  "nrows": 100
+                }
+              }
+            ]
+          },
+          {
+            "name": "Volcano Plot (diff_pct)",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/markers.Volcano-Plot-diff_pct-.png"
+              }
+            ]
+          },
+          {
+            "name": "Volcano Plot (log2FC)",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/markers.Volcano-Plot-log2FC-.png"
+              }
+            ]
+          },
+          {
+            "name": "Dot Plot",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/markers.Dot-Plot.png"
+              }
+            ]
+          },
+          {
+            "name": "Heatmap of Expressions of Top Markers",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/markers.Heatmap-of-Expressions-of-Top-Markers.png"
+              }
+            ]
+          },
+          {
+            "name": "Violin Plots for Top Markers",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/markers.Violin-Plots-for-Top-Markers.png"
+              }
+            ]
+          }
+        ]
+      },
+      "Enrichment Analysis": {
+        "tabs": [
+          {
+            "name": "Table",
+            "contents": [
+              {
+                "kind": "table",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/enrich.tsv",
+                "data": {
+                  "nrows": 100
+                }
+              }
+            ]
+          },
+          {
+            "name": "MSigDB_Hallmark_2020",
+            "contents": [
+              {
+                "kind": "descr",
+                "content": "The bar plot shows the top enriched terms in database 'MSigDB_Hallmark_2020', the x-axis shows the -log10 of the adjusted p-values, and the y-axis shows the term names. The number next to each bar indicates the overlap gene count."
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/enrich.MSigDB_Hallmark_2020.Bar-Plot.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/enrich.MSigDB_Hallmark_2020.Network.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/enrich.MSigDB_Hallmark_2020.Enrichmap.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/enrich.MSigDB_Hallmark_2020.Word-Cloud.png"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "seurat_clusters: c3": {
+      "Markers": {
+        "tabs": [
+          {
+            "name": "Table",
+            "contents": [
+              {
+                "kind": "descr",
+                "content": "Showing top 100 markers ordered by p_val_adj ascendingly, then abs(avg_log2FC) descendingly. Use 'Download the entire data' button to download all significant markers by 'p_val_adj &lt; 0.05 &amp; avg_log2FC &gt; 0'."
+              },
+              {
+                "kind": "table",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/sigmarkers.tsv",
+                "data": {
+                  "nrows": 100
+                }
+              }
+            ]
+          },
+          {
+            "name": "Volcano Plot (diff_pct)",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/markers.Volcano-Plot-diff_pct-.png"
+              }
+            ]
+          },
+          {
+            "name": "Volcano Plot (log2FC)",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/markers.Volcano-Plot-log2FC-.png"
+              }
+            ]
+          },
+          {
+            "name": "Dot Plot",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/markers.Dot-Plot.png"
+              }
+            ]
+          },
+          {
+            "name": "Heatmap of Expressions of Top Markers",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/markers.Heatmap-of-Expressions-of-Top-Markers.png"
+              }
+            ]
+          },
+          {
+            "name": "Violin Plots for Top Markers",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/markers.Violin-Plots-for-Top-Markers.png"
+              }
+            ]
+          }
+        ]
+      },
+      "Enrichment Analysis": {
+        "tabs": [
+          {
+            "name": "Table",
+            "contents": [
+              {
+                "kind": "table",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/enrich.tsv",
+                "data": {
+                  "nrows": 100
+                }
+              }
+            ]
+          },
+          {
+            "name": "MSigDB_Hallmark_2020",
+            "contents": [
+              {
+                "kind": "descr",
+                "content": "The bar plot shows the top enriched terms in database 'MSigDB_Hallmark_2020', the x-axis shows the -log10 of the adjusted p-values, and the y-axis shows the term names. The number next to each bar indicates the overlap gene count."
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/enrich.MSigDB_Hallmark_2020.Bar-Plot.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/enrich.MSigDB_Hallmark_2020.Network.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/enrich.MSigDB_Hallmark_2020.Enrichmap.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/enrich.MSigDB_Hallmark_2020.Word-Cloud.png"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "seurat_clusters (All Markers)": {
+      "#": {
+        "tabs": [
+          {
+            "name": "Top 10 markers of all clusters",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Top-10-markers-of-all-clusters.png"
+              }
+            ]
+          },
+          {
+            "name": "Log2FC of all clusters",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Log2FC-of-all-clusters.png"
+              }
+            ]
+          },
+          {
+            "name": "Jitter Plots for all clusters",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Jitter-Plots-for-all-clusters.png"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "seurat_clusters (Overlaps)": {
+      "#": {
+        "tabs": [
+          {
+            "name": "Overlapping Markers",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps-/Overlapping-Markers.png"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "seurat_clusters (All Enrichments)": {
+      "Heatmap of enriched terms of all clusters": {
+        "tabs": [
+          {
+            "name": "MSigDB_Hallmark_2020",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Enrichments-/allenrich.MSigDB_Hallmark_2020.Heatmap-of-enriched-terms-of-all-clusters.png"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
