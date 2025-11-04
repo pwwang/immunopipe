@@ -101,6 +101,7 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
 
     ```toml
     [SeuratPreparing.envs]
+
     cell_qc = "nFeature_RNA > 200 & percent.mt < 5"
     ```
     will keep cells with more than 200 genes and less than 5%% mitochondrial
@@ -120,6 +121,7 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
         /// Tip | Example
         ```toml
         [SeuratPreparing.envs]
+
         gene_qc = { min_cells = 3 }
         ```
         will keep genes that are expressed in at least 3 cells.<br />
@@ -133,9 +135,9 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
     * more_formats: The formats to save the plots other than `png`.<br />
     * save_code: Whether to save the code to reproduce the plot.<br />
     * other arguments passed to
-    [`biopipen.utils::VizSeuratCellQC`](https://user.github.io/biopipen.utils.R/reference/VizSeuratCellQC.html)
+    [`biopipen.utils::VizSeuratCellQC`](https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratCellQC.html)
     when `kind` is `cell` or
-    [`biopipen.utils::VizSeuratGeneQC`](https://user.github.io/biopipen.utils.R/reference/VizSeuratGeneQC.html)
+    [`biopipen.utils::VizSeuratGeneQC`](https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratGeneQC.html)
     when `kind` is `gene`.<br />
 
 - `use_sct` *(`flag`)*: *Default: `False`*. <br />

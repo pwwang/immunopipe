@@ -125,7 +125,7 @@ and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
     The keys are the names of the plots and the values are the arguments for the plot.<br />
     The arguments will be passed to `biopipen.utils::VizSeuratMap2Ref()` to generate the plots.<br />
     The plots will be saved to the output directory.<br />
-    See <https://user.github.io/biopipen.utils.R/reference/VizSeuratMap2Ref.html>.<br />
+    See <https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratMap2Ref.html>.<br />
 
 ## Metadata
 

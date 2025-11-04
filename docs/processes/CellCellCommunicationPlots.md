@@ -48,5 +48,5 @@ Visualization for cell-cell communication inference.
     key `Cell-Cell Communication`.<br />
 - `<more>`:
     Other arguments passed to
-    [scplotter::CCCPlot](https://user.github.io/scplotter/reference/CCCPlot.html)
+    [scplotter::CCCPlot](https://pwwang.github.io/scplotter/reference/CCCPlot.html)
 

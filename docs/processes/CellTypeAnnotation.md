@@ -7,7 +7,7 @@ Annotate the cell clusters. Currently, four ways are supported:<br />
 1. Pass the cell type annotation directly
 2. Use [`ScType`](https://github.com/IanevskiAleksandr/sc-type)
 3. Use [`scCATCH`](https://github.com/ZJUFanLab/scCATCH)
-4. Use [`hitype`](https://github.com/user/hitype)
+4. Use [`hitype`](https://github.com/pwwang/hitype)
 
 The annotated cell types will replace the original `seurat_clusters` column in the metadata,
 so that the downstream processes will use the annotated cell types.<br />
@@ -52,7 +52,7 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
         See <https://github.com/IanevskiAleksandr/sc-type>
     - `hitype`:
         Use `hitype` to annotate cell types.<br />
-        See <https://github.com/user/hitype>
+        See <https://github.com/pwwang/hitype>
     - `sccatch`:
         Use `scCATCH` to annotate cell types.<br />
         See <https://github.com/ZJUFanLab/scCATCH>
@@ -75,7 +75,7 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
 - `hitype_db`:
     The database to use for hitype.<br />
     Compatible with `sctype_db`.<br />
-    See also <https://user.github.io/hitype/articles/prepare-gene-sets.html>
+    See also <https://pwwang.github.io/hitype/articles/prepare-gene-sets.html>
     You can also use built-in databases, including `hitypedb_short`, `hitypedb_full`, and `hitypedb_pbmc3k`.<br />
 - `cell_types` *(`list`)*: *Default: `[]`*. <br />
     The cell types to use for direct annotation.<br />

@@ -14,7 +14,7 @@ The enrichment analysis is done by
 There are other environment variables also available. However, they should not
 be used in this process. Other environment variables are used for more
 complicated cases for investigating top genes
-(See [`biopipen.ns.scrna.TopExpressingGenes`](https://user.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.TopExpressingGenes) for more details).<br />
+(See [`biopipen.ns.scrna.TopExpressingGenes`](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.TopExpressingGenes) for more details).<br />
 
 If you are using `pipen-board` to run the pipeline
 (see [here](../running.md#run-the-pipeline-via-pipen-board) and
@@ -43,7 +43,7 @@ readonly.<br />
     The number of top expressing genes to find.<br />
 - `enrich_style` *(`choice`)*: *Default: `enrichr`*. <br />
     The style of the enrichment analysis.<br />
-    The enrichment analysis will be done by `EnrichIt()` from [`enrichit`](https://user.github.io/enrichit/).<br />
+    The enrichment analysis will be done by `EnrichIt()` from [`enrichit`](https://pwwang.github.io/enrichit/).<br />
     Two styles are available:<br />
     - `enrichr`:
         `enrichr` style enrichment analysis (fisher's exact test will be used).<br />
@@ -55,7 +55,7 @@ readonly.<br />
     Default options for the plots to generate for the enrichment analysis.<br />
     - `plot_type`:
         The type of the plot.<br />
-        See <https://user.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
+        See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
         Available types are `bar`, `dot`, `lollipop`, `network`, `enrichmap` and `wordcloud`.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
         The extra formats to save the plot in.<br />
@@ -70,7 +70,7 @@ readonly.<br />
         - `width` *(`type=int`)*:
             The width of the plots.<br />
     - `<more>`:
-        See <https://user.github.io/scplotter/reference/EnrichmentPlot.htmll>.<br />
+        See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.htmll>.<br />
 - `enrich_plots` *(`type=json`)*: *Default: `{'Bar Plot': Diot({'plot_type': 'bar', 'ncol': 1, 'top_term': 10})}`*. <br />
     Cases of the plots to generate for the enrichment analysis.<br />
     The keys are the names of the cases and the values are the dicts inherited from `enrich_plots_defaults`.<br />

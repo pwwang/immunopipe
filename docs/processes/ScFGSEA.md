@@ -35,7 +35,7 @@ each gene set, and GSEA plots for the top gene sets.<br />
     The mutaters to mutate the metadata.<br />
     The key-value pairs will be passed the `dplyr::mutate()` to mutate the metadata.<br />
     You can also use the clone selectors to select the TCR clones/clusters.<br />
-    See <https://user.github.io/scplotter/reference/clone_selectors.html>.<br />
+    See <https://pwwang.github.io/scplotter/reference/clone_selectors.html>.<br />
 
 - `group_by`:
     The column name in metadata to group the cells.<br />
@@ -95,7 +95,7 @@ each gene set, and GSEA plots for the top gene sets.<br />
         - `width` *(`type=int`)*:
             The width of the plots.<br />
     - `<more>`:
-        See <https://user.github.io/biopipen.utils.R/reference/VizGSEA.html>.<br />
+        See <https://pwwang.github.io/biopipen.utils.R/reference/VizGSEA.html>.<br />
 - `alleach_plots` *(`type=json`)*: *Default: `{}`*. <br />
     Cases of the plots to generate for all pathways.<br />
     The keys are the names of the cases and the values are the dicts inherited from `alleach_plots_defaults`.<br />

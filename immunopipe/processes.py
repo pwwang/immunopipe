@@ -53,7 +53,6 @@ just_loading = is_loading_pipeline("help", "-h", "--help", "-h+", "--help+")
 config = validate_config()
 
 # https://pwwang.github.io/immunopipe/latest/
-DOC_BASEURL = "../../"
 TEST_OUTPUT_BASEURL = "https://raw.githubusercontent.com/pwwang/immunopipe/tests-output"
 start_processes = []
 
@@ -88,11 +87,9 @@ def when(
 
 # Either has both RNA and VDJ data, or just VDJ data when LoadingRNAFromSeurat is used
 @when("SampleInfo" in config or "LoadingRNAFromSeurat" not in config)
-@annotate.format_doc(
-    vars={"baseurl": DOC_BASEURL, "output_baseurl": TEST_OUTPUT_BASEURL}
-)
+@annotate.format_doc(vars={"output_baseurl": TEST_OUTPUT_BASEURL})
 class SampleInfo(SampleInfo_):
-    """{{Summary}}
+    __doc__ = """{{Summary}}
 
     This process is the entrance of the pipeline. It just pass by input file and list
     the sample information in the report.
@@ -107,13 +104,13 @@ class SampleInfo(SampleInfo_):
     Or with `pipen-board`, find the `SampleInfo` process and click the `Edit` button.
     Then you can specify the input file here
 
-    ![infile]({{baseurl}}/processes/images/SampleInfo-infile.png)
+    ![infile](images/SampleInfo-infile.png)
 
     Multiple input files are supported by the underlying pipeline framework. However,
     we recommend to run it with a different pipeline instance with configuration files.
 
     For the content of the input file, please see details
-    [here]({{baseurl}}/preparing-input.md#metadata).
+    [here](../preparing-input.md#metadata).
 
     You can add some columns to the input file while doing the statistics or you can
     even pass them on to the next processes. See `envs.mutaters` and
@@ -126,7 +123,7 @@ class SampleInfo(SampleInfo_):
 
     Once the pipeline is finished, you can see the sample information in the report
 
-    ![report]({{baseurl}}/processes/images/SampleInfo-report.png)
+    ![report](images/SampleInfo-report.png)
 
     Note that the required `RNAData` (if not loaded from a Seurat object) and
     `TCRData`/`BCRData` columns are not shown in the report.
@@ -252,6 +249,10 @@ class SampleInfo(SampleInfo_):
 
     Input:
         infile%(required)s: {{Input.infile.help | indent: 8}}.
+            **Required when [`LoadingRNAFromSeurat`](LoadingRNAFromSeurat.md) is not
+            used in the pipeline.**
+            **This is optional if [`LoadingRNAFromSeurat`](LoadingRNAFromSeurat.md) is
+            used in the pipeline and no VDJ data is provided.**
             The input file should have the following columns.
             * Sample: A unique id for each sample.
             * TCRData/BCRData: The directory for single-cell TCR/BCR data for this
@@ -260,14 +261,15 @@ class SampleInfo(SampleInfo_):
                 or all_contig_annotations.csv from cellranger.
             * RNAData: The directory for single-cell RNA data for this sample.
                 Specifically, it should be able to be read by
-                `Seurat::Read10X()` or `Seurat::Read10X_h5()` or
-                `SeuratDisk::LoadLoom()`.
-                See also https://satijalab.org/seurat/reference/read10x.
+                [`Seurat::Read10X()`](https://satijalab.org/seurat/reference/read10x) or
+                [`Seurat::Read10X_h5()`](https://satijalab.org/seurat/reference/read10x_h5) or
+                [`SeuratDisk::LoadLoom()`](https://rdrr.io/github/mojaveazure/seurat-disk/man/LoadLoom.html).
+                See also <https://satijalab.org/seurat/reference/read10x>.
             * Other columns are optional and will be treated as metadata for
                 each sample.
-    """ % {
-        "required": "LoadingRNAFromSeurat" not in config
-    }  # noqa: E501
+    """ % {  # noqa: E501
+        "required": " (required)" if "LoadingRNAFromSeurat" not in config else ""
+    }
 
     envs = {"exclude_cols": "TCRData,BCRData,RNAData"}
 
@@ -275,7 +277,7 @@ class SampleInfo(SampleInfo_):
 # When SampleInfo is used, it should always have VDJ data to be loaded
 # if has_vdj is True
 @when(SampleInfo and config.has_vdj, requires=SampleInfo)
-@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+@annotate.format_doc()
 class ScRepLoading(ScRepLoading_):
     pass
 
@@ -289,7 +291,8 @@ class LoadingRNAFromSeurat(Proc):
     """Load RNA data from a Seurat object, instead of RNAData from SampleInfo
 
     Input:
-        infile: An RDS or qs2 format file containing a Seurat object.
+        infile: An [RDS](https://rdrr.io/r/base/readRDS.html) or [qs/qs2](https://github.com/qsbase/qs2)
+        format file containing a Seurat object.
 
     Envs:
         prepared (flag): Whether the Seurat object is well-prepared for the
@@ -300,7 +303,11 @@ class LoadingRNAFromSeurat(Proc):
             Force `prepared` to be `True` if this is `True`.
         sample: The column name in the metadata of the Seurat object that
             indicates the sample name.
-    """
+
+    SeeAlso:
+        - [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-seq-data).
+        - [Routes of the pipeline](../introduction.md#routes-of-the-pipeline).
+    """  # noqa: E501
 
     input = "infile:file"
     output = "outfile:file:{{in.infile | basename}}"
@@ -331,17 +338,17 @@ RNAInput = LoadingRNAFromSeurat or SampleInfo
     ),
     requires=RNAInput,
 )
-@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+@annotate.format_doc()
 class SeuratPreparing(SeuratPreparing_):
     """{{Summary}}
 
-    See also [Preparing the input](../preparing-input.md#scRNA-seq-data).
+    See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-seq-data).
 
     Metadata:
         Here is the demonstration of basic metadata for the `Seurat` object. Future
         processes will use it and/or add more metadata to the `Seurat` object.
 
-        ![SeuratPreparing-metadata]({{baseurl}}/processes/images/SeuratPreparing-metadata.png)
+        ![SeuratPreparing-metadata](images/SeuratPreparing-metadata.png)
     """  # noqa: E501
 
 
@@ -370,6 +377,9 @@ class SeuratClusteringOfAllCells(SeuratClustering_):
     for unsupervised clustering, or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process
     for supervised clustering.
     ///
+
+    SeeAlso:
+        - [SeuratClustering](./SeuratClustering.md)
     """
 
 
@@ -381,7 +391,10 @@ RNAInput = SeuratClusteringOfAllCells or RNAInput
 class ClusterMarkersOfAllCells(MarkersFinder_):
     """Markers for clusters of all cells.
 
-    See also [ClusterMarkers](./ClusterMarkers.md).
+    SeeAlso:
+        - [ClusterMarkers](./ClusterMarkers.md)
+        - [MarkersFinder](./MarkersFinder.md)
+        - [biopipen.ns.scrna.MarkersFinder](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder)
 
     Envs:
         cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.
@@ -389,7 +402,7 @@ class ClusterMarkersOfAllCells(MarkersFinder_):
         ident_1 (hidden;readonly): {{Envs["ident_1"].help | indent: 12}}.
         ident_2 (hidden;readonly): {{Envs["ident_2"].help | indent: 12}}.
         mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
-    """
+    """  # noqa: E501
 
     envs = {
         "cases": {"Cluster": {"group_by": "seurat_clusters"}},
@@ -428,6 +441,7 @@ class TopExpressingGenesOfAllCells(TopExpressingGenes_):
     "TOrBCellSelection" in config,
     requires=[RNAInput, VDJInput] if VDJInput else RNAInput,
 )
+@annotate.format_doc()
 class TOrBCellSelection(TOrBCellSelection_):
     pass
 
@@ -436,14 +450,14 @@ RNAInput = TOrBCellSelection or RNAInput
 
 
 @when("ModuleScoreCalculator" in config, requires=RNAInput)
-@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+@annotate.format_doc()
 class ModuleScoreCalculator(ModuleScoreCalculator_):
     """{{Summary}}
 
     Metadata:
         The metadata of the `Seurat` object will be updated with the module scores:
 
-        ![ModuleScoreCalculator-metadata]({{baseurl}}/processes/images/ModuleScoreCalculator-metadata.png)
+        ![ModuleScoreCalculator-metadata](images/ModuleScoreCalculator-metadata.png)
     """  # noqa: E501
 
     input_data = lambda ch1: ch1.iloc[:, [0]]
@@ -453,7 +467,7 @@ RNAInput = ModuleScoreCalculator or RNAInput
 
 
 @when("SeuratMap2Ref" in config, requires=RNAInput)
-@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+@annotate.format_doc()
 class SeuratMap2Ref(SeuratMap2Ref_):
     """{{Summary}}
 
@@ -461,7 +475,7 @@ class SeuratMap2Ref(SeuratMap2Ref_):
         The metadata of the `Seurat` object will be updated with the cluster
         assignments (column name determined by `envs.name`):
 
-        ![SeuratMap2Ref-metadata]({{baseurl}}/processes/images/SeuratClustering-metadata.png)
+        ![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
     """
 
     input_data = lambda ch1: ch1.iloc[:, [0]]
@@ -482,7 +496,7 @@ RNAInput = SeuratMap2Ref or RNAInput
     ),
     requires=RNAInput,
 )
-@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+@annotate.format_doc()
 class SeuratClustering(SeuratClustering_):
     """Cluster all cells or selected T/B cells selected by `TOrBCellSelection`.
 
@@ -491,13 +505,14 @@ class SeuratClustering(SeuratClustering_):
     this process will be run on the selected T/B cells by
     [`TOrBCellSelection`](./TOrBCellSelection.md).
 
-    See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).
+    SeeAlso:
+        - [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md)
 
     Metadata:
         The metadata of the `Seurat` object will be updated with the cluster
         assignments:
 
-        ![SeuratClustering-metadata]({{baseurl}}/processes/images/SeuratClustering-metadata.png)
+        ![SeuratClustering-metadata](images/SeuratClustering-metadata.png)
     """
 
     input_data = lambda ch1: ch1.iloc[:, [0]]
@@ -507,7 +522,7 @@ RNAInput = SeuratClustering or RNAInput
 
 
 @when("CellTypeAnnotation" in config, requires=RNAInput)
-@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+@annotate.format_doc()
 class CellTypeAnnotation(CellTypeAnnotation_):
     """Annotate all or selected T/B cell clusters.
 
@@ -536,7 +551,7 @@ class CellTypeAnnotation(CellTypeAnnotation_):
         annotated cell types and the original `seurat_clusters` column will be
         saved at `seurat_clusters_id`.
 
-        ![CellTypeAnnotation-metadata]({{baseurl}}/processes/images/CellTypeAnnotation-metadata.png)
+        ![CellTypeAnnotation-metadata](images/CellTypeAnnotation-metadata.png)
 
     """  # noqa: E501
 
@@ -548,7 +563,7 @@ RNAInput = CellTypeAnnotation or RNAInput
 
 
 @when("SeuratSubClustering" in config, requires=RNAInput)
-@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+@annotate.format_doc()
 class SeuratSubClustering(SeuratSubClustering_):
     """Sub-clustering for all or selected T/B cells.
 
@@ -558,7 +573,7 @@ class SeuratSubClustering(SeuratSubClustering_):
         The metadata of the `Seurat` object will be updated with the sub-clusters
         specified by names (keys) of `envs.cases`:
 
-        ![SeuratSubClustering-metadata]({{baseurl}}/processes/images/SeuratSubClustering-metadata.png)
+        ![SeuratSubClustering-metadata](images/SeuratSubClustering-metadata.png)
     """
 
     input_data = lambda ch1: ch1.iloc[:, [0]]
@@ -567,7 +582,7 @@ class SeuratSubClustering(SeuratSubClustering_):
 RNAInput = SeuratSubClustering or RNAInput
 
 
-@annotate.format_doc()
+@annotate.format_doc(vars={"output_baseurl": TEST_OUTPUT_BASEURL})
 class ClusterMarkers(MarkersFinder_):
     """Markers for clusters of all or selected T/B cells.
 
@@ -590,6 +605,11 @@ class ClusterMarkers(MarkersFinder_):
     you may see the other environment variables of this process are hidden and readonly.
     ///
 
+    SeeAlso:
+        - [MarkersFinder](./MarkersFinder.md)
+        - [ClusterMarkersOfAllCells](./ClusterMarkersOfAllCells.md)
+        - [biopipen.ns.scrna.MarkersFinder](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder)
+
     Envs:
         cases (hidden;readonly): {{Envs.cases.help | indent: 12}}.
         each (hidden;readonly): {{Envs.each.help | indent: 12}}.
@@ -597,6 +617,124 @@ class ClusterMarkers(MarkersFinder_):
         ident_1 (hidden;readonly): {{Envs["ident_1"].help | indent: 12}}.
         ident_2 (hidden;readonly): {{Envs["ident_2"].help | indent: 12}}.
         mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
+
+    Examples:
+        ### Visualize Log2 Fold Change of Markers
+
+        ```toml
+        [ClusterMarkers.envs.marker_plots."Volcano Plot (log2FC)"]
+        plot_type = "volcano_log2fc"
+        ```
+
+        ![Volcano Plot (log2FC)]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-log2FC-.png)
+
+        ### Visualize differential percentage of expression of Markers
+
+        ```toml
+        [ClusterMarkers.envs.marker_plots."Volcano Plot (pct_diff)"]
+        plot_type = "volcano_pct"
+        ```
+
+        ![Volcano Plot (pct_diff)]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-diff_pct-.png)
+
+        ### Visualize Average Expression of Markers with Dot Plot
+
+        ```toml
+        [ClusterMarkers.envs.marker_plots."Dot Plot (AvgExp)"]
+        plot_type = "dotplot"
+        order_by = "desc(avg_log2FC)"
+        ```
+
+        ![Dot Plot (AvgExp)]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Dot-Plot.png)
+
+        ### Visualize Average Expression of Markers with Heatmap
+
+        ```toml
+        [ClusterMarkers.envs.marker_plots."Heatmap (AvgExp)"]
+        plot_type = "heatmap"
+        order_by = "desc(avg_log2FC)"
+        ```
+
+        ![Heatmap (AvgExp)]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Heatmap-of-Expressions-of-Top-Markers.png)
+
+        ### Visualize Expression of Markers with Violin Plots
+
+        ```toml
+        [ClusterMarkers.envs.marker_plots."Violin Plots"]
+        plot_type = "violin"
+        ```
+
+        ![Violin Plots]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Violin-Plots-for-Top-Markers.png)
+
+        ### Visualize enrichment analysis results with Bar/EnrichMap/Network/WordCloud Plots
+
+        ```toml
+        # Visualize enrichment of markers
+        [ClusterMarkers.envs.enrich_plots."Bar Plot"]  # Default
+        plot_type = "bar"
+
+        [ClusterMarkers.envs.enrich_plots."Network"]
+        plot_type = "network"
+
+        [ClusterMarkers.envs.enrich_plots."Enrichmap"]
+        plot_type = "enrichmap"
+
+        [ClusterMarkers.envs.enrich_plots."Word Cloud"]
+        plot_type = "wordcloud"
+        ```
+
+        ![Bar Plot]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Bar-Plot.png)
+        ![Network]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Network.png)
+        ![Enrichmap]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Enrichmap.png)
+        ![Word Cloud]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Word-Cloud.png)
+
+        ### Visualize top markers of all clusters with Heatmap
+
+        ```toml
+        [ClusterMarkers.envs.allmarker_plots."Top 10 markers of all clusters"]
+        plot_type = "heatmap"
+        ```
+
+        ![Top 10 markers of all clusters]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Top-10-markers-of-all-clusters.png)
+
+        ### Visualize Log2 Fold Change of all markers
+
+        ```toml
+        [ClusterMarkers.envs.allmarker_plots."Log2 Fold Change of all markers"]
+        plot_type = "heatmap_log2fc"
+        subset_by = "seurat_clusters"
+        ```
+
+        ![Log2 Fold Change of all markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Log2FC-of-all-clusters.png)
+
+        ### Visualize all markers in all clusters with Jitter Plots
+
+        ```toml
+        [ClusterMarkers.envs.allmarker_plots."Jitter Plots of all markers"]
+        plot_type = "jitter"
+        subset_by = "seurat_clusters"
+        ```
+
+        ![Jitter Plots of all markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Jitter-Plots-for-all-clusters.png)
+
+        ### Visualize all enrichment analysis results of all clusters
+
+        ```toml
+        [ClusterMarkers.envs.allenrich_plots."Heatmap of enriched terms of all clusters"]
+        plot_type = "heatmap"
+        ```
+
+        ![Heatmap of enriched terms of all clusters]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Enrichments-/allenrich.MSigDB_Hallmark_2020.Heatmap-of-enriched-terms-of-all-clusters.png)
+
+        ### Overlapping markers
+
+        ```toml
+        [ClusterMarkers.envs.overlaps."Overlapping Markers"]
+        plot_type = "venn"
+        ```
+
+        ![Overlapping Markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps-/Overlapping-Markers.png)
+
     """  # noqa: E501
 
     requires = RNAInput
@@ -674,7 +812,7 @@ CombinedInput = TCRClustering or CombinedInput
 
 
 @when(VDJInput and "TESSA" in config, requires=CombinedInput)
-@annotate.format_doc(vars={"baseurl": DOC_BASEURL})
+@annotate.format_doc()
 class TESSA(TESSA_):
     """{{Summary}}
 
@@ -688,7 +826,7 @@ class TESSA(TESSA_):
         The metadata of the `Seurat` object will be updated with the TESSA clusters
         and the cluster sizes:
 
-        ![TESSA-metadata]({{baseurl}}/processes/images/TESSA-metadata.png)
+        ![TESSA-metadata](images/TESSA-metadata.png)
     """
 
     order = 5

@@ -25,7 +25,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     The mutaters to mutate the metadata to subset the cells.<br />
     The mutaters will be applied in the order specified.<br />
     You can also use the clone selectors to select the TCR clones/clusters.<br />
-    See <https://user.github.io/scplotter/reference/clone_selectors.html>.<br />
+    See <https://pwwang.github.io/scplotter/reference/clone_selectors.html>.<br />
 - `cache` *(`type=auto`)*: *Default: `/tmp`*. <br />
     Whether to cache the plots.<br />
     Currently only plots for features are supported, since creating the those
@@ -56,7 +56,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
         (the prefix of each case must be specified separately).<br />
     - `<more>`:
         Other arguments passed to `scplotter::ClustreePlot`.<br />
-        See <https://user.github.io/scplotter/reference/ClustreePlot.html>
+        See <https://pwwang.github.io/scplotter/reference/ClustreePlot.html>
 - `clustrees` *(`type=json`)*: *Default: `{}`*. <br />
     The cases for clustree plots.<br />
     Keys are the names of the plots and values are the dicts inherited from `env.clustrees_defaults` except `prefix`.<br />
@@ -64,7 +64,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
 - `stats_defaults` *(`ns`)*:
     The default parameters for `stats`.<br />
     This is to do some basic statistics on the clusters/cells. For more comprehensive analysis,
-    see <https://user.github.io/scplotter/reference/CellStatPlot.html>.<br />
+    see <https://pwwang.github.io/scplotter/reference/CellStatPlot.html>.<br />
     The parameters from the cases can overwrite the default parameters.<br />
     - `subset`:
         An expression to subset the cells, will be passed to `tidyrseurat::filter()`.<br />
@@ -86,7 +86,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
         Whether to save the data used to generate the plot.<br />
     - `<more>`:
         Other arguments passed to `scplotter::CellStatPlot`.<br />
-        See <https://user.github.io/scplotter/reference/CellStatPlot.html>.<br />
+        See <https://pwwang.github.io/scplotter/reference/CellStatPlot.html>.<br />
 - `stats` *(`type=json`)*: *Default: `{'Number of cells in each cluster (Bar Chart)': Diot({'plot_type': 'bar', 'x_text_angle': 90}), 'Number of cells in each cluster by Sample (Bar Chart)': Diot({'plot_type': 'bar', 'group_by': 'Sample', 'x_text_angle': 90})}`*. <br />
     The number/fraction of cells to plot.<br />
     Keys are the names of the plots and values are the dicts inherited from `env.stats_defaults`.<br />
@@ -153,7 +153,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
         Whether to save the data used to generate the plot.<br />
     - `<more>`:
         Other arguments passed to `scplotter::FeatureStatPlot`.<br />
-        See <https://user.github.io/scplotter/reference/FeatureStatPlot.html>
+        See <https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html>
 - `features` *(`type=json`)*: *Default: `{}`*. <br />
     The plots for features, include gene expressions, and columns from metadata.<br />
     Keys are the titles of the cases and values are the dicts inherited from `env.features_defaults`.<br />
@@ -190,11 +190,11 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
         - `pca`:
             Use `Seurat::PCAPlot`.<br />
     - `<more>`:
-        See <https://user.github.io/scplotter/reference/CellDimPlot.html>
+        See <https://pwwang.github.io/scplotter/reference/CellDimPlot.html>
 - `dimplots` *(`type=json`)*: *Default: `{'Dimensional reduction plot': Diot({'label': True}), 'VDJ Presence': Diot({'group_by': 'VDJ_Presence'})}`*. <br />
     The dimensional reduction plots.<br />
     Keys are the titles of the plots and values are the dicts inherited from `env.dimplots_defaults`. It can also have other parameters from
-    [`scplotter::CellDimPlot`](https://user.github.io/scplotter/reference/CellDimPlot.html).<br />
+    [`scplotter::CellDimPlot`](https://pwwang.github.io/scplotter/reference/CellDimPlot.html).<br />
 
 ## Examples
 
@@ -207,7 +207,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
 nCells_All = { }
 ```
 
-![nCells_All](images/SeuratClusterStats_nCells_All.png){: width="80%" }
+![nCells_All](../latest/processes/images/SeuratClusterStats_nCells_All.png){: width="80%" }
 
 ### Number of cells in each cluster by groups
 
@@ -216,7 +216,7 @@ nCells_All = { }
 nCells_Sample = { group_by = "Sample" }
 ```
 
-![nCells_Sample](images/SeuratClusterStats_nCells_Sample.png){: width="80%" }
+![nCells_Sample](../latest/processes/images/SeuratClusterStats_nCells_Sample.png){: width="80%" }
 
 ### Violin plots for the gene expressions
 
@@ -229,8 +229,8 @@ vlnplots = { pt-size = 0, kind = "vln" }
 vlnplots_1 = { features = ["FOXP3", "IL2RA"], pt-size = 0, kind = "vln" }
 ```
 
-![vlnplots](images/SeuratClusterStats_vlnplots.png){: width="80%" }
-![vlnplots_1](images/SeuratClusterStats_vlnplots_1.png){: width="80%" }
+![vlnplots](../latest/processes/images/SeuratClusterStats_vlnplots.png){: width="80%" }
+![vlnplots_1](../latest/processes/images/SeuratClusterStats_vlnplots_1.png){: width="80%" }
 
 ### Dimension reduction plot with labels
 
@@ -239,5 +239,5 @@ vlnplots_1 = { features = ["FOXP3", "IL2RA"], pt-size = 0, kind = "vln" }
 label = true
 ```
 
-![dimplots](images/SeuratClusterStats_dimplots.png){: width="80%" }
+![dimplots](../latest/processes/images/SeuratClusterStats_dimplots.png){: width="80%" }
 
