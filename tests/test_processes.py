@@ -101,3 +101,14 @@ def test_seuratclusterstats(request):
     assert outdir.joinpath(
         "sampleinfo.scRep.cluster_stats/clustrees/seurat_clusters.clustree.png"
     ).is_file()
+
+
+@pytest.mark.forked
+def test_clonalstats(request):
+    outdir = run_process(
+        "ClonalStats",
+        "clonalstats.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath("sampleinfo.scRep.clonalstats").is_dir()

@@ -42,7 +42,7 @@ jobs:
           key: conda-${{ hashFiles('docker/environment.yml') }}-${{ env.CACHE_NUMBER }}
         env:
           TAR_OPTIONS: "--no-same-owner --no-same-permissions"
-          CACHE_NUMBER: 2
+          CACHE_NUMBER: 1
 
       - name: Create conda environment (if not restored)
         if: steps.restore-conda.outputs.cache-hit != 'true'
