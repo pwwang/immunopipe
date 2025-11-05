@@ -1,0 +1,121 @@
+[SeuratClusterStats.in]
+srtobj = "tests/running/intermediate/screpcombiningexpression/ScRepCombiningExpression/sampleinfo.scRep.qs"
+
+[SeuratClusterStats.envs.clustrees."Clustree Plot"]
+prefix = "seurat_clusters"
+devpars = {height = 500}
+
+[SeuratClusterStats.envs.stats."Number of cells in each cluster (Bar Chart)"]
+plot_type = "bar"
+x_text_angle = 90
+
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Sample (Bar Chart)"]
+plot_type = "bar"
+group_by = "Sample"
+x_text_angle = 90
+
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis"]
+plot_type = "bar"
+group_by = "Diagnosis"
+frac = "group"
+x_text_angle = 90
+swap = true
+position = "stack"
+
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Circos Plot)"]
+plot_type = "circos"
+group_by = "Diagnosis"
+
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Sankey Plot)"]
+plot_type = "sankey"
+group_by = ["seurat_clusters", "Diagnosis"]
+links_alpha = 0.6
+devpars = {width = 800}
+
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Sample (Spider Plot)"]
+plot_type = "spider"
+group_by = "Diagnosis"
+palette = "Set1"
+
+[SeuratClusterStats.envs.ngenes."Number of genes detected in each cluster"]
+plot_type = "violin"
+add_box = true
+add_point = true
+
+[SeuratClusterStats.envs.features_defaults]
+features = ["CD3D", "CD4", "CD8A", "MS4A1", "CD14", "LYZ", "FCGR3A", "NCAM1", "KLRD1"]
+
+[SeuratClusterStats.envs.features."Feature Expression in Clusters (Violin Plots)"]
+plot_type = "violin"
+ident = "seurat_clusters"
+
+[SeuratClusterStats.envs.features."Feature Expression in Clusters (Ridge Plots)"]
+plot_type = "ridge"
+ident = "seurat_clusters"
+flip = true
+
+[SeuratClusterStats.envs.features."Feature Expression in Clusters by Diagnosis"]
+plot_type = "violin"
+group_by = "Diagnosis"
+ident = "seurat_clusters"
+comparisons = true
+sig_label = "p.signif"
+
+[SeuratClusterStats.envs.features."Feature Expression in Clusters (stacked)"]
+plot_type = "violin"
+ident = "seurat_clusters"
+add_bg = true
+stack = true
+add_box = true
+
+[SeuratClusterStats.envs.features."CD4 Expression on UMAP"]
+plot_type = "dim"
+feature = "CD4"
+highlight = "seurat_clusters == 'c1'"
+
+[SeuratClusterStats.envs.features."Feature Expression in Clusters by Diagnosis (Heatmap)"]
+# Grouped features
+features = {"T cell markers" = ["CD3D", "CD4", "CD8A"], "B cell markers" = ["MS4A1"], "Monocyte markers" = ["CD14", "LYZ", "FCGR3A"], "NK cell markers" = ["NCAM1", "KLRD1"]}
+plot_type = "heatmap"
+ident = "Diagnosis"
+columns_split_by = "seurat_clusters"
+name = "Expression"
+devpars = {height = 560}
+
+[SeuratClusterStats.envs.features."Feature Expression in Clusters by Diagnosis (Heatmap with annotations)"]
+ident = "seurat_clusters"
+cell_type = "dot"
+plot_type = "heatmap"
+name = "Expression Level"
+dot_size = "nanmean"
+dot_size_name = "Percent Expressed"
+add_bg = true
+rows_split_by = "Diagnosis"
+cluster_rows = false
+flip = true
+palette = "YlOrRd"
+column_annotation = ["percent.mt", "VDJ_Presence"]
+column_annotation_type = {"percent.mt" = "violin", VDJ_Presence = "pie"}
+column_annotation_params = {"percent.mt" = {show_legend = false}}
+devpars = {width = 1400, height = 900}
+
+[SeuratClusterStats.envs.dimplots."Dimensional reduction plot"]
+label = true
+
+[SeuratClusterStats.envs.dimplots."Dimensional reduction plot (with marks)"]
+add_mark = true
+mark_linetype = 2
+
+[SeuratClusterStats.envs.dimplots."Dimensional reduction plot (with hex bins)"]
+hex = true
+hex_bins = 50
+
+[SeuratClusterStats.envs.dimplots."Dimensional reduction plot (with Diagnosis stats)"]
+stat_by = "Diagnosis"
+stat_plot_type = "ring"
+stat_plot_size = 0.15
+
+[SeuratClusterStats.envs.dimplots."Dimensional reduction plot by Diagnosis"]
+facet_by = "Diagnosis"
+highlight = true
+theme = "theme_blank"

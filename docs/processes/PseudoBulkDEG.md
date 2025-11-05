@@ -26,7 +26,7 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     expressions to mutate the columns. These new columns can be
     used to define your cases.<br />
     You can also use the clone selectors to select the TCR clones/clusters.<br />
-    See <https://user.github.io/scplotter/reference/clone_selectors.html>.<br />
+    See <https://pwwang.github.io/scplotter/reference/clone_selectors.html>.<br />
 - `each`:
     The column name in metadata to separate the cells into different cases.<br />
     When specified, the case will be expanded to multiple cases for
@@ -81,7 +81,7 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     Default options for the plots for all markers when `ident-1` is not specified.<br />
     - `plot_type`:
         The type of the plot.<br />
-        See <https://user.github.io/scplotter/reference/FeatureStatPlot.html>.<br />
+        See <https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html>.<br />
         Available types are `violin`, `box`, `bar`, `ridge`, `dim`, `heatmap` and `dot`.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
         The extra formats to save the plot in.<br />
@@ -100,7 +100,7 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     - `genes`: *Default: `10`*. <br />
         The number of top genes to show or an expression passed to `dplyr::filter()` to filter the genes.<br />
     - `<more>`:
-        Other arguments passed to [`scplotter::FeatureStatPlot()`](https://user.github.io/scplotter/reference/FeatureStatPlot.html).<br />
+        Other arguments passed to [`scplotter::FeatureStatPlot()`](https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html).<br />
 - `allmarker_plots` *(`type=json`)*: *Default: `{}`*. <br />
     All marker plot cases.<br />
     The keys are the names of the cases and the values are the dicts inherited from `allmarker_plots_defaults`.<br />
@@ -117,7 +117,7 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
         - `width` *(`type=int`)*:
             The width of the plots.<br />
     - `<more>`:
-        See <https://user.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
+        See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
 - `allenrich_plots` *(`type=json`)*: *Default: `{}`*. <br />
     Cases of the plots to generate for the enrichment analysis.<br />
     The keys are the names of the cases and the values are the dicts inherited from `allenrich_plots_defaults`.<br />
@@ -126,7 +126,7 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     Default options for the plots to generate for the markers.<br />
     - `plot_type`:
         The type of the plot.<br />
-        See <https://user.github.io/scplotter/reference/FeatureStatPlot.html>.<br />
+        See <https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html>.<br />
         Available types are `violin`, `box`, `bar`, `ridge`, `dim`, `heatmap` and `dot`.<br />
         There are two additional types available - `volcano_pct` and `volcano_log2fc`.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
@@ -146,9 +146,9 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     - `genes`: *Default: `10`*. <br />
         The number of top genes to show or an expression passed to `dplyr::filter()` to filter the genes.<br />
     - `<more>`:
-        Other arguments passed to [`scplotter::FeatureStatPlot()`](https://user.github.io/scplotter/reference/FeatureStatPlot.html).<br />
+        Other arguments passed to [`scplotter::FeatureStatPlot()`](https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html).<br />
         If `plot_type` is `volcano_pct` or `volcano_log2fc`, they will be passed to
-        [`scplotter::VolcanoPlot()`](https://user.github.io/plotthis/reference/VolcanoPlot.html).<br />
+        [`scplotter::VolcanoPlot()`](https://pwwang.github.io/plotthis/reference/VolcanoPlot.html).<br />
 - `marker_plots` *(`type=json`)*: *Default: `{'Volcano Plot': Diot({'plot_type': 'volcano'})}`*. <br />
     Cases of the plots to generate for the markers.<br />
     Plot cases. The keys are the names of the cases and the values are the dicts inherited from `marker_plots_defaults`.<br />
@@ -157,7 +157,7 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     Default options for the plots to generate for the enrichment analysis.<br />
     - `plot_type`:
         The type of the plot.<br />
-        See <https://user.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
+        See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
         Available types are `bar`, `dot`, `lollipop`, `network`, `enrichmap` and `wordcloud`.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
         The extra formats to save the plot in.<br />
@@ -172,7 +172,7 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
         - `width` *(`type=int`)*:
             The width of the plots.<br />
     - `<more>`:
-        See <https://user.github.io/scplotter/reference/EnrichmentPlot.htmll>.<br />
+        See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.htmll>.<br />
 - `enrich_plots` *(`type=json`)*: *Default: `{'Bar Plot': Diot({'plot_type': 'bar', 'ncol': 1, 'top_term': 10})}`*. <br />
     Cases of the plots to generate for the enrichment analysis.<br />
     The keys are the names of the cases and the values are the dicts inherited from `enrich_plots_defaults`.<br />
@@ -203,9 +203,9 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
             The width of the plots.<br />
     - `<more>`:
         More arguments pased to `plotthis::VennDiagram()`
-        (<https://user.github.io/plotthis/reference/venndiagram1.html>)
+        (<https://pwwang.github.io/plotthis/reference/venndiagram1.html>)
         or `plotthis::UpsetPlot()`
-        (<https://user.github.io/plotthis/reference/upsetplot1.html>)
+        (<https://pwwang.github.io/plotthis/reference/upsetplot1.html>)
 - `overlaps` *(`type=json`)*: *Default: `{}`*. <br />
     Cases for investigating the overlapping of significant markers between different cases or comparisons.<br />
     The keys are the names of the cases and the values are the dicts inherited from `overlaps_defaults`.<br />
@@ -222,7 +222,7 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     The default parameters for the plots.<br />
     - `<more>`:
         Parameters passed to `biopipen.utils::VizBulkDEGs()`.<br />
-        See: <https://user.github.io/biopipen.utils.R/reference/VizBulkDEGs.html>
+        See: <https://pwwang.github.io/biopipen.utils.R/reference/VizBulkDEGs.html>
 - `plots` *(`type=json`)*:
     The parameters for the plots.<br />
     The keys are the names of the plots and the values are the parameters

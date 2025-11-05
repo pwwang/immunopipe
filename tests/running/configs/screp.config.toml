@@ -1,0 +1,6 @@
+[ScRepLoading.in]
+metafile = "tests/running/data/sampleinfo.txt"
+
+[ScRepCombiningExpression.in]
+screpfile = "tests/running/intermediate/screploading/ScRepLoading/sampleinfo.scRep.qs"
+srtobj = "tests/running/intermediate/seuratclustering/SeuratClustering/sampleinfo.seurat.qs"

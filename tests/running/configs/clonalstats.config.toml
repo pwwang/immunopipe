@@ -1,0 +1,107 @@
+[ClonalStats.in]
+screpfile = "tests/running/intermediate/screpcombiningexpression/ScRepCombiningExpression/sampleinfo.scRep.qs"
+
+[ClonalStats.envs.cases."Clonal Volume"]
+viz_type = "volume"
+x_text_angle = 45
+
+[ClonalStats.envs.cases."Clonal Volume by Diagnosis"]
+viz_type = "volume"
+x = "seurat_clusters"
+group_by = "Diagnosis"
+comparisons = true
+
+[ClonalStats.envs.cases."Clonal Abundance"]
+viz_type = "abundance"
+
+[ClonalStats.envs.cases."Clonal Abundance Density"]
+viz_type = "abundance"
+plot_type = "density"
+
+[ClonalStats.envs.cases."CDR3 Length"]
+viz_type = "length"
+
+[ClonalStats.envs.cases."CDR3 Length (Beta Chain)"]
+viz_type = "length"
+chain = "TRB"
+
+[ClonalStats.envs.cases."Clonal Residency"]
+viz_type = "residency"
+group_by = "Diagnosis"
+chain = "TRB"
+clone_call = "gene"
+groups = ["Colitis", "NoColitis"]
+
+[ClonalStats.envs.cases."Clonal Residency (UpSet Plot)"]
+viz_type = "residency"
+plot_type = "upset"
+group_by = "Diagnosis"
+chain = "TRB"
+clone_call = "gene"
+groups = ["Colitis", "NoColitis"]
+devpars = {width = 800}
+
+[ClonalStats.envs.cases."Clonal Statistics with Expanded Clones"]
+viz_type = "stat"
+plot_type = "pies"
+group_by = "Diagnosis"
+groups = ["Colitis", "NoColitis"]
+clones = {"Expanded Clones In Colitis" = "sel(Colitis > 2)", "Expanded Clones In NoColitis" = "sel(NoColitis > 2)"}
+subgroup_by = "seurat_clusters"
+pie_size = "sqrt"
+show_row_names = true
+show_column_names = true
+devpars = {width = 720}
+
+[ClonalStats.envs.cases."Hyperexpanded Clonal Dynamics"]
+viz_type = "stat"
+plot_type = "sankey"
+group_by = "Diagnosis"
+chain = "TRB"
+groups = ["Colitis", "NoColitis"]
+clones = {"Hyper-Expanded Clones In Colitis" = "sel(Colitis > 5)", "Hyper-Expanded Clones In NoColitis" = "sel(NoColitis > 5)"}
+devpars = {width = 800}
+
+[ClonalStats.envs.cases."Clonal Composition"]
+viz_type = "composition"
+x_text_angle = 45
+
+[ClonalStats.envs.cases."Clonal Overlapping"]
+viz_type = "overlap"
+chain = "TRB"
+clone_call = "gene"
+
+[ClonalStats.envs.cases."Clonal Diversity"]
+# method = "shannon"  # default
+viz_type = "diversity"
+x_text_angle = 45
+
+[ClonalStats.envs.cases."Clonal Diversity (gini.coeff, by Diagnosis)"]
+method = "gini.coeff"
+viz_type = "diversity"
+plot_type = "box"
+group_by = "Diagnosis"
+comparisons = true
+devpars = {height = 600, width = 600}
+
+[ClonalStats.envs.cases."Gene Usage Frequency"]
+viz_type = "geneusage"
+devpars = {width = 1200}
+
+[ClonalStats.envs.cases."Positional amino acid frequency"]
+viz_type = "positional"
+# method = "AA"  # default
+devpars = {width = 1600}
+
+[ClonalStats.envs.cases."Positional shannon entropy"]
+viz_type = "positional"
+method = "shannon"
+devpars = {width = 1200}
+
+[ClonalStats.envs.cases."3-Mer Frequency"]
+viz_type = "kmer"
+k = 3  # default is 3
+devpars = {width = 800}
+
+[ClonalStats.envs.cases."Rarefaction Curve"]
+viz_type = "rarefaction"

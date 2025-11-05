@@ -7,8 +7,6 @@ all cells are T/B cells, this process will be run on all T/B cells. Otherwise,
 this process will be run on the selected T/B cells by
 [`TOrBCellSelection`](./TOrBCellSelection.md).<br />
 
-See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
-
 ## Input
 
 - `srtobj`:
@@ -63,6 +61,10 @@ See also: [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md).<br />
     Where to cache the information at different steps.<br />
     If `True`, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
     Set to `False` to not cache the results.<br />
+
+## SeeAlso
+
+- [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md)
 
 ## Metadata
 

@@ -7,7 +7,8 @@ Load RNA data from a Seurat object, instead of RNAData from SampleInfo
 ## Input
 
 - `infile`:
-    An RDS or qs2 format file containing a Seurat object.<br />
+    An [RDS](https://rdrr.io/r/base/readRDS.html) or [qs/qs2](https://github.com/qsbase/qs2)
+    format file containing a Seurat object.<br />
 
 ## Output
 
@@ -26,4 +27,9 @@ Load RNA data from a Seurat object, instead of RNAData from SampleInfo
 - `sample`: *Default: `Sample`*. <br />
     The column name in the metadata of the Seurat object that
     indicates the sample name.<br />
+
+## SeeAlso
+
+- [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-seq-data).<br />
+- [Routes of the pipeline](../introduction.md#routes-of-the-pipeline).<br />
 

@@ -2,7 +2,12 @@
 
 Markers for clusters of all cells.
 
-See also [ClusterMarkers](./ClusterMarkers.md).<br />
+When only `group_by` is specified as `"seurat_clusters"` in
+`envs.cases`, the markers will be found for all the clusters.<br />
+
+You can also find the differentially expressed genes between
+any two groups of cells by setting `group_by` to a different
+column name in metadata. Follow `envs.cases` for more details.<br />
 
 ## Input
 
@@ -44,7 +49,7 @@ See also [ClusterMarkers](./ClusterMarkers.md).<br />
     fold change > 1.<br />
 - `enrich_style` *(`choice`)*: *Default: `enrichr`*. <br />
     The style of the enrichment analysis.<br />
-    The enrichment analysis will be done by `EnrichIt()` from [`enrichit`](https://user.github.io/enrichit/).<br />
+    The enrichment analysis will be done by `EnrichIt()` from [`enrichit`](https://pwwang.github.io/enrichit/).<br />
     Two styles are available:<br />
     - `enrichr`:
         `enrichr` style enrichment analysis (fisher's exact test will be used).<br />
@@ -73,7 +78,7 @@ See also [ClusterMarkers](./ClusterMarkers.md).<br />
     Default options for the plots for all markers when `ident-1` is not specified.<br />
     - `plot_type`:
         The type of the plot.<br />
-        See <https://user.github.io/biopipen.utils.R/reference/VizDEGs.html>.<br />
+        See <https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html>.<br />
         Available types are `violin`, `box`, `bar`, `ridge`, `dim`, `heatmap` and `dot`.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
         The extra formats to save the plot in.<br />
@@ -88,7 +93,7 @@ See also [ClusterMarkers](./ClusterMarkers.md).<br />
         - `width` *(`type=int`)*:
             The width of the plots.<br />
     - `<more>`:
-        Other arguments passed to [`biopipen.utils::VizDEGs()`](https://user.github.io/biopipen.utils.R/reference/VizDEGs.html).<br />
+        Other arguments passed to [`biopipen.utils::VizDEGs()`](https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html).<br />
 - `allmarker_plots` *(`type=json`)*: *Default: `{'Top 10 markers of all clusters': Diot({'plot_type': 'heatmap'})}`*. <br />
     All marker plot cases.<br />
     The keys are the names of the cases and the values are the dicts inherited from `allmarker_plots_defaults`.<br />
@@ -105,7 +110,7 @@ See also [ClusterMarkers](./ClusterMarkers.md).<br />
         - `width` *(`type=int`)*:
             The width of the plots.<br />
     - `<more>`:
-        See <https://user.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
+        See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
 - `allenrich_plots` *(`type=json`)*: *Default: `{}`*. <br />
     Cases of the plots to generate for the enrichment analysis.<br />
     The keys are the names of the cases and the values are the dicts inherited from `allenrich_plots_defaults`.<br />
@@ -114,7 +119,7 @@ See also [ClusterMarkers](./ClusterMarkers.md).<br />
     Default options for the plots to generate for the markers.<br />
     - `plot_type`:
         The type of the plot.<br />
-        See <https://user.github.io/biopipen.utils.R/reference/VizDEGs.html>.<br />
+        See <https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html>.<br />
         Available types are `violin`, `box`, `bar`, `ridge`, `dim`, `heatmap` and `dot`.<br />
         There are two additional types available - `volcano_pct` and `volcano_log2fc`.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
@@ -130,9 +135,9 @@ See also [ClusterMarkers](./ClusterMarkers.md).<br />
         - `width` *(`type=int`)*:
             The width of the plots.<br />
     - `<more>`:
-        Other arguments passed to [`biopipen.utils::VizDEGs()`](https://user.github.io/biopipen.utils.R/reference/VizDEGs.html).<br />
+        Other arguments passed to [`biopipen.utils::VizDEGs()`](https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html).<br />
         If `plot_type` is `volcano_pct` or `volcano_log2fc`, they will be passed to
-        [`scplotter::VolcanoPlot()`](https://user.github.io/plotthis/reference/VolcanoPlot.html).<br />
+        [`scplotter::VolcanoPlot()`](https://pwwang.github.io/plotthis/reference/VolcanoPlot.html).<br />
 - `marker_plots` *(`type=json`)*: *Default: `{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot'})}`*. <br />
     Cases of the plots to generate for the markers.<br />
     Plot cases. The keys are the names of the cases and the values are the dicts inherited from `marker_plots_defaults`.<br />
@@ -141,7 +146,7 @@ See also [ClusterMarkers](./ClusterMarkers.md).<br />
     Default options for the plots to generate for the enrichment analysis.<br />
     - `plot_type`:
         The type of the plot.<br />
-        See <https://user.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
+        See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
         Available types are `bar`, `dot`, `lollipop`, `network`, `enrichmap` and `wordcloud`.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
         The extra formats to save the plot in.<br />
@@ -156,7 +161,7 @@ See also [ClusterMarkers](./ClusterMarkers.md).<br />
         - `width` *(`type=int`)*:
             The width of the plots.<br />
     - `<more>`:
-        See <https://user.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
+        See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
 - `enrich_plots` *(`type=json`)*: *Default: `{'Bar Plot': Diot({'plot_type': 'bar', 'ncol': 1, 'top_term': 10})}`*. <br />
     Cases of the plots to generate for the enrichment analysis.<br />
     The keys are the names of the cases and the values are the dicts inherited from `enrich_plots_defaults`.<br />
@@ -187,13 +192,19 @@ See also [ClusterMarkers](./ClusterMarkers.md).<br />
             The width of the plots.<br />
     - `<more>`:
         More arguments pased to `plotthis::VennDiagram()`
-        (<https://user.github.io/plotthis/reference/venndiagram1.html>)
+        (<https://pwwang.github.io/plotthis/reference/venndiagram1.html>)
         or `plotthis::UpsetPlot()`
-        (<https://user.github.io/plotthis/reference/upsetplot1.html>)
+        (<https://pwwang.github.io/plotthis/reference/upsetplot1.html>)
 - `overlaps` *(`type=json`)*: *Default: `{}`*. <br />
     Cases for investigating the overlapping of significant markers between different cases or comparisons.<br />
     The keys are the names of the cases and the values are the dicts inherited from `overlaps_defaults`.<br />
     There are two situations that we can perform overlaps:<br />
     1. If `ident-1` is not specified, the overlaps can be performed between different comparisons.<br />
     2. If `each` is specified, the overlaps can be performed between different cases, where in each case, `ident-1` must be specified.<br />
+
+## SeeAlso
+
+- [ClusterMarkers](./ClusterMarkers.md)
+- [MarkersFinder](./MarkersFinder.md)
+- [biopipen.ns.scrna.MarkersFinder](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder)
 

@@ -1,5 +1,21 @@
 # Change Log
 
+## 2.1.3
+
+- docs: update docs for ClusterMarkers with examples
+- ci: update biopipen dependency for tests
+- feat: add new tests and configuration for ScRepLoading, ScRepCombiningExpression and SeuratClusterStats
+- test: add test for clustermarkers
+- test: add test for TOrBCellSelection
+- docs: enhance documentation for PseudoBulkDEG and MarkersFinder
+- test: add ClonalStats tests and configuration
+- test: add ScFGSEA tests and configuration
+- test: add CellCellCommunication and CellCellCommunicationPlots tests
+- docs: update ScrnaMetabolicLandscape doc images
+- chore: bump biopipen to 0.34.17
+  - fix(scrna.MarkersFinder): enhance error handling in enrichment plotting and fix all-enrich plots when ident_1 is NULL
+  - fix(tcr.ClonalStats): replace deprecated ClonalDynamicsPlot with ClonalStatPlot
+
 ## 2.1.2
 
 - test: update order of ScRepLoading and SeuratClustering in assertions in route tests

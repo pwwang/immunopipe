@@ -5,7 +5,7 @@ local:
 		--hide-sections Requires \
 		--replace "https://pwwang.github.io/immunopipe=.." \
 		--replace "${HOME}=~" \
-		--replace "${USER}=user"
+		--replace "${USER}=pwwang"
 
 api:
 	pipen ref --pipeline "immunopipe:Immunopipe" \

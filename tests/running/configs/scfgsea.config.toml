@@ -1,0 +1,17 @@
+[ScFGSEA.in]
+srtobj = "tests/running/intermediate/screpcombiningexpression/ScRepCombiningExpression/sampleinfo.scRep.qs"
+
+[ScFGSEA.envs]
+group_by = "Diagnosis"
+ident_1 = "Colitis"
+ident_2 = "Control"
+each = "seurat_clusters"
+subset = "seurat_clusters %in% c('c1', 'c2', 'c3')"
+
+[ScFGSEA.envs.alleach_plots.Heatmap]
+plot_type = "heatmap"
+group_by = "Diagnosis"
+
+[ScFGSEA.envs.alleach_plots.DotPlot]
+plot_type = "dot"
+group_by = "Diagnosis"
