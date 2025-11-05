@@ -73,7 +73,7 @@ jobs:
           poetry install -v -E cli-gbatch
           poetry run pip install -U liana  # for cell-cell communication tests
           # Use the latest biopipen for tests
-          poetry run pip install --no-deps --force-reinstall --upgrade git+https://github.com/pwwang/biopipen.git@dev
+          # poetry run pip install --no-deps --force-reinstall --upgrade git+https://github.com/pwwang/biopipen.git@dev
 
       - name: Check if immunopipe is installed successfully
         run: |
