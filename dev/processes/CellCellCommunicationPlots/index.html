@@ -137,6 +137,18 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#network-plot">Network Plot</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#circos-plot">Circos Plot</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#heatmap-plot">Heatmap Plot</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cell-cell-communication-interaction-box-plot">Cell-Cell Communication Interaction (Box Plot)</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                   </li>
               </ul>
@@ -239,6 +251,26 @@
     Other arguments passed to
     <a href="https://pwwang.github.io/scplotter/reference/CCCPlot.html">scplotter::CCCPlot</a></li>
 </ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<h4 id="network-plot">Network Plot<a class="headerlink" href="#network-plot" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[CellCellCommunicationPlots.envs.cases.</span><span class="s2">&quot;Cell-Cell Communication Network&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;network&quot;</span>
+<span class="n">legend-position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;none&quot;</span>
+<span class="n">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;theme_blank&quot;</span>
+<span class="n">theme_args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">add_coord</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Network Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Network.png" width="80%" /></p>
+<h4 id="circos-plot">Circos Plot<a class="headerlink" href="#circos-plot" title="Permanent link">&para;</a></h4>
+<p><img alt="Circos Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Circos-Plot.png" width="80%" /></p>
+<h4 id="heatmap-plot">Heatmap Plot<a class="headerlink" href="#heatmap-plot" title="Permanent link">&para;</a></h4>
+<p><img alt="Heatmap Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Heatmap.png" width="80%" /></p>
+<h4 id="cell-cell-communication-interaction-box-plot">Cell-Cell Communication Interaction (Box Plot)<a class="headerlink" href="#cell-cell-communication-interaction-box-plot" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[CellCellCommunicationPlots.envs.cases.</span><span class="s2">&quot;Cell-Cell Communication Interaction (Box Plot)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;box&quot;</span>
+<span class="n">x_text_angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;interaction&quot;</span>
+</code></pre></div>
+<p><img alt="Box Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Interaction-Box-Plot-.png" width="80%" /></p>
               
             </div>
           </div><footer>

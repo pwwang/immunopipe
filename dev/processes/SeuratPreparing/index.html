@@ -286,6 +286,7 @@ If you are using <code>cca</code> or <code>rpca</code> interation, the default a
 <code>nFeature_RNA</code>, <code>nCount_RNA</code>, <code>percent.mt</code>, <code>percent.ribo</code>, <code>percent.hb</code>,
 and <code>percent.plat</code>. For example:<br /></p>
 <p><div class="highlight"><pre><span></span><code><span class="k">[SeuratPreparing.envs]</span>
+
 <span class="n">cell_qc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;nFeature_RNA &gt; 200 &amp; percent.mt &lt; 5&quot;</span>
 </code></pre></div>
 will keep cells with more than 200 genes and less than 5%% mitochondrial
@@ -307,6 +308,7 @@ genes.<br /></p>
 <div class="admonition tip">
 <p class="admonition-title">Example</p>
 <p><div class="highlight"><pre><span></span><code><span class="k">[SeuratPreparing.envs]</span>
+
 <span class="n">gene_qc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">min_cells</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 will keep genes that are expressed in at least 3 cells.<br /></p>

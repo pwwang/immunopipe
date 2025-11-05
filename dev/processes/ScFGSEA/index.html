@@ -125,6 +125,14 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-summary-and-gsea-plots">The summary and GSEA plots</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#summary-plot-for-all-subsets-or-idents">Summary plot for all subsets or idents</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
@@ -307,6 +315,24 @@ each gene set, and GSEA plots for the top gene sets.<br /></p>
     If some options are not specified, the default values specified above will be used.<br />
     If no cases are specified, the default case will be added with the name <code>GSEA</code>.<br /></li>
 </ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<h4 id="the-summary-and-gsea-plots">The summary and GSEA plots<a class="headerlink" href="#the-summary-and-gsea-plots" title="Permanent link">&para;</a></h4>
+<p><img alt="GSEA summary" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/seurat_clusters/c1/summary.png" width="80%" /></p>
+<p><img alt="GSEA plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/seurat_clusters/c1/pathways.png" width="80%" /></p>
+<h4 id="summary-plot-for-all-subsets-or-idents">Summary plot for all subsets or idents<a class="headerlink" href="#summary-plot-for-all-subsets-or-idents" title="Permanent link">&para;</a></h4>
+<p>If you use <code>each</code> to separate the cells into different subsets, this is useful to
+make a summary plot for all subsets. Or if you don't specify <code>ident_1</code>, the summary plot for all idents in <code>group_by</code> will be generated.<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[ScFGSEA.envs]</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">ident_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Colitis&quot;</span>
+<span class="n">ident_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Control&quot;</span>
+<span class="n">each</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+
+<span class="k">[ScFGSEA.envs.alleach_plots.Heatmap]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;heatmap&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+</code></pre></div>
+<p><img alt="GSEA summary for all subsets" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/GSEA-all-seurat_clusters-/all.Heatmap.png" width="80%" /></p>
               
             </div>
           </div><footer>

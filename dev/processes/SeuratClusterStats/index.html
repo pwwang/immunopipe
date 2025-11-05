@@ -125,13 +125,45 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#number-of-cells-in-each-cluster">Number of cells in each cluster</a>
+    <li class="toctree-l3"><a class="reference internal" href="#clustree-plot">Clustree Plot</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#number-of-cells-in-each-cluster-by-groups">Number of cells in each cluster by groups</a>
+    <li class="toctree-l3"><a class="reference internal" href="#number-of-cells-in-each-cluster-bar-chart">Number of cells in each cluster (Bar Chart)</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#violin-plots-for-the-gene-expressions">Violin plots for the gene expressions</a>
+    <li class="toctree-l3"><a class="reference internal" href="#number-of-cells-in-each-cluster-by-sample-bar-chart">Number of cells in each cluster by Sample (Bar Chart)</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#dimension-reduction-plot-with-labels">Dimension reduction plot with labels</a>
+    <li class="toctree-l3"><a class="reference internal" href="#number-of-cells-in-each-cluster-by-diagnosis">Number of cells in each cluster by Diagnosis</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#number-of-cells-in-each-cluster-by-diagnosis-circos-plot">Number of cells in each cluster by Diagnosis (Circos Plot)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#number-of-cells-in-each-cluster-by-diagnosis-sankey-plot">Number of cells in each cluster by Diagnosis (Sankey Plot)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#number-of-cells-in-each-cluster-by-sample-spider-plot">Number of cells in each cluster by Sample (Spider Plot)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#number-of-genes-detected-in-each-cluster">Number of genes detected in each cluster</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#feature-expression-in-clusters-violin-plots">Feature Expression in Clusters (Violin Plots)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#feature-expression-in-clusters-ridge-plots">Feature Expression in Clusters (Ridge Plots)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#feature-expression-in-clusters-by-diagnosis">Feature Expression in Clusters by Diagnosis</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#feature-expression-in-clusters-stacked">Feature Expression in Clusters (stacked)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cd4-expression-on-umap">CD4 Expression on UMAP</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#feature-expression-in-clusters-by-diagnosis-heatmap">Feature Expression in Clusters by Diagnosis (Heatmap)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#feature-expression-in-clusters-by-diagnosis-heatmap-with-annotations">Feature Expression in Clusters by Diagnosis (Heatmap with annotations)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dimensional-reduction-plot">Dimensional reduction plot</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dimensional-reduction-plot-with-marks">Dimensional reduction plot (with marks)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dimensional-reduction-plot-with-hex-bins">Dimensional reduction plot (with hex bins)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dimensional-reduction-plot-with-diagnosis-stats">Dimensional reduction plot (with Diagnosis stats)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dimensional-reduction-plot-by-diagnosis">Dimensional reduction plot by Diagnosis</a>
     </li>
         </ul>
     </li>
@@ -295,23 +327,12 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
     See <a href="https://pwwang.github.io/scplotter/reference/CellStatPlot.html">https://pwwang.github.io/scplotter/reference/CellStatPlot.html</a>.<br /></li>
 </ul>
 </li>
-<li>
-<p><code>stats</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Number of cells in each cluster (Bar Chart)': Diot({'plot_type': 'bar', 'x_text_angle': 90}), 'Number of cells in each cluster by Sample (Bar Chart)': Diot({'plot_type': 'bar', 'group_by': 'Sample', 'x_text_angle': 90})}</code></em>. <br />
+<li><code>stats</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Number of cells in each cluster (Bar Chart)': Diot({'plot_type': 'bar', 'x_text_angle': 90}), 'Number of cells in each cluster by Sample (Bar Chart)': Diot({'plot_type': 'bar', 'group_by': 'Sample', 'x_text_angle': 90})}</code></em>. <br />
     The number/fraction of cells to plot.<br />
-    Keys are the names of the plots and values are the dicts inherited from <code>env.stats_defaults</code>.<br />
-    Here are some examples -</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="s2">&quot;nCells_All&quot;</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="s2">&quot;nCells_Sample&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;group_by&quot;</span><span class="p">:</span> <span class="s2">&quot;Sample&quot;</span><span class="p">},</span>
-    <span class="s2">&quot;fracCells_Sample&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;scale_y&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;group_by&quot;</span><span class="p">:</span> <span class="s2">&quot;Sample&quot;</span><span class="p">,</span> <span class="n">plot_type</span> <span class="o">=</span> <span class="s2">&quot;pie&quot;</span><span class="p">},</span>
-<span class="p">}</span>
-</code></pre></div>
-</li>
-<li>
-<p><code>ngenes_defaults</code> <em>(<code>ns</code>)</em>:
+    Keys are the names of the plots and values are the dicts inherited from <code>env.stats_defaults</code>.<br /></li>
+<li><code>ngenes_defaults</code> <em>(<code>ns</code>)</em>:
     The default parameters for <code>ngenes</code>.<br />
-    The default parameters to plot the number of genes expressed in each cell.<br /></p>
-<ul>
+    The default parameters to plot the number of genes expressed in each cell.<br /><ul>
 <li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
     The formats to save the plots other than <code>png</code>.<br /></li>
 <li><code>subset</code>:
@@ -420,33 +441,169 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
     <a href="https://pwwang.github.io/scplotter/reference/CellDimPlot.html"><code>scplotter::CellDimPlot</code></a>.<br /></li>
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<h4 id="number-of-cells-in-each-cluster">Number of cells in each cluster<a class="headerlink" href="#number-of-cells-in-each-cluster" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.stats]</span>
-<span class="c1"># suppose you have nothing set in `envs.stats_defaults`</span>
-<span class="c1"># otherwise, the settings will be inherited here</span>
-<span class="n">nCells_All</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<h4 id="clustree-plot">Clustree Plot<a class="headerlink" href="#clustree-plot" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.clustrees.</span><span class="s2">&quot;Clustree Plot&quot;</span><span class="k">]</span>
+<span class="n">prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">height</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">500</span><span class="p">}</span>
 </code></pre></div>
-<p><img alt="nCells_All" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_nCells_All.png" width="80%" /></p>
-<h4 id="number-of-cells-in-each-cluster-by-groups">Number of cells in each cluster by groups<a class="headerlink" href="#number-of-cells-in-each-cluster-by-groups" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.stats]</span>
-<span class="n">nCells_Sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">group_by</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;Sample&quot;</span><span class="w"> </span><span class="p">}</span>
+<p><img alt="Clustree Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/clustrees/seurat_clusters.clustree.png" width="80%" /></p>
+<h4 id="number-of-cells-in-each-cluster-bar-chart">Number of cells in each cluster (Bar Chart)<a class="headerlink" href="#number-of-cells-in-each-cluster-bar-chart" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.stats.</span><span class="s2">&quot;Number of cells in each cluster (Bar Chart)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span>
+<span class="n">x_text_angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span>
 </code></pre></div>
-<p><img alt="nCells_Sample" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_nCells_Sample.png" width="80%" /></p>
-<h4 id="violin-plots-for-the-gene-expressions">Violin plots for the gene expressions<a class="headerlink" href="#violin-plots-for-the-gene-expressions" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.features]</span>
-<span class="n">features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;CD4,CD8A&quot;</span>
-<span class="c1"># Remove the dots in the violin plots</span>
-<span class="n">vlnplots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pt-size</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;vln&quot;</span><span class="w"> </span><span class="p">}</span>
-<span class="c1"># Don&#39;t use the default genes</span>
-<span class="n">vlnplots_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">features</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;FOXP3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;IL2RA&quot;</span><span class="p">],</span><span class="w"> </span><span class="n">pt-size</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;vln&quot;</span><span class="w"> </span><span class="p">}</span>
+<p><img alt="Number of cells in each cluster (Bar Chart)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-Bar-Chart-.png" width="80%" /></p>
+<h4 id="number-of-cells-in-each-cluster-by-sample-bar-chart">Number of cells in each cluster by Sample (Bar Chart)<a class="headerlink" href="#number-of-cells-in-each-cluster-by-sample-bar-chart" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.stats.</span><span class="s2">&quot;Number of cells in each cluster by Sample (Bar Chart)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sample&quot;</span>
+<span class="n">x_text_angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span>
 </code></pre></div>
-<p><img alt="vlnplots" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_vlnplots.png" width="80%" />
-<img alt="vlnplots_1" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_vlnplots_1.png" width="80%" /></p>
-<h4 id="dimension-reduction-plot-with-labels">Dimension reduction plot with labels<a class="headerlink" href="#dimension-reduction-plot-with-labels" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.dimplots.Idents]</span>
+<p><img alt="Number of cells in each cluster by Sample (Bar Chart)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Sample-Bar-Chart-.png" width="80%" /></p>
+<h4 id="number-of-cells-in-each-cluster-by-diagnosis">Number of cells in each cluster by Diagnosis<a class="headerlink" href="#number-of-cells-in-each-cluster-by-diagnosis" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.stats.</span><span class="s2">&quot;Number of cells in each cluster by Diagnosis&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">frac</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;group&quot;</span>
+<span class="n">x_text_angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span>
+<span class="n">swap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;stack&quot;</span>
+</code></pre></div>
+<p><img alt="Number of cells in each cluster by Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Diagnosis.png" width="80%" /></p>
+<h4 id="number-of-cells-in-each-cluster-by-diagnosis-circos-plot">Number of cells in each cluster by Diagnosis (Circos Plot)<a class="headerlink" href="#number-of-cells-in-each-cluster-by-diagnosis-circos-plot" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.stats.</span><span class="s2">&quot;Number of cells in each cluster by Diagnosis (Circos Plot)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;circos&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+</code></pre></div>
+<p><img alt="Number of cells in each cluster by Diagnosis (Circos Plot)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Diagnosis-Circos-Plot-.png" width="80%" /></p>
+<h4 id="number-of-cells-in-each-cluster-by-diagnosis-sankey-plot">Number of cells in each cluster by Diagnosis (Sankey Plot)<a class="headerlink" href="#number-of-cells-in-each-cluster-by-diagnosis-sankey-plot" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.stats.</span><span class="s2">&quot;Number of cells in each cluster by Diagnosis (Sankey Plot)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sankey&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;seurat_clusters&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span><span class="p">]</span>
+<span class="n">links_alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.6</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">800</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Number of cells in each cluster by Diagnosis (Sankey Plot)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Diagnosis-Sankey-Plot-.png" width="80%" /></p>
+<h4 id="number-of-cells-in-each-cluster-by-sample-spider-plot">Number of cells in each cluster by Sample (Spider Plot)<a class="headerlink" href="#number-of-cells-in-each-cluster-by-sample-spider-plot" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.stats.</span><span class="s2">&quot;Number of cells in each cluster by Sample (Spider Plot)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;spider&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Set1&quot;</span>
+</code></pre></div>
+<p><img alt="Number of cells in each cluster by Sample (Spider Plot)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Sample-Spider-Plot-.png" width="80%" /></p>
+<h4 id="number-of-genes-detected-in-each-cluster">Number of genes detected in each cluster<a class="headerlink" href="#number-of-genes-detected-in-each-cluster" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.ngenes.</span><span class="s2">&quot;Number of genes detected in each cluster&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;violin&quot;</span>
+<span class="n">add_box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">add_point</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+<p><img alt="Number of genes detected in each cluster" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/ngenes/Number-of-genes-detected-in-each-cluster.png" width="80%" /></p>
+<h4 id="feature-expression-in-clusters-violin-plots">Feature Expression in Clusters (Violin Plots)<a class="headerlink" href="#feature-expression-in-clusters-violin-plots" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.features_defaults]</span>
+<span class="n">features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;CD3D&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CD4&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CD8A&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;MS4A1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CD14&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;LYZ&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;FCGR3A&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;NCAM1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;KLRD1&quot;</span><span class="p">]</span>
+
+<span class="k">[SeuratClusterStats.envs.features.</span><span class="s2">&quot;Feature Expression in Clusters (Violin Plots)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;violin&quot;</span>
+<span class="n">ident</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+</code></pre></div>
+<p><img alt="Feature Expression in Clusters (Violin Plots)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/features/Feature-Expression-in-Clusters-Violin-Plots-.png" width="80%" /></p>
+<h4 id="feature-expression-in-clusters-ridge-plots">Feature Expression in Clusters (Ridge Plots)<a class="headerlink" href="#feature-expression-in-clusters-ridge-plots" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using the same features as above</span>
+<span class="k">[SeuratClusterStats.envs.features.</span><span class="s2">&quot;Feature Expression in Clusters (Ridge Plots)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ridge&quot;</span>
+<span class="n">ident</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<span class="n">flip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+<p><img alt="Feature Expression in Clusters (Ridge Plots)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/features/Feature-Expression-in-Clusters-Ridge-Plots-.png" width="80%" /></p>
+<h4 id="feature-expression-in-clusters-by-diagnosis">Feature Expression in Clusters by Diagnosis<a class="headerlink" href="#feature-expression-in-clusters-by-diagnosis" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using the same features as above</span>
+<span class="k">[SeuratClusterStats.envs.features.</span><span class="s2">&quot;Feature Expression in Clusters by Diagnosis&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;violin&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">ident</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<span class="n">comparisons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">sig_label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;p.signif&quot;</span>
+</code></pre></div>
+<p><img alt="Feature Expression in Clusters by Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/features/Feature-Expression-in-Clusters-by-Diagnosis.png" width="80%" /></p>
+<h4 id="feature-expression-in-clusters-stacked">Feature Expression in Clusters (stacked)<a class="headerlink" href="#feature-expression-in-clusters-stacked" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using the same features as above</span>
+<span class="k">[SeuratClusterStats.envs.features.</span><span class="s2">&quot;Feature Expression in Clusters (stacked)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;violin&quot;</span>
+<span class="n">ident</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<span class="n">add_bg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">stack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">add_box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+<p><img alt="Feature Expression in Clusters (stacked)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/features/Feature-Expression-in-Clusters-stacked-.png" width="80%" /></p>
+<h4 id="cd4-expression-on-umap">CD4 Expression on UMAP<a class="headerlink" href="#cd4-expression-on-umap" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.features.</span><span class="s2">&quot;CD4 Expression on UMAP&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;dim&quot;</span>
+<span class="n">feature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;CD4&quot;</span>
+<span class="n">highlight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters == &#39;c1&#39;&quot;</span>
+</code></pre></div>
+<p><img alt="CD4 Expression on UMAP" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/features/CD4-Expression-on-UMAP.png" width="80%" /></p>
+<h4 id="feature-expression-in-clusters-by-diagnosis-heatmap">Feature Expression in Clusters by Diagnosis (Heatmap)<a class="headerlink" href="#feature-expression-in-clusters-by-diagnosis-heatmap" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.features.</span><span class="s2">&quot;Feature Expression in Clusters by Diagnosis (Heatmap)&quot;</span><span class="k">]</span>
+<span class="c1"># Grouped features</span>
+<span class="n">features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;T cell markers&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;CD3D&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CD4&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CD8A&quot;</span><span class="p">],</span><span class="w"> </span><span class="s2">&quot;B cell markers&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;MS4A1&quot;</span><span class="p">],</span><span class="w"> </span><span class="s2">&quot;Monocyte markers&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;CD14&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;LYZ&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;FCGR3A&quot;</span><span class="p">],</span><span class="w"> </span><span class="s2">&quot;NK cell markers&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;NCAM1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;KLRD1&quot;</span><span class="p">]}</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;heatmap&quot;</span>
+<span class="n">ident</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">columns_split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Expression&quot;</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">height</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">560</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Feature Expression in Clusters by Diagnosis (Heatmap)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/features/Feature-Expression-in-Clusters-by-Diagnosis-Heatmap-.png" width="80%" /></p>
+<h4 id="feature-expression-in-clusters-by-diagnosis-heatmap-with-annotations">Feature Expression in Clusters by Diagnosis (Heatmap with annotations)<a class="headerlink" href="#feature-expression-in-clusters-by-diagnosis-heatmap-with-annotations" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using the default features</span>
+<span class="k">[SeuratClusterStats.envs.features.</span><span class="s2">&quot;Feature Expression in Clusters by Diagnosis (Heatmap with annotations)&quot;</span><span class="k">]</span>
+<span class="n">ident</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<span class="n">cell_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;dot&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;heatmap&quot;</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Expression Level&quot;</span>
+<span class="n">dot_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;nanmean&quot;</span>
+<span class="n">dot_size_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Percent Expressed&quot;</span>
+<span class="n">add_bg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">rows_split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">cluster_rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="n">flip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;YlOrRd&quot;</span>
+<span class="n">column_annotation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;percent.mt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;VDJ_Presence&quot;</span><span class="p">]</span>
+<span class="n">column_annotation_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;percent.mt&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;violin&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">VDJ_Presence</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;pie&quot;</span><span class="p">}</span>
+<span class="n">column_annotation_params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;percent.mt&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="n">show_legend</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span><span class="p">}}</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1400</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">900</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Feature Expression in Clusters by Diagnosis (Heatmap with annotations)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/features/Feature-Expression-in-Clusters-by-Diagnosis-Heatmap-with-annotations-.png" width="80%" /></p>
+<h4 id="dimensional-reduction-plot">Dimensional reduction plot<a class="headerlink" href="#dimensional-reduction-plot" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.features.</span><span class="s2">&quot;Dimensional reduction plot&quot;</span><span class="k">]</span>
 <span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 </code></pre></div>
-<p><img alt="dimplots" src="https://pwwang.github.io/immunopipe/latest/processes/images/SeuratClusterStats_dimplots.png" width="80%" /></p>
+<p><img alt="Dimensional reduction plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/dimplots/Dimensional-reduction-plot.dim.png" width="80%" /></p>
+<h4 id="dimensional-reduction-plot-with-marks">Dimensional reduction plot (with marks)<a class="headerlink" href="#dimensional-reduction-plot-with-marks" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.dimplots.</span><span class="s2">&quot;Dimensional reduction plot (with marks)&quot;</span><span class="k">]</span>
+<span class="n">add_mark</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">mark_linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+</code></pre></div>
+<p><img alt="Dimensional reduction plot (with marks)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/dimplots/Dimensional-reduction-plot-with-marks-.dim.png" width="80%" /></p>
+<h4 id="dimensional-reduction-plot-with-hex-bins">Dimensional reduction plot (with hex bins)<a class="headerlink" href="#dimensional-reduction-plot-with-hex-bins" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.dimplots.</span><span class="s2">&quot;Dimensional reduction plot (with hex bins)&quot;</span><span class="k">]</span>
+<span class="n">hex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">hex_bins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span>
+</code></pre></div>
+<p><img alt="Dimensional reduction plot (with hex bins)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/dimplots/Dimensional-reduction-plot-with-hex-bins-.dim.png" width="80%" /></p>
+<h4 id="dimensional-reduction-plot-with-diagnosis-stats">Dimensional reduction plot (with Diagnosis stats)<a class="headerlink" href="#dimensional-reduction-plot-with-diagnosis-stats" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.dimplots.</span><span class="s2">&quot;Dimensional reduction plot (with Diagnosis stats)&quot;</span><span class="k">]</span>
+<span class="n">stat_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">stat_plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ring&quot;</span>
+<span class="n">stat_plot_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.15</span>
+</code></pre></div>
+<p><img alt="Dimensional reduction plot (with Diagnosis stats)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/dimplots/Dimensional-reduction-plot-with-Diagnosis-stats-.dim.png" width="80%" /></p>
+<h4 id="dimensional-reduction-plot-by-diagnosis">Dimensional reduction plot by Diagnosis<a class="headerlink" href="#dimensional-reduction-plot-by-diagnosis" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SeuratClusterStats.envs.dimplots.</span><span class="s2">&quot;Dimensional reduction plot by Diagnosis&quot;</span><span class="k">]</span>
+<span class="n">facet_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">highlight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;theme_blank&quot;</span>
+</code></pre></div>
+<p><img alt="Dimensional reduction plot by Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/dimplots/Dimensional-reduction-plot-by-Diagnosis.dim.png" width="80%" /></p>
               
             </div>
           </div><footer>

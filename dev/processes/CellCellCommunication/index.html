@@ -210,14 +210,16 @@ to visualize the results.<br /></p>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>outfile</code>: <em>Default: <code>{{in.sobjfile | stem}}-ccc.txt</code></em>. <br />
+<li>
+<p><code>outfile</code>: <em>Default: <code>{{in.sobjfile | stem}}-ccc.txt</code></em>. <br />
     The output file with the 'liana_res' data frame.<br />
     Stats are provided for both ligand and receptor entities, more specifically: ligand and receptor are
     the two entities that potentially interact. As a reminder, CCC events are not limited to secreted signalling,
     but we refer to them as ligand and receptor for simplicity.<br />
     Also, in the case of heteromeric complexes, the ligand and receptor columns represent the subunit with minimum
     expression, while *<em>complex corresponds to the actual complex, with subunits being separated by </em>.<br />
-    source and target columns represent the source/sender and target/receiver cell identity for each interaction, respectively<ul>
+    source and target columns represent the source/sender and target/receiver cell identity for each interaction, respectively</p>
+<ul>
 <li><code>*_props</code>: represents the proportion of cells that express the entity.<br />
 By default, any interactions in which either entity is not expressed in above 10%% of cells per cell type
 is considered as a false positive, under the assumption that since CCC occurs between cell types, a sufficient
@@ -226,6 +228,149 @@ proportion of cells within should express the genes.<br /></li>
 <li><code>lr_means</code>: mean ligand-receptor expression, as a measure of ligand-receptor interaction magnitude.<br /></li>
 <li><code>cellphone_pvals</code>: permutation-based p-values, as a measure of interaction specificity.<br /></li>
 </ul>
+<p>A typical output will look like this:<br /></p>
+<table>
+<thead>
+<tr>
+<th>ligand</th>
+<th>ligand_complex</th>
+<th>ligand_props</th>
+<th>ligand_trimean</th>
+<th>mat_max</th>
+<th>receptor</th>
+<th>receptor_complex</th>
+<th>receptor_props</th>
+<th>receptor_trimean</th>
+<th>source</th>
+<th>target</th>
+<th>lr_probs</th>
+<th>cellchat_pvals</th>
+<th>mag_score</th>
+<th>spec_score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VIM</td>
+<td>VIM</td>
+<td>1.00</td>
+<td>0.36</td>
+<td>8.73</td>
+<td>CD44</td>
+<td>CD44</td>
+<td>0.77</td>
+<td>0.16</td>
+<td>c7</td>
+<td>c3</td>
+<td>0.10</td>
+<td>0.00</td>
+<td>0.10</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>MIF</td>
+<td>MIF</td>
+<td>0.97</td>
+<td>0.22</td>
+<td>8.73</td>
+<td>CXCR4</td>
+<td>CD74_CXCR4</td>
+<td>0.87</td>
+<td>0.26</td>
+<td>c5</td>
+<td>c6</td>
+<td>0.10</td>
+<td>0.00</td>
+<td>0.10</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>HLA-B</td>
+<td>HLA-B</td>
+<td>1.00</td>
+<td>0.44</td>
+<td>8.73</td>
+<td>KLRD1</td>
+<td>KLRD1</td>
+<td>0.73</td>
+<td>0.13</td>
+<td>c9</td>
+<td>c2</td>
+<td>0.10</td>
+<td>0.00</td>
+<td>0.10</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>HMGB1</td>
+<td>HMGB1</td>
+<td>0.99</td>
+<td>0.26</td>
+<td>8.73</td>
+<td>CXCR4</td>
+<td>CXCR4</td>
+<td>0.81</td>
+<td>0.21</td>
+<td>c2</td>
+<td>c7</td>
+<td>0.10</td>
+<td>0.00</td>
+<td>0.10</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>CD48</td>
+<td>CD48</td>
+<td>0.94</td>
+<td>0.20</td>
+<td>8.73</td>
+<td>CD2</td>
+<td>CD2</td>
+<td>0.99</td>
+<td>0.28</td>
+<td>c7</td>
+<td>c8</td>
+<td>0.10</td>
+<td>0.00</td>
+<td>0.10</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>HLA-C</td>
+<td>HLA-C</td>
+<td>1.00</td>
+<td>0.38</td>
+<td>8.73</td>
+<td>CD8B</td>
+<td>CD8B</td>
+<td>0.73</td>
+<td>0.15</td>
+<td>c1</td>
+<td>c9</td>
+<td>0.10</td>
+<td>0.00</td>
+<td>0.10</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>LGALS1</td>
+<td>LGALS1</td>
+<td>0.95</td>
+<td>0.17</td>
+<td>8.73</td>
+<td>CD69</td>
+<td>CD69</td>
+<td>0.99</td>
+<td>0.34</td>
+<td>c10</td>
+<td>c5</td>
+<td>0.10</td>
+<td>0.00</td>
+<td>0.10</td>
+<td>0.00</td>
+</tr>
+</tbody>
+</table>
 </li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
