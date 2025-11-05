@@ -124,3 +124,26 @@ def test_scfgsea(request):
     )
     assert outdir.joinpath("sampleinfo.fgsea").is_dir()
 
+
+@pytest.mark.forked
+def test_ccc(request):
+    outdir = run_process(
+        "CellCellCommunication",
+        "ccc.config.toml",
+        export=False,
+        request=request,
+    )
+    assert outdir.joinpath("sampleinfo.scRep-ccc.txt").is_file()
+
+
+@pytest.mark.forked
+def test_cccplots(request):
+    outdir = run_process(
+        "CellCellCommunicationPlots",
+        "ccc.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath(
+        "sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Circos-Plot.png"
+    ).is_file()

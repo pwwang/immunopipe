@@ -42,7 +42,7 @@ jobs:
           key: conda-${{ hashFiles('docker/environment.yml') }}-${{ env.CACHE_NUMBER }}
         env:
           TAR_OPTIONS: "--no-same-owner --no-same-permissions"
-          CACHE_NUMBER: 1
+          CACHE_NUMBER: 2
 
       - name: Create conda environment (if not restored)
         if: steps.restore-conda.outputs.cache-hit != 'true'
@@ -71,6 +71,7 @@ jobs:
           python -m pip install poetry
           poetry config virtualenvs.create false
           poetry install -v -E cli-gbatch
+          poetry run pip install -U liana  # for cell-cell communication tests
           # Use the latest biopipen for tests
           poetry run pip install --no-deps --force-reinstall --upgrade git+https://github.com/pwwang/biopipen.git@dev
 

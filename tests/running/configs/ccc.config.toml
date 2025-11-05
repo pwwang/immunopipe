@@ -1,0 +1,25 @@
+[CellCellCommunication.in]
+sobjfile = "tests/running/intermediate/screpcombiningexpression/ScRepCombiningExpression/sampleinfo.scRep.qs"
+
+[CellCellCommunication.envs]
+method = "cellchat"  # default
+
+[CellCellCommunicationPlots.in]
+cccfile = "tests/running/intermediate/ccc/CellCellCommunication/sampleinfo.scRep-ccc.txt"
+
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Network"]
+plot_type = "network"
+legend-position = "none"
+theme = "theme_blank"
+theme_args = {add_coord = false}
+
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Circos Plot"]
+plot_type = "circos"
+
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Heatmap"]
+plot_type = "heatmap"
+
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Interaction (Box Plot)"]
+plot_type = "box"
+x_text_angle = 90
+method = "interaction"
