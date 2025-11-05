@@ -112,3 +112,15 @@ def test_clonalstats(request):
         request=request,
     )
     assert outdir.joinpath("sampleinfo.scRep.clonalstats").is_dir()
+
+
+@pytest.mark.forked
+def test_scfgsea(request):
+    outdir = run_process(
+        "ScFGSEA",
+        "scfgsea.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath("sampleinfo.fgsea").is_dir()
+
