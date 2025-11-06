@@ -405,7 +405,7 @@ class ClusterMarkersOfAllCells(MarkersFinder_):
     """  # noqa: E501
 
     envs = {
-        "cases": {"Cluster": {"group_by": "seurat_clusters"}},
+        "cases": {"Cluster": {"group_by": None}},
         "marker_plots_defaults": {"order_by": "desc(avg_log2FC)"},
         "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
         "allmarker_plots": {"Top 10 markers of all clusters": {"plot_type": "heatmap"}},
@@ -552,7 +552,6 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
     The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
     by default.
-
 
     /// Note
 
@@ -766,7 +765,7 @@ class ClusterMarkers(MarkersFinder_):
 
     requires = RNAInput
     envs = {
-        "cases": {"Cluster": {"group_by": "seurat_clusters"}},
+        "cases": {"Cluster": {"group_by": None}},
         "marker_plots_defaults": {"order_by": "desc(avg_log2FC)"},
         "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
         "allmarker_plots": {"Top 10 markers of all clusters": {"plot_type": "heatmap"}},
