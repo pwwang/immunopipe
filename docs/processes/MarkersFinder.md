@@ -224,6 +224,11 @@ function, and performs enrichment analysis for the markers found.<br />
     not specified, the default values specified above (under `envs`) will be used.<br />
     If no cases are specified, the default case will be added with the default values under `envs` with the name `Marker Discovery`.<br />
 
+## SeeAlso
+
+- [biopipen.ns.scrna.MarkersFinder](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder)
+- [ClusterMarkers](./ClusterMarkers.md)
+
 ## Examples
 
 The examples are for more general use of `MarkersFinder`, in order to

@@ -112,3 +112,30 @@ each gene set, and GSEA plots for the top gene sets.<br />
     If some options are not specified, the default values specified above will be used.<br />
     If no cases are specified, the default case will be added with the name `GSEA`.<br />
 
+## Examples
+
+### The summary and GSEA plots
+
+![GSEA summary](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/seurat_clusters/c1/summary.png){: width="80%"}
+
+![GSEA plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/seurat_clusters/c1/pathways.png){: width="80%"}
+
+### Summary plot for all subsets or idents
+
+If you use `each` to separate the cells into different subsets, this is useful to
+make a summary plot for all subsets. Or if you don't specify `ident_1`, the summary plot for all idents in `group_by` will be generated.<br />
+
+```toml
+[ScFGSEA.envs]
+group_by = "Diagnosis"
+ident_1 = "Colitis"
+ident_2 = "Control"
+each = "seurat_clusters"
+
+[ScFGSEA.envs.alleach_plots.Heatmap]
+plot_type = "heatmap"
+group_by = "Diagnosis"
+```
+
+![GSEA summary for all subsets](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/GSEA-all-seurat_clusters-/all.Heatmap.png){: width="80%"}
+

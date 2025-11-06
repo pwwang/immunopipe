@@ -48,6 +48,16 @@ As shown in the figure above, `immunopipe` includes a set of processes for scRNA
 - [`TopExpressingGenes`](processes/TopExpressingGenes.md): Find top expressing genes for each T-cell cluster and perform enrichment analysis.
 - [`ModuleScoreCalculator`](processes/ModuleScoreCalculator.md): Calculate module scores or cell cycle scores for each cell.
 
+/// Note
+
+You can have multiple annotation processes, including [`SeuratClustering`](processes/SeuratClustering.md), [`SeuratMap2Ref`](processes/SeuratMap2Ref.md), [`CellTypeAnnotation`](processes/CellTypeAnnotation.md) enabled in the same run. Make sure you use a different name for each annotation. By default, the name all default to `seurat_clusters`.
+
+For [`SeuratMap2Ref`](processes/SeuratMap2Ref.md), you can use `envs.ident` to specify a new column name to store the mapped cluster information. For [`SeuratClustering`](processes/SeuratClustering.md), you can use `envs.FindClusters.cluster-name` to specify a new column name. For [`CellTypeAnnotation`](processes/CellTypeAnnotation.md), you can use `envs.newcol` to specify a new column name.
+
+See the `Environment Variables` of each process for more details.
+
+///
+
 ### Clonotype refinement
 
 - [`TCRClustering`](processes/TCRClustering.md): Perform clustering on TCR clones based on CDR3 amino acid sequences.

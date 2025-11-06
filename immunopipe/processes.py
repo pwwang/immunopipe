@@ -489,6 +489,17 @@ class SeuratClustering(SeuratClustering_):
     this process will be run on the selected T/B cells by
     [`TOrBCellSelection`](./TOrBCellSelection.md).
 
+    /// Note
+
+    If you have other annotation processes, including
+    [`SeuratMap2Ref`](./SeuratMap2Ref.md) process or
+    [`CellTypeAnnotation`](./CellTypeAnnotation.md) process enabled in the same run,
+    you can specify a different name for the column to store the cluster information
+    using `envs.FindClusters.cluster-name`, so that the results from different
+    annotation processes won't overwrite each other.
+
+    ///
+
     SeeAlso:
         - [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md)
 
@@ -510,12 +521,21 @@ RNAInput = SeuratClustering or RNAInput
 class SeuratMap2Ref(SeuratMap2Ref_):
     """{{Summary}}
 
+    /// Note
+
+    If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
+    process or [`CellTypeAnnotation`](./CellTypeAnnotation.md) process enabled in the same run,
+    you may want to specify a different name for the column to store the mapped cluster information
+    using `envs.ident`, so that the results from different annotation processes won't overwrite each other.
+
+    ///
+
     Metadata:
         The metadata of the `Seurat` object will be updated with the cluster
         assignments (column name determined by `envs.name`):
 
         ![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
-    """
+    """  # noqa: E501
 
     input_data = lambda ch1: ch1.iloc[:, [0]]
 
@@ -533,9 +553,14 @@ class CellTypeAnnotation(CellTypeAnnotation_):
     The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
     by default.
 
+
     /// Note
-    When supervised clustering [`SeuratMap2Ref`](./SeuratMap2Ref.md) is used, this
-    process will be ignored.
+
+    If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
+    process or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run,
+    you may want to specify a different name for the column to store the annotated cell types
+    using `envs.newcol`, so that the results from different annotation processes won't overwrite each other.
+
     ///
 
     /// Note

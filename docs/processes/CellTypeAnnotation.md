@@ -21,9 +21,14 @@ the old `seurat_clusters` to the new cell types will be generated and saved to
 The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
 by default.<br />
 
+
 /// Note
-When supervised clustering [`SeuratMap2Ref`](./SeuratMap2Ref.md) is used, this
-process will be ignored.<br />
+
+If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
+process or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run,
+you may want to specify a different name for the column to store the annotated cell types
+using `envs.newcol`, so that the results from different annotation processes won't overwrite each other.<br />
+
 ///
 
 /// Note

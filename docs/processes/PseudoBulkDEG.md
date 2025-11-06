@@ -235,3 +235,8 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     If no cases are specified, a default case will be added with
     the name `DEG Analysis` and the default values specified above.<br />
 
+## SeeAlso
+
+- [biopipen.ns.scrna.PseudoBulkDEG](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.PseudoBulkDEG)
+- [ClusterMarkers](./ClusterMarkers.md) for examples of marker and enrichment plots
+

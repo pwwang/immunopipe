@@ -221,7 +221,7 @@ you may see the other environment variables of this process are hidden and reado
 plot_type = "volcano_log2fc"
 ```
 
-![Volcano Plot (log2FC)](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-log2FC-.png)
+![Volcano Plot (log2FC)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-log2FC-.png)
 
 ### Visualize differential percentage of expression of Markers
 
@@ -230,7 +230,7 @@ plot_type = "volcano_log2fc"
 plot_type = "volcano_pct"
 ```
 
-![Volcano Plot (pct_diff)](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-diff_pct-.png)
+![Volcano Plot (pct_diff)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-diff_pct-.png)
 
 ### Visualize Average Expression of Markers with Dot Plot
 
@@ -240,7 +240,7 @@ plot_type = "dotplot"
 order_by = "desc(avg_log2FC)"
 ```
 
-![Dot Plot (AvgExp)](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Dot-Plot.png)
+![Dot Plot (AvgExp)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Dot-Plot.png)
 
 ### Visualize Average Expression of Markers with Heatmap
 
@@ -250,7 +250,7 @@ plot_type = "heatmap"
 order_by = "desc(avg_log2FC)"
 ```
 
-![Heatmap (AvgExp)](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Heatmap-of-Expressions-of-Top-Markers.png)
+![Heatmap (AvgExp)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Heatmap-of-Expressions-of-Top-Markers.png)
 
 ### Visualize Expression of Markers with Violin Plots
 
@@ -259,7 +259,7 @@ order_by = "desc(avg_log2FC)"
 plot_type = "violin"
 ```
 
-![Violin Plots](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Violin-Plots-for-Top-Markers.png)
+![Violin Plots](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Violin-Plots-for-Top-Markers.png)
 
 ### Visualize enrichment analysis results with Bar/EnrichMap/Network/WordCloud Plots
 
@@ -278,10 +278,10 @@ plot_type = "enrichmap"
 plot_type = "wordcloud"
 ```
 
-![Bar Plot](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Bar-Plot.png)
-![Network](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Network.png)
-![Enrichmap](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Enrichmap.png)
-![Word Cloud](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Word-Cloud.png)
+![Bar Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Bar-Plot.png)
+![Network](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Network.png)
+![Enrichmap](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Enrichmap.png)
+![Word Cloud](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Word-Cloud.png)
 
 ### Visualize top markers of all clusters with Heatmap
 
@@ -290,7 +290,7 @@ plot_type = "wordcloud"
 plot_type = "heatmap"
 ```
 
-![Top 10 markers of all clusters](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Top-10-markers-of-all-clusters.png)
+![Top 10 markers of all clusters](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Top-10-markers-of-all-clusters.png)
 
 ### Visualize Log2 Fold Change of all markers
 
@@ -300,7 +300,7 @@ plot_type = "heatmap_log2fc"
 subset_by = "seurat_clusters"
 ```
 
-![Log2 Fold Change of all markers](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Log2FC-of-all-clusters.png)
+![Log2 Fold Change of all markers](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Log2FC-of-all-clusters.png)
 
 ### Visualize all markers in all clusters with Jitter Plots
 
@@ -310,7 +310,7 @@ plot_type = "jitter"
 subset_by = "seurat_clusters"
 ```
 
-![Jitter Plots of all markers](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Jitter-Plots-for-all-clusters.png)
+![Jitter Plots of all markers](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Jitter-Plots-for-all-clusters.png)
 
 ### Visualize all enrichment analysis results of all clusters
 
@@ -319,7 +319,7 @@ subset_by = "seurat_clusters"
 plot_type = "heatmap"
 ```
 
-![Heatmap of enriched terms of all clusters](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Enrichments-/allenrich.MSigDB_Hallmark_2020.Heatmap-of-enriched-terms-of-all-clusters.png)
+![Heatmap of enriched terms of all clusters](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Enrichments-/allenrich.MSigDB_Hallmark_2020.Heatmap-of-enriched-terms-of-all-clusters.png)
 
 ### Overlapping markers
 
@@ -328,5 +328,5 @@ plot_type = "heatmap"
 plot_type = "venn"
 ```
 
-![Overlapping Markers](/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps-/Overlapping-Markers.png)
+![Overlapping Markers](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps-/Overlapping-Markers.png)
 

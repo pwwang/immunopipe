@@ -4,8 +4,6 @@ Top expressing genes for clusters of all cells.
 
 
 
-See also [TopExpressingGenes](./TopExpressingGenes.md).<br />
-
 ## Input
 
 - `srtobj`:
@@ -60,4 +58,9 @@ See also [TopExpressingGenes](./TopExpressingGenes.md).<br />
     The cases under `envs.cases` can inherit this options.<br />
 - `subset`:
     An expression to subset the cells for each case.<br />
+
+## SeeAlso
+
+- [TopExpressingGenes](./TopExpressingGenes.md)
+- [ClusterMarkers](./ClusterMarkers.md) for examples of enrichment plots
 

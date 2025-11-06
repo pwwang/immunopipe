@@ -78,3 +78,8 @@ readonly.<br />
 - `subset`:
     An expression to subset the cells for each case.<br />
 
+## SeeAlso
+
+- [TopExpressingGenesOfAllCells](./TopExpressingGenesOfAllCells.md)
+- [ClusterMarkers](./ClusterMarkers.md) for examples of enrichment plots
+
