@@ -6,7 +6,7 @@ from .conftest import run_process
 @pytest.mark.forked
 def test_sampleinfo(request):
     outdir = run_process(
-        "SampleInfo", "sampleinfo.config.toml", request=request
+        "SampleInfo", "SampleInfo.config.toml", request=request
     )
     assert outdir.joinpath("Age_distribution-Histogram-.png").is_file()
 
@@ -15,7 +15,7 @@ def test_sampleinfo(request):
 def test_seuratpreparing(request):
     outdir = run_process(
         "SeuratPreparing",
-        "seuratpreparing.config.toml",
+        "SeuratPreparing.config.toml",
         request=request,
     )
     assert outdir.joinpath("sampleinfo.seurat.qs").is_file()
@@ -25,7 +25,7 @@ def test_seuratpreparing(request):
 def test_seuratpreparing_sct(request):
     outdir = run_process(
         "SeuratPreparing",
-        "seuratpreparing_sct.config.toml",
+        "SeuratPreparing_sct.config.toml",
         export=False,
         request=request,
     )
@@ -36,7 +36,7 @@ def test_seuratpreparing_sct(request):
 def test_seuratclustering(request):
     outdir = run_process(
         "SeuratClustering",
-        "seuratclustering.config.toml",
+        "SeuratClustering.config.toml",
         export=False,
         request=request,
     )
@@ -47,7 +47,7 @@ def test_seuratclustering(request):
 def test_clustermarkers(request):
     outdir = run_process(
         "ClusterMarkers",
-        "clustermarkers.config.toml",
+        "ClusterMarkers.config.toml",
         export=True,
         request=request,
     )
@@ -61,7 +61,7 @@ def test_clustermarkers(request):
 def test_torbcellselection(request):
     outdir = run_process(
         "TOrBCellSelection",
-        "torbcellselection.config.toml",
+        "TOrBCellSelection.config.toml",
         export=True,
         request=request,
     )
@@ -72,7 +72,7 @@ def test_torbcellselection(request):
 def test_screploading(request):
     outdir = run_process(
         "ScRepLoading",
-        "screp.config.toml",
+        "ScRep.config.toml",
         export=False,
         request=request,
     )
@@ -83,7 +83,7 @@ def test_screploading(request):
 def test_screpcombiningexpression(request):
     outdir = run_process(
         "ScRepCombiningExpression",
-        "screp.config.toml",
+        "ScRep.config.toml",
         export=False,
         request=request,
     )
@@ -94,7 +94,7 @@ def test_screpcombiningexpression(request):
 def test_seuratclusterstats(request):
     outdir = run_process(
         "SeuratClusterStats",
-        "seuratclusterstats.config.toml",
+        "SeuratClusterStats.config.toml",
         export=True,
         request=request,
     )
@@ -107,7 +107,7 @@ def test_seuratclusterstats(request):
 def test_clonalstats(request):
     outdir = run_process(
         "ClonalStats",
-        "clonalstats.config.toml",
+        "ClonalStats.config.toml",
         export=True,
         request=request,
     )
@@ -118,7 +118,7 @@ def test_clonalstats(request):
 def test_scfgsea(request):
     outdir = run_process(
         "ScFGSEA",
-        "scfgsea.config.toml",
+        "ScFGSEA.config.toml",
         export=True,
         request=request,
     )
@@ -129,7 +129,7 @@ def test_scfgsea(request):
 def test_ccc(request):
     outdir = run_process(
         "CellCellCommunication",
-        "ccc.config.toml",
+        "CellCellCommunication.config.toml",
         export=False,
         request=request,
     )
@@ -140,7 +140,7 @@ def test_ccc(request):
 def test_cccplots(request):
     outdir = run_process(
         "CellCellCommunicationPlots",
-        "ccc.config.toml",
+        "CellCellCommunication.config.toml",
         export=True,
         request=request,
     )
