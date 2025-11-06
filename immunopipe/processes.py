@@ -468,24 +468,6 @@ class ModuleScoreCalculator(ModuleScoreCalculator_):
 RNAInput = ModuleScoreCalculator or RNAInput
 
 
-@when("SeuratMap2Ref" in config, requires=RNAInput)
-@annotate.format_doc()
-class SeuratMap2Ref(SeuratMap2Ref_):
-    """{{Summary}}
-
-    Metadata:
-        The metadata of the `Seurat` object will be updated with the cluster
-        assignments (column name determined by `envs.name`):
-
-        ![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
-    """
-
-    input_data = lambda ch1: ch1.iloc[:, [0]]
-
-
-RNAInput = SeuratMap2Ref or RNAInput
-
-
 @when(
     "SeuratClustering" in config
     or (
@@ -521,6 +503,24 @@ class SeuratClustering(SeuratClustering_):
 
 
 RNAInput = SeuratClustering or RNAInput
+
+
+@when("SeuratMap2Ref" in config, requires=RNAInput)
+@annotate.format_doc()
+class SeuratMap2Ref(SeuratMap2Ref_):
+    """{{Summary}}
+
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the cluster
+        assignments (column name determined by `envs.name`):
+
+        ![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
+    """
+
+    input_data = lambda ch1: ch1.iloc[:, [0]]
+
+
+RNAInput = SeuratMap2Ref or RNAInput
 
 
 @when("CellTypeAnnotation" in config, requires=RNAInput)
