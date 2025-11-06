@@ -199,6 +199,15 @@
 all cells are T/B cells, this process will be run on all T/B cells. Otherwise,
 this process will be run on the selected T/B cells by
 <a href="../TOrBCellSelection/"><code>TOrBCellSelection</code></a>.<br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have other annotation processes, including
+<a href="../SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> process or
+<a href="../CellTypeAnnotation/"><code>CellTypeAnnotation</code></a> process enabled in the same run,
+you can specify a different name for the column to store the cluster information
+using <code>envs.FindClusters.cluster-name</code>, so that the results from different
+annotation processes won't overwrite each other.<br /></p>
+</div>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>srtobj</code>:

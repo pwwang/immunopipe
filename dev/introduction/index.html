@@ -249,6 +249,12 @@
 <li><a href="../processes/TopExpressingGenes/"><code>TopExpressingGenes</code></a>: Find top expressing genes for each T-cell cluster and perform enrichment analysis.</li>
 <li><a href="../processes/ModuleScoreCalculator/"><code>ModuleScoreCalculator</code></a>: Calculate module scores or cell cycle scores for each cell.</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can have multiple annotation processes, including <a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a>, <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a>, <a href="../processes/CellTypeAnnotation/"><code>CellTypeAnnotation</code></a> enabled in the same run. Make sure you use a different name for each annotation. By default, the name all default to <code>seurat_clusters</code>.</p>
+<p>For <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a>, you can use <code>envs.ident</code> to specify a new column name to store the mapped cluster information. For <a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a>, you can use <code>envs.FindClusters.cluster-name</code> to specify a new column name. For <a href="../processes/CellTypeAnnotation/"><code>CellTypeAnnotation</code></a>, you can use <code>envs.newcol</code> to specify a new column name.</p>
+<p>See the <code>Environment Variables</code> of each process for more details.</p>
+</div>
 <h4 id="clonotype-refinement">Clonotype refinement<a class="headerlink" href="#clonotype-refinement" title="Permanent link">&para;</a></h4>
 <ul>
 <li><a href="../processes/TCRClustering/"><code>TCRClustering</code></a>: Perform clustering on TCR clones based on CDR3 amino acid sequences.</li>

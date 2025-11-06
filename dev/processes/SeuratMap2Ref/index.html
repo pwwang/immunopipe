@@ -195,6 +195,13 @@
 <p>Map the seurat object to reference</p>
 <p>See: <a href="https://satijalab.org/seurat/articles/integration_mapping.html">https://satijalab.org/seurat/articles/integration_mapping.html</a>
 and <a href="https://satijalab.org/seurat/articles/multimodal_reference_mapping.html">https://satijalab.org/seurat/articles/multimodal_reference_mapping.html</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have other annotation processes, including <a href="../SeuratClustering/"><code>SeuratClustering</code></a>
+process or <a href="../CellTypeAnnotation/"><code>CellTypeAnnotation</code></a> process enabled in the same run,
+you may want to specify a different name for the column to store the mapped cluster information
+using <code>envs.ident</code>, so that the results from different annotation processes won't overwrite each other.<br /></p>
+</div>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>sobjfile</code>:
