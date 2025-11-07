@@ -70,14 +70,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "0.34.17"
+version = "0.34.18"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-0.34.17-py3-none-any.whl", hash = "sha256:33c9877aaf3072c8ef6689026a6b1f704d4d829293f7ed40984ce968514c0a7b"},
-    {file = "biopipen-0.34.17.tar.gz", hash = "sha256:9fdc014f0c1fa4e5a62037d0e82d2f9a141421726fd95b67ff25b4e62317aee4"},
+    {file = "biopipen-0.34.18-py3-none-any.whl", hash = "sha256:0d9fb324b1d312e9361ca09ba1be6290caefd0e1f3c013fcb3c5487e5b6bcc84"},
+    {file = "biopipen-0.34.18.tar.gz", hash = "sha256:3fe8080bbd5d4a0f1bb1a7e4895ac8ffb6ed9587ecf5bf614b7832ce71036233"},
 ]
 
 [package.dependencies]
@@ -600,14 +600,14 @@ toml = ["tomli ; python_full_version <= \"3.11.0a6\""]
 
 [[package]]
 name = "datar"
-version = "0.15.12"
+version = "0.15.13"
 description = "A Grammar of Data Manipulation in python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "datar-0.15.12-py3-none-any.whl", hash = "sha256:66a1f68f161ceb6f8fa77ecbd062cd2ffc63ca28d0ce842a19c84f6814f6d93e"},
-    {file = "datar-0.15.12.tar.gz", hash = "sha256:8afe93d9ecb423caf3d35acaef00ae86c9e3bc846f49595fe16f2f4275fbc20a"},
+    {file = "datar-0.15.13-py3-none-any.whl", hash = "sha256:c869435621b6d5026ca9f956c9a67c580ac84a2dd4be00bbada788b80e49b7d2"},
+    {file = "datar-0.15.13.tar.gz", hash = "sha256:d7ff86d61c69a4a71fc295e75f2da506a2b1acea4aac442b01fd30d771d7d856"},
 ]
 
 [package.dependencies]
@@ -829,15 +829,15 @@ grpcio-gcp = ["grpcio-gcp (>=0.2.2,<1.0.0)"]
 
 [[package]]
 name = "google-auth"
-version = "2.42.1"
+version = "2.43.0"
 description = "Google Authentication Library"
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "google_auth-2.42.1-py2.py3-none-any.whl", hash = "sha256:eb73d71c91fc95dbd221a2eb87477c278a355e7367a35c0d84e6b0e5f9b4ad11"},
-    {file = "google_auth-2.42.1.tar.gz", hash = "sha256:30178b7a21aa50bffbdc1ffcb34ff770a2f65c712170ecd5446c4bef4dc2b94e"},
+    {file = "google_auth-2.43.0-py2.py3-none-any.whl", hash = "sha256:af628ba6fa493f75c7e9dbe9373d148ca9f4399b5ea29976519e0a3848eddd16"},
+    {file = "google_auth-2.43.0.tar.gz", hash = "sha256:88228eee5fc21b62a1b5fe773ca15e67778cb07dc8363adcb4a8827b52d81483"},
 ]
 
 [package.dependencies]
@@ -970,15 +970,15 @@ requests = ["requests (>=2.18.0,<3.0.0dev)"]
 
 [[package]]
 name = "googleapis-common-protos"
-version = "1.71.0"
+version = "1.72.0"
 description = "Common protobufs used in Google APIs"
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "googleapis_common_protos-1.71.0-py3-none-any.whl", hash = "sha256:59034a1d849dc4d18971997a72ac56246570afdd17f9369a0ff68218d50ab78c"},
-    {file = "googleapis_common_protos-1.71.0.tar.gz", hash = "sha256:1aec01e574e29da63c80ba9f7bbf1ccfaacf1da877f23609fe236ca7c72a2e2e"},
+    {file = "googleapis_common_protos-1.72.0-py3-none-any.whl", hash = "sha256:4299c5a82d5ae1a9702ada957347726b167f9f8d1fc352477702a1e851ff4038"},
+    {file = "googleapis_common_protos-1.72.0.tar.gz", hash = "sha256:e55a601c1b32b52d7a3e65f43563e2aa61bcd737998ee672ac9b951cd49319f5"},
 ]
 
 [package.dependencies]
@@ -3361,4 +3361,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "72f948e94c30ff511655107c19cb93a3f1ed35c890829ea3cec188b2142d6625"
+content-hash = "ee2a24f6e5aa94249fde3e4df2f250e0f3d270e732b07be8bfc5f441713c8264"

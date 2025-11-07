@@ -20,7 +20,7 @@ python = "^3.9"
 pipen-diagram = { version = "^0.13", optional = true }
 pipen-runinfo = { version = "^0.9", optional = true }
 # pipen-report and pipen-board are required by biopipen
-biopipen = "^0.34.17"
+biopipen = "^0.34.18"
 # biopipen = { path = "./biopipen" }
 pipen-cli-gbatch = { version = "^0.1", optional = true }
 
