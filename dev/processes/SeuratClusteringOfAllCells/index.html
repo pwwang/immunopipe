@@ -213,7 +213,8 @@ for supervised clustering.<br /></p>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>outfile</code>: <em>Default: <code>{{in.srtobj | stem}}.qs</code></em>. <br />
-    The seurat object with cluster information at <code>seurat_clusters</code>.<br /></li>
+    The seurat object with cluster information at <code>seurat_clusters</code> or
+    the name specified by <code>envs.ident</code></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
@@ -222,6 +223,9 @@ for supervised clustering.<br /></p>
     Used in <code>future::plan(strategy = "multicore", workers = &lt;ncores&gt;)</code>
     to parallelize some Seurat procedures.<br />
     See also: <a href="https://satijalab.org/seurat/articles/future_vignette.html">https://satijalab.org/seurat/articles/future_vignette.html</a></li>
+<li><code>ident</code>: <em>Default: <code>seurat_clusters</code></em>. <br />
+    The name in the metadata to save the cluster labels.<br />
+    A shortcut for <code>envs["FindClusters"]["cluster.name"]</code>.<br /></li>
 <li><code>RunUMAP</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/runumap"><code>RunUMAP()</code></a>.<br />
     <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br />
@@ -250,13 +254,13 @@ for supervised clustering.<br /></p>
 <li><code>FindClusters</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/findclusters"><code>FindClusters()</code></a>.<br />
     <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br />
-    The cluster labels will be saved in <code>seurat_clusters</code> and prefixed with "c".<br />
+    The cluster labels will be saved in cluster names and prefixed with "c".<br />
     The first cluster will be "c1", instead of "c0".<br /><ul>
 <li><code>resolution</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>0.8</code></em>. <br />
     The resolution of the clustering. You can have multiple resolutions as a list or as a string separated by comma.<br />
     Ranges are also supported, for example: <code>0.1:0.5:0.1</code> will generate <code>0.1, 0.2, 0.3, 0.4, 0.5</code>. The step can be omitted, defaulting to 0.1.<br />
-    The results will be saved in <code>seurat_clusters_&lt;resolution&gt;</code>.<br />
-    The final resolution will be used to define the clusters at <code>seurat_clusters</code>.<br /></li>
+    The results will be saved in <code>&lt;ident&gt;_&lt;resolution&gt;</code>.<br />
+    The final resolution will be used to define the clusters at <code>&lt;ident&gt;</code>.<br /></li>
 <li><code>&lt;more&gt;</code>:
     See <a href="https://satijalab.org/seurat/reference/findclusters">https://satijalab.org/seurat/reference/findclusters</a></li>
 </ul>

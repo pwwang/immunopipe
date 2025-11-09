@@ -202,11 +202,11 @@
 <li>Use <a href="https://github.com/ZJUFanLab/scCATCH"><code>scCATCH</code></a></li>
 <li>Use <a href="https://github.com/pwwang/hitype"><code>hitype</code></a></li>
 </ol>
-<p>The annotated cell types will replace the original <code>seurat_clusters</code> column in the metadata,
+<p>The annotated cell types will replace the original identity column in the metadata,
 so that the downstream processes will use the annotated cell types.<br /></p>
-<p>The old <code>seurat_clusters</code> column will be renamed to <code>seurat_clusters_id</code>.<br /></p>
+<p>The original identity column will be renamed to <code>seurat_clusters_id</code> if no <code>envs.newcol</code> is specified.<br /></p>
 <p>If you are using <code>ScType</code>, <code>scCATCH</code>, or <code>hitype</code>, a text file containing the mapping from
-the old <code>seurat_clusters</code> to the new cell types will be generated and saved to
+the original identity to the new cell types will be generated and saved to
 <code>cluster2celltype.tsv</code> under <code>&lt;workdir&gt;/&lt;pipline_name&gt;/CellTypeAnnotation/0/output/</code>.<br /></p>
 <p>The <code>&lt;workdir&gt;</code> is typically <code>./.pipen</code> and the <code>&lt;pipline_name&gt;</code> is <code>Immunopipe</code>
 by default.<br /></p>
@@ -231,8 +231,10 @@ to <code>seurat_clusters_id</code>, and the new <code>seurat_clusters</code> col
 <ul>
 <li><code>outfile</code>: <em>Default: <code>{{in.sobjfile | stem}}.annotated.{{- ext0(in.sobjfile) if envs.outtype == 'input' else envs.outtype -}}</code></em>. <br />
     The rds/qs/qs2/h5ad file of seurat object with cell type annotated.<br />
-    A text file containing the mapping from the old <code>seurat_clusters</code> to the new cell types
-    will be generated and saved to <code>cluster2celltype.tsv</code> under the job output directory.<br /></li>
+    A text file containing the mapping from the old identity to the new cell types
+    will be generated and saved to <code>cluster2celltype.tsv</code> under the job output directory.<br />
+    Note that if <code>envs.ident</code> is specified, the output Seurat object will have
+    the identity set to the specified column in metadata.<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
@@ -261,6 +263,15 @@ to <code>seurat_clusters_id</code>, and the new <code>seurat_clusters</code> col
 <li><code>sctype_db</code>:
     The database to use for sctype.<br />
     Check examples at <a href="https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_full.xlsx">https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_full.xlsx</a></li>
+<li><code>ident</code>:
+    The column name in metadata to use as the clusters.<br />
+    If not specified, the identity column will be used when input is rds/qs/qs2 (supposing we have a Seurat object).<br />
+    If input data is h5ad, this is required to run cluster-based annotation tools.<br />
+    For <code>celltypist</code>, this is a shortcut to set <code>over_clustering</code> in <code>celltypist_args</code>.<br /></li>
+<li><code>backup_col</code>: <em>Default: <code>seurat_clusters_id</code></em>. <br />
+    The backup column name to store the original identities.<br />
+    If not specified, the original identity column will not be stored.<br />
+    If <code>envs.newcol</code> is specified, this will be ignored.<br /></li>
 <li><code>hitype_tissue</code>:
     The tissue to use for <code>hitype</code>.<br />
     Avaiable tissues should be the first column (<code>tissueType</code>) of <code>hitype_db</code>.<br />
@@ -274,7 +285,7 @@ to <code>seurat_clusters_id</code>, and the new <code>seurat_clusters</code> col
 <p><code>cell_types</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
     The cell types to use for direct annotation.<br />
     You can use <code>"-"</code> or <code>""</code> as the placeholder for the clusters that
-    you want to keep the original cell types (<code>seurat_clusters</code>).<br />
+    you want to keep the original cell types.<br />
     If the length of <code>cell_types</code> is shorter than the number of
     clusters, the remaining clusters will be kept as the original cell
     types.<br />
@@ -338,8 +349,8 @@ the original cell types will be kept and nothing will be changed.<br /></p>
     Otherwise, a suffix will be added to the cell types (ie. <code>.1</code>, <code>.2</code>, etc).<br /></li>
 <li><code>newcol</code>:
     The new column name to store the cell types.<br />
-    If not specified, the <code>seurat_clusters</code> column will be overwritten.<br />
-    If specified, the original <code>seurat_clusters</code> column will be kept and <code>Idents</code> will be kept as the original <code>seurat_clusters</code>.<br /></li>
+    If not specified, the identity column will be overwritten.<br />
+    If specified, the original identity column will be kept and <code>Idents</code> will be kept as the original identity.<br /></li>
 <li><code>outtype</code> <em>(<code>choice</code>)</em>: <em>Default: <code>input</code></em>. <br />
     The output file type. Currently only works for <code>celltypist</code>.<br />
     An RDS file will be generated for other tools.<br /><ul>

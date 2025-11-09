@@ -446,9 +446,15 @@ proportion of cells within should express the genes.<br /></li>
     The seed for the random number generator.<br /></li>
 <li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
     The number of cores to use.<br /></li>
-<li><code>groupby</code>: <em>Default: <code>seurat_clusters</code></em>. <br />
+<li><code>groupby</code>:
     The column name in metadata to group the cells.<br />
-    Typically, this column should be the cluster id.<br /></li>
+    Typically, this column should be the cluster id.<br />
+    If provided input is a Seurat object, the default identity will be used by default.<br />
+    Otherwise, it is recommended to provide this parameter.<br />
+    "seurat_clusters" will be used with a warning if the input is in AnnData format and
+    this parameter is not provided.<br /></li>
+<li><code>group_by</code>:
+    alias for <code>groupby</code></li>
 <li><code>species</code> <em>(<code>choice</code>)</em>: <em>Default: <code>human</code></em>. <br />
     The species of the cells.<br /><ul>
 <li><code>human</code>:
