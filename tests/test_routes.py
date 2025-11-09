@@ -397,13 +397,13 @@ def test_route_sampleinfo_full(tmp_path):
     assert "TOrBCellSelection: >>> ['ModuleScoreCalculator']" in output
     assert "ModuleScoreCalculator: <<< ['TOrBCellSelection']" in output
     assert "ModuleScoreCalculator: >>> ['SeuratClustering']" in output
-    assert "SeuratMap2Ref: <<< ['SeuratClustering']" in output
-    assert "SeuratMap2Ref: >>> ['CellTypeAnnotation']" in output
+    assert "SeuratMap2Ref: <<< ['CellTypeAnnotation']" in output
+    assert "SeuratMap2Ref: >>> ['SeuratSubClustering']" in output
     assert "SeuratClustering: <<< ['ModuleScoreCalculator']" in output
-    assert "SeuratClustering: >>> ['SeuratMap2Ref']" in output
-    assert "CellTypeAnnotation: <<< ['SeuratMap2Ref']" in output
-    assert "CellTypeAnnotation: >>> ['SeuratSubClustering']" in output
-    assert "SeuratSubClustering: <<< ['CellTypeAnnotation']" in output
+    assert "SeuratClustering: >>> ['CellTypeAnnotation']" in output
+    assert "CellTypeAnnotation: <<< ['SeuratClustering']" in output
+    assert "CellTypeAnnotation: >>> ['SeuratMap2Ref']" in output
+    assert "SeuratSubClustering: <<< ['SeuratMap2Ref']" in output
     assert (
         "SeuratSubClustering: >>> ['ClusterMarkers', 'TopExpressingGenes', "
         "'ScRepCombiningExpression']" in output
