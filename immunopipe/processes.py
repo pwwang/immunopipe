@@ -516,33 +516,6 @@ class SeuratClustering(SeuratClustering_):
 RNAInput = SeuratClustering or RNAInput
 
 
-@when("SeuratMap2Ref" in config, requires=RNAInput)
-@annotate.format_doc()
-class SeuratMap2Ref(SeuratMap2Ref_):
-    """{{Summary}}
-
-    /// Note
-
-    If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
-    process or [`CellTypeAnnotation`](./CellTypeAnnotation.md) process enabled in the same run,
-    you may want to specify a different name for the column to store the mapped cluster information
-    using `envs.ident`, so that the results from different annotation processes won't overwrite each other.
-
-    ///
-
-    Metadata:
-        The metadata of the `Seurat` object will be updated with the cluster
-        assignments (column name determined by `envs.name`):
-
-        ![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
-    """  # noqa: E501
-
-    input_data = lambda ch1: ch1.iloc[:, [0]]
-
-
-RNAInput = SeuratMap2Ref or RNAInput
-
-
 @when("CellTypeAnnotation" in config, requires=RNAInput)
 @annotate.format_doc()
 class CellTypeAnnotation(CellTypeAnnotation_):
@@ -586,6 +559,34 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
 
 RNAInput = CellTypeAnnotation or RNAInput
+
+
+@when("SeuratMap2Ref" in config, requires=RNAInput)
+@annotate.format_doc()
+class SeuratMap2Ref(SeuratMap2Ref_):
+    """{{Summary}}
+
+    /// Note
+
+    If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
+    process or [`CellTypeAnnotation`](./CellTypeAnnotation.md) process enabled in the same run,
+    you may want to specify a different name for the column to store the mapped cluster information
+    using `envs.ident`, so that the results from different annotation processes won't overwrite each other.
+
+    ///
+
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the cluster
+        assignments (column name determined by `envs.name`):
+
+        ![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
+    """  # noqa: E501
+
+    input_data = lambda ch1: ch1.iloc[:, [0]]
+
+
+RNAInput = SeuratMap2Ref or RNAInput
+
 
 
 @when("SeuratSubClustering" in config, requires=RNAInput)
