@@ -847,12 +847,6 @@ CombinedInput = TCRClustering or CombinedInput
 class TESSA(TESSA_):
     """{{Summary}}
 
-    /// Note
-    The dependencies of TESSA are not included in the docker image of immunopipe
-    with tag without `-full` suffix. If you want to use TESSA, please use the
-    docker image with tag with `-full` suffix, or install the dependencies manually.
-    ///
-
     Metadata:
         The metadata of the `Seurat` object will be updated with the TESSA clusters
         and the cluster sizes:

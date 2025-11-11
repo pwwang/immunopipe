@@ -23,12 +23,6 @@ When finished, two columns will be added to the `meta.data` of the `Seurat` obje
 These columns can be then used for further downstream analysis to explore the
 functional landscape of the TCR repertoire.<br />
 
-/// Note
-The dependencies of TESSA are not included in the docker image of immunopipe
-with tag without `-full` suffix. If you want to use TESSA, please use the
-docker image with tag with `-full` suffix, or install the dependencies manually.<br />
-///
-
 ## Input
 
 - `screpdata`:
