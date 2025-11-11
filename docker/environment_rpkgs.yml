@@ -1,0 +1,12 @@
+channels:
+  - pwwang
+  - conda-forge
+  - r
+  - bioconda
+  - nodefaults
+dependencies:
+  - r-biopipen.utils=0.3.3=r43_2
+  - r-scplotter=0.6.2=r43_5
+  - r-plotthis=0.8.2=r43_3
+  - r-enrichit=0.0.3=r43_1
+  - r-gglogger=0.1.6=r43_1

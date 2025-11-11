@@ -5,10 +5,12 @@ channels:
   - bioconda
   - nodefaults
 dependencies:
-  - nodejs=20  # pipen-report
+  - nodejs=22  # pipen-report
   - python=3.10
   - curl  # force using conda-forge version
   - pip
+  - poetry
+  - procps-ng
   - fontconfig
   - graphviz  # pipen-diagram
   - git  # for copier, used by pipen-report
@@ -38,6 +40,6 @@ dependencies:
   - r-seuratwrappers
   - r-harmony
   - r-future
-  - r-biopipen.utils
+  # - r-biopipen.utils
   - pip:
     - liana

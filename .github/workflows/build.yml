@@ -4,44 +4,114 @@ on: workflow_call
 
 jobs:
 
-  docker:
+  docker-base:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[wip]')"
     steps:
       - uses: actions/checkout@v4
-      - name: Get biopipen version
-        id: biopipen_version
+        with:
+          fetch-depth: 2
+      - name: Check if base files changed
+        id: check_changes
         run: |
-          VERSION=$(awk '
-            /^\[\[package\]\]/ { in_pkg = 0 }
-            /^name = "biopipen"/ { in_pkg = 1 }
-            in_pkg && /^version = / {
-              gsub(/"/, "", $3)
-              print $3
-              exit
-            }
-          ' poetry.lock)
-          echo "Found version: $VERSION"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          if git diff --name-only HEAD~1 HEAD | grep -qE '^(docker/environment_base\.yml|Dockerfile\.base)$'; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
       - name: Set up QEMU
+        if: steps.check_changes.outputs.changed == 'true'
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
+        if: steps.check_changes.outputs.changed == 'true'
         uses: docker/setup-buildx-action@v3
       - name: Login to DockerHub
+        if: steps.check_changes.outputs.changed == 'true'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
+        if: steps.check_changes.outputs.changed == 'true'
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: justold/immunopipe:${{ github.ref_name }}
-          build-args: BIOPIPEN_TAG=${{ steps.biopipen_version.outputs.version }}
+          file: Dockerfile.base
+          tags: justold/immunopipe-base:latest
 
-  docker-full:
+  docker-np1:
     runs-on: ubuntu-latest
-    needs: docker
+    if: "!contains(github.event.head_commit.message, '[wip]')"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Check if np1 files changed
+        id: check_changes
+        run: |
+          if git diff --name-only HEAD~1 HEAD | grep -qE '^(docker/environment_np1\.yml|Dockerfile\.np1)$'; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Set up QEMU
+        if: steps.check_changes.outputs.changed == 'true'
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        if: steps.check_changes.outputs.changed == 'true'
+        uses: docker/setup-buildx-action@v3
+      - name: Login to DockerHub
+        if: steps.check_changes.outputs.changed == 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        if: steps.check_changes.outputs.changed == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          file: Dockerfile.np1
+          tags: justold/immunopipe-np1:latest
+
+  docker-rpkgs:
+    runs-on: ubuntu-latest
+    needs: docker-base
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Check if rpkgs files changed
+        id: check_changes
+        run: |
+          if git diff --name-only HEAD~1 HEAD | grep -qE '^(docker/environment_rpkgs\.yml|Dockerfile\.rpkgs)$'; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Set up QEMU
+        if: steps.check_changes.outputs.changed == 'true'
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        if: steps.check_changes.outputs.changed == 'true'
+        uses: docker/setup-buildx-action@v3
+      - name: Login to DockerHub
+        if: steps.check_changes.outputs.changed == 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        if: steps.check_changes.outputs.changed == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          file: Dockerfile.rpkgs
+          tags: justold/immunopipe-rpkgs:latest
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: [docker-np1, docker-rpkgs]
     steps:
       - uses: actions/checkout@v4
       - name: Set up QEMU
@@ -59,6 +129,5 @@ jobs:
           push: true
           pull: false
           # load: true
-          file: Dockerfile.full
-          tags: justold/immunopipe:${{ github.ref_name }}-full
-          build-args: BASE_TAG=${{ github.ref_name }}
+          file: Dockerfile
+          tags: justold/immunopipe:${{ github.ref_name }}

@@ -39,16 +39,17 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ${{ env.CONDA }}/envs/immunopipe
-          key: conda-${{ hashFiles('docker/environment.yml') }}-${{ env.CACHE_NUMBER }}
+          key: conda-${{ hashFiles('docker/environment_base.yml') }}-${{ hashFiles('docker/environment_rpkgs.yml') }}-${{ env.CACHE_NUMBER }}
         env:
           TAR_OPTIONS: "--no-same-owner --no-same-permissions"
-          CACHE_NUMBER: 2
+          CACHE_NUMBER: 1
 
       - name: Create conda environment (if not restored)
         if: steps.restore-conda.outputs.cache-hit != 'true'
         run: |
-          conda env create -f docker/environment.yml --name immunopipe
+          conda env create -y -f docker/environment_base.yml --name immunopipe
           conda activate immunopipe
+          conda env update -f docker/environment_rpkgs.yml --name immunopipe
 
       - name: Cache conda environment
         id: cache-conda

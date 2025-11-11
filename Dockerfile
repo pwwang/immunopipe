@@ -1,14 +1,11 @@
-ARG BIOPIPEN_TAG=dev
-FROM biopipen/base:${BIOPIPEN_TAG}
+FROM justold/immunopipe-np1:latest AS np1_builder
+FROM justold/immunopipe-rpkgs:latest AS builder
 
 COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
-
-RUN micromamba env update -n base -f /immunopipe/docker/environment.yml && \
-    micromamba clean --all --yes
+COPY --from=np1_builder --chown=$MAMBA_USER:$MAMBA_USER /opt/conda/envs/numpy_v1 /opt/conda/envs/numpy_v1
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
-WORKDIR /data
 WORKDIR /immunopipe
 RUN fc-cache -f -v && \
     python -m pip install -U poetry && \
@@ -16,7 +13,10 @@ RUN fc-cache -f -v && \
     python -m poetry install -v -E runinfo -E diagram && \
     python -m pip cache purge && \
     pipen report update && \
-    echo "cache=/tmp/npm-cache" > /home/mambauser/.npmrc
+    echo "cache=/tmp/npm-cache" > /home/mambauser/.npmrc && \
+    ln -s /opt/conda/envs/numpy_v1/bin/python /opt/conda/bin/python_np1 && \
+    ln -s $(micromamba run -n base python -c "import biopipen; print(biopipen.__path__[0])") \
+        $(micromamba run -n numpy_v1 python -c "import sysconfig; print(sysconfig.get_path('purelib'))")
 
 WORKDIR /workdir
 ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh", "bash", "/immunopipe/docker/entry.sh" ]
