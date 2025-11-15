@@ -113,6 +113,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [docker-np1, docker-rpkgs]
     steps:
+      - name: Delete cache to save space
+        # https://github.com/orgs/community/discussions/25678#discussioncomment-5242449
+        run: rm -rf /opt/hostedtoolcache
       - uses: actions/checkout@v4
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
