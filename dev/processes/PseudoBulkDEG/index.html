@@ -248,11 +248,19 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     For example, subject. If specified, the paired test will be performed.<br /></li>
 <li><code>dbs</code> <em>(<code>list</code>)</em>: <em>Default: <code>['KEGG_2021_Human', 'MSigDB_Hallmark_2020']</code></em>. <br />
     The databases to use for enrichment analysis.<br />
-    The databases are passed to <code>biopipen.utils::Enrichr()</code> to do the
-    enrichment analysis. The default databases are <code>KEGG_2021_Human</code> and
-    <code>MSigDB_Hallmark_2020</code>.<br />
-    See <a href="https://maayanlab.cloud/Enrichr/#libraries">https://maayanlab.cloud/Enrichr/#libraries</a> for the available
-    libraries.<br /></li>
+    You can use built-in dbs in <code>enrichit</code>, or provide your own gmt files.<br />
+    See also <a href="https://pwwang.github.io/enrichit/reference/FetchGMT.html">https://pwwang.github.io/enrichit/reference/FetchGMT.html</a>.<br />
+    The built-in dbs include:<br /><ul>
+<li>"BioCarta" or "BioCarta_2016"</li>
+<li>"GO_Biological_Process" or "GO_Biological_Process_2025"</li>
+<li>"GO_Cellular_Component" or "GO_Cellular_Component_2025"</li>
+<li>"GO_Molecular_Function" or "GO_Molecular_Function_2025"</li>
+<li>"KEGG", "KEGG_Human", "KEGG_2021", or "KEGG_2021_Human"</li>
+<li>"Hallmark", "MSigDB_Hallmark", or "MSigDB_Hallmark_2020"</li>
+<li>"Reactome", "Reactome_Pathways", or "Reactome_Pathways_2024"</li>
+<li>"WikiPathways", "WikiPathways_2024", "WikiPathways_Human", or "WikiPathways_2024_Human"</li>
+</ul>
+</li>
 <li><code>sigmarkers</code>: <em>Default: <code>p_val_adj &lt; 0.05</code></em>. <br />
     An expression passed to <code>dplyr::filter()</code> to filter the
     significant markers for enrichment analysis.<br />
