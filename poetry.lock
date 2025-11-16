@@ -70,14 +70,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "0.34.21"
+version = "0.34.22"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-0.34.21-py3-none-any.whl", hash = "sha256:432f655ba1b9b01081ec924e8340ae105630ade43eeed1799412a86bb015426a"},
-    {file = "biopipen-0.34.21.tar.gz", hash = "sha256:2f5304e1e0efa3c433847fba8df21a308deaac6408ed1c07a735a3d26600513d"},
+    {file = "biopipen-0.34.22-py3-none-any.whl", hash = "sha256:30771d1fe91c56d13b50d1669a916968288c202984f820bdbe1c38885fcfb605"},
+    {file = "biopipen-0.34.22.tar.gz", hash = "sha256:1f6a04a4415265df13af62677f1fba70c8586243b0ef52aa103c36a32ffa8dc2"},
 ]
 
 [package.dependencies]
@@ -291,15 +291,15 @@ colorama = {version = "*", markers = "platform_system == \"Windows\""}
 
 [[package]]
 name = "click"
-version = "8.3.0"
+version = "8.3.1"
 description = "Composable command line interface toolkit"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 markers = "python_version >= \"3.10\""
 files = [
-    {file = "click-8.3.0-py3-none-any.whl", hash = "sha256:9b9f285302c6e3064f4330c05f05b81945b2a39544279343e6e7c5f27a9baddc"},
-    {file = "click-8.3.0.tar.gz", hash = "sha256:e7b8232224eba16f4ebe410c25ced9f7875cb5f3263ffc93cc3e8da705e229c4"},
+    {file = "click-8.3.1-py3-none-any.whl", hash = "sha256:981153a64e25f12d547d3426c367a4857371575ee7ad18df2a6183ab0545b2a6"},
+    {file = "click-8.3.1.tar.gz", hash = "sha256:12ff4785d337a1bb490bb7e9c2b1ee5da3112e94a8622f26a6c77f5d2fc6842a"},
 ]
 
 [package.dependencies]
@@ -3432,4 +3432,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "deef66c99d9afe74be29be4997e195ca953f7fec615c15dae9763fd1ddfbd775"
+content-hash = "ff00a21dd8f70ec93a3a40df67e7c636fe0000590386cb821dea7935ff7cfdcf"
