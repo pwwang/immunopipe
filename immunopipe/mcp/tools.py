@@ -156,7 +156,7 @@ class ImmunopipeConfigTools:
                             "type": "object",
                             "description": (
                                 "Process configurations (SeuratClustering, "
-                                "TCRClustering, etc.)"
+                                "CDR3Clustering, etc.)"
                             ),
                         },
                         "gbatch_options": {
@@ -732,7 +732,7 @@ class ImmunopipeConfigTools:
                 [
                     "TOrBCellSelection",
                     "SeuratClustering",
-                    "TCRClustering",
+                    "CDR3Clustering",
                     "ClonalStats",
                 ]
             )
@@ -977,7 +977,7 @@ class ImmunopipeConfigTools:
             ):
                 suggestions.append(
                     "Consider using TCR analysis processes: TOrBCellSelection, "
-                    "TCRClustering, ClonalStats"
+                    "CDR3Clustering, ClonalStats"
                 )
                 tools_to_call.append(
                     {
@@ -1050,7 +1050,7 @@ class ImmunopipeConfigTools:
                     "SeuratPreparing",
                     "TOrBCellSelection",
                     "SeuratClustering",
-                    "TCRClustering",
+                    "CDR3Clustering",
                     "ClonalStats",
                     "TESSA",
                 ],

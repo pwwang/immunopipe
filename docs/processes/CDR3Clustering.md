@@ -1,11 +1,11 @@
-# TCRClustering
+# CDR3Clustering
 
-Cluster the TCR clones by their CDR3 sequences
+Cluster the TCR/BCR clones by their CDR3 sequences
 
 You can disable this by remving the whole sections of
-TCRClustering in the config file.<br />
+CDR3Clustering in the config file.<br />
 
-This process is used to cluster TCR clones based on their CDR3 sequences.<br />
+This process is used to cluster TCR/BCR clones based on their CDR3 sequences.<br />
 
 It uses either
 
@@ -29,7 +29,7 @@ for efficient similarity search and clustering of dense vectors, so both methods
 yield similar results.<br />
 
 A text file will be generated with the cluster assignments for each cell, together
-with the `immunarch` object (in `R`) with the cluster assignments at `TCR_Clsuter`
+with the `immunarch` object (in `R`) with the cluster assignments at `CDR3_Clsuter`
 column. This information will then be merged to a `Seurat` object for further
 downstream analysis.<br />
 
@@ -41,17 +41,27 @@ CDR3 sequence may be shared by multiple cells.<br />
 ## Input
 
 - `screpfile`:
-    The TCR data object loaded by `scRepertoire::CombineTCR()` or
-    `scRepertoire::CombineExpression()`
+    The TCR/BCR data object loaded by `scRepertoire::CombineTCR()`,
+    `scRepertoire::CombineBCR()` or `scRepertoire::CombineExpression()`
 
 ## Output
 
 - `outfile`: *Default: `{{in.screpfile | stem}}.tcr_clustered.qs`*. <br />
-    The `scRepertoire` object in qs with TCR cluster information.<br />
-    Column `TCR_Cluster` will be added to the metadata.<br />
+    The `scRepertoire` object in qs with TCR/BCR cluster information.<br />
+    Column `CDR3_Cluster` will be added to the metadata.<br />
 
 ## Environment Variables
 
+- `type` *(`choice`)*: *Default: `auto`*. <br />
+    The type of the data.<br />
+    - `TCR`:
+        T cell receptor data
+    - `BCR`:
+        B cell receptor data
+    - `auto`:
+        Automatically detect the type from the data.<br />
+        Try to find TRB or IGH genes in the CTgene column to determine
+        whether it is TCR or BCR data.<br />
 - `tool` *(`choice`)*: *Default: `GIANA`*. <br />
     The tool used to do the clustering, either
     [GIANA](https://github.com/s175573/GIANA) or
@@ -65,7 +75,7 @@ CDR3 sequence may be shared by multiple cells.<br />
     The path of python with `GIANA`'s dependencies installed
     or with `clusTCR` installed. Depending on the `tool` you choose.<br />
 - `within_sample` *(`flag`)*: *Default: `True`*. <br />
-    Whether to cluster the TCR clones within each sample.<br />
+    Whether to cluster the TCR/BCR clones within each sample.<br />
     When `in.screpfile` is a `Seurat` object, the samples are marked by
     the `Sample` column in the metadata.<br />
 - `args` *(`type=json`)*: *Default: `{}`*. <br />
@@ -75,11 +85,27 @@ CDR3 sequence may be shared by multiple cells.<br />
     For ClusTCR, they will be passed to `clustcr.Clustering(...)`
     See <https://svalkiers.github.io/clusTCR/docs/clustering/how-to-use.html#clustering>.<br />
 - `chain` *(`choice`)*: *Default: `both`*. <br />
-    The TCR chain to use for clustering.<br />
-    - `alpha`:
-        TCR alpha chain (the first sequence in CTaa, separated by `_`)
-    - `beta`:
-        TCR beta chain (the second sequence in CTaa, separated by `_`)
+    The TCR/BCR chain to use for clustering.<br />
+    - `heavy`:
+        The heavy chain, TRB for TCR, IGH for BCR.<br />
+        For TCR, TRB is the second sequence in `CTaa`, separated by `_` if
+        input is a Seurat object; otherwise, it is extracted from the `cdr3_aa2` column.<br />
+        For BCR, IGH is the first sequence in `CTaa`, separated by `_` if
+        input is a Seurat object; otherwise, it is extracted from the `cdr3_aa1` column.<br />
+    - `light`:
+        The light chain, TRA for TCR, IGL/IGK for BCR.<br />
+        For TCR, TRA is the first sequence in `CTaa`, separated by `_` if
+        input is a Seurat object; otherwise, it is extracted from the `cdr3_aa1` column.<br />
+        For BCR, IGL/IGK is the second sequence in `CTaa`, separated by `_` if
+        input is a Seurat object; otherwise, it is extracted from the `cdr3_aa2` column.<br />
+    - `TRA`:
+        Only the TRA chain for TCR (light chain).<br />
+    - `TRB`:
+        Only the TRB chain for TCR (heavy chain).<br />
+    - `IGH`:
+        Only the IGH chain for BCR (heavy chain).<br />
+    - `IGLK`:
+        Only the IGL/IGK chain for BCR (light chain).<br />
     - `both`:
-        Both TCR alpha and beta chains
+        Both sequences from the heavy and light chains (CTaa column).<br />
 

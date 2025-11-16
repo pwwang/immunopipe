@@ -119,9 +119,15 @@ to visualize the results.<br />
     The seed for the random number generator.<br />
 - `ncores` *(`type=int`)*: *Default: `1`*. <br />
     The number of cores to use.<br />
-- `groupby`: *Default: `seurat_clusters`*. <br />
+- `groupby`:
     The column name in metadata to group the cells.<br />
     Typically, this column should be the cluster id.<br />
+    If provided input is a Seurat object, the default identity will be used by default.<br />
+    Otherwise, it is recommended to provide this parameter.<br />
+    "seurat_clusters" will be used with a warning if the input is in AnnData format and
+    this parameter is not provided.<br />
+- `group_by`:
+    alias for `groupby`
 - `species` *(`choice`)*: *Default: `human`*. <br />
     The species of the cells.<br />
     - `human`:

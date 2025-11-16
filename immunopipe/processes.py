@@ -13,10 +13,7 @@ from biopipen.core.proc import Proc
 from biopipen.ns.delim import SampleInfo as SampleInfo_
 from biopipen.ns.tcr import (
     ScRepLoading as ScRepLoading_,
-    # Immunarch as Immunarch_,
-    # CloneResidency as CloneResidency_,
-    TCRClustering as TCRClustering_,
-    # TCRClusterStats as TCRClusterStats_,
+    CDR3Clustering as CDR3Clustering_,
     CDR3AAPhyschem as CDR3AAPhyschem_,
     TESSA as TESSA_,
     ScRepCombiningExpression as ScRepCombiningExpression_,
@@ -824,13 +821,13 @@ class ScRepCombiningExpression(ScRepCombiningExpression_):
 CombinedInput = ScRepCombiningExpression or RNAInput
 
 
-@when(VDJInput and "TCRClustering" in config, requires=CombinedInput)
+@when(VDJInput and "CDR3Clustering" in config, requires=CombinedInput)
 @annotate.format_doc()
-class TCRClustering(TCRClustering_):
+class CDR3Clustering(CDR3Clustering_):
     """{{Summary.short}}
 
     You can disable this by remving the whole sections of
-    TCRClustering in the config file.
+    CDR3Clustering in the config file.
 
     {{*Summary.long}}
     """
@@ -839,7 +836,7 @@ class TCRClustering(TCRClustering_):
     order = 4
 
 
-CombinedInput = TCRClustering or CombinedInput
+CombinedInput = CDR3Clustering or CombinedInput
 
 
 @when(VDJInput and "TESSA" in config, requires=CombinedInput)

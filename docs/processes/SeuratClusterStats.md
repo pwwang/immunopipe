@@ -149,7 +149,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     Keys are the titles of the cases and values are the dicts inherited from `env.features_defaults`.<br />
 - `dimplots_defaults` *(`ns`)*:
     The default parameters for `dimplots`.<br />
-    - `group_by`: *Default: `seurat_clusters`*. <br />
+    - `group_by`:
         The identity to use.<br />
         If it is from subclustering (reduction `sub_umap_<ident>` exists), this reduction will be used if `reduction`
         is set to `dim` or `auto`.<br />

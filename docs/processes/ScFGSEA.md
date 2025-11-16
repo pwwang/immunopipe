@@ -42,14 +42,24 @@ each gene set, and GSEA plots for the top gene sets.<br />
 - `ident_1`:
     The first group of cells to compare
 - `ident_2`:
-    The second group of cells to compare, if not provided, the rest of the cells that are not `NA`s in `group_by` column are used for `ident-2`.<br />
+    The second group of cells to compare, if not provided, the rest of the cells that are not `NA`s in `group_by` column are used for `ident_2`.<br />
 - `each`:
     The column name in metadata to separate the cells into different subsets to do the analysis.<br />
 - `subset`:
     An expression to subset the cells.<br />
 - `gmtfile`: *Default: `KEGG_2021_Human`*. <br />
     The pathways in GMT format, with the gene names/ids in the same format as the seurat object.<br />
-    One could also use a URL to a GMT file. For example, from <https://download.baderlab.org/EM_Genesets/current_release/Human/symbol/Pathways/>.<br />
+    You can use built-in dbs in `enrichit`, or provide your own gmt files.<br />
+    See also <https://pwwang.github.io/enrichit/reference/FetchGMT.html>.<br />
+    The built-in dbs include:<br />
+    * "BioCarta" or "BioCarta_2016"
+    * "GO_Biological_Process" or "GO_Biological_Process_2025"
+    * "GO_Cellular_Component" or "GO_Cellular_Component_2025"
+    * "GO_Molecular_Function" or "GO_Molecular_Function_2025"
+    * "KEGG", "KEGG_Human", "KEGG_2021", or "KEGG_2021_Human"
+    * "Hallmark", "MSigDB_Hallmark", or "MSigDB_Hallmark_2020"
+    * "Reactome", "Reactome_Pathways", or "Reactome_Pathways_2024"
+    * "WikiPathways", "WikiPathways_2024", "WikiPathways_Human", or "WikiPathways_2024_Human"
 - `method` *(`choice`)*: *Default: `s2n`*. <br />
     The method to do the preranking.<br />
     - `signal_to_noise`:

@@ -9,18 +9,17 @@ Annotate the cell clusters. Currently, four ways are supported:<br />
 3. Use [`scCATCH`](https://github.com/ZJUFanLab/scCATCH)
 4. Use [`hitype`](https://github.com/pwwang/hitype)
 
-The annotated cell types will replace the original `seurat_clusters` column in the metadata,
+The annotated cell types will replace the original identity column in the metadata,
 so that the downstream processes will use the annotated cell types.<br />
 
-The old `seurat_clusters` column will be renamed to `seurat_clusters_id`.<br />
+The original identity column will be renamed to `seurat_clusters_id` if no `envs.newcol` is specified.<br />
 
 If you are using `ScType`, `scCATCH`, or `hitype`, a text file containing the mapping from
-the old `seurat_clusters` to the new cell types will be generated and saved to
+the original identity to the new cell types will be generated and saved to
 `cluster2celltype.tsv` under `<workdir>/<pipline_name>/CellTypeAnnotation/0/output/`.<br />
 
 The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
 by default.<br />
-
 
 /// Note
 
@@ -45,8 +44,10 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
 
 - `outfile`: *Default: `{{in.sobjfile | stem}}.annotated.{{- ext0(in.sobjfile) if envs.outtype == 'input' else envs.outtype -}}`*. <br />
     The rds/qs/qs2/h5ad file of seurat object with cell type annotated.<br />
-    A text file containing the mapping from the old `seurat_clusters` to the new cell types
+    A text file containing the mapping from the old identity to the new cell types
     will be generated and saved to `cluster2celltype.tsv` under the job output directory.<br />
+    Note that if `envs.ident` is specified, the output Seurat object will have
+    the identity set to the specified column in metadata.<br />
 
 ## Environment Variables
 
@@ -73,6 +74,15 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
 - `sctype_db`:
     The database to use for sctype.<br />
     Check examples at <https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_full.xlsx>
+- `ident`:
+    The column name in metadata to use as the clusters.<br />
+    If not specified, the identity column will be used when input is rds/qs/qs2 (supposing we have a Seurat object).<br />
+    If input data is h5ad, this is required to run cluster-based annotation tools.<br />
+    For `celltypist`, this is a shortcut to set `over_clustering` in `celltypist_args`.<br />
+- `backup_col`: *Default: `seurat_clusters_id`*. <br />
+    The backup column name to store the original identities.<br />
+    If not specified, the original identity column will not be stored.<br />
+    If `envs.newcol` is specified, this will be ignored.<br />
 - `hitype_tissue`:
     The tissue to use for `hitype`.<br />
     Avaiable tissues should be the first column (`tissueType`) of `hitype_db`.<br />
@@ -85,7 +95,7 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
 - `cell_types` *(`list`)*: *Default: `[]`*. <br />
     The cell types to use for direct annotation.<br />
     You can use `"-"` or `""` as the placeholder for the clusters that
-    you want to keep the original cell types (`seurat_clusters`).<br />
+    you want to keep the original cell types.<br />
     If the length of `cell_types` is shorter than the number of
     clusters, the remaining clusters will be kept as the original cell
     types.<br />
@@ -142,8 +152,8 @@ to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br 
     Otherwise, a suffix will be added to the cell types (ie. `.1`, `.2`, etc).<br />
 - `newcol`:
     The new column name to store the cell types.<br />
-    If not specified, the `seurat_clusters` column will be overwritten.<br />
-    If specified, the original `seurat_clusters` column will be kept and `Idents` will be kept as the original `seurat_clusters`.<br />
+    If not specified, the identity column will be overwritten.<br />
+    If specified, the original identity column will be kept and `Idents` will be kept as the original identity.<br />
 - `outtype` *(`choice`)*: *Default: `input`*. <br />
     The output file type. Currently only works for `celltypist`.<br />
     An RDS file will be generated for other tools.<br />

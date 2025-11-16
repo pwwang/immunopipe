@@ -146,7 +146,7 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
             or "ScRepLoading" in config
             or "TOrBCellSelection" in config
             or "ScRepCombiningExpression" in config
-            or "TCRClustering" in config
+            or "CDR3Clustering" in config
             or "TESSA" in config
             or "ClonalStats" in config
             or "CDR3AAPhyschem" in config

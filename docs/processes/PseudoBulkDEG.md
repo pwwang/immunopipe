@@ -58,11 +58,17 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     For example, subject. If specified, the paired test will be performed.<br />
 - `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />
     The databases to use for enrichment analysis.<br />
-    The databases are passed to `biopipen.utils::Enrichr()` to do the
-    enrichment analysis. The default databases are `KEGG_2021_Human` and
-    `MSigDB_Hallmark_2020`.<br />
-    See <https://maayanlab.cloud/Enrichr/#libraries> for the available
-    libraries.<br />
+    You can use built-in dbs in `enrichit`, or provide your own gmt files.<br />
+    See also <https://pwwang.github.io/enrichit/reference/FetchGMT.html>.<br />
+    The built-in dbs include:<br />
+    * "BioCarta" or "BioCarta_2016"
+    * "GO_Biological_Process" or "GO_Biological_Process_2025"
+    * "GO_Cellular_Component" or "GO_Cellular_Component_2025"
+    * "GO_Molecular_Function" or "GO_Molecular_Function_2025"
+    * "KEGG", "KEGG_Human", "KEGG_2021", or "KEGG_2021_Human"
+    * "Hallmark", "MSigDB_Hallmark", or "MSigDB_Hallmark_2020"
+    * "Reactome", "Reactome_Pathways", or "Reactome_Pathways_2024"
+    * "WikiPathways", "WikiPathways_2024", "WikiPathways_Human", or "WikiPathways_2024_Human"
 - `sigmarkers`: *Default: `p_val_adj < 0.05`*. <br />
     An expression passed to `dplyr::filter()` to filter the
     significant markers for enrichment analysis.<br />
@@ -78,7 +84,7 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     - `clusterProfiler`:
         Use `clusterProfiler`-style for the enrichment analysis.<br />
 - `allmarker_plots_defaults` *(`ns`)*:
-    Default options for the plots for all markers when `ident-1` is not specified.<br />
+    Default options for the plots for all markers when `ident_1` is not specified.<br />
     - `plot_type`:
         The type of the plot.<br />
         See <https://pwwang.github.io/scplotter/reference/FeatureStatPlot.html>.<br />
@@ -179,7 +185,7 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     The cases under `envs.cases` can inherit this options.<br />
 - `overlaps_defaults` *(`ns`)*:
     Default options for investigating the overlapping of significant markers between different cases or comparisons.<br />
-    This means either `ident-1` should be empty, so that they can be expanded to multiple comparisons.<br />
+    This means either `ident_1` should be empty, so that they can be expanded to multiple comparisons.<br />
     - `sigmarkers`:
         The expression to filter the significant markers for each case.<br />
         If not provided, `envs.sigmarkers` will be used.<br />
@@ -210,8 +216,8 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     Cases for investigating the overlapping of significant markers between different cases or comparisons.<br />
     The keys are the names of the cases and the values are the dicts inherited from `overlaps_defaults`.<br />
     There are two situations that we can perform overlaps:<br />
-    1. If `ident-1` is not specified, the overlaps can be performed between different comparisons.<br />
-    2. If `each` is specified, the overlaps can be performed between different cases, where in each case, `ident-1` must be specified.<br />
+    1. If `ident_1` is not specified, the overlaps can be performed between different comparisons.<br />
+    2. If `each` is specified, the overlaps can be performed between different cases, where in each case, `ident_1` must be specified.<br />
 - `tool` *(`choice`)*: *Default: `DESeq2`*. <br />
     The method to use for the differential expression analysis.<br />
     - `DESeq2`:

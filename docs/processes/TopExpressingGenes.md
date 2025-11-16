@@ -36,9 +36,18 @@ readonly.<br />
 ## Environment Variables
 
 - `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />
-    The dbs to do enrichment analysis for significant
-    markers See below for all libraries.<br />
-    <https://maayanlab.cloud/Enrichr/#libraries>
+    The dbs to do enrichment analysis for significant markers.<br />
+    You can use built-in dbs in `enrichit`, or provide your own gmt files.<br />
+    See also <https://pwwang.github.io/enrichit/reference/FetchGMT.html>.<br />
+    The built-in dbs include:<br />
+    * "BioCarta" or "BioCarta_2016"
+    * "GO_Biological_Process" or "GO_Biological_Process_2025"
+    * "GO_Cellular_Component" or "GO_Cellular_Component_2025"
+    * "GO_Molecular_Function" or "GO_Molecular_Function_2025"
+    * "KEGG", "KEGG_Human", "KEGG_2021", or "KEGG_2021_Human"
+    * "Hallmark", "MSigDB_Hallmark", or "MSigDB_Hallmark_2020"
+    * "Reactome", "Reactome_Pathways", or "Reactome_Pathways_2024"
+    * "WikiPathways", "WikiPathways_2024", "WikiPathways_Human", or "WikiPathways_2024_Human"
 - `n` *(`type=int`)*: *Default: `250`*. <br />
     The number of top expressing genes to find.<br />
 - `enrich_style` *(`choice`)*: *Default: `enrichr`*. <br />

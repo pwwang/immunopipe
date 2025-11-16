@@ -2,7 +2,7 @@
 
 Markers for clusters of all cells.
 
-When only `group_by` is specified as `"seurat_clusters"` in
+When only `group_by` is specified as identity column in
 `envs.cases`, the markers will be found for all the clusters.<br />
 
 You can also find the differentially expressed genes between
@@ -30,16 +30,25 @@ column name in metadata. Follow `envs.cases` for more details.<br />
     * See also: <https://satijalab.org/seurat/articles/future_vignette.html>
 - `group_by`:
     The column name in metadata to group the cells.<br />
-    If only `group_by` is specified, and `ident-1` and `ident-2` are
+    If only `group_by` is specified, and `ident_1` and `ident_2` are
     not specified, markers will be found for all groups in this column
     in the manner of "group vs rest" comparison.<br />
     `NA` group will be ignored.<br />
     If `None`, `Seurat::Idents(srtobj)` will be used, which is usually
     `"seurat_clusters"` after unsupervised clustering.<br />
 - `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />
-    The dbs to do enrichment analysis for significant
-    markers See below for all libraries.<br />
-    <https://maayanlab.cloud/Enrichr/#libraries>
+    The dbs to do enrichment analysis for significant markers.<br />
+    You can use built-in dbs in `enrichit`, or provide your own gmt files.<br />
+    See also <https://pwwang.github.io/enrichit/reference/FetchGMT.html>.<br />
+    The built-in dbs include:<br />
+    * "BioCarta" or "BioCarta_2016"
+    * "GO_Biological_Process" or "GO_Biological_Process_2025"
+    * "GO_Cellular_Component" or "GO_Cellular_Component_2025"
+    * "GO_Molecular_Function" or "GO_Molecular_Function_2025"
+    * "KEGG", "KEGG_Human", "KEGG_2021", or "KEGG_2021_Human"
+    * "Hallmark", "MSigDB_Hallmark", or "MSigDB_Hallmark_2020"
+    * "Reactome", "Reactome_Pathways", or "Reactome_Pathways_2024"
+    * "WikiPathways", "WikiPathways_2024", "WikiPathways_Human", or "WikiPathways_2024_Human"
 - `sigmarkers`: *Default: `p_val_adj < 0.05 & avg_log2FC > 0`*. <br />
     An expression passed to `dplyr::filter()` to filter the
     significant markers for enrichment analysis.<br />
@@ -75,7 +84,7 @@ column name in metadata. Follow `envs.cases` for more details.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findmarkers>
 - `allmarker_plots_defaults` *(`ns`)*:
-    Default options for the plots for all markers when `ident-1` is not specified.<br />
+    Default options for the plots for all markers when `ident_1` is not specified.<br />
     - `plot_type`:
         The type of the plot.<br />
         See <https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html>.<br />
@@ -168,7 +177,7 @@ column name in metadata. Follow `envs.cases` for more details.<br />
     The cases under `envs.cases` can inherit this options.<br />
 - `overlaps_defaults` *(`ns`)*:
     Default options for investigating the overlapping of significant markers between different cases or comparisons.<br />
-    This means either `ident-1` should be empty, so that they can be expanded to multiple comparisons.<br />
+    This means either `ident_1` should be empty, so that they can be expanded to multiple comparisons.<br />
     - `sigmarkers`:
         The expression to filter the significant markers for each case.<br />
         If not provided, `envs.sigmarkers` will be used.<br />
@@ -199,8 +208,8 @@ column name in metadata. Follow `envs.cases` for more details.<br />
     Cases for investigating the overlapping of significant markers between different cases or comparisons.<br />
     The keys are the names of the cases and the values are the dicts inherited from `overlaps_defaults`.<br />
     There are two situations that we can perform overlaps:<br />
-    1. If `ident-1` is not specified, the overlaps can be performed between different comparisons.<br />
-    2. If `each` is specified, the overlaps can be performed between different cases, where in each case, `ident-1` must be specified.<br />
+    1. If `ident_1` is not specified, the overlaps can be performed between different comparisons.<br />
+    2. If `each` is specified, the overlaps can be performed between different cases, where in each case, `ident_1` must be specified.<br />
 
 ## SeeAlso
 

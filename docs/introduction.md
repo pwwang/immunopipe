@@ -60,7 +60,7 @@ See the `Environment Variables` of each process for more details.
 
 ### Clonotype refinement
 
-- [`TCRClustering`](processes/TCRClustering.md): Perform clustering on TCR clones based on CDR3 amino acid sequences.
+- [`CDR3Clustering`](processes/CDR3Clustering.md): Perform clustering on TCR clones based on CDR3 amino acid sequences.
 - [`TESSA`](processes/TESSA.md): Perform integrative analyses using [`Tessa`](https://github.com/jcao89757/TESSA).
 
 ### Integration of scRNA-seq and scTCR-/scBCR-seq data
