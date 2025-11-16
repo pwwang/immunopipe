@@ -347,6 +347,8 @@ class SeuratPreparing(SeuratPreparing_):
 
         ![SeuratPreparing-metadata](images/SeuratPreparing-metadata.png)
     """  # noqa: E501
+    # Don't export the RDS/qs file
+    export = False
 
 
 RNAInput = SeuratPreparing or RNAInput
@@ -580,10 +582,11 @@ class SeuratMap2Ref(SeuratMap2Ref_):
     """  # noqa: E501
 
     input_data = lambda ch1: ch1.iloc[:, [0]]
+    # Don't export the RDS/qs file
+    export = False
 
 
 RNAInput = SeuratMap2Ref or RNAInput
-
 
 
 @when("SeuratSubClustering" in config, requires=RNAInput)
