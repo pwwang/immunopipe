@@ -343,6 +343,19 @@ apptainer<span class="w"> </span>pull<span class="w"> </span>justold/immunopipe:
 <span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;diff_of_classes&quot;</span>
 </code></pre></div>
 </details>
+<details>
+<summary>Why some of the processes rerun even if I didn't change anything after updating <code>immunopipe</code> to a new version?</summary>
+<p>This is likely because that the process has changed in the new version of <code>immunopipe</code>. The pipeline will detect the changes and re-run the necessary processes to ensure that the results are consistent with the new version of the pipeline.</p>
+<p>If you want to avoid re-running the processes, you can try to use the <code>--&lt;proc&gt;.cache force</code> option when running the pipeline. This will force the pipeline to use the cached results from the previous run.</p>
+</details>
+<details>
+<summary>How can I skip certain processes even if they are essential for the pipeline?</summary>
+<p>For optional processes, you can just remove them from the configuration file or comment them out. For example, to skip the <a href="../processes/ScFGSEA/"><code>ScFGSEA</code></a> process, you can remove the <code>[ScFGSEA]</code> section from the configuration file or comment it out.</p>
+<p>You can't skip some processes that are depended by other processes, if other processes are not skipped. However, you can skip some processes even they belong to the minimal set of processes required for the pipeline, by using the <code>dry</code> scheduler (runner). For example, to skip the <a href="../processes/ClusterMarkers/"><code>ClusterMarkers</code></a> process, you can use the following configuration file:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.scheduler_opts]</span>
+<span class="n">scheduler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;dry&quot;</span>
+</code></pre></div>
+</details>
 <p> </p>
               
             </div>
