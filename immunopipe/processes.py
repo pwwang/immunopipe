@@ -494,7 +494,7 @@ class SeuratClustering(SeuratClustering_):
     [`SeuratMap2Ref`](./SeuratMap2Ref.md) process or
     [`CellTypeAnnotation`](./CellTypeAnnotation.md) process enabled in the same run,
     you can specify a different name for the column to store the cluster information
-    using `envs.FindClusters.cluster-name`, so that the results from different
+    using `envs.ident`, so that the results from different
     annotation processes won't overwrite each other.
 
     ///
@@ -534,20 +534,15 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
     ///
 
-    /// Note
-    When cell types are annotated, the old `seurat_clusters` column will be renamed
-    to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.
-    ///
-
     Metadata:
         When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
         the `Seurat` object will be kept as is.
 
-        When `envs.newcol` is specified, the original `seurat_clusters` column will
+        When `envs.newcol` is specified, the original identity column (e.g. `seurat_clusters`) will
         be kept is, and the annotated cell types will be saved in the new column.
-        Otherwise, the original `seurat_clusters` column will be replaced by the
-        annotated cell types and the original `seurat_clusters` column will be
-        saved at `seurat_clusters_id`.
+        Otherwise, the original identity column will be replaced by the
+        annotated cell types and the original identity column will be
+        saved at `envs.backup_col` (e.g. `seurat_clusters_id`).
 
         ![CellTypeAnnotation-metadata](images/CellTypeAnnotation-metadata.png)
 
