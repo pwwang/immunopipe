@@ -6,7 +6,7 @@ channels:
   - nodefaults
 dependencies:
   - r-biopipen.utils=0.3.3=r43_3
-  - r-scplotter=0.6.3=r43_1
+  - r-scplotter=0.6.3=r43_2
   - r-plotthis=0.8.3=r43_1
   - r-enrichit=0.0.4=r43_1
   - r-gglogger=0.1.6=r43_1
