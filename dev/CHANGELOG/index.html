@@ -154,6 +154,8 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Change log</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#220">2.2.0</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#213">2.1.3</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#212">2.1.2</a>
@@ -369,6 +371,53 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h2>
+<h3 id="220">2.2.0<a class="headerlink" href="#220" title="Permanent link">&para;</a></h3>
+<ul>
+<li>BREAKING: restructure Docker workflows and update environment configurations using multiple-image/stage building, no "-full" suffix for image tags needed anymore.</li>
+<li>BREAKING: rename TCRClustering to CDR3Clustering across documentation and codebase to adopt for BCR data</li>
+<li>BREAKING: prevent export of RDS/qs files in SeuratPreparing and SeuratMap2Ref classes.<blockquote>
+<p>NOTE that this may break reruning with cached SeuratPreparing and SeuratMap2Ref processes.
+The RDS/qs output files are no longer exported to output directory to reduce the report size. Instead, they are staying in the working directory for downstream processes to use.
+But the the figures will be still displayed in the report as before.</p>
+</blockquote>
+</li>
+<li>fix: swap SeuratMap2Ref and SeuratClustering to make sure graph doesn't get overwritten</li>
+<li>fix: refactor VDJ configuration detection in validate_config when running with gbatch</li>
+<li>fix: default group_by to None for ClusterMarkers/ClusterMarkersOfAllCells so default ident will be used</li>
+<li>docs: update configuration options in getting started guide</li>
+<li>docs: update notes in Seurat processes to prevent overwriting cluster information</li>
+<li>docs: update column naming in SeuratClustering and CellTypeAnnotation documentation</li>
+<li>docs: update figures after CDR3Clustering renaming</li>
+<li>ci: add cache deletion step to save space in Docker workflow</li>
+<li>test: update configuration files and tests</li>
+<li>test: update assertions in test_route_sampleinfo_full for correct flow after refactoring</li>
+<li>test: reorder assertions in test_route_sampleinfo_full for correct flow due to the swapping of SeuratMap2Ref and SeuratClustering</li>
+<li>chore: bump biopipen version to 0.34.23 (related changes below)</li>
+<li>docs(scrna.SeuratPreparing): improve documentation for SeuratPreparing to make sure new lines in code blocks</li>
+<li>docs(scrna.SeuratClusterStats): enhance documentation for cluster statistics plots</li>
+<li>docs(tcr.ClonalStats): add exapmle configurations and plots</li>
+<li>docs(scrna.ScFGSEA): add examples and usage details for GSEA plots</li>
+<li>docs(CellCellCommunication): add example output for ligand-receptor interactions</li>
+<li>docs(CellCellCommunicationPlots): add examples for various plot types</li>
+<li>docs(scrna.MetabolicPathwayActivity): add merged heatmap example</li>
+<li>docs: improve documentation for SeuratPreparing to make sure new line… (#180)</li>
+<li>fix(scrna): update group_by assignment to use GetIdentityColumn</li>
+<li>feat(scrna.SeuratClustering): add envs.ident as shortcut for custom cluster name</li>
+<li>chore(scrna.SeuratClusterStats): set default group_by for dimplots to None</li>
+<li>docs(scrna): correct parameter names in docstring (ident-1 to ident_1, and ident-2 to ident-2)</li>
+<li>feat(scrna): add return option for identity column in convert_seurat_to_anndata function</li>
+<li>feat(scrna.CellCellCommunication): enhance groupby handling for Seurat objects</li>
+<li>feat(scrna.CellTypeAnnotation): add support for specifying identity column in CellTypeAnnotation for celltypist</li>
+<li>feat(scrna.CellTypeAnnotation): enhance identity column handling and add backup column support</li>
+<li>feat(scrna.CellTypeAnnotation): enhance classifier initialization and input handling for celltypist</li>
+<li>enh(scrna.MarkersFinder): add logging for plot processing in marker and enrichment functions</li>
+<li>feat(scrna.CellTypeAnnotation): require celltypist package with specified version and python interpreter</li>
+<li>docs(scrna): update dbs/gmtfile parameter description for enrichment analysis</li>
+<li>chore(scrna): update future.globals.maxSize to Inf for improved memory handling</li>
+<li>feat(tcr.CDR3Clustering): rename TCRClustering to CDR3Clustering and adopt BCR data</li>
+<li>docs(scrna.CellTypeAnnotation): clarify renaming of original identity column during cell type annotation</li>
+<li>see full changelog at <a href="https://pwwang.github.io/biopipen/CHANGELOG/">https://pwwang.github.io/biopipen/CHANGELOG/</a>.</li>
+</ul>
 <h3 id="213">2.1.3<a class="headerlink" href="#213" title="Permanent link">&para;</a></h3>
 <ul>
 <li>docs: update docs for ClusterMarkers with examples</li>
