@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Introduction - immunopipe</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Introduction";
+        var mkdocs_page_input_path = "introduction.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Introduction</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#the-pipeline-architecture">The pipeline architecture</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#analyses-and-processes">Analyses and processes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#data-input-and-qc">Data input and QC</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#t-cell-selection">T cell selection</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clustering-of-t-cells">Clustering of T cells</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clonotype-refinement">Clonotype refinement</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#integration-of-scrna-seq-and-sctcr-scbcr-seq-data">Integration of scRNA-seq and scTCR-/scBCR-seq data</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#downstream-analyses">Downstream analyses</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#metabolic-landscape-analyses">Metabolic landscape analyses</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#routes-of-the-pipeline">Routes of the pipeline</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#both-scrna-seq-and-sctcr-scbcr-seq-data-avaiable">Both scRNA-seq and scTCR-/scBCR-seq data avaiable</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#only-scrna-seq-data-avaiable">Only scRNA-seq data avaiable</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CDR3Clustering/">CDR3Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/introduction.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<h3 id="the-pipeline-architecture">The pipeline architecture<a class="headerlink" href="#the-pipeline-architecture" title="Permanent link">&para;</a></h3>
+<p><code>immunopipe</code> is built upon <a href="https://github.com/pwwang/pipen"><code>pipen</code></a>. It is recommended to read the <a href="https://pwwang.github.io/pipen">pipen docs</a> first to get a better understanding of the pipeline.</p>
+<p>Here, we just want to highlight some concepts that are helpful to use the pipeline as a user.</p>
+<p>A <em><a href="https://pwwang.github.io/pipen/defining-proc/">process</a></em> is a unit of work in the pipeline. <code>immunopipe</code> includes a set of processes. Some of them are reused from <a href="https://github.com/pwwang/biopipen"><code>biopipen</code></a> and some are written specifically for <code>immunopipe</code>.</p>
+<p>The input of a process is typically a <a href="https://pandas.pydata.org/"><code>pandas</code></a> <code>DataFrame</code>, which serves as the channel passing data between processes. The rows of the data frame are distributed to the jobs of the process, and columns are spreaded to the input variables of the <em><a href="https://pwwang.github.io/pipen/api/pipen.job/#pipenjobjob">job</a></em> s. See <a href="https://pwwang.github.io/pipen/channels/">more illustration here</a>. In our case, most processes are just single-job processes. Other than the start processes, the input of a process is the output of other process(es). So users don't need to worry about the input of the processes in the configurations.</p>
+<p><em><code>envs</code></em> of a process is the most important part of <code>immunopipe</code> that a user needs to configure. It defines the environment variables of the process. The environment variables are shared by all the jobs of the process.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>These environment variables are not the same as the environment variables of the system. They are just variables that are used in the process across its jobs.</p>
+</div>
+<p>See individual process pages for more details about the <code>envs</code> of each process.</p>
+<h3 id="analyses-and-processes">Analyses and processes<a class="headerlink" href="#analyses-and-processes" title="Permanent link">&para;</a></h3>
+<p><img alt="immunopipe" src="../immunopipe.flowchart.png" /></p>
+<p>As shown in the figure above, <code>immunopipe</code> includes a set of processes for scRNA-seq and scTCR-/scBCR-seq data analysis. The processes are grouped into categories below:</p>
+<h4 id="data-input-and-qc">Data input and QC<a class="headerlink" href="#data-input-and-qc" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="../processes/SampleInfo/"><code>SampleInfo</code></a>: Read sample information from a CSV file and list the sample information in the report.</li>
+<li><a href="../processes/LoadingRNAFromSeurat/"><code>LoadingRNAFromSeurat</code></a>: Load the scRNA-seq data from existing <code>Seurat</code> objects.</li>
+<li><a href="../processes/ScRepLoading/"><code>ScRepLoading</code></a>: Load the VDJ data into <code>ScRepertoire</code> objects.</li>
+<li><a href="../processes/SeuratPreparing/"><code>SeuratPreparing</code></a>: Read the data into <code>Seurat</code> objects and perform QC.</li>
+</ul>
+<h4 id="t-cell-selection">T cell selection<a class="headerlink" href="#t-cell-selection" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="../processes/SeuratClusteringOfAllCells/"><code>SeuratClusteringOfAllCells</code></a>: Perform clustering on all cells if non-T cells are present in the data.</li>
+<li><a href="../processes/ClusterMarkersOfAllCells/"><code>ClusterMarkersOfAllCells</code></a>: Find markers for each cluster of all the cells and perform enrichment analysis.</li>
+<li><a href="../processes/TopExpressingGenesOfAllCells/"><code>TopExpressingGenesOfAllCells</code></a>: Find top expressing genes for each cluster of all the cells and perform enrichment analysis.</li>
+<li><a href="../processes/TOrBCellSelection/"><code>TOrBCellSelection</code></a>: Select T cells from all cells.</li>
+</ul>
+<h4 id="clustering-of-t-cells">Clustering of T cells<a class="headerlink" href="#clustering-of-t-cells" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a>: Perform clustering on all or T cells selected above.</li>
+<li><a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a>: Map the cells to a reference dataset.</li>
+<li><a href="../processes/CellTypeAnnotation/"><code>CellTypeAnnotation</code></a>: Annotate cell types for each T-cell cluster.</li>
+<li><a href="../processes/SeuratSubClustering/"><code>SeuratSubClustering</code></a>: Perform sub-clustering on subsets of cells.</li>
+<li><a href="../processes/ClusterMarkers/"><code>ClusterMarkers</code></a>: Find markers for each T-cell cluster and perform enrichment analysis.</li>
+<li><a href="../processes/TopExpressingGenes/"><code>TopExpressingGenes</code></a>: Find top expressing genes for each T-cell cluster and perform enrichment analysis.</li>
+<li><a href="../processes/ModuleScoreCalculator/"><code>ModuleScoreCalculator</code></a>: Calculate module scores or cell cycle scores for each cell.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can have multiple annotation processes, including <a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a>, <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a>, <a href="../processes/CellTypeAnnotation/"><code>CellTypeAnnotation</code></a> enabled in the same run. Make sure you use a different name for each annotation. By default, the name all default to <code>seurat_clusters</code>.</p>
+<p>For <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a>, you can use <code>envs.ident</code> to specify a new column name to store the mapped cluster information. For <a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a>, you can use <code>envs.FindClusters.cluster-name</code> to specify a new column name. For <a href="../processes/CellTypeAnnotation/"><code>CellTypeAnnotation</code></a>, you can use <code>envs.newcol</code> to specify a new column name.</p>
+<p>See the <code>Environment Variables</code> of each process for more details.</p>
+</div>
+<h4 id="clonotype-refinement">Clonotype refinement<a class="headerlink" href="#clonotype-refinement" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="../processes/CDR3Clustering/"><code>CDR3Clustering</code></a>: Perform clustering on TCR clones based on CDR3 amino acid sequences.</li>
+<li><a href="../processes/TESSA/"><code>TESSA</code></a>: Perform integrative analyses using <a href="https://github.com/jcao89757/TESSA"><code>Tessa</code></a>.</li>
+</ul>
+<h4 id="integration-of-scrna-seq-and-sctcr-scbcr-seq-data">Integration of scRNA-seq and scTCR-/scBCR-seq data<a class="headerlink" href="#integration-of-scrna-seq-and-sctcr-scbcr-seq-data" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="../processes/ScRepCombiningExpression/"><code>ScRepCombiningExpression</code></a>: Combine the VDJ data with the expression data (into a <code>Seurat</code> object).</li>
+</ul>
+<h4 id="downstream-analyses">Downstream analyses<a class="headerlink" href="#downstream-analyses" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="../processes/SeuratClusterStats/"><code>SeuratClusterStats</code></a>: Investigate statistics for each T-cell cluster (i.e. the number of cells in each cluster, the number of cells in each sample for each cluster, feature/gene expression visualization, dimension reduction plots, etc.). It's also possible to perform stats on TCR/BCR clones/clusters for each T-cell cluster.</li>
+<li><a href="../processes/ClonalStats/"><code>ClonalStats</code></a>: Investigate statistics for clones.</li>
+<li><a href="../processes/MarkersFinder/"><code>MarkersFinder</code></a>: Find markers (differentially expressed genes) for any two groups, including clones or clone groups.</li>
+<li><a href="../processes/PseudoBulkDEG/"><code>PseudoBulkDEG</code></a>: Perform pseudo-bulk differential expression analysis.</li>
+<li><a href="../processes/CDR3AAPhyschem/"><code>CDR3AAPhyschem</code></a>: Investigate the physicochemical properties of CDR3 amino acid sequences of one cell type over another (i.e. <code>Treg</code> vs <code>Tconv</code>).</li>
+<li><a href="../processes/ScFGSEA/"><code>ScFGSEA</code></a>: Perform GSEA analysis for comparisons between two groups of cells. For example, between two cell types, clone groups, TCR/BCR clusters or clinical groups.</li>
+<li><a href="../processes/CellCellCommunication/"><code>CellCellCommunication</code></a>: Perform cell-cell communication analysis.</li>
+<li><a href="../processes/CellCellCommunicationPlots/"><code>CellCellCommunicationPlots</code></a>: Generate plots for cell-cell communication analysis.</li>
+</ul>
+<h4 id="metabolic-landscape-analyses">Metabolic landscape analyses<a class="headerlink" href="#metabolic-landscape-analyses" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="../processes/ScrnaMetabolicLandscape/"><code>ScrnaMetabolicLandscape</code></a>: A group of folowwing processes to perform metabolic landscape analyses.</li>
+<li><a href="../processes/MetabolicInput/"><code>MetabolicInput</code></a>: Prepare the input files for metabolic landscape analyses.</li>
+<li><a href="../processes/MetabolicExprImputation/"><code>MetabolicExprImputation</code></a>: Impute the dropout values in the expression matrix.</li>
+<li><a href="../processes/MetabolicPathwayActivity/"><code>MetabolicPathwayActivity</code></a>: Investigate the metabolic pathways of the cells in different groups and subsets.</li>
+<li><a href="../processes/MetabolicPathwayHeterogeneity/"><code>MetabolicPathwayHeterogeneity</code></a>: Show metabolic pathways enriched in genes with highest contribution to the metabolic heterogeneities.</li>
+<li><a href="../processes/MetabolicFeatures/"><code>MetabolicFeatures</code></a>: Perform gene set enrichment analysis against the metabolic pathways for groups in different subsets.</li>
+</ul>
+<h3 id="routes-of-the-pipeline">Routes of the pipeline<a class="headerlink" href="#routes-of-the-pipeline" title="Permanent link">&para;</a></h3>
+<p><code>immunopipe</code> is designed to be flexible. It can be used in different ways. Here we list some common routes of the pipeline:</p>
+<h4 id="both-scrna-seq-and-sctcr-scbcr-seq-data-avaiable">Both scRNA-seq and scTCR-/scBCR-seq data avaiable<a class="headerlink" href="#both-scrna-seq-and-sctcr-scbcr-seq-data-avaiable" title="Permanent link">&para;</a></h4>
+<p>To enable this route, you need to:</p>
+<ul>
+<li>tell the pipeline that scTCR-seq data is available by adding a column named <code>TCRData</code>/<code>BCRData</code> in the sample information file.</li>
+<li>put the path of the sample information file in the configuration file <code>[SampleInfo.in.infile]</code>, instead of passing it as a command line argument (<code>--Sample.in.infile</code>).</li>
+</ul>
+<p>Unsupervised clustering <code>[SeuratClustering]</code> on selected T cells is the default setting. If you want to perform supervised clustering, you need to add <code>[SeuratMap2Ref]</code> in the configuration file with necessary parameters. You can also assign cell types to clusters using <code>[CellTypeAnnotation]</code>.</p>
+<p>If you need to select T/B cells from all cells available for later analyses, you need to add <code>[TOrBCellSelection]</code> in the configuration file. If so, the processes annotated as something like <code>For selected cells</code> will be added to the pipeline.</p>
+<p>This is the most common route of the pipeline:</p>
+<p><img alt="routes-tcr" src="../routes-tcr.png" /></p>
+<p>The optional processes are enabled only when the corresponding sections are added in the configuration file. For example, if you want to add module scores (e.g. cell activation score) to the <code>Seurat</code> object, you need to add <code>[ModuleScoreCalculator]</code> in the configuration file.</p>
+<p>When you have a processed <code>Seurat</code> object with scRNA-seq data, you can use <code>LoadingRNAFromSeurat</code> to load the data into the pipeline directly, which will take the place of <code>[SampleInfo]</code>. When <code>LoadingRNAFromSeurat.envs.prepared</code> is set to <code>true</code>, <code>SeuratPreparing</code> will be skipped. When <code>LoadingRNAFromSeurat.envs.clustered</code> is set to <code>true</code>, both <code>SeuratPreparing</code> and <code>SeuratClusteringOfAllCells</code>/<code>SeuratClustering</code> will be skipped. See <a href="../processes/LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a> for more details.</p>
+<h4 id="only-scrna-seq-data-avaiable">Only scRNA-seq data avaiable<a class="headerlink" href="#only-scrna-seq-data-avaiable" title="Permanent link">&para;</a></h4>
+<p>When you have only scRNA-seq data, you just don't need to add the <code>TCRData</code>/<code>BCRData</code> column in the sample information file. The pipeline will automatically skip the processes related to scTCR-/scBCR-seq data analysis.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>You need to specify the sample information file in the configuration file <code>[SampleInfo.in.infile]</code> to enable this route. Passing the sample information file as a command line argument (<code>--Sample.in.infile</code>) does not trigger this route if you don't have <code>SampleInfo</code> defined in your configuration file.</p>
+</div>
+<p>Unsupervised clustering <code>[SeuratClustering]</code> on selected T cells is the default setting. If you want to perform supervised clustering, you need to add <code>[SeuratMap2Ref]</code> in the configuration file with necessary parameters.</p>
+<p>Similar to the previous route, you can also load a processed <code>Seurat</code> object with scRNA-seq data using <code>LoadingRNAFromSeurat</code>.</p>
+<p><img alt="routes-notcr" src="../routes-notcr.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../installation/" class="btn btn-neutral float-right" title="Installation">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../installation/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/version-select.js"></script>
+      <script src="../assets/script.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

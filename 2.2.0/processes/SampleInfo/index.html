@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>SampleInfo - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "SampleInfo";
+        var mkdocs_page_input_path = "processes/SampleInfo.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">SampleInfo</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#example-data">Example data</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#count-the-number-of-samples-per-diagnosis">Count the number of samples per Diagnosis</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#explore-age-distribution">Explore Age distribution</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3Clustering/">CDR3Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
+      <li class="breadcrumb-item active">SampleInfo</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/SampleInfo.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="sampleinfo">SampleInfo<a class="headerlink" href="#sampleinfo" title="Permanent link">&para;</a></h2>
+<p>List sample information and perform statistics</p>
+<p>This process is the entrance of the pipeline. It just pass by input file and list
+the sample information in the report.<br /></p>
+<p>To specify the input file in the configuration file, use the following</p>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.in]</span>
+<span class="n">infile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;path/to/sample_info.txt&quot;</span><span class="w"> </span><span class="p">]</span>
+</code></pre></div>
+<p>Or with <code>pipen-board</code>, find the <code>SampleInfo</code> process and click the <code>Edit</code> button.<br />
+Then you can specify the input file here</p>
+<p><img alt="infile" src="../images/SampleInfo-infile.png" /></p>
+<p>Multiple input files are supported by the underlying pipeline framework. However,
+we recommend to run it with a different pipeline instance with configuration files.<br /></p>
+<p>For the content of the input file, please see details
+<a href="../../preparing-input/#metadata">here</a>.<br /></p>
+<p>You can add some columns to the input file while doing the statistics or you can
+even pass them on to the next processes. See <code>envs.mutaters</code> and
+<code>envs.save_mutated</code>.<br />
+But if you are adding a factor (categorical) column with desired levels, the order
+can't be guaranteed, because we are saving them to a text file, where we can't
+guarantee the order of the levels. If you want to add a factor column with desired
+levels, you can set <code>envs.mutaters</code> of the <code>SeuratPreparing</code> process to mutate the
+column.<br /></p>
+<p>Once the pipeline is finished, you can see the sample information in the report</p>
+<p><img alt="report" src="../images/SampleInfo-report.png" /></p>
+<p>Note that the required <code>RNAData</code> (if not loaded from a Seurat object) and
+<code>TCRData</code>/<code>BCRData</code> columns are not shown in the report.<br />
+They are used to specify the paths of the <code>scRNA-seq</code> and <code>scTCR-seq</code>/<code>scBCR-seq</code>
+data, respectively.<br />
+Also note that when <code>RNAData</code> is loaded from a Seurat object (specified in the
+<code>LoadingRNAFromSeurat</code> process), the metadata provided in this process will not be
+integrated into the Seurat object in the downstream processes. To incoporate
+these meta information into the Seurat object, please provide them in the
+Seurat object itself or use the <code>envs.mutaters</code> of the <code>SeuratPreparing</code> process
+to mutate the metadata of the Seurat object. But the meta information provided in
+this process can still be used in the statistics and plots in the report.<br /></p>
+<p>You may also perform some statistics on the sample information, for example,
+number of samples per group. See next section for details.<br /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This is the start process of the pipeline. Once you change the parameters for
+this process, the whole pipeline will be re-run.<br /></p>
+<p>If you just want to change the parameters for the statistics, and use the
+cached (previous) results for other processes, you can set <code>cache</code> at
+pipeline level to <code>"force"</code> to force the pipeline to use the cached results
+and <code>cache</code> of <code>SampleInfo</code> to <code>false</code> to force the pipeline to re-run the
+<code>SampleInfo</code> process only.<br /></p>
+<div class="highlight"><pre><span></span><code><span class="n">cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;force&quot;</span>
+
+<span class="k">[SampleInfo]</span>
+<span class="n">cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+</code></pre></div>
+</div>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>infile</code> <em>(<code>required</code>)</em>:
+    The input file to list sample information The input file should be a csv/tsv file with header.<br />
+    <strong>Required when <a href="../LoadingRNAFromSeurat/"><code>LoadingRNAFromSeurat</code></a> is not
+    used in the pipeline.</strong>
+    <strong>This is optional if <a href="../LoadingRNAFromSeurat/"><code>LoadingRNAFromSeurat</code></a> is
+    used in the pipeline and no VDJ data is provided.</strong>
+    The input file should have the following columns.<br /><ul>
+<li>Sample: A unique id for each sample.<br /></li>
+<li>TCRData/BCRData: The directory for single-cell TCR/BCR data for this
+sample.<br />
+Specifically, it should contain filtered_contig_annotations.csv
+or all_contig_annotations.csv from cellranger.<br /></li>
+<li>RNAData: The directory for single-cell RNA data for this sample.<br />
+Specifically, it should be able to be read by
+<a href="https://satijalab.org/seurat/reference/read10x"><code>Seurat::Read10X()</code></a> or
+<a href="https://satijalab.org/seurat/reference/read10x_h5"><code>Seurat::Read10X_h5()</code></a> or
+<a href="https://rdrr.io/github/mojaveazure/seurat-disk/man/LoadLoom.html"><code>SeuratDisk::LoadLoom()</code></a>.<br />
+See also <a href="https://satijalab.org/seurat/reference/read10x">https://satijalab.org/seurat/reference/read10x</a>.<br /></li>
+<li>Other columns are optional and will be treated as metadata for
+each sample.<br /></li>
+</ul>
+</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outfile</code>: <em>Default: <code>{{in.infile | basename}}</code></em>. <br />
+    The output file with sample information, with mutated columns
+    if <code>envs.save_mutated</code> is True.<br />
+    The basename of the output file will be the same as the input file.<br />
+    The file name of each plot will be slugified from the case name.<br />
+    Each plot has 3 formats: pdf, png and code.zip, which contains the
+    data and R code to reproduce the plot.<br /></li>
+</ul>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>sep</code>: <em>Default: <code></code></em>. <br />
+    The separator of the input file.<br /></li>
+<li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    A dict of mutaters to mutate the data frame.<br />
+    The key is the column name and the value is the R expression
+    to mutate the column. The dict will be transformed to a list in R
+    and passed to <code>dplyr::mutate</code>.<br />
+    You may also use <code>paired()</code> to identify paired samples. The function
+    takes following arguments:<br /><ul>
+<li><code>df</code>: The data frame. Use <code>.</code> if the function is called in
+a dplyr pipe.<br /></li>
+<li><code>id_col</code>: The column name in <code>df</code> for the ids to be returned in
+the final output.<br /></li>
+<li><code>compare_col</code>: The column name in <code>df</code> to compare the values for
+each id in <code>id_col</code>.<br /></li>
+<li><code>idents</code>: The values in <code>compare_col</code> to compare. It could be
+either an an integer or a vector. If it is an integer,
+the number of values in <code>compare_col</code> must be the same as
+the integer for the <code>id</code> to be regarded as paired. If it is
+a vector, the values in <code>compare_col</code> must be the same
+as the values in <code>idents</code> for the <code>id</code> to be regarded as paired.<br /></li>
+<li><code>uniq</code>: Whether to return unique ids or not. Default is <code>TRUE</code>.<br />
+If <code>FALSE</code>, you can mutate the meta data frame with the
+returned ids. Non-paired ids will be <code>NA</code>.<br /></li>
+</ul>
+</li>
+<li><code>save_mutated</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the mutated columns.<br /></li>
+<li><code>exclude_cols</code> <em>(<code>auto</code>)</em>: <em>Default: <code>TCRData,BCRData,RNAData</code></em>. <br />
+    The columns to exclude in the table in the report.<br />
+    Could be a list or a string separated by comma.<br /></li>
+<li><code>defaults</code> <em>(<code>ns</code>)</em>:
+    The default parameters for <code>envs.stats</code>.<br /><ul>
+<li><code>plot_type</code>: <em>Default: <code>bar</code></em>. <br />
+    The type of the plot.<br />
+    See the supported plot types here:<br />
+    <a href="https://pwwang.github.io/plotthis/reference/index.html">https://pwwang.github.io/plotthis/reference/index.html</a>
+    The plot_type should be lower case and the plot function used in
+    <code>plotthis</code> should be used. The mapping from plot_type to the
+    plot function is like <code>bar -&gt; BarPlot</code>, <code>box -&gt; BoxPlot</code>, etc.<br /></li>
+<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The additional formats to save the plot.<br />
+    By default, the plot will be saved in png, which is also used to
+    display in the report. You can add more formats to save the plot.<br />
+    For example, <code>more_formats = ["pdf", "svg"]</code>.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the R code to reproduce the plot.<br />
+    The data used to plot will also be saved.<br /></li>
+<li><code>subset</code>:
+    An expression to subset the data frame before plotting.<br />
+    The expression should be a string of R expression that will be passed
+    to <code>dplyr::filter</code>. For example, <code>subset = "Sample == 'A'"</code>.<br /></li>
+<li><code>section</code>:
+    The section name in the report.<br />
+    In case you want to group the plots in the report.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plot.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plot.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plot.<br /></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plot.<br /></li>
+</ul>
+</li>
+<li><code>descr</code>:
+    The description of the plot, shown in the report.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    You can add more parameters to the defaults.<br />
+    These parameters will be expanded to the <code>envs.stats</code> for each case,
+    and passed to individual plot functions.<br /></li>
+</ul>
+</li>
+<li><code>stats</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The statistics to perform.<br />
+    The keys are the case names and the values are the parameters
+    inheirted from <code>envs.defaults</code>.<br /></li>
+</ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<h4 id="example-data">Example data<a class="headerlink" href="#example-data" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Sample</th>
+<th>Age</th>
+<th>Sex</th>
+<th>Diagnosis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C1</td>
+<td>62</td>
+<td>F</td>
+<td>Colitis</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>71.2</td>
+<td>F</td>
+<td>Colitis</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>56.2</td>
+<td>M</td>
+<td>Colitis</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>61.5</td>
+<td>M</td>
+<td>Colitis</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>72.8</td>
+<td>M</td>
+<td>Colitis</td>
+</tr>
+<tr>
+<td>C6</td>
+<td>78.4</td>
+<td>M</td>
+<td>Colitis</td>
+</tr>
+<tr>
+<td>C7</td>
+<td>61.6</td>
+<td>F</td>
+<td>Colitis</td>
+</tr>
+<tr>
+<td>C8</td>
+<td>49.5</td>
+<td>F</td>
+<td>Colitis</td>
+</tr>
+<tr>
+<td>NC1</td>
+<td>43.6</td>
+<td>M</td>
+<td>NoColitis</td>
+</tr>
+<tr>
+<td>NC2</td>
+<td>68.1</td>
+<td>M</td>
+<td>NoColitis</td>
+</tr>
+<tr>
+<td>NC3</td>
+<td>70.5</td>
+<td>F</td>
+<td>NoColitis</td>
+</tr>
+<tr>
+<td>NC4</td>
+<td>63.7</td>
+<td>M</td>
+<td>NoColitis</td>
+</tr>
+<tr>
+<td>NC5</td>
+<td>58.5</td>
+<td>M</td>
+<td>NoColitis</td>
+</tr>
+<tr>
+<td>NC6</td>
+<td>49.3</td>
+<td>F</td>
+<td>NoColitis</td>
+</tr>
+<tr>
+<td>CT1</td>
+<td>21.4</td>
+<td>F</td>
+<td>Control</td>
+</tr>
+<tr>
+<td>CT2</td>
+<td>61.7</td>
+<td>M</td>
+<td>Control</td>
+</tr>
+<tr>
+<td>CT3</td>
+<td>50.5</td>
+<td>M</td>
+<td>Control</td>
+</tr>
+<tr>
+<td>CT4</td>
+<td>43.4</td>
+<td>M</td>
+<td>Control</td>
+</tr>
+<tr>
+<td>CT5</td>
+<td>70.6</td>
+<td>F</td>
+<td>Control</td>
+</tr>
+<tr>
+<td>CT6</td>
+<td>44.3</td>
+<td>M</td>
+<td>Control</td>
+</tr>
+<tr>
+<td>CT7</td>
+<td>50.2</td>
+<td>M</td>
+<td>Control</td>
+</tr>
+<tr>
+<td>CT8</td>
+<td>61.5</td>
+<td>F</td>
+<td>Control</td>
+</tr>
+</tbody>
+</table>
+<h4 id="count-the-number-of-samples-per-diagnosis">Count the number of samples per Diagnosis<a class="headerlink" href="#count-the-number-of-samples-per-diagnosis" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;N_Samples_per_Diagnosis (pie)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;pie&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sample&quot;</span>
+<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+</code></pre></div>
+<p><img alt="Samples_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png" /></p>
+<p>What if we want a bar plot instead of a pie chart?<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;N_Samples_per_Diagnosis (bar)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sample&quot;</span>
+<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+</code></pre></div>
+<p><img alt="Samples_Diagnosis_bar" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png" /></p>
+<h4 id="explore-age-distribution">Explore Age distribution<a class="headerlink" href="#explore-age-distribution" title="Permanent link">&para;</a></h4>
+<p>The distribution of Age of all samples</p>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution (histogram)&quot;</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;histogram&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
+</code></pre></div>
+<p><img alt="Age_distribution" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution-Histogram-.png" /></p>
+<p>How about the distribution of Age in each Diagnosis, and make it
+violin + boxplot?<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution_per_Diagnosis (violin + boxplot)&quot;</span><span class="k">]</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;violin&quot;</span>
+<span class="n">add_box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+<p><img alt="Age_distribution_per_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png" /></p>
+<p>How about Age distribution per Sex in each Diagnosis?<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution_per_Sex_in_each_Diagnosis (boxplot)&quot;</span><span class="k">]</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sex&quot;</span>
+<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;box&quot;</span>
+<span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">height</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">450</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Age_distribution_per_Sex_in_each_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../mcp-server/" class="btn btn-neutral float-left" title="MCP Sever"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../LoadingRNAFromSeurat/" class="btn btn-neutral float-right" title="LoadingRNAFromSeurat">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../mcp-server/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../LoadingRNAFromSeurat/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/version-select.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
