@@ -204,7 +204,11 @@
 </ol>
 <p>The annotated cell types will replace the original identity column in the metadata,
 so that the downstream processes will use the annotated cell types.<br /></p>
-<p>The original identity column will be renamed to <code>seurat_clusters_id</code> if no <code>envs.newcol</code> is specified.<br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When cell types are annotated, the original identity column (e.g. <code>seurat_clusters</code>) will be renamed
+to <code>envs.backup_col</code> (e.g. <code>seurat_clusters_id</code>), and the new identity column will be added.<br /></p>
+</div>
 <p>If you are using <code>ScType</code>, <code>scCATCH</code>, or <code>hitype</code>, a text file containing the mapping from
 the original identity to the new cell types will be generated and saved to
 <code>cluster2celltype.tsv</code> under <code>&lt;workdir&gt;/&lt;pipline_name&gt;/CellTypeAnnotation/0/output/</code>.<br /></p>
@@ -216,11 +220,6 @@ by default.<br /></p>
 process or <a href="../SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> process enabled in the same run,
 you may want to specify a different name for the column to store the annotated cell types
 using <code>envs.newcol</code>, so that the results from different annotation processes won't overwrite each other.<br /></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When cell types are annotated, the old <code>seurat_clusters</code> column will be renamed
-to <code>seurat_clusters_id</code>, and the new <code>seurat_clusters</code> column will be added.<br /></p>
 </div>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
@@ -381,11 +380,11 @@ the original cell types will be kept and nothing will be changed.<br /></p>
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
 <p>When <code>envs.tool</code> is <code>direct</code> and <code>envs.cell_types</code> is empty, the metadata of
 the <code>Seurat</code> object will be kept as is.<br /></p>
-<p>When <code>envs.newcol</code> is specified, the original <code>seurat_clusters</code> column will
+<p>When <code>envs.newcol</code> is specified, the original identity column (e.g. <code>seurat_clusters</code>) will
 be kept is, and the annotated cell types will be saved in the new column.<br />
-Otherwise, the original <code>seurat_clusters</code> column will be replaced by the
-annotated cell types and the original <code>seurat_clusters</code> column will be
-saved at <code>seurat_clusters_id</code>.<br /></p>
+Otherwise, the original identity column will be replaced by the
+annotated cell types and the original identity column will be
+saved at <code>envs.backup_col</code> (e.g. <code>seurat_clusters_id</code>).<br /></p>
 <p><img alt="CellTypeAnnotation-metadata" src="../images/CellTypeAnnotation-metadata.png" /></p>
               
             </div>
