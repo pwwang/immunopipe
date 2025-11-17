@@ -230,6 +230,27 @@ method = "diff_of_classes"
 
 ///
 
+/// details | Why some of the processes rerun even if I didn't change anything after updating `immunopipe` to a new version?
+
+This is likely because that the process has changed in the new version of `immunopipe`. The pipeline will detect the changes and re-run the necessary processes to ensure that the results are consistent with the new version of the pipeline.
+
+If you want to avoid re-running the processes, you can try to use the `--<proc>.cache force` option when running the pipeline. This will force the pipeline to use the cached results from the previous run.
+
+///
+
+/// details | How can I skip certain processes even if they are essential for the pipeline?
+
+For optional processes, you can just remove them from the configuration file or comment them out. For example, to skip the [`ScFGSEA`](processes/ScFGSEA.md) process, you can remove the `[ScFGSEA]` section from the configuration file or comment it out.
+
+You can't skip some processes that are depended by other processes, if other processes are not skipped. However, you can skip some processes even they belong to the minimal set of processes required for the pipeline, by using the `dry` scheduler (runner). For example, to skip the [`ClusterMarkers`](processes/ClusterMarkers.md) process, you can use the following configuration file:
+
+```toml
+[ClusterMarkers.scheduler_opts]
+scheduler = "dry"
+```
+
+///
+
 <p> </p>
 
 [1]: https://github.com/pwwang/biopipen
