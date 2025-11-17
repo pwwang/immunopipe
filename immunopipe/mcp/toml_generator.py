@@ -298,7 +298,7 @@ class ConfigTemplateGenerator:
             "name": "tcr_analysis",
             "outdir": "./tcr_output",
             "TOrBCellSelection": {"envs": {"cell_type": "T"}},
-            "TCRClustering": {},
+            "CDR3Clustering": {},
             "ClonalStats": {},
         }
 

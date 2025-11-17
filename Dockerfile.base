@@ -1,0 +1,10 @@
+FROM mambaorg/micromamba:2.3.0 AS builder
+
+COPY --chown=$MAMBA_USER:$MAMBA_USER ./docker /immunopipe/docker
+
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
+
+RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && \
+    micromamba clean --all --yes
+
+ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh" ]

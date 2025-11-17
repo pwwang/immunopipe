@@ -167,17 +167,17 @@ features = ["TIGIT", "PDCD1", "CD274", "CTLA4", "LAG3", "HAVCR2", "CD244", "CD16
 ```
 
 /// Tip
-You may find out that for some processes, the default configurations are good enough for you to run. For example, [`TCRClustering`](processes/TCRClustering.md) is not enabled by default. If you don't change any configurations (by not putting in the configuration file nor changing any items on the web interface of `pipen-board`) for the process, it will not be triggered. However, the default configurations are good enough for you to run the process. To enable it, you can either add this process manually in the configuration file:
+You may find out that for some processes, the default configurations are good enough for you to run. For example, [`CDR3Clustering`](processes/CDR3Clustering.md) is not enabled by default. If you don't change any configurations (by not putting in the configuration file nor changing any items on the web interface of `pipen-board`) for the process, it will not be triggered. However, the default configurations are good enough for you to run the process. To enable it, you can either add this process manually in the configuration file:
 
 ```toml
 # ... other configurations
-[TCRClustering]
+[CDR3Clustering]
 ```
 
 or if you are using `pipen-board`, you can change a configuration item that does not actually affect the process. For example, you can change the `forks` of the process to `2`, instead of the default `1`, since the process is a single-job process. Then the process will be put in the configuration file and will be enabled.
 
 ```toml
-[TCRClustering]
+[CDR3Clustering]
 forks = 2
 ```
 

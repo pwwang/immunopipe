@@ -7,6 +7,17 @@ all cells are T/B cells, this process will be run on all T/B cells. Otherwise,
 this process will be run on the selected T/B cells by
 [`TOrBCellSelection`](./TOrBCellSelection.md).<br />
 
+/// Note
+
+If you have other annotation processes, including
+[`SeuratMap2Ref`](./SeuratMap2Ref.md) process or
+[`CellTypeAnnotation`](./CellTypeAnnotation.md) process enabled in the same run,
+you can specify a different name for the column to store the cluster information
+using `envs.FindClusters.cluster-name`, so that the results from different
+annotation processes won't overwrite each other.<br />
+
+///
+
 ## Input
 
 - `srtobj`:
@@ -15,7 +26,8 @@ this process will be run on the selected T/B cells by
 ## Output
 
 - `outfile`: *Default: `{{in.srtobj | stem}}.qs`*. <br />
-    The seurat object with cluster information at `seurat_clusters`.<br />
+    The seurat object with cluster information at `seurat_clusters` or
+    the name specified by `envs.ident`
 
 ## Environment Variables
 
@@ -24,6 +36,9 @@ this process will be run on the selected T/B cells by
     Used in `future::plan(strategy = "multicore", workers = <ncores>)`
     to parallelize some Seurat procedures.<br />
     See also: <https://satijalab.org/seurat/articles/future_vignette.html>
+- `ident`: *Default: `seurat_clusters`*. <br />
+    The name in the metadata to save the cluster labels.<br />
+    A shortcut for `envs["FindClusters"]["cluster.name"]`.<br />
 - `RunUMAP` *(`ns`)*:
     Arguments for [`RunUMAP()`](https://satijalab.org/seurat/reference/runumap).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
@@ -48,13 +63,13 @@ this process will be run on the selected T/B cells by
 - `FindClusters` *(`ns`)*:
     Arguments for [`FindClusters()`](https://satijalab.org/seurat/reference/findclusters).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
-    The cluster labels will be saved in `seurat_clusters` and prefixed with "c".<br />
+    The cluster labels will be saved in cluster names and prefixed with "c".<br />
     The first cluster will be "c1", instead of "c0".<br />
     - `resolution` *(`type=auto`)*: *Default: `0.8`*. <br />
         The resolution of the clustering. You can have multiple resolutions as a list or as a string separated by comma.<br />
         Ranges are also supported, for example: `0.1:0.5:0.1` will generate `0.1, 0.2, 0.3, 0.4, 0.5`. The step can be omitted, defaulting to 0.1.<br />
-        The results will be saved in `seurat_clusters_<resolution>`.<br />
-        The final resolution will be used to define the clusters at `seurat_clusters`.<br />
+        The results will be saved in `<ident>_<resolution>`.<br />
+        The final resolution will be used to define the clusters at `<ident>`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findclusters>
 - `cache` *(`type=auto`)*: *Default: `/tmp`*. <br />

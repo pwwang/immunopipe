@@ -1,0 +1,11 @@
+FROM mambaorg/micromamba:2.3.0 AS builder
+
+COPY --chown=$MAMBA_USER:$MAMBA_USER ./docker /immunopipe/docker
+
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
+
+# Install dependencies and make /data for future mounting
+RUN micromamba env create -n numpy_v1 -f /immunopipe/docker/environment_np1.yml && \
+    micromamba clean --all --yes
+
+ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh" ]

@@ -91,20 +91,7 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
         _log_error(f"Failed to load configuration.\n{e}")
 
     config.has_vdj = True  # Default to True, will be updated later
-    if len(args) > 1 and args[1] == "gbatch":
-        # Let immunopipe in the VM handle the validation
-        # But we need to enable essential processes if we do have VDJ data
-        config.has_vdj = (
-            ("SampleInfo" in config and "LoadingRNAFromSeurat" not in config)
-            or "ScRepLoading" in config
-            or "TOrBCellSelection" in config
-            or "ScRepCombiningExpression" in config
-            or "TCRClustering" in config
-            or "TESSA" in config
-            or "ClonalStats" in config
-            or "CDR3AAPhyschem" in config
-        )
-        return config
+    running_in_gbatch = len(args) > 1 and args[1] == "gbatch"
 
     if "TOrBCellSelection" not in config and "SeuratClusteringOfAllCells" in config:
         _log_error(
@@ -150,6 +137,21 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
         config.LoadingRNAFromSeurat.envs.prepared = LoadingRNAFromSeurat_prepared
         config.LoadingRNAFromSeurat.envs.clustered = LoadingRNAFromSeurat_clustered
         config.has_vdj = "SampleInfo" in config
+
+    elif running_in_gbatch:
+        # Let immunopipe in the VM handle the validation
+        # But we need to enable essential processes if we do have VDJ data
+        config.has_vdj = (
+            ("SampleInfo" in config and "LoadingRNAFromSeurat" not in config)
+            or "ScRepLoading" in config
+            or "TOrBCellSelection" in config
+            or "ScRepCombiningExpression" in config
+            or "CDR3Clustering" in config
+            or "TESSA" in config
+            or "ClonalStats" in config
+            or "CDR3AAPhyschem" in config
+        )
+        return config
 
     # Input from sample info file
     else:

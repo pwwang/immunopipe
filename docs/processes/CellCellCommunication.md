@@ -38,6 +38,18 @@ to visualize the results.<br />
     * `lr_means`: mean ligand-receptor expression, as a measure of ligand-receptor interaction magnitude.<br />
     * `cellphone_pvals`: permutation-based p-values, as a measure of interaction specificity.<br />
 
+    A typical output will look like this:<br />
+
+    | ligand | ligand_complex | ligand_props | ligand_trimean | mat_max | receptor | receptor_complex | receptor_props | receptor_trimean | source | target | lr_probs | cellchat_pvals | mag_score | spec_score |
+    |--------|---------------|--------------|----------------|---------|----------|------------------|----------------|------------------|--------|--------|----------|----------------|-----------|------------|
+    | VIM | VIM | 1.00 | 0.36 | 8.73 | CD44 | CD44 | 0.77 | 0.16 | c7 | c3 | 0.10 | 0.00 | 0.10 | 0.00 |
+    | MIF | MIF | 0.97 | 0.22 | 8.73 | CXCR4 | CD74_CXCR4 | 0.87 | 0.26 | c5 | c6 | 0.10 | 0.00 | 0.10 | 0.00 |
+    | HLA-B | HLA-B | 1.00 | 0.44 | 8.73 | KLRD1 | KLRD1 | 0.73 | 0.13 | c9 | c2 | 0.10 | 0.00 | 0.10 | 0.00 |
+    | HMGB1 | HMGB1 | 0.99 | 0.26 | 8.73 | CXCR4 | CXCR4 | 0.81 | 0.21 | c2 | c7 | 0.10 | 0.00 | 0.10 | 0.00 |
+    | CD48 | CD48 | 0.94 | 0.20 | 8.73 | CD2 | CD2 | 0.99 | 0.28 | c7 | c8 | 0.10 | 0.00 | 0.10 | 0.00 |
+    | HLA-C | HLA-C | 1.00 | 0.38 | 8.73 | CD8B | CD8B | 0.73 | 0.15 | c1 | c9 | 0.10 | 0.00 | 0.10 | 0.00 |
+    | LGALS1 | LGALS1 | 0.95 | 0.17 | 8.73 | CD69 | CD69 | 0.99 | 0.34 | c10 | c5 | 0.10 | 0.00 | 0.10 | 0.00 |
+
 ## Environment Variables
 
 - `method` *(`choice`)*: *Default: `cellchat`*. <br />
@@ -107,9 +119,15 @@ to visualize the results.<br />
     The seed for the random number generator.<br />
 - `ncores` *(`type=int`)*: *Default: `1`*. <br />
     The number of cores to use.<br />
-- `groupby`: *Default: `seurat_clusters`*. <br />
+- `groupby`:
     The column name in metadata to group the cells.<br />
     Typically, this column should be the cluster id.<br />
+    If provided input is a Seurat object, the default identity will be used by default.<br />
+    Otherwise, it is recommended to provide this parameter.<br />
+    "seurat_clusters" will be used with a warning if the input is in AnnData format and
+    this parameter is not provided.<br />
+- `group_by`:
+    alias for `groupby`
 - `species` *(`choice`)*: *Default: `human`*. <br />
     The species of the cells.<br />
     - `human`:

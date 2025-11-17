@@ -33,7 +33,7 @@ function, and performs enrichment analysis for the markers found.<br />
     [mutating the metadata](../configurations.md#mutating-the-metadata).<br />
 - `group_by`:
     The column name in metadata to group the cells.<br />
-    If only `group_by` is specified, and `ident-1` and `ident-2` are
+    If only `group_by` is specified, and `ident_1` and `ident_2` are
     not specified, markers will be found for all groups in this column
     in the manner of "group vs rest" comparison.<br />
     `NA` group will be ignored.<br />
@@ -44,7 +44,7 @@ function, and performs enrichment analysis for the markers found.<br />
     When this is empty, the comparisons will be expanded to each group v.s. the rest of the cells in `group_by`.<br />
 - `ident_2`:
     The second group of cells to compare
-    If not provided, the rest of the cells are used for `ident-2`.<br />
+    If not provided, the rest of the cells are used for `ident_2`.<br />
 - `each`:
     The column name in metadata to separate the cells into different
     cases.<br />
@@ -54,9 +54,18 @@ function, and performs enrichment analysis for the markers found.<br />
     You can specify `allmarker_plots` and `overlaps` to plot the markers for all cases in the same plot and plot the overlaps of the markers
     between different cases by values in this column.<br />
 - `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />
-    The dbs to do enrichment analysis for significant
-    markers See below for all libraries.<br />
-    <https://maayanlab.cloud/Enrichr/#libraries>
+    The dbs to do enrichment analysis for significant markers.<br />
+    You can use built-in dbs in `enrichit`, or provide your own gmt files.<br />
+    See also <https://pwwang.github.io/enrichit/reference/FetchGMT.html>.<br />
+    The built-in dbs include:<br />
+    * "BioCarta" or "BioCarta_2016"
+    * "GO_Biological_Process" or "GO_Biological_Process_2025"
+    * "GO_Cellular_Component" or "GO_Cellular_Component_2025"
+    * "GO_Molecular_Function" or "GO_Molecular_Function_2025"
+    * "KEGG", "KEGG_Human", "KEGG_2021", or "KEGG_2021_Human"
+    * "Hallmark", "MSigDB_Hallmark", or "MSigDB_Hallmark_2020"
+    * "Reactome", "Reactome_Pathways", or "Reactome_Pathways_2024"
+    * "WikiPathways", "WikiPathways_2024", "WikiPathways_Human", or "WikiPathways_2024_Human"
 - `sigmarkers`: *Default: `p_val_adj < 0.05`*. <br />
     An expression passed to `dplyr::filter()` to filter the
     significant markers for enrichment analysis.<br />
@@ -92,7 +101,7 @@ function, and performs enrichment analysis for the markers found.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/findmarkers>
 - `allmarker_plots_defaults` *(`ns`)*:
-    Default options for the plots for all markers when `ident-1` is not specified.<br />
+    Default options for the plots for all markers when `ident_1` is not specified.<br />
     - `plot_type`:
         The type of the plot.<br />
         See <https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html>.<br />
@@ -185,7 +194,7 @@ function, and performs enrichment analysis for the markers found.<br />
     The cases under `envs.cases` can inherit this options.<br />
 - `overlaps_defaults` *(`ns`)*:
     Default options for investigating the overlapping of significant markers between different cases or comparisons.<br />
-    This means either `ident-1` should be empty, so that they can be expanded to multiple comparisons.<br />
+    This means either `ident_1` should be empty, so that they can be expanded to multiple comparisons.<br />
     - `sigmarkers`:
         The expression to filter the significant markers for each case.<br />
         If not provided, `envs.sigmarkers` will be used.<br />
@@ -216,13 +225,18 @@ function, and performs enrichment analysis for the markers found.<br />
     Cases for investigating the overlapping of significant markers between different cases or comparisons.<br />
     The keys are the names of the cases and the values are the dicts inherited from `overlaps_defaults`.<br />
     There are two situations that we can perform overlaps:<br />
-    1. If `ident-1` is not specified, the overlaps can be performed between different comparisons.<br />
-    2. If `each` is specified, the overlaps can be performed between different cases, where in each case, `ident-1` must be specified.<br />
+    1. If `ident_1` is not specified, the overlaps can be performed between different comparisons.<br />
+    2. If `each` is specified, the overlaps can be performed between different cases, where in each case, `ident_1` must be specified.<br />
 - `cases` *(`type=json`)*: *Default: `{}`*. <br />
     If you have multiple cases for marker discovery, you can specify them
     here. The keys are the names of the cases and the values are the above options. If some options are
     not specified, the default values specified above (under `envs`) will be used.<br />
     If no cases are specified, the default case will be added with the default values under `envs` with the name `Marker Discovery`.<br />
+
+## SeeAlso
+
+- [biopipen.ns.scrna.MarkersFinder](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder)
+- [ClusterMarkers](./ClusterMarkers.md)
 
 ## Examples
 

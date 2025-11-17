@@ -88,12 +88,6 @@ The docker image is tagged with the version of `immunopipe`, together with `mast
 
 `dev` is the latest development version of `immunopipe`. It may have unstable features. If you want to use a more stable version, please try `master`, or a specific semantic version.
 
-Any tags with a `-full` suffix are the full version of the image. It contains all the dependencies of the pipeline, especially [`keras`](https://pypi.org/project/keras/) and [`tensorflow`](https://pypi.org/project/tensorflow/) that are required by the embedding procedure of [`TESSA`](processes/TESSA.md). Those packages take quite a lot of the space of the image. If you don't need the `TESSA` process, you can use the minimal version of the image.
-
-Any tags without the `-full` suffix are the minimal version of the image. `TESSA` process is also NOT supported in the minimal version. [`keras`](https://pypi.org/project/keras/) and [`tensorflow`](https://pypi.org/project/tensorflow/) are also NOT included in the image.
-
-Please also keep in mind that there is no GPU support with either type of the image.
-
 You can pull the images in advance using `docker`, `singularity` or `apptainer`. See help options of `docker pull`, `singularity pull` or `apptainer pull` for more details.
 
 You can also specify the tag when running the pipeline. See the following sections for more details.

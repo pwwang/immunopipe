@@ -50,3 +50,36 @@ Visualization for cell-cell communication inference.
     Other arguments passed to
     [scplotter::CCCPlot](https://pwwang.github.io/scplotter/reference/CCCPlot.html)
 
+## Examples
+
+### Network Plot
+
+```toml
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Network"]
+plot_type = "network"
+legend-position = "none"
+theme = "theme_blank"
+theme_args = {add_coord = false}
+```
+
+![Network Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Network.png){: width="80%"}
+
+### Circos Plot
+
+![Circos Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Circos-Plot.png){: width="80%"}
+
+### Heatmap Plot
+
+![Heatmap Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Heatmap.png){: width="80%"}
+
+### Cell-Cell Communication Interaction (Box Plot)
+
+```toml
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Interaction (Box Plot)"]
+plot_type = "box"
+x_text_angle = 90
+method = "interaction"
+```
+
+![Box Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Interaction-Box-Plot-.png){: width="80%"}
+

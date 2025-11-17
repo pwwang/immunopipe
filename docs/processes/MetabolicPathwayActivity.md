@@ -14,6 +14,10 @@ The violin plot shows the distribution of the pathway activities for each group
 
 ![MetabolicPathwayActivity_violin](../latest/processes/images/MetabolicPathwayActivity_violin.png){: width="45%"}
 
+You may also have a merged heatmap to show all subsets in one plot.<br />
+
+![MetabolicPathwayActivity_merged_heatmap](../latest/processes/images/MetabolicPathwayActivity_merged_heatmap.png){: width="80%"}
+
 ## Input
 
 - `sobjfile`:

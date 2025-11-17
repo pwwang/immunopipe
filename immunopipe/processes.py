@@ -13,10 +13,7 @@ from biopipen.core.proc import Proc
 from biopipen.ns.delim import SampleInfo as SampleInfo_
 from biopipen.ns.tcr import (
     ScRepLoading as ScRepLoading_,
-    # Immunarch as Immunarch_,
-    # CloneResidency as CloneResidency_,
-    TCRClustering as TCRClustering_,
-    # TCRClusterStats as TCRClusterStats_,
+    CDR3Clustering as CDR3Clustering_,
     CDR3AAPhyschem as CDR3AAPhyschem_,
     TESSA as TESSA_,
     ScRepCombiningExpression as ScRepCombiningExpression_,
@@ -350,6 +347,8 @@ class SeuratPreparing(SeuratPreparing_):
 
         ![SeuratPreparing-metadata](images/SeuratPreparing-metadata.png)
     """  # noqa: E501
+    # Don't export the RDS/qs file
+    export = False
 
 
 RNAInput = SeuratPreparing or RNAInput
@@ -405,7 +404,7 @@ class ClusterMarkersOfAllCells(MarkersFinder_):
     """  # noqa: E501
 
     envs = {
-        "cases": {"Cluster": {"group_by": "seurat_clusters"}},
+        "cases": {"Cluster": {"group_by": None}},
         "marker_plots_defaults": {"order_by": "desc(avg_log2FC)"},
         "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
         "allmarker_plots": {"Top 10 markers of all clusters": {"plot_type": "heatmap"}},
@@ -468,24 +467,6 @@ class ModuleScoreCalculator(ModuleScoreCalculator_):
 RNAInput = ModuleScoreCalculator or RNAInput
 
 
-@when("SeuratMap2Ref" in config, requires=RNAInput)
-@annotate.format_doc()
-class SeuratMap2Ref(SeuratMap2Ref_):
-    """{{Summary}}
-
-    Metadata:
-        The metadata of the `Seurat` object will be updated with the cluster
-        assignments (column name determined by `envs.name`):
-
-        ![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
-    """
-
-    input_data = lambda ch1: ch1.iloc[:, [0]]
-
-
-RNAInput = SeuratMap2Ref or RNAInput
-
-
 @when(
     "SeuratClustering" in config
     or (
@@ -506,6 +487,17 @@ class SeuratClustering(SeuratClustering_):
     all cells are T/B cells, this process will be run on all T/B cells. Otherwise,
     this process will be run on the selected T/B cells by
     [`TOrBCellSelection`](./TOrBCellSelection.md).
+
+    /// Note
+
+    If you have other annotation processes, including
+    [`SeuratMap2Ref`](./SeuratMap2Ref.md) process or
+    [`CellTypeAnnotation`](./CellTypeAnnotation.md) process enabled in the same run,
+    you can specify a different name for the column to store the cluster information
+    using `envs.ident`, so that the results from different
+    annotation processes won't overwrite each other.
+
+    ///
 
     SeeAlso:
         - [SeuratClusteringOfAllCells](./SeuratClusteringOfAllCells.md)
@@ -534,24 +526,23 @@ class CellTypeAnnotation(CellTypeAnnotation_):
     by default.
 
     /// Note
-    When supervised clustering [`SeuratMap2Ref`](./SeuratMap2Ref.md) is used, this
-    process will be ignored.
-    ///
 
-    /// Note
-    When cell types are annotated, the old `seurat_clusters` column will be renamed
-    to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.
+    If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
+    process or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run,
+    you may want to specify a different name for the column to store the annotated cell types
+    using `envs.newcol`, so that the results from different annotation processes won't overwrite each other.
+
     ///
 
     Metadata:
         When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
         the `Seurat` object will be kept as is.
 
-        When `envs.newcol` is specified, the original `seurat_clusters` column will
+        When `envs.newcol` is specified, the original identity column (e.g. `seurat_clusters`) will
         be kept is, and the annotated cell types will be saved in the new column.
-        Otherwise, the original `seurat_clusters` column will be replaced by the
-        annotated cell types and the original `seurat_clusters` column will be
-        saved at `seurat_clusters_id`.
+        Otherwise, the original identity column will be replaced by the
+        annotated cell types and the original identity column will be
+        saved at `envs.backup_col` (e.g. `seurat_clusters_id`).
 
         ![CellTypeAnnotation-metadata](images/CellTypeAnnotation-metadata.png)
 
@@ -562,6 +553,35 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
 
 RNAInput = CellTypeAnnotation or RNAInput
+
+
+@when("SeuratMap2Ref" in config, requires=RNAInput)
+@annotate.format_doc()
+class SeuratMap2Ref(SeuratMap2Ref_):
+    """{{Summary}}
+
+    /// Note
+
+    If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
+    process or [`CellTypeAnnotation`](./CellTypeAnnotation.md) process enabled in the same run,
+    you may want to specify a different name for the column to store the mapped cluster information
+    using `envs.ident`, so that the results from different annotation processes won't overwrite each other.
+
+    ///
+
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the cluster
+        assignments (column name determined by `envs.name`):
+
+        ![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
+    """  # noqa: E501
+
+    input_data = lambda ch1: ch1.iloc[:, [0]]
+    # Don't export the RDS/qs file
+    export = False
+
+
+RNAInput = SeuratMap2Ref or RNAInput
 
 
 @when("SeuratSubClustering" in config, requires=RNAInput)
@@ -741,7 +761,7 @@ class ClusterMarkers(MarkersFinder_):
 
     requires = RNAInput
     envs = {
-        "cases": {"Cluster": {"group_by": "seurat_clusters"}},
+        "cases": {"Cluster": {"group_by": None}},
         "marker_plots_defaults": {"order_by": "desc(avg_log2FC)"},
         "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
         "allmarker_plots": {"Top 10 markers of all clusters": {"plot_type": "heatmap"}},
@@ -799,13 +819,13 @@ class ScRepCombiningExpression(ScRepCombiningExpression_):
 CombinedInput = ScRepCombiningExpression or RNAInput
 
 
-@when(VDJInput and "TCRClustering" in config, requires=CombinedInput)
+@when(VDJInput and "CDR3Clustering" in config, requires=CombinedInput)
 @annotate.format_doc()
-class TCRClustering(TCRClustering_):
+class CDR3Clustering(CDR3Clustering_):
     """{{Summary.short}}
 
     You can disable this by remving the whole sections of
-    TCRClustering in the config file.
+    CDR3Clustering in the config file.
 
     {{*Summary.long}}
     """
@@ -814,19 +834,13 @@ class TCRClustering(TCRClustering_):
     order = 4
 
 
-CombinedInput = TCRClustering or CombinedInput
+CombinedInput = CDR3Clustering or CombinedInput
 
 
 @when(VDJInput and "TESSA" in config, requires=CombinedInput)
 @annotate.format_doc()
 class TESSA(TESSA_):
     """{{Summary}}
-
-    /// Note
-    The dependencies of TESSA are not included in the docker image of immunopipe
-    with tag without `-full` suffix. If you want to use TESSA, please use the
-    docker image with tag with `-full` suffix, or install the dependencies manually.
-    ///
 
     Metadata:
         The metadata of the `Seurat` object will be updated with the TESSA clusters

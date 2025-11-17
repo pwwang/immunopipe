@@ -1,5 +1,50 @@
 # Change Log
 
+## 2.2.0
+
+- BREAKING: restructure Docker workflows and update environment configurations using multiple-image/stage building, no "-full" suffix for image tags needed anymore.
+- BREAKING: rename TCRClustering to CDR3Clustering across documentation and codebase to adopt for BCR data
+- BREAKING: prevent export of RDS/qs files in SeuratPreparing and SeuratMap2Ref classes.
+  > NOTE that this may break reruning with cached SeuratPreparing and SeuratMap2Ref processes.
+  > The RDS/qs output files are no longer exported to output directory to reduce the report size. Instead, they are staying in the working directory for downstream processes to use.
+  > But the the figures will be still displayed in the report as before.
+- fix: swap SeuratMap2Ref and SeuratClustering to make sure graph doesn't get overwritten
+- fix: refactor VDJ configuration detection in validate_config when running with gbatch
+- fix: default group_by to None for ClusterMarkers/ClusterMarkersOfAllCells so default ident will be used
+- docs: update configuration options in getting started guide
+- docs: update notes in Seurat processes to prevent overwriting cluster information
+- docs: update column naming in SeuratClustering and CellTypeAnnotation documentation
+- docs: update figures after CDR3Clustering renaming
+- ci: add cache deletion step to save space in Docker workflow
+- test: update configuration files and tests
+- test: update assertions in test_route_sampleinfo_full for correct flow after refactoring
+- test: reorder assertions in test_route_sampleinfo_full for correct flow due to the swapping of SeuratMap2Ref and SeuratClustering
+- chore: bump biopipen version to 0.34.23 (related changes below)
+  - docs(scrna.SeuratPreparing): improve documentation for SeuratPreparing to make sure new lines in code blocks
+  - docs(scrna.SeuratClusterStats): enhance documentation for cluster statistics plots
+  - docs(tcr.ClonalStats): add exapmle configurations and plots
+  - docs(scrna.ScFGSEA): add examples and usage details for GSEA plots
+  - docs(CellCellCommunication): add example output for ligand-receptor interactions
+  - docs(CellCellCommunicationPlots): add examples for various plot types
+  - docs(scrna.MetabolicPathwayActivity): add merged heatmap example
+  - docs: improve documentation for SeuratPreparing to make sure new line… (#180)
+  - fix(scrna): update group_by assignment to use GetIdentityColumn
+  - feat(scrna.SeuratClustering): add envs.ident as shortcut for custom cluster name
+  - chore(scrna.SeuratClusterStats): set default group_by for dimplots to None
+  - docs(scrna): correct parameter names in docstring (ident-1 to ident_1, and ident-2 to ident-2)
+  - feat(scrna): add return option for identity column in convert_seurat_to_anndata function
+  - feat(scrna.CellCellCommunication): enhance groupby handling for Seurat objects
+  - feat(scrna.CellTypeAnnotation): add support for specifying identity column in CellTypeAnnotation for celltypist
+  - feat(scrna.CellTypeAnnotation): enhance identity column handling and add backup column support
+  - feat(scrna.CellTypeAnnotation): enhance classifier initialization and input handling for celltypist
+  - enh(scrna.MarkersFinder): add logging for plot processing in marker and enrichment functions
+  - feat(scrna.CellTypeAnnotation): require celltypist package with specified version and python interpreter
+  - docs(scrna): update dbs/gmtfile parameter description for enrichment analysis
+  - chore(scrna): update future.globals.maxSize to Inf for improved memory handling
+  - feat(tcr.CDR3Clustering): rename TCRClustering to CDR3Clustering and adopt BCR data
+  - docs(scrna.CellTypeAnnotation): clarify renaming of original identity column during cell type annotation
+  - see full changelog at <https://pwwang.github.io/biopipen/CHANGELOG/>.
+
 ## 2.1.3
 
 - docs: update docs for ClusterMarkers with examples

@@ -42,14 +42,24 @@ each gene set, and GSEA plots for the top gene sets.<br />
 - `ident_1`:
     The first group of cells to compare
 - `ident_2`:
-    The second group of cells to compare, if not provided, the rest of the cells that are not `NA`s in `group_by` column are used for `ident-2`.<br />
+    The second group of cells to compare, if not provided, the rest of the cells that are not `NA`s in `group_by` column are used for `ident_2`.<br />
 - `each`:
     The column name in metadata to separate the cells into different subsets to do the analysis.<br />
 - `subset`:
     An expression to subset the cells.<br />
 - `gmtfile`: *Default: `KEGG_2021_Human`*. <br />
     The pathways in GMT format, with the gene names/ids in the same format as the seurat object.<br />
-    One could also use a URL to a GMT file. For example, from <https://download.baderlab.org/EM_Genesets/current_release/Human/symbol/Pathways/>.<br />
+    You can use built-in dbs in `enrichit`, or provide your own gmt files.<br />
+    See also <https://pwwang.github.io/enrichit/reference/FetchGMT.html>.<br />
+    The built-in dbs include:<br />
+    * "BioCarta" or "BioCarta_2016"
+    * "GO_Biological_Process" or "GO_Biological_Process_2025"
+    * "GO_Cellular_Component" or "GO_Cellular_Component_2025"
+    * "GO_Molecular_Function" or "GO_Molecular_Function_2025"
+    * "KEGG", "KEGG_Human", "KEGG_2021", or "KEGG_2021_Human"
+    * "Hallmark", "MSigDB_Hallmark", or "MSigDB_Hallmark_2020"
+    * "Reactome", "Reactome_Pathways", or "Reactome_Pathways_2024"
+    * "WikiPathways", "WikiPathways_2024", "WikiPathways_Human", or "WikiPathways_2024_Human"
 - `method` *(`choice`)*: *Default: `s2n`*. <br />
     The method to do the preranking.<br />
     - `signal_to_noise`:
@@ -111,4 +121,31 @@ each gene set, and GSEA plots for the top gene sets.<br />
     The keys are the names of the cases and the values are the above options except `mutaters`.<br />
     If some options are not specified, the default values specified above will be used.<br />
     If no cases are specified, the default case will be added with the name `GSEA`.<br />
+
+## Examples
+
+### The summary and GSEA plots
+
+![GSEA summary](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/seurat_clusters/c1/summary.png){: width="80%"}
+
+![GSEA plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/seurat_clusters/c1/pathways.png){: width="80%"}
+
+### Summary plot for all subsets or idents
+
+If you use `each` to separate the cells into different subsets, this is useful to
+make a summary plot for all subsets. Or if you don't specify `ident_1`, the summary plot for all idents in `group_by` will be generated.<br />
+
+```toml
+[ScFGSEA.envs]
+group_by = "Diagnosis"
+ident_1 = "Colitis"
+ident_2 = "Control"
+each = "seurat_clusters"
+
+[ScFGSEA.envs.alleach_plots.Heatmap]
+plot_type = "heatmap"
+group_by = "Diagnosis"
+```
+
+![GSEA summary for all subsets](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/GSEA-all-seurat_clusters-/all.Heatmap.png){: width="80%"}
 

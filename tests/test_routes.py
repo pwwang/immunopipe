@@ -361,7 +361,7 @@ def test_route_sampleinfo_full(tmp_path):
         [CellTypeAnnotation]
         [TopExpressingGenes]
         [SeuratSubClustering]
-        [TCRClustering]
+        [CDR3Clustering]
         [TESSA]
         [MarkersFinder]
         [ScFGSEA]
@@ -396,14 +396,14 @@ def test_route_sampleinfo_full(tmp_path):
     )
     assert "TOrBCellSelection: >>> ['ModuleScoreCalculator']" in output
     assert "ModuleScoreCalculator: <<< ['TOrBCellSelection']" in output
-    assert "ModuleScoreCalculator: >>> ['SeuratMap2Ref']" in output
-    assert "SeuratMap2Ref: <<< ['ModuleScoreCalculator']" in output
-    assert "SeuratMap2Ref: >>> ['SeuratClustering']" in output
-    assert "SeuratClustering: <<< ['SeuratMap2Ref']" in output
+    assert "ModuleScoreCalculator: >>> ['SeuratClustering']" in output
+    assert "SeuratMap2Ref: <<< ['CellTypeAnnotation']" in output
+    assert "SeuratMap2Ref: >>> ['SeuratSubClustering']" in output
+    assert "SeuratClustering: <<< ['ModuleScoreCalculator']" in output
     assert "SeuratClustering: >>> ['CellTypeAnnotation']" in output
     assert "CellTypeAnnotation: <<< ['SeuratClustering']" in output
-    assert "CellTypeAnnotation: >>> ['SeuratSubClustering']" in output
-    assert "SeuratSubClustering: <<< ['CellTypeAnnotation']" in output
+    assert "CellTypeAnnotation: >>> ['SeuratMap2Ref']" in output
+    assert "SeuratSubClustering: <<< ['SeuratMap2Ref']" in output
     assert (
         "SeuratSubClustering: >>> ['ClusterMarkers', 'TopExpressingGenes', "
         "'ScRepCombiningExpression']" in output
@@ -412,14 +412,14 @@ def test_route_sampleinfo_full(tmp_path):
         "ScRepCombiningExpression: <<< ['ScRepLoading', 'SeuratSubClustering']"
         in output
     )
-    assert "ScRepCombiningExpression: >>> ['TCRClustering']" in output
+    assert "ScRepCombiningExpression: >>> ['CDR3Clustering']" in output
     assert "ClusterMarkers: <<< ['SeuratSubClustering']" in output
     assert "ClusterMarkers: >>> [END]" in output
     assert "TopExpressingGenes: <<< ['SeuratSubClustering']" in output
     assert "TopExpressingGenes: >>> [END]" in output
-    assert "TCRClustering: <<< ['ScRepCombiningExpression']" in output
-    assert "TCRClustering: >>> ['TESSA']" in output
-    assert "TESSA: <<< ['TCRClustering']" in output
+    assert "CDR3Clustering: <<< ['ScRepCombiningExpression']" in output
+    assert "CDR3Clustering: >>> ['TESSA']" in output
+    assert "TESSA: <<< ['CDR3Clustering']" in output
     assert (
         "TESSA: >>> "
         "['CellCellCommunication', 'SeuratClusterStats', 'ClonalStats', 'ScFGSEA', "

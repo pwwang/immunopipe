@@ -52,7 +52,7 @@ nav:
       # ScTCR-seq processes
       - 'ScRepLoading': 'processes/ScRepLoading.md'
       - 'ScRepCombiningExpression': 'processes/ScRepCombiningExpression.md'
-      - 'TCRClustering': 'processes/TCRClustering.md'
+      - 'CDR3Clustering': 'processes/CDR3Clustering.md'
       - 'TESSA': 'processes/TESSA.md'
       # Downstream processes
       - 'SeuratClusterStats': 'processes/SeuratClusterStats.md'

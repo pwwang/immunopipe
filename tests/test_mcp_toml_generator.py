@@ -271,7 +271,7 @@ class TestConfigTemplateGenerator:
         assert "TCR analysis configuration template" in template
         assert "name = \"tcr_analysis\"" in template
         assert "[TOrBCellSelection]" in template
-        assert "[TCRClustering]" in template
+        assert "[CDR3Clustering]" in template
         assert "[ClonalStats]" in template
 
     def test_generate_gbatch_template(self):

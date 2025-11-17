@@ -5,6 +5,15 @@ Map the seurat object to reference
 See: <https://satijalab.org/seurat/articles/integration_mapping.html>
 and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
 
+/// Note
+
+If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
+process or [`CellTypeAnnotation`](./CellTypeAnnotation.md) process enabled in the same run,
+you may want to specify a different name for the column to store the mapped cluster information
+using `envs.ident`, so that the results from different annotation processes won't overwrite each other.<br />
+
+///
+
 ## Input
 
 - `sobjfile`:

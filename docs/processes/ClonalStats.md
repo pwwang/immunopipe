@@ -33,8 +33,8 @@ information.<br />
         The length of the CDR3 sequences using [`ClonalLengthPlot`](https://pwwang.github.io/scplotter/reference/ClonalLengthPlot.html)
     - `residency`:
         The residency of the clones using [`ClonalResidencyPlot`](https://pwwang.github.io/scplotter/reference/ClonalResidencyPlot.html)
-    - `dynamics`:
-        The dynamics of the clones using [`ClonalDynamicsPlot`](https://pwwang.github.io/scplotter/reference/ClonalDynamicsPlot.html)
+    - `stats`:
+        The stats of the clones using [`ClonalStatsPlot`](https://pwwang.github.io/scplotter/reference/ClonalStatsPlot.html)
     - `composition`:
         The composition of the clones using [`ClonalCompositionPlot`](https://pwwang.github.io/scplotter/reference/ClonalCompositionPlot.html)
     - `overlap`:
@@ -83,4 +83,224 @@ information.<br />
     as the default section name (for example, when 'viz_type' is 'volume', the section name will be 'Clonal Volume').<br />
     When there is only a single case, the section name will default to 'DEFAULT', which will not be shown
     in the report.<br />
+
+## Examples
+
+### Clonal Volume
+
+```toml
+[ClonalStats.envs.cases."Clonal Volume"]
+viz_type = "volume"
+x_text_angle = 45
+```
+
+![Clonal_Volume](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Number-of-Clones/Clonal-Volume.png){: width="80%"}
+
+### Clonal Volume by Diagnosis
+
+```toml
+[ClonalStats.envs.cases."Clonal Volume by Diagnosis"]
+viz_type = "volume"
+x = "seurat_clusters"
+group_by = "Diagnosis"
+comparisons = true
+```
+
+![Clonal_Volume_by_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Number-of-Clones/Clonal-Volume-by-Diagnosis.png){: width="80%"}
+
+### Clonal Abundance
+
+```toml
+[ClonalStats.envs.cases."Clonal Abundance"]
+viz_type = "abundance"
+```
+
+![Clonal_Abundance](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Abundance/Clonal-Abundance.png){: width="80%"}
+
+### Clonal Abundance Density
+
+```toml
+[ClonalStats.envs.cases."Clonal Abundance Density"]
+viz_type = "abundance"
+plot_type = "density"
+```
+
+![Clonal_Abundance_Density](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Abundance/Clonal-Abundance-Density.png){: width="80%"}
+
+### CDR3 Length
+
+```toml
+[ClonalStats.envs.cases."CDR3 Length"]
+viz_type = "length"
+```
+
+![CDR3_Length](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Sequence-Length/CDR3-Length.png){: width="80%"}
+
+### CDR3 Length (Beta Chain)
+
+```toml
+[ClonalStats.envs.cases."CDR3 Length (Beta Chain)"]
+viz_type = "length"
+chain = "TRB"
+```
+
+![CDR3_Length_Beta_Chain](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Sequence-Length/CDR3-Length-Beta-Chain-.png){: width="80%"}
+
+### Clonal Residency
+
+```toml
+[ClonalStats.envs.cases."Clonal Residency"]
+viz_type = "residency"
+group_by = "Diagnosis"
+chain = "TRB"
+clone_call = "gene"
+groups = ["Colitis", "NoColitis"]
+```
+
+![Clonal_Residency](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Residency/Clonal-Residency.png){: width="80%"}
+
+### Clonal Residency (UpSet Plot)
+
+```toml
+[ClonalStats.envs.cases."Clonal Residency (UpSet Plot)"]
+viz_type = "residency"
+plot_type = "upset"
+group_by = "Diagnosis"
+chain = "TRB"
+clone_call = "gene"
+groups = ["Colitis", "NoColitis"]
+devpars = {width = 800}
+```
+
+![Clonal_Residency_UpSet_Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Residency/Clonal-Residency-UpSet-Plot-.png){: width="80%"}
+
+### Clonal Statistics with Expanded Clones
+
+```toml
+[ClonalStats.envs.cases."Clonal Statistics with Expanded Clones"]
+viz_type = "stat"
+plot_type = "pies"
+group_by = "Diagnosis"
+groups = ["Colitis", "NoColitis"]
+clones = {"Expanded Clones In Colitis" = "sel(Colitis > 2)", "Expanded Clones In NoColitis" = "sel(NoColitis > 2)"}
+subgroup_by = "seurat_clusters"
+pie_size = "sqrt"
+show_row_names = true
+show_column_names = true
+devpars = {width = 720}
+```
+
+![Clonal_Statistics_with_Expanded_Clones](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Statistics/Clonal-Statistics-with-Expanded-Clones.png){: width="80%"}
+
+### Hyperexpanded Clonal Dynamics
+
+```toml
+[ClonalStats.envs.cases."Hyperexpanded Clonal Dynamics"]
+viz_type = "stat"
+plot_type = "sankey"
+group_by = "Diagnosis"
+chain = "TRB"
+groups = ["Colitis", "NoColitis"]
+clones = {"Hyper-Expanded Clones In Colitis" = "sel(Colitis > 5)", "Hyper-Expanded Clones In NoColitis" = "sel(NoColitis > 5)"}
+devpars = {width = 800}
+```
+
+![Hyperexpanded_Clonal_Dynamics](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Statistics/Hyperexpanded-Clonal-Dynamics.png){: width="80%"}
+
+### Clonal Composition
+
+```toml
+[ClonalStats.envs.cases."Clonal Composition"]
+viz_type = "composition"
+x_text_angle = 45
+```
+
+![Clonal_Composition](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Composition.png){: width="80%"}
+
+### Clonal Overlapping
+
+```toml
+viz_type = "overlap"
+chain = "TRB"
+clone_call = "gene"
+```
+
+![Clonal_Overlapping](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Overlapping.png){: width="80%"}
+
+### Clonal Diversity
+
+```toml
+[ClonalStats.envs.cases."Clonal Diversity"]
+# method = "shannon"  # default
+viz_type = "diversity"
+x_text_angle = 45
+```
+
+![Clonal_Diversity](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Diversity/Clonal-Diversity.png){: width="80%"}
+
+### Clonal Diversity (gini.coeff, by Diagnosis)
+
+```toml
+[ClonalStats.envs.cases."Clonal Diversity (gini.coeff, by Diagnosis)"]
+method = "gini.coeff"
+viz_type = "diversity"
+plot_type = "box"
+group_by = "Diagnosis"
+comparisons = true
+devpars = {height = 600, width = 600}
+```
+
+![Clonal_Diversity_gini_coeff_by_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Diversity/Clonal-Diversity-gini-coeff-by-Diagnosis-.png){: width="80%"}
+
+### Gene Usage Frequency
+
+```toml
+[ClonalStats.envs.cases."Gene Usage Frequency"]
+viz_type = "geneusage"
+devpars = {width = 1200}
+```
+
+![Gene_Usage_Frequency](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Gene-Usage-Frequency.png){: width="80%"}
+
+### Positional amino acid frequency
+
+```toml
+[ClonalStats.envs.cases."Positional amino acid frequency"]
+viz_type = "positional"
+# method = "AA"  # default
+devpars = {width = 1600}
+```
+
+![Positional_amino_acid_frequency](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Positional-Properties/Positional-amino-acid-frequency.png){: width="80%"}
+
+### Positional shannon entropy
+
+```toml
+[ClonalStats.envs.cases."Positional shannon entropy"]
+viz_type = "positional"
+method = "shannon"
+devpars = {width = 1200}
+```
+
+![Positional_shannon_entropy](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Positional-Properties/Positional-shannon-entropy.png){: width="80%"}
+
+### 3-Mer Frequency
+
+```toml
+[ClonalStats.envs.cases."3-Mer Frequency"]
+viz_type = "kmer"
+k = 3  # default is 3
+devpars = {width = 800}
+```
+
+![3_Mer_Frequency](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/3-Mer-Frequency.png){: width="80%"}
+
+### Rarefaction Curve
+
+```toml
+[ClonalStats.envs.cases."Rarefaction Curve"]
+viz_type = "rarefaction"
+```
+
+![Rarefaction_Curve](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Rarefaction-Curve.png){: width="80%"}
 

@@ -234,7 +234,7 @@ class TestImmunopipeConfigTools:
 
             suggested = result.content["suggested_processes"]
             assert "SampleInfo" in suggested
-            assert "TCRClustering" in suggested
+            assert "CDR3Clustering" in suggested
             assert "ClonalStats" in suggested
 
     @pytest.mark.asyncio
