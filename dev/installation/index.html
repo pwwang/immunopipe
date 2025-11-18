@@ -198,26 +198,53 @@
 <p class="admonition-title">Tip</p>
 <p>If you plan to use the docker image to run the pipeline locally, you can skip this section.</p>
 </div>
-<p><code>immunopipe</code> is built upon <a href="https://github.com/pwwang/pipen"><code>pipen</code></a> framework, and a number of packages written in <code>R</code> and <code>python</code>. It's not recommended to install the packages manually. Instead, you can use the provided <code>environment.yml</code> to create a conda environment.</p>
+<p><code>immunopipe</code> is built upon <a href="https://github.com/pwwang/pipen"><code>pipen</code></a> framework, and a number of packages written in <code>R</code> and <code>python</code>. It's not recommended to install the packages manually. Instead, you can use the provided <code>environment_base.yml</code> to create a conda environment.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span>immunopipe<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-f<span class="w"> </span>https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment.yml
+<span class="w">    </span>-f<span class="w"> </span>https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_base.yml
 </code></pre></div>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>The <code>environment.yml</code> includes only a subset of the packages required by the pipeline. The dependencies of the <a href="../processes/TESSA/"><code>TESSA</code></a> process are not included.</p>
-<p>If you want to enable <a href="../processes/TESSA/"><code>TESSA</code></a> process , please use the <code>environment_full.yml</code> (<a href="https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_full.yml">https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_full.yml</a>) instead.</p>
-<p>See also <a href="../running/#choose-the-right-tag-of-the-docker-image">Choose the right tag of the docker image</a>.</p>
-</div>
+<p>Then update the environment with essential <code>R</code> packages:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>env<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span>immunopipe<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_rpkgs.yml
+</code></pre></div>
 <p>If the URL doesn't work, you can download the file and create the environment locally.</p>
 <p>For more detailed instructions of <code>conda env create</code>, please refer to <a href="https://docs.conda.io/projects/conda/en/latest/commands/env/create.html">conda docs</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using <code>celltypist</code> for cell type annotation:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[CellTypeAnnotation.envs]</span>
+<span class="n">tool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;celltypist&quot;</span>
+</code></pre></div>
+<p>Or if you are enabling <code>TESSA</code> and <code>CDR3Clustering</code> processes, you need to install additional dependencies, including <code>numpy</code> <code>v1</code>, which is not compatible with some other packages in the base environment. You can create a separate conda environment for these processes.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span>python_np1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_np1.yml
+</code></pre></div>
+<p>Then in your pipeline configuration file, specify the conda environment for these processes:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[CellTypeAnnotation.envs]</span>
+<span class="n">tool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;celltypist&quot;</span>
+
+<span class="w">  </span><span class="k">[CellTypeAnnotation.envs.celltypist_args]</span>
+<span class="w">  </span><span class="n">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;data/Immune_All_Low.pkl&quot;</span>
+<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/path/to/conda/envs/python_np1/bin/python&quot;</span>
+
+<span class="k">[CDR3Clustering]</span>
+<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/path/to/conda/envs/python_np1/bin/python&quot;</span>
+
+<span class="k">[TESSA.envs]</span>
+<span class="n">predefined_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/path/to/conda/envs/python_np1/bin/python&quot;</span>
+</code></pre></div>
+</div>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>The pipeline itself is NOT included in the conda environment. You need to install it separately.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>activate<span class="w"> </span>immunopipe
 $<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>immunopipe
 $<span class="w"> </span><span class="c1"># If you want to create diagram and generate running information</span>
-$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>immunopipe<span class="o">[</span>diagram,runinfo<span class="o">]</span>
+$<span class="w"> </span><span class="c1"># or use the dry run scheduler, install with the extras</span>
+$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>immunopipe<span class="o">[</span>diagram,runinfo,dry<span class="o">]</span>
 $<span class="w"> </span><span class="c1"># You also need to install the frontend dependencies to generate reports</span>
 $<span class="w"> </span>pipen<span class="w"> </span>report<span class="w"> </span>update
 </code></pre></div>
@@ -244,11 +271,10 @@ $<span class="w"> </span>pipen<span class="w"> </span>report<span class="w"> </s
 </div>
 <p>To run the pipeline use the image, please refer to <a href="../running/">Running the pipeline</a>.</p>
 <h4 id="the-directory-structure-in-the-container">The directory structure in the container<a class="headerlink" href="#the-directory-structure-in-the-container" title="Permanent link">&para;</a></h4>
-<p>The docker image is build upon <a href="https://hub.docker.com/layers/mambaorg/micromamba/1.4.3/images/sha256-0251b94151c021c85d3e4f4ffe1fc81c436f18e01337d3b367d0f7c76ee716ac?context=explore"><code>mambaorg/micromamba:1.4.3</code></a>. The OS is linux/amd64. Other than the default directories, the following directories are also created or should be mapped during the run:</p>
+<p>The docker image is build upon <a href="https://hub.docker.com/layers/mambaorg/micromamba/1.4.3/images/sha256-0251b94151c021c85d3e4f4ffe1fc81c436f18e01337d3b367d0f7c76ee716ac?context=explore"><code>mambaorg/micromamba:2.3.0</code></a>. The OS is linux/amd64. Other than the default directories, the following directories are also created or should be mapped during the run:</p>
 <ul>
 <li><code>/immunopipe</code>: The directory where the source code of the pipeline is. It is general a clone of the <a href="https://github.com/pwwang/immunopipe">repository</a>. The pipeline is also installed from this directory.</li>
 <li><code>/workdir</code>: The working directory. It is the directory where the pipeline is run. It is recommended to map the current directory (<code>.</code>) to this directory.</li>
-<li><code>/data</code>: An empty directory. You can map your data directory to this directory.</li>
 </ul>
 <h3 id="prepare-to-run-the-pipeline-via-google-batch-jobs">Prepare to run the pipeline via Google Batch Jobs<a class="headerlink" href="#prepare-to-run-the-pipeline-via-google-batch-jobs" title="Permanent link">&para;</a></h3>
 <p>There are two ways of running the pipeline via Google Batch Jobs: using the <code>gbatch</code> scheduler (provided by <a href="https://github.com/pwwang/xqute"><code>xqute</code></a>) or using <a href="https://github.com/pwwang/pipen-cli-gbatch"><code>pipen-cli-gbatch</code></a>. See more details in <a href="../running/#run-the-pipeline-using-google-cloud-batch-jobs">Running the pipeline via Google Batch Jobs</a>.</p>
