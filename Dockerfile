@@ -12,6 +12,7 @@ RUN fc-cache -f -v && \
     python -m poetry config virtualenvs.create false && \
     python -m poetry install --no-cache -v -E runinfo -E diagram -E dry && \
     python -m pip cache purge && \
+    python -m poetry cache clear --all pypi && \
     pipen report update && \
     echo "cache=/tmp/npm-cache" > /home/mambauser/.npmrc && \
     ln -s /opt/conda/envs/numpy_v1/bin/python /opt/conda/bin/python_np1 && \
