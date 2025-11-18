@@ -249,6 +249,10 @@ You can't skip some processes that are depended by other processes, if other pro
 scheduler = "dry"
 ```
 
+You need to install the [`pipen-dry`][5] package to use the `dry` scheduler. If you are using the docker image to run the pipeline, it is already included in the image.
+
+```shell
+
 ///
 
 <p> </p>
@@ -257,3 +261,4 @@ scheduler = "dry"
 [2]: https://github.com/pwwang/pipen
 [3]: https://github.com/pwwang/xqute
 [4]: https://apptainer.org/
+[5]: https://github.com/pwwang/pipen-dry
