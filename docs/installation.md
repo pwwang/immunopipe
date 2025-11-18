@@ -6,25 +6,62 @@
 If you plan to use the docker image to run the pipeline locally, you can skip this section.
 ///
 
-`immunopipe` is built upon [`pipen`](https://github.com/pwwang/pipen) framework, and a number of packages written in `R` and `python`. It's not recommended to install the packages manually. Instead, you can use the provided `environment.yml` to create a conda environment.
+`immunopipe` is built upon [`pipen`](https://github.com/pwwang/pipen) framework, and a number of packages written in `R` and `python`. It's not recommended to install the packages manually. Instead, you can use the provided `environment_base.yml` to create a conda environment.
 
 ```shell
 $ conda env create \
     -n immunopipe \
-    -f https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment.yml
+    -f https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_base.yml
 ```
 
-/// Attention
-The `environment.yml` includes only a subset of the packages required by the pipeline. The dependencies of the [`TESSA`](processes/TESSA.md) process are not included.
+Then update the environment with essential `R` packages:
 
-If you want to enable [`TESSA`](processes/TESSA.md) process , please use the `environment_full.yml` (<https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_full.yml>) instead.
-
-See also [Choose the right tag of the docker image](running.md#choose-the-right-tag-of-the-docker-image).
-///
+```shell
+$ conda env update \
+    -n immunopipe \
+    -f https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_rpkgs.yml
+```
 
 If the URL doesn't work, you can download the file and create the environment locally.
 
 For more detailed instructions of `conda env create`, please refer to [conda docs](https://docs.conda.io/projects/conda/en/latest/commands/env/create.html).
+
+/// Note
+
+If you are using `celltypist` for cell type annotation:
+
+```toml
+[CellTypeAnnotation.envs]
+tool = "celltypist"
+```
+
+Or if you are enabling `TESSA` and `CDR3Clustering` processes, you need to install additional dependencies, including `numpy` `v1`, which is not compatible with some other packages in the base environment. You can create a separate conda environment for these processes.
+
+```shell
+$ conda env create \
+    -n python_np1 \
+    -f https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_np1.yml
+```
+
+Then in your pipeline configuration file, specify the conda environment for these processes:
+
+```toml
+[CellTypeAnnotation.envs]
+tool = "celltypist"
+
+  [CellTypeAnnotation.envs.celltypist_args]
+  model = "data/Immune_All_Low.pkl"
+  python = "/path/to/conda/envs/python_np1/bin/python"
+
+[CDR3Clustering]
+  python = "/path/to/conda/envs/python_np1/bin/python"
+
+[TESSA.envs]
+predefined_b = true
+python = "/path/to/conda/envs/python_np1/bin/python"
+```
+
+///
 
 /// Attention
 The pipeline itself is NOT included in the conda environment. You need to install it separately.
@@ -33,7 +70,8 @@ The pipeline itself is NOT included in the conda environment. You need to instal
 $ conda activate immunopipe
 $ pip install -U immunopipe
 $ # If you want to create diagram and generate running information
-$ pip install -U immunopipe[diagram,runinfo]
+$ # or use the dry run scheduler, install with the extras
+$ pip install -U immunopipe[diagram,runinfo,dry]
 $ # You also need to install the frontend dependencies to generate reports
 $ pipen report update
 ```
@@ -70,11 +108,10 @@ To run the pipeline use the image, please refer to [Running the pipeline](./runn
 
 ### The directory structure in the container
 
-The docker image is build upon [`mambaorg/micromamba:1.4.3`][1]. The OS is linux/amd64. Other than the default directories, the following directories are also created or should be mapped during the run:
+The docker image is build upon [`mambaorg/micromamba:2.3.0`][1]. The OS is linux/amd64. Other than the default directories, the following directories are also created or should be mapped during the run:
 
 - `/immunopipe`: The directory where the source code of the pipeline is. It is general a clone of the [repository][2]. The pipeline is also installed from this directory.
 - `/workdir`: The working directory. It is the directory where the pipeline is run. It is recommended to map the current directory (`.`) to this directory.
-- `/data`: An empty directory. You can map your data directory to this directory.
 
 ## Prepare to run the pipeline via Google Batch Jobs
 
