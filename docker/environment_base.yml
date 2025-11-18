@@ -22,7 +22,6 @@ dependencies:
   - pwwang::bioconductor-data-packages
   - bioconductor-fgsea
   - bioconductor-scater
-  - bioconductor-destiny
   - bioconductor-glmgampoi
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
   - bioconda::bioconductor-deseq2
@@ -40,6 +39,79 @@ dependencies:
   - r-seuratwrappers
   - r-harmony
   - r-future
-  # - r-biopipen.utils
+  # needed by r-biopipen.utils
+  - r-bracer
+  - r-digest
+  - r-doubletfinder
+  - r-jsonlite
+  - r-r6
+  - r-seurat
+  - r-testthat
+  - r-tibble
+  - r-tidyseurat
+  - r-zip
+  - bioconda::bioconductor-biocparallel
+  - bioconda::bioconductor-mygene
+  - bioconda::bioconductor-scdblfinder
+  - pwwang::r-seuratdisk
+  - r-qs2
+  # Needed by r-scplotter
+  - r-callr
+  - r-seuratobject
+  - pwwang::bioconductor-screpertoire=2.2
+  - r-gridgraphics
+  - r-metap
+  - pwwang::r-tidyprompt
+  # Needed by r-plotthis
+  - r-circlize
+  - r-ggplot2
+  - r-rlang
+  - r-dplyr
+  - r-tidyr
+  - r-glue
+  - r-forcats
+  - r-gtable
+  - r-reshape2
+  - r-stringr
+  - r-scales
+  - r-gridtext
+  - r-patchwork
+  - r-ggrepel
+  - r-ggnewscale
+  - r-cowplot
+  - r-zoo
+  # Suggests
+  - r-matrix
+  - r-alluvial
+  - bioconda::bioconductor-complexheatmap
+  - r-cluster  # implictly required by bioconductor-complexheatmap
+  - r-clustree
+  - r-ggwordcloud
+  - r-ggalluvial
+  - r-ggvenndiagram
+  - r-ggupset
+  - r-ggpubr
+  - r-ggforce
+  - r-ggraph
+  - r-ggridges
+  - pwwang::bioconductor-ggmanh
+  - r-qqplotr
+  - r-hexbin
+  - r-igraph
+  - r-inext
+  - r-scattermore
+  - r-sf
+  - r-terra
+  - r-concaveman
+  - r-plotroc
+  - r-optimalcutpoints
+  - r-proxyc
+  - r-metr
+  # Needed by r-enrichit
+  - r-httr
+  - bioconductor-qvalue
+  # Needed by r-gglogger
+  - r-cli
+  - r-s7
   - pip:
     - liana
