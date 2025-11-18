@@ -70,14 +70,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "0.34.23"
+version = "0.34.24"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-0.34.23-py3-none-any.whl", hash = "sha256:b58b6502c7eefbe094cd882b9cf5a3b8915d8d3f4324af22e7aedc5a7b728d4c"},
-    {file = "biopipen-0.34.23.tar.gz", hash = "sha256:9a873059fb72b83a286aa94102e3e8eb77d745c2f9ec006ad887a501a769c08f"},
+    {file = "biopipen-0.34.24-py3-none-any.whl", hash = "sha256:d755f8c01b2eeda12ec0ea81a13ec9c8d77552aee895de87ed6c059c891125bb"},
+    {file = "biopipen-0.34.24.tar.gz", hash = "sha256:d95eec0d34ed0e6e00a06116ae0ea9ec92897ef3167c88c764419e8dba93855b"},
 ]
 
 [package.dependencies]
@@ -877,15 +877,15 @@ grpc = ["grpcio (>=1.38.0,<2.0.0) ; python_version < \"3.14\"", "grpcio (>=1.75.
 
 [[package]]
 name = "google-cloud-storage"
-version = "3.5.0"
+version = "3.6.0"
 description = "Google Cloud Storage API client library"
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "google_cloud_storage-3.5.0-py3-none-any.whl", hash = "sha256:e28fd6ad8764e60dbb9a398a7bc3296e7920c494bc329057d828127e5f9630d3"},
-    {file = "google_cloud_storage-3.5.0.tar.gz", hash = "sha256:10b89e1d1693114b3e0ca921bdd28c5418701fd092e39081bb77e5cee0851ab7"},
+    {file = "google_cloud_storage-3.6.0-py3-none-any.whl", hash = "sha256:5decbdddd63b7d1fc3e266a393ad6453d2e27d172bd982b1e2f15481668db097"},
+    {file = "google_cloud_storage-3.6.0.tar.gz", hash = "sha256:29cc6b9a6c0fc9cdad071e375d540a5a50fbc9a7fad8300fa02fb904f6fe2ca2"},
 ]
 
 [package.dependencies]
@@ -950,23 +950,23 @@ testing = ["pytest"]
 
 [[package]]
 name = "google-resumable-media"
-version = "2.7.2"
+version = "2.8.0"
 description = "Utilities for Google Media Downloads and Resumable Uploads"
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "google_resumable_media-2.7.2-py2.py3-none-any.whl", hash = "sha256:3ce7551e9fe6d99e9a126101d2536612bb73486721951e9562fee0f90c6ababa"},
-    {file = "google_resumable_media-2.7.2.tar.gz", hash = "sha256:5280aed4629f2b60b847b0d42f9857fd4935c11af266744df33d8074cae92fe0"},
+    {file = "google_resumable_media-2.8.0-py3-none-any.whl", hash = "sha256:dd14a116af303845a8d932ddae161a26e86cc229645bc98b39f026f9b1717582"},
+    {file = "google_resumable_media-2.8.0.tar.gz", hash = "sha256:f1157ed8b46994d60a1bc432544db62352043113684d4e030ee02e77ebe9a1ae"},
 ]
 
 [package.dependencies]
-google-crc32c = ">=1.0,<2.0dev"
+google-crc32c = ">=1.0.0,<2.0.0"
 
 [package.extras]
-aiohttp = ["aiohttp (>=3.6.2,<4.0.0dev)", "google-auth (>=1.22.0,<2.0dev)"]
-requests = ["requests (>=2.18.0,<3.0.0dev)"]
+aiohttp = ["aiohttp (>=3.6.2,<4.0.0)", "google-auth (>=1.22.0,<2.0.0)"]
+requests = ["requests (>=2.18.0,<3.0.0)"]
 
 [[package]]
 name = "googleapis-common-protos"
@@ -3432,4 +3432,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "8bcc3faa55527072b65dfd4de99af4a88e789a47203e9d816af3559fcd58a566"
+content-hash = "4cf44b12274b58ec6c21648cb4b69f65e680828be073d8362a7739e13a2e7784"
