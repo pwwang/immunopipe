@@ -84,7 +84,7 @@ jobs:
       - name: Check if rpkgs files changed
         id: check_changes
         run: |
-          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '^(docker/environment_rpkgs\.yml|Dockerfile\.rpkgs)$'; then
+          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '^(docker/environment_(base|rpkgs)\.yml|Dockerfile\.(base|rpkgs))$'; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
