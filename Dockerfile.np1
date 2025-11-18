@@ -6,6 +6,7 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 # Install dependencies and make /data for future mounting
 RUN micromamba env create -n numpy_v1 -f /immunopipe/docker/environment_np1.yml && \
-    micromamba clean --all --yes
+    micromamba clean --all --yes && \
+    rm -rf /opt/conda/pkgs/*
 
 ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh" ]
