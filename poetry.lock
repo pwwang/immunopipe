@@ -346,6 +346,7 @@ description = "A library for rendering project templates."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
+markers = "python_version < \"3.10\""
 files = [
     {file = "copier-9.10.3-py3-none-any.whl", hash = "sha256:7165239566f68e9e36c148f71e0552bf1e4911eef96bfa7cf33e6a0dbfed3c96"},
     {file = "copier-9.10.3.tar.gz", hash = "sha256:6e965d8f719678ee3bc5e611ef0d1b182d6b01a3d5385a5f1ba43aaade51caf7"},
@@ -355,6 +356,35 @@ files = [
 colorama = ">=0.4.6"
 dunamai = ">=1.7.0"
 eval-type-backport = {version = ">=0.1.3,<0.3.0", markers = "python_version < \"3.10\""}
+funcy = ">=1.17"
+jinja2 = ">=3.1.5"
+jinja2-ansible-filters = ">=1.3.1"
+packaging = ">=23.0"
+pathspec = ">=0.9.0"
+platformdirs = ">=4.3.6"
+plumbum = ">=1.6.9"
+pydantic = ">=2.4.2"
+pygments = ">=2.7.1"
+pyyaml = ">=5.3.1"
+questionary = ">=1.8.1"
+typing-extensions = {version = ">=4.0.0,<5.0.0", markers = "python_version < \"3.11\""}
+
+[[package]]
+name = "copier"
+version = "9.11.0"
+description = "A library for rendering project templates."
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+markers = "python_version >= \"3.10\""
+files = [
+    {file = "copier-9.11.0-py3-none-any.whl", hash = "sha256:628adac090f7b333bb64bf5cab03456b99971a77e4d5b2b979e30b8451cbda9d"},
+    {file = "copier-9.11.0.tar.gz", hash = "sha256:e73d6989fa140b621a5c571984c46122704086a9caa84a6e07699a5234d297ab"},
+]
+
+[package.dependencies]
+colorama = ">=0.4.6"
+dunamai = ">=1.7.0"
 funcy = ">=1.17"
 jinja2 = ">=3.1.5"
 jinja2-ansible-filters = ">=1.3.1"
@@ -729,15 +759,15 @@ tests = ["pytest"]
 
 [[package]]
 name = "exceptiongroup"
-version = "1.3.0"
+version = "1.3.1"
 description = "Backport of PEP 654 (exception groups)"
 optional = false
 python-versions = ">=3.7"
 groups = ["main", "dev"]
 markers = "python_version <= \"3.10\""
 files = [
-    {file = "exceptiongroup-1.3.0-py3-none-any.whl", hash = "sha256:4d111e6e0c13d0644cad6ddaa7ed0261a0b36971f6d23e7ec9b4b9097da78a10"},
-    {file = "exceptiongroup-1.3.0.tar.gz", hash = "sha256:b241f5885f560bc56a59ee63ca4c6a8bfa46ae4ad651af316d4e81817bb9fd88"},
+    {file = "exceptiongroup-1.3.1-py3-none-any.whl", hash = "sha256:a7a39a3bd276781e98394987d3a5701d0c4edffb633bb7a5144577f82c773598"},
+    {file = "exceptiongroup-1.3.1.tar.gz", hash = "sha256:8b412432c6055b0b7d14c310000ae93352ed6754f70fa8f7c34141f91c4e3219"},
 ]
 
 [package.dependencies]
@@ -1931,15 +1961,15 @@ report = ["pipen-report (>=0.23,<0.24)"]
 
 [[package]]
 name = "pipen-cli-gbatch"
-version = "0.1.4"
+version = "0.1.5"
 description = "A pipen cli plugin to run command via Google Cloud Batch"
 optional = true
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "pipen_cli_gbatch-0.1.4-py3-none-any.whl", hash = "sha256:42c25c98ba7ba39a4c0bb8b15daa7b3ce1a783843ce050f30e8d78db3a4227de"},
-    {file = "pipen_cli_gbatch-0.1.4.tar.gz", hash = "sha256:36ccb30e69f285a09f68c2a574798b78cd75d31c1c0ebd00111e568806a30d28"},
+    {file = "pipen_cli_gbatch-0.1.5-py3-none-any.whl", hash = "sha256:5d535d10fc545c39be1f02bd29e9662a2a85cc981a9b1b466c873860bc9fbfc9"},
+    {file = "pipen_cli_gbatch-0.1.5.tar.gz", hash = "sha256:98e1f9133a9f8a8d219a8288ed41db059fb495fe768b28ea8d0ca09f9c6d8f6e"},
 ]
 
 [package.dependencies]
@@ -3350,15 +3380,15 @@ h11 = ">=0.9.0,<1"
 
 [[package]]
 name = "wsproto"
-version = "1.3.1"
+version = "1.3.2"
 description = "Pure-Python WebSocket protocol implementation"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 markers = "python_version >= \"3.10\""
 files = [
-    {file = "wsproto-1.3.1-py3-none-any.whl", hash = "sha256:297ce79322989c0d286cc158681641cd18bc7632dfb38cf4054696a89179b993"},
-    {file = "wsproto-1.3.1.tar.gz", hash = "sha256:81529992325c28f0d9b86ca66fc973da96eb80ab53410249ce2e502749c7723c"},
+    {file = "wsproto-1.3.2-py3-none-any.whl", hash = "sha256:61eea322cdf56e8cc904bd3ad7573359a242ba65688716b0710a5eb12beab584"},
+    {file = "wsproto-1.3.2.tar.gz", hash = "sha256:b86885dcf294e15204919950f666e06ffc6c7c114ca900b060d6e16293528294"},
 ]
 
 [package.dependencies]
@@ -3390,14 +3420,14 @@ gs = ["google-cloud-storage (>=3,<4)"]
 
 [[package]]
 name = "yunpath"
-version = "0.1.0"
+version = "0.1.1"
 description = "Monkey patch cloudpathlib to fix issues or add features"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "yunpath-0.1.0-py3-none-any.whl", hash = "sha256:a1e62ebfcd615e8aafe85353afe86c29f21e32df0d61048e6f4077a502393ffa"},
-    {file = "yunpath-0.1.0.tar.gz", hash = "sha256:939c386b1121260cb2e28dfe03c363d63f503e010a1174786d9729682f382c13"},
+    {file = "yunpath-0.1.1-py3-none-any.whl", hash = "sha256:c78a39100890410285bab1e8a80019db43b108a9cd6e51f61e486d7f181d682c"},
+    {file = "yunpath-0.1.1.tar.gz", hash = "sha256:ed9531c5fa522213f9ec55bf772a5d9008067d757c8e3ee4d0840b0db9eab31c"},
 ]
 
 [package.dependencies]
