@@ -70,14 +70,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "0.34.25"
+version = "0.34.26"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-0.34.25-py3-none-any.whl", hash = "sha256:9d04f84260d14466a58a9b0a530f2a8bd7dbae3b6e51c159afc53c18181f7128"},
-    {file = "biopipen-0.34.25.tar.gz", hash = "sha256:06098bcfa0da59f44e9d1ae650c62e5db6ea75c5a6545ce4a20e32e71970d131"},
+    {file = "biopipen-0.34.26-py3-none-any.whl", hash = "sha256:6b293e9b53703c68e98210552936bcd7cc63d1d643b1a2e40c7501cc7b9c4d25"},
+    {file = "biopipen-0.34.26.tar.gz", hash = "sha256:31d04687af1e192fea399f8d1c737d24b647d22dd8225311782c801670ff101e"},
 ]
 
 [package.dependencies]
@@ -90,6 +90,7 @@ pipen-poplog = ">=0.3,<0.4"
 pipen-verbose = ">=0.14,<0.15"
 
 [package.extras]
+log2file = ["pipen-log2file (>=0.10.2,<0.11.0)"]
 runinfo = ["pipen-runinfo (>=0.9,<0.10)"]
 
 [[package]]
@@ -3463,4 +3464,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "e29355cc3ce410eab0757f67f9732dd319c30220f16c1e11a62d0ce96ce4e615"
+content-hash = "732fbf7695834197bcb8c5ee2b980186fcde289d3bf683b6607439745f5b47d8"
