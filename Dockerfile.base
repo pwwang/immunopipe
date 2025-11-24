@@ -6,6 +6,9 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && \
     micromamba clean --all --yes && \
-    rm -rf /opt/conda/pkgs/*
+    python -m venv /opt/conda/py_envs/numpy_v1 && \
+    /opt/conda/py_envs/numpy_v1/bin/pip install --no-cache-dir -r /immunopipe/docker/requirements_np1.txt && \
+    rm -rf /opt/conda/pkgs/* && \
+    rm -rf /home/$MAMBA_USER/.cache/pip/*
 
 ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh" ]

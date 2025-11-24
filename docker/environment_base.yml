@@ -4,6 +4,8 @@ channels:
   - r
   - bioconda
   - nodefaults
+  - pytorch  # for ClusTCR
+  - svalkiers  # for ClusTCR
 dependencies:
   - nodejs=22  # pipen-report
   - python=3.10
@@ -113,5 +115,7 @@ dependencies:
   # Needed by r-gglogger
   - r-cli
   - r-s7
+  - faiss-cpu  # for GIANA
+  - clustcr
   - pip:
     - liana
