@@ -17,7 +17,6 @@ RUN fc-cache -f -v && \
     echo "cache=/tmp/npm-cache" > /home/mambauser/.npmrc && \
     echo -e '#!/bin/bash\nexec /opt/conda/py_envs/numpy_v1/bin/python "$@"' > /opt/conda/bin/python_np1 && \
     chmod +x /opt/conda/bin/python_np1 && \
-    ln -s /opt/conda/py_envs/numpy_v1/bin/python /opt/conda/bin/python_np1 && \
     ln -s $(/opt/conda/bin/python -c "import biopipen; print(biopipen.__path__[0])") \
         $(/opt/conda/bin/python_np1 -c "import sysconfig; print(sysconfig.get_path('purelib'))")
 
