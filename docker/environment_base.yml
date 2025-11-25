@@ -115,7 +115,7 @@ dependencies:
   # Needed by r-gglogger
   - r-cli
   - r-s7
-  - faiss-cpu  # for GIANA
+  # - faiss-cpu  # for GIANA
   - clustcr
   - pip:
     - liana

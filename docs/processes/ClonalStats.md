@@ -68,6 +68,8 @@ information.<br />
     Whether to save the code used to generate the plots
     Note that the data directly used to generate the plots will also be saved in an `rda` file.<br />
     Be careful if the data is large as it may take a lot of disk space.<br />
+- `save_data` *(`flag`)*: *Default: `False`*. <br />
+    Whether to save the data used to generate the plot.<br />
 - `descr`:
     The description of the plot, used to show in the report.<br />
 - `<more>`:

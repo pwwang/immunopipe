@@ -534,6 +534,14 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
     ///
 
+    /// Tip
+
+    If you are using docker image to run the pipeline, you can use
+    `envs.celltypist_args.python = "python_np1"` to use the python environment when
+    you choose `celltypist` as the tool for cell type annotation.
+
+    ///
+
     Metadata:
         When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
         the `Seurat` object will be kept as is.
@@ -822,12 +830,15 @@ CombinedInput = ScRepCombiningExpression or RNAInput
 @when(VDJInput and "CDR3Clustering" in config, requires=CombinedInput)
 @annotate.format_doc()
 class CDR3Clustering(CDR3Clustering_):
-    """{{Summary.short}}
+    """{{Summary}}
 
-    You can disable this by remving the whole sections of
-    CDR3Clustering in the config file.
+    /// Tip
 
-    {{*Summary.long}}
+    If you are using docker image to run the pipeline, you can use
+    `envs.python = "python_np1"` to use the python environment when
+    you choose GIANA as the tool for CDR3 clustering.
+
+    ///
     """
 
     input_data = lambda ch1: ch1.iloc[:, [0]]
@@ -841,6 +852,14 @@ CombinedInput = CDR3Clustering or CombinedInput
 @annotate.format_doc()
 class TESSA(TESSA_):
     """{{Summary}}
+
+    /// Tip
+
+    If you are using docker image to run the pipeline, you can use
+    `envs.python = "python_np1"` to use the python environment with
+    necessary python packages installed.
+
+    ///
 
     Metadata:
         The metadata of the `Seurat` object will be updated with the TESSA clusters

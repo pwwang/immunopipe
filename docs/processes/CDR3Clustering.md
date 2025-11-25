@@ -2,9 +2,6 @@
 
 Cluster the TCR/BCR clones by their CDR3 sequences
 
-You can disable this by remving the whole sections of
-CDR3Clustering in the config file.<br />
-
 This process is used to cluster TCR/BCR clones based on their CDR3 sequences.<br />
 
 It uses either
@@ -37,6 +34,14 @@ The cluster assignments are prefixed with `S_` or `M_` to indicate whether a
 cluster has only one unique CDR3 sequence or multiple CDR3 sequences.<br />
 Note that a cluster with `S_` prefix may still have multiple cells, as the same
 CDR3 sequence may be shared by multiple cells.<br />
+
+/// Tip
+
+If you are using docker image to run the pipeline, you can use
+`envs.python = "python_np1"` to use the python environment when
+you choose GIANA as the tool for CDR3 clustering.<br />
+
+///
 
 ## Input
 

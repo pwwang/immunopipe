@@ -23,6 +23,14 @@ When finished, two columns will be added to the `meta.data` of the `Seurat` obje
 These columns can be then used for further downstream analysis to explore the
 functional landscape of the TCR repertoire.<br />
 
+/// Tip
+
+If you are using docker image to run the pipeline, you can use
+`envs.python = "python_np1"` to use the python environment with
+necessary python packages installed.<br />
+
+///
+
 ## Input
 
 - `screpdata`:

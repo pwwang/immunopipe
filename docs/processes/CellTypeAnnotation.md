@@ -35,6 +35,14 @@ using `envs.newcol`, so that the results from different annotation processes won
 
 ///
 
+/// Tip
+
+If you are using docker image to run the pipeline, you can use
+`envs.celltypist_args.python = "python_np1"` to use the python environment when
+you choose `celltypist` as the tool for cell type annotation.<br />
+
+///
+
 ## Input
 
 - `sobjfile`:
