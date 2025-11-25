@@ -36,6 +36,8 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && 
     rm -rf /opt/conda/libexec/gcc && \
     rm -rf /opt/conda/x86_64-conda-linux-gnu && \
     # Remove compiler executables (gcc, g++, etc.)
-    find /opt/conda/bin -name "x86_64-conda-linux-gnu-*" -delete
+    find /opt/conda/bin -name "x86_64-conda-linux-gnu-*" -delete && \
+    # --- TensorFlow Specific Cleanup ---
+    rm -rf /opt/conda/py_envs/numpy_v1/lib/python*/site-packages/tensorflow/include
 
 ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh" ]
