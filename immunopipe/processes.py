@@ -830,17 +830,6 @@ CombinedInput = ScRepCombiningExpression or RNAInput
 @when(VDJInput and "CDR3Clustering" in config, requires=CombinedInput)
 @annotate.format_doc()
 class CDR3Clustering(CDR3Clustering_):
-    """{{Summary}}
-
-    /// Tip
-
-    If you are using docker image to run the pipeline, you can use
-    `envs.python = "python_np1"` to use the python environment when
-    you choose GIANA as the tool for CDR3 clustering.
-
-    ///
-    """
-
     input_data = lambda ch1: ch1.iloc[:, [0]]
     order = 4
 
