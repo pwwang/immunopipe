@@ -534,14 +534,6 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
     ///
 
-    /// Tip
-
-    If you are using docker image to run the pipeline, you can use
-    `envs.celltypist_args.python = "python_np1"` to use the python environment when
-    you choose `celltypist` as the tool for cell type annotation.
-
-    ///
-
     Metadata:
         When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
         the `Seurat` object will be kept as is.
@@ -841,14 +833,6 @@ CombinedInput = CDR3Clustering or CombinedInput
 @annotate.format_doc()
 class TESSA(TESSA_):
     """{{Summary}}
-
-    /// Tip
-
-    If you are using docker image to run the pipeline, you can use
-    `envs.python = "python_np1"` to use the python environment with
-    necessary python packages installed.
-
-    ///
 
     Metadata:
         The metadata of the `Seurat` object will be updated with the TESSA clusters

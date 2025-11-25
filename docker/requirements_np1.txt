@@ -1,7 +1,0 @@
-# Packages that need numpy v1.x
-biopython==1.79  # for GIANA
-scikit-learn==1.5.1  # for GIANA
-celltypist
-keras  # TESSA
-tensorflow==2.15  # TESSA
-numpy<2.0

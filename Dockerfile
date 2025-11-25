@@ -14,11 +14,7 @@ RUN fc-cache -f -v && \
     rm -rf /home/$MAMBA_USER/.cache/pypoetry/* && \
     pipen report update && \
     rm -rf /home/$MAMBA_USER/.npm/* && \
-    echo "cache=/tmp/npm-cache" > /home/mambauser/.npmrc && \
-    echo -e '#!/bin/bash\nexec /opt/conda/py_envs/numpy_v1/bin/python "$@"' > /opt/conda/bin/python_np1 && \
-    chmod +x /opt/conda/bin/python_np1 && \
-    ln -s $(/opt/conda/bin/python -c "import biopipen; print(biopipen.__path__[0])") \
-        $(/opt/conda/bin/python_np1 -c "import sysconfig; print(sysconfig.get_path('purelib'))")
+    echo "cache=/tmp/npm-cache" > /home/mambauser/.npmrc
 
 WORKDIR /workdir
 ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh", "bash", "/immunopipe/docker/entry.sh" ]

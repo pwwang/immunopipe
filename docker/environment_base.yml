@@ -119,3 +119,7 @@ dependencies:
   - clustcr=2025  # adopted to work with numpy v2
   - pip:
     - liana
+    - celltypist2
+    - biopython  # GIANA
+    - scikit-learn  # GIANA
+    - keras  # TESSA

@@ -35,14 +35,6 @@ cluster has only one unique CDR3 sequence or multiple CDR3 sequences.<br />
 Note that a cluster with `S_` prefix may still have multiple cells, as the same
 CDR3 sequence may be shared by multiple cells.<br />
 
-/// Tip
-
-If you are using docker image to run the pipeline, you can use
-`envs.python = "python_np1"` to use the python environment when
-you choose GIANA as the tool for CDR3 clustering.<br />
-
-///
-
 ## Input
 
 - `screpfile`:

@@ -14,7 +14,7 @@ jobs:
       - name: Check if base files changed
         id: check_changes
         run: |
-          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(environment_base\.yml|Dockerfile\.base|requirements_np1\.txt)$'; then
+          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(environment_base\.yml|Dockerfile\.base)$'; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -49,7 +49,7 @@ jobs:
       - name: Check if rpkgs files changed
         id: check_changes
         run: |
-          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(environment_(base|rpkgs)\.yml|Dockerfile\.(base|rpkgs)|requirements_np1\.txt)$'; then
+          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(environment_(base|rpkgs)\.yml|Dockerfile\.(base|rpkgs))$'; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
