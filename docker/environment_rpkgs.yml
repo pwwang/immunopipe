@@ -5,9 +5,10 @@ channels:
   - bioconda
   - nodefaults
 dependencies:
-  # add commit to force rebuild
+  # Specified in base, but need to repeat here to avoid PackagesNotFoundError
+  - pwwang::bioconductor-screpertoire=2.2
   - r-biopipen.utils=0.3.3=r43_3
-  - r-scplotter=0.6.3=r43_2
+  - r-scplotter=0.6.3=r43_3
   - r-plotthis=0.8.3=r43_2
   - r-enrichit=0.0.4=r43_1
   - r-gglogger=0.1.6=r43_1
