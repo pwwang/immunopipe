@@ -5,4 +5,3 @@ celltypist
 keras  # TESSA
 tensorflow==2.15  # TESSA
 numpy<2.0
-faiss-cpu

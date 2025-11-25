@@ -115,7 +115,7 @@ dependencies:
   # Needed by r-gglogger
   - r-cli
   - r-s7
-  # - faiss-cpu  # for GIANA
+  - faiss-cpu=1.13  # supports numpy v2
   - clustcr
   - pip:
     - liana
