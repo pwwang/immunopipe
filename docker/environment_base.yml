@@ -116,6 +116,6 @@ dependencies:
   - r-cli
   - r-s7
   - faiss-cpu=1.13  # supports numpy v2
-  - clustcr
+  - clustcr=2025  # adopted to work with numpy v2
   - pip:
     - liana
