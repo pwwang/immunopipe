@@ -7,7 +7,7 @@ channels:
 dependencies:
   # Specified in base, but need to repeat here to avoid PackagesNotFoundError
   - pwwang::bioconductor-screpertoire=2.2
-  - r-biopipen.utils=0.3.3=r43_6
+  - r-biopipen.utils=0.3.3=r43_7
   - r-scplotter=0.6.3=r43_3
   - r-plotthis=0.8.3=r43_4
   - r-enrichit=0.0.4=r43_1
