@@ -104,19 +104,6 @@ jobs:
           TAR_OPTIONS: "--no-same-owner --no-same-permissions --skip-old-files"
           ACTIONS_CACHE_SERVICE_V2: true
           CACHE_NUMBER: 1
-        continue-on-error: true
-
-      - name: Retry restore running data (if failed)
-        id: restore-running-retry
-        if: steps.restore-running.outcome == 'failure'
-        uses: actions/cache/restore@v4
-        with:
-          path: tests/running/
-          key: tests-running-${{ env.CACHE_NUMBER }}
-        env:
-          TAR_OPTIONS: "--no-same-owner --no-same-permissions --skip-old-files"
-          ACTIONS_CACHE_SERVICE_V2: true
-          CACHE_NUMBER: 1
 
       - name: Download input data (if not restored)
         if: steps.restore-running.outputs.cache-hit != 'true'
