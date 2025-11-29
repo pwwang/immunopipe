@@ -49,6 +49,7 @@ dependencies:
   - r-jsonlite
   - r-r6
   - r-seurat
+  - r-sysfonts
   - r-testthat
   - r-tibble
   - r-tidyseurat
