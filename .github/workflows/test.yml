@@ -15,6 +15,10 @@ jobs:
         shell: bash -l {0}
 
     steps:
+      - name: Delete cache to save space
+        # https://github.com/orgs/community/discussions/25678#discussioncomment-5242449
+        run: rm -rf /opt/hostedtoolcache
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
