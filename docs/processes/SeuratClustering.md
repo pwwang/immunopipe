@@ -13,7 +13,7 @@ If you have other annotation processes, including
 [`SeuratMap2Ref`](./SeuratMap2Ref.md) process or
 [`CellTypeAnnotation`](./CellTypeAnnotation.md) process enabled in the same run,
 you can specify a different name for the column to store the cluster information
-using `envs.FindClusters.cluster-name`, so that the results from different
+using `envs.ident`, so that the results from different
 annotation processes won't overwrite each other.<br />
 
 ///

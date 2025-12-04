@@ -822,14 +822,6 @@ CombinedInput = ScRepCombiningExpression or RNAInput
 @when(VDJInput and "CDR3Clustering" in config, requires=CombinedInput)
 @annotate.format_doc()
 class CDR3Clustering(CDR3Clustering_):
-    """{{Summary.short}}
-
-    You can disable this by remving the whole sections of
-    CDR3Clustering in the config file.
-
-    {{*Summary.long}}
-    """
-
     input_data = lambda ch1: ch1.iloc[:, [0]]
     order = 4
 

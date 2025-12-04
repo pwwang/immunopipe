@@ -4,9 +4,11 @@ channels:
   - r
   - bioconda
   - nodefaults
+  - pytorch  # for ClusTCR
+  - svalkiers  # for ClusTCR
 dependencies:
   - nodejs=22  # pipen-report
-  - python=3.10
+  - python=3.12
   - curl  # force using conda-forge version
   - pip
   - poetry
@@ -22,7 +24,6 @@ dependencies:
   - pwwang::bioconductor-data-packages
   - bioconductor-fgsea
   - bioconductor-scater
-  - bioconductor-destiny
   - bioconductor-glmgampoi
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
   - bioconda::bioconductor-deseq2
@@ -34,12 +35,95 @@ dependencies:
   - r-presto  # MarkersFinder
   - r-hash  # CDR3AAPhyschem
   - r-glmnet  # CDR3AAPhyschem
-  - r-matrixstats=1.1.0  # useNames = NA  deprecated
+  # - r-matrixstats=1.1.0  # useNames = NA  deprecated
+  - r-matrixstats  # useNames = NA  deprecated
   - r-broom.mixed  # CDR3AAPhyschem
   - r-hitype
   - r-seuratwrappers
   - r-harmony
   - r-future
-  # - r-biopipen.utils
+  # needed by r-biopipen.utils
+  - r-bracer
+  - r-digest
+  - r-doubletfinder
+  - r-jsonlite
+  - r-r6
+  - r-seurat
+  - r-systemfonts
+  - r-testthat
+  - r-tibble
+  - r-tidyseurat
+  - r-zip
+  - bioconda::bioconductor-biocparallel
+  - bioconda::bioconductor-mygene
+  - bioconda::bioconductor-scdblfinder
+  - pwwang::r-seuratdisk
+  - r-qs2
+  # Needed by r-scplotter
+  - r-callr
+  - r-seuratobject
+  - pwwang::bioconductor-screpertoire=2.2
+  - r-gridgraphics
+  - r-metap
+  - pwwang::r-tidyprompt
+  # Needed by r-plotthis
+  - r-circlize
+  - r-ggplot2
+  - r-rlang
+  - r-dplyr
+  - r-tidyr
+  - r-glue
+  - r-forcats
+  - r-gtable
+  - r-reshape2
+  - r-stringr
+  - r-scales
+  - r-gridtext
+  - r-patchwork
+  - r-ggrepel
+  - r-ggnewscale
+  - r-cowplot
+  - r-zoo
+  # Suggests
+  - r-matrix
+  - r-alluvial
+  - bioconda::bioconductor-complexheatmap
+  - r-cluster  # implictly required by bioconductor-complexheatmap
+  - r-clustree
+  - r-ggwordcloud
+  - r-ggalluvial
+  - r-ggvenndiagram
+  - r-ggupset
+  - r-ggpubr
+  - r-ggforce
+  - r-ggraph
+  - r-ggridges
+  - pwwang::bioconductor-ggmanh
+  - r-qqplotr
+  - r-hexbin
+  - r-igraph
+  - r-inext
+  - r-scattermore
+  - r-sf
+  - r-terra
+  - r-concaveman
+  - r-plotroc
+  - r-optimalcutpoints
+  - r-proxyc
+  - r-metr
+  # Needed by r-enrichit
+  - r-httr
+  - bioconductor-qvalue
+  # Needed by r-gglogger
+  - r-cli
+  - r-s7
+  - faiss-cpu=1.13  # supports numpy v2
+  - clustcr=2025  # adopted to work with numpy v2
+  - mscorefonts  # additional fonts for plots
   - pip:
     - liana
+    - celltypist2
+    - biopython  # GIANA
+    - scikit-learn  # GIANA
+    - keras  # TESSA
+    - tensorflow==2.20 # TESSA

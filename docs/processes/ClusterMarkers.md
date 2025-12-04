@@ -53,6 +53,7 @@ you may see the other environment variables of this process are hidden and reado
     * "Hallmark", "MSigDB_Hallmark", or "MSigDB_Hallmark_2020"
     * "Reactome", "Reactome_Pathways", or "Reactome_Pathways_2024"
     * "WikiPathways", "WikiPathways_2024", "WikiPathways_Human", or "WikiPathways_2024_Human"
+    You can also fetch more dbs from <https://maayanlab.cloud/Enrichr/#libraries>.<br />
 - `sigmarkers`: *Default: `p_val_adj < 0.05 & avg_log2FC > 0`*. <br />
     An expression passed to `dplyr::filter()` to filter the
     significant markers for enrichment analysis.<br />

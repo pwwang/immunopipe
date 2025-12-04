@@ -12,7 +12,12 @@ Annotate the cell clusters. Currently, four ways are supported:<br />
 The annotated cell types will replace the original identity column in the metadata,
 so that the downstream processes will use the annotated cell types.<br />
 
-The original identity column will be renamed to `seurat_clusters_id` if no `envs.newcol` is specified.<br />
+/// Note
+
+When cell types are annotated, the original identity column (e.g. `seurat_clusters`) will be renamed
+to `envs.backup_col` (e.g. `seurat_clusters_id`), and the new identity column will be added.<br />
+
+///
 
 If you are using `ScType`, `scCATCH`, or `hitype`, a text file containing the mapping from
 the original identity to the new cell types will be generated and saved to
@@ -28,11 +33,6 @@ process or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run
 you may want to specify a different name for the column to store the annotated cell types
 using `envs.newcol`, so that the results from different annotation processes won't overwrite each other.<br />
 
-///
-
-/// Note
-When cell types are annotated, the old `seurat_clusters` column will be renamed
-to `seurat_clusters_id`, and the new `seurat_clusters` column will be added.<br />
 ///
 
 ## Input
@@ -190,11 +190,11 @@ The cell types will be assigned as:<br />
 When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
 the `Seurat` object will be kept as is.<br />
 
-When `envs.newcol` is specified, the original `seurat_clusters` column will
+When `envs.newcol` is specified, the original identity column (e.g. `seurat_clusters`) will
 be kept is, and the annotated cell types will be saved in the new column.<br />
-Otherwise, the original `seurat_clusters` column will be replaced by the
-annotated cell types and the original `seurat_clusters` column will be
-saved at `seurat_clusters_id`.<br />
+Otherwise, the original identity column will be replaced by the
+annotated cell types and the original identity column will be
+saved at `envs.backup_col` (e.g. `seurat_clusters_id`).<br />
 
 ![CellTypeAnnotation-metadata](images/CellTypeAnnotation-metadata.png)
 

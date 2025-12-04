@@ -41,7 +41,7 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     The column names in metadata to aggregate the cells.<br />
 - `layer`: *Default: `counts`*. <br />
     The layer to pull and aggregate the data.<br />
-- `assay`: *Default: `RNA`*. <br />
+- `assay`:
     The assay to pull and aggregate the data.<br />
 - `error` *(`flag`)*: *Default: `False`*. <br />
     Error out if no/not enough markers are found or no pathways are enriched.<br />
@@ -69,6 +69,7 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     * "Hallmark", "MSigDB_Hallmark", or "MSigDB_Hallmark_2020"
     * "Reactome", "Reactome_Pathways", or "Reactome_Pathways_2024"
     * "WikiPathways", "WikiPathways_2024", "WikiPathways_Human", or "WikiPathways_2024_Human"
+    You can also fetch more dbs from <https://maayanlab.cloud/Enrichr/#libraries>.<br />
 - `sigmarkers`: *Default: `p_val_adj < 0.05`*. <br />
     An expression passed to `dplyr::filter()` to filter the
     significant markers for enrichment analysis.<br />

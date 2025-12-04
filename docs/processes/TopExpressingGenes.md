@@ -48,6 +48,7 @@ readonly.<br />
     * "Hallmark", "MSigDB_Hallmark", or "MSigDB_Hallmark_2020"
     * "Reactome", "Reactome_Pathways", or "Reactome_Pathways_2024"
     * "WikiPathways", "WikiPathways_2024", "WikiPathways_Human", or "WikiPathways_2024_Human"
+    You can also fetch more dbs from <https://maayanlab.cloud/Enrichr/#libraries>.<br />
 - `n` *(`type=int`)*: *Default: `250`*. <br />
     The number of top expressing genes to find.<br />
 - `enrich_style` *(`choice`)*: *Default: `enrichr`*. <br />

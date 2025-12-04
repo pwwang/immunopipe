@@ -43,6 +43,8 @@ each gene set, and GSEA plots for the top gene sets.<br />
     The first group of cells to compare
 - `ident_2`:
     The second group of cells to compare, if not provided, the rest of the cells that are not `NA`s in `group_by` column are used for `ident_2`.<br />
+- `assay`:
+    The assay to use. If not provided, the default assay will be used.<br />
 - `each`:
     The column name in metadata to separate the cells into different subsets to do the analysis.<br />
 - `subset`:
@@ -60,6 +62,7 @@ each gene set, and GSEA plots for the top gene sets.<br />
     * "Hallmark", "MSigDB_Hallmark", or "MSigDB_Hallmark_2020"
     * "Reactome", "Reactome_Pathways", or "Reactome_Pathways_2024"
     * "WikiPathways", "WikiPathways_2024", "WikiPathways_Human", or "WikiPathways_2024_Human"
+    You can also fetch more dbs from <https://maayanlab.cloud/Enrichr/#libraries>.<br />
 - `method` *(`choice`)*: *Default: `s2n`*. <br />
     The method to do the preranking.<br />
     - `signal_to_noise`:

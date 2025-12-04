@@ -2,9 +2,6 @@
 
 Cluster the TCR/BCR clones by their CDR3 sequences
 
-You can disable this by remving the whole sections of
-CDR3Clustering in the config file.<br />
-
 This process is used to cluster TCR/BCR clones based on their CDR3 sequences.<br />
 
 It uses either

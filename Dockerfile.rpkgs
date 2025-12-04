@@ -1,10 +1,20 @@
-FROM justold/immunopipe-base:latest AS builder
+FROM mambaorg/micromamba:2.3.0 AS builder
 
 COPY --chown=$MAMBA_USER:$MAMBA_USER ./docker /immunopipe/docker
 
-ARG MAMBA_DOCKERFILE_ACTIVATE=1
-
 RUN micromamba env update -n base -f /immunopipe/docker/environment_rpkgs.yml && \
-    micromamba clean --all --yes
+    micromamba clean --all --yes && \
+    rm -rf /opt/conda/pkgs/*
 
+# Fresh stage to avoid metadata bloat
+FROM justold/immunopipe-base:latest
+
+# Copy only the new packages, not the entire environment
+COPY --from=builder /opt/conda/lib/R/library/gglogger /opt/conda/lib/R/library/gglogger
+COPY --from=builder /opt/conda/lib/R/library/enrichit /opt/conda/lib/R/library/enrichit
+COPY --from=builder /opt/conda/lib/R/library/plotthis /opt/conda/lib/R/library/plotthis
+COPY --from=builder /opt/conda/lib/R/library/scplotter /opt/conda/lib/R/library/scplotter
+COPY --from=builder /opt/conda/lib/R/library/biopipen.utils /opt/conda/lib/R/library/biopipen.utils
+
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
 ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh" ]

@@ -14,7 +14,7 @@ jobs:
       - name: Check if base files changed
         id: check_changes
         run: |
-          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '^(docker/environment_base\.yml|Dockerfile\.base)$'; then
+          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(environment_base\.yml|Dockerfile\.base)$'; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -39,41 +39,6 @@ jobs:
           file: Dockerfile.base
           tags: justold/immunopipe-base:latest
 
-  docker-np1:
-    runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, '[wip]')"
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-      - name: Check if np1 files changed
-        id: check_changes
-        run: |
-          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '^(docker/environment_np1\.yml|Dockerfile\.np1)$'; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "changed=false" >> $GITHUB_OUTPUT
-          fi
-      - name: Set up QEMU
-        if: steps.check_changes.outputs.changed == 'true'
-        uses: docker/setup-qemu-action@v3
-      - name: Set up Docker Buildx
-        if: steps.check_changes.outputs.changed == 'true'
-        uses: docker/setup-buildx-action@v3
-      - name: Login to DockerHub
-        if: steps.check_changes.outputs.changed == 'true'
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push
-        if: steps.check_changes.outputs.changed == 'true'
-        uses: docker/build-push-action@v6
-        with:
-          push: true
-          file: Dockerfile.np1
-          tags: justold/immunopipe-np1:latest
-
   docker-rpkgs:
     runs-on: ubuntu-latest
     needs: docker-base
@@ -84,7 +49,7 @@ jobs:
       - name: Check if rpkgs files changed
         id: check_changes
         run: |
-          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '^(docker/environment_rpkgs\.yml|Dockerfile\.rpkgs)$'; then
+          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(environment_(base|rpkgs)\.yml|Dockerfile\.(base|rpkgs))$'; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -111,7 +76,7 @@ jobs:
 
   docker:
     runs-on: ubuntu-latest
-    needs: [docker-np1, docker-rpkgs]
+    needs: docker-rpkgs
     steps:
       - name: Delete cache to save space
         # https://github.com/orgs/community/discussions/25678#discussioncomment-5242449

@@ -5,6 +5,35 @@ COPY --chown=$MAMBA_USER:$MAMBA_USER ./docker /immunopipe/docker
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && \
-    micromamba clean --all --yes
+    micromamba clean --all --yes && \
+    rm -rf /opt/conda/pkgs/* && \
+    rm -rf /home/$MAMBA_USER/.cache/pip/* && \
+    # --- General Cleanup ---
+    # Remove static libraries (only needed for linking)
+    find /opt/conda -follow -type f -name '*.a' -delete && \
+    # Remove python bytecode (re-generated if needed) and source maps
+    find /opt/conda -follow -type f -name '*.pyc' -delete && \
+    find /opt/conda -follow -type f -name '*.js.map' -delete && \
+    # Remove __pycache__ directories
+    find /opt/conda -name '__pycache__' -type d -exec rm -rf '{}' + && \
+    # Remove general documentation
+    rm -rf /opt/conda/share/doc /opt/conda/share/man /opt/conda/share/info && \
+    # Remove R package documentation and help files
+    find /opt/conda/lib/R/library -name 'help' -type d -exec rm -rf '{}' + && \
+    find /opt/conda/lib/R/library -name 'doc' -type d -exec rm -rf '{}' + && \
+    find /opt/conda/lib/R/library -name 'html' -type d -exec rm -rf '{}' + && \
+    # --- Compiler & Dev Tool Cleanup ---
+    # Remove headers (only needed for compilation)
+    rm -rf /opt/conda/include && \
+    # Remove build configuration files
+    rm -rf /opt/conda/lib/pkgconfig && \
+    rm -rf /opt/conda/lib/cmake && \
+    # Remove compiler compatibility files
+    rm -rf /opt/conda/compiler_compat && \
+    # Remove GCC internal files and sysroot tools
+    rm -rf /opt/conda/libexec/gcc && \
+    rm -rf /opt/conda/x86_64-conda-linux-gnu && \
+    # --- TensorFlow Specific Cleanup ---
+    rm -rf /opt/conda/lib/python*/site-packages/tensorflow/include
 
 ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh" ]
