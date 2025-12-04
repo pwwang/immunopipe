@@ -234,7 +234,14 @@ as the column name.<br /></p>
 <li><code>RunUMAP</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/runumap"><code>RunUMAP()</code></a>.<br />
     <code>object</code> is specified internally as the subset object, and <code>-</code> in the key will be replaced with <code>.</code>.<br />
-    <code>dims=N</code> will be expanded to <code>dims=1:N</code>; The maximal value of <code>N</code> will be the minimum of <code>N</code> and the number of columns - 1 for each sample.<br /><ul>
+    <code>dims=N</code> will be expanded to <code>dims=1:N</code>; The maximal value of <code>N</code> will be the minimum of <code>N</code> and the number of columns - 1 for each sample.<br />
+    You can also specify <code>features</code> instead of <code>dims</code> to use specific features for UMAP. It can be
+    a list with the following fields: <code>order</code> (the order of the markers to use for UMAP, e.g. "desc(abs(avg_log2FC))", and
+    <code>n</code> (the number of total features to use for UMAP, e.g. 30).<br />
+    If <code>features</code> is a list, it will run <code>biopipen.utils::RunSeuratDEAnalysis</code> to get the markers
+    for each group, and then select the top <code>n</code>/<code>ngroups</code> features for each group based on the <code>order</code> field.<br />
+    If <code>features</code> is a numeric value, it will be treated as the <code>n</code> field
+    in the list above, with the default <code>order</code> being "desc(abs(avg_log2FC))".<br /><ul>
 <li><code>dims</code> <em>(<code>type=int</code>)</em>:
     The number of PCs to use</li>
 <li><code>reduction</code>:
