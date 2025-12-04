@@ -1,5 +1,43 @@
 # Change Log
 
+## 2.2.1
+
+- docs: add FAQ entries for process reruns after updating and skipping essential processes
+- docs: add installation note for pipen-dry package in FAQ
+- chore: add pipen-dry as an optional dependency and include it in extras
+- ci(docker): use multi-staging building and make the packages relying numpy v1 to be merged to the base environment, which largely reduce the size of the image
+- chore: bump pipen-cli-gbatch to 0.1.5 (make default running profile work)
+- chore: update pipen-report version to 0.23.15
+- chore: update clustcr version in environment_base.yml to be compatible with numpy v2
+- chore: add .dockerignore file to exclude unnecessary files from Docker builds
+- chore: update Python version to 3.12 and adjust biopipen.utils version in environment files
+- chore: add Dockerhub descriptions for immunopipe, immunopipe-base, and immunopipe-rpkgs
+- chore: update r-scplotter version to 0.6.4=r43_2 in environment_rpkgs.yml
+  - fix(ClonalDiversityPlot): fix calculating Gini coefficient
+  - fix(MarkersPlot): handle errors when subsetting object features
+  - fix(MarkersPlot): exclude groups that failed DE analysis from plotting
+- chore: update r-plotthis version to 0.9.0=r43_1 in environment_rpkgs.yml
+  - fix(boxviolinplot): skip processing for data frames with less than 2 rows
+  - fix(network): update ggplot2 version check for link_type_by support
+  - fix(velocityplot): update ggplot2 version check for arrow length handling
+  - chore(heatmap): add warning for unknown arguments in HeatmapAtomic function
+  - feat: add list_fonts and import_font utilities
+- chore: update r-biopipen.utils version in environment_rpkgs.yml to 0.3.4=r43_7
+  - fix(RunSeuratDEAnalysis): improve error handling by returning empty data frame on logic error and adding traceback on stop
+  - feat: set default font to "LiberationSans" for plotthis plots
+  - fix: update RunUMAPArgs to use the correct reduction and improve dims handling
+  - fix(RunSeuratUMAP): avoid changing of identity when using features for RunUMAP
+  - chore(RunSeuratTransformation, RunSeuratMap2Ref): ensure return.only.var.genes defaults to FALSE when using SCTransform
+- chore: update biopipen version to ^0.34.28 in pyproject.toml
+  - feat(tcr.ClonalStats): add save_data parameter to ClonalStats for saving plot data
+  - fix(scrna.PseudoBulkDEG): change default assay from "RNA" to None so that default assay can be used by default
+  - feat(scrna.ScFGSEA): add assay parameter to allow specification of assay in analysis
+  - fix(scrna.CellTypeAnnotation): correct assignment of identities in rename_idents function
+  - feat(tcr.CDR3Clustering): add verbose output option for GIANA command
+  - fix(scrna.CellTypeAnnotation): update package requirement from celltypist to celltypist2 (a version adopts numpy v2)
+  - fix(tcr.TESSA): add Keras model migration support for v2 and v3
+  - fix(scrna.CellTypeAnnotation): improve handling of over_clustering assignment from Seurat object for celltypist
+
 ## 2.2.0
 
 - BREAKING: restructure Docker workflows and update environment configurations using multiple-image/stage building, no "-full" suffix for image tags needed anymore.
