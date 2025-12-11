@@ -7,6 +7,8 @@
 - chore: update r-plotthis dependency version to 0.9.0=r43_3
 - chore: update biopipen dependency to version 0.34.32
   - fix(scrna.CellTypeAnnotation): handle NA values in cell type processing to prevent errors
+- fix: enhance seurat path resolution and error handling in check_genes function
+- fix: improve seurat path resolution for containerized environments in check_dim function
 
 ## 2.2.1
 
