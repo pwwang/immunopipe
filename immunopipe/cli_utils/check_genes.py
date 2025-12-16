@@ -33,7 +33,26 @@ def check_genes(args: Namespace) -> None:
         sys.exit(1)
 
     signature = Config.load_one(signature_file, loader="toml")
-    seurat_path = signature["output"]["data"]["outfile"]
+    seurat_path = Path(signature["output"]["data"]["outfile"])
+    if (
+        not seurat_path.exists()
+        and seurat_path.as_posix().startswith("/mnt/disks/.cwd")
+    ):
+        # The pipeline is likely run in a container or google batch jobs
+        # Conver the path to a local path based on the path to the signature file
+        signature_file = signature_file.resolve()
+        cwd = signature_file.parents[4]
+        seurat_path = cwd / seurat_path.relative_to("/mnt/disks/.cwd")
+        if not seurat_path.exists() and seurat_path.parent.is_symlink():
+            seurat_path = seurat_path.parent.resolve() / seurat_path.name
+
+        if seurat_path.as_posix().startswith("/mnt/disks/.cwd"):
+            seurat_path = cwd / seurat_path.relative_to("/mnt/disks/.cwd")
+
+    if not seurat_path.exists():
+        print(f"Seurat file not found: {seurat_path}")
+        sys.exit(1)
+
     assay = args.assay
     check_genes_rfile = Path(__file__).parent / "check_genes.R"
     script = (

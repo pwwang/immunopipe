@@ -1,5 +1,16 @@
 # Change Log
 
+## 2.2.2
+
+- chore: force conda to rebuild with biopipen.utils.R v0.3.4-7
+  - make sure 'direct' method of CellTypeAnnotation keeps the order
+- chore: update r-plotthis dependency version to 0.9.0=r43_3
+- chore: update biopipen dependency to version 1.0.0
+  - fix(scrna.CellTypeAnnotation): handle NA values in cell type processing to prevent errors
+  - chore(scrna.SeuratPreparing): update min_cells parameter to require at least 3 cells for SCTransform
+- fix: enhance seurat path resolution and error handling in check_genes function
+- fix: improve seurat path resolution for containerized environments in check_dim function
+
 ## 2.2.1
 
 - docs: add FAQ entries for process reruns after updating and skipping essential processes
