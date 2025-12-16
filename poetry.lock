@@ -70,28 +70,28 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "0.34.32"
+version = "1.0.0"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-0.34.32-py3-none-any.whl", hash = "sha256:284fbe367f11ad8f3d1a33f313e728b3a3b5fd2d02ae8cbf4cfa37298bcf3827"},
-    {file = "biopipen-0.34.32.tar.gz", hash = "sha256:07a2d1bb52b821c2336e1fd6d57b7dc7b63bd69bb778899558cfb63555d8d3f0"},
+    {file = "biopipen-1.0.0-py3-none-any.whl", hash = "sha256:e39995b7227507d28d6216ab6ab95aca92d7c0684244a3ab3a0b9b8a848c03c6"},
+    {file = "biopipen-1.0.0.tar.gz", hash = "sha256:f09a7fcc48abbb13ce9f6ff22ee54a6a6d303617e2b34107d7c70a6e46cadde5"},
 ]
 
 [package.dependencies]
 datar = {version = ">=0.15.8,<0.16.0", extras = ["pandas"]}
-pipen-board = {version = ">=0.17,<0.18", extras = ["report"]}
-pipen-cli-run = ">=0.15,<0.16"
-pipen-deprecated = ">=0.0,<0.1"
-pipen-filters = ">=0.15,<0.16"
-pipen-poplog = ">=0.3,<0.4"
-pipen-verbose = ">=0.14,<0.15"
+pipen-board = {version = ">=1.0,<2.0", extras = ["report"]}
+pipen-cli-run = ">=1.0,<2.0"
+pipen-deprecated = ">=1.0,<2.0"
+pipen-filters = ">=1.0,<2.0"
+pipen-poplog = ">=1.0,<2.0"
+pipen-verbose = ">=1.0,<2.0"
 
 [package.extras]
-log2file = ["pipen-log2file (>=0.10.3,<0.11.0)"]
-runinfo = ["pipen-runinfo (>=0.9,<0.10)"]
+log2file = ["pipen-log2file (>=1.0,<2.0)"]
+runinfo = ["pipen-runinfo (>=1.0,<2.0)"]
 
 [[package]]
 name = "blessed"
@@ -126,15 +126,15 @@ files = [
 
 [[package]]
 name = "cachetools"
-version = "6.2.2"
+version = "6.2.4"
 description = "Extensible memoizing collections and decorators"
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "cachetools-6.2.2-py3-none-any.whl", hash = "sha256:6c09c98183bf58560c97b2abfcedcbaf6a896a490f534b031b661d3723b45ace"},
-    {file = "cachetools-6.2.2.tar.gz", hash = "sha256:8e6d266b25e539df852251cfd6f990b4bc3a141db73b939058d809ebd2590fc6"},
+    {file = "cachetools-6.2.4-py3-none-any.whl", hash = "sha256:69a7a52634fed8b8bf6e24a050fb60bff1c9bd8f6d24572b99c32d4e71e62a51"},
+    {file = "cachetools-6.2.4.tar.gz", hash = "sha256:82c5c05585e70b6ba2d3ae09ea60b79548872185d2f24ae1f2709d37299fd607"},
 ]
 
 [[package]]
@@ -860,15 +860,15 @@ grpcio-gcp = ["grpcio-gcp (>=0.2.2,<1.0.0)"]
 
 [[package]]
 name = "google-auth"
-version = "2.43.0"
+version = "2.45.0"
 description = "Google Authentication Library"
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "google_auth-2.43.0-py2.py3-none-any.whl", hash = "sha256:af628ba6fa493f75c7e9dbe9373d148ca9f4399b5ea29976519e0a3848eddd16"},
-    {file = "google_auth-2.43.0.tar.gz", hash = "sha256:88228eee5fc21b62a1b5fe773ca15e67778cb07dc8363adcb4a8827b52d81483"},
+    {file = "google_auth-2.45.0-py2.py3-none-any.whl", hash = "sha256:82344e86dc00410ef5382d99be677c6043d72e502b625aa4f4afa0bdacca0f36"},
+    {file = "google_auth-2.45.0.tar.gz", hash = "sha256:90d3f41b6b72ea72dd9811e765699ee491ab24139f34ebf1ca2b9cc0c38708f3"},
 ]
 
 [package.dependencies]
@@ -878,6 +878,7 @@ rsa = ">=3.1.4,<5"
 
 [package.extras]
 aiohttp = ["aiohttp (>=3.6.2,<4.0.0)", "requests (>=2.20.0,<3.0.0)"]
+cryptography = ["cryptography (<39.0.0) ; python_version < \"3.8\"", "cryptography (>=38.0.3)"]
 enterprise-cert = ["cryptography", "pyopenssl"]
 pyjwt = ["cryptography (<39.0.0) ; python_version < \"3.8\"", "cryptography (>=38.0.3)", "pyjwt (>=2.0)"]
 pyopenssl = ["cryptography (<39.0.0) ; python_version < \"3.8\"", "cryptography (>=38.0.3)", "pyopenssl (>=20.0.0)"]
@@ -934,51 +935,47 @@ tracing = ["opentelemetry-api (>=1.1.0,<2.0.0)"]
 
 [[package]]
 name = "google-crc32c"
-version = "1.7.1"
+version = "1.8.0"
 description = "A python wrapper of the C library 'Google CRC32C'"
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "google_crc32c-1.7.1-cp310-cp310-macosx_12_0_arm64.whl", hash = "sha256:b07d48faf8292b4db7c3d64ab86f950c2e94e93a11fd47271c28ba458e4a0d76"},
-    {file = "google_crc32c-1.7.1-cp310-cp310-macosx_12_0_x86_64.whl", hash = "sha256:7cc81b3a2fbd932a4313eb53cc7d9dde424088ca3a0337160f35d91826880c1d"},
-    {file = "google_crc32c-1.7.1-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:1c67ca0a1f5b56162951a9dae987988679a7db682d6f97ce0f6381ebf0fbea4c"},
-    {file = "google_crc32c-1.7.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:fc5319db92daa516b653600794d5b9f9439a9a121f3e162f94b0e1891c7933cb"},
-    {file = "google_crc32c-1.7.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:dcdf5a64adb747610140572ed18d011896e3b9ae5195f2514b7ff678c80f1603"},
-    {file = "google_crc32c-1.7.1-cp310-cp310-win_amd64.whl", hash = "sha256:754561c6c66e89d55754106739e22fdaa93fafa8da7221b29c8b8e8270c6ec8a"},
-    {file = "google_crc32c-1.7.1-cp311-cp311-macosx_12_0_arm64.whl", hash = "sha256:6fbab4b935989e2c3610371963ba1b86afb09537fd0c633049be82afe153ac06"},
-    {file = "google_crc32c-1.7.1-cp311-cp311-macosx_12_0_x86_64.whl", hash = "sha256:ed66cbe1ed9cbaaad9392b5259b3eba4a9e565420d734e6238813c428c3336c9"},
-    {file = "google_crc32c-1.7.1-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:ee6547b657621b6cbed3562ea7826c3e11cab01cd33b74e1f677690652883e77"},
-    {file = "google_crc32c-1.7.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d68e17bad8f7dd9a49181a1f5a8f4b251c6dbc8cc96fb79f1d321dfd57d66f53"},
-    {file = "google_crc32c-1.7.1-cp311-cp311-win_amd64.whl", hash = "sha256:6335de12921f06e1f774d0dd1fbea6bf610abe0887a1638f64d694013138be5d"},
-    {file = "google_crc32c-1.7.1-cp312-cp312-macosx_12_0_arm64.whl", hash = "sha256:2d73a68a653c57281401871dd4aeebbb6af3191dcac751a76ce430df4d403194"},
-    {file = "google_crc32c-1.7.1-cp312-cp312-macosx_12_0_x86_64.whl", hash = "sha256:22beacf83baaf59f9d3ab2bbb4db0fb018da8e5aebdce07ef9f09fce8220285e"},
-    {file = "google_crc32c-1.7.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:19eafa0e4af11b0a4eb3974483d55d2d77ad1911e6cf6f832e1574f6781fd337"},
-    {file = "google_crc32c-1.7.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b6d86616faaea68101195c6bdc40c494e4d76f41e07a37ffdef270879c15fb65"},
-    {file = "google_crc32c-1.7.1-cp312-cp312-win_amd64.whl", hash = "sha256:b7491bdc0c7564fcf48c0179d2048ab2f7c7ba36b84ccd3a3e1c3f7a72d3bba6"},
-    {file = "google_crc32c-1.7.1-cp313-cp313-macosx_12_0_arm64.whl", hash = "sha256:df8b38bdaf1629d62d51be8bdd04888f37c451564c2042d36e5812da9eff3c35"},
-    {file = "google_crc32c-1.7.1-cp313-cp313-macosx_12_0_x86_64.whl", hash = "sha256:e42e20a83a29aa2709a0cf271c7f8aefaa23b7ab52e53b322585297bb94d4638"},
-    {file = "google_crc32c-1.7.1-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:905a385140bf492ac300026717af339790921f411c0dfd9aa5a9e69a08ed32eb"},
-    {file = "google_crc32c-1.7.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6b211ddaf20f7ebeec5c333448582c224a7c90a9d98826fbab82c0ddc11348e6"},
-    {file = "google_crc32c-1.7.1-cp313-cp313-win_amd64.whl", hash = "sha256:0f99eaa09a9a7e642a61e06742856eec8b19fc0037832e03f941fe7cf0c8e4db"},
-    {file = "google_crc32c-1.7.1-cp313-cp313t-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:32d1da0d74ec5634a05f53ef7df18fc646666a25efaaca9fc7dcfd4caf1d98c3"},
-    {file = "google_crc32c-1.7.1-cp313-cp313t-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e10554d4abc5238823112c2ad7e4560f96c7bf3820b202660373d769d9e6e4c9"},
-    {file = "google_crc32c-1.7.1-cp39-cp39-macosx_12_0_arm64.whl", hash = "sha256:9fc196f0b8d8bd2789352c6a522db03f89e83a0ed6b64315923c396d7a932315"},
-    {file = "google_crc32c-1.7.1-cp39-cp39-macosx_12_0_x86_64.whl", hash = "sha256:bb5e35dcd8552f76eed9461a23de1030920a3c953c1982f324be8f97946e7127"},
-    {file = "google_crc32c-1.7.1-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:f2226b6a8da04f1d9e61d3e357f2460b9551c5e6950071437e122c958a18ae14"},
-    {file = "google_crc32c-1.7.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:1f2b3522222746fff0e04a9bd0a23ea003ba3cccc8cf21385c564deb1f223242"},
-    {file = "google_crc32c-1.7.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3bda0fcb632d390e3ea8b6b07bf6b4f4a66c9d02dcd6fbf7ba00a197c143f582"},
-    {file = "google_crc32c-1.7.1-cp39-cp39-win_amd64.whl", hash = "sha256:713121af19f1a617054c41f952294764e0c5443d5a5d9034b2cd60f5dd7e0349"},
-    {file = "google_crc32c-1.7.1-pp310-pypy310_pp73-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a8e9afc74168b0b2232fb32dd202c93e46b7d5e4bf03e66ba5dc273bb3559589"},
-    {file = "google_crc32c-1.7.1-pp310-pypy310_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:fa8136cc14dd27f34a3221c0f16fd42d8a40e4778273e61a3c19aedaa44daf6b"},
-    {file = "google_crc32c-1.7.1-pp311-pypy311_pp73-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:85fef7fae11494e747c9fd1359a527e5970fc9603c90764843caabd3a16a0a48"},
-    {file = "google_crc32c-1.7.1-pp311-pypy311_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6efb97eb4369d52593ad6f75e7e10d053cf00c48983f7a973105bc70b0ac4d82"},
-    {file = "google_crc32c-1.7.1.tar.gz", hash = "sha256:2bff2305f98846f3e825dbeec9ee406f89da7962accdb29356e4eadc251bd472"},
+    {file = "google_crc32c-1.8.0-cp310-cp310-macosx_12_0_arm64.whl", hash = "sha256:0470b8c3d73b5f4e3300165498e4cf25221c7eb37f1159e221d1825b6df8a7ff"},
+    {file = "google_crc32c-1.8.0-cp310-cp310-macosx_12_0_x86_64.whl", hash = "sha256:119fcd90c57c89f30040b47c211acee231b25a45d225e3225294386f5d258288"},
+    {file = "google_crc32c-1.8.0-cp310-cp310-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:6f35aaffc8ccd81ba3162443fabb920e65b1f20ab1952a31b13173a67811467d"},
+    {file = "google_crc32c-1.8.0-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:864abafe7d6e2c4c66395c1eb0fe12dc891879769b52a3d56499612ca93b6092"},
+    {file = "google_crc32c-1.8.0-cp310-cp310-win_amd64.whl", hash = "sha256:db3fe8eaf0612fc8b20fa21a5f25bd785bc3cd5be69f8f3412b0ac2ffd49e733"},
+    {file = "google_crc32c-1.8.0-cp311-cp311-macosx_12_0_arm64.whl", hash = "sha256:014a7e68d623e9a4222d663931febc3033c5c7c9730785727de2a81f87d5bab8"},
+    {file = "google_crc32c-1.8.0-cp311-cp311-macosx_12_0_x86_64.whl", hash = "sha256:86cfc00fe45a0ac7359e5214a1704e51a99e757d0272554874f419f79838c5f7"},
+    {file = "google_crc32c-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:19b40d637a54cb71e0829179f6cb41835f0fbd9e8eb60552152a8b52c36cbe15"},
+    {file = "google_crc32c-1.8.0-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:17446feb05abddc187e5441a45971b8394ea4c1b6efd88ab0af393fd9e0a156a"},
+    {file = "google_crc32c-1.8.0-cp311-cp311-win_amd64.whl", hash = "sha256:71734788a88f551fbd6a97be9668a0020698e07b2bf5b3aa26a36c10cdfb27b2"},
+    {file = "google_crc32c-1.8.0-cp312-cp312-macosx_12_0_arm64.whl", hash = "sha256:4b8286b659c1335172e39563ab0a768b8015e88e08329fa5321f774275fc3113"},
+    {file = "google_crc32c-1.8.0-cp312-cp312-macosx_12_0_x86_64.whl", hash = "sha256:2a3dc3318507de089c5384cc74d54318401410f82aa65b2d9cdde9d297aca7cb"},
+    {file = "google_crc32c-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:14f87e04d613dfa218d6135e81b78272c3b904e2a7053b841481b38a7d901411"},
+    {file = "google_crc32c-1.8.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:cb5c869c2923d56cb0c8e6bcdd73c009c36ae39b652dbe46a05eb4ef0ad01454"},
+    {file = "google_crc32c-1.8.0-cp312-cp312-win_amd64.whl", hash = "sha256:3cc0c8912038065eafa603b238abf252e204accab2a704c63b9e14837a854962"},
+    {file = "google_crc32c-1.8.0-cp313-cp313-macosx_12_0_arm64.whl", hash = "sha256:3ebb04528e83b2634857f43f9bb8ef5b2bbe7f10f140daeb01b58f972d04736b"},
+    {file = "google_crc32c-1.8.0-cp313-cp313-macosx_12_0_x86_64.whl", hash = "sha256:450dc98429d3e33ed2926fc99ee81001928d63460f8538f21a5d6060912a8e27"},
+    {file = "google_crc32c-1.8.0-cp313-cp313-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:3b9776774b24ba76831609ffbabce8cdf6fa2bd5e9df37b594221c7e333a81fa"},
+    {file = "google_crc32c-1.8.0-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:89c17d53d75562edfff86679244830599ee0a48efc216200691de8b02ab6b2b8"},
+    {file = "google_crc32c-1.8.0-cp313-cp313-win_amd64.whl", hash = "sha256:57a50a9035b75643996fbf224d6661e386c7162d1dfdab9bc4ca790947d1007f"},
+    {file = "google_crc32c-1.8.0-cp314-cp314-macosx_12_0_arm64.whl", hash = "sha256:e6584b12cb06796d285d09e33f63309a09368b9d806a551d8036a4207ea43697"},
+    {file = "google_crc32c-1.8.0-cp314-cp314-macosx_12_0_x86_64.whl", hash = "sha256:f4b51844ef67d6cf2e9425983274da75f18b1597bb2c998e1c0a0e8d46f8f651"},
+    {file = "google_crc32c-1.8.0-cp314-cp314-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:b0d1a7afc6e8e4635564ba8aa5c0548e3173e41b6384d7711a9123165f582de2"},
+    {file = "google_crc32c-1.8.0-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:8b3f68782f3cbd1bce027e48768293072813469af6a61a86f6bb4977a4380f21"},
+    {file = "google_crc32c-1.8.0-cp314-cp314-win_amd64.whl", hash = "sha256:d511b3153e7011a27ab6ee6bb3a5404a55b994dc1a7322c0b87b29606d9790e2"},
+    {file = "google_crc32c-1.8.0-cp39-cp39-macosx_12_0_arm64.whl", hash = "sha256:ba6aba18daf4d36ad4412feede6221414692f44d17e5428bdd81ad3fc1eee5dc"},
+    {file = "google_crc32c-1.8.0-cp39-cp39-macosx_12_0_x86_64.whl", hash = "sha256:87b0072c4ecc9505cfa16ee734b00cd7721d20a0f595be4d40d3d21b41f65ae2"},
+    {file = "google_crc32c-1.8.0-cp39-cp39-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:3d488e98b18809f5e322978d4506373599c0c13e6c5ad13e53bb44758e18d215"},
+    {file = "google_crc32c-1.8.0-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:01f126a5cfddc378290de52095e2c7052be2ba7656a9f0caf4bcd1bfb1833f8a"},
+    {file = "google_crc32c-1.8.0-cp39-cp39-win_amd64.whl", hash = "sha256:61f58b28e0b21fcb249a8247ad0db2e64114e201e2e9b4200af020f3b6242c9f"},
+    {file = "google_crc32c-1.8.0-pp311-pypy311_pp73-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:87fa445064e7db928226b2e6f0d5304ab4cd0339e664a4e9a25029f384d9bb93"},
+    {file = "google_crc32c-1.8.0-pp311-pypy311_pp73-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:f639065ea2042d5c034bf258a9f085eaa7af0cd250667c0635a3118e8f92c69c"},
+    {file = "google_crc32c-1.8.0.tar.gz", hash = "sha256:a428e25fb7691024de47fecfbff7ff957214da51eddded0da0ae0e0f03a2cf79"},
 ]
-
-[package.extras]
-testing = ["pytest"]
 
 [[package]]
 name = "google-resumable-media"
@@ -1883,14 +1880,14 @@ executing = ">=2.0,<3.0"
 
 [[package]]
 name = "pipen"
-version = "0.17.27"
+version = "1.0.4"
 description = "A pipeline framework for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "pipen-0.17.27-py3-none-any.whl", hash = "sha256:2820a31059c198096116894db570473f4832cce01de57afe201202455af7da20"},
-    {file = "pipen-0.17.27.tar.gz", hash = "sha256:6cd424e3ef7cd96c43f24375879003ad76abc9bb63b166daf98bb2d1c46dc932"},
+    {file = "pipen-1.0.4-py3-none-any.whl", hash = "sha256:ee902df335fabd5b50a4e08848db6b1a984eec7e868aed2d45dd443cb7b61e83"},
+    {file = "pipen-1.0.4.tar.gz", hash = "sha256:f1719f279541b7462e92f790e14a448cfef839270d5de2d655b6aff2a7891959"},
 ]
 
 [package.dependencies]
@@ -1901,54 +1898,54 @@ pandas = ">=2.0,<3.0"
 pipda = ">=0.13,<0.14"
 python-simpleconf = {version = ">=0.7,<0.8", extras = ["toml"]}
 varname = ">=0.15,<0.16"
-xqute = ">=0.10.19,<0.11.0"
+xqute = ">=1.0.0,<2.0.0"
 
 [[package]]
 name = "pipen-annotate"
-version = "0.15.1"
+version = "1.0.0"
 description = "Use docstring to annotate pipen processes"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "docs"]
 files = [
-    {file = "pipen_annotate-0.15.1-py3-none-any.whl", hash = "sha256:e3aa530c9d4db1cc93bd29dca9547f3680d1895887960ad8f68bb76096c52c4f"},
-    {file = "pipen_annotate-0.15.1.tar.gz", hash = "sha256:fec79caae9b67050b92e38eef2960c0f092eecd3d68ff2d8818d290575ec38af"},
+    {file = "pipen_annotate-1.0.0-py3-none-any.whl", hash = "sha256:c28c4dfb3bd2b6428c167e04a4be928b75b615e8ca4ffcdbef503fdf2ae3d78e"},
+    {file = "pipen_annotate-1.0.0.tar.gz", hash = "sha256:208dedfcbb26aa95e7ea0d7792632c9209209d65b5f8382972c5e163355b8201"},
 ]
 
 [package.dependencies]
-pipen = "==0.17.*"
+pipen = ">=1.0,<2.0"
 
 [[package]]
 name = "pipen-args"
-version = "0.17.7"
+version = "1.0.0"
 description = "Command-line argument parser for pipen."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_args-0.17.7-py3-none-any.whl", hash = "sha256:4695eacead2b88b702778f7c944c859a523b135bc8bd8a1dac27d0325683e063"},
-    {file = "pipen_args-0.17.7.tar.gz", hash = "sha256:a20106e2c56bcbc4c620f943c1d7c994e023f804e90eaacaf5c572711fc8ad8a"},
+    {file = "pipen_args-1.0.0-py3-none-any.whl", hash = "sha256:61c211ef25b68b90cb40d6074d49c03decfaab80a8bc5c20ba2e5666108b6226"},
+    {file = "pipen_args-1.0.0.tar.gz", hash = "sha256:0a7d4bd6f8f46c5035672c6d5482c93f42c1775d42932ae5b1ba32d7b065a67f"},
 ]
 
 [package.dependencies]
-pipen-annotate = ">=0.15,<0.16"
+pipen-annotate = ">=1.0,<2.0"
 
 [[package]]
 name = "pipen-board"
-version = "0.17.3"
+version = "1.0.0"
 description = "Visualization configuration and running of pipen pipelines on the web"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_board-0.17.3-py3-none-any.whl", hash = "sha256:eb10d093bed28fca85c75755e09f5ed38f1ed85a6190eec0b1a21a520f924879"},
-    {file = "pipen_board-0.17.3.tar.gz", hash = "sha256:f8445e87f4e59116bfb6880e94727325e63bd852fa24f3cda48084db2f039b3c"},
+    {file = "pipen_board-1.0.0-py3-none-any.whl", hash = "sha256:158b67a07f6234d513dc178f544370edfef6c7f2909000cf5fcf23bed236600d"},
+    {file = "pipen_board-1.0.0.tar.gz", hash = "sha256:ed0c3a1c546f2933ad548d58b1938c9549a9cb65f62416ee02f0cf41dd83f279"},
 ]
 
 [package.dependencies]
-pipen-args = ">=0.17,<0.18"
-pipen-log2file = ">=0.10,<0.11"
-pipen-report = {version = ">=0.23,<0.24", optional = true, markers = "extra == \"report\" or extra == \"all\""}
+pipen-args = ">=1.0,<2.0"
+pipen-log2file = ">=1.0,<2.0"
+pipen-report = {version = ">=1.0,<2.0", optional = true, markers = "extra == \"report\" or extra == \"all\""}
 psutil = ">=7,<8"
 python-slugify = ">=8.0,<9.0"
 quart = ">=0.20,<0.21"
@@ -1956,203 +1953,203 @@ taskgroup = {version = ">=0.2,<0.3", markers = "python_version < \"3.11\""}
 websocket-client = ">=1.8,<2.0"
 
 [package.extras]
-all = ["pipen-diagram (>=0.13,<0.14)", "pipen-filters (>=0.15,<0.16)", "pipen-report (>=0.23,<0.24)"]
-diagram = ["pipen-diagram (>=0.13,<0.14)"]
-filters = ["pipen-filters (>=0.15,<0.16)"]
-report = ["pipen-report (>=0.23,<0.24)"]
+all = ["pipen-diagram (>=1.0,<2.0)", "pipen-filters (>=1.0,<2.0)", "pipen-report (>=1.0,<2.0)"]
+diagram = ["pipen-diagram (>=1.0,<2.0)"]
+filters = ["pipen-filters (>=1.0,<2.0)"]
+report = ["pipen-report (>=1.0,<2.0)"]
 
 [[package]]
 name = "pipen-cli-gbatch"
-version = "0.1.5"
+version = "1.0.0"
 description = "A pipen cli plugin to run command via Google Cloud Batch"
 optional = true
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "pipen_cli_gbatch-0.1.5-py3-none-any.whl", hash = "sha256:5d535d10fc545c39be1f02bd29e9662a2a85cc981a9b1b466c873860bc9fbfc9"},
-    {file = "pipen_cli_gbatch-0.1.5.tar.gz", hash = "sha256:98e1f9133a9f8a8d219a8288ed41db059fb495fe768b28ea8d0ca09f9c6d8f6e"},
+    {file = "pipen_cli_gbatch-1.0.0-py3-none-any.whl", hash = "sha256:65ed634236187c8130878929886c2b05bc255d2f4769f71d70c67c44740aec0d"},
+    {file = "pipen_cli_gbatch-1.0.0.tar.gz", hash = "sha256:c6543ba207bb648a4954b5d8f0c366699e43bf2c22d7248f8a5c44bdc129cd78"},
 ]
 
 [package.dependencies]
-google-cloud-storage = ">=3.0.0,<4.0.0"
-pipen = ">=0.17.19,<0.18.0"
-pipen-poplog = ">=0.3.6,<0.4.0"
+google-cloud-storage = ">=3,<4"
+pipen = ">=1.0,<2.0"
+pipen-poplog = ">=1.0,<2.0"
 
 [[package]]
 name = "pipen-cli-ref"
-version = "0.5.1"
+version = "1.0.0"
 description = "Make API reference documentation for pipen pipeline/processes"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["docs"]
 files = [
-    {file = "pipen_cli_ref-0.5.1-py3-none-any.whl", hash = "sha256:d901100238bdea9ccabf26e7a552bdeaddba62a3790665f10994ffead8954b0d"},
-    {file = "pipen_cli_ref-0.5.1.tar.gz", hash = "sha256:ead9ffdbb2877512dd3d0d67cf79332485b8175d17f31faafa7f83f771255855"},
+    {file = "pipen_cli_ref-1.0.0-py3-none-any.whl", hash = "sha256:efade0964b9df9952c1172a6249e311771a9544d8b5c2a0b5da845a260a5398f"},
+    {file = "pipen_cli_ref-1.0.0.tar.gz", hash = "sha256:7ec26e2c470caa71a26c4a6f44da9039b513702d00001909d0f6352f96dd1836"},
 ]
 
 [package.dependencies]
-pipen-annotate = ">=0.15,<0.16"
+pipen-annotate = ">=1.0,<2.0"
 
 [[package]]
 name = "pipen-cli-run"
-version = "0.15.1"
+version = "1.0.0"
 description = "A pipen cli plugin to run a process or a pipeline"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_cli_run-0.15.1-py3-none-any.whl", hash = "sha256:60b6b08e16715f0f98483e655940f2d719965c8799c56a235a0ec2e02803a666"},
-    {file = "pipen_cli_run-0.15.1.tar.gz", hash = "sha256:9010e162a45fa332cf6481ce2fb639e2a6f4d4bbbcc583642afb7b73a2b274ea"},
+    {file = "pipen_cli_run-1.0.0-py3-none-any.whl", hash = "sha256:1cc7a33057c967aae3aae4d07207f741b2b0768711edc7a249d992f5290e79dd"},
+    {file = "pipen_cli_run-1.0.0.tar.gz", hash = "sha256:94e36302b6a91fa60fa7bab6606c549da05693f2977b844dd730e764c3735ab6"},
 ]
 
 [package.dependencies]
-pipen-args = ">=0.17,<0.18"
+pipen-args = ">=1.0,<2.0"
 
 [[package]]
 name = "pipen-deprecated"
-version = "0.0.0"
+version = "1.0.0"
 description = "Marking pipen processes as deprecated"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_deprecated-0.0.0-py3-none-any.whl", hash = "sha256:5de4a5f9a89796a052da1e4ef14fa33cbc217cd338791066689b7d307f58acf3"},
-    {file = "pipen_deprecated-0.0.0.tar.gz", hash = "sha256:2720d65b5c5e9520e5155aa45058fb519de674a64763301a30d7f49d03239088"},
+    {file = "pipen_deprecated-1.0.0-py3-none-any.whl", hash = "sha256:ce26afd0e217cefeff88db841c001ac9e0933ed621b27c69dcd9f66ae148cb9c"},
+    {file = "pipen_deprecated-1.0.0.tar.gz", hash = "sha256:de533eaea79601516f5d1a203ca27a767b7f2e575f301fb36a31da50a0662189"},
 ]
 
 [package.dependencies]
-pipen = "==0.17.*"
+pipen = ">=1.0,<2.0"
 
 [[package]]
 name = "pipen-diagram"
-version = "0.13.4"
+version = "1.0.0"
 description = "Draw pipeline diagrams for pipen."
 optional = true
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 markers = "extra == \"diagram\""
 files = [
-    {file = "pipen_diagram-0.13.4-py3-none-any.whl", hash = "sha256:51b54b4094f8a07af1caf63aa90ca068925993d575f837c5b30e27d622d83eaf"},
-    {file = "pipen_diagram-0.13.4.tar.gz", hash = "sha256:40768a4cd4826ab21e662d8547acc405366499441d411a8b39b6ebc8b5ac518c"},
+    {file = "pipen_diagram-1.0.0-py3-none-any.whl", hash = "sha256:d81637239f03f04334301e6a7465f3cfd08d23ffd7791d8d5e4c7e2a46238f1b"},
+    {file = "pipen_diagram-1.0.0.tar.gz", hash = "sha256:ab0f12cd366f838f14239c5d923b858a23208634f584510aba54c5469971c9c9"},
 ]
 
 [package.dependencies]
 graphviz = ">=0.21,<0.22"
-pipen = ">=0.17.22,<0.18.0"
+pipen = ">=1.0,<2.0"
 
 [[package]]
 name = "pipen-dry"
-version = "0.12.3"
+version = "1.0.0"
 description = "Dry runner for pipen pipelines"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "dev"]
 files = [
-    {file = "pipen_dry-0.12.3-py3-none-any.whl", hash = "sha256:a377f05539751a97581a0502cae5ec01e53c952f76274cc20a7de77265ab26f3"},
-    {file = "pipen_dry-0.12.3.tar.gz", hash = "sha256:5a5c3d48dbf34ad1354a1cd7e0f798e68ca0e460a94ac079ce69a9df0995ac20"},
+    {file = "pipen_dry-1.0.0-py3-none-any.whl", hash = "sha256:65172c99d056cd12488efe95ee6fc5cc07e5b20751083d609642cd49b1c85f29"},
+    {file = "pipen_dry-1.0.0.tar.gz", hash = "sha256:2a9fa95e020bb54ef508def5e9eb1d234a4be7ab7584dbdd390e84b91dfda99a"},
 ]
 
 [package.dependencies]
-pipen = "==0.17.*"
+pipen = ">=1.0,<2.0"
 
 [[package]]
 name = "pipen-filters"
-version = "0.15.3"
+version = "1.0.0"
 description = "Add a set of useful filters for pipen templates"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_filters-0.15.3-py3-none-any.whl", hash = "sha256:c6a9e4fb64d8b32940082fcb5a27d2a126dc5ad49ed5c5532cfd4aaaee2e5367"},
-    {file = "pipen_filters-0.15.3.tar.gz", hash = "sha256:9ed464d29515d6203047799cb470443c69410dec4e300edb982b410d277079a0"},
+    {file = "pipen_filters-1.0.0-py3-none-any.whl", hash = "sha256:fe079f444063ff88cbafad66b348b46cebb323c3e84ce701611708ee98777fa1"},
+    {file = "pipen_filters-1.0.0.tar.gz", hash = "sha256:88060fc79479d0f3eed83be0aae863eadbd7674766c3d6d27fb094eb0a85a39e"},
 ]
 
 [package.dependencies]
-pipen = "==0.17.*"
+pipen = ">=1.0,<2.0"
 
 [[package]]
 name = "pipen-log2file"
-version = "0.10.5"
+version = "1.0.0"
 description = "Add verbosal information in logs for pipen."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_log2file-0.10.5-py3-none-any.whl", hash = "sha256:6822bd6a91987924512f66c5128bd48d9f99b89fbee3532d6d0a988d640e0a0c"},
-    {file = "pipen_log2file-0.10.5.tar.gz", hash = "sha256:7bd71dc28efdca017d728100a90fca32975fb0f8842b9b2636c8498c7864f21f"},
+    {file = "pipen_log2file-1.0.0-py3-none-any.whl", hash = "sha256:e7bc0050731f7e78f95117e3ad8deadd3905b8e64552f6032bd0abd69aca830c"},
+    {file = "pipen_log2file-1.0.0.tar.gz", hash = "sha256:557a9306c229af1a7ea7b14926e402d1043ade78135d03682b740dc6c1a77bcd"},
 ]
 
 [package.dependencies]
-pipen = "==0.17.*"
+pipen = ">=1.0,<2.0"
 
 [[package]]
 name = "pipen-poplog"
-version = "0.3.12"
+version = "1.0.0"
 description = "Populate logs from jobs to running log of the pipeline"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_poplog-0.3.12-py3-none-any.whl", hash = "sha256:336bd8d889850aead393e6b35b3da5f17c5ae79eedc3f03fe7a4befffe31544e"},
-    {file = "pipen_poplog-0.3.12.tar.gz", hash = "sha256:a139df82413a51b106210bf0f062992d9c274e57a35de32f26229f619ff742e6"},
+    {file = "pipen_poplog-1.0.0-py3-none-any.whl", hash = "sha256:f0b18632aa0be1773bf8bb4a3f8187a305c7b774de92e0a007fc5c774e9f5b8e"},
+    {file = "pipen_poplog-1.0.0.tar.gz", hash = "sha256:28fb182e02a1069e294fdc88092e7c27f4386f7a57f1851799e129c7cb3032c3"},
 ]
 
 [package.dependencies]
-pipen = "==0.17.*"
+pipen = ">=1.0,<2.0"
 
 [[package]]
 name = "pipen-report"
-version = "0.23.15"
+version = "1.0.0"
 description = "Report generation system for pipen"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_report-0.23.15-py3-none-any.whl", hash = "sha256:42ea8d17551dbe29ba3e770f690d605314dd9124e250c53f744cc8afec566c8d"},
-    {file = "pipen_report-0.23.15.tar.gz", hash = "sha256:66c4e0ba79fbe99a7f5d4e32626446497900b49116cdc8ed8f8f07d1b39b367f"},
+    {file = "pipen_report-1.0.0-py3-none-any.whl", hash = "sha256:096a9c542ad0de3a9aa027e31536986d09ba4afbf4ca378d2fd44d549e65ece2"},
+    {file = "pipen_report-1.0.0.tar.gz", hash = "sha256:fcbe3cfe43a1d64194c9f392712f5f3131f6bcf3f83750afdc4b3a5ea7217fce"},
 ]
 
 [package.dependencies]
 copier = ">=9.5,<10.0"
 imagesize = ">=1.4,<2.0"
 Markdown = ">=3,<4"
-pipen = "==0.17.*"
+pipen = ">=1.0,<2.0"
 python-slugify = ">=8.0,<9.0"
 
 [package.extras]
-runinfo = ["pipen-runinfo (>=0.9,<0.10)"]
+runinfo = ["pipen-runinfo (>=1.0,<2.0)"]
 
 [[package]]
 name = "pipen-runinfo"
-version = "0.9.3"
+version = "1.0.0"
 description = "Generate running information for jobs in pipen pipelines"
 optional = true
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 markers = "extra == \"runinfo\""
 files = [
-    {file = "pipen_runinfo-0.9.3-py3-none-any.whl", hash = "sha256:7a782cb43f639dc4a1e8cd559a247ff16f50052a8744be224c7c5496cf1973df"},
-    {file = "pipen_runinfo-0.9.3.tar.gz", hash = "sha256:591e14a15486b7b6dd0ed7387bfdba1ef561aea7c75c88047850ce18fc1c0a8f"},
+    {file = "pipen_runinfo-1.0.0-py3-none-any.whl", hash = "sha256:dff38e55d394a62a1a0a9000d0e575cbeeedfb600a1e85397979e277111a16fc"},
+    {file = "pipen_runinfo-1.0.0.tar.gz", hash = "sha256:b7c4093502bf8a0c7b8f61f3d7c77a2bf653d160e0ae21e1a7d66715ff664c48"},
 ]
 
 [package.dependencies]
-pipen = "==0.17.*"
+pipen = ">=1.0,<2.0"
 
 [[package]]
 name = "pipen-verbose"
-version = "0.14.5"
+version = "1.0.0"
 description = "Add verbosal information in logs for pipen."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_verbose-0.14.5-py3-none-any.whl", hash = "sha256:0952414f6ca63020b5a8e1491beee6d0131c331d943ca299eb8410389f4f9b9f"},
-    {file = "pipen_verbose-0.14.5.tar.gz", hash = "sha256:edae03d143b666f86441f10ec85551155c3ea023c53358beefdbef1971bfd5ea"},
+    {file = "pipen_verbose-1.0.0-py3-none-any.whl", hash = "sha256:73709881b1a91fa72104d932b1fe054d027032fc936840aa747b8296cae8b359"},
+    {file = "pipen_verbose-1.0.0.tar.gz", hash = "sha256:5adc3189b190743f306ba5680852843765453279f64f1f04b02dfe208bcc7002"},
 ]
 
 [package.dependencies]
-pipen = "==0.17.*"
+pipen = ">=1.0.2,<2.0.0"
 
 [[package]]
 name = "platformdirs"
@@ -2265,15 +2262,15 @@ wcwidth = "*"
 
 [[package]]
 name = "proto-plus"
-version = "1.26.1"
+version = "1.27.0"
 description = "Beautiful, Pythonic protocol buffers"
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "proto_plus-1.26.1-py3-none-any.whl", hash = "sha256:13285478c2dcf2abb829db158e1047e2f1e8d63a077d94263c2b88b043c75a66"},
-    {file = "proto_plus-1.26.1.tar.gz", hash = "sha256:21a515a4c4c0088a773899e23c7bbade3d18f9c66c73edd4c7ee3816bc96a012"},
+    {file = "proto_plus-1.27.0-py3-none-any.whl", hash = "sha256:1baa7f81cf0f8acb8bc1f6d085008ba4171eaf669629d1b6d1673b21ed1c0a82"},
+    {file = "proto_plus-1.27.0.tar.gz", hash = "sha256:873af56dd0d7e91836aee871e5799e1c6f1bda86ac9a983e0bb9f0c266a568c4"},
 ]
 
 [package.dependencies]
@@ -3205,27 +3202,27 @@ typing-extensions = ">=4.12.0"
 
 [[package]]
 name = "tzdata"
-version = "2025.2"
+version = "2025.3"
 description = "Provider of IANA time zone data"
 optional = false
 python-versions = ">=2"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "tzdata-2025.2-py2.py3-none-any.whl", hash = "sha256:1a403fada01ff9221ca8044d701868fa132215d84beb92242d9acd2147f667a8"},
-    {file = "tzdata-2025.2.tar.gz", hash = "sha256:b60a638fcc0daffadf82fe0f57e53d06bdec2f36c4df66280ae79bce6bd6f2b9"},
+    {file = "tzdata-2025.3-py2.py3-none-any.whl", hash = "sha256:06a47e5700f3081aab02b2e513160914ff0694bce9947d6b76ebd6bf57cfc5d1"},
+    {file = "tzdata-2025.3.tar.gz", hash = "sha256:de39c2ca5dc7b0344f2eba86f49d614019d29f060fc4ebc8a417896a620b56a7"},
 ]
 
 [[package]]
 name = "urllib3"
-version = "2.6.1"
+version = "2.6.2"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "urllib3-2.6.1-py3-none-any.whl", hash = "sha256:e67d06fe947c36a7ca39f4994b08d73922d40e6cca949907be05efa6fd75110b"},
-    {file = "urllib3-2.6.1.tar.gz", hash = "sha256:5379eb6e1aba4088bae84f8242960017ec8d8e3decf30480b3a1abdaa9671a3f"},
+    {file = "urllib3-2.6.2-py3-none-any.whl", hash = "sha256:ec21cddfe7724fc7cb4ba4bea7aa8e2ef36f607a4bab81aa6ce42a13dc3f03dd"},
+    {file = "urllib3-2.6.2.tar.gz", hash = "sha256:016f9c98bb7e98085cb2b4b17b87d2c702975664e4f060c6532e64d1c1a5e797"},
 ]
 
 [package.extras]
@@ -3398,14 +3395,14 @@ h11 = ">=0.16.0,<1"
 
 [[package]]
 name = "xqute"
-version = "0.10.19"
+version = "1.0.1"
 description = "A job management system for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "xqute-0.10.19-py3-none-any.whl", hash = "sha256:bdf6202909e29efac20e7dcd878a648e426f3ce9681101616fef6e62c6179c51"},
-    {file = "xqute-0.10.19.tar.gz", hash = "sha256:7f588c500416cfbe2f5aae65c39e1451008107347663561d99327cfe69c6d552"},
+    {file = "xqute-1.0.1-py3-none-any.whl", hash = "sha256:7a9ec63e877a29f25a848a46b2ae4031619fe81f737d3fdb61367e8eed335b06"},
+    {file = "xqute-1.0.1.tar.gz", hash = "sha256:0d0f8cf195a05501a49c19d4b2af5fd71f18ccb93708d9ebf7e8bf979b2b113e"},
 ]
 
 [package.dependencies]
@@ -3465,4 +3462,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "73c2a29bc085e0a666719af553b0080d0428a84b05bad777a01e7b4c16bb976c"
+content-hash = "9b83ad8a071a2a7f25557c29c689488897229d4973be1a106bad7229badb4ee2"
