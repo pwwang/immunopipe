@@ -172,7 +172,7 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
         if len(infiles) == 1 and infiles[0] is not None:
             infile = PanPath(infiles[0])
             if infile.is_file():
-                header = infile.a_read_text().splitlines()[0]
+                header = infile.read_text().splitlines()[0]
                 config.has_vdj = "TCRData" in header or "BCRData" in header
             else:
                 mount = config.get("scheduler_opts", {}).get("mount", [])
