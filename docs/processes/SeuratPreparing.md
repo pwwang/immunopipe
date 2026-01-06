@@ -183,9 +183,9 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
 - `SCTransform` *(`ns`)*:
     Arguments for [`SCTransform()`](https://satijalab.org/seurat/reference/sctransform).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
-    - `return-only-var-genes`: *Default: `True`*. <br />
+    - `return-only-var-genes`: *Default: `False`*. <br />
         Whether to return only variable genes.<br />
-    - `min_cells`: *Default: `5`*. <br />
+    - `min_cells`: *Default: `3`*. <br />
         The minimum number of cells that a gene must be expressed in to be kept.<br />
         A hidden argument of `SCTransform` to filter genes.<br />
         If you try to keep all genes in the `RNA` assay, you can set `min_cells` to `0` and

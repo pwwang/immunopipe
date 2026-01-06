@@ -8,6 +8,7 @@ Annotate the cell clusters. Currently, four ways are supported:<br />
 2. Use [`ScType`](https://github.com/IanevskiAleksandr/sc-type)
 3. Use [`scCATCH`](https://github.com/ZJUFanLab/scCATCH)
 4. Use [`hitype`](https://github.com/pwwang/hitype)
+5. Use [`celltypist`](https://github.com/Teichlab/celltypist)
 
 The annotated cell types will replace the original identity column in the metadata,
 so that the downstream processes will use the annotated cell types.<br />
