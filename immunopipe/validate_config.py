@@ -4,7 +4,8 @@ import re
 import sys
 from typing import Any, Dict
 
-from yunpath import AnyPath
+from panpath import PanPath
+from simpleconf import Config
 from pipen.utils import logger
 
 WARNINGS = []
@@ -76,7 +77,7 @@ def _log_error(message: str | None = None) -> None:
     logger.warning("")
 
 
-def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
+async def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
     """Validate the configuration.
 
     Args:
@@ -86,9 +87,16 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
         args = sys.argv
 
     try:
-        from pipen_args import config
+        from pipen_args import config_file
+
+        if not config_file:
+            raise ValueError(
+                "Configuration file must be provided as the first argument."
+            )
     except Exception as e:
         _log_error(f"Failed to load configuration.\n{e}")
+
+    config = await Config.a_load(config_file)
 
     config.has_vdj = True  # Default to True, will be updated later
     running_in_gbatch = len(args) > 1 and args[1] == "gbatch"
@@ -170,9 +178,9 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
             )
 
         if len(infiles) == 1 and infiles[0] is not None:
-            infile = AnyPath(infiles[0])
-            if infile.is_file():
-                header = infile.read_text().splitlines()[0]
+            infile = PanPath(infiles[0])
+            if await infile.a_is_file():
+                header = (await infile.a_read_text()).splitlines()[0]
                 config.has_vdj = "TCRData" in header or "BCRData" in header
             else:
                 mount = config.get("scheduler_opts", {}).get("mount", [])
@@ -188,13 +196,15 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
                 if mount:
                     for mount in mount:
                         p1, p2 = mount.rsplit(":", 1)
-                        p2 = AnyPath(p2)
+                        p2 = PanPath(p2)
                         if not infile.is_relative_to(p2):
                             continue
                         p1 = p1.rstrip("/")
                         cloud_path = f"{p1}/{infile.relative_to(p2)}"
-                        if AnyPath(cloud_path).is_file():
-                            header = AnyPath(cloud_path).read_text().splitlines()[0]
+                        if await PanPath(cloud_path).a_is_file():
+                            header = (
+                                await PanPath(cloud_path).a_read_text()
+                            ).splitlines()[0]
                             config.has_vdj = "TCRData" in header or "BCRData" in header
                         else:
                             _log_error(
