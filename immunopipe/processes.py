@@ -1,7 +1,6 @@
 """Process definition"""
 from __future__ import annotations
 
-import asyncio
 from typing import Type, Sequence, Callable
 
 from pipen.utils import is_loading_pipeline
@@ -48,7 +47,7 @@ from .validate_config import validate_config
 
 toml_dumps = FILTERS["toml_dumps"]
 just_loading = is_loading_pipeline("help", "-h", "--help", "-h+", "--help+")
-config = asyncio.run(validate_config())
+config = validate_config()
 
 # https://pwwang.github.io/immunopipe/latest/
 TEST_OUTPUT_BASEURL = "https://raw.githubusercontent.com/pwwang/immunopipe/tests-output"
