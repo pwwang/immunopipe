@@ -284,14 +284,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "1.1.0"
+version = "1.1.1"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-1.1.0-py3-none-any.whl", hash = "sha256:192955a4464537194a566a04a90597cfd4dfd12549f421bdbe2bdf628c6730ab"},
-    {file = "biopipen-1.1.0.tar.gz", hash = "sha256:4d59b03e137a1a1bc9d34c9635b1a2c7fc833d31c2cb2c7967e5e0a9648465fc"},
+    {file = "biopipen-1.1.1-py3-none-any.whl", hash = "sha256:a2e247cdec740c053a362dac276c1c76dd62673850e7cc256640a4e42dc6418f"},
+    {file = "biopipen-1.1.1.tar.gz", hash = "sha256:7ef9a747f71ae746d55187ae6d035a1efefcb34501916bf46a276cc579403618"},
 ]
 
 [package.dependencies]
@@ -2301,14 +2301,14 @@ s3 = ["boto3 (>=1.20.0)"]
 
 [[package]]
 name = "pathspec"
-version = "1.0.0"
+version = "1.0.1"
 description = "Utility library for gitignore style pattern matching of file paths."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "pathspec-1.0.0-py3-none-any.whl", hash = "sha256:1373719036e64a2b9de3b8ddd9e30afb082a915619f07265ed76d9ae507800ae"},
-    {file = "pathspec-1.0.0.tar.gz", hash = "sha256:9ada63a23541746b0cf7d5672a39ea77eac31dd23a80470be90df83537512131"},
+    {file = "pathspec-1.0.1-py3-none-any.whl", hash = "sha256:8870061f22c58e6d83463cfce9a7dd6eca0512c772c1001fb09ac64091816721"},
+    {file = "pathspec-1.0.1.tar.gz", hash = "sha256:e2769b508d0dd47b09af6ee2c75b2744a2cb1f474ae4b1494fd6a1b7a841613c"},
 ]
 
 [package.extras]
@@ -3297,14 +3297,14 @@ six = ">=1.5"
 
 [[package]]
 name = "python-simpleconf"
-version = "0.8.0"
+version = "0.8.2"
 description = "Simple configuration management with python."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "python_simpleconf-0.8.0-py3-none-any.whl", hash = "sha256:2f8b550aa7d9b871516a8264541870036492367d2907c265aa8297d4297558cd"},
-    {file = "python_simpleconf-0.8.0.tar.gz", hash = "sha256:c96d51fd635a410f295c65ddccf5023a24cb1d35df69654a98874a0d37a67791"},
+    {file = "python_simpleconf-0.8.2-py3-none-any.whl", hash = "sha256:8462229665207389fab5797104003d52f8c1d6d9d75c0447c5182169f80fdf30"},
+    {file = "python_simpleconf-0.8.2.tar.gz", hash = "sha256:21f9e68865ed6762a641db26900a300aee86149ab79e3d430f7811d7fcb4c47e"},
 ]
 
 [package.dependencies]
@@ -3951,14 +3951,14 @@ h11 = ">=0.16.0,<1"
 
 [[package]]
 name = "xqute"
-version = "2.0.3"
+version = "2.0.4"
 description = "A job management system for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "xqute-2.0.3-py3-none-any.whl", hash = "sha256:7e1d232b60bf32734f103f0d50222ec5c8adb80792828504adbd6536179334de"},
-    {file = "xqute-2.0.3.tar.gz", hash = "sha256:89c3b29cc6907ec62f5645f7bd289e9d79a93f7632ca2d200660b929811a8b3f"},
+    {file = "xqute-2.0.4-py3-none-any.whl", hash = "sha256:bd5f41f60c8b927da3d224491c4836d96b709cc3a77deacec373e0add1453e68"},
+    {file = "xqute-2.0.4.tar.gz", hash = "sha256:cbb666311109eac3d65dd8b1830f223d325693a56894ac7d6bdc012e70901306"},
 ]
 
 [package.dependencies]
@@ -4150,4 +4150,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "e138c9a1020b9f211a6b3baf92e78d022359f5f70ba95d3568d7643082077b22"
+content-hash = "8884177756cfd2b5f64e96474aca69e72bcdef7d4c5c4bac6ce9b212d70e4673"
