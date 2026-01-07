@@ -271,6 +271,12 @@ With the docker image, in additional to the default system fonts, we also have i
 
 ///
 
+/// details | Does the pipeline work for mouse data?
+
+Yes, the pipeline fully supports mouse data. To analyze mouse samples, specify the relevant mouse reference datasets in your configuration file. For example, set the appropriate mouse reference in the `SeuratMap2Ref` process. For pathway enrichment or GSEA analyses, provide mouse-specific gene sets from MSigDB or other compatible sources. Ensure all reference files and gene sets correspond to the mouse genome to achieve accurate results.
+
+///
+
 <p> </p>
 
 [1]: https://github.com/pwwang/biopipen
