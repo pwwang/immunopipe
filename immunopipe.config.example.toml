@@ -1,0 +1,1655 @@
+# # File Version 0.1.0
+# # This is an example configuration file for Immunopipe,
+# # a pipeline for integrative analysis for scRNA-seq and scTCR-/scBCR-seq data.
+# # The configuration file is in TOML format.
+# # See https://toml.io/en/ for details about TOML format.
+# # Use of this file: copy it to immunopipe.config.toml and edit the parameters as needed.
+# # Comments start with `# #`.
+# # Configuration items start with `#`. You can uncomment and edit them as needed.
+
+# # ======================= Pipeline Options =======================
+# # Pipeline options: options to control the pipeline behavior
+# # Refer to https://pwwang.github.io/pipen/configurations/ for details and full list of pipeline options.
+
+# # ----------------------- Pipeline-Level Options -----------------------
+# # The name of the pipeline
+# # The metadata/working directory will be created under ./<workdir>/<name>/
+# # If <outdir> is not set, the output will be saved under ./<name>-output/
+# name = "immunopipe"
+
+# # The working directory for the pipeline
+# # The metadata and intermidate files will be saved under <workdir>/<name>/
+# workdir = "./.pipen"
+
+# # The output directory for the pipeline
+# # The final output files will be saved under <outdir>/
+# # If not set, the output will be saved under ./<name>-output/
+# outdir = "./immunopipe-output"
+
+# # Plugins to be used in the pipeline
+# # Plugins are enabled by default after installation
+# # You can disable plugins by specifying them here
+# # Example: plugins = ["-diagram", "-runinfo"]
+# # This will disable the "diagram" and "runinfo" plugins
+# plugins = []
+
+# # The logging level for the logger
+# # Options: "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"
+# loglevel = "INFO"
+
+# ------------------------ Process-Level Options ------------------------
+# # The default options for all processes in the pipeline
+# # Should we check whether the processes/jobs are cached?
+# # See https://pwwang.github.io/pipen/caching/
+# # Options: true, false, 'force'
+# cache = true
+
+# # How to deal with the errors: retry, ignore or halt.
+# # See: https://pwwang.github.io/pipen/error/
+# error_strategy = "halt"
+
+# # How many times to retry to jobs once error occurs.
+# num_retries = 3
+
+# # The options for plugins at the pipeline level, will be inherited by processes.
+# # See:
+# #  https://github.com/pwwang/pipen-diagram
+# #  https://github.com/pwwang/pipen-runinfo
+# #  https://github.com/pwwang/pipen-poplog
+# #  https://github.com/pwwang/pipen-args
+# #  https://github.com/pwwang/pipen-verbose
+# #  https://github.com/pwwang/pipen-report
+# #  https://github.com/pwwang/pipen-log2file
+# #  https://github.com/pwwang/pipen-board
+# plugin_opts = {}
+
+# # The scheduler to run the jobs
+# # See: https://pwwang.github.io/pipen/scheduler/
+# scheduler = "local"
+
+# # The options for the scheduler
+# # See: https://pwwang.github.io/pipen/scheduler/ and https://github.com/pwwang/xqute
+# scheduler_opts = {}
+
+# # ======================= Options for `immunopipe gbatch` =======================
+# # If running the pipeline with `immunopipe gbatch`, the following options will be used.
+# # See: hhttps://pwwang.github.io/immunopipe/latest/running/#use-pipen-cli-gbatch
+
+# [gbatch]
+# # Use the `scheduler_opts` as the Scheduler Options of a given profile from pipen configuration files,
+# # including ~/.pipen.toml and ./pipen.toml.
+# profile = "gbatch"
+# # Set the logging level for the daemon process.
+# loglevel = "INFO"
+# # The strategy when there is error happened in the daemon process.
+# error_strategy = "halt"
+# # The number of retries when there is error happened. Only valid when --error-strategy is 'retry'.
+# num_retries = 3
+# # The prescript to run before the main command.
+# prescript = ""
+# # The postscript to run after the main command.
+# postscript = ""
+# # The interval to recheck the job status from the scheduler, each takes about 1 second.
+# recheck_interval = 60
+# # The working directory to run the command. If not provided, the current directory is used.
+# # You can pass either a mounted path (inside the VM) or a Google Storage Bucket path (gs://...).
+# # If a Google Storage Bucket path is provided, the mounted path will be inferred from the mounted paths of the VM.
+# cwd = ""
+# # The Google Cloud project to run the job.
+# project = ""
+# # The Google Cloud location to run the job.
+# location = "us-central1"
+# # The list of mounts to mount to the VM, each in the format of SOURCE:TARGET,
+# # where SOURCE must be either a Google Storage Bucket path (gs://...).
+# mounts = []
+# # The directory to mount as the current working directory of the command.
+# # This is a shortcut for `--mount <cloudpath>:/mnt/disks/.cwd --cwd /mnt/disks/.cwd`.
+# # The <cloudpath> must be a Google Storage Bucket path (gs://...). When this option is used,
+# # and `--workdir` is not provided, the workdir will be set to `<cloudpath>/.pipen/<name>`,
+# # where <name> is the name of the pipeline.
+# mount_as_cwd = ""
+# # The service account to run the job.
+# service_account = ""
+# # The network to run the job.
+# network = ""
+# # The subnetwork to run the job.
+# subnetwork = ""
+# # Whether to disable external IP address for the VM.
+# no_external_ip_address = true
+# # The machine type of the VM.
+# machine_type = "n2-highmem-8"
+# # The provisioning model of the VM.
+# provisioning_model = "STANDARD"
+# # The custom docker image URI of the VM.
+# image_uri = ""
+# # The JSON string of extra settings of runnables add to the job.json.
+# # Useful for debugging or advanced usage.
+# runnables = ""
+# # The JSON string of extra settings of allocationPolicy add to the job.json
+# allocationPolicy = ""
+# # The JSON string of extra settings of taskGroups add to the job.json
+# taskGroups = ""
+# # The strings of labels to add to the job (key=value)
+# labels = ""
+# # The path to the gcloud command
+# gcloud = "gcloud"
+
+# # ======================= Configuration for Processes =======================
+
+# # ----------------------- Process: SampleInfo -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/SampleInfo/
+# # This process is required (a section must be provided [SampleInfo]) when LoadingRNAFromSeurat is
+# # not used in the pipeline.
+# # Even when LoadingRNAFromSeurat is used, you can still provide this section to provide VDJ data information.
+
+# [SampleInfo]
+# # See "Pipline Options" section above for process-level options like
+# # cache, error_strategy, num_retries, plugin_opts, scheduler, scheduler_opts.
+# # All these options can be overridden here for this process only.
+# # And all processes in the pipeline can also override these options individually.
+# # Won't repeat them here for other processes.
+
+# [SampleInfo.in]
+# # Specifying the input sample info file
+# # See: https://pwwang.github.io/immunopipe/latest/preparing-input/#metadata
+# infile = ["path/to/sample_info.txt"]
+
+# [SampleInfo.envs]
+# # The separator of the input file.
+# sep = "\t"
+
+# # A dict of mutaters to mutate the data frame.
+# # The key is the column name and the value is the R expression to mutate the column. The dict will be transformed to
+# # a list in R and passed to dplyr::mutate.
+# mutaters = {}
+
+# # Whether to save the mutated columns.
+# # Note that factors will be converted to characters when saving (levels will be lost).
+# save_mutated = false
+
+# # The columns to exclude in the table in the report.
+# exclude_cols = "TCRData,BCRData,RNAData"
+
+# The default parameters for envs.stats (cases)
+# [SampleInfo.envs.defaults]
+# # The type of the plot.
+# # See the supported plot types here: https://pwwang.github.io/plotthis/reference/index.html
+# # The plot_type should be lower case and the plot function used in plotthis should be used.
+# # The mapping from plot_type to the plot function is like bar -> BarPlot, box -> BoxPlot, etc.
+# plot_type = "bar"
+
+# # The additional formats to save the plot.
+# # By default, the plot will be saved in png, which is also used to display in the report.
+# # You can add more formats to save the plot.
+# more_formats = []
+
+# # Whether to save the R code to reproduce the plot.
+# # The data used to plot will also be saved.
+# save_code = false
+
+# # An expression to subset the data frame before plotting.
+# # The expression should be a string of R expression that will be passed to dplyr::filter.
+# # For example, subset = "Sample == 'A'".
+# subset = ""
+
+# # The section name in the report, in case you want to group the plots in the report.
+# section = ""
+
+# # The device parameters for the plot.
+# # All parameters will be passed to the plotting device function in R.
+# # All processes that generate plots will support this option.
+# # Later in other processes, this option will not be expanded again.
+# [SampleInfo.envs.devpars]
+# width = 600
+# height = 400
+# res = 100
+
+# # The description of the plot, shown in the report.
+# descr = ""
+
+# # You can add more parameters to the defaults, which will be inherited by all cases in envs.stats.
+# ...
+
+# # The statistics to perform.
+# # The keys are the case names and the values are the parameters inheirted from envs.defaults.
+# [SampleInfo.envs.stats]
+
+# # A case to plot the number of samples per group.
+# [SampleInfo.envs.stats.num_samples_per_group]
+# # The column to group by on the x-axis (y-axis is the count of samples).
+# x = "Group"
+# plot_type = "bar"
+# # See more options in https://pwwang.github.io/plotthis/reference/barplot.html
+
+# # ----------------------- Process: LoadingRNAFromSeurat -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/LoadingRNAFromSeurat/
+# # This process is optional. It can be used to load RNA data from Seurat objects.
+# # If this process is used, the [SampleInfo] section is not required.
+# # But if VDJ data is present, the [SampleInfo] section is still required to provide VDJ data information.
+
+# [LoadingRNAFromSeurat.in]
+# # Specifying the input Seurat object files
+# infile = ["path/to/seurat_object.rds"]
+
+# [LoadingRNAFromSeurat.envs]
+# # Whether the Seurat object is well-prepared for the pipeline (so that SeuratPreparing process is not needed).
+# prepared = false
+# # Whether the Seurat object is clustered, so that SeuratClustering (SeuratClusteringOfAllCells) process or
+# # SeuratMap2Ref is not needed. Force `prepared` to be true if this is true.
+# clustered = false
+# # The column name in the metadata of the Seurat object that indicates the sample name.
+# sample = "Sample"
+
+# # ----------------------- Process: SeuratPreparing -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/SeuratPreparing/
+# # This process will - - Prepare the seurat object - Apply QC to the data - Integrate the data from different samples
+
+# [SeuratPreparing.envs]
+# # Number of cores to use.
+# # Used in future::plan(strategy = "multicore", workers = <ncores>) to parallelize some Seurat procedures.
+# ncores = 1
+
+# # The mutaters to mutate the metadata to the cells.
+# # These new columns will be added to the metadata of the Seurat object and will be saved in the output file.
+# mutaters = {}
+
+# # The minimum number of cells that a gene must be expressed in to be kept.
+# # This is used in Seurat::CreateSeuratObject().
+# # Futher QC (envs.cell_qc, envs.gene_qc) will be performed after this.
+# # It doesn't work when data is loaded from loom files or RDS/qs2 files.
+# min_cells = 0
+
+# # The minimum number of features that a cell must express to be kept. This is used in Seurat::CreateSeuratObject().
+# # Futher QC (envs.cell_qc, envs.gene_qc) will be performed after this.
+# # It doesn't work when data is loaded from loom files or RDS/qs2 files.
+# min_features = 0
+
+# # Filter expression to filter cells, using tidyrseurat::filter().
+# # It can also be a dictionary of expressions, where the names of the list are sample names.
+# # You can have a default expression in the list with the name "DEFAULT" for the samples that are not listed.
+# # Available QC keys include nFeature_RNA, nCount_RNA, percent.mt, percent.ribo, percent.hb, and percent.plat.
+# cell_qc = ""
+
+# # Filter genes
+# # gene_qc is applied after cell_qc.
+# [SeuratPreparing.envs.gene_qc]
+
+# # The minimum number of cells that a gene must be expressed in to be kept.
+# min_cells = 0
+
+# # The genes to exclude. Multiple genes can be specified by comma separated values, or as a list.
+# excludes = []
+
+# # The plots for QC metrics.
+# # It should be a json (or python dict) with the keys as the names of the plots and the values also as dicts with
+# # the following keys:
+# # - kind: The kind of QC. Either gene or cell (default).
+# # - devpars: The device parameters for the plot. A dict with res, height, and width.
+# # - more_formats: The formats to save the plots other than png.
+# # - save_code: Whether to save the code to reproduce the plot.
+# # - other arguments passed to biopipen.utils::VizSeuratCellQC when kind is cell or
+# #   biopipen.utils::VizSeuratGeneQC when kind is gene.
+# qc_plots = {}
+
+# # Whether use SCTransform routine to integrate samples or not.
+# # Before the following procedures, the RNA layer will be split by samples.
+# #
+# # If False, following procedures will be performed in the order:
+# # * NormalizeData.
+# # * FindVariableFeatures.
+# # * ScaleData.
+# # See https://satijalab.org/seurat/articles/seurat5_integration#layers-in-the-seurat-v5-object and
+# # https://satijalab.org/seurat/articles/pbmc3k_tutorial.html
+# #
+# # If True, following procedures will be performed in the order:
+# # * SCTransform.
+# # See https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis
+# use_sct = false
+
+# # Whether to skip integration or not.
+# no_integration = false
+
+# # Arguments for NormalizeData() when use_sct is False.
+# # See: https://satijalab.org/seurat/reference/normalizedata
+# # The object is specified internally, and - in the key will be replaced with .
+# [SeuratPreparing.envs.NormalizeData]
+# # normalization-method = "LogNormalize"
+# # scale-factor = 10000
+# # margin = 1
+# # verbose = true
+# # See more options in https://satijalab.org/seurat/reference/normalizedata
+
+# # Arguments for FindVariableFeatures() when use_sct is False.
+# # See: https://satijalab.org/seurat/reference/findvariablefeatures
+# # The object is specified internally, and - in the key will be replaced with .
+# [SeuratPreparing.envs.FindVariableFeatures]
+# # selection-method = "vst"
+# # nfeatures = 2000
+# # verbose = true
+# # See more options in https://satijalab.org/seurat/reference/findvariablefeatures
+
+# # Arguments for ScaleData() when use_sct is False.
+# # See: https://satijalab.org/seurat/reference/scaledata
+# # The object and features are specified internally, and - in the key will be replaced with .
+# [SeuratPreparing.envs.ScaleData]
+# # verbose = true
+# # See more options in https://satijalab.org/seurat/reference/scaledata
+
+# # Arguments for RunPCA() when use_sct is False.
+# # See: https://satijalab.org/seurat/reference/runpca
+# # The object and features are specified internally, and - in the key will be replaced with .
+# [SeuratPreparing.envs.RunPCA]
+# # npcs = 50
+# # verbose = true
+# # See more options in https://satijalab.org/seurat/reference/runpca
+
+# # Arguments for SCTransform() when use_sct is True.
+# # See: https://satijalab.org/seurat/reference/sctransform
+# # The object is specified internally, and - in the key will be replaced with .
+# [SeuratPreparing.envs.SCTransform]
+# # Whether to return only variable genes.
+# return-only-var-genes = false
+# # The minimum number of cells that a gene must be expressed in to be kept.
+# # A hidden argument of SCTransform to filter genes.
+# # If you try to keep all genes in the RNA assay, you can set min_cells to 0 and return-only-var-genes to false.
+# # See https://github.com/satijalab/seurat/issues/3598#issuecomment-715505537
+# min_cells = 3
+# # verbose = true
+# # See more options in https://satijalab.org/seurat/reference/sctransform
+
+# # Arguments for IntegrateLayers().
+# # See: https://satijalab.org/seurat/reference/integratelayers
+# # The object is specified internally, and - in the key will be replaced with .
+# # When use_sct is True, normalization-method defaults to SCT.
+# [SeuratPreparing.envs.IntegrateLayers]
+# # The method to use for integration.
+# # Options: CCAIntegration, CCA, cca, RPCAIntegration, RPCA, rpca, HarmonyIntegration, Harmony, harmony,
+# # FastMNNIntegration, FastMNN, fastmnn, scVIIntegration, scVI, scvi
+# method = "harmony"
+# # See more options in https://satijalab.org/seurat/reference/integratelayers
+
+# # The doublet detector to use.
+# # Options: none, DoubletFinder, doubletfinder, scDblFinder, scdblfinder
+# doublet_detector = "none"
+
+# # Arguments to run DoubletFinder when doublet_detector is DoubletFinder or doubletfinder.
+# # See: https://github.com/chris-mcginnis-ucsf/DoubletFinder
+# # See also: https://demultiplexing-doublet-detecting-docs.readthedocs.io/en/latest/DoubletFinder.html
+# [SeuratPreparing.envs.DoubletFinder]
+# # Number of PCs to use for doubletFinder function.
+# PCs = 10
+# # Number of expected doublets as a proportion of the pool size.
+# doublets = 0.075
+# # Number of doublets to simulate as a proportion of the pool size.
+# pN = 0.25
+# # Number of cores to use for DoubletFinder::paramSweep.
+# # Set to None to use envs.ncores.
+# # Since parallelization of the function usually exhausts memory, if big envs.ncores does not work
+# # for DoubletFinder, set this to a smaller number.
+# ncores = 1
+
+# # Arguments to run scDblFinder when doublet_detector is scDblFinder or scdblfinder.
+# # See: https://rdrr.io/bioc/scDblFinder/man/scDblFinder.html
+# [SeuratPreparing.envs.scDblFinder]
+# # The expected doublet rate.
+# dbr = 0.075
+# # Number of cores to use for scDblFinder.
+# # Set to None to use envs.ncores.
+# ncores = 1
+# # See more options in https://rdrr.io/bioc/scDblFinder/man/scDblFinder.html
+
+# # Whether to cache the information at different steps.
+# # If True, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.
+# # The cached seurat object will be saved as <signature>.<kind>.RDS file, where <signature> is the signature determined by
+# # the input and envs of the process.
+# # See https://github.com/satijalab/seurat/issues/7849, https://github.com/satijalab/seurat/issues/5358 and
+# # https://github.com/satijalab/seurat/issues/6748 for more details also about reproducibility issues.
+# # To not use the cached seurat object, you can either set cache to False or delete the cached file at
+# # <signature>.RDS in the cache directory.
+# cache = "/tmp"
+
+# # ----------------------- Process: SeuratClusteringOfAllCells -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/SeuratClusteringOfAllCells/
+# # This process will perform clustering on all cells using Seurat package.
+# # The clusters will then be used to select T/B cells by TOrBCellSelection process.
+# # If all your cells are T/B cells (TOrBCellSelection is not set in configuration), you should not use this process.
+# # Instead, you should use SeuratClustering process for unsupervised clustering, or SeuratMap2Ref process for supervised clustering.
+
+# [SeuratClusteringOfAllCells.envs]
+# # Number of cores to use.
+# # Used in future::plan(strategy = "multicore", workers = <ncores>) to parallelize some Seurat procedures.
+# ncores = 1
+
+# # The name in the metadata to save the cluster labels.
+# # A shortcut for envs["FindClusters"]["cluster.name"].
+# ident = "seurat_clusters"
+
+# # Whether to cache the information at different steps.
+# cache = "/tmp"
+
+# # Arguments for RunUMAP().
+# # See: https://satijalab.org/seurat/reference/runumap
+# # The object is specified internally, and - in the key will be replaced with .
+# # dims=N will be expanded to dims=1:N; The maximal value of N will be the minimum of N and the number of columns - 1 for each sample.
+# # You can also specify features instead of dims to use specific features for UMAP.
+# [SeuratClusteringOfAllCells.envs.RunUMAP]
+# # The number of PCs to use
+# # dims = 30
+# # The reduction to use for UMAP.
+# # If not provided, sobj@misc$integrated_new_reduction will be used.
+# # reduction = ""
+# # See more options in https://satijalab.org/seurat/reference/runumap
+
+# # Arguments for RunPCA().
+# # See: https://satijalab.org/seurat/reference/runpca
+# [SeuratClusteringOfAllCells.envs.RunPCA]
+# # See options in https://satijalab.org/seurat/reference/runpca
+
+# # Arguments for FindNeighbors().
+# # See: https://satijalab.org/seurat/reference/findneighbors
+# # The object is specified internally, and - in the key will be replaced with .
+# [SeuratClusteringOfAllCells.envs.FindNeighbors]
+# # The reduction to use.
+# # If not provided, sobj@misc$integrated_new_reduction will be used.
+# # reduction = ""
+# # See more options in https://satijalab.org/seurat/reference/findneighbors
+
+# # Arguments for FindClusters().
+# # See: https://satijalab.org/seurat/reference/findclusters
+# # The object is specified internally, and - in the key will be replaced with .
+# # The cluster labels will be saved in cluster names and prefixed with "c".
+# # The first cluster will be "c1", instead of "c0".
+# [SeuratClusteringOfAllCells.envs.FindClusters]
+# # The resolution of the clustering. You can have multiple resolutions as a list or as a string separated by comma.
+# # Ranges are also supported, for example: 0.1:0.5:0.1 will generate 0.1, 0.2, 0.3, 0.4, 0.5. The step can be omitted, defaulting to 0.1.
+# # The results will be saved in <ident>_<resolution>.
+# # The final resolution will be used to define the clusters at <ident>.
+# resolution = 0.8
+# # See more options in https://satijalab.org/seurat/reference/findclusters
+
+# # ----------------------- Process: ClusterMarkersOfAllCells -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/ClusterMarkersOfAllCells/
+# # Find marker genes for each cluster of all cells.
+
+# [ClusterMarkersOfAllCells.envs]
+# # Number of cores to use.
+# ncores = 1
+
+# # The column name in metadata to group the cells. Default is seurat_clusters.
+# # group_by = "seurat_clusters"
+
+# # The databases to use for enrichment analysis.
+# # Available databases are from enrichr or clusterprofiler.
+# dbs = ["KEGG_2021_Human", "MSigDB_Hallmark_2020"]
+
+# # The filter expression to filter the significant markers.
+# sigmarkers = "p_val_adj < 0.05 & avg_log2FC > 0"
+
+# # The style of enrichment analysis. Options: enrichr, clusterprofiler
+# enrich_style = "enrichr"
+
+# # The assay to use.
+# # assay = ""
+
+# # Whether to ignore errors when running enrichment analysis.
+# error = false
+
+# # An expression to subset the cells for markers.
+# # subset = ""
+
+# # Whether to cache the information at different steps.
+# cache = "/tmp"
+
+# # Arguments for Seurat::FindAllMarkers() or Seurat::FindMarkers().
+# # See: https://satijalab.org/seurat/reference/findmarkers
+# [ClusterMarkersOfAllCells.envs.rest]
+# # test-use = "wilcox"
+# # min-pct = 0.1
+# # logfc-threshold = 0.25
+# # See more options in https://satijalab.org/seurat/reference/findmarkers
+
+# # Default parameters for marker plots.
+# [ClusterMarkersOfAllCells.envs.allmarker_plots_defaults]
+# # plot_type = "heatmap"
+# # more_formats = []
+# # save_code = false
+# # save_data = false
+# # devpars = { res = 100, width = 1000, height = 1000 }
+
+# # Marker plots for all clusters.
+# # The keys are the case names and the values are the parameters inherited from allmarker_plots_defaults.
+# [ClusterMarkersOfAllCells.envs.allmarker_plots]
+# # Example: plot top 10 markers for each cluster as heatmap
+# # [ClusterMarkersOfAllCells.envs.allmarker_plots.top10_markers]
+# # plot_type = "heatmap"
+# # topn = 10
+
+# # Default parameters for enrichment plots for all clusters.
+# [ClusterMarkersOfAllCells.envs.allenrich_plots_defaults]
+# # plot_type = "bar"
+# # more_formats = []
+# # save_code = false
+# # save_data = false
+# # devpars = { res = 100, width = 1000, height = 1000 }
+
+# # Enrichment plots for all clusters.
+# [ClusterMarkersOfAllCells.envs.allenrich_plots]
+# # Example cases can be defined here
+
+# # Default parameters for marker plots for each cluster.
+# [ClusterMarkersOfAllCells.envs.marker_plots_defaults]
+# # plot_type = "volcano"
+# # more_formats = []
+# # save_code = false
+# # save_data = false
+# # devpars = { res = 100, width = 1000, height = 1000 }
+
+# # Marker plots for each cluster.
+# [ClusterMarkersOfAllCells.envs.marker_plots]
+# # Example cases can be defined here
+
+# # Default parameters for enrichment plots for each cluster.
+# [ClusterMarkersOfAllCells.envs.enrich_plots_defaults]
+# # plot_type = "bar"
+# # more_formats = []
+# # save_code = false
+# # save_data = false
+# # devpars = { res = 100, width = 1000, height = 1000 }
+
+# # Enrichment plots for each cluster.
+# [ClusterMarkersOfAllCells.envs.enrich_plots]
+# # Example cases can be defined here
+
+# # Default parameters for overlap plots.
+# [ClusterMarkersOfAllCells.envs.overlaps_defaults]
+# # more_formats = []
+# # save_code = false
+# # save_data = false
+# # devpars = { res = 100, width = 1000, height = 1000 }
+
+# # Overlap plots between clusters.
+# [ClusterMarkersOfAllCells.envs.overlaps]
+# # Example cases can be defined here
+
+# # ----------------------- Process: TopExpressingGenesOfAllCells -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/TopExpressingGenesOfAllCells/
+# # Find the top expressing genes for all cells and perform enrichment analysis.
+
+# [TopExpressingGenesOfAllCells.envs]
+# # The databases to use for enrichment analysis.
+# dbs = ["KEGG_2021_Human", "MSigDB_Hallmark_2020"]
+
+# # The number of top genes to use.
+# n = 250
+
+# # The style of enrichment analysis. Options: enrichr, clusterprofiler
+# enrich_style = "enrichr"
+
+# # An expression to subset the cells.
+# # subset = ""
+
+# # Default parameters for enrichment plots.
+# [TopExpressingGenesOfAllCells.envs.enrich_plots_defaults]
+# # plot_type = "bar"
+# # more_formats = []
+# # save_code = false
+# # save_data = false
+# # devpars = { res = 100, width = 1000, height = 1000 }
+
+# # Enrichment plots.
+# [TopExpressingGenesOfAllCells.envs.enrich_plots]
+# # Example cases can be defined here
+
+# # ----------------------- Process: TOrBCellSelection -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/TOrBCellSelection/
+# # Select T or B cells from all cells.
+
+# [TOrBCellSelection.envs]
+# # Whether to ignore VDJ data. If True, VDJ data will not be used to select T/B cells even if it is available.
+# ignore_vdj = false
+
+# # The expression to select T or B cells.
+# # For example: "seurat_clusters %in% c('c1', 'c2', 'c3')"
+# # selector = ""
+
+# # The indicator genes to use for T/B cell selection when VDJ data is not available.
+# # The genes will be used to perform k-means clustering to separate T/B cells from other cells.
+# indicator_genes = ["CD3E"]
+
+# # Arguments for k-means clustering.
+# # See: https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html
+# kmeans = { nstart = 25 }
+
+# # ----------------------- Process: ModuleScoreCalculator -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/ModuleScoreCalculator/
+# # Calculate module scores for cells using Seurat::AddModuleScore().
+
+# [ModuleScoreCalculator.envs.defaults]
+# # The features for scoring.
+# # features = []
+
+# # Number of bins of aggregate expression levels for all analyzed features.
+# nbin = 24
+
+# # Number of control features selected from the same bin per analyzed feature.
+# ctrl = 100
+
+# # Use feature clusters returned from DoKMeans.
+# k = false
+
+# # The assay to use.
+# # assay = ""
+
+# # Set a random seed.
+# seed = 8525
+
+# # Whether to search for the features in the object if not found.
+# search = false
+
+# # Whether to keep the features in the object if they are not found and search is True.
+# keep = false
+
+# # The function to aggregate the expression of features.
+# # Options: mean, sum, median, max, min
+# agg = "mean"
+
+# # The modules to calculate scores for.
+# # The keys are the module names and the values are the parameters inherited from defaults.
+# [ModuleScoreCalculator.envs.modules]
+# # Example module
+# # [ModuleScoreCalculator.envs.modules.MyModule]
+# # features = ["GENE1", "GENE2", "GENE3"]
+
+# # The mutaters to mutate the metadata after module score calculation.
+# # The key is the column name and the value is the R expression to mutate the column.
+# post_mutaters = {}
+
+# # ----------------------- Process: SeuratClustering -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/SeuratClustering/
+# # Cluster all cells or selected T/B cells selected by TOrBCellSelection.
+# # If [TOrBCellSelection] is not set in the configuration, this process will be run on all cells.
+# # Otherwise, this process will be run on the selected T/B cells.
+# # The configuration is the same as SeuratClusteringOfAllCells.
+
+# [SeuratClustering.envs]
+# # Number of cores to use.
+# ncores = 1
+
+# # The name in the metadata to save the cluster labels.
+# ident = "seurat_clusters"
+
+# # Whether to cache the information at different steps.
+# cache = "/tmp"
+
+# # Arguments for RunUMAP().
+# [SeuratClustering.envs.RunUMAP]
+# # dims = 30
+# # reduction = ""
+# # See https://satijalab.org/seurat/reference/runumap
+
+# # Arguments for RunPCA().
+# [SeuratClustering.envs.RunPCA]
+# # See https://satijalab.org/seurat/reference/runpca
+
+# # Arguments for FindNeighbors().
+# [SeuratClustering.envs.FindNeighbors]
+# # reduction = ""
+# # See https://satijalab.org/seurat/reference/findneighbors
+
+# # Arguments for FindClusters().
+# [SeuratClustering.envs.FindClusters]
+# # resolution = 0.8
+# # See https://satijalab.org/seurat/reference/findclusters
+
+# # ----------------------- Process: CellTypeAnnotation -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/CellTypeAnnotation/
+# # Annotate cell types using different tools.
+
+# [CellTypeAnnotation.envs]
+# # The tool to use for cell type annotation.
+# # Options: sctype, hitype, sccatch, celltypist, direct
+# tool = "direct"
+
+# # The tissue type for sctype. Required when tool is sctype.
+# # sctype_tissue = ""
+
+# # The database for sctype. If not provided, the default database will be used.
+# # sctype_db = ""
+
+# # The column name in the metadata that indicates the clusters.
+# # ident = "seurat_clusters"
+
+# # The backup column name to save the original cluster information.
+# backup_col = "seurat_clusters_id"
+
+# # The tissue type for hitype. Required when tool is hitype.
+# # hitype_tissue = ""
+
+# # The database for hitype. If not provided, the default database will be used.
+# # hitype_db = ""
+
+# # The cell types to annotate for direct method.
+# # A dict with cluster names as keys and cell type names as values.
+# cell_types = []
+
+# # More cell types to annotate for direct method.
+# # A dict with keys as the new cell type names and values as lists of old cell type names.
+# # more_cell_types = {}
+
+# # Arguments for sccatch when tool is sccatch.
+# # See: https://rdrr.io/github/ZJUFanLab/scCATCH/man/findmarkergene.html
+# [CellTypeAnnotation.envs.sccatch_args]
+# # species = "Human"
+# # cancer = "Normal"
+# # tissue = "Blood"
+# # marker = ""
+# # if_use_custom_marker = false
+
+# # Arguments for celltypist when tool is celltypist.
+# # See: https://www.celltypist.org/
+# [CellTypeAnnotation.envs.celltypist_args]
+# # model = "Immune_All_Low.pkl"
+# # python = "python"
+# # majority_voting = false
+# # over_clustering = ""
+# # assay = ""
+
+# # Whether to merge clusters with the same cell type.
+# merge = false
+
+# # The new column name to save the cell type annotation.
+# # newcol = ""
+
+# # The output type. Options: input, annotated
+# # input: output the input seurat object with cell type annotation.
+# # annotated: output the annotated seurat object only.
+# outtype = "input"
+
+# # ----------------------- Process: SeuratMap2Ref -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/SeuratMap2Ref/
+# # Map query cells to reference dataset and transfer cell type labels.
+
+# [SeuratMap2Ref.envs]
+# # Number of cores to use.
+# ncores = 1
+
+# # The mutaters to mutate the metadata.
+# mutaters = {}
+
+# # The column name in the reference metadata to transfer to the query.
+# # use = ""
+
+# # The column name in the metadata to save the transferred labels.
+# ident = "seurat_clusters"
+
+# # The path to the reference seurat object file (RDS or qs2 file).
+# # ref = ""
+
+# # How to normalize the reference object. Options: auto, sct, raw
+# # auto: automatically detect if the reference is normalized by SCTransform.
+# refnorm = "auto"
+
+# # The column name to split the query cells.
+# # split_by = ""
+
+# # Whether to skip normalization if the query is already normalized.
+# skip_if_normalized = true
+
+# # Whether to cache the information at different steps.
+# cache = "/tmp"
+
+# # Arguments for SCTransform().
+# [SeuratMap2Ref.envs.SCTransform]
+# # See https://satijalab.org/seurat/reference/sctransform
+
+# # Arguments for NormalizeData().
+# [SeuratMap2Ref.envs.NormalizeData]
+# # See https://satijalab.org/seurat/reference/normalizedata
+
+# # Arguments for FindTransferAnchors().
+# # See: https://satijalab.org/seurat/reference/findtransferanchors
+# [SeuratMap2Ref.envs.FindTransferAnchors]
+# # normalization-method = "LogNormalize"
+# # reference-reduction = "pca"
+# # dims = 30
+
+# # Arguments for MapQuery().
+# # See: https://satijalab.org/seurat/reference/mapquery
+# [SeuratMap2Ref.envs.MapQuery]
+# # See options in https://satijalab.org/seurat/reference/mapquery
+
+# # Plots for SeuratMap2Ref.
+# [SeuratMap2Ref.envs.plots]
+# # Example cases can be defined here
+
+# # ----------------------- Process: ClusterMarkers -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/ClusterMarkers/
+# # Find marker genes for each cluster. Same configuration as ClusterMarkersOfAllCells.
+
+# [ClusterMarkers.envs]
+# # Number of cores to use.
+# ncores = 1
+
+# # The column name in metadata to group the cells.
+# # group_by = "seurat_clusters"
+
+# # The databases to use for enrichment analysis.
+# dbs = ["KEGG_2021_Human", "MSigDB_Hallmark_2020"]
+
+# # The filter expression to filter the significant markers.
+# sigmarkers = "p_val_adj < 0.05 & avg_log2FC > 0"
+
+# # The style of enrichment analysis. Options: enrichr, clusterprofiler
+# enrich_style = "enrichr"
+
+# # The assay to use.
+# # assay = ""
+
+# # Whether to ignore errors when running enrichment analysis.
+# error = false
+
+# # An expression to subset the cells for markers.
+# # subset = ""
+
+# # Whether to cache the information at different steps.
+# cache = "/tmp"
+
+# # Arguments for Seurat::FindAllMarkers() or Seurat::FindMarkers().
+# [ClusterMarkers.envs.rest]
+# # See https://satijalab.org/seurat/reference/findmarkers
+
+# # Default parameters and plots for markers (same structure as ClusterMarkersOfAllCells).
+# [ClusterMarkers.envs.allmarker_plots_defaults]
+# # plot_type = "heatmap"
+
+# [ClusterMarkers.envs.allmarker_plots]
+# # Example cases can be defined here
+
+# [ClusterMarkers.envs.allenrich_plots_defaults]
+# # plot_type = "bar"
+
+# [ClusterMarkers.envs.allenrich_plots]
+# # Example cases can be defined here
+
+# [ClusterMarkers.envs.marker_plots_defaults]
+# # plot_type = "volcano"
+
+# [ClusterMarkers.envs.marker_plots]
+# # Example cases can be defined here
+
+# [ClusterMarkers.envs.enrich_plots_defaults]
+# # plot_type = "bar"
+
+# [ClusterMarkers.envs.enrich_plots]
+# # Example cases can be defined here
+
+# [ClusterMarkers.envs.overlaps_defaults]
+# # more_formats = []
+
+# [ClusterMarkers.envs.overlaps]
+# # Example cases can be defined here
+
+# # ----------------------- Process: TopExpressingGenes -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/TopExpressingGenes/
+# # Find the top expressing genes for cells and perform enrichment analysis.
+# # Same configuration as TopExpressingGenesOfAllCells.
+
+# [TopExpressingGenes.envs]
+# # The databases to use for enrichment analysis.
+# dbs = ["KEGG_2021_Human", "MSigDB_Hallmark_2020"]
+
+# # The number of top genes to use.
+# n = 250
+
+# # The style of enrichment analysis. Options: enrichr, clusterprofiler
+# enrich_style = "enrichr"
+
+# # An expression to subset the cells.
+# # subset = ""
+
+# # Default parameters for enrichment plots.
+# [TopExpressingGenes.envs.enrich_plots_defaults]
+# # plot_type = "bar"
+
+# [TopExpressingGenes.envs.enrich_plots]
+# # Example cases can be defined here
+
+# # ----------------------- Process: SeuratSubClustering -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/SeuratSubClustering/
+# # Perform sub-clustering on selected cells.
+
+# [SeuratSubClustering.envs]
+# # Number of cores to use.
+# ncores = 1
+
+# # The mutaters to mutate the metadata.
+# mutaters = {}
+
+# # An expression to subset the cells for sub-clustering.
+# # subset = ""
+
+# # Whether to cache the information at different steps.
+# cache = "/tmp"
+
+# # Arguments for RunPCA().
+# [SeuratSubClustering.envs.RunPCA]
+# # See https://satijalab.org/seurat/reference/runpca
+
+# # Arguments for RunUMAP().
+# [SeuratSubClustering.envs.RunUMAP]
+# # See https://satijalab.org/seurat/reference/runumap
+
+# # Arguments for FindNeighbors().
+# [SeuratSubClustering.envs.FindNeighbors]
+# # See https://satijalab.org/seurat/reference/findneighbors
+
+# # Arguments for FindClusters().
+# [SeuratSubClustering.envs.FindClusters]
+# # resolution = 0.8
+
+# # The sub-clustering cases.
+# # The keys are the case names and the values are the parameters inherited from envs.
+# [SeuratSubClustering.envs.cases]
+# # Example case
+# # [SeuratSubClustering.envs.cases.MyCase]
+# # subset = "seurat_clusters == 'c1'"
+
+# # ----------------------- Process: ScRepLoading -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/ScRepLoading/
+# # Load scTCR-seq or scBCR-seq data.
+
+# [ScRepLoading.envs]
+# # The type of data to load. Options: TCR, BCR, auto
+# # auto: automatically detect based on the column names in the sample info.
+# type = "auto"
+
+# # The columns to exclude in the output metadata table.
+# exclude = ["BCRData", "TCRData", "RNAData"]
+
+# # The temporary directory to use.
+# tmpdir = "/tmp"
+
+# # The format of the TCR/BCR data.
+# # Options: 10X, AIRR, BD, Dandelion, JSON, TRUST4, Immcantation, MiXCR, Omniscope, ParseBio, WAT3R
+# # format = ""
+
+# # Arguments for scRepertoire::combineTCR().
+# # See: https://rdrr.io/github/ncborcherding/scRepertoire/man/combineTCR.html
+# [ScRepLoading.envs.combineTCR]
+# # samples = ""
+# # ID = ""
+# # cells = "T-AB"
+# # removeNA = false
+# # removeMulti = false
+
+# # Arguments for scRepertoire::combineBCR().
+# # See: https://rdrr.io/github/ncborcherding/scRepertoire/man/combineBCR.html
+# [ScRepLoading.envs.combineBCR]
+# # samples = ""
+# # ID = ""
+# # removeNA = false
+# # removeMulti = false
+
+# # ----------------------- Process: ScRepCombiningExpression -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/ScRepCombiningExpression/
+# # Combine scTCR/BCR-seq data with scRNA-seq data.
+
+# [ScRepCombiningExpression.envs]
+# # How to call the clonotype. Options: gene, nt, aa, strict, gene+nt
+# cloneCall = "aa"
+
+# # The chain to use. Options: both, TRA, TRB, TRG, TRD, IGH, IGL, IGK
+# chain = "both"
+
+# # The column name in the metadata to group cells.
+# group_by = "Sample"
+
+# # Whether to calculate the proportion of clonotypes.
+# proportion = true
+
+# # Whether to filter out cells without clonotype information.
+# filterNA = false
+
+# # The clone size definitions.
+# # The keys are the size labels and the values are the thresholds.
+# cloneSize = { Rare = 1.0e-4, Small = 0.001, Medium = 0.01, Large = 0.1, Hyperexpanded = 1.0 }
+
+# # Whether to add a label to the clone size.
+# addLabel = false
+
+# # ----------------------- Process: CDR3Clustering -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/CDR3Clustering/
+# # Cluster CDR3 sequences using GIANA or ClusTCR.
+
+# [CDR3Clustering.envs]
+# # The type of data. Options: TCR, BCR, auto
+# type = "auto"
+
+# # The tool to use for clustering. Options: GIANA, ClusTCR
+# tool = "GIANA"
+
+# # The python command or path to python executable.
+# python = "python"
+
+# # Whether to perform clustering within each sample.
+# within_sample = true
+
+# # Additional arguments for the clustering tool.
+# args = {}
+
+# # The chain to use for clustering. Options: both, TRA, TRB, TRG, TRD, IGH, IGL, IGK
+# chain = "both"
+
+# # ----------------------- Process: TESSA -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/TESSA/
+# # Run TESSA analysis to identify T cell subsets with shared epitope specificity.
+
+# [TESSA.envs]
+# # The python command or path to python executable.
+# python = "python"
+
+# # Whether to perform TESSA within each sample.
+# within_sample = false
+
+# # The assay to use.
+# # assay = ""
+
+# # Whether to use predefined B for TESSA.
+# predefined_b = false
+
+# # The maximum number of iterations for TESSA.
+# max_iter = 1000
+
+# # Whether to save the TESSA object.
+# save_tessa = false
+
+# # ----------------------- Process: SeuratClusterStats -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/SeuratClusterStats/
+# # Generate statistics and plots for Seurat clusters.
+
+# [SeuratClusterStats.envs]
+# # The mutaters to mutate the metadata.
+# mutaters = {}
+
+# # Whether to cache the information at different steps.
+# cache = "/tmp"
+
+# # Default parameters for cluster tree plots.
+# [SeuratClusterStats.envs.clustrees_defaults]
+# # plot_type = "clustree"
+# # prefix = "seurat_clusters_"
+# # exprs = ""
+# # more_formats = []
+# # save_code = false
+# # devpars = { res = 100, width = 1000, height = 1000 }
+
+# # Cluster tree plots.
+# [SeuratClusterStats.envs.clustrees]
+# # Example cases can be defined here
+
+# # Default parameters for statistics plots.
+# [SeuratClusterStats.envs.stats_defaults]
+# # plot_type = "bar"
+# # more_formats = []
+# # save_code = false
+# # devpars = { res = 100, width = 1000, height = 1000 }
+
+# # Statistics plots.
+# [SeuratClusterStats.envs.stats]
+# # Example cases can be defined here
+
+# # Default parameters for number of genes plots.
+# [SeuratClusterStats.envs.ngenes_defaults]
+# # plot_type = "violin"
+# # more_formats = []
+# # save_code = false
+# # devpars = { res = 100, width = 1000, height = 1000 }
+
+# # Number of genes plots.
+# [SeuratClusterStats.envs.ngenes]
+# # Example cases can be defined here
+
+# # Default parameters for feature plots.
+# [SeuratClusterStats.envs.features_defaults]
+# # plot_type = "feature"
+# # more_formats = []
+# # save_code = false
+# # devpars = { res = 100, width = 1000, height = 1000 }
+
+# # Feature plots.
+# [SeuratClusterStats.envs.features]
+# # Example cases can be defined here
+
+# # Default parameters for dimension plots.
+# [SeuratClusterStats.envs.dimplots_defaults]
+# # plot_type = "dimplot"
+# # more_formats = []
+# # save_code = false
+# # devpars = { res = 100, width = 1000, height = 1000 }
+
+# # Dimension plots.
+# [SeuratClusterStats.envs.dimplots]
+# # Example cases can be defined here
+
+# # ----------------------- Process: ScFGSEA -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/ScFGSEA/
+# # Perform fast gene set enrichment analysis (fGSEA) on single-cell data.
+
+# [ScFGSEA.envs]
+# # Number of cores to use.
+# ncores = 1
+
+# # The mutaters to mutate the metadata.
+# mutaters = {}
+
+# # The column name in the metadata to group cells.
+# # group_by = ""
+
+# # The identity of the first group.
+# # ident_1 = ""
+
+# # The identity of the second group.
+# # ident_2 = ""
+
+# # The assay to use.
+# # assay = ""
+
+# # The column name to expand cases for fGSEA analysis.
+# # each = ""
+
+# # An expression to subset the cells.
+# # subset = ""
+
+# # The GMT file or a database name from enrichr for gene sets.
+# gmtfile = "KEGG_2021_Human"
+
+# # The method to rank genes. Options: s2n (signal-to-noise), t (t-test), diff (difference of means)
+# method = "s2n"
+
+# # The number of top pathways to show in plots.
+# top = 20
+
+# # The boundary for calculating the p-value.
+# eps = 0.0
+
+# # The minimum size of gene sets.
+# minsize = 10
+
+# # The maximum size of gene sets.
+# maxsize = 100
+
+# # Default parameters for all-each plots.
+# [ScFGSEA.envs.alleach_plots_defaults]
+# # plot_type = "bar"
+# # more_formats = []
+# # save_code = false
+# # devpars = { res = 100, width = 1000, height = 1000 }
+
+# # All-each plots.
+# [ScFGSEA.envs.alleach_plots]
+# # Example cases can be defined here
+
+# # Additional arguments for fGSEA.
+# [ScFGSEA.envs.rest]
+# # See https://rdrr.io/bioc/fgsea/man/fgsea.html
+
+# # The fGSEA cases.
+# [ScFGSEA.envs.cases]
+# # Example case
+# # [ScFGSEA.envs.cases.MyCase]
+# # ident_1 = "c1"
+# # ident_2 = "c2"
+
+# # ----------------------- Process: MarkersFinder -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/MarkersFinder/
+# # Find marker genes for specific comparisons.
+
+# [MarkersFinder.envs]
+# # Number of cores to use.
+# ncores = 1
+
+# # The mutaters to mutate the metadata.
+# mutaters = {}
+
+# # The column name in the metadata to expand cases.
+# # each = ""
+
+# # The column name in metadata to group the cells.
+# # group_by = "seurat_clusters"
+
+# # The databases to use for enrichment analysis.
+# dbs = ["KEGG_2021_Human", "MSigDB_Hallmark_2020"]
+
+# # The filter expression to filter the significant markers.
+# sigmarkers = "p_val_adj < 0.05 & avg_log2FC > 0"
+
+# # The style of enrichment analysis. Options: enrichr, clusterprofiler
+# enrich_style = "enrichr"
+
+# # The assay to use.
+# # assay = ""
+
+# # Whether to ignore errors when running enrichment analysis.
+# error = false
+
+# # An expression to subset the cells for markers.
+# # subset = ""
+
+# # Whether to cache the information at different steps.
+# cache = "/tmp"
+
+# # Arguments for Seurat::FindMarkers().
+# [MarkersFinder.envs.rest]
+# # See https://satijalab.org/seurat/reference/findmarkers
+
+# # Default parameters for all marker plots (same structure as ClusterMarkers).
+# [MarkersFinder.envs.allmarker_plots_defaults]
+# # plot_type = "heatmap"
+
+# [MarkersFinder.envs.allmarker_plots]
+# # Example cases can be defined here
+
+# [MarkersFinder.envs.allenrich_plots_defaults]
+# # plot_type = "bar"
+
+# [MarkersFinder.envs.allenrich_plots]
+# # Example cases can be defined here
+
+# [MarkersFinder.envs.marker_plots_defaults]
+# # plot_type = "volcano"
+
+# [MarkersFinder.envs.marker_plots]
+# # Example cases can be defined here
+
+# [MarkersFinder.envs.enrich_plots_defaults]
+# # plot_type = "bar"
+
+# [MarkersFinder.envs.enrich_plots]
+# # Example cases can be defined here
+
+# [MarkersFinder.envs.overlaps_defaults]
+# # more_formats = []
+
+# [MarkersFinder.envs.overlaps]
+# # Example cases can be defined here
+
+# # The marker finder cases.
+# [MarkersFinder.envs.cases]
+# # Example case
+# # [MarkersFinder.envs.cases.MyCase]
+# # ident_1 = "c1"
+# # ident_2 = "c2"
+
+# # ----------------------- Process: PseudoBulkDEG -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/PseudoBulkDEG/
+# # Perform pseudo-bulk differential expression analysis using DESeq2 or edgeR.
+
+# [PseudoBulkDEG.envs]
+# # Number of cores to use.
+# ncores = 1
+
+# # The mutaters to mutate the metadata.
+# mutaters = {}
+
+# # The column name to expand cases for pseudo-bulk analysis.
+# # each = ""
+
+# # Whether to cache the information at different steps.
+# cache = "/tmp"
+
+# # An expression to subset the cells.
+# # subset = ""
+
+# # The column name to aggregate cells.
+# # aggregate_by = ""
+
+# # The layer to use for counts.
+# layer = "counts"
+
+# # The assay to use.
+# # assay = ""
+
+# # Whether to ignore errors when running analysis.
+# error = false
+
+# # The column name in the metadata to group cells.
+# # group_by = ""
+
+# # The identity of the first group.
+# # ident_1 = ""
+
+# # The identity of the second group.
+# # ident_2 = ""
+
+# # The column name for paired samples.
+# # paired_by = ""
+
+# # The databases to use for enrichment analysis.
+# dbs = ["KEGG_2021_Human", "MSigDB_Hallmark_2020"]
+
+# # The filter expression to filter the significant markers.
+# sigmarkers = "p_val_adj < 0.05"
+
+# # The style of enrichment analysis. Options: enrichr, clusterprofiler
+# enrich_style = "enrichr"
+
+# # The tool to use for differential expression analysis. Options: DESeq2, edgeR
+# tool = "DESeq2"
+
+# # Default parameters for all marker plots.
+# [PseudoBulkDEG.envs.allmarker_plots_defaults]
+# # plot_type = "volcano"
+
+# [PseudoBulkDEG.envs.allmarker_plots]
+# # Example cases can be defined here
+
+# [PseudoBulkDEG.envs.plots_defaults]
+# # plot_type = "volcano"
+
+# [PseudoBulkDEG.envs.plots]
+# # Example cases can be defined here
+
+# [PseudoBulkDEG.envs.marker_plots_defaults]
+# # plot_type = "volcano"
+
+# [PseudoBulkDEG.envs.marker_plots]
+# # Example cases can be defined here
+
+# [PseudoBulkDEG.envs.enrich_plots_defaults]
+# # plot_type = "bar"
+
+# [PseudoBulkDEG.envs.enrich_plots]
+# # Example cases can be defined here
+
+# [PseudoBulkDEG.envs.overlaps_defaults]
+# # more_formats = []
+
+# [PseudoBulkDEG.envs.overlaps]
+# # Example cases can be defined here
+
+# # The pseudo-bulk DEG cases.
+# [PseudoBulkDEG.envs.cases]
+# # Example case
+# # [PseudoBulkDEG.envs.cases.MyCase]
+# # ident_1 = "Group1"
+# # ident_2 = "Group2"
+
+# # ----------------------- Process: ClonalStats -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/ClonalStats/
+# # Generate clonal statistics and visualizations for TCR/BCR data.
+
+# [ClonalStats.envs]
+# # The mutaters to mutate the metadata.
+# mutaters = {}
+
+# # The type of visualization.
+# # Options: volume, abundance, length, residency, stats, composition, overlap, diversity, geneusage, positional, kmer, rarefaction
+# # viz_type = ""
+
+# # An expression to subset the data.
+# # subset = ""
+
+# # The device parameters for plots.
+# [ClonalStats.envs.devpars]
+# # res = 100
+# # width = 1000
+# # height = 1000
+
+# # The additional formats to save the plot.
+# more_formats = []
+
+# # Whether to save the R code to reproduce the plot.
+# save_code = false
+
+# # Whether to save the data used to plot.
+# save_data = false
+
+# # The description of the plot.
+# # descr = ""
+
+# # The clonal statistics cases.
+# [ClonalStats.envs.cases]
+# # Default cases are provided for common visualizations like Clonal Volume, Clonal Abundance, etc.
+# # You can add custom cases here
+# # [ClonalStats.envs.cases.MyCase]
+# # viz_type = "volume"
+
+# # ----------------------- Process: CDR3AAPhyschem -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/CDR3AAPhyschem/
+# # Analyze physicochemical properties of CDR3 amino acid sequences.
+
+# [CDR3AAPhyschem.envs]
+# # The column name in the metadata for grouping.
+# # group = ""
+
+# # The two groups to compare. If not provided, all pairwise comparisons will be performed.
+# # comparison = []
+
+# # The target group for comparison.
+# # target = ""
+
+# # The column name(s) to split the data for separate analyses.
+# # each = ""
+
+# # ----------------------- Process: CellCellCommunication -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/CellCellCommunication/
+# # Infer cell-cell communication using CellChat or CellPhoneDB.
+
+# [CellCellCommunication.envs]
+# # The method to use for cell-cell communication analysis. Options: cellchat, cellphonedb
+# method = "cellchat"
+
+# # An expression to subset the cells.
+# # subset = ""
+
+# # The method to determine how to subset cells. Options: auto, seurat
+# subset_using = "auto"
+
+# # The column name to split the analysis.
+# # split_by = ""
+
+# # The assay to use.
+# # assay = ""
+
+# # The random seed for reproducibility.
+# seed = 1337
+
+# # Number of cores to use.
+# ncores = 1
+
+# # The column name in the metadata to group cells.
+# # group_by = ""
+# # Alias for group_by
+# # groupby = ""
+
+# # The species for the analysis. Options: human, mouse
+# species = "human"
+
+# # The minimum expression proportion for a gene to be considered expressed.
+# expr_prop = 0.1
+
+# # The minimum number of cells in a group.
+# min_cells = 5
+
+# # The number of permutations for significance testing.
+# n_perms = 1000
+
+# # The path to Rscript executable.
+# rscript = "Rscript"
+
+# # ----------------------- Process: CellCellCommunicationPlots -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/CellCellCommunicationPlots/
+# # Generate plots for cell-cell communication results.
+
+# [CellCellCommunicationPlots.envs]
+# # An expression to filter the communication data.
+# # subset = ""
+
+# # The column name for magnitude of communication.
+# # magnitude = ""
+
+# # The column name for specificity of communication.
+# # specificity = ""
+
+# # The device parameters for plots.
+# [CellCellCommunicationPlots.envs.devpars]
+# # res = 100
+# # width = 1000
+# # height = 1000
+
+# # The additional formats to save the plot.
+# more_formats = []
+
+# # The description of the plot.
+# descr = "Cell-cell communication plot"
+
+# # The cell-cell communication plot cases.
+# [CellCellCommunicationPlots.envs.cases]
+# # Example cases can be defined here
+
+# # ----------------------- Process: MetabolicInput -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/MetabolicInput/
+# # Prepare input for metabolic landscape analysis.
+# # This is a pass-through process that requires no configuration.
+
+# # ----------------------- Process: MetabolicExprImputation -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/MetabolicExprImputation/
+# # Impute gene expression for metabolic analysis using ALRA, scImpute, or Rmagic.
+
+# [MetabolicExprImputation.envs]
+# # The tool to use for imputation. Options: alra, scimpute, rmagic
+# tool = "alra"
+
+# # Arguments for scImpute when tool is scimpute.
+# # See: https://rdrr.io/github/Vivianstats/scImpute/man/scimpute.html
+# [MetabolicExprImputation.envs.scimpute_args]
+# # The threshold to determine dropout values.
+# drop_thre = 0.5
+# # The number of clusters for scImpute.
+# # kcluster = 5
+# # Number of cores to use.
+# ncores = 1
+# # The reference gene file.
+# refgene = ""
+
+# # Arguments for Rmagic when tool is rmagic.
+# # See: https://github.com/KrishnaswamyLab/MAGIC
+# [MetabolicExprImputation.envs.rmagic_args]
+# # The python command or path to python executable.
+# python = "python"
+# # The threshold to determine dropout values.
+# threshold = 0.5
+
+# # Arguments for ALRA when tool is alra.
+# # See: https://github.com/KlugerLab/ALRA
+# [MetabolicExprImputation.envs.alra_args]
+# # See options for ALRA
+
+# # ----------------------- Process: MetabolicFeatures -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/MetabolicFeatures/
+# # Identify metabolic features using fGSEA.
+
+# [MetabolicFeatures.envs]
+# # Number of cores to use.
+# ncores = 1
+
+# # The method to rank genes for fGSEA. Options: signal_to_noise, t_test, diff_of_means
+# prerank_method = "signal_to_noise"
+
+# # The GMT file for metabolic pathways.
+# # gmtfile = ""
+
+# # The column name to subset cells.
+# # subset_by = ""
+
+# # The column name to group cells.
+# # group_by = ""
+
+# # The comparisons to perform as a list of two-element lists.
+# comparisons = []
+
+# # Arguments for fGSEA.
+# # See: https://rdrr.io/bioc/fgsea/man/fgsea.html
+# [MetabolicFeatures.envs.fgsea_args]
+# # minSize = 10
+# # maxSize = 500
+
+# # Plots for metabolic features.
+# [MetabolicFeatures.envs.plots]
+# # Example cases can be defined here
+
+# # The metabolic features cases.
+# [MetabolicFeatures.envs.cases]
+# # Example case
+# # [MetabolicFeatures.envs.cases.MyCase]
+# # subset_by = "Celltype"
+# # group_by = "Treatment"
+
+# # ----------------------- Process: MetabolicPathwayActivity -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/MetabolicPathwayActivity/
+# # Calculate metabolic pathway activity scores.
+
+# [MetabolicPathwayActivity.envs]
+# # The number of times to permute for statistical testing.
+# ntimes = 5000
+
+# # Number of cores to use.
+# ncores = 1
+
+# # The GMT file for metabolic pathways.
+# # gmtfile = ""
+
+# # The column name to subset cells.
+# # subset_by = ""
+
+# # The column name to group cells.
+# # group_by = ""
+
+# # Plots for metabolic pathway activity.
+# [MetabolicPathwayActivity.envs.plots]
+# # Example cases can be defined here
+
+# # The metabolic pathway activity cases.
+# [MetabolicPathwayActivity.envs.cases]
+# # Example case
+# # [MetabolicPathwayActivity.envs.cases.MyCase]
+# # subset_by = "Celltype"
+
+# # ----------------------- Process: MetabolicPathwayHeterogeneity -----------------------
+# # See: https://pwwang.github.io/immunopipe/latest/processes/MetabolicPathwayHeterogeneity/
+# # Analyze metabolic pathway heterogeneity across cells.
+
+# [MetabolicPathwayHeterogeneity.envs]
+# # The GMT file for metabolic pathways.
+# # gmtfile = ""
+
+# # The proportion of variance to select principal components.
+# select_pcs = 0.8
+
+# # The p-value cutoff for significant pathways.
+# pathway_pval_cutoff = 0.01
+
+# # Number of cores to use.
+# ncores = 1
+
+# # The column name to subset cells.
+# # subset_by = ""
+
+# # The column name to group cells.
+# # group_by = ""
+
+# # Arguments for fGSEA.
+# # See: https://rdrr.io/bioc/fgsea/man/fgsea.html
+# [MetabolicPathwayHeterogeneity.envs.fgsea_args]
+# scoreType = "std"
+
+# # Plots for metabolic pathway heterogeneity.
+# [MetabolicPathwayHeterogeneity.envs.plots]
+# # Example cases can be defined here
+
+# # The metabolic pathway heterogeneity cases.
+# [MetabolicPathwayHeterogeneity.envs.cases]
+# # Example case
+# # [MetabolicPathwayHeterogeneity.envs.cases.MyCase]
+# # subset_by = "Celltype"
+
