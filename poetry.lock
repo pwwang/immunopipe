@@ -2556,14 +2556,14 @@ pipen = "==1.1.*"
 
 [[package]]
 name = "pipen-poplog"
-version = "1.1.3"
+version = "1.1.4"
 description = "Populate logs from jobs to running log of the pipeline"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_poplog-1.1.3-py3-none-any.whl", hash = "sha256:8485078004621aa46f037a7659ad5090d0b172206648361e98985977e34a07e7"},
-    {file = "pipen_poplog-1.1.3.tar.gz", hash = "sha256:b0a617d6c6b052bb06f8136eb782de28915515ab952c0a0167c5144db1d36c58"},
+    {file = "pipen_poplog-1.1.4-py3-none-any.whl", hash = "sha256:2361d06d18fe7962b30af38a366c85dde8c16897ef10a06a1c256e85709cab5a"},
+    {file = "pipen_poplog-1.1.4.tar.gz", hash = "sha256:68200e0361b8a6e12d57b250b359771e7c86078be144551f103e838b953f02d7"},
 ]
 
 [package.dependencies]
