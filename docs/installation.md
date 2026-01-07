@@ -125,7 +125,7 @@ If you choose to use the `gbatch` scheduler, in addition to installing the pipel
 $ pip install -U immunopipe
 
 # install cloud dependencies
-$ pip install -U cloudpathlib[gs]
+$ pip install -U panpath[gs,async-gs]
 ```
 
 You still have to install the following dependencies to generate reports:
