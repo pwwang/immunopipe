@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>CDR3Clustering - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CDR3Clustering";
+        var mkdocs_page_input_path = "processes/CDR3Clustering.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">CDR3Clustering</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
+      <li class="breadcrumb-item active">CDR3Clustering</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/CDR3Clustering.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="cdr3clustering">CDR3Clustering<a class="headerlink" href="#cdr3clustering" title="Permanent link">&para;</a></h2>
+<p>Cluster the TCR/BCR clones by their CDR3 sequences</p>
+<p>This process is used to cluster TCR/BCR clones based on their CDR3 sequences.<br /></p>
+<p>It uses either</p>
+<p><a href="https://github.com/s175573/GIANA">GIANA</a></p>
+<blockquote>
+<p>Zhang, Hongyi, Xiaowei Zhan, and Bo Li.<br />
+"GIANA allows computationally-efficient TCR clustering and multi-disease
+repertoire classification by isometric transformation."
+Nature communications 12.1 (2021): 1-11.<br /></p>
+</blockquote>
+<p>Or <a href="https://github.com/svalkiers/clusTCR">ClusTCR</a></p>
+<blockquote>
+<p>Sebastiaan Valkiers, Max Van Houcke, Kris Laukens, Pieter Meysman,
+ClusTCR: a Python interface for rapid clustering of large sets of CDR3
+sequences with unknown antigen specificity,
+Bioinformatics, 2021.<br /></p>
+</blockquote>
+<p>Both methods are based on the
+<a href="https://github.com/facebookresearch/faiss">Faiss Clustering Library</a>,
+for efficient similarity search and clustering of dense vectors, so both methods
+yield similar results.<br /></p>
+<p>A text file will be generated with the cluster assignments for each cell, together
+with the <code>immunarch</code> object (in <code>R</code>) with the cluster assignments at <code>CDR3_Clsuter</code>
+column. This information will then be merged to a <code>Seurat</code> object for further
+downstream analysis.<br /></p>
+<p>The cluster assignments are prefixed with <code>S_</code> or <code>M_</code> to indicate whether a
+cluster has only one unique CDR3 sequence or multiple CDR3 sequences.<br />
+Note that a cluster with <code>S_</code> prefix may still have multiple cells, as the same
+CDR3 sequence may be shared by multiple cells.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>screpfile</code>:
+    The TCR/BCR data object loaded by <code>scRepertoire::CombineTCR()</code>,
+    <code>scRepertoire::CombineBCR()</code> or <code>scRepertoire::CombineExpression()</code></li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outfile</code>: <em>Default: <code>{{in.screpfile | stem}}.tcr_clustered.qs</code></em>. <br />
+    The <code>scRepertoire</code> object in qs with TCR/BCR cluster information.<br />
+    Column <code>CDR3_Cluster</code> will be added to the metadata.<br /></li>
+</ul>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>type</code> <em>(<code>choice</code>)</em>: <em>Default: <code>auto</code></em>. <br />
+    The type of the data.<br /><ul>
+<li><code>TCR</code>:
+    T cell receptor data</li>
+<li><code>BCR</code>:
+    B cell receptor data</li>
+<li><code>auto</code>:
+    Automatically detect the type from the data.<br />
+    Try to find TRB or IGH genes in the CTgene column to determine
+    whether it is TCR or BCR data.<br /></li>
+</ul>
+</li>
+<li><code>tool</code> <em>(<code>choice</code>)</em>: <em>Default: <code>GIANA</code></em>. <br />
+    The tool used to do the clustering, either
+    <a href="https://github.com/s175573/GIANA">GIANA</a> or
+    <a href="https://github.com/svalkiers/clusTCR">ClusTCR</a>.<br />
+    For GIANA, using TRBV mutations is not supported<ul>
+<li><code>GIANA</code>:
+    by Li lab at UT Southwestern Medical Center</li>
+<li><code>ClusTCR</code>:
+    by Sebastiaan Valkiers, etc</li>
+</ul>
+</li>
+<li><code>python</code>: <em>Default: <code>python</code></em>. <br />
+    The path of python with <code>GIANA</code>'s dependencies installed
+    or with <code>clusTCR</code> installed. Depending on the <code>tool</code> you choose.<br /></li>
+<li><code>within_sample</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    Whether to cluster the TCR/BCR clones within each sample.<br />
+    When <code>in.screpfile</code> is a <code>Seurat</code> object, the samples are marked by
+    the <code>Sample</code> column in the metadata.<br /></li>
+<li><code>args</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The arguments for the clustering tool
+    For GIANA, they will be passed to <code>python GIAna.py</code>
+    See <a href="https://github.com/s175573/GIANA#usage">https://github.com/s175573/GIANA#usage</a>.<br />
+    For ClusTCR, they will be passed to <code>clustcr.Clustering(...)</code>
+    See <a href="https://svalkiers.github.io/clusTCR/docs/clustering/how-to-use.html#clustering">https://svalkiers.github.io/clusTCR/docs/clustering/how-to-use.html#clustering</a>.<br /></li>
+<li><code>chain</code> <em>(<code>choice</code>)</em>: <em>Default: <code>both</code></em>. <br />
+    The TCR/BCR chain to use for clustering.<br /><ul>
+<li><code>heavy</code>:
+    The heavy chain, TRB for TCR, IGH for BCR.<br />
+    For TCR, TRB is the second sequence in <code>CTaa</code>, separated by <code>_</code> if
+    input is a Seurat object; otherwise, it is extracted from the <code>cdr3_aa2</code> column.<br />
+    For BCR, IGH is the first sequence in <code>CTaa</code>, separated by <code>_</code> if
+    input is a Seurat object; otherwise, it is extracted from the <code>cdr3_aa1</code> column.<br /></li>
+<li><code>light</code>:
+    The light chain, TRA for TCR, IGL/IGK for BCR.<br />
+    For TCR, TRA is the first sequence in <code>CTaa</code>, separated by <code>_</code> if
+    input is a Seurat object; otherwise, it is extracted from the <code>cdr3_aa1</code> column.<br />
+    For BCR, IGL/IGK is the second sequence in <code>CTaa</code>, separated by <code>_</code> if
+    input is a Seurat object; otherwise, it is extracted from the <code>cdr3_aa2</code> column.<br /></li>
+<li><code>TRA</code>:
+    Only the TRA chain for TCR (light chain).<br /></li>
+<li><code>TRB</code>:
+    Only the TRB chain for TCR (heavy chain).<br /></li>
+<li><code>IGH</code>:
+    Only the IGH chain for BCR (heavy chain).<br /></li>
+<li><code>IGLK</code>:
+    Only the IGL/IGK chain for BCR (light chain).<br /></li>
+<li><code>both</code>:
+    Both sequences from the heavy and light chains (CTaa column).<br /></li>
+</ul>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../ScRepCombiningExpression/" class="btn btn-neutral float-left" title="ScRepCombiningExpression"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../TESSA/" class="btn btn-neutral float-right" title="TESSA">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../ScRepCombiningExpression/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../TESSA/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/version-select.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

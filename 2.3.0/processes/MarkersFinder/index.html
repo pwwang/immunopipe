@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>MarkersFinder - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "MarkersFinder";
+        var mkdocs_page_input_path = "processes/MarkersFinder.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3Clustering/">CDR3Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">MarkersFinder</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#seealso">SeeAlso</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#default">Default</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#with-each-group">With each group</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#with-ident_1-only">With ident_1 only</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#with-both-ident_1-and-ident_2">With both ident_1 and ident_2</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#multiple-cases">Multiple cases</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
+      <li class="breadcrumb-item active">MarkersFinder</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/MarkersFinder.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="markersfinder">MarkersFinder<a class="headerlink" href="#markersfinder" title="Permanent link">&para;</a></h2>
+<p>Find markers between different groups of cells</p>
+<p><code>MarkersFinder</code> is a process that wraps the
+<a href="https://satijalab.org/seurat/reference/findmarkers"><code>Seurat::FindMarkers()</code></a>
+function, and performs enrichment analysis for the markers found.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>srtobj</code>:
+    The seurat object loaded by <code>SeuratPreparing</code>
+    If you have your <code>Seurat</code> object prepared by yourself, you can also
+    use it here, but you should make sure that the object has been processed
+    by <code>PrepSCTFindMarkers</code> if data is not normalized using <code>SCTransform</code>.<br /></li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outdir</code>: <em>Default: <code>{{in.srtobj | stem0}}.markers</code></em>. <br />
+    The output directory for the markers and plots</li>
+</ul>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores to use for parallel computing for some <code>Seurat</code> procedures.<br /><ul>
+<li>Used in <code>future::plan(strategy = "multicore", workers = &lt;ncores&gt;)</code> to parallelize some Seurat procedures.<br /></li>
+<li>See also: <a href="https://satijalab.org/seurat/articles/future_vignette.html">https://satijalab.org/seurat/articles/future_vignette.html</a></li>
+</ul>
+</li>
+<li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The mutaters to mutate the metadata.<br />
+    You can also use the clone selectors to select the TCR clones/clusters.<br />
+    See <a href="https://pwwang.github.io/scplotter/reference/clone_selectors.html">https://pwwang.github.io/scplotter/reference/clone_selectors.html</a>..<br />
+    See also
+    <a href="../../configurations/#mutating-the-metadata">mutating the metadata</a>.<br /></li>
+<li><code>group_by</code>:
+    The column name in metadata to group the cells.<br />
+    If only <code>group_by</code> is specified, and <code>ident_1</code> and <code>ident_2</code> are
+    not specified, markers will be found for all groups in this column
+    in the manner of "group vs rest" comparison.<br />
+    <code>NA</code> group will be ignored.<br />
+    If <code>None</code>, <code>Seurat::Idents(srtobj)</code> will be used, which is usually
+    <code>"seurat_clusters"</code> after unsupervised clustering.<br /></li>
+<li><code>ident_1</code>:
+    The first group of cells to compare
+    When this is empty, the comparisons will be expanded to each group v.s. the rest of the cells in <code>group_by</code>.<br /></li>
+<li><code>ident_2</code>:
+    The second group of cells to compare
+    If not provided, the rest of the cells are used for <code>ident_2</code>.<br /></li>
+<li><code>each</code>:
+    The column name in metadata to separate the cells into different
+    cases.<br />
+    When this is specified, the case will be expanded for each value of
+    the column in metadata. For example, when you have <code>envs.cases."Cluster Markers".each = "Sample"</code>,
+    then the case will be expanded as <code>envs.cases."Cluster Markers - Sample1"</code>, <code>envs.cases."Cluster Markers - Sample2"</code>, etc.<br />
+    You can specify <code>allmarker_plots</code> and <code>overlaps</code> to plot the markers for all cases in the same plot and plot the overlaps of the markers
+    between different cases by values in this column.<br /></li>
+<li><code>dbs</code> <em>(<code>list</code>)</em>: <em>Default: <code>['KEGG_2021_Human', 'MSigDB_Hallmark_2020']</code></em>. <br />
+    The dbs to do enrichment analysis for significant markers.<br />
+    You can use built-in dbs in <code>enrichit</code>, or provide your own gmt files.<br />
+    See also <a href="https://pwwang.github.io/enrichit/reference/FetchGMT.html">https://pwwang.github.io/enrichit/reference/FetchGMT.html</a>.<br />
+    The built-in dbs include:<br /><ul>
+<li>"BioCarta" or "BioCarta_2016"</li>
+<li>"GO_Biological_Process" or "GO_Biological_Process_2025"</li>
+<li>"GO_Cellular_Component" or "GO_Cellular_Component_2025"</li>
+<li>"GO_Molecular_Function" or "GO_Molecular_Function_2025"</li>
+<li>"KEGG", "KEGG_Human", "KEGG_2021", or "KEGG_2021_Human"</li>
+<li>"Hallmark", "MSigDB_Hallmark", or "MSigDB_Hallmark_2020"</li>
+<li>"Reactome", "Reactome_Pathways", or "Reactome_Pathways_2024"</li>
+<li>"WikiPathways", "WikiPathways_2024", "WikiPathways_Human", or "WikiPathways_2024_Human"
+You can also fetch more dbs from <a href="https://maayanlab.cloud/Enrichr/#libraries">https://maayanlab.cloud/Enrichr/#libraries</a>.<br /></li>
+</ul>
+</li>
+<li><code>sigmarkers</code>: <em>Default: <code>p_val_adj &lt; 0.05</code></em>. <br />
+    An expression passed to <code>dplyr::filter()</code> to filter the
+    significant markers for enrichment analysis.<br />
+    Available variables are <code>p_val</code>, <code>avg_log2FC</code>, <code>pct.1</code>, <code>pct.2</code> and
+    <code>p_val_adj</code>. For example, <code>"p_val_adj &lt; 0.05 &amp; abs(avg_log2FC) &gt; 1"</code>
+    to select markers with adjusted p-value &lt; 0.05 and absolute log2
+    fold change &gt; 1.<br /></li>
+<li><code>enrich_style</code> <em>(<code>choice</code>)</em>: <em>Default: <code>enrichr</code></em>. <br />
+    The style of the enrichment analysis.<br />
+    The enrichment analysis will be done by <code>EnrichIt()</code> from <a href="https://pwwang.github.io/enrichit/"><code>enrichit</code></a>.<br />
+    Two styles are available:<br /><ul>
+<li><code>enrichr</code>:
+    <code>enrichr</code> style enrichment analysis (fisher's exact test will be used).<br /></li>
+<li><code>clusterprofiler</code>:
+    <code>clusterProfiler</code> style enrichment analysis (hypergeometric test will be used).<br /></li>
+<li><code>clusterProfiler</code>:
+    alias for <code>clusterprofiler</code></li>
+</ul>
+</li>
+<li><code>assay</code>:
+    The assay to use.<br /></li>
+<li><code>error</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Error out if no/not enough markers are found or no pathways are enriched.<br />
+    If <code>False</code>, empty results will be returned.<br /></li>
+<li><code>subset</code>:
+    An expression to subset the cells for each case.<br /></li>
+<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
+    Where to cache the results.<br />
+    If <code>True</code>, cache to <code>outdir</code> of the job. If <code>False</code>, don't cache.<br />
+    Otherwise, specify the directory to cache to.<br /></li>
+<li><code>rest</code> <em>(<code>ns</code>)</em>:
+    Rest arguments for <code>Seurat::FindMarkers()</code>.<br />
+    Use <code>-</code> to replace <code>.</code> in the argument name. For example,
+    use <code>min-pct</code> instead of <code>min.pct</code>.<br /><ul>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/findmarkers">https://satijalab.org/seurat/reference/findmarkers</a></li>
+</ul>
+</li>
+<li><code>allmarker_plots_defaults</code> <em>(<code>ns</code>)</em>:
+    Default options for the plots for all markers when <code>ident_1</code> is not specified.<br /><ul>
+<li><code>plot_type</code>:
+    The type of the plot.<br />
+    See <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html">https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html</a>.<br />
+    Available types are <code>violin</code>, <code>box</code>, <code>bar</code>, <code>ridge</code>, <code>dim</code>, <code>heatmap</code> and <code>dot</code>.<br /></li>
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The extra formats to save the plot in.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code to generate the plot.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>&lt;more&gt;</code>:
+    Other arguments passed to <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html"><code>biopipen.utils::VizDEGs()</code></a>.<br /></li>
+</ul>
+</li>
+<li><code>allmarker_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    All marker plot cases.<br />
+    The keys are the names of the cases and the values are the dicts inherited from <code>allmarker_plots_defaults</code>.<br /></li>
+<li><code>allenrich_plots_defaults</code> <em>(<code>ns</code>)</em>:
+    Default options for the plots to generate for the enrichment analysis.<br /><ul>
+<li><code>plot_type</code>: <em>Default: <code>heatmap</code></em>. <br />
+    The type of the plot.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html">https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html</a>.<br /></li>
+</ul>
+</li>
+<li><code>allenrich_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Cases of the plots to generate for the enrichment analysis.<br />
+    The keys are the names of the cases and the values are the dicts inherited from <code>allenrich_plots_defaults</code>.<br />
+    The cases under <code>envs.cases</code> can inherit this options.<br /></li>
+<li><code>marker_plots_defaults</code> <em>(<code>ns</code>)</em>:
+    Default options for the plots to generate for the markers.<br /><ul>
+<li><code>plot_type</code>:
+    The type of the plot.<br />
+    See <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html">https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html</a>.<br />
+    Available types are <code>violin</code>, <code>box</code>, <code>bar</code>, <code>ridge</code>, <code>dim</code>, <code>heatmap</code> and <code>dot</code>.<br />
+    There are two additional types available - <code>volcano_pct</code> and <code>volcano_log2fc</code>.<br /></li>
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The extra formats to save the plot in.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code to generate the plot.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>&lt;more&gt;</code>:
+    Other arguments passed to <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html"><code>biopipen.utils::VizDEGs()</code></a>.<br />
+    If <code>plot_type</code> is <code>volcano_pct</code> or <code>volcano_log2fc</code>, they will be passed to
+    <a href="https://pwwang.github.io/plotthis/reference/VolcanoPlot.html"><code>scplotter::VolcanoPlot()</code></a>.<br /></li>
+</ul>
+</li>
+<li><code>marker_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot'})}</code></em>. <br />
+    Cases of the plots to generate for the markers.<br />
+    Plot cases. The keys are the names of the cases and the values are the dicts inherited from <code>marker_plots_defaults</code>.<br />
+    The cases under <code>envs.cases</code> can inherit this options.<br /></li>
+<li><code>enrich_plots_defaults</code> <em>(<code>ns</code>)</em>:
+    Default options for the plots to generate for the enrichment analysis.<br /><ul>
+<li><code>plot_type</code>:
+    The type of the plot.<br />
+    See <a href="https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html">https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html</a>.<br />
+    Available types are <code>bar</code>, <code>dot</code>, <code>lollipop</code>, <code>network</code>, <code>enrichmap</code> and <code>wordcloud</code>.<br /></li>
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The extra formats to save the plot in.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code to generate the plot.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html">https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html</a>.<br /></li>
+</ul>
+</li>
+<li><code>enrich_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Bar Plot': Diot({'plot_type': 'bar', 'ncol': 1, 'top_term': 10})}</code></em>. <br />
+    Cases of the plots to generate for the enrichment analysis.<br />
+    The keys are the names of the cases and the values are the dicts inherited from <code>enrich_plots_defaults</code>.<br />
+    The cases under <code>envs.cases</code> can inherit this options.<br /></li>
+<li><code>overlaps_defaults</code> <em>(<code>ns</code>)</em>:
+    Default options for investigating the overlapping of significant markers between different cases or comparisons.<br />
+    This means either <code>ident_1</code> should be empty, so that they can be expanded to multiple comparisons.<br /><ul>
+<li><code>sigmarkers</code>:
+    The expression to filter the significant markers for each case.<br />
+    If not provided, <code>envs.sigmarkers</code> will be used.<br /></li>
+<li><code>plot_type</code> <em>(<code>choice</code>)</em>: <em>Default: <code>venn</code></em>. <br />
+    The type of the plot to generate for the overlaps.<br /><ul>
+<li><code>venn</code>:
+    Use <code>plotthis::VennDiagram()</code>.<br /></li>
+<li><code>upset</code>:
+    Use <code>plotthis::UpsetPlot()</code>.<br /></li>
+</ul>
+</li>
+<li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The extra formats to save the plot in.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code to generate the plot.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots.<br /><ul>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the plots.<br /></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the plots.<br /></li>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the plots.<br /></li>
+</ul>
+</li>
+<li><code>&lt;more&gt;</code>:
+    More arguments pased to <code>plotthis::VennDiagram()</code>
+    (<a href="https://pwwang.github.io/plotthis/reference/venndiagram1.html">https://pwwang.github.io/plotthis/reference/venndiagram1.html</a>)
+    or <code>plotthis::UpsetPlot()</code>
+    (<a href="https://pwwang.github.io/plotthis/reference/upsetplot1.html">https://pwwang.github.io/plotthis/reference/upsetplot1.html</a>)</li>
+</ul>
+</li>
+<li><code>overlaps</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Cases for investigating the overlapping of significant markers between different cases or comparisons.<br />
+    The keys are the names of the cases and the values are the dicts inherited from <code>overlaps_defaults</code>.<br />
+    There are two situations that we can perform overlaps:<br /><ol>
+<li>If <code>ident_1</code> is not specified, the overlaps can be performed between different comparisons.<br /></li>
+<li>If <code>each</code> is specified, the overlaps can be performed between different cases, where in each case, <code>ident_1</code> must be specified.<br /></li>
+</ol>
+</li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    If you have multiple cases for marker discovery, you can specify them
+    here. The keys are the names of the cases and the values are the above options. If some options are
+    not specified, the default values specified above (under <code>envs</code>) will be used.<br />
+    If no cases are specified, the default case will be added with the default values under <code>envs</code> with the name <code>Marker Discovery</code>.<br /></li>
+</ul>
+<h3 id="seealso">SeeAlso<a class="headerlink" href="#seealso" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder">biopipen.ns.scrna.MarkersFinder</a></li>
+<li><a href="../ClusterMarkers/">ClusterMarkers</a></li>
+</ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<p>The examples are for more general use of <code>MarkersFinder</code>, in order to
+demonstrate how the final cases are constructed.<br /></p>
+<p>Suppose we have a metadata like this:<br /></p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>seurat_clusters</th>
+<th>Group</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>A</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>A</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>A</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>A</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td>B</td>
+</tr>
+<tr>
+<td>6</td>
+<td>3</td>
+<td>B</td>
+</tr>
+<tr>
+<td>7</td>
+<td>4</td>
+<td>B</td>
+</tr>
+<tr>
+<td>8</td>
+<td>4</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<h4 id="default">Default<a class="headerlink" href="#default" title="Permanent link">&para;</a></h4>
+<p>By default, <code>group_by</code> is <code>seurat_clusters</code>, and <code>ident_1</code> and <code>ident_2</code>
+are not specified. So markers will be found for all clusters in the manner
+of "cluster vs rest" comparison.<br /></p>
+<ul>
+<li>Cluster<ul>
+<li>1 (vs 2, 3, 4)</li>
+<li>2 (vs 1, 3, 4)</li>
+<li>3 (vs 1, 2, 4)</li>
+<li>4 (vs 1, 2, 3)</li>
+</ul>
+</li>
+</ul>
+<p>Each case will have the markers and the enrichment analysis for the
+markers as the results.<br /></p>
+<h4 id="with-each-group">With <code>each</code> group<a class="headerlink" href="#with-each-group" title="Permanent link">&para;</a></h4>
+<p><code>each</code> is used to separate the cells into different cases. <code>group_by</code>
+is still <code>seurat_clusters</code>.<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[</span><span class="err">&lt;</span><span class="k">Proc</span><span class="err">&gt;</span><span class="k">.envs]</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<span class="n">each</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Group&quot;</span>
+</code></pre></div>
+<ul>
+<li>A:Cluster<ul>
+<li>1 (vs 2)</li>
+<li>2 (vs 1)</li>
+</ul>
+</li>
+<li>B:Cluster<ul>
+<li>3 (vs 4)</li>
+<li>4 (vs 3)</li>
+</ul>
+</li>
+</ul>
+<h4 id="with-ident_1-only">With <code>ident_1</code> only<a class="headerlink" href="#with-ident_1-only" title="Permanent link">&para;</a></h4>
+<p><code>ident_1</code> is used to specify the first group of cells to compare.<br />
+Then the rest of the cells in the case are used for <code>ident_2</code>.<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[</span><span class="err">&lt;</span><span class="k">Proc</span><span class="err">&gt;</span><span class="k">.envs]</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<span class="n">ident_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+</code></pre></div>
+<ul>
+<li>Cluster<ul>
+<li>1 (vs 2, 3, 4)</li>
+</ul>
+</li>
+</ul>
+<h4 id="with-both-ident_1-and-ident_2">With both <code>ident_1</code> and <code>ident_2</code><a class="headerlink" href="#with-both-ident_1-and-ident_2" title="Permanent link">&para;</a></h4>
+<p><code>ident_1</code> and <code>ident_2</code> are used to specify the two groups of cells to
+compare.<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[</span><span class="err">&lt;</span><span class="k">Proc</span><span class="err">&gt;</span><span class="k">.envs]</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<span class="n">ident_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="n">ident_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;2&quot;</span>
+</code></pre></div>
+<ul>
+<li>Cluster<ul>
+<li>1 (vs 2)</li>
+</ul>
+</li>
+</ul>
+<h4 id="multiple-cases">Multiple cases<a class="headerlink" href="#multiple-cases" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[</span><span class="err">&lt;</span><span class="k">Proc</span><span class="err">&gt;</span><span class="k">.envs.cases]</span>
+<span class="n">c1_vs_c2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">ident_1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ident_2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">}</span>
+<span class="n">c3_vs_c4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">ident_1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;3&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ident_2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;4&quot;</span><span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>DEFAULT:c1_vs_c2<ul>
+<li>1 (vs 2)</li>
+</ul>
+</li>
+<li>DEFAULT:c3_vs_c4<ul>
+<li>3 (vs 4)</li>
+</ul>
+</li>
+</ul>
+<p>The <code>DEFAULT</code> section name will be ignored in the report. You can specify
+a section name other than <code>DEFAULT</code> for each case to group them
+in the report.<br /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../ScFGSEA/" class="btn btn-neutral float-left" title="ScFGSEA"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../PseudoBulkDEG/" class="btn btn-neutral float-right" title="PseudoBulkDEG">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../ScFGSEA/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../PseudoBulkDEG/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/version-select.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
