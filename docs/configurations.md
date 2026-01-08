@@ -38,6 +38,11 @@ indicator_genes = ["CD3D", "CD3E", "CD3G"]
 
 ///
 
+/// Tip
+An example configuration file with possible configuration items is provided in the repository as `immunopipe.config.example.toml`. You can refer to it when creating your own configuration file.
+
+///
+
 /// Attention
 
 With [`pipen-args`][5] plugin, the arguments can also be passed from command line directly. For example, you can pass `--TESSA.envs.python python_np1` from command line to set the `python` with dependencies installed for `TESSA` process.

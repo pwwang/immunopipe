@@ -4,7 +4,7 @@ import re
 import sys
 from typing import Any, Dict
 
-from yunpath import AnyPath
+from panpath import PanPath
 from pipen.utils import logger
 
 WARNINGS = []
@@ -170,7 +170,7 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
             )
 
         if len(infiles) == 1 and infiles[0] is not None:
-            infile = AnyPath(infiles[0])
+            infile = PanPath(infiles[0])
             if infile.is_file():
                 header = infile.read_text().splitlines()[0]
                 config.has_vdj = "TCRData" in header or "BCRData" in header
@@ -188,13 +188,13 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
                 if mount:
                     for mount in mount:
                         p1, p2 = mount.rsplit(":", 1)
-                        p2 = AnyPath(p2)
+                        p2 = PanPath(p2)
                         if not infile.is_relative_to(p2):
                             continue
                         p1 = p1.rstrip("/")
                         cloud_path = f"{p1}/{infile.relative_to(p2)}"
-                        if AnyPath(cloud_path).is_file():
-                            header = AnyPath(cloud_path).read_text().splitlines()[0]
+                        if PanPath(cloud_path).is_file():
+                            header = (PanPath(cloud_path).read_text()).splitlines()[0]
                             config.has_vdj = "TCRData" in header or "BCRData" in header
                         else:
                             _log_error(

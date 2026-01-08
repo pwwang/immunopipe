@@ -120,7 +120,7 @@ You may read through this documentation to learn more about the pipeline and how
 
 <http://imp.pwwang.com/output/REPORTS/index.html>
 
-/// nOTE
+/// NOTE
 The results provided by this example configuration files are for demonstration purpose only. They are not intended to be used for any scientific analysis.
 ///
 
@@ -132,5 +132,8 @@ You may also want to try other routes of the pipeline with the prepared data. Th
 
 Also check out the [gallery](./gallery.md) for more real-world examples.
 
+You can also check the example configuration file to check the possible configuration items: [immunopipe.config.example.toml][3]
+
 [1]: https://www.cell.com/cell/fulltext/S0092-8674(20)30688-7
 [2]: https://github.com/pwwang/immunopipe-example/blob/master/Immunopipe.config.toml
+[3]: https://github.com/pwwang/immunopipe/blob/master/immunopipe.config.example.toml

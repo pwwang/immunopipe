@@ -1,6 +1,6 @@
 """Process definition"""
-
 from __future__ import annotations
+
 from typing import Type, Sequence, Callable
 
 from pipen.utils import is_loading_pipeline

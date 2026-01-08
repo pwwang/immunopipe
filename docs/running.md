@@ -187,7 +187,7 @@ There are two ways to run the pipeline using Google Cloud Batch Jobs:
 
 ### Use the `gbatch` scheduler of `pipen`
 
-When using the [`gbatch`](https://github.com/pwwang/xqute#using-google-batch-jobs-scheduler), the metadata of the processes (job status, job output, etc) are managed locally. Even though they are on the cloud, they are manipuated locally (using the API provided by [`cloudpathlib`](https://cloudpathlib.drivendata.org/stable/)). The processes are submitted to Google Cloud Batch Jobs using `gcloud batch jobs submit`. And the processes are run on Google Cloud Compute Engine VMs, and they need to be sumbitted one after another.
+When using the [`gbatch`](https://github.com/pwwang/xqute#using-google-batch-jobs-scheduler), the metadata of the processes (job status, job output, etc) are managed locally. Even though they are on the cloud, they are manipuated locally (using the API provided by [`panpath`](https://pwwang.github.io/panpath)). The processes are submitted to Google Cloud Batch Jobs using `gcloud batch jobs submit`. And the processes are run on Google Cloud Compute Engine VMs, and they need to be sumbitted one after another.
 
 See the documentation of [`cloud support`](https://pwwang.github.io/pipen/cloud/#run-the-pipeline-on-the-cloud) of `pipen`.
 

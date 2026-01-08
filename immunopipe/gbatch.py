@@ -3,11 +3,10 @@
 from __future__ import annotations
 
 import sys
-from pathlib import Path
 from typing import Any
 
 from simpleconf import Config
-from yunpath import AnyPath
+from panpath import PanPath
 from xqute.schedulers.gbatch_scheduler import DEFAULT_MOUNTED_ROOT
 from pipen.defaults import CONFIG_FILES
 from pipen_args.plugin import ArgsPlugin
@@ -36,14 +35,14 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemon):
         print(f"pipen-cli-gbatch version: v{cli_gbatch_version}")
         print(f"pipen version: v{pipen_version}")
 
-    def _get_arg_from_command(self, arg: str) -> str | None:
-        return super()._get_arg_from_command(arg) or "Immunopipe"
+    async def _get_arg_from_command(self, arg: str) -> str | None:
+        return await super()._get_arg_from_command(arg) or "Immunopipe"
 
-    def _handle_outdir(self):
-        command_outdir = super()._get_arg_from_command("outdir")
+    async def _handle_outdir(self):
+        command_outdir = await super()._get_arg_from_command("outdir")
 
         if command_outdir:
-            coudir = AnyPath(command_outdir)
+            coudir = PanPath(command_outdir)
             if (
                 not isinstance(coudir, GSPath)
                 and not coudir.is_absolute()
@@ -54,7 +53,7 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemon):
                 self._add_mount(command_outdir, GbatchScheduler.MOUNTED_OUTDIR)
                 self._replace_arg_in_command("outdir", GbatchScheduler.MOUNTED_OUTDIR)
         elif self.mount_as_cwd:
-            command_name = self._get_arg_from_command("name") or self.config.name
+            command_name = await self._get_arg_from_command("name") or self.config.name
             self._replace_arg_in_command(
                 "outdir",
                 f"{MOUNTED_CWD}/{command_name}-output",
@@ -64,12 +63,12 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemon):
         cf_at = [cmd.startswith("@") for cmd in self.command]
         if any(cf_at):
             cf_index = cf_at.index(True)
-            cf_path = AnyPath(self.command[cf_index][1:])
-            cf_dest = AnyPath(self.config["workdir"]).joinpath(
+            cf_path = PanPath(self.command[cf_index][1:])
+            cf_dest = PanPath(self.config["workdir"]).joinpath(
                 self.config["name"],
                 cf_path.name,
             )
-            cf_dest.write_bytes(cf_path.read_bytes())
+            await cf_path.a_copy(cf_dest)
             self.command[cf_index] = (
                 f"@{DEFAULT_MOUNTED_ROOT}/xqute_workdir/{cf_path.name}"
             )
@@ -84,8 +83,8 @@ async def main(argv):
         "If none is specified, the pipeline will be run and waited for completion."
     )
 
-    cli_gbatch_arg_file = Path(cli_gbatch_file).parent / "daemon_args.toml"
-    cli_gbatch_args = Config.load_one(cli_gbatch_arg_file, loader="toml")
+    cli_gbatch_arg_file = PanPath(cli_gbatch_file).parent / "daemon_args.toml"
+    cli_gbatch_args = await Config.a_load_one(cli_gbatch_arg_file, loader="toml")
 
     action_options = cli_gbatch_args.mutually_exclusive_groups[0].arguments
     for opt in action_options:
@@ -147,7 +146,7 @@ async def main(argv):
             return True
         return bool(val)
 
-    defaults = CliGbatchPlugin._get_defaults_from_config(
+    defaults = await CliGbatchPlugin._get_defaults_from_config(
         CONFIG_FILES,
         cli_gbatch_config.profile,
     )
