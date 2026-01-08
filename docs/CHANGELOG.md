@@ -1,5 +1,19 @@
 # Change Log
 
+## 2.3.0
+
+- chore: bump pipen to v1.1 so asynchronous path operations are supported
+- refactor: convert synchronous methods to asynchronous in gbatch.py
+- feat: add example configuration file
+- fix: update header reading method in validate_config to use read_text
+- docs: update process documentation with additional references and image links
+- docs: update installation and running documentation to reflect dependency changes
+- docs: add FAQ entry for mouse data support in the pipeline
+- chore: update r-biopipen.utils version to 0.3.5 in environment_rpkgs.yml
+  - fix(RunSeuratDEAnalysis): handle +Inf/-Inf values in avg_log2FC to make visualization works
+- chore: bump biopipen to 1.1.1
+  - docs(tcr.ClonalStats): correct typo in documentation for ClonalStatsPlot reference
+
 ## 2.2.2
 
 - chore: force conda to rebuild with biopipen.utils.R v0.3.4-7
