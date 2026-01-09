@@ -284,14 +284,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "1.1.1"
+version = "1.1.2"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-1.1.1-py3-none-any.whl", hash = "sha256:a2e247cdec740c053a362dac276c1c76dd62673850e7cc256640a4e42dc6418f"},
-    {file = "biopipen-1.1.1.tar.gz", hash = "sha256:7ef9a747f71ae746d55187ae6d035a1efefcb34501916bf46a276cc579403618"},
+    {file = "biopipen-1.1.2-py3-none-any.whl", hash = "sha256:74aa4f3b45a9de99843d35128b25b91e6c043b77d0fae206f79f885c7f8ef698"},
+    {file = "biopipen-1.1.2.tar.gz", hash = "sha256:5942196249f095ded421e90fc9e9249cf02dc5fa14a56d328fe3ce82851e7ab9"},
 ]
 
 [package.dependencies]
@@ -2301,14 +2301,14 @@ s3 = ["boto3 (>=1.20.0)"]
 
 [[package]]
 name = "pathspec"
-version = "1.0.1"
+version = "1.0.3"
 description = "Utility library for gitignore style pattern matching of file paths."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "pathspec-1.0.1-py3-none-any.whl", hash = "sha256:8870061f22c58e6d83463cfce9a7dd6eca0512c772c1001fb09ac64091816721"},
-    {file = "pathspec-1.0.1.tar.gz", hash = "sha256:e2769b508d0dd47b09af6ee2c75b2744a2cb1f474ae4b1494fd6a1b7a841613c"},
+    {file = "pathspec-1.0.3-py3-none-any.whl", hash = "sha256:e80767021c1cc524aa3fb14bedda9c34406591343cc42797b386ce7b9354fb6c"},
+    {file = "pathspec-1.0.3.tar.gz", hash = "sha256:bac5cf97ae2c2876e2d25ebb15078eb04d76e4b98921ee31c6f85ade8b59444d"},
 ]
 
 [package.extras]
@@ -3901,14 +3901,14 @@ test = ["pytest", "websockets"]
 
 [[package]]
 name = "werkzeug"
-version = "3.1.4"
+version = "3.1.5"
 description = "The comprehensive WSGI web application library."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "werkzeug-3.1.4-py3-none-any.whl", hash = "sha256:2ad50fb9ed09cc3af22c54698351027ace879a0b60a3b5edf5730b2f7d876905"},
-    {file = "werkzeug-3.1.4.tar.gz", hash = "sha256:cd3cd98b1b92dc3b7b3995038826c68097dcb16f9baa63abe35f20eafeb9fe5e"},
+    {file = "werkzeug-3.1.5-py3-none-any.whl", hash = "sha256:5111e36e91086ece91f93268bb39b4a35c1e6f1feac762c9c822ded0a4e322dc"},
+    {file = "werkzeug-3.1.5.tar.gz", hash = "sha256:6a548b0e88955dd07ccb25539d7d0cc97417ee9e179677d22c7041c8f078ce67"},
 ]
 
 [package.dependencies]
@@ -4150,4 +4150,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "8884177756cfd2b5f64e96474aca69e72bcdef7d4c5c4bac6ce9b212d70e4673"
+content-hash = "ada26cf3109e3f19d229b6977d6bf051aac67343a544a7ac5e95f2b6ff7d3f6f"
