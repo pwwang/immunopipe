@@ -4,7 +4,7 @@
 
 - chore: update r-plotthis dependency version to 0.9.3
 - chore: update biopipen dependency version to 1.1.2
-  - fix(scrna.MarkersFinder): correct database name formatting in enrichment plot processing
+  - fix(scrna.MarkersFinder): remove file extension from database names in enrichment processing
 
 ## 2.3.0
 
