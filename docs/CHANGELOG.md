@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.3.1
+
+- chore: update r-plotthis dependency version to 0.9.3
+- chore: update biopipen dependency version to 1.1.2
+  - fix(scrna.MarkersFinder): correct database name formatting in enrichment plot processing
+
 ## 2.3.0
 
 - chore: bump pipen to v1.1 so asynchronous path operations are supported
