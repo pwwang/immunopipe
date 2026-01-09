@@ -4,7 +4,6 @@ channels:
   - r
   - bioconda
   - nodefaults
-
 dependencies:
   # Specified in base, but still need it here to avoid PackagesNotFoundError by conda
   - pwwang::bioconductor-screpertoire=2.2
