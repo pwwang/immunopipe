@@ -3,6 +3,8 @@
 ## 2.3.1
 
 - chore: update r-plotthis dependency version to 0.9.4
+- chore: update r-scplotter dependency version to 0.6.5
+  - feat: clone selectors gain a `within` option to select clones within a specific subset
 - chore: update biopipen dependency version to 1.1.4
   - fix(scrna.MarkersFinder): update database handling in enrichment plots in case it is from gmt files
   - fix(scrna.PseudoBulkDEG): update database handling in enrichment plots to use unique databases in case gmt files were used
