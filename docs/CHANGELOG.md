@@ -2,6 +2,7 @@
 
 ## 2.3.1
 
+- chore: chore: update Dockerfile to install numpy version 2.3 for compatibility with scanpy
 - chore: update r-plotthis dependency version to 0.9.4
 - chore: update r-scplotter dependency version to 0.6.5
   - feat: clone selectors gain a `within` option to select clones within a specific subset
