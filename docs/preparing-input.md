@@ -62,7 +62,7 @@ See also: <https://rdrr.io/github/ncborcherding/scRepertoire/man/loadContigs.htm
 
 ## Metadata
 
-A metadata file is required as an input file for the pipeline. It should be a `TAB` delimited file with 3 required columns:
+A metadata file is required as an input file for the pipeline. It should be a `TAB` delimited file with 2 required columns:
 
 - `Sample`: A unique id for each sample
 - `RNAData`: The directory or `h5` file for single-cell RNA data for this sample, as described above.
