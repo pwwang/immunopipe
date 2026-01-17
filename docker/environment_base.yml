@@ -77,7 +77,6 @@ dependencies:
   - r-reshape2
   - r-stringr
   - r-scales
-  - pwwang::r-sccatch
   - r-gridtext
   - r-patchwork
   - r-ggrepel
@@ -85,6 +84,7 @@ dependencies:
   - r-cowplot
   - r-zoo
   # Suggests
+  - pwwang::r-sccatch
   - r-matrix
   - r-alluvial
   - bioconda::bioconductor-complexheatmap
