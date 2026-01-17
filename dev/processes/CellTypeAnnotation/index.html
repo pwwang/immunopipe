@@ -282,15 +282,14 @@ using <code>envs.newcol</code>, so that the results from different annotation pr
     See also <a href="https://pwwang.github.io/hitype/articles/prepare-gene-sets.html">https://pwwang.github.io/hitype/articles/prepare-gene-sets.html</a>
     You can also use built-in databases, including <code>hitypedb_short</code>, <code>hitypedb_full</code>, and <code>hitypedb_pbmc3k</code>.<br /></li>
 <li>
-<p><code>cell_types</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+<p><code>cell_types</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>[]</code></em>. <br />
     The cell types to use for direct annotation.<br />
-    You can use <code>"-"</code> or <code>""</code> as the placeholder for the clusters that
-    you want to keep the original cell types.<br />
-    If the length of <code>cell_types</code> is shorter than the number of
-    clusters, the remaining clusters will be kept as the original cell
-    types.<br />
+    If given as a list (array), you can use <code>"-"</code> or <code>""</code> as the placeholder for the clusters that
+    you want to keep the original cell types. If the length of <code>cell_types</code> is shorter than the number of
+    clusters, the remaining clusters will be kept as the original cell types.<br />
     You can also use <code>NA</code> to remove the clusters from downstream analysis. This
-    only works when <code>envs.newcol</code> is not specified.<br /></p>
+    only works when <code>envs.newcol</code> is not specified.<br />
+    If given as a dict (map), the keys are the original cluster names and the values are the new cell types.<br /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If <code>tool</code> is <code>direct</code> and <code>cell_types</code> is not specified or an empty list,

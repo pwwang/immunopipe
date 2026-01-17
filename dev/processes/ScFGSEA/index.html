@@ -225,6 +225,10 @@ each gene set, and GSEA plots for the top gene sets.<br /></p>
 <li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
     Number of cores for parallelization
     Passed to <code>nproc</code> of <code>fgseaMultilevel()</code>.<br /></li>
+<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
+    Where to cache the results.<br />
+    If <code>True</code>, cache to <code>outdir</code> of the job. If <code>False</code>, don't cache.<br />
+    Otherwise, specify the directory to cache to.<br /></li>
 <li>
 <p><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
     The mutaters to mutate the metadata.<br />

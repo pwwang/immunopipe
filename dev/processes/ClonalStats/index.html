@@ -253,6 +253,12 @@ information.<br /></p>
     The keys are the names of the new variables, and the values are the expressions.<br />
     When it is a <code>Seurat</code> object, typically an output of <code>scRepertoire::combineExpression()</code>,
     the mutaters will be applied to the <code>meta.data</code>.<br /></li>
+<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
+    Whether to cache the plots.<br />
+    Currently only plots for features are supported, since creating the those
+    plots can be time consuming.<br />
+    If <code>True</code>, the plots will be cached in the job output directory, which will
+    be not cleaned up when job is rerunning.<br /></li>
 <li><code>viz_type</code> <em>(<code>choice</code>)</em>:
     The type of visualization to generate.<br /><ul>
 <li><code>volume</code>:
