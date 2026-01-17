@@ -8,9 +8,13 @@
 - chore: update r-scplotter dependency version to 0.6.5
   - feat: clone selectors gain a `within` option to select clones within a specific subset
   - feat: clone selectors `and`/`or` support multiple selectors (more than 2)
-- chore: update biopipen dependency version to 1.1.4
+- chore: update biopipen dependency version to 1.1.5
   - fix(scrna.MarkersFinder): update database handling in enrichment plots in case it is from gmt files
   - fix(scrna.PseudoBulkDEG): update database handling in enrichment plots to use unique databases in case gmt files were used
+  - fix(scrna.CellTypeAnnotation): ensure at least 2 clusters for cell type annotation for scCATCH
+  - feat(tcr.ClonalStats): add caching functionality for plots
+  - feat(scrna.ScFGSEA): add caching functionality for GSEA results
+  - feat(scrna.CellTypeAnnotation): enhance cell type annotation functionality to support dict input for direct annotations
 
 ## 2.3.0
 

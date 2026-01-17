@@ -284,14 +284,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "1.1.4"
+version = "1.1.5"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-1.1.4-py3-none-any.whl", hash = "sha256:f796c9c107f01ab9ed0e46e199e5ebfbf37de9c2a7dd5734f12efb2f9f8a96f5"},
-    {file = "biopipen-1.1.4.tar.gz", hash = "sha256:fad0a49a0b7f3141ec816e06354465da3473f31dbba4773901a4aa7ecbb73a0a"},
+    {file = "biopipen-1.1.5-py3-none-any.whl", hash = "sha256:ab864008c099bf9de1d617e313f31380e7131e078c03b4c2d905fb53093fcc44"},
+    {file = "biopipen-1.1.5.tar.gz", hash = "sha256:5b7116022e7e281e721a17503c7af85127263c6e3738fa044330591264a0937c"},
 ]
 
 [package.dependencies]
@@ -2429,15 +2429,15 @@ report = ["pipen-report (>=1.1,<2.0)"]
 
 [[package]]
 name = "pipen-cli-gbatch"
-version = "1.1.0"
+version = "1.1.1"
 description = "A pipen cli plugin to run command via Google Cloud Batch"
 optional = true
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "pipen_cli_gbatch-1.1.0-py3-none-any.whl", hash = "sha256:3ade426720f2d17cb0f611f0992d988913a5ead071dff4a38a35b236057923dd"},
-    {file = "pipen_cli_gbatch-1.1.0.tar.gz", hash = "sha256:30241c2900b8feddbe53d961e6a5041918aba4961670652b5c2dff7d0ca8742c"},
+    {file = "pipen_cli_gbatch-1.1.1-py3-none-any.whl", hash = "sha256:45f57d2ba2eacaae92ac2825329473461b2d732c530b087a0e795c2dbd3bf0a7"},
+    {file = "pipen_cli_gbatch-1.1.1.tar.gz", hash = "sha256:c8a958a49ebd0d70768c19d2df900d719a786eff4386d8b23e5a5757a01ef340"},
 ]
 
 [package.dependencies]
@@ -2913,15 +2913,15 @@ files = [
 
 [[package]]
 name = "pyasn1"
-version = "0.6.1"
+version = "0.6.2"
 description = "Pure-Python implementation of ASN.1 types and DER/BER/CER codecs (X.208)"
 optional = true
 python-versions = ">=3.8"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "pyasn1-0.6.1-py3-none-any.whl", hash = "sha256:0d632f46f2ba09143da3a8afe9e33fb6f92fa2320ab7e886e2d0f7672af84629"},
-    {file = "pyasn1-0.6.1.tar.gz", hash = "sha256:6f580d2bdd84365380830acf45550f2511469f673cb4a5ae3857a3170128b034"},
+    {file = "pyasn1-0.6.2-py3-none-any.whl", hash = "sha256:1eb26d860996a18e9b6ed05e7aae0e9fc21619fcee6af91cca9bad4fbea224bf"},
+    {file = "pyasn1-0.6.2.tar.gz", hash = "sha256:9b59a2b25ba7e4f8197db7686c09fb33e658b98339fadb826e9512629017833b"},
 ]
 
 [[package]]
@@ -3956,14 +3956,14 @@ h11 = ">=0.16.0,<1"
 
 [[package]]
 name = "xqute"
-version = "2.0.4"
+version = "2.0.6"
 description = "A job management system for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "xqute-2.0.4-py3-none-any.whl", hash = "sha256:bd5f41f60c8b927da3d224491c4836d96b709cc3a77deacec373e0add1453e68"},
-    {file = "xqute-2.0.4.tar.gz", hash = "sha256:cbb666311109eac3d65dd8b1830f223d325693a56894ac7d6bdc012e70901306"},
+    {file = "xqute-2.0.6-py3-none-any.whl", hash = "sha256:c4ccf92325c2e9d1a92abb488e0357030a03340339397827d283ca800b86f41f"},
+    {file = "xqute-2.0.6.tar.gz", hash = "sha256:aae9e0266f6af50b3ba6982f74d8f9c2486cb3ec6c4e3ad54f807132f60712a8"},
 ]
 
 [package.dependencies]
@@ -4155,4 +4155,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "180c7daccf9e64636f08775c4c704552d494240329a70debd452ea23bfa9c2e4"
+content-hash = "997df3f7c254806a9878cf073e882864c680d4a7b1ee621a662104d8410dc68a"
