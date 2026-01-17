@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>ClonalStats - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ClonalStats";
+        var mkdocs_page_input_path = "processes/ClonalStats.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3Clustering/">CDR3Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">ClonalStats</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#clonal-volume">Clonal Volume</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clonal-volume-by-diagnosis">Clonal Volume by Diagnosis</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clonal-abundance">Clonal Abundance</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clonal-abundance-density">Clonal Abundance Density</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cdr3-length">CDR3 Length</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cdr3-length-beta-chain">CDR3 Length (Beta Chain)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clonal-residency">Clonal Residency</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clonal-residency-upset-plot">Clonal Residency (UpSet Plot)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clonal-statistics-with-expanded-clones">Clonal Statistics with Expanded Clones</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hyperexpanded-clonal-dynamics">Hyperexpanded Clonal Dynamics</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clonal-composition">Clonal Composition</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clonal-overlapping">Clonal Overlapping</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clonal-diversity">Clonal Diversity</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clonal-diversity-ginicoeff-by-diagnosis">Clonal Diversity (gini.coeff, by Diagnosis)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gene-usage-frequency">Gene Usage Frequency</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#positional-amino-acid-frequency">Positional amino acid frequency</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#positional-shannon-entropy">Positional shannon entropy</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-mer-frequency">3-Mer Frequency</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rarefaction-curve">Rarefaction Curve</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
+      <li class="breadcrumb-item active">ClonalStats</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/ClonalStats.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="clonalstats">ClonalStats<a class="headerlink" href="#clonalstats" title="Permanent link">&para;</a></h2>
+<p>Visualize the clonal information.</p>
+<p>Using <a href="https://github.com/pwwang/scplotter"><code>scplotter</code></a> to visualize the clonal
+information.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>screpfile</code>:
+    The <code>scRepertoire</code> object in RDS/qs format</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outdir</code>: <em>Default: <code>{{in.screpfile | stem}}.clonalstats</code></em>. <br />
+    The output directory containing the plots</li>
+</ul>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>mutaters</code> <em>(<code>type=json;order=-9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The mutaters passed to <code>dplyr::mutate()</code> to add new variables.<br />
+    When the object loaded form <code>in.screpfile</code> is a list, the mutaters will be applied to each element.<br />
+    The keys are the names of the new variables, and the values are the expressions.<br />
+    When it is a <code>Seurat</code> object, typically an output of <code>scRepertoire::combineExpression()</code>,
+    the mutaters will be applied to the <code>meta.data</code>.<br /></li>
+<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
+    Whether to cache the plots.<br />
+    Currently only plots for features are supported, since creating the those
+    plots can be time consuming.<br />
+    If <code>True</code>, the plots will be cached in the job output directory, which will
+    be not cleaned up when job is rerunning.<br /></li>
+<li><code>viz_type</code> <em>(<code>choice</code>)</em>:
+    The type of visualization to generate.<br /><ul>
+<li><code>volume</code>:
+    The volume of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalVolumePlot.html"><code>ClonalVolumePlot</code></a></li>
+<li><code>abundance</code>:
+    The abundance of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalAbundancePlot.html"><code>ClonalAbundancePlot</code></a></li>
+<li><code>length</code>:
+    The length of the CDR3 sequences using <a href="https://pwwang.github.io/scplotter/reference/ClonalLengthPlot.html"><code>ClonalLengthPlot</code></a></li>
+<li><code>residency</code>:
+    The residency of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalResidencyPlot.html"><code>ClonalResidencyPlot</code></a></li>
+<li><code>stat</code>:
+    The stats of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalStatPlot.html"><code>ClonalStatPlot</code></a></li>
+<li><code>composition</code>:
+    The composition of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalCompositionPlot.html"><code>ClonalCompositionPlot</code></a></li>
+<li><code>overlap</code>:
+    The overlap of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalOverlapPlot.html"><code>ClonalOverlapPlot</code></a></li>
+<li><code>diversity</code>:
+    The diversity of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalDiversityPlot.html"><code>ClonalDiversityPlot</code></a></li>
+<li><code>geneusage</code>:
+    The gene usage of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalGeneUsagePlot.html"><code>ClonalGeneUsagePlot</code></a></li>
+<li><code>positional</code>:
+    The positional information of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalPositionalPlot.html"><code>ClonalPositionalPlot</code></a></li>
+<li><code>kmer</code>:
+    The kmer information of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalKmerPlot.html"><code>ClonalKmerPlot</code></a></li>
+<li><code>rarefaction</code>:
+    The rarefaction curve of the clones using <a href="https://pwwang.github.io/scplotter/reference/ClonalRarefactionPlot.html"><code>ClonalRarefactionPlot</code></a></li>
+</ul>
+</li>
+<li><code>subset</code>:
+    An expression to subset the data before plotting.<br />
+    Similar to <code>mutaters</code>, it will be applied to each element by <code>dplyr::filter()</code> if the object
+    loaded form <code>in.screpfile</code> is a list; otherwise, it will be applied to
+    <code>subset(sobj, subset = &lt;expr&gt;)</code> if the object is a <code>Seurat</code> object.<br /></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The parameters for the plotting device.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>:
+    The width of the device</li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>:
+    The height of the device</li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    The resolution of the device</li>
+</ul>
+</li>
+<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
+    The extra formats to save the plots in, other than PNG.<br /></li>
+<li><code>save_code</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the code used to generate the plots
+    Note that the data directly used to generate the plots will also be saved in an <code>rda</code> file.<br />
+    Be careful if the data is large as it may take a lot of disk space.<br /></li>
+<li><code>save_data</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to save the data used to generate the plot.<br /></li>
+<li><code>descr</code>:
+    The description of the plot, used to show in the report.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    The arguments for the plot function
+    See the documentation of the corresponding plot function for the details</li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Clonal Volume': Diot({'viz_type': 'volume'}), 'Clonal Abundance': Diot({'viz_type': 'abundance'}), 'CDR3 Length': Diot({'viz_type': 'length'}), 'Clonal Diversity': Diot({'viz_type': 'diversity'})}</code></em>. <br />
+    The cases to generate the plots if we have multiple cases.<br />
+    The keys are the names of the cases, and the values are the arguments for the plot function.<br />
+    The arguments in <code>envs</code> will be used if not specified in <code>cases</code>, except for <code>mutaters</code>.<br />
+    Sections can be specified as the prefix of the case name, separated by <code>::</code>.<br />
+    For example, if you have a case named <code>Clonal Volume::Case1</code>, the plot will be put in the
+    section <code>Clonal Volume</code>. By default, when there are multiple cases for the same 'viz_type', the name of the 'viz_type' will be used
+    as the default section name (for example, when 'viz_type' is 'volume', the section name will be 'Clonal Volume').<br />
+    When there is only a single case, the section name will default to 'DEFAULT', which will not be shown
+    in the report.<br /></li>
+</ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<h4 id="clonal-volume">Clonal Volume<a class="headerlink" href="#clonal-volume" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Clonal Volume&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;volume&quot;</span>
+<span class="n">x_text_angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">45</span>
+</code></pre></div>
+<p><img alt="Clonal_Volume" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Number-of-Clones/Clonal-Volume.png" width="80%" /></p>
+<h4 id="clonal-volume-by-diagnosis">Clonal Volume by Diagnosis<a class="headerlink" href="#clonal-volume-by-diagnosis" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Clonal Volume by Diagnosis&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;volume&quot;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">comparisons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+<p><img alt="Clonal_Volume_by_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Number-of-Clones/Clonal-Volume-by-Diagnosis.png" width="80%" /></p>
+<h4 id="clonal-abundance">Clonal Abundance<a class="headerlink" href="#clonal-abundance" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Clonal Abundance&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;abundance&quot;</span>
+</code></pre></div>
+<p><img alt="Clonal_Abundance" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Abundance/Clonal-Abundance.png" width="80%" /></p>
+<h4 id="clonal-abundance-density">Clonal Abundance Density<a class="headerlink" href="#clonal-abundance-density" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Clonal Abundance Density&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;abundance&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;density&quot;</span>
+</code></pre></div>
+<p><img alt="Clonal_Abundance_Density" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Abundance/Clonal-Abundance-Density.png" width="80%" /></p>
+<h4 id="cdr3-length">CDR3 Length<a class="headerlink" href="#cdr3-length" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;CDR3 Length&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;length&quot;</span>
+</code></pre></div>
+<p><img alt="CDR3_Length" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Sequence-Length/CDR3-Length.png" width="80%" /></p>
+<h4 id="cdr3-length-beta-chain">CDR3 Length (Beta Chain)<a class="headerlink" href="#cdr3-length-beta-chain" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;CDR3 Length (Beta Chain)&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;length&quot;</span>
+<span class="n">chain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;TRB&quot;</span>
+</code></pre></div>
+<p><img alt="CDR3_Length_Beta_Chain" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Sequence-Length/CDR3-Length-Beta-Chain-.png" width="80%" /></p>
+<h4 id="clonal-residency">Clonal Residency<a class="headerlink" href="#clonal-residency" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Clonal Residency&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;residency&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">chain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;TRB&quot;</span>
+<span class="n">clone_call</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gene&quot;</span>
+<span class="n">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Colitis&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;NoColitis&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p><img alt="Clonal_Residency" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Residency/Clonal-Residency.png" width="80%" /></p>
+<h4 id="clonal-residency-upset-plot">Clonal Residency (UpSet Plot)<a class="headerlink" href="#clonal-residency-upset-plot" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Clonal Residency (UpSet Plot)&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;residency&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;upset&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">chain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;TRB&quot;</span>
+<span class="n">clone_call</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gene&quot;</span>
+<span class="n">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Colitis&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;NoColitis&quot;</span><span class="p">]</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">800</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Clonal_Residency_UpSet_Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Residency/Clonal-Residency-UpSet-Plot-.png" width="80%" /></p>
+<h4 id="clonal-statistics-with-expanded-clones">Clonal Statistics with Expanded Clones<a class="headerlink" href="#clonal-statistics-with-expanded-clones" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Clonal Statistics with Expanded Clones&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;stat&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;pies&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Colitis&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;NoColitis&quot;</span><span class="p">]</span>
+<span class="n">clones</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;Expanded Clones In Colitis&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;sel(Colitis &gt; 2)&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Expanded Clones In NoColitis&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;sel(NoColitis &gt; 2)&quot;</span><span class="p">}</span>
+<span class="n">subgroup_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<span class="n">pie_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sqrt&quot;</span>
+<span class="n">show_row_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">show_column_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">720</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Clonal_Statistics_with_Expanded_Clones" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Statistics/Clonal-Statistics-with-Expanded-Clones.png" width="80%" /></p>
+<h4 id="hyperexpanded-clonal-dynamics">Hyperexpanded Clonal Dynamics<a class="headerlink" href="#hyperexpanded-clonal-dynamics" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Hyperexpanded Clonal Dynamics&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;stat&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sankey&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">chain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;TRB&quot;</span>
+<span class="n">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Colitis&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;NoColitis&quot;</span><span class="p">]</span>
+<span class="n">clones</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;Hyper-Expanded Clones In Colitis&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;sel(Colitis &gt; 5)&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Hyper-Expanded Clones In NoColitis&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;sel(NoColitis &gt; 5)&quot;</span><span class="p">}</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">800</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Hyperexpanded_Clonal_Dynamics" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Statistics/Hyperexpanded-Clonal-Dynamics.png" width="80%" /></p>
+<h4 id="clonal-composition">Clonal Composition<a class="headerlink" href="#clonal-composition" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Clonal Composition&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;composition&quot;</span>
+<span class="n">x_text_angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">45</span>
+</code></pre></div>
+<p><img alt="Clonal_Composition" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Composition.png" width="80%" /></p>
+<h4 id="clonal-overlapping">Clonal Overlapping<a class="headerlink" href="#clonal-overlapping" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;overlap&quot;</span>
+<span class="n">chain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;TRB&quot;</span>
+<span class="n">clone_call</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gene&quot;</span>
+</code></pre></div>
+<p><img alt="Clonal_Overlapping" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Overlapping.png" width="80%" /></p>
+<h4 id="clonal-diversity">Clonal Diversity<a class="headerlink" href="#clonal-diversity" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Clonal Diversity&quot;</span><span class="k">]</span>
+<span class="c1"># method = &quot;shannon&quot;  # default</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;diversity&quot;</span>
+<span class="n">x_text_angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">45</span>
+</code></pre></div>
+<p><img alt="Clonal_Diversity" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Diversity/Clonal-Diversity.png" width="80%" /></p>
+<h4 id="clonal-diversity-ginicoeff-by-diagnosis">Clonal Diversity (gini.coeff, by Diagnosis)<a class="headerlink" href="#clonal-diversity-ginicoeff-by-diagnosis" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Clonal Diversity (gini.coeff, by Diagnosis)&quot;</span><span class="k">]</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gini.coeff&quot;</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;diversity&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;box&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">comparisons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">height</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">600</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">600</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Clonal_Diversity_gini_coeff_by_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Diversity/Clonal-Diversity-gini-coeff-by-Diagnosis-.png" width="80%" /></p>
+<h4 id="gene-usage-frequency">Gene Usage Frequency<a class="headerlink" href="#gene-usage-frequency" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Gene Usage Frequency&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;geneusage&quot;</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1200</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Gene_Usage_Frequency" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Gene-Usage-Frequency.png" width="80%" /></p>
+<h4 id="positional-amino-acid-frequency">Positional amino acid frequency<a class="headerlink" href="#positional-amino-acid-frequency" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Positional amino acid frequency&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;positional&quot;</span>
+<span class="c1"># method = &quot;AA&quot;  # default</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1600</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Positional_amino_acid_frequency" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Positional-Properties/Positional-amino-acid-frequency.png" width="80%" /></p>
+<h4 id="positional-shannon-entropy">Positional shannon entropy<a class="headerlink" href="#positional-shannon-entropy" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Positional shannon entropy&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;positional&quot;</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;shannon&quot;</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1200</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Positional_shannon_entropy" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Positional-Properties/Positional-shannon-entropy.png" width="80%" /></p>
+<h4 id="3-mer-frequency">3-Mer Frequency<a class="headerlink" href="#3-mer-frequency" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;3-Mer Frequency&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;kmer&quot;</span>
+<span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w">  </span><span class="c1"># default is 3</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">800</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="3_Mer_Frequency" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/3-Mer-Frequency.png" width="80%" /></p>
+<h4 id="rarefaction-curve">Rarefaction Curve<a class="headerlink" href="#rarefaction-curve" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">&quot;Rarefaction Curve&quot;</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;rarefaction&quot;</span>
+</code></pre></div>
+<p><img alt="Rarefaction_Curve" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Rarefaction-Curve.png" width="80%" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../PseudoBulkDEG/" class="btn btn-neutral float-left" title="PseudoBulkDEG"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../CDR3AAPhyschem/" class="btn btn-neutral float-right" title="CDR3AAPhyschem">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../PseudoBulkDEG/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../CDR3AAPhyschem/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/version-select.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
