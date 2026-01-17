@@ -38,7 +38,6 @@ dependencies:
   # - r-matrixstats=1.1.0  # useNames = NA  deprecated
   - r-matrixstats  # useNames = NA  deprecated
   - r-broom.mixed  # CDR3AAPhyschem
-  - r-hitype
   - r-seuratwrappers
   - r-harmony
   - r-future
@@ -78,6 +77,7 @@ dependencies:
   - r-reshape2
   - r-stringr
   - r-scales
+  - pwwang::r-sccatch
   - r-gridtext
   - r-patchwork
   - r-ggrepel
