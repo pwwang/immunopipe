@@ -309,19 +309,19 @@ runinfo = ["pipen-runinfo (>=1.1,<2.0)"]
 
 [[package]]
 name = "blessed"
-version = "1.25.0"
+version = "1.26.0"
 description = "Easy, practical library for making terminal apps, by providing an elegant, well-documented interface to Colors, Keyboard input, and screen Positioning capabilities."
 optional = false
 python-versions = ">=3.7"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "blessed-1.25.0-py3-none-any.whl", hash = "sha256:e52b9f778b9e10c30b3f17f6b5f5d2208d1e9b53b270f1d94fc61a243fc4708f"},
-    {file = "blessed-1.25.0.tar.gz", hash = "sha256:606aebfea69f85915c7ca6a96eb028e0031d30feccc5688e13fd5cec8277b28d"},
+    {file = "blessed-1.26.0-py3-none-any.whl", hash = "sha256:13a715ab6fba4c082343a3fbce30df343ac32d4c652c4cd9b2e72cc4a7f2fed5"},
+    {file = "blessed-1.26.0.tar.gz", hash = "sha256:e56d7c643b19c2de5333f131249fc3a317dce9681659fbc09f9f4e94b43698d0"},
 ]
 
 [package.dependencies]
 jinxed = {version = ">=1.1.0", markers = "platform_system == \"Windows\""}
-wcwidth = ">=0.1.4"
+wcwidth = ">=0.2.14"
 
 [package.extras]
 docs = ["Pillow", "Sphinx (>3)", "sphinx-paramlinks", "sphinx_rtd_theme", "sphinxcontrib-manpage"]
@@ -2349,14 +2349,14 @@ executing = ">=2.0,<3.0"
 
 [[package]]
 name = "pipen"
-version = "1.1.7"
+version = "1.1.8"
 description = "A pipeline framework for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "pipen-1.1.7-py3-none-any.whl", hash = "sha256:90fc0d76c47cf6b870077885fb02b676ddb0bdb0debd4dba532e418938307e6f"},
-    {file = "pipen-1.1.7.tar.gz", hash = "sha256:10d8d3287f155177b63f21e89e09b5bc5b106d40469158860b149357a1b46656"},
+    {file = "pipen-1.1.8-py3-none-any.whl", hash = "sha256:8fd7d9ac09ae1e5ee49378c1b7cfb98d77067efe198af9911264025119c33953"},
+    {file = "pipen-1.1.8.tar.gz", hash = "sha256:6ff9a6561acfb5b264a9fe046f160d3b38f1cb1d5584a7069c9fb92146054829"},
 ]
 
 [package.dependencies]
@@ -2593,19 +2593,19 @@ runinfo = ["pipen-runinfo (>=1.1,<2.0)"]
 
 [[package]]
 name = "pipen-runinfo"
-version = "1.1.0"
+version = "1.1.1"
 description = "Generate running information for jobs in pipen pipelines"
 optional = true
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 markers = "extra == \"runinfo\""
 files = [
-    {file = "pipen_runinfo-1.1.0-py3-none-any.whl", hash = "sha256:69efa18fcb9e91f407ed0b04997f68c1a47b14f32bdf0a96557bcbf94e79f752"},
-    {file = "pipen_runinfo-1.1.0.tar.gz", hash = "sha256:0ff43c2bac7882745c5f38cf1d43336a6e04feb4ff13241b63caf8b0ccdc96e0"},
+    {file = "pipen_runinfo-1.1.1-py3-none-any.whl", hash = "sha256:e95cab66dd128596a0a8a24e72bd0e5c6211e32d022d5cd9c078deb6cb1a9b82"},
+    {file = "pipen_runinfo-1.1.1.tar.gz", hash = "sha256:e3ba8b0a0fd7e1ef0a527dbb837006ec01b781998274905dc9e2a456b8b1b788"},
 ]
 
 [package.dependencies]
-pipen = "==1.1.*"
+pipen = ">=1.1,<2.0"
 
 [[package]]
 name = "pipen-verbose"
