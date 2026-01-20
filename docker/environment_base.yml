@@ -120,6 +120,7 @@ dependencies:
   - faiss-cpu=1.13  # supports numpy v2
   - clustcr=2025  # adopted to work with numpy v2
   - mscorefonts  # additional fonts for plots
+  - r-hitype  # sctype will also be supported
   - pip:
     - liana
     - celltypist2
