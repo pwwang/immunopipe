@@ -284,14 +284,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "1.1.6"
+version = "1.1.7"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-1.1.6-py3-none-any.whl", hash = "sha256:365ba01f0143a958777cc045466981a75b65aac895d934dcfc29028aa3e0e881"},
-    {file = "biopipen-1.1.6.tar.gz", hash = "sha256:8a34983e1b8b0541b2b1f4d56e37a23e672906de82a20db1affdaab28250ca1f"},
+    {file = "biopipen-1.1.7-py3-none-any.whl", hash = "sha256:185ea33bec627cf6c0b7327fe89ff4344aca5d579c9a15a062ec9591a960e23e"},
+    {file = "biopipen-1.1.7.tar.gz", hash = "sha256:c1a0065a7715995ea08adc07a441c01a0b560b60b3f40b3c9eeb4e2b460d29b8"},
 ]
 
 [package.dependencies]
@@ -309,14 +309,14 @@ runinfo = ["pipen-runinfo (>=1.1,<2.0)"]
 
 [[package]]
 name = "blessed"
-version = "1.26.0"
+version = "1.27.0"
 description = "Easy, practical library for making terminal apps, by providing an elegant, well-documented interface to Colors, Keyboard input, and screen Positioning capabilities."
 optional = false
 python-versions = ">=3.7"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "blessed-1.26.0-py3-none-any.whl", hash = "sha256:13a715ab6fba4c082343a3fbce30df343ac32d4c652c4cd9b2e72cc4a7f2fed5"},
-    {file = "blessed-1.26.0.tar.gz", hash = "sha256:e56d7c643b19c2de5333f131249fc3a317dce9681659fbc09f9f4e94b43698d0"},
+    {file = "blessed-1.27.0-py3-none-any.whl", hash = "sha256:1c599969acc993bb5842bf3f638b0691e335277a9d9058cd079463a346988714"},
+    {file = "blessed-1.27.0.tar.gz", hash = "sha256:e3064559388bd532ab6460d9b6c7d6dd699c4e0cf54d28ed6e2cab12feda13bb"},
 ]
 
 [package.dependencies]
@@ -526,15 +526,15 @@ typing-extensions = {version = ">=4.0.0,<5.0.0", markers = "python_version < \"3
 
 [[package]]
 name = "copier"
-version = "9.11.1"
+version = "9.11.2"
 description = "A library for rendering project templates."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 markers = "python_version >= \"3.10\""
 files = [
-    {file = "copier-9.11.1-py3-none-any.whl", hash = "sha256:e23c4b3c0c1687c519d8ae62496507164cc482b96af9e3ea7851ce02b64eb978"},
-    {file = "copier-9.11.1.tar.gz", hash = "sha256:50e5a39b7dde94ad7a3b66b5a64070359df532c13d64dabb89dde81f7c7347eb"},
+    {file = "copier-9.11.2-py3-none-any.whl", hash = "sha256:ae860df9e954e04e8b5d0b79711dceb3b5e0c304490fcae224adb68d56963e5a"},
+    {file = "copier-9.11.2.tar.gz", hash = "sha256:0e27c45db99f68e0e761e4a088d09cc1de78a67be5d32fb8041d466a54cce364"},
 ]
 
 [package.dependencies]
@@ -2593,15 +2593,15 @@ runinfo = ["pipen-runinfo (>=1.1,<2.0)"]
 
 [[package]]
 name = "pipen-runinfo"
-version = "1.1.1"
+version = "1.1.2"
 description = "Generate running information for jobs in pipen pipelines"
 optional = true
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 markers = "extra == \"runinfo\""
 files = [
-    {file = "pipen_runinfo-1.1.1-py3-none-any.whl", hash = "sha256:e95cab66dd128596a0a8a24e72bd0e5c6211e32d022d5cd9c078deb6cb1a9b82"},
-    {file = "pipen_runinfo-1.1.1.tar.gz", hash = "sha256:e3ba8b0a0fd7e1ef0a527dbb837006ec01b781998274905dc9e2a456b8b1b788"},
+    {file = "pipen_runinfo-1.1.2-py3-none-any.whl", hash = "sha256:3920aed910feda68fe0d63df0f493a693da7b8281c6cd45d15b112bf5bcc2610"},
+    {file = "pipen_runinfo-1.1.2.tar.gz", hash = "sha256:572e806c96998f89dd61a274fefd64ee867a4e1e82eda29435c46b8e63b5e9be"},
 ]
 
 [package.dependencies]
@@ -4155,4 +4155,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "c4f78719cc859c3ce992d8249aebf054b902fb18ef7e9c3b2d3c2304dda77947"
+content-hash = "27cda4731ffd649a5938e5bc2cbdaec4a5202c4ab22717da5d7bbe1c50bec460"
