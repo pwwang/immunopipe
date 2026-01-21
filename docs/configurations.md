@@ -188,6 +188,36 @@ forks = 2
 
 ///
 
+## Caching mechanism
+
+There are two levels of caching mechanism in the pipeline: the process level and step level. The process level caching is controlled by the `cache` configuration item of each process (either passed from CLI `--cache value` or in the configuration file
+
+```toml
+[Process]
+cache = value
+```
+
+). This level of caching is powered by the underlying `pipen` framework. The value can be one of `true`/`false`/`"force"`.
+
+- `true`: normal cache relying on options/script/input (any changes will uncache a process)
+- `false`: do not use the cache anyway (always run the process, but the signature will still be saved)
+- `force`: skip running the processes even when there are changes (only when the previous run is sucessful)
+
+The step level caching is implemented using the `Cache` class from the [`biopipen.utils.R`](https://pwwang.github.io/biopipen.utils.R/reference/Cache.html) package. A step is usually a function call. A signature is generated for the step based on the function name and the arguments passed to the function. When a function is about to be called, the result with the signature in the caching directory will be checked. If the result exists, the result will be loaded from the caching directory instead of calling the function again. Otherwise, the function will be called and the result will be saved to the caching directory with the signature. The caching directory is controlled by the `--process.envs.cache` or
+
+```toml
+[process.envs]
+cache = value
+```
+
+The value can be one of `true`/`false`/`<path>`.
+
+- `true`: will use the job outdir (.pipen/<Pipeline>/<Process>/0/output) as cache directory
+- `false`: don't use cache (always run the step)
+- `<path>`: use the <path> to check/save the cached results
+
+![immunopipe-caching](./immunopipe-caching.png)
+
 ## Minimal configurations
 
 The minimal configurations are just the configurations with the input file:
