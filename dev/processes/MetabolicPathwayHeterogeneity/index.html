@@ -74,10 +74,6 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../../agent-skills/">Agent Skills</a>
-                </li>
-              </ul>
-              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
@@ -225,14 +221,12 @@ different groups for the metabolic pathways.<br /></p>
 <li><code>ncores</code> <em>(<code>type=int;pgarg</code>)</em>: <em>Default: <code>1</code></em>. <br />
     Number of cores to use for parallelization
     Defaults to <code>ScrnaMetabolicLandscape.ncores</code></li>
-<li><code>subset_by</code> <em>(<code>pgarg;type=auto;readonly</code>)</em>:
+<li><code>subset_by</code> <em>(<code>pgarg;readonly</code>)</em>:
     Subset the data by the given column in the
     metadata. For example, <code>Response</code>.<br />
     <code>NA</code> values will be removed in this column.<br />
     Defaults to <code>ScrnaMetabolicLandscape.subset_by</code>
-    If None, the data will not be subsetted.<br />
-    Multiple columns can be provided as a list, which is helpful when
-    subsets have overlapping cells.<br /></li>
+    If None, the data will not be subsetted.<br /></li>
 <li><code>group_by</code> <em>(<code>pgarg;readonly</code>)</em>:
     Group the data by the given column in the
     metadata. For example, <code>cluster</code>.<br />
