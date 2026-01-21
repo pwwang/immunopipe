@@ -1,5 +1,14 @@
 # Change Log
 
+## 2.3.2
+
+- chore: update r-biopipen.utils version to 0.3.5=r43_6 in environment_rpkgs.yml
+- chore: update r-scplotter version to 0.6.5=r43_3 in environment_rpkgs.yml
+- chore: update blessed to version 1.26.0, pipen to 1.1.8, and pipen-runinfo to 1.1.1
+- chore: update r-hitype dependency in environment_base.yml to support sctype
+- feat: add agent skills to construct configuration to run the pipeline
+- chore: bump biopipen to 1.1.7 (support mutliple `subset_by` columns for metabolic landscape analysis)
+
 ## 2.3.1
 
 - chore: chore: update Dockerfile to install numpy version 2.3 for compatibility with scanpy

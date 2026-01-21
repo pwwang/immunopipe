@@ -11,7 +11,7 @@ FROM justold/immunopipe-base:latest
 
 # Copy only the new packages, not the entire environment
 COPY --from=builder /opt/conda/lib/R/library/scRepertoire /opt/conda/lib/R/library/scRepertoire
-COPY --from=builder /opt/conda/lib/R/library/hitype /opt/conda/lib/R/library/hitype
+# COPY --from=builder /opt/conda/lib/R/library/hitype /opt/conda/lib/R/library/hitype
 COPY --from=builder /opt/conda/lib/R/library/gglogger /opt/conda/lib/R/library/gglogger
 COPY --from=builder /opt/conda/lib/R/library/enrichit /opt/conda/lib/R/library/enrichit
 COPY --from=builder /opt/conda/lib/R/library/plotthis /opt/conda/lib/R/library/plotthis
