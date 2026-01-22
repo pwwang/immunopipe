@@ -1617,19 +1617,19 @@ testing = ["coverage", "pyyaml"]
 
 [[package]]
 name = "markdown"
-version = "3.10"
+version = "3.10.1"
 description = "Python implementation of John Gruber's Markdown."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 markers = "python_version >= \"3.10\""
 files = [
-    {file = "markdown-3.10-py3-none-any.whl", hash = "sha256:b5b99d6951e2e4948d939255596523444c0e677c669700b1d17aa4a8a464cb7c"},
-    {file = "markdown-3.10.tar.gz", hash = "sha256:37062d4f2aa4b2b6b32aefb80faa300f82cc790cb949a35b8caede34f2b68c0e"},
+    {file = "markdown-3.10.1-py3-none-any.whl", hash = "sha256:867d788939fe33e4b736426f5b9f651ad0c0ae0ecf89df0ca5d1176c70812fe3"},
+    {file = "markdown-3.10.1.tar.gz", hash = "sha256:1c19c10bd5c14ac948c53d0d762a04e2fa35a6d58a6b7b1e6bfcbe6fefc0001a"},
 ]
 
 [package.extras]
-docs = ["mdx_gh_links (>=0.2)", "mkdocs (>=1.6)", "mkdocs-gen-files", "mkdocs-literate-nav", "mkdocs-nature (>=0.6)", "mkdocs-section-index", "mkdocstrings[python]"]
+docs = ["mdx_gh_links (>=0.2)", "mkdocs (>=1.6)", "mkdocs-gen-files", "mkdocs-literate-nav", "mkdocs-nature (>=0.6)", "mkdocs-section-index", "mkdocstrings[python] (>=0.28.3)"]
 testing = ["coverage", "pyyaml"]
 
 [[package]]
@@ -2161,14 +2161,14 @@ files = [
 
 [[package]]
 name = "packaging"
-version = "25.0"
+version = "26.0"
 description = "Core utilities for Python packages"
 optional = false
 python-versions = ">=3.8"
 groups = ["main", "dev"]
 files = [
-    {file = "packaging-25.0-py3-none-any.whl", hash = "sha256:29572ef2b1f17581046b3a2227d5c611fb25ec70ca1ba8554b24b0e69331a484"},
-    {file = "packaging-25.0.tar.gz", hash = "sha256:d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f"},
+    {file = "packaging-26.0-py3-none-any.whl", hash = "sha256:b36f1fef9334a5588b4166f8bcd26a14e521f2b55e6b9de3aaa80d3ff7a37529"},
+    {file = "packaging-26.0.tar.gz", hash = "sha256:00243ae351a257117b6a241061796684b084ed1c516a08c48a3f7e147a9d80b4"},
 ]
 
 [[package]]
@@ -2429,15 +2429,15 @@ report = ["pipen-report (>=1.1,<2.0)"]
 
 [[package]]
 name = "pipen-cli-gbatch"
-version = "1.1.1"
+version = "1.1.2"
 description = "A pipen cli plugin to run command via Google Cloud Batch"
 optional = true
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "pipen_cli_gbatch-1.1.1-py3-none-any.whl", hash = "sha256:45f57d2ba2eacaae92ac2825329473461b2d732c530b087a0e795c2dbd3bf0a7"},
-    {file = "pipen_cli_gbatch-1.1.1.tar.gz", hash = "sha256:c8a958a49ebd0d70768c19d2df900d719a786eff4386d8b23e5a5757a01ef340"},
+    {file = "pipen_cli_gbatch-1.1.2-py3-none-any.whl", hash = "sha256:b37874f1e99e6667c9179f9e970d7ad92c0d18da1afe6f0322c795aa07e8fcea"},
+    {file = "pipen_cli_gbatch-1.1.2.tar.gz", hash = "sha256:27a12def006ab8f864143f1790833cd47ee979d4c2c59cae9714be42c5a11f4f"},
 ]
 
 [package.dependencies]
@@ -2947,10 +2947,23 @@ description = "C parser in Python"
 optional = true
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "extra == \"cli-gbatch\" and platform_python_implementation != \"PyPy\" and implementation_name != \"PyPy\""
+markers = "extra == \"cli-gbatch\" and platform_python_implementation != \"PyPy\" and implementation_name != \"PyPy\" and python_version < \"3.10\""
 files = [
     {file = "pycparser-2.23-py3-none-any.whl", hash = "sha256:e5c6e8d3fbad53479cab09ac03729e0a9faf2bee3db8208a550daf5af81a5934"},
     {file = "pycparser-2.23.tar.gz", hash = "sha256:78816d4f24add8f10a06d6f05b4d424ad9e96cfebf68a4ddc99c65c0720d00c2"},
+]
+
+[[package]]
+name = "pycparser"
+version = "3.0"
+description = "C parser in Python"
+optional = true
+python-versions = ">=3.10"
+groups = ["main"]
+markers = "platform_python_implementation != \"PyPy\" and extra == \"cli-gbatch\" and implementation_name != \"PyPy\" and python_version >= \"3.10\""
+files = [
+    {file = "pycparser-3.0-py3-none-any.whl", hash = "sha256:b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992"},
+    {file = "pycparser-3.0.tar.gz", hash = "sha256:600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29"},
 ]
 
 [[package]]
@@ -3620,14 +3633,14 @@ files = [
 
 [[package]]
 name = "setuptools"
-version = "80.9.0"
+version = "80.10.1"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "setuptools-80.9.0-py3-none-any.whl", hash = "sha256:062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922"},
-    {file = "setuptools-80.9.0.tar.gz", hash = "sha256:f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c"},
+    {file = "setuptools-80.10.1-py3-none-any.whl", hash = "sha256:fc30c51cbcb8199a219c12cc9c281b5925a4978d212f84229c909636d9f6984e"},
+    {file = "setuptools-80.10.1.tar.gz", hash = "sha256:bf2e513eb8144c3298a3bd28ab1a5edb739131ec5c22e045ff93cd7f5319703a"},
 ]
 
 [package.extras]
@@ -3636,7 +3649,7 @@ core = ["importlib_metadata (>=6) ; python_version < \"3.10\"", "jaraco.functool
 cover = ["pytest-cov"]
 doc = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "pygments-github-lexers (==0.0.5)", "pyproject-hooks (!=1.1)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-favicon", "sphinx-inline-tabs", "sphinx-lint", "sphinx-notfound-page (>=1,<2)", "sphinx-reredirects", "sphinxcontrib-towncrier", "towncrier (<24.7)"]
 enabler = ["pytest-enabler (>=2.2)"]
-test = ["build[virtualenv] (>=1.0.3)", "filelock (>=3.4.0)", "ini2toml[lite] (>=0.14)", "jaraco.develop (>=7.21) ; python_version >= \"3.9\" and sys_platform != \"cygwin\"", "jaraco.envs (>=2.2)", "jaraco.path (>=3.7.2)", "jaraco.test (>=5.5)", "packaging (>=24.2)", "pip (>=19.1)", "pyproject-hooks (!=1.1)", "pytest (>=6,!=8.1.*)", "pytest-home (>=0.5)", "pytest-perf ; sys_platform != \"cygwin\"", "pytest-subprocess", "pytest-timeout", "pytest-xdist (>=3)", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel (>=0.44.0)"]
+test = ["build[virtualenv] (>=1.0.3)", "filelock (>=3.4.0)", "ini2toml[lite] (>=0.14)", "jaraco.develop (>=7.21) ; python_version >= \"3.9\" and sys_platform != \"cygwin\"", "jaraco.envs (>=2.2)", "jaraco.path (>=3.7.2)", "jaraco.test (>=5.5)", "packaging (>=24.2)", "pip (>=19.1)", "pyobjc (<12) ; sys_platform == \"darwin\" and python_version <= \"3.9\"", "pyproject-hooks (!=1.1)", "pytest (>=6,!=8.1.*)", "pytest-home (>=0.5)", "pytest-perf ; sys_platform != \"cygwin\"", "pytest-subprocess", "pytest-timeout", "pytest-xdist (>=3)", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel (>=0.44.0)"]
 type = ["importlib_metadata (>=7.0.2) ; python_version < \"3.10\"", "jaraco.develop (>=7.21) ; sys_platform != \"cygwin\"", "mypy (==1.14.*)", "pytest-mypy"]
 
 [[package]]
@@ -3877,14 +3890,14 @@ all = ["asttokens (==3.*)", "pure_eval (==0.*)"]
 
 [[package]]
 name = "wcwidth"
-version = "0.2.14"
+version = "0.3.0"
 description = "Measures the displayed width of unicode strings in a terminal"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.8"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "wcwidth-0.2.14-py2.py3-none-any.whl", hash = "sha256:a7bb560c8aee30f9957e5f9895805edd20602f2d7f720186dfd906e82b4982e1"},
-    {file = "wcwidth-0.2.14.tar.gz", hash = "sha256:4d478375d31bc5395a3c55c40ccdf3354688364cd61c4f6adacaa9215d0b3605"},
+    {file = "wcwidth-0.3.0-py3-none-any.whl", hash = "sha256:073a1acb250e4add96cfd5ef84e0036605cd6e0d0782c8c15c80e42202348458"},
+    {file = "wcwidth-0.3.0.tar.gz", hash = "sha256:af1a2fb0b83ef4a7fc0682a4c95ca2576e14d0280bca2a9e67b7dc9f2733e123"},
 ]
 
 [[package]]
@@ -4155,4 +4168,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "27cda4731ffd649a5938e5bc2cbdaec4a5202c4ab22717da5d7bbe1c50bec460"
+content-hash = "44fb0f7765716ac3d798c041f1d23cef5a6a5d8628cd22ecb625be180fcc09b2"
