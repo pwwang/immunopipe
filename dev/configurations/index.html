@@ -372,11 +372,15 @@
 </code></pre></div>
 </div>
 <h3 id="caching-mechanism">Caching mechanism<a class="headerlink" href="#caching-mechanism" title="Permanent link">&para;</a></h3>
-<p>There are two levels of caching mechanism in the pipeline: the process level and step level. The process level caching is controlled by the <code>cache</code> configuration item of each process (either passed from CLI <code>--cache value</code> or in the configuration file</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Process]</span>
+<p>There are two levels of caching mechanism in the pipeline: the process level and step level. The process level caching is controlled by the <code>process.cache</code> configuration item of each process (either passed from CLI <code>--process.cache value</code> or in the configuration file</p>
+<div class="highlight"><pre><span></span><code><span class="k">[process]</span>
 <span class="n">cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">value</span>
 </code></pre></div>
-<p>). This level of caching is powered by the underlying <code>pipen</code> framework. The value can be one of <code>true</code>/<code>false</code>/<code>"force"</code>.</p>
+<p>).
+One can also pass <code>--cache value</code> from CLI or in the configuration file</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">value</span>
+</code></pre></div>
+to set the default caching behavior for all processes. This level of caching is powered by the underlying <code>pipen</code> framework. The value can be one of <code>true</code>/<code>false</code>/<code>"force"</code>.</p>
 <ul>
 <li><code>true</code>: normal cache relying on options/script/input (any changes will uncache a process)</li>
 <li><code>false</code>: do not use the cache anyway (always run the process, but the signature will still be saved)</li>
@@ -393,6 +397,9 @@
 <li><code>&lt;path&gt;</code>: use the <path> to check/save the cached results</li>
 </ul>
 <p><img alt="immunopipe-caching" src="../immunopipe-caching.png" /></p>
+<p>Sometimes, you may want to control whether the processes should be cached (re-run skipped if cached) or not (always re-run), especially, after upgrading <code>immunopipe</code> to a new version. In such case, you may also want to force the processes (scenario 3 in the figure below) to be cached before you make any configuration changes. This avoids the cached processes being rerun due to the changes in the scripts after upgrading <code>immunopipe</code>, unless you really want to re-run them.</p>
+<p>Check the figure below for the scenarios of caching mechanism:</p>
+<p><img alt="pipen-cache" src="../pipen-cache.png" /></p>
 <h3 id="minimal-configurations">Minimal configurations<a class="headerlink" href="#minimal-configurations" title="Permanent link">&para;</a></h3>
 <p>The minimal configurations are just the configurations with the input file:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.in]</span>
