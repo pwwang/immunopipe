@@ -4168,4 +4168,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "44fb0f7765716ac3d798c041f1d23cef5a6a5d8628cd22ecb625be180fcc09b2"
+content-hash = "27cda4731ffd649a5938e5bc2cbdaec4a5202c4ab22717da5d7bbe1c50bec460"
