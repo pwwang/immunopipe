@@ -190,14 +190,20 @@ forks = 2
 
 ## Caching mechanism
 
-There are two levels of caching mechanism in the pipeline: the process level and step level. The process level caching is controlled by the `cache` configuration item of each process (either passed from CLI `--cache value` or in the configuration file
+There are two levels of caching mechanism in the pipeline: the process level and step level. The process level caching is controlled by the `process.cache` configuration item of each process (either passed from CLI `--process.cache value` or in the configuration file
 
 ```toml
-[Process]
+[process]
 cache = value
 ```
 
-). This level of caching is powered by the underlying `pipen` framework. The value can be one of `true`/`false`/`"force"`.
+).
+One can also pass `--cache value` from CLI or in the configuration file
+
+```toml
+cache = value
+```
+to set the default caching behavior for all processes. This level of caching is powered by the underlying `pipen` framework. The value can be one of `true`/`false`/`"force"`.
 
 - `true`: normal cache relying on options/script/input (any changes will uncache a process)
 - `false`: do not use the cache anyway (always run the process, but the signature will still be saved)
@@ -217,6 +223,12 @@ The value can be one of `true`/`false`/`<path>`.
 - `<path>`: use the <path> to check/save the cached results
 
 ![immunopipe-caching](./immunopipe-caching.png)
+
+Sometimes, you may want to control whether the processes should be cached (re-run skipped if cached) or not (always re-run), especially, after upgrading `immunopipe` to a new version. In such case, you may also want to force the processes (scenario 3 in the figure below) to be cached before you make any configuration changes. This avoids the cached processes being rerun due to the changes in the scripts after upgrading `immunopipe`, unless you really want to re-run them.
+
+Check the figure below for the scenarios of caching mechanism:
+
+![pipen-cache](./pipen-cache.png)
 
 ## Minimal configurations
 
