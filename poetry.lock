@@ -284,14 +284,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "1.1.8"
+version = "1.1.9"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-1.1.8-py3-none-any.whl", hash = "sha256:606069cfbab322f626758e49659312bd57484bd036d9dabd45168631c374a066"},
-    {file = "biopipen-1.1.8.tar.gz", hash = "sha256:a23f09b2b59be572a46437f65cdae6af0d77cf08ff830f8bbe70c04a217722e3"},
+    {file = "biopipen-1.1.9-py3-none-any.whl", hash = "sha256:0ebbbb9c3c9bf6992bf9dd6fa5e865dcc8f2d24b8fa1c57da71c3ca6710d40fa"},
+    {file = "biopipen-1.1.9.tar.gz", hash = "sha256:4924688cf6aaa6f5d089dbed5b189a52ec527f1cb743f6ff9b720c884c51d07d"},
 ]
 
 [package.dependencies]
@@ -3890,14 +3890,14 @@ all = ["asttokens (==3.*)", "pure_eval (==0.*)"]
 
 [[package]]
 name = "wcwidth"
-version = "0.4.0"
+version = "0.5.0"
 description = "Measures the displayed width of unicode strings in a terminal"
 optional = false
 python-versions = ">=3.8"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "wcwidth-0.4.0-py3-none-any.whl", hash = "sha256:8af2c81174b3aa17adf05058c543c267e4e5b6767a28e31a673a658c1d766783"},
-    {file = "wcwidth-0.4.0.tar.gz", hash = "sha256:46478e02cf7149ba150fb93c39880623ee7e5181c64eda167b6a1de51b7a7ba1"},
+    {file = "wcwidth-0.5.0-py3-none-any.whl", hash = "sha256:1efe1361b83b0ff7877b81ba57c8562c99cf812158b778988ce17ec061095695"},
+    {file = "wcwidth-0.5.0.tar.gz", hash = "sha256:f89c103c949a693bf563377b2153082bf58e309919dfb7f27b04d862a0089333"},
 ]
 
 [[package]]
@@ -4168,4 +4168,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "c11c673ec8b64c9960a6070ba00b277df1eca8c7bb15f64d965b32e833924b20"
+content-hash = "a55b35913e7604138d0f31ab9f9b066b7a8e61793b55555fe33fbe4568fbf054"
