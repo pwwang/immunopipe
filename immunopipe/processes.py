@@ -767,9 +767,9 @@ class ClusterMarkers(MarkersFinder_):
         "marker_plots_defaults": {"order_by": "desc(avg_log2FC)"},
         "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
         "allmarker_plots": {
-            "Top 10 markers of all clusters": {
+            "Top 5 markers of each cluster": {
                 "plot_type": "heatmap_log2fc",
-                "select": 10,
+                "select": 5,
                 "cutoff": 0.05,
             },
         },
