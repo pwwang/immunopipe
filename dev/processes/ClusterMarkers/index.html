@@ -338,7 +338,7 @@ You can also fetch more dbs from <a href="https://maayanlab.cloud/Enrichr/#libra
     Other arguments passed to <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html"><code>biopipen.utils::VizDEGs()</code></a>.<br /></li>
 </ul>
 </li>
-<li><code>allmarker_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Top 10 markers of all clusters': Diot({'plot_type': 'heatmap_log2fc', 'select': 10, 'cutoff': 0.05})}</code></em>. <br />
+<li><code>allmarker_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Top 5 markers of each cluster': Diot({'plot_type': 'heatmap_log2fc', 'select': 5, 'cutoff': 0.05})}</code></em>. <br />
     All marker plot cases.<br />
     The keys are the names of the cases and the values are the dicts inherited from <code>allmarker_plots_defaults</code>.<br /></li>
 <li><code>allenrich_plots_defaults</code> <em>(<code>ns</code>)</em>:
