@@ -16,6 +16,7 @@ from pipen_cli_gbatch import (
     CliGbatchPlugin,
     GSPath,
     GbatchScheduler,
+    logger,
     __version__ as cli_gbatch_version,
     __file__ as cli_gbatch_file,
 )
@@ -32,8 +33,15 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemon):
         from pipen import __version__ as pipen_version
 
         print(f"Immunopipe version: v{__version__}")
-        print(f"pipen-cli-gbatch version: v{cli_gbatch_version}")
         print(f"pipen version: v{pipen_version}")
+        print(f"pipen-cli-gbatch version: v{cli_gbatch_version}")
+
+    def _show_versions(self):
+        """Log the version information for debugging purposes."""
+        from .version import __version__
+
+        logger.info(f"Immunopipe version: v{__version__}")
+        super()._show_versions()
 
     async def _get_arg_from_command(self, arg: str) -> str | None:
         return await super()._get_arg_from_command(arg) or "Immunopipe"
