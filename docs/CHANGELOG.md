@@ -1,5 +1,22 @@
 # Change Log
 
+## 2.3.3
+
+- docs: clarify caching mechanism configuration in the pipeline
+- feat: add logging of Immunopipe version information in gbatch command
+- chore: bump pipen-cli-gbatch to v1.1.2
+- chore: update biopipen dependency version to ^1.1.11
+  - feat(scrna_metabolic_landscape): support multiple subset_by columns in Seurat object expansion
+  - fix(scrna.SeuratClusterStats): fix dimplots for clusters from subclustering
+  - fix(scrna.SeuratSubClustering): correct argument references in RunSeuratSubClustering function
+  - fix(scrna.SeuratClusterStats): handle reduction assignment for subclustering based on plot type and identity
+  - fix(scrna.SeuratClusterStats): ensure either 'group_by' or 'ident' is specified in dimplots, not both
+  - feat(tcr.ScRepLoading): improve handling of contig file formats for 10X data
+  - feat(scrna.SeuratPreparing): add cell cycle scoring functionality to Seurat object preparation
+  - fix(scrna.MarkersFinder): improve plot argument handling for subset by group and plot types
+  - feat(tcr.ScRepLoading): support loading from prefixed contig files
+  - fix(scrna.CellTypeAnnotation): fix sctype not working
+
 ## 2.3.2
 
 - chore: update r-biopipen.utils version to 0.3.5=r43_6 in environment_rpkgs.yml
