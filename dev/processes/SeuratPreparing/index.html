@@ -318,6 +318,24 @@ genes.<br /></p>
 will keep genes that are expressed in at least 3 cells.<br /></p>
 </div>
 <ul>
+<li><code>ccs_args</code> <em>(<code>ns</code>)</em>:
+    Arguments for <code>RunSeuratCellCycleScoring()</code>.<br />
+    When "S.Score" and/or "G2M.Score" are specified in <code>envs.SCTransform.vars-to-regress</code> when <code>envs.use_sct = TRUE</code>
+    or in <code>envs.ScaleData.vars-to-regress</code> when <code>envs.use_sct = FALSE</code>, this will be automatically enabled
+    to calculate the cell cycle scores and regress them out in the following transformation step.<br />
+    Otherwise if this is empty, cell cycle scoring and the normalization before cell cycle scoring will be skipped.<br /><ul>
+<li><code>trans_args</code> <em>(<code>ns</code>)</em>:
+Arguments for <code>RunSeuratTransformation()</code> to normalize the data before cell cycle scoring.<br />
+<code>use_sct</code> will be <code>FALSE</code> by default (not using <code>envs.use_sct</code>).<br />
+See <a href="https://github.com/satijalab/seurat/issues/7694">https://github.com/satijalab/seurat/issues/7694</a>.<br /></li>
+</ul>
+</li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratTransformation.html">https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratTransformation.html</a>.<br /><ul>
+<li><code>&lt;more&gt;</code>:
+See <a href="https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratCellCycleScoring.html">https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratCellCycleScoring.html</a>.<br /></li>
+</ul>
+</li>
 <li><code>qc_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Violin Plots': Diot({'kind': 'cell', 'plot_type': 'violin', 'devpars': Diot({'res': 100, 'height': 600, 'width': 1200})}), 'Scatter Plots': Diot({'kind': 'cell', 'plot_type': 'scatter', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})}), 'Ridge Plots': Diot({'kind': 'cell', 'plot_type': 'ridge', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})}), 'Distribution of number of cells a gene is expressed in': Diot({'kind': 'gene', 'plot_type': 'histogram', 'devpars': Diot({'res': 100, 'height': 1200, 'width': 1200})})}</code></em>. <br />
     The plots for QC metrics.<br />
     It should be a json (or python dict) with the keys as the names of the plots and

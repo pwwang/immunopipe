@@ -158,6 +158,8 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Change log</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#233">2.3.3</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#232">2.3.2</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#231">2.3.1</a>
@@ -385,6 +387,23 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h2>
+<h3 id="233">2.3.3<a class="headerlink" href="#233" title="Permanent link">&para;</a></h3>
+<ul>
+<li>docs: clarify caching mechanism configuration in the pipeline</li>
+<li>feat: add logging of Immunopipe version information in gbatch command</li>
+<li>chore: bump pipen-cli-gbatch to v1.1.2</li>
+<li>chore: update biopipen dependency version to ^1.1.11</li>
+<li>feat(scrna_metabolic_landscape): support multiple subset_by columns in Seurat object expansion</li>
+<li>fix(scrna.SeuratClusterStats): fix dimplots for clusters from subclustering</li>
+<li>fix(scrna.SeuratSubClustering): correct argument references in RunSeuratSubClustering function</li>
+<li>fix(scrna.SeuratClusterStats): handle reduction assignment for subclustering based on plot type and identity</li>
+<li>fix(scrna.SeuratClusterStats): ensure either 'group_by' or 'ident' is specified in dimplots, not both</li>
+<li>feat(tcr.ScRepLoading): improve handling of contig file formats for 10X data</li>
+<li>feat(scrna.SeuratPreparing): add cell cycle scoring functionality to Seurat object preparation</li>
+<li>fix(scrna.MarkersFinder): improve plot argument handling for subset by group and plot types</li>
+<li>feat(tcr.ScRepLoading): support loading from prefixed contig files</li>
+<li>fix(scrna.CellTypeAnnotation): fix sctype not working</li>
+</ul>
 <h3 id="232">2.3.2<a class="headerlink" href="#232" title="Permanent link">&para;</a></h3>
 <ul>
 <li>chore: update r-biopipen.utils version to 0.3.5=r43_6 in environment_rpkgs.yml</li>
