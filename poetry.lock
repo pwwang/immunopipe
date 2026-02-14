@@ -2565,14 +2565,14 @@ pipen = "==1.1.*"
 
 [[package]]
 name = "pipen-poplog"
-version = "1.1.4"
+version = "1.1.5"
 description = "Populate logs from jobs to running log of the pipeline"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_poplog-1.1.4-py3-none-any.whl", hash = "sha256:2361d06d18fe7962b30af38a366c85dde8c16897ef10a06a1c256e85709cab5a"},
-    {file = "pipen_poplog-1.1.4.tar.gz", hash = "sha256:68200e0361b8a6e12d57b250b359771e7c86078be144551f103e838b953f02d7"},
+    {file = "pipen_poplog-1.1.5-py3-none-any.whl", hash = "sha256:331d53cf1e2be71bd7a35788226686c00e7649e9a66e98fb4aae725cf2f9de21"},
+    {file = "pipen_poplog-1.1.5.tar.gz", hash = "sha256:6a90d3128b7e10bf67018921f50ffcee6d38c3e8d9582e4d543389c5691a7e93"},
 ]
 
 [package.dependencies]
@@ -2651,15 +2651,15 @@ type = ["mypy (>=1.14.1)"]
 
 [[package]]
 name = "platformdirs"
-version = "4.6.0"
+version = "4.8.0"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a `user data dir`."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 markers = "python_version >= \"3.10\""
 files = [
-    {file = "platformdirs-4.6.0-py3-none-any.whl", hash = "sha256:dd7f808d828e1764a22ebff09e60f175ee3c41876606a6132a688d809c7c9c73"},
-    {file = "platformdirs-4.6.0.tar.gz", hash = "sha256:4a13c2db1071e5846c3b3e04e5b095c0de36b2a24be9a3bc0145ca66fce4e328"},
+    {file = "platformdirs-4.8.0-py3-none-any.whl", hash = "sha256:1c1328b4d2ea997bbcb904175a9bde14e824a3fa79f751ea3888d63d7d727557"},
+    {file = "platformdirs-4.8.0.tar.gz", hash = "sha256:c1d4a51ab04087041dd602707fbe7ee8b62b64e590f30e336e5c99c2d0c542d2"},
 ]
 
 [[package]]
