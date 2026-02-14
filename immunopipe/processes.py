@@ -471,9 +471,9 @@ RNAInput = ModuleScoreCalculator or RNAInput
 
 @when(
     "SeuratClustering" in config
+    or "CellTypeAnnotation" in config
     or (
         "SeuratMap2Ref" not in config
-        and "CellTypeAnnotation" not in config
         and (
             "LoadingRNAFromSeurat" not in config
             or not config.LoadingRNAFromSeurat.envs.clustered
