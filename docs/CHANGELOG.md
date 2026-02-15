@@ -5,6 +5,10 @@
 - chore: update SeuratPreparing and ClusterMarkers configurations
 - chore: update ClusterMarkers to select top 5 markers for each cluster
 - fix: make sure SeuratClustering is included in the pipeline along with CellTypeAnnotation
+- chore: update biopipen to 1.1.12
+  - fix(tcr.ScRepLoading): remove records with IG? or TR? chains to prevent errors in combineTCR and combineBCR
+  - chore(scrna.SeuratClusterStats): set default options for pies plot for stats
+  - fix(scrna.SeuratClusterStats): improve plot description handling when plot_type is not given
 - chore: update r-plotthis version to 0.10.1=r43_10 in environment_rpkgs.yml
   - fix: update BarPlotSingle to conditionally use geom_text for flipped plots and adjust height/width calculations
   - fix(Box/ViolinPlo): hide legends for color, size, and alpha scales for highlighted points

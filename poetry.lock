@@ -284,14 +284,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "1.1.11"
+version = "1.1.12"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-1.1.11-py3-none-any.whl", hash = "sha256:a2d37c4ffbe5e4e18d06fee70d4b6332367c1c489a142e8664ba150d32918d72"},
-    {file = "biopipen-1.1.11.tar.gz", hash = "sha256:1f517b39d2ae6ea58812b5f54fca048bca228a22b956c5f189173de4e066e6e0"},
+    {file = "biopipen-1.1.12-py3-none-any.whl", hash = "sha256:f05e8fb66ebdc6f8e1e8b5789e67b8018c2e1984cea0901c74786b06cbfff75e"},
+    {file = "biopipen-1.1.12.tar.gz", hash = "sha256:bc303a893f9d739849495bf2d80658a92cfca34db953123db5392e67043e111b"},
 ]
 
 [package.dependencies]
@@ -1006,14 +1006,14 @@ yaml = ["pyyaml (>=6,<7)"]
 
 [[package]]
 name = "dunamai"
-version = "1.25.0"
+version = "1.26.0"
 description = "Dynamic version generation"
 optional = false
 python-versions = ">=3.5"
 groups = ["main"]
 files = [
-    {file = "dunamai-1.25.0-py3-none-any.whl", hash = "sha256:7f9dc687dd3256e613b6cc978d9daabfd2bb5deb8adc541fc135ee423ffa98ab"},
-    {file = "dunamai-1.25.0.tar.gz", hash = "sha256:a7f8360ea286d3dbaf0b6a1473f9253280ac93d619836ad4514facb70c0719d1"},
+    {file = "dunamai-1.26.0-py3-none-any.whl", hash = "sha256:f584edf0fda0d308cce0961f807bc90a8fe3d9ff4d62f94e72eca7b43f0ed5f6"},
+    {file = "dunamai-1.26.0.tar.gz", hash = "sha256:5396ac43aa20ed059040034e9f9798c7464cf4334c6fc3da3732e29273a2f97d"},
 ]
 
 [package.dependencies]
@@ -2651,15 +2651,15 @@ type = ["mypy (>=1.14.1)"]
 
 [[package]]
 name = "platformdirs"
-version = "4.8.0"
+version = "4.9.1"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a `user data dir`."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 markers = "python_version >= \"3.10\""
 files = [
-    {file = "platformdirs-4.8.0-py3-none-any.whl", hash = "sha256:1c1328b4d2ea997bbcb904175a9bde14e824a3fa79f751ea3888d63d7d727557"},
-    {file = "platformdirs-4.8.0.tar.gz", hash = "sha256:c1d4a51ab04087041dd602707fbe7ee8b62b64e590f30e336e5c99c2d0c542d2"},
+    {file = "platformdirs-4.9.1-py3-none-any.whl", hash = "sha256:61d8b967d34791c162d30d60737369cbbd77debad5b981c4bfda1842e71e0d66"},
+    {file = "platformdirs-4.9.1.tar.gz", hash = "sha256:f310f16e89c4e29117805d8328f7c10876eeff36c94eac879532812110f7d39f"},
 ]
 
 [[package]]
@@ -4172,4 +4172,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "65b9d1f3836f33cf314eb86753247229293412c1d57105da67c280d1bc68a3a1"
+content-hash = "1d4da336c2b994094de547098d6d6bec847b42dfe7165f7cee4e36393399b56f"
