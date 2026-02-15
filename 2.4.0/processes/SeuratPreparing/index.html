@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>SeuratPreparing - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "SeuratPreparing";
+        var mkdocs_page_input_path = "processes/SeuratPreparing.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../agent-skills/">Agent Skills</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">SeuratPreparing</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3Clustering/">CDR3Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
+      <li class="breadcrumb-item active">SeuratPreparing</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/SeuratPreparing.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="seuratpreparing">SeuratPreparing<a class="headerlink" href="#seuratpreparing" title="Permanent link">&para;</a></h2>
+<p>Load, prepare and apply QC to data, using <code>Seurat</code></p>
+<p>This process will -
+- Prepare the seurat object
+- Apply QC to the data
+- Integrate the data from different samples</p>
+<p>See also
+- <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html#standard-pre-processing-workflow-1)">https://satijalab.org/seurat/articles/pbmc3k_tutorial.html#standard-pre-processing-workflow-1)</a>
+- <a href="https://satijalab.org/seurat/articles/integration_introduction">https://satijalab.org/seurat/articles/integration_introduction</a></p>
+<p>This process will read the scRNA-seq data, based on the information provided by
+<code>SampleInfo</code>, specifically, the paths specified by the <code>RNAData</code> column.<br />
+Those paths should be either paths to directoies containing <code>matrix.mtx</code>,
+<code>barcodes.tsv</code> and <code>features.tsv</code> files that can be loaded by
+<a href="https://satijalab.org/seurat/reference/read10x"><code>Seurat::Read10X()</code></a>,
+or paths of loom files that can be loaded by <code>SeuratDisk::LoadLoom()</code>, or paths to
+<code>h5</code> files that can be loaded by
+<a href="https://satijalab.org/seurat/reference/read10x_h5"><code>Seurat::Read10X_h5()</code></a>.<br /></p>
+<p>Each sample will be loaded individually and then merged into one <code>Seurat</code> object, and then perform QC.<br /></p>
+<p>In order to perform QC, some additional columns are added to the meta data of the <code>Seurat</code> object. They are:<br /></p>
+<ul>
+<li><code>precent.mt</code>: The percentage of mitochondrial genes.<br /></li>
+<li><code>percent.ribo</code>: The percentage of ribosomal genes.<br /></li>
+<li><code>precent.hb</code>: The percentage of hemoglobin genes.<br /></li>
+<li><code>percent.plat</code>: The percentage of platelet genes.<br /></li>
+</ul>
+<p>For integration, two routes are available:<br /></p>
+<ul>
+<li><a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis">Performing integration on datasets normalized with <code>SCTransform</code></a></li>
+<li><a href="https://satijalab.org/seurat/articles/seurat5_integration#layers-in-the-seurat-v5-object">Using <code>NormalizeData</code> and <code>FindIntegrationAnchors</code></a></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using <code>SCTransform</code>, the default Assay will be set to <code>SCT</code> in output, rather than <code>RNA</code>.<br />
+If you are using <code>cca</code> or <code>rpca</code> interation, the default assay will be <code>integrated</code>.<br /></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>From <code>biopipen</code> v0.23.0, this requires <code>Seurat</code> v5.0.0 or higher.<br /></p>
+</div>
+<p>See also <a href="../../preparing-input/#single-cell-rna-seq-scrna-seq-data">Preparing the input</a>.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>metafile</code>:
+    The metadata of the samples
+    A tab-delimited file
+    Two columns are required:<br />
+    <code>Sample</code> to specify the sample names.<br />
+    <code>RNAData</code> to assign the path of the data to the samples
+    The path will be read by <code>Read10X()</code> from <code>Seurat</code>, or the path
+    to the h5 file that can be read by <code>Read10X_h5()</code> from <code>Seurat</code>.<br />
+    It can also be an RDS or qs2 file containing a <code>Seurat</code> object.<br />
+    Note that it must has a column named <code>Sample</code> in the meta.data to specify the sample names.<br /></li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outfile</code>: <em>Default: <code>{{in.metafile | stem}}.seurat.qs</code></em>. <br />
+    The qs2 file with the Seurat object with all samples integrated.<br />
+    Note that the cell ids are prefixied with sample names.<br /></li>
+</ul>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores to use.<br />
+    Used in <code>future::plan(strategy = "multicore", workers = &lt;ncores&gt;)</code>
+    to parallelize some Seurat procedures.<br /></li>
+<li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The mutaters to mutate the metadata to the cells.<br />
+    These new columns will be added to the metadata of the Seurat object and
+    will be saved in the output file.<br /></li>
+<li><code>min_cells</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>0</code></em>. <br />
+    The minimum number of cells that a gene must be
+    expressed in to be kept. This is used in <code>Seurat::CreateSeuratObject()</code>.<br />
+    Futher QC (<code>envs.cell_qc</code>, <code>envs.gene_qc</code>) will be performed after this.<br />
+    It doesn't work when data is loaded from loom files or RDS/qs2 files.<br /></li>
+<li><code>min_features</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>0</code></em>. <br />
+    The minimum number of features that a cell must
+    express to be kept. This is used in <code>Seurat::CreateSeuratObject()</code>.<br />
+    Futher QC (<code>envs.cell_qc</code>, <code>envs.gene_qc</code>) will be performed after this.<br />
+    It doesn't work when data is loaded from loom files or RDS/qs2 files.<br /></li>
+<li>
+<p><code>cell_qc</code>:
+    Filter expression to filter cells, using
+    <code>tidyrseurat::filter()</code>.<br />
+    It can also be a dictionary of expressions, where the names of the list are
+    sample names.<br />
+    You can have a default expression in the list with the name "DEFAULT" for
+    the samples that are not listed.<br />
+    Available QC keys include <code>nFeature_RNA</code>, <code>nCount_RNA</code>,
+    <code>percent.mt</code>, <code>percent.ribo</code>, <code>percent.hb</code>, and <code>percent.plat</code>.<br /></p>
+<div class="admonition tip">
+<p class="admonition-title">Example</p>
+<p>Including the columns added above, all available QC keys include
+<code>nFeature_RNA</code>, <code>nCount_RNA</code>, <code>percent.mt</code>, <code>percent.ribo</code>, <code>percent.hb</code>,
+and <code>percent.plat</code>. For example:<br /></p>
+<p><div class="highlight"><pre><span></span><code><span class="k">[SeuratPreparing.envs]</span>
+
+<span class="n">cell_qc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;nFeature_RNA &gt; 200 &amp; percent.mt &lt; 5&quot;</span>
+</code></pre></div>
+will keep cells with more than 200 genes and less than 5%% mitochondrial
+genes.<br /></p>
+</div>
+</li>
+<li>
+<p><code>gene_qc</code> <em>(<code>ns</code>)</em>:
+    Filter genes.<br />
+    <code>gene_qc</code> is applied after <code>cell_qc</code>.<br /></p>
+<ul>
+<li><code>min_cells</code>: <em>Default: <code>0</code></em>. <br />
+    The minimum number of cells that a gene must be
+    expressed in to be kept.<br /></li>
+<li>
+<p><code>excludes</code>: <em>Default: <code>[]</code></em>. <br />
+    The genes to exclude. Multiple genes can be specified by
+    comma separated values, or as a list.<br /></p>
+<div class="admonition tip">
+<p class="admonition-title">Example</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">[SeuratPreparing.envs]</span>
+
+<span class="n">gene_qc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">min_cells</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+will keep genes that are expressed in at least 3 cells.<br /></p>
+</div>
+<ul>
+<li><code>ccs_args</code> <em>(<code>ns</code>)</em>:
+    Arguments for <code>RunSeuratCellCycleScoring()</code>.<br />
+    When "S.Score" and/or "G2M.Score" are specified in <code>envs.SCTransform.vars-to-regress</code> when <code>envs.use_sct = TRUE</code>
+    or in <code>envs.ScaleData.vars-to-regress</code> when <code>envs.use_sct = FALSE</code>, this will be automatically enabled
+    to calculate the cell cycle scores and regress them out in the following transformation step.<br />
+    Otherwise if this is empty, cell cycle scoring and the normalization before cell cycle scoring will be skipped.<br /><ul>
+<li><code>trans_args</code> <em>(<code>ns</code>)</em>:
+Arguments for <code>RunSeuratTransformation()</code> to normalize the data before cell cycle scoring.<br />
+<code>use_sct</code> will be <code>FALSE</code> by default (not using <code>envs.use_sct</code>).<br />
+See <a href="https://github.com/satijalab/seurat/issues/7694">https://github.com/satijalab/seurat/issues/7694</a>.<br /></li>
+</ul>
+</li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratTransformation.html">https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratTransformation.html</a>.<br /><ul>
+<li><code>&lt;more&gt;</code>:
+See <a href="https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratCellCycleScoring.html">https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratCellCycleScoring.html</a>.<br /></li>
+</ul>
+</li>
+<li><code>qc_plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Violin Plots': Diot({'kind': 'cell', 'plot_type': 'violin', 'devpars': Diot({'res': 100, 'height': 600, 'width': 1200})}), 'Scatter Plots': Diot({'kind': 'cell', 'plot_type': 'scatter', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})}), 'Ridge Plots': Diot({'kind': 'cell', 'plot_type': 'ridge', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})}), 'Distribution of number of cells a gene is expressed in': Diot({'kind': 'gene', 'plot_type': 'histogram', 'devpars': Diot({'res': 100, 'height': 1200, 'width': 1200})})}</code></em>. <br />
+    The plots for QC metrics.<br />
+    It should be a json (or python dict) with the keys as the names of the plots and
+    the values also as dicts with the following keys:<br /><ul>
+<li>kind: The kind of QC. Either <code>gene</code> or <code>cell</code> (default).<br /></li>
+<li>devpars: The device parameters for the plot. A dict with <code>res</code>, <code>height</code>, and <code>width</code>.<br /></li>
+<li>more_formats: The formats to save the plots other than <code>png</code>.<br /></li>
+<li>save_code: Whether to save the code to reproduce the plot.<br /></li>
+<li>other arguments passed to
+<a href="https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratCellQC.html"><code>biopipen.utils::VizSeuratCellQC</code></a>
+when <code>kind</code> is <code>cell</code> or
+<a href="https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratGeneQC.html"><code>biopipen.utils::VizSeuratGeneQC</code></a>
+when <code>kind</code> is <code>gene</code>.<br /></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>use_sct</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether use SCTransform routine to integrate samples or not.<br />
+    Before the following procedures, the <code>RNA</code> layer will be split by samples.<br /></p>
+<p>If <code>False</code>, following procedures will be performed in the order:<br />
+* <a href="https://satijalab.org/seurat/reference/normalizedata"><code>NormalizeData</code></a>.<br />
+* <a href="https://satijalab.org/seurat/reference/findvariablefeatures"><code>FindVariableFeatures</code></a>.<br />
+* <a href="https://satijalab.org/seurat/reference/scaledata"><code>ScaleData</code></a>.<br />
+See <a href="https://satijalab.org/seurat/articles/seurat5_integration#layers-in-the-seurat-v5-object">https://satijalab.org/seurat/articles/seurat5_integration#layers-in-the-seurat-v5-object</a>
+and <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">https://satijalab.org/seurat/articles/pbmc3k_tutorial.html</a></p>
+<p>If <code>True</code>, following procedures will be performed in the order:<br />
+* <a href="https://satijalab.org/seurat/reference/sctransform"><code>SCTransform</code></a>.<br />
+See <a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis">https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis</a></p>
+</li>
+<li>
+<p><code>no_integration</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to skip integration or not.<br /></p>
+</li>
+<li><code>NormalizeData</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/normalizedata"><code>NormalizeData()</code></a>.<br />
+    <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br /><ul>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/normalizedata">https://satijalab.org/seurat/reference/normalizedata</a></li>
+</ul>
+</li>
+<li><code>FindVariableFeatures</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/findvariablefeatures"><code>FindVariableFeatures()</code></a>.<br />
+    <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br /><ul>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/findvariablefeatures">https://satijalab.org/seurat/reference/findvariablefeatures</a></li>
+</ul>
+</li>
+<li><code>ScaleData</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/scaledata"><code>ScaleData()</code></a>.<br />
+    <code>object</code> and <code>features</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br /><ul>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/scaledata">https://satijalab.org/seurat/reference/scaledata</a></li>
+</ul>
+</li>
+<li><code>RunPCA</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/runpca"><code>RunPCA()</code></a>.<br />
+    <code>object</code> and <code>features</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br /><ul>
+<li><code>npcs</code> <em>(<code>type=int</code>)</em>:
+    The number of PCs to compute.<br />
+    For each sample, <code>npcs</code> will be no larger than the number of columns - 1.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/runpca">https://satijalab.org/seurat/reference/runpca</a></li>
+</ul>
+</li>
+<li><code>SCTransform</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/sctransform"><code>SCTransform()</code></a>.<br />
+    <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br /><ul>
+<li><code>return-only-var-genes</code>: <em>Default: <code>False</code></em>. <br />
+    Whether to return only variable genes.<br /></li>
+<li><code>min_cells</code>: <em>Default: <code>3</code></em>. <br />
+    The minimum number of cells that a gene must be expressed in to be kept.<br />
+    A hidden argument of <code>SCTransform</code> to filter genes.<br />
+    If you try to keep all genes in the <code>RNA</code> assay, you can set <code>min_cells</code> to <code>0</code> and
+    <code>return-only-var-genes</code> to <code>False</code>.<br />
+    See <a href="https://github.com/satijalab/seurat/issues/3598#issuecomment-715505537">https://github.com/satijalab/seurat/issues/3598#issuecomment-715505537</a></li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/sctransform">https://satijalab.org/seurat/reference/sctransform</a></li>
+<li><code>verbose</code>: <em>Default: <code>True</code></em>. <br /></li>
+</ul>
+</li>
+<li><code>IntegrateLayers</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/integratelayers"><code>IntegrateLayers()</code></a>.<br />
+    <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br />
+    When <code>use_sct</code> is <code>True</code>, <code>normalization-method</code> defaults to <code>SCT</code>.<br /><ul>
+<li><code>method</code> <em>(<code>choice</code>)</em>: <em>Default: <code>harmony</code></em>. <br />
+    The method to use for integration.<br /><ul>
+<li><code>CCAIntegration</code>:
+    Use <code>Seurat::CCAIntegration</code>.<br /></li>
+<li><code>CCA</code>:
+    Same as <code>CCAIntegration</code>.<br /></li>
+<li><code>cca</code>:
+    Same as <code>CCAIntegration</code>.<br /></li>
+<li><code>RPCAIntegration</code>:
+    Use <code>Seurat::RPCAIntegration</code>.<br /></li>
+<li><code>RPCA</code>:
+    Same as <code>RPCAIntegration</code>.<br /></li>
+<li><code>rpca</code>:
+    Same as <code>RPCAIntegration</code>.<br /></li>
+<li><code>HarmonyIntegration</code>:
+    Use <code>Seurat::HarmonyIntegration</code>.<br /></li>
+<li><code>Harmony</code>:
+    Same as <code>HarmonyIntegration</code>.<br /></li>
+<li><code>harmony</code>:
+    Same as <code>HarmonyIntegration</code>.<br /></li>
+<li><code>FastMNNIntegration</code>:
+    Use <code>Seurat::FastMNNIntegration</code>.<br /></li>
+<li><code>FastMNN</code>:
+    Same as <code>FastMNNIntegration</code>.<br /></li>
+<li><code>fastmnn</code>:
+    Same as <code>FastMNNIntegration</code>.<br /></li>
+<li><code>scVIIntegration</code>:
+    Use <code>Seurat::scVIIntegration</code>.<br /></li>
+<li><code>scVI</code>:
+    Same as <code>scVIIntegration</code>.<br /></li>
+<li><code>scvi</code>:
+    Same as <code>scVIIntegration</code>.<br /></li>
+</ul>
+</li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/integratelayers">https://satijalab.org/seurat/reference/integratelayers</a></li>
+</ul>
+</li>
+<li><code>doublet_detector</code> <em>(<code>choice</code>)</em>: <em>Default: <code>none</code></em>. <br />
+    The doublet detector to use.<br /><ul>
+<li><code>none</code>:
+    Do not use any doublet detector.<br /></li>
+<li><code>DoubletFinder</code>:
+    Use <code>DoubletFinder</code> to detect doublets.<br /></li>
+<li><code>doubletfinder</code>:
+    Same as <code>DoubletFinder</code>.<br /></li>
+<li><code>scDblFinder</code>:
+    Use <code>scDblFinder</code> to detect doublets.<br /></li>
+<li><code>scdblfinder</code>:
+    Same as <code>scDblFinder</code>.<br /></li>
+</ul>
+</li>
+<li><code>DoubletFinder</code> <em>(<code>ns</code>)</em>:
+    Arguments to run <a href="https://github.com/chris-mcginnis-ucsf/DoubletFinder"><code>DoubletFinder</code></a>.<br />
+    See also <a href="https://demultiplexing-doublet-detecting-docs.readthedocs.io/en/latest/DoubletFinder.html">https://demultiplexing-doublet-detecting-docs.readthedocs.io/en/latest/DoubletFinder.html</a>.<br /><ul>
+<li><code>PCs</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>10</code></em>. <br />
+    Number of PCs to use for 'doubletFinder' function.<br /></li>
+<li><code>doublets</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.075</code></em>. <br />
+    Number of expected doublets as a proportion of the pool size.<br /></li>
+<li><code>pN</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.25</code></em>. <br />
+    Number of doublets to simulate as a proportion of the pool size.<br /></li>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores to use for <code>DoubletFinder::paramSweep</code>.<br />
+    Set to <code>None</code> to use <code>envs.ncores</code>.<br />
+    Since parallelization of the function usually exhausts memory, if big <code>envs.ncores</code> does not work
+    for <code>DoubletFinder</code>, set this to a smaller number.<br /></li>
+</ul>
+</li>
+<li><code>scDblFinder</code> <em>(<code>ns</code>)</em>:
+    Arguments to run <a href="https://rdrr.io/bioc/scDblFinder/man/scDblFinder.html"><code>scDblFinder</code></a>.<br /><ul>
+<li><code>dbr</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.075</code></em>. <br />
+    The expected doublet rate.<br /></li>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores to use for <code>scDblFinder</code>.<br />
+    Set to <code>None</code> to use <code>envs.ncores</code>.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://rdrr.io/bioc/scDblFinder/man/scDblFinder.html">https://rdrr.io/bioc/scDblFinder/man/scDblFinder.html</a>.<br /></li>
+</ul>
+</li>
+<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
+    Whether to cache the information at different steps.<br />
+    If <code>True</code>, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
+    The cached seurat object will be saved as <code>&lt;signature&gt;.&lt;kind&gt;.RDS</code> file, where <code>&lt;signature&gt;</code> is the signature determined by
+    the input and envs of the process.<br />
+    See <a href="https://github.com/satijalab/seurat/issues/7849">https://github.com/satijalab/seurat/issues/7849</a>, <a href="https://github.com/satijalab/seurat/issues/5358">https://github.com/satijalab/seurat/issues/5358</a> and
+    <a href="https://github.com/satijalab/seurat/issues/6748">https://github.com/satijalab/seurat/issues/6748</a> for more details also about reproducibility issues.<br />
+    To not use the cached seurat object, you can either set <code>cache</code> to <code>False</code> or delete the cached file at
+    <code>&lt;signature&gt;.RDS</code> in the cache directory.<br /></li>
+</ul>
+<h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
+<p>Here is the demonstration of basic metadata for the <code>Seurat</code> object. Future
+processes will use it and/or add more metadata to the <code>Seurat</code> object.<br /></p>
+<p><img alt="SeuratPreparing-metadata" src="../images/SeuratPreparing-metadata.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../LoadingRNAFromSeurat/" class="btn btn-neutral float-left" title="LoadingRNAFromSeurat"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../SeuratClusteringOfAllCells/" class="btn btn-neutral float-right" title="SeuratClusteringOfAllCells">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../LoadingRNAFromSeurat/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../SeuratClusteringOfAllCells/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/version-select.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
