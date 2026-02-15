@@ -158,6 +158,8 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Change log</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#240">2.4.0</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#233">2.3.3</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#232">2.3.2</a>
@@ -387,6 +389,47 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h2>
+<h3 id="240">2.4.0<a class="headerlink" href="#240" title="Permanent link">&para;</a></h3>
+<ul>
+<li>chore: update SeuratPreparing and ClusterMarkers configurations</li>
+<li>chore: update ClusterMarkers to select top 5 markers for each cluster</li>
+<li>fix: make sure SeuratClustering is included in the pipeline along with CellTypeAnnotation</li>
+<li>chore: update r-plotthis version to 0.10.1=r43_10 in environment_rpkgs.yml</li>
+<li>fix: update BarPlotSingle to conditionally use geom_text for flipped plots and adjust height/width calculations</li>
+<li>fix(Box/ViolinPlo): hide legends for color, size, and alpha scales for highlighted points</li>
+<li>fix(BeeswarmPlot):fix highlight not working</li>
+<li>fix(JitterPlot): fix <code>position_jitterdodge()</code> requires at least one aesthetic to dodge by for ggplot2 v3</li>
+<li>fix(BarPlot): correct conditional assignment for <code>fill_by</code> parameter</li>
+<li>fix(BarPlot): fix when x has multiple columns</li>
+<li>feat(Heatmap): add rows_orderby and columns_orderby to order rows and columns (if set, cluster_rows and cluster_columns will default to FALSE)</li>
+<li>fix(Heatmap): ensure ordered factors are converted to character for proper processing</li>
+<li>BREAKING(Box/ViolinPlot): update sort_x parameter to accept expressions for x-axis ordering</li>
+<li>fix(TrendPlot): complete missing combinations for area layer to prevent interpolation issues</li>
+<li>fix(AreaPlot): complete missing combinations for x, group_by, and facet_by to prevent interpolation issues</li>
+<li>feat(RadarPlot): add groups parameter to filter and order groups in the plot</li>
+<li>fix(RadarPlot): clarify groups parameter documentation and its implications on keep_empty</li>
+<li>fix: ensure unique values in for loops for grouping in bar, pie, ring, and trend plots</li>
+<li>chore: update r-scplotter version to 0.6.6=r43_10 in environment_rpkgs.ym</li>
+<li>fix: update fill parameter in BarPlot function for enrichment plots (adopting plotthis v0.10.1)</li>
+<li>chore: improve error message for missing 'group_by' in ClonalCompositionPlot for box/violin plots</li>
+<li>fix: enhance clonal size data function to handle empty groupings and improve data processing</li>
+<li>docs: update ClonalVolumePlot examples to include fill_by parameter to adopt plotthis v0.10.1</li>
+<li>feat: expand ClonalStatPlot functionality with new plot types (col-rel and col-abs)</li>
+<li>fix: update data binding in CellDimPlot to exclude redundant metadata columns</li>
+<li>feat: add agg parameter to CellStatPlot for custom summarization</li>
+<li>feat: rename <code>return_ids</code> to <code>ouput</code> for clone selectors so that they can return logicals (booleans) for selection</li>
+<li>feat: clone selectors gain a <code>output_within</code> option to return the selection results within a specific subset</li>
+<li>feat(ClonalResidencyPlot): make the plot symmetric when numbers of clones are imbalanced between the two groups and allow specifying the palette for the plot</li>
+<li>chore: update r-biopipen.utils version to 0.3.6=r43_10 in environment_rpkgs.yml</li>
+<li>fix(RunSeuratSubClustering): prioritize integrated_new_reduction in UMAP reduction assignment</li>
+<li>fix(RunSeurat*): replace dot notation with bracket notation for reduction assignment</li>
+<li>feat(LoadSeuratAndPerformQC): support ParseBio data</li>
+<li>feat(RunSeuratCellCycleScoring): add function to perform cell cycle scoring in Seurat objects</li>
+<li>feat: update LoadSeuratAndPerformQC and RunSeuratCellCycleScoring to support cell cycle scoring arguments</li>
+<li>feat(RunSeuratCellCycleScoring): optimize memory usage by cleaning up unnecessary assays</li>
+<li>feat(RunSeurat): enhance logging and expand dimensions handling in PCA and UMAP functions</li>
+<li>chore(VizDEGs): set select to 5 for heatmap_* plots</li>
+</ul>
 <h3 id="233">2.3.3<a class="headerlink" href="#233" title="Permanent link">&para;</a></h3>
 <ul>
 <li>docs: clarify caching mechanism configuration in the pipeline</li>
