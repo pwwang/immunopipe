@@ -8,8 +8,8 @@ channels:
 dependencies:
   # Specified in base, but still need it here to avoid PackagesNotFoundError by conda
   - pwwang::bioconductor-screpertoire=2.2
-  - r-biopipen.utils=0.3.5=r43_6
-  - r-scplotter=0.6.5=r43_3
-  - r-plotthis=0.9.4=r43_1
+  - r-biopipen.utils=0.3.7=r43_1
+  - r-scplotter=0.6.6=r43_10
+  - r-plotthis=0.10.1=r43_11
   - r-enrichit=0.0.4=r43_1
   - r-gglogger=0.1.7=r43_1

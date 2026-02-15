@@ -1,4 +1,5 @@
 """Process definition"""
+
 from __future__ import annotations
 
 from typing import Type, Sequence, Callable
@@ -347,6 +348,7 @@ class SeuratPreparing(SeuratPreparing_):
 
         ![SeuratPreparing-metadata](images/SeuratPreparing-metadata.png)
     """  # noqa: E501
+
     # Don't export the RDS/qs file
     export = False
 
@@ -469,9 +471,9 @@ RNAInput = ModuleScoreCalculator or RNAInput
 
 @when(
     "SeuratClustering" in config
+    or "CellTypeAnnotation" in config
     or (
         "SeuratMap2Ref" not in config
-        and "CellTypeAnnotation" not in config
         and (
             "LoadingRNAFromSeurat" not in config
             or not config.LoadingRNAFromSeurat.envs.clustered
@@ -764,7 +766,13 @@ class ClusterMarkers(MarkersFinder_):
         "cases": {"Cluster": {"group_by": None}},
         "marker_plots_defaults": {"order_by": "desc(avg_log2FC)"},
         "sigmarkers": "p_val_adj < 0.05 & avg_log2FC > 0",
-        "allmarker_plots": {"Top 10 markers of all clusters": {"plot_type": "heatmap"}},
+        "allmarker_plots": {
+            "Top 5 markers of each cluster": {
+                "plot_type": "heatmap_log2fc",
+                "select": 5,
+                "cutoff": 0.05,
+            },
+        },
     }
     order = 2
 
@@ -900,6 +908,7 @@ class PseudoBulkDEG(PseudoBulkDEG_):
         - [biopipen.ns.scrna.PseudoBulkDEG](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.PseudoBulkDEG)
         - [ClusterMarkers](./ClusterMarkers.md) for examples of marker and enrichment plots
     """  # noqa: E501
+
     order = 10
 
 

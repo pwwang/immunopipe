@@ -1,5 +1,50 @@
 # Change Log
 
+## 2.4.0
+
+- chore: update SeuratPreparing and ClusterMarkers configurations
+- chore: update ClusterMarkers to select top 5 markers for each cluster
+- fix: make sure SeuratClustering is included in the pipeline along with CellTypeAnnotation
+- chore: update biopipen to 1.1.12
+  - fix(tcr.ScRepLoading): remove records with IG? or TR? chains to prevent errors in combineTCR and combineBCR
+  - chore(scrna.SeuratClusterStats): set default options for pies plot for stats
+  - fix(scrna.SeuratClusterStats): improve plot description handling when plot_type is not given
+- chore: update r-plotthis version to 0.10.1=r43_10 in environment_rpkgs.yml
+  - fix: update BarPlotSingle to conditionally use geom_text for flipped plots and adjust height/width calculations
+  - fix(Box/ViolinPlo): hide legends for color, size, and alpha scales for highlighted points
+  - fix(BeeswarmPlot):fix highlight not working
+  - fix(JitterPlot): fix `position_jitterdodge()` requires at least one aesthetic to dodge by for ggplot2 v3
+  - fix(BarPlot): correct conditional assignment for `fill_by` parameter
+  - fix(BarPlot): fix when x has multiple columns
+  - feat(Heatmap): add rows_orderby and columns_orderby to order rows and columns (if set, cluster_rows and cluster_columns will default to FALSE)
+  - fix(Heatmap): ensure ordered factors are converted to character for proper processing
+  - BREAKING(Box/ViolinPlot): update sort_x parameter to accept expressions for x-axis ordering
+  - fix(TrendPlot): complete missing combinations for area layer to prevent interpolation issues
+  - fix(AreaPlot): complete missing combinations for x, group_by, and facet_by to prevent interpolation issues
+  - feat(RadarPlot): add groups parameter to filter and order groups in the plot
+  - fix(RadarPlot): clarify groups parameter documentation and its implications on keep_empty
+  - fix: ensure unique values in for loops for grouping in bar, pie, ring, and trend plots
+- chore: update r-scplotter version to 0.6.6=r43_10 in environment_rpkgs.ym
+  - fix: update fill parameter in BarPlot function for enrichment plots (adopting plotthis v0.10.1)
+  - chore: improve error message for missing 'group_by' in ClonalCompositionPlot for box/violin plots
+  - fix: enhance clonal size data function to handle empty groupings and improve data processing
+  - docs: update ClonalVolumePlot examples to include fill_by parameter to adopt plotthis v0.10.1
+  - feat: expand ClonalStatPlot functionality with new plot types (col-rel and col-abs)
+  - fix: update data binding in CellDimPlot to exclude redundant metadata columns
+  - feat: add agg parameter to CellStatPlot for custom summarization
+  - feat: rename `return_ids` to `ouput` for clone selectors so that they can return logicals (booleans) for selection
+  - feat: clone selectors gain a `output_within` option to return the selection results within a specific subset
+  - feat(ClonalResidencyPlot): make the plot symmetric when numbers of clones are imbalanced between the two groups and allow specifying the palette for the plot
+- chore: update r-biopipen.utils version to 0.3.6=r43_10 in environment_rpkgs.yml
+  - fix(RunSeuratSubClustering): prioritize integrated_new_reduction in UMAP reduction assignment
+  - fix(RunSeurat*): replace dot notation with bracket notation for reduction assignment
+  - feat(LoadSeuratAndPerformQC): support ParseBio data
+  - feat(RunSeuratCellCycleScoring): add function to perform cell cycle scoring in Seurat objects
+  - feat: update LoadSeuratAndPerformQC and RunSeuratCellCycleScoring to support cell cycle scoring arguments
+  - feat(RunSeuratCellCycleScoring): optimize memory usage by cleaning up unnecessary assays
+  - feat(RunSeurat): enhance logging and expand dimensions handling in PCA and UMAP functions
+  - chore(VizDEGs): set select to 5 for heatmap_* plots
+
 ## 2.3.3
 
 - docs: clarify caching mechanism configuration in the pipeline
