@@ -128,3 +128,4 @@ dependencies:
     - scikit-learn  # GIANA
     - keras  # TESSA
     - tensorflow==2.20 # TESSA
+    - umap-learn  # RunUMAP with umap.method = "umap-learn"
