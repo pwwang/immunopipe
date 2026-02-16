@@ -284,14 +284,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "1.1.12"
+version = "1.1.13"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-1.1.12-py3-none-any.whl", hash = "sha256:f05e8fb66ebdc6f8e1e8b5789e67b8018c2e1984cea0901c74786b06cbfff75e"},
-    {file = "biopipen-1.1.12.tar.gz", hash = "sha256:bc303a893f9d739849495bf2d80658a92cfca34db953123db5392e67043e111b"},
+    {file = "biopipen-1.1.13-py3-none-any.whl", hash = "sha256:f06a211dfe62e1daa524b7165e7d0b7b1f297b60ba1742ebb6e5148b8e3623e8"},
+    {file = "biopipen-1.1.13.tar.gz", hash = "sha256:127c1389b5be61627bb3da65ec1ad62ba1d976858564de7f2aaf51de1d1ac3c8"},
 ]
 
 [package.dependencies]
@@ -2651,15 +2651,15 @@ type = ["mypy (>=1.14.1)"]
 
 [[package]]
 name = "platformdirs"
-version = "4.9.1"
+version = "4.9.2"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a `user data dir`."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 markers = "python_version >= \"3.10\""
 files = [
-    {file = "platformdirs-4.9.1-py3-none-any.whl", hash = "sha256:61d8b967d34791c162d30d60737369cbbd77debad5b981c4bfda1842e71e0d66"},
-    {file = "platformdirs-4.9.1.tar.gz", hash = "sha256:f310f16e89c4e29117805d8328f7c10876eeff36c94eac879532812110f7d39f"},
+    {file = "platformdirs-4.9.2-py3-none-any.whl", hash = "sha256:9170634f126f8efdae22fb58ae8a0eaa86f38365bc57897a6c4f781d1f5875bd"},
+    {file = "platformdirs-4.9.2.tar.gz", hash = "sha256:9a33809944b9db043ad67ca0db94b14bf452cc6aeaac46a88ea55b26e2e9d291"},
 ]
 
 [[package]]
@@ -3250,13 +3250,13 @@ testing = ["process-tests", "pytest-xdist", "virtualenv"]
 
 [[package]]
 name = "pytest-dependency"
-version = "0.6.0"
+version = "0.6.1"
 description = "Manage dependencies of tests"
 optional = false
 python-versions = ">=3.4"
 groups = ["dev"]
 files = [
-    {file = "pytest-dependency-0.6.0.tar.gz", hash = "sha256:934b0e6a39d95995062c193f7eaeed8a8ffa06ff1bcef4b62b0dc74a708bacc1"},
+    {file = "pytest_dependency-0.6.1.tar.gz", hash = "sha256:246c24d2a5fc743a942cec4408853640e56a05ba58d46e5b213a1d4b738a2464"},
 ]
 
 [package.dependencies]
@@ -4172,4 +4172,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "1d4da336c2b994094de547098d6d6bec847b42dfe7165f7cee4e36393399b56f"
+content-hash = "88a70ece79c58d23575e4e17f739a3c895c3001429cf3aff49950eb719701f36"
