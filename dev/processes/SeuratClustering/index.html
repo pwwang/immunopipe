@@ -233,6 +233,9 @@ annotation processes won't overwrite each other.<br /></p>
 <li><code>ident</code>: <em>Default: <code>seurat_clusters</code></em>. <br />
     The name in the metadata to save the cluster labels.<br />
     A shortcut for <code>envs["FindClusters"]["cluster.name"]</code>.<br /></li>
+<li><code>python</code>: <em>Default: <code>python</code></em>. <br />
+    The path to the python executable where <code>umap-learn</code> is installed.<br />
+    Needed for <code>RunUMAP</code> when <code>umap.method</code> is set to <code>umap-learn</code>.<br /></li>
 <li><code>RunUMAP</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/runumap"><code>RunUMAP()</code></a>.<br />
     <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br />
