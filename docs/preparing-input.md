@@ -6,6 +6,8 @@ Currently supported data formats:
 
 - [10X Genomics](https://www.10xgenomics.com/) by [`CellRanger`](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger)
 - [loom](https://linnarssonlab.org/loompy/)
+- [ParseBio](https://parse.bio/)
+- [HIVE](https://honeycombbio.zendesk.com/hc/en-us) by [`BeeNet`](https://honeycombbio.zendesk.com/hc/en-us/articles/15172588166427-Example-Data-for-BeeNetPLUS)
 
 For each sample, you need to provide the path to the data file or a directory containing the files. Specifically, the directory should be able to be read by [`Seurat::Read_10X()`](https://satijalab.org/seurat/reference/read10x). For example, the directory should contain `matrix.mtx`, `barcodes.tsv` and `features.tsv`.
 These files can also be gzipped.
@@ -31,6 +33,10 @@ clustered = false
 # The column name in meta.data to use for sample identity
 sample = "Sample"
 ```
+
+For `ParseBio` data, you can provide the path to the directory containing `all_genes.csv`, `cell_metadata.csv` and `matrix.mtx` files. The `all_genes.csv` file should contain the gene names, and the `cell_metadata.csv` file should contain the cell metadata. The `matrix.mtx` file should contain the expression matrix in the `Matrix Market` format.
+
+For `HIVE` data, you can provide the path to the directory containing `*TCM.tsv.gz` and `*ReadsQC.tsv` files. The `*TCM.tsv.gz` file displays the number of unique molecule counts for each transcriptome that mapped to a specific gene in the reference genome and the `*ReadsQC.tsv` file contains the quality control metrics for each cell barcode.
 
 ## Single-cell TCR-/BCR-seq (scTCR-seq/scBCR-seq) data
 
