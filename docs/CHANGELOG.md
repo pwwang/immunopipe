@@ -1,5 +1,18 @@
 # Change Log
 
+
+## 2.4.1
+
+- chore: add umap-learn dependency for RunUMAP functionality
+- chore: add version target to Makefile for automated versioning and changelog updates
+- docs: add support for ParseBio and HIVE data formats in preparing input documentation
+- chore: update pipen-cli-gbatch version to 1.1.3
+  - fix: fix when job is already running
+- chore: update r-biopipen.utils version to 0.3.7=r43_2 in environment_rpkgs.yml
+  - feat(FeatureLoadSeuratAndPerformQC): support HoneyComb HIVE data
+- chore: update biopipen version to 1.1.13 in pyproject.toml
+  - feat(scrna.Seurat[Sub]Clustering): add python executable path for RunUMAP to use `umap-learn` for UMAP dimensionality reduction
+
 ## 2.4.0
 
 - chore: update SeuratPreparing and ClusterMarkers configurations
