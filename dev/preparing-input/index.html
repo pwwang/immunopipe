@@ -214,6 +214,8 @@
 <ul>
 <li><a href="https://www.10xgenomics.com/">10X Genomics</a> by <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger"><code>CellRanger</code></a></li>
 <li><a href="https://linnarssonlab.org/loompy/">loom</a></li>
+<li><a href="https://parse.bio/">ParseBio</a></li>
+<li><a href="https://honeycombbio.zendesk.com/hc/en-us">HIVE</a> by <a href="https://honeycombbio.zendesk.com/hc/en-us/articles/15172588166427-Example-Data-for-BeeNetPLUS"><code>BeeNet</code></a></li>
 </ul>
 <p>For each sample, you need to provide the path to the data file or a directory containing the files. Specifically, the directory should be able to be read by <a href="https://satijalab.org/seurat/reference/read10x"><code>Seurat::Read_10X()</code></a>. For example, the directory should contain <code>matrix.mtx</code>, <code>barcodes.tsv</code> and <code>features.tsv</code>.
 These files can also be gzipped.</p>
@@ -235,6 +237,8 @@ To do so, you need to enable the <code>LoadingRNAFromSeurat</code> process in th
 <span class="c1"># The column name in meta.data to use for sample identity</span>
 <span class="n">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sample&quot;</span>
 </code></pre></div>
+<p>For <code>ParseBio</code> data, you can provide the path to the directory containing <code>all_genes.csv</code>, <code>cell_metadata.csv</code> and <code>matrix.mtx</code> files. The <code>all_genes.csv</code> file should contain the gene names, and the <code>cell_metadata.csv</code> file should contain the cell metadata. The <code>matrix.mtx</code> file should contain the expression matrix in the <code>Matrix Market</code> format.</p>
+<p>For <code>HIVE</code> data, you can provide the path to the directory containing <code>*TCM.tsv.gz</code> and <code>*ReadsQC.tsv</code> files. The <code>*TCM.tsv.gz</code> file displays the number of unique molecule counts for each transcriptome that mapped to a specific gene in the reference genome and the <code>*ReadsQC.tsv</code> file contains the quality control metrics for each cell barcode.</p>
 <h3 id="single-cell-tcr-bcr-seq-sctcr-seqscbcr-seq-data">Single-cell TCR-/BCR-seq (scTCR-seq/scBCR-seq) data<a class="headerlink" href="#single-cell-tcr-bcr-seq-sctcr-seqscbcr-seq-data" title="Permanent link">&para;</a></h3>
 <p>The scTCR-/scBCR-seq data is optional for the pipeline. However, the scRNA-seq data is required for the pipeline.</p>
 <p>The scTCR-/scBCR-seq data, if available, should be paired with the scRNA-seq data. Theoratically, as long as the data can be loaded by <a href="https://www.borch.dev/uploads/screpertoire/reference/loadcontigs"><code>scRepertoire::loadContigs()</code></a>, it should be fine. Following formats are supported:</p>
