@@ -1,6 +1,17 @@
 # Change Log
 
 
+## 2.4.2
+
+- chore: update r-biopipen.utils to 0.3.7=r43_3, r-scplotter to 0.7.0=r43_2, and r-plotthis to 0.11.0=r43_1 in environment_rpkgs.yml
+  - BREAKING(clone_selectors): change 'groups' to 'group_by'
+  - BREAKING(ClonalStatPlot): change behavior of clone selecting (now it is only controlled by `clones` argument)
+  - feat(ClonalStatPlot): add support for chord and circos plot types in ClonalStatPlot function
+  - feat: remove deprecated ClonalDynamicsPlot function
+- chore: update biopipen version to 1.1.14 in pyproject.toml
+  - fix(scrna.SeuratClustersStats): fix empty identity in description of default dimplots
+  - feat(scrna.SeuratClusterStats): support 3D dimplots
+
 ## 2.4.1
 
 - chore: add umap-learn dependency for RunUMAP functionality
