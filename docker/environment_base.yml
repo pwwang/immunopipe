@@ -65,7 +65,7 @@ dependencies:
   - r-gridgraphics
   - r-metap
   - pwwang::r-tidyprompt
-  # Needed by r-plotthis
+  ## Needed by r-plotthis
   - r-circlize
   - r-ggplot2
   - r-rlang
