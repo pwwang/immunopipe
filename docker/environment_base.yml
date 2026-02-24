@@ -121,6 +121,8 @@ dependencies:
   - clustcr=2025  # adopted to work with numpy v2
   - mscorefonts  # additional fonts for plots
   - r-hitype  # sctype will also be supported
+  - r-plotly
+  - r-htmlwidgets
   - pip:
     - liana
     - celltypist2
