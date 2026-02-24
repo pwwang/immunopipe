@@ -400,7 +400,10 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
     The plots for features, include gene expressions, and columns from metadata.<br />
     Keys are the titles of the cases and values are the dicts inherited from <code>env.features_defaults</code>.<br /></li>
 <li><code>dimplots_defaults</code> <em>(<code>ns</code>)</em>:
-    The default parameters for <code>dimplots</code>.<br /><ul>
+    The default parameters for <code>dimplots</code>.<br />
+    You can also set <code>dims</code> to <code>[1, 2, 3]</code> to make a 3D dimensional reduction plot.<br />
+    Note that the default <code>n.components</code> for <code>RunUMAP</code> is 2, so if you want to make a 3D UMAP plot,
+    you need to set <code>n.components</code> to 3 in <code>RunUMAP</code> parameters in <code>SeuratSubClustering</code> or <code>SeuratClustering</code>.<br /><ul>
 <li><code>group_by</code>:
     The identity to use.<br />
     If it is from subclustering (reduction <code>sub_umap_&lt;ident&gt;</code> exists), this reduction will be used if <code>reduction</code>
