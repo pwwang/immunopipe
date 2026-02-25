@@ -284,14 +284,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "1.1.13"
+version = "1.1.14"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-1.1.13-py3-none-any.whl", hash = "sha256:f06a211dfe62e1daa524b7165e7d0b7b1f297b60ba1742ebb6e5148b8e3623e8"},
-    {file = "biopipen-1.1.13.tar.gz", hash = "sha256:127c1389b5be61627bb3da65ec1ad62ba1d976858564de7f2aaf51de1d1ac3c8"},
+    {file = "biopipen-1.1.14-py3-none-any.whl", hash = "sha256:21734821900b95ec41942fad1d690566baae89a541f9ac05275660c007d0206a"},
+    {file = "biopipen-1.1.14.tar.gz", hash = "sha256:7ebcb5318200a21cae29a814bb496c9ee4ca1ce248519520c781d5f3880ed52d"},
 ]
 
 [package.dependencies]
@@ -526,15 +526,15 @@ typing-extensions = {version = ">=4.0.0,<5.0.0", markers = "python_version < \"3
 
 [[package]]
 name = "copier"
-version = "9.11.3"
+version = "9.12.0"
 description = "A library for rendering project templates."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 markers = "python_version >= \"3.10\""
 files = [
-    {file = "copier-9.11.3-py3-none-any.whl", hash = "sha256:ab4bc7e2944edc030b4c14ec84fffd6bf810b9b8fd56938e8ccbab1b169ea6ca"},
-    {file = "copier-9.11.3.tar.gz", hash = "sha256:f4da98c7f3dd2243480433541b3b4d9daa788bce13b7b6d43c0c6d84bd50e889"},
+    {file = "copier-9.12.0-py3-none-any.whl", hash = "sha256:a1bc84dfd2a4b85dbe034999026c0e24ca02a6bc1574f45df07fd76d935c2ea9"},
+    {file = "copier-9.12.0.tar.gz", hash = "sha256:87986637205a0443dbf7e5946502e5c71962a559c25f436642a08203cf61ef54"},
 ]
 
 [package.dependencies]
@@ -1087,14 +1087,14 @@ tests = ["asttokens (>=2.1.0)", "coverage", "coverage-enable-subprocess", "ipyth
 
 [[package]]
 name = "flask"
-version = "3.1.2"
+version = "3.1.3"
 description = "A simple framework for building complex web applications."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "flask-3.1.2-py3-none-any.whl", hash = "sha256:ca1d8112ec8a6158cc29ea4858963350011b5c846a414cdb7a954aa9e967d03c"},
-    {file = "flask-3.1.2.tar.gz", hash = "sha256:bf656c15c80190ed628ad08cdfd3aaa35beb087855e2f494910aa3774cc4fd87"},
+    {file = "flask-3.1.3-py3-none-any.whl", hash = "sha256:f4bcbefc124291925f1a26446da31a5178f9483862233b23c0c96a20701f670c"},
+    {file = "flask-3.1.3.tar.gz", hash = "sha256:0ef0e52b8a9cd932855379197dd8f94047b359ca0a78695144304cb45f87c9eb"},
 ]
 
 [package.dependencies]
@@ -2580,14 +2580,14 @@ pipen = "==1.1.*"
 
 [[package]]
 name = "pipen-report"
-version = "1.1.0"
+version = "1.1.1"
 description = "Report generation system for pipen"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_report-1.1.0-py3-none-any.whl", hash = "sha256:0f6c50cfe4f5f5420ca9ef191d0a058f93842c9249ef61e8c130972851476938"},
-    {file = "pipen_report-1.1.0.tar.gz", hash = "sha256:49fceaf846f80d090ef3783758c3151c6b837effdc123e70aa7e343c43d98f37"},
+    {file = "pipen_report-1.1.1-py3-none-any.whl", hash = "sha256:335f0f40e8e0f6ffb56ea780ed35888a24b0663d1fe99d96748fea066d33325f"},
+    {file = "pipen_report-1.1.1.tar.gz", hash = "sha256:65c63e4d88ea75c823a8ff373f19dc7acb79e6aad936d73cced6c8b0d517ee7e"},
 ]
 
 [package.dependencies]
@@ -3527,14 +3527,14 @@ prompt_toolkit = ">=2.0,<4.0"
 
 [[package]]
 name = "rich"
-version = "14.3.2"
+version = "14.3.3"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 optional = false
 python-versions = ">=3.8.0"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "rich-14.3.2-py3-none-any.whl", hash = "sha256:08e67c3e90884651da3239ea668222d19bea7b589149d8014a21c633420dbb69"},
-    {file = "rich-14.3.2.tar.gz", hash = "sha256:e712f11c1a562a11843306f5ed999475f09ac31ffb64281f73ab29ffdda8b3b8"},
+    {file = "rich-14.3.3-py3-none-any.whl", hash = "sha256:793431c1f8619afa7d3b52b2cdec859562b950ea0d4b6b505397612db8d5362d"},
+    {file = "rich-14.3.3.tar.gz", hash = "sha256:b8daa0b9e4eef54dd8cf7c86c03713f53241884e814f4e2f5fb342fe520f639b"},
 ]
 
 [package.dependencies]
@@ -3923,14 +3923,14 @@ test = ["pytest", "websockets"]
 
 [[package]]
 name = "werkzeug"
-version = "3.1.5"
+version = "3.1.6"
 description = "The comprehensive WSGI web application library."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "werkzeug-3.1.5-py3-none-any.whl", hash = "sha256:5111e36e91086ece91f93268bb39b4a35c1e6f1feac762c9c822ded0a4e322dc"},
-    {file = "werkzeug-3.1.5.tar.gz", hash = "sha256:6a548b0e88955dd07ccb25539d7d0cc97417ee9e179677d22c7041c8f078ce67"},
+    {file = "werkzeug-3.1.6-py3-none-any.whl", hash = "sha256:7ddf3357bb9564e407607f988f683d72038551200c704012bb9a4c523d42f131"},
+    {file = "werkzeug-3.1.6.tar.gz", hash = "sha256:210c6bede5a420a913956b4791a7f4d6843a43b6fcee4dfa08a65e93007d0d25"},
 ]
 
 [package.dependencies]
@@ -4172,4 +4172,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "88a70ece79c58d23575e4e17f739a3c895c3001429cf3aff49950eb719701f36"
+content-hash = "bc1caaa444ff9d9d33987eb59357467eaf8a6caa02ceb58eb7666ccb36b677fd"
