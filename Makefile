@@ -51,4 +51,63 @@ version:
 	fi; \
 	echo "Version updated to $$NEW_VERSION"'
 
-.PHONY: local api test version
+# Delete documentation versions from gh-pages using mike. Usage: make ddversion 1.0.0 2.0.0
+# Supports wildcards with 'x': make ddversion 2.0.x (deletes all 2.0.*)
+ddversion:
+	@bash -c 'VERSIONS_INPUT="$(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))"; \
+	if [ -z "$$VERSIONS_INPUT" ]; then \
+		echo "Usage: make ddversion VERSION [VERSION...]"; \
+		echo ""; \
+		echo "Delete documentation versions from gh-pages using mike."; \
+		echo ""; \
+		echo "Arguments:"; \
+		echo "  VERSION    Version number to delete (e.g., 1.0.0)"; \
+		echo "             Supports wildcards with '\''x'\'' (e.g., 2.0.x deletes all 2.0.*)"; \
+		echo ""; \
+		echo "Examples:"; \
+		echo "  make ddversion 1.0.0           # Delete version 1.0.0"; \
+		echo "  make ddversion 1.0.0 2.0.0     # Delete versions 1.0.0 and 2.0.0"; \
+		echo "  make ddversion 2.0.x           # Delete all versions starting with 2.0"; \
+		echo "  make ddversion 2.x.x           # Delete all versions starting with 2"; \
+		exit 0; \
+	fi; \
+	AVAILABLE_VERSIONS=$$(poetry run mike list); \
+	VERSIONS_TO_DELETE=""; \
+	for VERSION_PATTERN in $$VERSIONS_INPUT; do \
+		if echo "$$VERSION_PATTERN" | grep -q "x"; then \
+			PATTERN=$$(echo "$$VERSION_PATTERN" | sed "s/x/.*/g"); \
+			MATCHED=$$(echo "$$AVAILABLE_VERSIONS" | grep "^$$PATTERN" || true); \
+			if [ -z "$$MATCHED" ]; then \
+				echo "Error: No versions match pattern $$VERSION_PATTERN"; \
+				echo "Available versions:"; \
+				echo "$$AVAILABLE_VERSIONS"; \
+				exit 1; \
+			fi; \
+			VERSIONS_TO_DELETE="$$VERSIONS_TO_DELETE $$MATCHED"; \
+			MATCHED_DISPLAY=$$(echo "$$MATCHED" | tr "\n" "," | sed "s/,$$//"); \
+			echo "Pattern $$VERSION_PATTERN matched: $$MATCHED_DISPLAY"; \
+		else \
+			if ! echo "$$AVAILABLE_VERSIONS" | grep -q "^$$VERSION_PATTERN$$"; then \
+				echo "Error: Version $$VERSION_PATTERN not found in mike list"; \
+				echo "Available versions:"; \
+				echo "$$AVAILABLE_VERSIONS"; \
+				exit 1; \
+			fi; \
+			VERSIONS_TO_DELETE="$$VERSIONS_TO_DELETE $$VERSION_PATTERN"; \
+		fi; \
+	done; \
+	for VERSION in $$VERSIONS_TO_DELETE; do \
+		echo "Deleting version $$VERSION..."; \
+		poetry run mike delete $$VERSION; \
+	done; \
+	echo "Pushing to gh-pages..."; \
+	git push origin gh-pages; \
+	echo "Successfully deleted versions"'
+
+ddver: ddversion
+
+# Prevent make from trying to interpret version arguments as targets
+%:
+	@:
+
+.PHONY: local api test version ddversion ddver
