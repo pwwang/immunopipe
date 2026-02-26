@@ -4,13 +4,13 @@
 ## 2.4.2
 
 - chore: update r-biopipen.utils to 0.3.7=r43_3, r-scplotter to 0.7.0=r43_2, and r-plotthis to 0.11.0=r43_1 in environment_rpkgs.yml
-  - BREAKING(clone_selectors): change 'groups' to 'group_by'
-  - BREAKING(ClonalStatPlot): change behavior of clone selecting (now it is only controlled by `clones` argument)
-  - feat(ClonalStatPlot): add support for chord and circos plot types in ClonalStatPlot function
-  - feat: remove deprecated ClonalDynamicsPlot function
+    - BREAKING(clone_selectors): change 'groups' to 'group_by'
+    - BREAKING(ClonalStatPlot): change behavior of clone selecting (now it is only controlled by `clones` argument)
+    - feat(ClonalStatPlot): add support for chord and circos plot types in ClonalStatPlot function
+    - feat: remove deprecated ClonalDynamicsPlot function
 - chore: update biopipen version to 1.1.14 in pyproject.toml
-  - fix(scrna.SeuratClustersStats): fix empty identity in description of default dimplots
-  - feat(scrna.SeuratClusterStats): support 3D dimplots
+    - fix(scrna.SeuratClustersStats): fix empty identity in description of default dimplots
+    - feat(scrna.SeuratClusterStats): support 3D dimplots
 
 ## 2.4.1
 
@@ -18,11 +18,11 @@
 - chore: add version target to Makefile for automated versioning and changelog updates
 - docs: add support for ParseBio and HIVE data formats in preparing input documentation
 - chore: update pipen-cli-gbatch version to 1.1.3
-  - fix: fix when job is already running
+    - fix: fix when job is already running
 - chore: update r-biopipen.utils version to 0.3.7=r43_2 in environment_rpkgs.yml
-  - feat(FeatureLoadSeuratAndPerformQC): support HoneyComb HIVE data
+    - feat(FeatureLoadSeuratAndPerformQC): support HoneyComb HIVE data
 - chore: update biopipen version to 1.1.13 in pyproject.toml
-  - feat(scrna.Seurat[Sub]Clustering): add python executable path for RunUMAP to use `umap-learn` for UMAP dimensionality reduction
+    - feat(scrna.Seurat[Sub]Clustering): add python executable path for RunUMAP to use `umap-learn` for UMAP dimensionality reduction
 
 ## 2.4.0
 
@@ -30,44 +30,44 @@
 - chore: update ClusterMarkers to select top 5 markers for each cluster
 - fix: make sure SeuratClustering is included in the pipeline along with CellTypeAnnotation
 - chore: update biopipen to 1.1.12
-  - fix(tcr.ScRepLoading): remove records with IG? or TR? chains to prevent errors in combineTCR and combineBCR
-  - chore(scrna.SeuratClusterStats): set default options for pies plot for stats
-  - fix(scrna.SeuratClusterStats): improve plot description handling when plot_type is not given
+    - fix(tcr.ScRepLoading): remove records with IG? or TR? chains to prevent errors in combineTCR and combineBCR
+    - chore(scrna.SeuratClusterStats): set default options for pies plot for stats
+    - fix(scrna.SeuratClusterStats): improve plot description handling when plot_type is not given
 - chore: update r-plotthis version to 0.10.1=r43_10 in environment_rpkgs.yml
-  - fix: update BarPlotSingle to conditionally use geom_text for flipped plots and adjust height/width calculations
-  - fix(Box/ViolinPlo): hide legends for color, size, and alpha scales for highlighted points
-  - fix(BeeswarmPlot):fix highlight not working
-  - fix(JitterPlot): fix `position_jitterdodge()` requires at least one aesthetic to dodge by for ggplot2 v3
-  - fix(BarPlot): correct conditional assignment for `fill_by` parameter
-  - fix(BarPlot): fix when x has multiple columns
-  - feat(Heatmap): add rows_orderby and columns_orderby to order rows and columns (if set, cluster_rows and cluster_columns will default to FALSE)
-  - fix(Heatmap): ensure ordered factors are converted to character for proper processing
-  - BREAKING(Box/ViolinPlot): update sort_x parameter to accept expressions for x-axis ordering
-  - fix(TrendPlot): complete missing combinations for area layer to prevent interpolation issues
-  - fix(AreaPlot): complete missing combinations for x, group_by, and facet_by to prevent interpolation issues
-  - feat(RadarPlot): add groups parameter to filter and order groups in the plot
-  - fix(RadarPlot): clarify groups parameter documentation and its implications on keep_empty
-  - fix: ensure unique values in for loops for grouping in bar, pie, ring, and trend plots
+    - fix: update BarPlotSingle to conditionally use geom_text for flipped plots and adjust height/width calculations
+    - fix(Box/ViolinPlo): hide legends for color, size, and alpha scales for highlighted points
+    - fix(BeeswarmPlot):fix highlight not working
+    - fix(JitterPlot): fix `position_jitterdodge()` requires at least one aesthetic to dodge by for ggplot2 v3
+    - fix(BarPlot): correct conditional assignment for `fill_by` parameter
+    - fix(BarPlot): fix when x has multiple columns
+    - feat(Heatmap): add rows_orderby and columns_orderby to order rows and columns (if set, cluster_rows and cluster_columns will default to FALSE)
+    - fix(Heatmap): ensure ordered factors are converted to character for proper processing
+    - BREAKING(Box/ViolinPlot): update sort_x parameter to accept expressions for x-axis ordering
+    - fix(TrendPlot): complete missing combinations for area layer to prevent interpolation issues
+    - fix(AreaPlot): complete missing combinations for x, group_by, and facet_by to prevent interpolation issues
+    - feat(RadarPlot): add groups parameter to filter and order groups in the plot
+    - fix(RadarPlot): clarify groups parameter documentation and its implications on keep_empty
+    - fix: ensure unique values in for loops for grouping in bar, pie, ring, and trend plots
 - chore: update r-scplotter version to 0.6.6=r43_10 in environment_rpkgs.ym
-  - fix: update fill parameter in BarPlot function for enrichment plots (adopting plotthis v0.10.1)
-  - chore: improve error message for missing 'group_by' in ClonalCompositionPlot for box/violin plots
-  - fix: enhance clonal size data function to handle empty groupings and improve data processing
-  - docs: update ClonalVolumePlot examples to include fill_by parameter to adopt plotthis v0.10.1
-  - feat: expand ClonalStatPlot functionality with new plot types (col-rel and col-abs)
-  - fix: update data binding in CellDimPlot to exclude redundant metadata columns
-  - feat: add agg parameter to CellStatPlot for custom summarization
-  - feat: rename `return_ids` to `ouput` for clone selectors so that they can return logicals (booleans) for selection
-  - feat: clone selectors gain a `output_within` option to return the selection results within a specific subset
-  - feat(ClonalResidencyPlot): make the plot symmetric when numbers of clones are imbalanced between the two groups and allow specifying the palette for the plot
+    - fix: update fill parameter in BarPlot function for enrichment plots (adopting plotthis v0.10.1)
+    - chore: improve error message for missing 'group_by' in ClonalCompositionPlot for box/violin plots
+    - fix: enhance clonal size data function to handle empty groupings and improve data processing
+    - docs: update ClonalVolumePlot examples to include fill_by parameter to adopt plotthis v0.10.1
+    - feat: expand ClonalStatPlot functionality with new plot types (col-rel and col-abs)
+    - fix: update data binding in CellDimPlot to exclude redundant metadata columns
+    - feat: add agg parameter to CellStatPlot for custom summarization
+    - feat: rename `return_ids` to `ouput` for clone selectors so that they can return logicals (booleans) for selection
+    - feat: clone selectors gain a `output_within` option to return the selection results within a specific subset
+    - feat(ClonalResidencyPlot): make the plot symmetric when numbers of clones are imbalanced between the two groups and allow specifying the palette for the plot
 - chore: update r-biopipen.utils version to 0.3.6=r43_10 in environment_rpkgs.yml
-  - fix(RunSeuratSubClustering): prioritize integrated_new_reduction in UMAP reduction assignment
-  - fix(RunSeurat*): replace dot notation with bracket notation for reduction assignment
-  - feat(LoadSeuratAndPerformQC): support ParseBio data
-  - feat(RunSeuratCellCycleScoring): add function to perform cell cycle scoring in Seurat objects
-  - feat: update LoadSeuratAndPerformQC and RunSeuratCellCycleScoring to support cell cycle scoring arguments
-  - feat(RunSeuratCellCycleScoring): optimize memory usage by cleaning up unnecessary assays
-  - feat(RunSeurat): enhance logging and expand dimensions handling in PCA and UMAP functions
-  - chore(VizDEGs): set select to 5 for heatmap_* plots
+    - fix(RunSeuratSubClustering): prioritize integrated_new_reduction in UMAP reduction assignment
+    - fix(RunSeurat*): replace dot notation with bracket notation for reduction assignment
+    - feat(LoadSeuratAndPerformQC): support ParseBio data
+    - feat(RunSeuratCellCycleScoring): add function to perform cell cycle scoring in Seurat objects
+    - feat: update LoadSeuratAndPerformQC and RunSeuratCellCycleScoring to support cell cycle scoring arguments
+    - feat(RunSeuratCellCycleScoring): optimize memory usage by cleaning up unnecessary assays
+    - feat(RunSeurat): enhance logging and expand dimensions handling in PCA and UMAP functions
+    - chore(VizDEGs): set select to 5 for heatmap_* plots
 
 ## 2.3.3
 
@@ -75,16 +75,16 @@
 - feat: add logging of Immunopipe version information in gbatch command
 - chore: bump pipen-cli-gbatch to v1.1.2
 - chore: update biopipen dependency version to ^1.1.11
-  - feat(scrna_metabolic_landscape): support multiple subset_by columns in Seurat object expansion
-  - fix(scrna.SeuratClusterStats): fix dimplots for clusters from subclustering
-  - fix(scrna.SeuratSubClustering): correct argument references in RunSeuratSubClustering function
-  - fix(scrna.SeuratClusterStats): handle reduction assignment for subclustering based on plot type and identity
-  - fix(scrna.SeuratClusterStats): ensure either 'group_by' or 'ident' is specified in dimplots, not both
-  - feat(tcr.ScRepLoading): improve handling of contig file formats for 10X data
-  - feat(scrna.SeuratPreparing): add cell cycle scoring functionality to Seurat object preparation
-  - fix(scrna.MarkersFinder): improve plot argument handling for subset by group and plot types
-  - feat(tcr.ScRepLoading): support loading from prefixed contig files
-  - fix(scrna.CellTypeAnnotation): fix sctype not working
+    - feat(scrna_metabolic_landscape): support multiple subset_by columns in Seurat object expansion
+    - fix(scrna.SeuratClusterStats): fix dimplots for clusters from subclustering
+    - fix(scrna.SeuratSubClustering): correct argument references in RunSeuratSubClustering function
+    - fix(scrna.SeuratClusterStats): handle reduction assignment for subclustering based on plot type and identity
+    - fix(scrna.SeuratClusterStats): ensure either 'group_by' or 'ident' is specified in dimplots, not both
+    - feat(tcr.ScRepLoading): improve handling of contig file formats for 10X data
+    - feat(scrna.SeuratPreparing): add cell cycle scoring functionality to Seurat object preparation
+    - fix(scrna.MarkersFinder): improve plot argument handling for subset by group and plot types
+    - feat(tcr.ScRepLoading): support loading from prefixed contig files
+    - fix(scrna.CellTypeAnnotation): fix sctype not working
 
 ## 2.3.2
 
@@ -101,15 +101,15 @@
 - chore: add pwwang::r-sccatch to environment_base.yml
 - chore: update r-plotthis dependency version to 0.9.4
 - chore: update r-scplotter dependency version to 0.6.5
-  - feat: clone selectors gain a `within` option to select clones within a specific subset
-  - feat: clone selectors `and`/`or` support multiple selectors (more than 2)
+    - feat: clone selectors gain a `within` option to select clones within a specific subset
+    - feat: clone selectors `and`/`or` support multiple selectors (more than 2)
 - chore: update biopipen dependency version to 1.1.5
-  - fix(scrna.MarkersFinder): update database handling in enrichment plots in case it is from gmt files
-  - fix(scrna.PseudoBulkDEG): update database handling in enrichment plots to use unique databases in case gmt files were used
-  - fix(scrna.CellTypeAnnotation): ensure at least 2 clusters for cell type annotation for scCATCH
-  - feat(tcr.ClonalStats): add caching functionality for plots
-  - feat(scrna.ScFGSEA): add caching functionality for GSEA results
-  - feat(scrna.CellTypeAnnotation): enhance cell type annotation functionality to support dict input for direct annotations
+    - fix(scrna.MarkersFinder): update database handling in enrichment plots in case it is from gmt files
+    - fix(scrna.PseudoBulkDEG): update database handling in enrichment plots to use unique databases in case gmt files were used
+    - fix(scrna.CellTypeAnnotation): ensure at least 2 clusters for cell type annotation for scCATCH
+    - feat(tcr.ClonalStats): add caching functionality for plots
+    - feat(scrna.ScFGSEA): add caching functionality for GSEA results
+    - feat(scrna.CellTypeAnnotation): enhance cell type annotation functionality to support dict input for direct annotations
 
 ## 2.3.0
 
@@ -121,18 +121,18 @@
 - docs: update installation and running documentation to reflect dependency changes
 - docs: add FAQ entry for mouse data support in the pipeline
 - chore: update r-biopipen.utils version to 0.3.5 in environment_rpkgs.yml
-  - fix(RunSeuratDEAnalysis): handle +Inf/-Inf values in avg_log2FC to make visualization works
+    - fix(RunSeuratDEAnalysis): handle +Inf/-Inf values in avg_log2FC to make visualization works
 - chore: bump biopipen to 1.1.1
-  - docs(tcr.ClonalStats): correct typo in documentation for ClonalStatsPlot reference
+    - docs(tcr.ClonalStats): correct typo in documentation for ClonalStatsPlot reference
 
 ## 2.2.2
 
 - chore: force conda to rebuild with biopipen.utils.R v0.3.4-7
-  - make sure 'direct' method of CellTypeAnnotation keeps the order
+    - make sure 'direct' method of CellTypeAnnotation keeps the order
 - chore: update r-plotthis dependency version to 0.9.0=r43_3
 - chore: update biopipen dependency to version 1.0.0
-  - fix(scrna.CellTypeAnnotation): handle NA values in cell type processing to prevent errors
-  - chore(scrna.SeuratPreparing): update min_cells parameter to require at least 3 cells for SCTransform
+    - fix(scrna.CellTypeAnnotation): handle NA values in cell type processing to prevent errors
+    - chore(scrna.SeuratPreparing): update min_cells parameter to require at least 3 cells for SCTransform
 - fix: enhance seurat path resolution and error handling in check_genes function
 - fix: improve seurat path resolution for containerized environments in check_dim function
 
@@ -149,30 +149,30 @@
 - chore: update Python version to 3.12 and adjust biopipen.utils version in environment files
 - chore: add Dockerhub descriptions for immunopipe, immunopipe-base, and immunopipe-rpkgs
 - chore: update r-scplotter version to 0.6.4=r43_2 in environment_rpkgs.yml
-  - fix(ClonalDiversityPlot): fix calculating Gini coefficient
-  - fix(MarkersPlot): handle errors when subsetting object features
-  - fix(MarkersPlot): exclude groups that failed DE analysis from plotting
+    - fix(ClonalDiversityPlot): fix calculating Gini coefficient
+    - fix(MarkersPlot): handle errors when subsetting object features
+    - fix(MarkersPlot): exclude groups that failed DE analysis from plotting
 - chore: update r-plotthis version to 0.9.0=r43_1 in environment_rpkgs.yml
-  - fix(boxviolinplot): skip processing for data frames with less than 2 rows
-  - fix(network): update ggplot2 version check for link_type_by support
-  - fix(velocityplot): update ggplot2 version check for arrow length handling
-  - chore(heatmap): add warning for unknown arguments in HeatmapAtomic function
-  - feat: add list_fonts and import_font utilities
+    - fix(boxviolinplot): skip processing for data frames with less than 2 rows
+    - fix(network): update ggplot2 version check for link_type_by support
+    - fix(velocityplot): update ggplot2 version check for arrow length handling
+    - chore(heatmap): add warning for unknown arguments in HeatmapAtomic function
+    - feat: add list_fonts and import_font utilities
 - chore: update r-biopipen.utils version in environment_rpkgs.yml to 0.3.4=r43_7
-  - fix(RunSeuratDEAnalysis): improve error handling by returning empty data frame on logic error and adding traceback on stop
-  - feat: set default font to "LiberationSans" for plotthis plots
-  - fix: update RunUMAPArgs to use the correct reduction and improve dims handling
-  - fix(RunSeuratUMAP): avoid changing of identity when using features for RunUMAP
-  - chore(RunSeuratTransformation, RunSeuratMap2Ref): ensure return.only.var.genes defaults to FALSE when using SCTransform
+    - fix(RunSeuratDEAnalysis): improve error handling by returning empty data frame on logic error and adding traceback on stop
+    - feat: set default font to "LiberationSans" for plotthis plots
+    - fix: update RunUMAPArgs to use the correct reduction and improve dims handling
+    - fix(RunSeuratUMAP): avoid changing of identity when using features for RunUMAP
+    - chore(RunSeuratTransformation, RunSeuratMap2Ref): ensure return.only.var.genes defaults to FALSE when using SCTransform
 - chore: update biopipen version to ^0.34.28 in pyproject.toml
-  - feat(tcr.ClonalStats): add save_data parameter to ClonalStats for saving plot data
-  - fix(scrna.PseudoBulkDEG): change default assay from "RNA" to None so that default assay can be used by default
-  - feat(scrna.ScFGSEA): add assay parameter to allow specification of assay in analysis
-  - fix(scrna.CellTypeAnnotation): correct assignment of identities in rename_idents function
-  - feat(tcr.CDR3Clustering): add verbose output option for GIANA command
-  - fix(scrna.CellTypeAnnotation): update package requirement from celltypist to celltypist2 (a version adopts numpy v2)
-  - fix(tcr.TESSA): add Keras model migration support for v2 and v3
-  - fix(scrna.CellTypeAnnotation): improve handling of over_clustering assignment from Seurat object for celltypist
+    - feat(tcr.ClonalStats): add save_data parameter to ClonalStats for saving plot data
+    - fix(scrna.PseudoBulkDEG): change default assay from "RNA" to None so that default assay can be used by default
+    - feat(scrna.ScFGSEA): add assay parameter to allow specification of assay in analysis
+    - fix(scrna.CellTypeAnnotation): correct assignment of identities in rename_idents function
+    - feat(tcr.CDR3Clustering): add verbose output option for GIANA command
+    - fix(scrna.CellTypeAnnotation): update package requirement from celltypist to celltypist2 (a version adopts numpy v2)
+    - fix(tcr.TESSA): add Keras model migration support for v2 and v3
+    - fix(scrna.CellTypeAnnotation): improve handling of over_clustering assignment from Seurat object for celltypist
 
 ## 2.2.0
 
@@ -194,30 +194,30 @@
 - test: update assertions in test_route_sampleinfo_full for correct flow after refactoring
 - test: reorder assertions in test_route_sampleinfo_full for correct flow due to the swapping of SeuratMap2Ref and SeuratClustering
 - chore: bump biopipen version to 0.34.23 (related changes below)
-  - docs(scrna.SeuratPreparing): improve documentation for SeuratPreparing to make sure new lines in code blocks
-  - docs(scrna.SeuratClusterStats): enhance documentation for cluster statistics plots
-  - docs(tcr.ClonalStats): add exapmle configurations and plots
-  - docs(scrna.ScFGSEA): add examples and usage details for GSEA plots
-  - docs(CellCellCommunication): add example output for ligand-receptor interactions
-  - docs(CellCellCommunicationPlots): add examples for various plot types
-  - docs(scrna.MetabolicPathwayActivity): add merged heatmap example
-  - docs: improve documentation for SeuratPreparing to make sure new line… (#180)
-  - fix(scrna): update group_by assignment to use GetIdentityColumn
-  - feat(scrna.SeuratClustering): add envs.ident as shortcut for custom cluster name
-  - chore(scrna.SeuratClusterStats): set default group_by for dimplots to None
-  - docs(scrna): correct parameter names in docstring (ident-1 to ident_1, and ident-2 to ident-2)
-  - feat(scrna): add return option for identity column in convert_seurat_to_anndata function
-  - feat(scrna.CellCellCommunication): enhance groupby handling for Seurat objects
-  - feat(scrna.CellTypeAnnotation): add support for specifying identity column in CellTypeAnnotation for celltypist
-  - feat(scrna.CellTypeAnnotation): enhance identity column handling and add backup column support
-  - feat(scrna.CellTypeAnnotation): enhance classifier initialization and input handling for celltypist
-  - enh(scrna.MarkersFinder): add logging for plot processing in marker and enrichment functions
-  - feat(scrna.CellTypeAnnotation): require celltypist package with specified version and python interpreter
-  - docs(scrna): update dbs/gmtfile parameter description for enrichment analysis
-  - chore(scrna): update future.globals.maxSize to Inf for improved memory handling
-  - feat(tcr.CDR3Clustering): rename TCRClustering to CDR3Clustering and adopt BCR data
-  - docs(scrna.CellTypeAnnotation): clarify renaming of original identity column during cell type annotation
-  - see full changelog at <https://pwwang.github.io/biopipen/CHANGELOG/>.
+    - docs(scrna.SeuratPreparing): improve documentation for SeuratPreparing to make sure new lines in code blocks
+    - docs(scrna.SeuratClusterStats): enhance documentation for cluster statistics plots
+    - docs(tcr.ClonalStats): add exapmle configurations and plots
+    - docs(scrna.ScFGSEA): add examples and usage details for GSEA plots
+    - docs(CellCellCommunication): add example output for ligand-receptor interactions
+    - docs(CellCellCommunicationPlots): add examples for various plot types
+    - docs(scrna.MetabolicPathwayActivity): add merged heatmap example
+    - docs: improve documentation for SeuratPreparing to make sure new line… (#180)
+    - fix(scrna): update group_by assignment to use GetIdentityColumn
+    - feat(scrna.SeuratClustering): add envs.ident as shortcut for custom cluster name
+    - chore(scrna.SeuratClusterStats): set default group_by for dimplots to None
+    - docs(scrna): correct parameter names in docstring (ident-1 to ident_1, and ident-2 to ident-2)
+    - feat(scrna): add return option for identity column in convert_seurat_to_anndata function
+    - feat(scrna.CellCellCommunication): enhance groupby handling for Seurat objects
+    - feat(scrna.CellTypeAnnotation): add support for specifying identity column in CellTypeAnnotation for celltypist
+    - feat(scrna.CellTypeAnnotation): enhance identity column handling and add backup column support
+    - feat(scrna.CellTypeAnnotation): enhance classifier initialization and input handling for celltypist
+    - enh(scrna.MarkersFinder): add logging for plot processing in marker and enrichment functions
+    - feat(scrna.CellTypeAnnotation): require celltypist package with specified version and python interpreter
+    - docs(scrna): update dbs/gmtfile parameter description for enrichment analysis
+    - chore(scrna): update future.globals.maxSize to Inf for improved memory handling
+    - feat(tcr.CDR3Clustering): rename TCRClustering to CDR3Clustering and adopt BCR data
+    - docs(scrna.CellTypeAnnotation): clarify renaming of original identity column during cell type annotation
+    - see full changelog at <https://pwwang.github.io/biopipen/CHANGELOG/>.
 
 ## 2.1.3
 
@@ -232,8 +232,8 @@
 - test: add CellCellCommunication and CellCellCommunicationPlots tests
 - docs: update ScrnaMetabolicLandscape doc images
 - chore: bump biopipen to 0.34.17
-  - fix(scrna.MarkersFinder): enhance error handling in enrichment plotting and fix all-enrich plots when ident_1 is NULL
-  - fix(tcr.ClonalStats): replace deprecated ClonalDynamicsPlot with ClonalStatPlot
+    - fix(scrna.MarkersFinder): enhance error handling in enrichment plotting and fix all-enrich plots when ident_1 is NULL
+    - fix(tcr.ClonalStats): replace deprecated ClonalDynamicsPlot with ClonalStatPlot
 
 ## 2.1.2
 
@@ -264,7 +264,7 @@
 - chore: bump pipen-args to v0.17.7
 - chore: bump pipen-report to 0.23.13
 - chore: update biopipen to version 0.34.16
-  - feat(scrna.MarkersFinder): allow using other metadata columns from object for enrichment plot of all subcases
+    - feat(scrna.MarkersFinder): allow using other metadata columns from object for enrichment plot of all subcases
 
 ## 2.0.3
 
@@ -276,11 +276,11 @@
 - docs: update `immunopipe gbatch` options for running the pipeline on Google Cloud Batch Jobs
 - chore: bump pipen-cli-gbatch to 0.0.7 and pipen-report to 0.23.12
 - chore: bump biopipen to 0.34.14
-  - fix(scrna_metabolic_landscape): fix report paging issue
-  - docs(scrna.MarkersFinder): fix links in docs
-  - fix(scrna.SeuratClusterStats): improve error handling in feature plotting when save_code (due to upgrade to ggplot2 v4)
-  - feat(MarkersFinder): use `scplotter::MarkersPlot` (wrapped by `biopipen.utils::VizDEGs` to visualize marker
-  - fix(scrna.CellTypeAnnotation): update logging for celltypist command execution
+    - fix(scrna_metabolic_landscape): fix report paging issue
+    - docs(scrna.MarkersFinder): fix links in docs
+    - fix(scrna.SeuratClusterStats): improve error handling in feature plotting when save_code (due to upgrade to ggplot2 v4)
+    - feat(MarkersFinder): use `scplotter::MarkersPlot` (wrapped by `biopipen.utils::VizDEGs` to visualize marker
+    - fix(scrna.CellTypeAnnotation): update logging for celltypist command execution
 
 ## 2.0.2
 
@@ -288,36 +288,36 @@
 - feat(gbatch): enhance validation and default handling in main function
 - feat(gbatch): add --mount-as-cwd option to mount a cloudpath as working directory
 - chore: bump biopipen to 0.34.10
-  - docs(scrna.SeuratPreparing): enhance cell_qc parameter description in SeuratPreparing
-  - docs(scrna.ModuleScoreCalculator): update link format in ModuleScoreCalculator docstring
+    - docs(scrna.SeuratPreparing): enhance cell_qc parameter description in SeuratPreparing
+    - docs(scrna.ModuleScoreCalculator): update link format in ModuleScoreCalculator docstring
 
 ## 2.0.1
 
 - feat: add utility cli for gene checking and dimension verification
 - chore: make tests order work as expected
 - chore: bump biopipen to 0.34.9
-  - fix(scrna.CellCellCommunication): handle numpy product attribute error
-  - feat(scrna.ModuleScoreCalculator): add post mutaters functionality to allow compound modules based on added modules
-  - docs(scrna.MarkersFinder): correct URL in documentation
-  - feat(scrna.CellTypeAnnotation): add support for additional direct cell type annotations
-  - feat(scrna.MarkersFinder): enhance enrichment plot descriptions
-  - chore(scrna.CellCellCommunicationPlots): set default case to "Cell-Cell Communication"
-  - feat(scrna.CellCellCommunicationPlots): add table output option for ccc data
+    - fix(scrna.CellCellCommunication): handle numpy product attribute error
+    - feat(scrna.ModuleScoreCalculator): add post mutaters functionality to allow compound modules based on added modules
+    - docs(scrna.MarkersFinder): correct URL in documentation
+    - feat(scrna.CellTypeAnnotation): add support for additional direct cell type annotations
+    - feat(scrna.MarkersFinder): enhance enrichment plot descriptions
+    - chore(scrna.CellCellCommunicationPlots): set default case to "Cell-Cell Communication"
+    - feat(scrna.CellCellCommunicationPlots): add table output option for ccc data
 - chore: bump scplotter to 0.6.0 in docker image
-  - chore: optimize clonal_size_data
-  - feat(featurestatplot): add pos_only parameter to filter positive feature values
-  - chore(enrichmentplot) remove preset label_nudge parameter in BarPlot call
-  - feat: add downsample parameter to feature statistic plots
-  - feat(featurestatplot) default options to TRUE to show row and column names when plot_type is heatmap-alike
+    - chore: optimize clonal_size_data
+    - feat(featurestatplot): add pos_only parameter to filter positive feature values
+    - chore(enrichmentplot) remove preset label_nudge parameter in BarPlot call
+    - feat: add downsample parameter to feature statistic plots
+    - feat(featurestatplot) default options to TRUE to show row and column names when plot_type is heatmap-alike
 
 ## 2.0.0 (Cloud support, enhanced visualization, new analyses/features, and more ...)
 
 ### Cloud support
 
 - feat: immunopipe can now be run on Google Cloud Batch Jobs, allowing for scalable and efficient processing of larger datasets.
-  - You can either run the pipeline using the [gbatch scheduler](https://pwwang.github.io/pipen/scheduler/#gbatch); or
-  - run the entire pipeline on Gooble Batch Jobs using `immunopipe gbatch` command.
-  - See [Run the pipeline using Google Cloud Batch Jobs¶](https://pwwang.github.io/immunopipe/latest/running/#run-the-pipeline-using-google-cloud-batch-jobs) for more details.
+    - You can either run the pipeline using the [gbatch scheduler](https://pwwang.github.io/pipen/scheduler/#gbatch); or
+    - run the entire pipeline on Gooble Batch Jobs using `immunopipe gbatch` command.
+    - See [Run the pipeline using Google Cloud Batch Jobs¶](https://pwwang.github.io/immunopipe/latest/running/#run-the-pipeline-using-google-cloud-batch-jobs) for more details.
 
 ### Enhanced visualization
 
@@ -356,12 +356,12 @@
 - docs: add input and output sections to multiple process documentation files
 - feat: add PDF output for K-means and T cell plots, enhancing report generation
 - deps: bump biopipen to 0.32.3
-  - 0.32.1:
+    - 0.32.1:
     - fix(scrna.ScFGSEA): fix case gmtfile not working
     - fix(TopExpressingGenes): add InlineNotification component to TopExpressingGenes.svelte
     - fix(scrna.SeuratClusterStats): fix kind not being added to the figure file name for plots of features
     - feat(scrna.SeuratPreparing): support percent.mt, percent.ribo, percent.hb and percent.plat for mouse
-  - 0.32.2:
+    - 0.32.2:
     - feat: add PDF output option for SampleInfo plots
     - feat: add PDF output options for violin and scatter plots in Seurat preparation scripts
     - feat: add PDF output options for volcano, dotplot, venn, and upset plots
@@ -376,14 +376,14 @@
     - feat: add PDF output options for pie charts, heatmaps, Venn plots, and UpSet plots; enhance reporting with downloadable PDF files
     - feat: add PDF output options for Enrichr plots; enhance reporting with downloadable PDF files
     - feat: add PDF output options for estimated coefficients and distribution plots; enhance reporting with downloadable PDF files
-  - 0.32.3:
+    - 0.32.3:
     - chore: add descriptive summaries for fgsea and enrichr results
 
 ## 1.4.3
 
 - deps: update pipen-runinfo dependency to version 0.8.0 (pipen to 0.15.2)
 - deps: update biopipen dependency to version 0.31.4
-  - fix(scrna.SeuratMap2Ref): fix refnorm not detected for NormlizeData'ed reference
+    - fix(scrna.SeuratMap2Ref): fix refnorm not detected for NormlizeData'ed reference
 
 ## 1.4.2
 
@@ -403,63 +403,63 @@
 - deps: add r-clustree as a dependency in docker environment files
 - deps: update dependencies in docker environment files (python3.10, R4.3)
 - deps: bump biopipen to 0.29.0
-  - fix(tcr.TCRClusterStats): fix envs.shared_clusters.heatmap_meta being broken by envs.shared_clusters.sample_order (@<li.ying@mayo.edu>)
-  - choir(scrna.SeuratMap2Ref): present better error message when envs.use or values of envs.MapQuery.refdata not in reference (@<li.ying@mayo.edu>)
-  - fix(scrna.MarkersFinder): run PrepSCTFindMarkers when needed
-  - choir(scrna.SeuratClustering): use FindClusters to run for multiple resolutions
-  - choir(scrna.SeuratSubClustering): use FindClusters to run for multiple resolutions
-  - feat(scrna.SeuratClustering): add clustree plot (@<li.ying@mayo.edu>)
-  - feat(scrna.SeuratSubClustering): add clustree plot
-  - tests(scrna.SeuratClusterStats): add assertion for clustree plot generation
+    - fix(tcr.TCRClusterStats): fix envs.shared_clusters.heatmap_meta being broken by envs.shared_clusters.sample_order (@<li.ying@mayo.edu>)
+    - choir(scrna.SeuratMap2Ref): present better error message when envs.use or values of envs.MapQuery.refdata not in reference (@<li.ying@mayo.edu>)
+    - fix(scrna.MarkersFinder): run PrepSCTFindMarkers when needed
+    - choir(scrna.SeuratClustering): use FindClusters to run for multiple resolutions
+    - choir(scrna.SeuratSubClustering): use FindClusters to run for multiple resolutions
+    - feat(scrna.SeuratClustering): add clustree plot (@<li.ying@mayo.edu>)
+    - feat(scrna.SeuratSubClustering): add clustree plot
+    - tests(scrna.SeuratClusterStats): add assertion for clustree plot generation
 - deps: bump biopipen to 0.29.1
-  - fix(delim.SampleInfo): fix numbers not split up when each is specified.
-  - enh(delim.SampleInfo): make sizes of pie charts proportional to number of samples when each is specified
-  - enh(scrna.MarkersFinder): run PrepSCTFindMarkers when necessary before calling FindMarkers
-  - feat(scrna.SeuratPreparing): add option to cache Seurat object at different steps
-  - feat(scrna.SeuratPreparing): allow doubletfinder to run with a different number of cores
-  - chore(scrna.SeuratClustering): record PrepSCTFindMarkers command in sobj@commands
-  - tests(scrna.SeuratClusterStats): use less stringent p-value cutoff for DEG/MarkersFinder
-  - tests(scrna.SeuratPreparing): add doubletfinder in tests
+    - fix(delim.SampleInfo): fix numbers not split up when each is specified.
+    - enh(delim.SampleInfo): make sizes of pie charts proportional to number of samples when each is specified
+    - enh(scrna.MarkersFinder): run PrepSCTFindMarkers when necessary before calling FindMarkers
+    - feat(scrna.SeuratPreparing): add option to cache Seurat object at different steps
+    - feat(scrna.SeuratPreparing): allow doubletfinder to run with a different number of cores
+    - chore(scrna.SeuratClustering): record PrepSCTFindMarkers command in sobj@commands
+    - tests(scrna.SeuratClusterStats): use less stringent p-value cutoff for DEG/MarkersFinder
+    - tests(scrna.SeuratPreparing): add doubletfinder in tests
 - deps: bump biopipen to 0.29.2
-  - chore(scrna.SeuratClusterStats): use ident label length to adjust default height for feature plots
-  - fix(scrna.MetaMarkers): fix seurat object not updated when expanding cases and run `PrepSCTFindMarkers` when necessary before calling meta-markers
-  - fix(scrna.MarkersFinder): fix fetching command when composing the PrepSCTFindMarkers command
-  - fix(scrna_metabolic_landscape): handle null values in for loop in MetabolicFeatures and MetabolicFeaturesIntraSubset for report generation
+    - chore(scrna.SeuratClusterStats): use ident label length to adjust default height for feature plots
+    - fix(scrna.MetaMarkers): fix seurat object not updated when expanding cases and run `PrepSCTFindMarkers` when necessary before calling meta-markers
+    - fix(scrna.MarkersFinder): fix fetching command when composing the PrepSCTFindMarkers command
+    - fix(scrna_metabolic_landscape): handle null values in for loop in MetabolicFeatures and MetabolicFeaturesIntraSubset for report generation
 - deps: bump biopipen to 0.30.0
-  - BREAKING(scrna): move clustree plots from SeuratClustering/SeuratSubClustering to SeuratClusterStats
-  - feat(scrna.CellTypeAnnotation): allow to merge/not to merge (envs.merge) the clusters with the same labels predicted
-  - feat(scrna.SeuratPreparing): add scDblFinder to detect doublets
-  - feat(scrna.SeuratMap2Ref): add envs.skip_if_normalized option to skip normalization if query is already normalized using the same - method as the reference
-  - refactor(tcr.Immunarch): source the files for Immunarch scripts for better debugging
-  - refactor(scnra.SeuratClustering): refactor the script for better debugging
-  - refactor(scnra.SeuratPreparing): refactor the script for better debugging
-  - fix(scrna): fix resolution expansion for SeuratClustering and SeuratSubClustering
-  - fix(scrna): Fix generating PrepSCTFindMarkers command when no previous commands present
-  - tests(scrna.ScFGSEA): fix unavailable urls to GMT files
-  - chore(scrna.SeuratMap2Ref): optimize memory usage
-  - chore(scrna.MetaMarkers): remove plugin_opts.poplog_max
-  - chore(tcr.CloneResidency): improve logging when handling subjects
+    - BREAKING(scrna): move clustree plots from SeuratClustering/SeuratSubClustering to SeuratClusterStats
+    - feat(scrna.CellTypeAnnotation): allow to merge/not to merge (envs.merge) the clusters with the same labels predicted
+    - feat(scrna.SeuratPreparing): add scDblFinder to detect doublets
+    - feat(scrna.SeuratMap2Ref): add envs.skip_if_normalized option to skip normalization if query is already normalized using the same - method as the reference
+    - refactor(tcr.Immunarch): source the files for Immunarch scripts for better debugging
+    - refactor(scnra.SeuratClustering): refactor the script for better debugging
+    - refactor(scnra.SeuratPreparing): refactor the script for better debugging
+    - fix(scrna): fix resolution expansion for SeuratClustering and SeuratSubClustering
+    - fix(scrna): Fix generating PrepSCTFindMarkers command when no previous commands present
+    - tests(scrna.ScFGSEA): fix unavailable urls to GMT files
+    - chore(scrna.SeuratMap2Ref): optimize memory usage
+    - chore(scrna.MetaMarkers): remove plugin_opts.poplog_max
+    - chore(tcr.CloneResidency): improve logging when handling subjects
 - deps: bump biopipen to 0.31.3
-  - enh(scrna.SeuratMap2Ref): check if reference has SCTModel if SCTransform'ed (likely prepared by old Seurat)
-  - fix(tcr.CDR3AAPhyschem): use sequence from TRB chain only
-  - fix(tcr.CDR3AAPhyschem): fix when chain is not available
-  - fix(tcr.TCRClustering): fix for multi-chain TCRs, use TRB only if on_multi is false
-  - fix(tcr.TCRClustering): fix when chain is not available
+    - enh(scrna.SeuratMap2Ref): check if reference has SCTModel if SCTransform'ed (likely prepared by old Seurat)
+    - fix(tcr.CDR3AAPhyschem): use sequence from TRB chain only
+    - fix(tcr.CDR3AAPhyschem): fix when chain is not available
+    - fix(tcr.TCRClustering): fix for multi-chain TCRs, use TRB only if on_multi is false
+    - fix(tcr.TCRClustering): fix when chain is not available
 
 ## 1.3.9
 
 - docs: update docs for TCellSelection to avoid confusion
 - deps: bump biopipen to 0.27.9
-  - feat(tcr.TCRClusterStats): add sample_order to set sample order on heatmap and cluster_rows to switch row clustering on/off
+    - feat(tcr.TCRClusterStats): add sample_order to set sample order on heatmap and cluster_rows to switch row clustering on/off
 
 ## 1.3.8
 
 - docs: remove -w option for apptainer/singularity as no writing is necessary since pipen-board 0.15.1
 - deps: update biopipen to version 0.27.8
-  - fix(scrna.SeuratClusterStats): fix selected columns not unique for stats
-  - feat(scrna.SeuratMap2Ref): allow non-SCTransform'ed reference
-  - feat(scrna.SeuratMap2Ref): allow splitting query object for mapping (pwwang/immunopipe#61)
-  - deps: update pipen-board to version 0.15.1 (allow configuration file path in the URL box on Web UI)
+    - fix(scrna.SeuratClusterStats): fix selected columns not unique for stats
+    - feat(scrna.SeuratMap2Ref): allow non-SCTransform'ed reference
+    - feat(scrna.SeuratMap2Ref): allow splitting query object for mapping (pwwang/immunopipe#61)
+    - deps: update pipen-board to version 0.15.1 (allow configuration file path in the URL box on Web UI)
 
 ## 1.3.7
 
@@ -479,19 +479,19 @@
 - tests: add tests for SeuratClusteringOfAllCells/SeuratClustering
 - docs: update installation instructions (@<stein.mariam@mayo.edu>)
 - deps: bump biopipen to version 0.27.7 (0.27.5-0.27.7)
-  - fix(scrna.SeuratClusterStats): fix color palette for ridge plots (@<stein.mariam@mayo.edu>)
-  - feat(scrna.SeuratPreparing): add envs.cell_qc_per_sample to filter cells before merging instead after
-  - fix(scrna_metabolic_landscape.MetabolicFeatures): fix return value of groups with less than 5 cells in `do_one_group`
-  - fix(scrna_metabolic_landscape): fix mutaters not working.
-  - fix(scrna_metabolic_landscape.MetabolicFeatures/MetabolicFeaturesIntraSubset): skip groups with less than 5 cells in `do_one_group` and save a warning file under the case
-  - chore: fix typo in class name `ExprImpution` to `ExprImputation`
+    - fix(scrna.SeuratClusterStats): fix color palette for ridge plots (@<stein.mariam@mayo.edu>)
+    - feat(scrna.SeuratPreparing): add envs.cell_qc_per_sample to filter cells before merging instead after
+    - fix(scrna_metabolic_landscape.MetabolicFeatures): fix return value of groups with less than 5 cells in `do_one_group`
+    - fix(scrna_metabolic_landscape): fix mutaters not working.
+    - fix(scrna_metabolic_landscape.MetabolicFeatures/MetabolicFeaturesIntraSubset): skip groups with less than 5 cells in `do_one_group` and save a warning file under the case
+    - chore: fix typo in class name `ExprImpution` to `ExprImputation`
 
 ## 1.3.5
 
 - ci/test: add tests in CI and deploy output in a different branch
 - deps: bump biopipen to 0.27.4
-  - choir(delim.SampleInfo): add alpha to the colors of the plots using biopipen color pallete
-  - docs(tcr/scrna/scrna_metabolic_landscape): update links of images in docs
+    - choir(delim.SampleInfo): add alpha to the colors of the plots using biopipen color pallete
+    - docs(tcr/scrna/scrna_metabolic_landscape): update links of images in docs
 
 ## 1.3.4-post
 
@@ -501,20 +501,20 @@
 ## 1.3.4
 
 - deps: bump biopipen to 0.27.3
-  - deps: bump pipen-poplog to 0.1.2 (quick fix for populating logs when job fails)
-  - deps: temporary fix copier breaks with pyyaml-include v2 (copier-org/copier#1568)
-  - choir(scrna.ScFGSEA): Skip cases when no cells found (#50)
-  - choir(scrna.MarkersFinder): Skip cases when no cells found (#50)
-  - choir(scrna.MetaMarkers): Skip cases when no cells found (#50)
-  - feat(scrna.SeuratPreparing): support `DoubletFinder` (#52)
+    - deps: bump pipen-poplog to 0.1.2 (quick fix for populating logs when job fails)
+    - deps: temporary fix copier breaks with pyyaml-include v2 (copier-org/copier#1568)
+    - choir(scrna.ScFGSEA): Skip cases when no cells found (#50)
+    - choir(scrna.MarkersFinder): Skip cases when no cells found (#50)
+    - choir(scrna.MetaMarkers): Skip cases when no cells found (#50)
+    - feat(scrna.SeuratPreparing): support `DoubletFinder` (#52)
 
 ## 1.3.3
 
 - deps: temporary fix copier breaks with pyyaml-include v2 (copier-org/copier#1568)
 - docs: update FAQ.md with instructions for running pipeline on a cluster
 - deps: bump biopipen to 0.27.2
-  - fix(scrna.RadarPlots): fix mutaters not working
-  - feat(tcr.CloneResidency): support `envs.upset_ymax` to set the max value of y axis in upset bar plot.
+    - fix(scrna.RadarPlots): fix mutaters not working
+    - feat(tcr.CloneResidency): support `envs.upset_ymax` to set the max value of y axis in upset bar plot.
 
 ## 1.3.2
 
@@ -522,54 +522,54 @@
 - deps: add r-complexupset package to environment.yml and environment_full.yml for CloneResidency
 - deps: pin tensorflow to 2.15 for TESSA
 - deps: bump biopipen to 0.27.1
-  - depr(scrna.MarkersFinder): remove `envs.use_presto` as it's used by Seurat v5 by default
-  - enh(tcr.CloneResidency): support log scale for y axis of upset bar plots
-  - enh(scrna.SeuratClusterStats): allow to rotate labels in circos plot (pwwang/immunopipe#48) @<li.ying@mayo.edu>
-  - enh(scrna.SeuratClusterStats): use `pal_biopipen` for ident colors in circos plot
-  - fix(scrna.CellsDistribution): fix the row order of the heatmaps
-  - fix(scrna.SeuratClusterStats): fix when `envs.split-by` is specified
-  - feat(scrna.CellsDistribution): support `envs.prefix_each`
-  - feat(scrna.MarkersFinder): allow to set max number of genes to plot in dotplots
-  - feat(scrna.MarkersFinder): support setting detailed arguments for overlapping plots
-  - feat(scrna.MarkersFinder): support `envs.prefix_group`
-  - feat(scrna.ScFGSEA): support `envs.prefix_each`
-  - feat(scrna.RadarPlots): support `envs.prefix_each` and `envs.subset`
-  - choir(scrna.SeuratClusterStats): use logger instead of print for log messages
-  - choir(tcr.TCRClustering): print session info for `clustcr` script
-  - choir(scrna.MarkersFinder): flatten toc when no `section` and no `ident-1` specified
-  - docs: add more detailed docs for `envs.section` for multiple processes
-  - BREAKING(scrna.SeuratMap2Ref): rename envs.name to envs.ident so envs.MapQuery.refdata is not - required anymore. It will be inferred from envs.ident and envs.use. @<li.ying@mayo.edu>
+    - depr(scrna.MarkersFinder): remove `envs.use_presto` as it's used by Seurat v5 by default
+    - enh(tcr.CloneResidency): support log scale for y axis of upset bar plots
+    - enh(scrna.SeuratClusterStats): allow to rotate labels in circos plot (pwwang/immunopipe#48) @<li.ying@mayo.edu>
+    - enh(scrna.SeuratClusterStats): use `pal_biopipen` for ident colors in circos plot
+    - fix(scrna.CellsDistribution): fix the row order of the heatmaps
+    - fix(scrna.SeuratClusterStats): fix when `envs.split-by` is specified
+    - feat(scrna.CellsDistribution): support `envs.prefix_each`
+    - feat(scrna.MarkersFinder): allow to set max number of genes to plot in dotplots
+    - feat(scrna.MarkersFinder): support setting detailed arguments for overlapping plots
+    - feat(scrna.MarkersFinder): support `envs.prefix_group`
+    - feat(scrna.ScFGSEA): support `envs.prefix_each`
+    - feat(scrna.RadarPlots): support `envs.prefix_each` and `envs.subset`
+    - choir(scrna.SeuratClusterStats): use logger instead of print for log messages
+    - choir(tcr.TCRClustering): print session info for `clustcr` script
+    - choir(scrna.MarkersFinder): flatten toc when no `section` and no `ident-1` specified
+    - docs: add more detailed docs for `envs.section` for multiple processes
+    - BREAKING(scrna.SeuratMap2Ref): rename envs.name to envs.ident so envs.MapQuery.refdata is not - required anymore. It will be inferred from envs.ident and envs.use. @<li.ying@mayo.edu>
 
 ## 1.3.1
 
 - deps: bump pipen to 0.14.3
 - deps: pin ggplot2 to 3.4 for docker due to breaking changes of 3.5
 - deps: bump biopipen to 0.26.2
-  - deps: bump datar-pandas to 0.5.5 to dismiss deprecated warnings
-  - fix(utils.misc.R): replace latin and greek characters with closest ascii chars for slugify()
-  - feat(scrna.TopExpressingGenes): support `subset`
-  - fix(scrna.CellsDistribution): fix the row order of the heatmaps.
-  - enh(tcr.CloneResidency): add legend for multiplets in upset plots.
-  - feat(scrna.SeuratClusterStats): add circos plot for cell composition stats (#46).
+    - deps: bump datar-pandas to 0.5.5 to dismiss deprecated warnings
+    - fix(utils.misc.R): replace latin and greek characters with closest ascii chars for slugify()
+    - feat(scrna.TopExpressingGenes): support `subset`
+    - fix(scrna.CellsDistribution): fix the row order of the heatmaps.
+    - enh(tcr.CloneResidency): add legend for multiplets in upset plots.
+    - feat(scrna.SeuratClusterStats): add circos plot for cell composition stats (#46).
 
 ## 1.3.0
 
 - deps: bump pipen to 0.14.1
 - deps: bump pipen-report to 0.18.2
 - deps: bump biopipen to 0.26.0
-  - fix(scrna.CellTypeAnnotation): keep factor meta data when input and output are RDS for celltypist
-  - deps: bump datar to 0.15.4 (support pandas 2.2)
-  - fix(utils.single_cell.R): fix `immdata_from_expanded` missing other data columns
-  - fix(tcr.Immunarch): fix `mutaters` not working when no subset is set
-  - fix(scrna.CellsDistribution): fix `hm_devpars` not working
-  - fix(scrna.CellsDistribution): fix multiple `cells_by` columns and speed up plotting
-  - choir(tcr.CloneResidency): mark singletons in Venn diagrams more clear
-  - fix(scrna.RadarPlots): fix the order of groups on radar plots
-  - choir(scrna.RadarPlots): transpose the count/percentage table to save to files
-  - fix(scrna.MarkersFinder): fix generating report json file when no significant genes found
-  - choir(scrna.MarkersFinder): Plot maximum 20 genes in dotplots
-  - choir(scrna.MarkersFinder): Do not convert dashes in case names to dots
-  - see more at <https://github.com/pwwang/biopipen/releases/tag/0.26.0>
+    - fix(scrna.CellTypeAnnotation): keep factor meta data when input and output are RDS for celltypist
+    - deps: bump datar to 0.15.4 (support pandas 2.2)
+    - fix(utils.single_cell.R): fix `immdata_from_expanded` missing other data columns
+    - fix(tcr.Immunarch): fix `mutaters` not working when no subset is set
+    - fix(scrna.CellsDistribution): fix `hm_devpars` not working
+    - fix(scrna.CellsDistribution): fix multiple `cells_by` columns and speed up plotting
+    - choir(tcr.CloneResidency): mark singletons in Venn diagrams more clear
+    - fix(scrna.RadarPlots): fix the order of groups on radar plots
+    - choir(scrna.RadarPlots): transpose the count/percentage table to save to files
+    - fix(scrna.MarkersFinder): fix generating report json file when no significant genes found
+    - choir(scrna.MarkersFinder): Plot maximum 20 genes in dotplots
+    - choir(scrna.MarkersFinder): Do not convert dashes in case names to dots
+    - see more at <https://github.com/pwwang/biopipen/releases/tag/0.26.0>
 
 ## 1.2.0
 
@@ -579,29 +579,29 @@
 - docs: mention `celltypist` model prep in preparing input data
 - deps: bump pipen to 0.13.2
 - deps: bump biopipen to 0.25.2:
-  - scrna.MarkersFinder: allow to cache `FindAllMarkers` results
-  - scrna.CellTypeAnnotation: support `celltypist` (pwwang/biopipen#111)
-  - scrna.SeuratSubClustering: add `envs_depth = 1` to replace whole `envs.cases` when new case assigned
-  - scrna_metabolic_landscape.MetabolicPathwayHeterogeneit): fix output directory path is not slugified
-  - tcr.Immunarch: change case filling log to debug level
+    - scrna.MarkersFinder: allow to cache `FindAllMarkers` results
+    - scrna.CellTypeAnnotation: support `celltypist` (pwwang/biopipen#111)
+    - scrna.SeuratSubClustering: add `envs_depth = 1` to replace whole `envs.cases` when new case assigned
+    - scrna_metabolic_landscape.MetabolicPathwayHeterogeneit): fix output directory path is not slugified
+    - tcr.Immunarch: change case filling log to debug level
 
 ## 1.1.1
 
 - deps: Bump biopipen to 0.24.2
-  - chore: use internal slugify instead of slugify library
-  - tcr.Immunarch: fix spectratyping output file extension is not png
-  - scrna.SeuratPreparing: fix displaying filters in report
-  - scrna.SeuratPreparing: fix logging Seurat procedure arguments
+    - chore: use internal slugify instead of slugify library
+    - tcr.Immunarch: fix spectratyping output file extension is not png
+    - scrna.SeuratPreparing: fix displaying filters in report
+    - scrna.SeuratPreparing: fix logging Seurat procedure arguments
 
 ## 1.1.0
 
 - docs: update table in gallery
 - deps: use [pipen-poplog](https://github.com/pwwang/pipen-poplog) to populate job logs to pipeline running log
 - deps: bump biopipen to 0.24. Hights:
-  - scrna.ScFGSEA: add subset to filter cells (pwwang/biopipen#112) @yuey11
-  - scrna.SeuratClustering/SeuratSubClustering: cache Seurat procedures step by step (#40) @xyfqwlzoe
-  - tcr.Immunarch: add `plot_type` to support boxplots for diversity metrics
-  - see more at <https://github.com/pwwang/biopipen/releases/tag/0.24.0>
+    - scrna.ScFGSEA: add subset to filter cells (pwwang/biopipen#112) @yuey11
+    - scrna.SeuratClustering/SeuratSubClustering: cache Seurat procedures step by step (#40) @xyfqwlzoe
+    - tcr.Immunarch: add `plot_type` to support boxplots for diversity metrics
+    - see more at <https://github.com/pwwang/biopipen/releases/tag/0.24.0>
 
 ## 1.0.5
 
@@ -609,14 +609,14 @@
 - fix: fix column names of indicators not aligned with `indicator_genes`
 - feat: add feature plots in `TCellSelection`
 - deps: bump biopipen to 0.23.8
-  - scrna.SeuratPreparing: log Seurat procedure arguments
-  - scrna.ScFGSEA: add `subset` to filter cells (pwwang/biopipen#112)
+    - scrna.SeuratPreparing: log Seurat procedure arguments
+    - scrna.ScFGSEA: add `subset` to filter cells (pwwang/biopipen#112)
 
 ## 1.0.4
 
 - deps: bump biopipen to 0.23.7
-  - scrna.SeuratPreparing: update log message for transformation/scaling step
-  - scrna_metabolic_landscape.MetabolicPathwayHeterogeneity: add utils.gsea script source to support `localizeGmtfile`
+    - scrna.SeuratPreparing: update log message for transformation/scaling step
+    - scrna_metabolic_landscape.MetabolicPathwayHeterogeneity: add utils.gsea script source to support `localizeGmtfile`
 
 ## 1.0.3
 
@@ -624,22 +624,22 @@
 - deps: pin r-matrixstats to 1.1.0 in conda env files to fix `useNames = NA` error. @yuey11
 - refactor: optimize configuration file validation
 - deps: bump biopipen to 0.23.6
-  - feat: support url for gmtfile wherever GSEA is performed (pwwang/biopipen#113)
-  - tcr.Immunarch: add error message for empty filtered/subset data in diversity
-  - scrna.SeuratPreparing: correct description of default assay in docstr
-  - scrna.SeuratPreparing: run also the normal normalization procedures when `SCTransform` is used (useful for visualization purposes on RNA assay)
-  - scrna.ModuleScoreCalculator: document the names added by cell cycle score (#34)
-  - scrna.SeuratPreparing: support sample names as `reference` for `IntegrateLayers`
+    - feat: support url for gmtfile wherever GSEA is performed (pwwang/biopipen#113)
+    - tcr.Immunarch: add error message for empty filtered/subset data in diversity
+    - scrna.SeuratPreparing: correct description of default assay in docstr
+    - scrna.SeuratPreparing: run also the normal normalization procedures when `SCTransform` is used (useful for visualization purposes on RNA assay)
+    - scrna.ModuleScoreCalculator: document the names added by cell cycle score (#34)
+    - scrna.SeuratPreparing: support sample names as `reference` for `IntegrateLayers`
 
 ## 1.0.2
 
 - deps: add bioconductor-glmgampoi to conda env files (#33)
 - docs: correct the Seurat object assay description
 - deps: bump biopipen to 0.23.5
-  - fix: fix when no enriched items found for `scrna.MarkersFinder`, `scrna.MetaMarkers` and `scrna.TopExpressingGenes`
-  - scrna.SeuratClusterStats: fix when `frac` or `frac_ofall` is true and no `group-by` nor `split-by` is specified for `stats`
-  - utils.gsea.R: fix when no enriched items found for `runEnrichr`
-  - scrna_metabolic_landscript: fix adding report when `ncores` > 1
+    - fix: fix when no enriched items found for `scrna.MarkersFinder`, `scrna.MetaMarkers` and `scrna.TopExpressingGenes`
+    - scrna.SeuratClusterStats: fix when `frac` or `frac_ofall` is true and no `group-by` nor `split-by` is specified for `stats`
+    - utils.gsea.R: fix when no enriched items found for `runEnrichr`
+    - scrna_metabolic_landscript: fix adding report when `ncores` > 1
 
 ## 1.0.1
 
@@ -647,12 +647,12 @@
 - change: set default `nstart` of kmeans to 25 in `TCellSelection`
 - deps: add `r-hdf5r` in conda env files to support `Read_10x_h5` from Seurat. @yuey11
 - deps: bump biopipen to 0.23.4
-  - scrna.TopExpressingGenes: fix colnames while pulling average expression
-  - scrna.CellsDistribution: fix when `cells_by` has multiple column names
-  - scrna.CellTypeAnnotation: fix the order of the clusters for `direct` method
-  - scrna.SeuratClusterStats: add `position` options for bar plots for stats
-  - scrna.RadarPlots: add `colors` to set the colors of the loops in radar and bar plots
-  - tcr.Immunarch: add `split_by` and `split_order` to put subplots together in one single plots
+    - scrna.TopExpressingGenes: fix colnames while pulling average expression
+    - scrna.CellsDistribution: fix when `cells_by` has multiple column names
+    - scrna.CellTypeAnnotation: fix the order of the clusters for `direct` method
+    - scrna.SeuratClusterStats: add `position` options for bar plots for stats
+    - scrna.RadarPlots: add `colors` to set the colors of the loops in radar and bar plots
+    - tcr.Immunarch: add `split_by` and `split_order` to put subplots together in one single plots
 
 ## 1.0.0
 
@@ -701,22 +701,22 @@
 - deps: remove `vdjtools` from conda env files
 - deps: bump `pipen-report` to [0.16.3](https://github.com/pwwang/pipen-report/releases/tag/0.16.3)
 - deps: bump `biopipen` to [0.23.3](https://github.com/pwwang/biopipen/releases). Hightlight changes:
-  - scrna.MarkersFinder: Add `envs.use_presto` to use presto to speed up finding markers
-  - scrna.SeuratPreparing: Set envs.gene_qc.min_cells to 0 by default (instead of 3)
-  - scrna.ScFGSEA: Allow to ignore small group when fgsea fails due to all NAs for pre-ranks
-  - scrna.CellsDistribution: Allow to order clusters by envs.cluster_orderby
-  - scrna.CellsDistribution: Add heatmaps
-  - tcr.CloneResidency: Make section works in report
-  - tcr.Immunarch: Support paired chain data for VJ conjuction plots
-  - tcr.TESSA: Change envs.assay to None to use default assay of Seurat object
-  - scrna.SeuratClusterStats: Add `avgheatmap` to plot more elegant heatmap for average gene expressions
-  - scrna.SeuratClusterStats: Fix ident not working for dimplots
-  - scrna.SeuratClusterStats: Add `cluster_orderby` to order clusters for features
-  - scrna.SeuratClusterStats: Add `na_group` to keep NA values in `group-by`
-  - utils.mutate_helpers: Change arguments `id_col` and `compare_col` of `paired` to `id` and `compare`, respectively
-  - utils.mutate_helpers: Fix that subset can't be an expression for expanded family
-  - utils.mutate_helpers: Add `top` to select top entities (e.g clones)
-  - scrna.RadarPlots: Add breakdown and test to break down the cell distribution and run statistic test on the fractions
+    - scrna.MarkersFinder: Add `envs.use_presto` to use presto to speed up finding markers
+    - scrna.SeuratPreparing: Set envs.gene_qc.min_cells to 0 by default (instead of 3)
+    - scrna.ScFGSEA: Allow to ignore small group when fgsea fails due to all NAs for pre-ranks
+    - scrna.CellsDistribution: Allow to order clusters by envs.cluster_orderby
+    - scrna.CellsDistribution: Add heatmaps
+    - tcr.CloneResidency: Make section works in report
+    - tcr.Immunarch: Support paired chain data for VJ conjuction plots
+    - tcr.TESSA: Change envs.assay to None to use default assay of Seurat object
+    - scrna.SeuratClusterStats: Add `avgheatmap` to plot more elegant heatmap for average gene expressions
+    - scrna.SeuratClusterStats: Fix ident not working for dimplots
+    - scrna.SeuratClusterStats: Add `cluster_orderby` to order clusters for features
+    - scrna.SeuratClusterStats: Add `na_group` to keep NA values in `group-by`
+    - utils.mutate_helpers: Change arguments `id_col` and `compare_col` of `paired` to `id` and `compare`, respectively
+    - utils.mutate_helpers: Fix that subset can't be an expression for expanded family
+    - utils.mutate_helpers: Add `top` to select top entities (e.g clones)
+    - scrna.RadarPlots: Add breakdown and test to break down the cell distribution and run statistic test on the fractions
 
 ## 0.11.2
 
@@ -732,31 +732,31 @@
 - docs: remove unused doc files
 - docs: add metadata illustration
 - deps: bump biopipen to 0.22.8. Highlights:
-  - deps: bump pipen-board to 0.13.10 (pipen-report to 0.16.2)
-  - CellsDistribution: Don't add rownames to the output table file
-  - MarkersFinder (ClusterMarkers/ClusterMarkersOfAllCells): Optimize to use `FindAllMarkers` if `ident.1` is not specified
-  - SeuratClusterStats: Fix path of expression table file
-  - CellTypeAnnotation: Allow using `NA` to exclude clusters from output `Seurat` object
-  - utils.mutate_helpers: Return ids only when subset is true and group is not `NA` for `uniq = TRUE` in `expanded`, `collapsed`, `emerged` and `vanished`
+    - deps: bump pipen-board to 0.13.10 (pipen-report to 0.16.2)
+    - CellsDistribution: Don't add rownames to the output table file
+    - MarkersFinder (ClusterMarkers/ClusterMarkersOfAllCells): Optimize to use `FindAllMarkers` if `ident.1` is not specified
+    - SeuratClusterStats: Fix path of expression table file
+    - CellTypeAnnotation: Allow using `NA` to exclude clusters from output `Seurat` object
+    - utils.mutate_helpers: Return ids only when subset is true and group is not `NA` for `uniq = TRUE` in `expanded`, `collapsed`, `emerged` and `vanished`
 
 ## 0.11.0
 
 - deps: update biopipen to 0.22.1, highlights:
-  - add V-J junction circos plots to `Immunarch` process
-  - add cache option to cache the clustering results if nothing changed except ncores, to `SeuratClustering` process
-  - add dot plots to `MarkersFinder` (`ClusterMarkersOfAllCells`, `ClusterMarkers`) process
-  - save exported table with only necessary columns for `CellsDistribution` process
-  - add `descr` to describe cases cases in report for `CellsDistribution` process
-  - add `subset` for dimplots in `SeuratClusterStats` process
-  - use a new palette (`biopipen`) for related processes
-  - optimize report rendering (using `render_job()` filter from `pipen-report`)
-  - change metacols to extracols so essential columns get exported for `ImmunarchLoading` process
-  - add cache option to cache the clustering results if nothing changed except ncores for `SeuratClustering` (`SeuratClusteringOfAllCells`) process
-  - see more at <https://github.com/pwwang/biopipen/releases/tag/0.22.0> and <https://github.com/pwwang/biopipen/releases/tag/0.22.1>
+    - add V-J junction circos plots to `Immunarch` process
+    - add cache option to cache the clustering results if nothing changed except ncores, to `SeuratClustering` process
+    - add dot plots to `MarkersFinder` (`ClusterMarkersOfAllCells`, `ClusterMarkers`) process
+    - save exported table with only necessary columns for `CellsDistribution` process
+    - add `descr` to describe cases cases in report for `CellsDistribution` process
+    - add `subset` for dimplots in `SeuratClusterStats` process
+    - use a new palette (`biopipen`) for related processes
+    - optimize report rendering (using `render_job()` filter from `pipen-report`)
+    - change metacols to extracols so essential columns get exported for `ImmunarchLoading` process
+    - add cache option to cache the clustering results if nothing changed except ncores for `SeuratClustering` (`SeuratClusteringOfAllCells`) process
+    - see more at <https://github.com/pwwang/biopipen/releases/tag/0.22.0> and <https://github.com/pwwang/biopipen/releases/tag/0.22.1>
 - deps: update pipen-report to 0.16, highlights:
-  - scroll anchor into view on the page
-  - build report page when each process is done, instead of the whole pipeline
-  - see more at <https://github.com/pwwang/pipen-report/releases/tag/0.16.0>
+    - scroll anchor into view on the page
+    - build report page when each process is done, instead of the whole pipeline
+    - see more at <https://github.com/pwwang/pipen-report/releases/tag/0.16.0>
 - change: remove `Immunarch2VDJtools` and `VJUsage` processes (vj usage analysis can be done in `Immunarch` process)
 - change: change `tcell_indicator` to `tcell_selector` in `TCellSelection` process
 - enhance: provide better error message when none barcode matches from RNA and TCR data for `TCRClustering` process
@@ -774,23 +774,23 @@
 - docker: lock r-matrix version to 1.6_1 for compatibility
 - docs: adopt mkdocs-rtd 0.0.10 (add scrollbar to the table of contents)
 - deps: bump biopipen to 0.21.1
-  - use `r-logger` for logging in R scripts
-  - docs: fix internal references in API docs
-  - deps: bump pipen-board to 0.13.6
-  - SampleInfo: refactor data subset logic using `subset` instead of `distinct`
-  - Immunarch: add `in.metafile` to allow other meta info (i.e. seurat clusters) for future subsetting (#22)
-  - Immunarch: fix empty groups in diversity plot after subsetting
-  - Immunarch: allow `subset` to subset cells for analyses
-  - Immunarch: allow `separate_by` also works on other diversity plots
-  - Immunarch: add `ymin` and `ymax` to align diversity plots by `separate_by`
-  - Immunarch: add `ncol` to specify # columns in the combined plots
-  - RadarPlots: fix `envs.order` not working
-  - MarkersFinder: add `overlap` to find overlapping markers between cases (#24)
-  - MarkersFinder: allow `subset` to subset cells for analyses
-  - MarkersFinder: add dot plots for significant markers
-  - CellsDistribution: allow multiple columns for `cells_by`
-  - CellsDistribution: allow `subset` to subset cells for analyses
-  - utils.mutate_helpers.R: add `include_emerged` for `expanded()` and `include_vanished` for `collapsed()`
+    - use `r-logger` for logging in R scripts
+    - docs: fix internal references in API docs
+    - deps: bump pipen-board to 0.13.6
+    - SampleInfo: refactor data subset logic using `subset` instead of `distinct`
+    - Immunarch: add `in.metafile` to allow other meta info (i.e. seurat clusters) for future subsetting (#22)
+    - Immunarch: fix empty groups in diversity plot after subsetting
+    - Immunarch: allow `subset` to subset cells for analyses
+    - Immunarch: allow `separate_by` also works on other diversity plots
+    - Immunarch: add `ymin` and `ymax` to align diversity plots by `separate_by`
+    - Immunarch: add `ncol` to specify # columns in the combined plots
+    - RadarPlots: fix `envs.order` not working
+    - MarkersFinder: add `overlap` to find overlapping markers between cases (#24)
+    - MarkersFinder: allow `subset` to subset cells for analyses
+    - MarkersFinder: add dot plots for significant markers
+    - CellsDistribution: allow multiple columns for `cells_by`
+    - CellsDistribution: allow `subset` to subset cells for analyses
+    - utils.mutate_helpers.R: add `include_emerged` for `expanded()` and `include_vanished` for `collapsed()`
 
 ## 0.9.3
 
@@ -805,13 +805,13 @@
 
 - ➕ Add `r-ggnewscale` as dependency for `CDR3AAPhyschem` in docker image
 - ⬆️ Bump biopipen to 0.20.5
-  - 🧱 CloneResidency: Integrate RNA data to allow more flexible analysis (i.e. within specific seurat clusters)
-  - 🏗️ CloneResidency: Rename envs.sample_groups to envs.section to be consistent with other processes
-  - 📝 ScFGSEA: Remove the link in the summary of the docstring (since they are not transformed in the report)
-  - 🎨 CDR3AAPhyschem: Give better error message when wrong group items are given
+    - 🧱 CloneResidency: Integrate RNA data to allow more flexible analysis (i.e. within specific seurat clusters)
+    - 🏗️ CloneResidency: Rename envs.sample_groups to envs.section to be consistent with other processes
+    - 📝 ScFGSEA: Remove the link in the summary of the docstring (since they are not transformed in the report)
+    - 🎨 CDR3AAPhyschem: Give better error message when wrong group items are given
 - ⬆️ Bump pipen-board to 0.13.3
-  - Add items automatically when blurred for list options
-  - Add other sections to description on the UI for processes
+    - Add items automatically when blurred for list options
+    - Add other sections to description on the UI for processes
 
 ## 0.9.1
 
@@ -916,8 +916,8 @@
 ### Housekeeping and docs updates-0.7.0
 
 - Fix typos in docs/configurations
-  - `TCRClustering` should be `TCRClusteringStats` in Multi-case variable design section
-  - `infile` of `[SampleInfo.in]` should be `samples.txt` rather than `sample.txt`
+    - `TCRClustering` should be `TCRClusteringStats` in Multi-case variable design section
+    - `infile` of `[SampleInfo.in]` should be `samples.txt` rather than `sample.txt`
 - Remove unused scripts by deprecated processes
 - Bump `pipen-report` to [0.12.8](https://github.com/pwwang/pipen-report/releases/tag/0.12.8)
 - Add `master` branch and `master` tag as stable tag for docker image
@@ -929,11 +929,11 @@
 ### Added-0.7.0
 
 - Add `ModuleScoreCalculator` to calculate module scores or cell cycle scores
-  - See: <https://pwwang.github.io/immunopipe/processes/ModuleScoreCalculator/>
+    - See: <https://pwwang.github.io/immunopipe/processes/ModuleScoreCalculator/>
 - Allow `SampleInfo` to perform statistics on the sample information
-  - See: <https://pwwang.github.io/immunopipe/processes/SampleInfo/>
+    - See: <https://pwwang.github.io/immunopipe/processes/SampleInfo/>
 - Add `TCR_Cluster_Size` and `TCR_Cluster_Size1` from `TCRClustering` to metadata for further integrative analysis
-  - See: <https://pwwang.github.io/immunopipe/processes/TCRClusters2Seurat/>
+    - See: <https://pwwang.github.io/immunopipe/processes/TCRClusters2Seurat/>
 
 ### Fixed-0.7.0
 
@@ -947,7 +947,7 @@
 - Rename `MarkersForClustersOfTCells` to `ClusterMarkers`
 - Rename `TopExpressingGenesOfTCells` to `TopExpressingGenes`
 - Rename `envs.exprs` to `envs.features` for `SeuratClusterStats`
-  - `envs.exprs.genes` is also renamed to `envs.features.features`
+    - `envs.exprs.genes` is also renamed to `envs.features.features`
 
 ## 0.6.0
 
