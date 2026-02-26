@@ -90,6 +90,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variable-types">Environment variable types</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#templated-configuration-files">Templated configuration files</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#understanding-the-data">Understanding the data</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#the-assay-of-the-seurat-object">The assay of the Seurat object</a>
@@ -426,6 +428,27 @@ to set the default caching behavior for all processes. This level of caching is 
 <li><code>mchoice</code>/<code>mchoices</code>: The value should be chosen from one or more of the choices listed as sub-items.</li>
 <li><code>ns</code>/<code>namespace</code>: There are sub-items for the value. The sub-items will be parsed as key-value pairs.</li>
 </ul>
+<h3 id="templated-configuration-files">Templated configuration files<a class="headerlink" href="#templated-configuration-files" title="Permanent link">&para;</a></h3>
+<p>Since v2.4.3, the configuration files can be templated using <a href="https://jinja.palletsprojects.com/"><code>jinja2</code></a> or <a href="https://github.com/pwwang/liquidpy"><code>liquidpy</code></a> syntax. This is helpful for the configurations that contain repeat items, such as multiple cases for the same type of statistics. For example, if you want to plot the clone residency for multiple patients (and you don't want to use <code>split_by</code> to put them in one figure):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{%</span><span class="w"> </span><span class="nt">for</span><span class="w"> </span>patient<span class="w"> </span>in<span class="w"> </span>[<span class="s2">&quot;MM003&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;MM005&quot;</span>]<span class="w"> </span><span class="p">%}</span>
+[ClonalStats.envs.cases.CloneResidency_<span class="p">{{</span><span class="w"> </span><span class="nv">patient</span><span class="w"> </span><span class="p">}}</span>]
+viz_type = &quot;residency&quot;
+group_by = &quot;Tissue&quot;
+groups = [&quot;Tumor&quot;, &quot;Blood&quot;]
+<span class="p">{%</span><span class="w"> </span><span class="nt">endfor</span><span class="w"> </span><span class="p">%}</span>
+</code></pre></div>
+<p>This will be compiled into the following configuration file:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.CloneResidency_MM003]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;residency&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Tissue&quot;</span>
+<span class="n">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Tumor&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Blood&quot;</span><span class="p">]</span>
+
+<span class="k">[ClonalStats.envs.cases.CloneResidency_MM005]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;residency&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Tissue&quot;</span>
+<span class="n">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Tumor&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Blood&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p>Note that your configuration file MUST be named with suffix <code>.liq.toml</code> or <code>.toml.liq</code>.</p>
 <h3 id="understanding-the-data">Understanding the data<a class="headerlink" href="#understanding-the-data" title="Permanent link">&para;</a></h3>
 <p>Understanding how the data is presented in the pipeline is helpful for the configuration, especially for the processes, such as <a href="../processes/SeuratClusterStats/"><code>SeuratClusterStats</code></a> and <a href="../processes/ClonalStats/"><code>ClonalStats</code></a>. The configurations of this kind of processes are relying on the metadata.</p>
 <p>You can refer to the individual process pages for more details. Here we just give an introduction of how it works to set the configurations.</p>

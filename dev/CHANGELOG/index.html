@@ -395,37 +395,49 @@
                 <h2 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h2>
 <h3 id="242">2.4.2<a class="headerlink" href="#242" title="Permanent link">&para;</a></h3>
 <ul>
-<li>chore: update r-biopipen.utils to 0.3.7=r43_3, r-scplotter to 0.7.0=r43_2, and r-plotthis to 0.11.0=r43_1 in environment_rpkgs.yml</li>
+<li>chore: update r-biopipen.utils to 0.3.7=r43_3, r-scplotter to 0.7.0=r43_2, and r-plotthis to 0.11.0=r43_1 in environment_rpkgs.yml<ul>
 <li>BREAKING(clone_selectors): change 'groups' to 'group_by'</li>
 <li>BREAKING(ClonalStatPlot): change behavior of clone selecting (now it is only controlled by <code>clones</code> argument)</li>
 <li>feat(ClonalStatPlot): add support for chord and circos plot types in ClonalStatPlot function</li>
 <li>feat: remove deprecated ClonalDynamicsPlot function</li>
-<li>chore: update biopipen version to 1.1.14 in pyproject.toml</li>
+</ul>
+</li>
+<li>chore: update biopipen version to 1.1.14 in pyproject.toml<ul>
 <li>fix(scrna.SeuratClustersStats): fix empty identity in description of default dimplots</li>
 <li>feat(scrna.SeuratClusterStats): support 3D dimplots</li>
+</ul>
+</li>
 </ul>
 <h3 id="241">2.4.1<a class="headerlink" href="#241" title="Permanent link">&para;</a></h3>
 <ul>
 <li>chore: add umap-learn dependency for RunUMAP functionality</li>
 <li>chore: add version target to Makefile for automated versioning and changelog updates</li>
 <li>docs: add support for ParseBio and HIVE data formats in preparing input documentation</li>
-<li>chore: update pipen-cli-gbatch version to 1.1.3</li>
+<li>chore: update pipen-cli-gbatch version to 1.1.3<ul>
 <li>fix: fix when job is already running</li>
-<li>chore: update r-biopipen.utils version to 0.3.7=r43_2 in environment_rpkgs.yml</li>
+</ul>
+</li>
+<li>chore: update r-biopipen.utils version to 0.3.7=r43_2 in environment_rpkgs.yml<ul>
 <li>feat(FeatureLoadSeuratAndPerformQC): support HoneyComb HIVE data</li>
-<li>chore: update biopipen version to 1.1.13 in pyproject.toml</li>
+</ul>
+</li>
+<li>chore: update biopipen version to 1.1.13 in pyproject.toml<ul>
 <li>feat(scrna.Seurat[Sub]Clustering): add python executable path for RunUMAP to use <code>umap-learn</code> for UMAP dimensionality reduction</li>
+</ul>
+</li>
 </ul>
 <h3 id="240">2.4.0<a class="headerlink" href="#240" title="Permanent link">&para;</a></h3>
 <ul>
 <li>chore: update SeuratPreparing and ClusterMarkers configurations</li>
 <li>chore: update ClusterMarkers to select top 5 markers for each cluster</li>
 <li>fix: make sure SeuratClustering is included in the pipeline along with CellTypeAnnotation</li>
-<li>chore: update biopipen to 1.1.12</li>
+<li>chore: update biopipen to 1.1.12<ul>
 <li>fix(tcr.ScRepLoading): remove records with IG? or TR? chains to prevent errors in combineTCR and combineBCR</li>
 <li>chore(scrna.SeuratClusterStats): set default options for pies plot for stats</li>
 <li>fix(scrna.SeuratClusterStats): improve plot description handling when plot_type is not given</li>
-<li>chore: update r-plotthis version to 0.10.1=r43_10 in environment_rpkgs.yml</li>
+</ul>
+</li>
+<li>chore: update r-plotthis version to 0.10.1=r43_10 in environment_rpkgs.yml<ul>
 <li>fix: update BarPlotSingle to conditionally use geom_text for flipped plots and adjust height/width calculations</li>
 <li>fix(Box/ViolinPlo): hide legends for color, size, and alpha scales for highlighted points</li>
 <li>fix(BeeswarmPlot):fix highlight not working</li>
@@ -440,7 +452,9 @@
 <li>feat(RadarPlot): add groups parameter to filter and order groups in the plot</li>
 <li>fix(RadarPlot): clarify groups parameter documentation and its implications on keep_empty</li>
 <li>fix: ensure unique values in for loops for grouping in bar, pie, ring, and trend plots</li>
-<li>chore: update r-scplotter version to 0.6.6=r43_10 in environment_rpkgs.ym</li>
+</ul>
+</li>
+<li>chore: update r-scplotter version to 0.6.6=r43_10 in environment_rpkgs.ym<ul>
 <li>fix: update fill parameter in BarPlot function for enrichment plots (adopting plotthis v0.10.1)</li>
 <li>chore: improve error message for missing 'group_by' in ClonalCompositionPlot for box/violin plots</li>
 <li>fix: enhance clonal size data function to handle empty groupings and improve data processing</li>
@@ -451,7 +465,9 @@
 <li>feat: rename <code>return_ids</code> to <code>ouput</code> for clone selectors so that they can return logicals (booleans) for selection</li>
 <li>feat: clone selectors gain a <code>output_within</code> option to return the selection results within a specific subset</li>
 <li>feat(ClonalResidencyPlot): make the plot symmetric when numbers of clones are imbalanced between the two groups and allow specifying the palette for the plot</li>
-<li>chore: update r-biopipen.utils version to 0.3.6=r43_10 in environment_rpkgs.yml</li>
+</ul>
+</li>
+<li>chore: update r-biopipen.utils version to 0.3.6=r43_10 in environment_rpkgs.yml<ul>
 <li>fix(RunSeuratSubClustering): prioritize integrated_new_reduction in UMAP reduction assignment</li>
 <li>fix(RunSeurat*): replace dot notation with bracket notation for reduction assignment</li>
 <li>feat(LoadSeuratAndPerformQC): support ParseBio data</li>
@@ -461,12 +477,14 @@
 <li>feat(RunSeurat): enhance logging and expand dimensions handling in PCA and UMAP functions</li>
 <li>chore(VizDEGs): set select to 5 for heatmap_* plots</li>
 </ul>
+</li>
+</ul>
 <h3 id="233">2.3.3<a class="headerlink" href="#233" title="Permanent link">&para;</a></h3>
 <ul>
 <li>docs: clarify caching mechanism configuration in the pipeline</li>
 <li>feat: add logging of Immunopipe version information in gbatch command</li>
 <li>chore: bump pipen-cli-gbatch to v1.1.2</li>
-<li>chore: update biopipen dependency version to ^1.1.11</li>
+<li>chore: update biopipen dependency version to ^1.1.11<ul>
 <li>feat(scrna_metabolic_landscape): support multiple subset_by columns in Seurat object expansion</li>
 <li>fix(scrna.SeuratClusterStats): fix dimplots for clusters from subclustering</li>
 <li>fix(scrna.SeuratSubClustering): correct argument references in RunSeuratSubClustering function</li>
@@ -477,6 +495,8 @@
 <li>fix(scrna.MarkersFinder): improve plot argument handling for subset by group and plot types</li>
 <li>feat(tcr.ScRepLoading): support loading from prefixed contig files</li>
 <li>fix(scrna.CellTypeAnnotation): fix sctype not working</li>
+</ul>
+</li>
 </ul>
 <h3 id="232">2.3.2<a class="headerlink" href="#232" title="Permanent link">&para;</a></h3>
 <ul>
@@ -492,16 +512,20 @@
 <li>chore: chore: update Dockerfile to install numpy version 2.3 for compatibility with scanpy</li>
 <li>chore: add pwwang::r-sccatch to environment_base.yml</li>
 <li>chore: update r-plotthis dependency version to 0.9.4</li>
-<li>chore: update r-scplotter dependency version to 0.6.5</li>
+<li>chore: update r-scplotter dependency version to 0.6.5<ul>
 <li>feat: clone selectors gain a <code>within</code> option to select clones within a specific subset</li>
 <li>feat: clone selectors <code>and</code>/<code>or</code> support multiple selectors (more than 2)</li>
-<li>chore: update biopipen dependency version to 1.1.5</li>
+</ul>
+</li>
+<li>chore: update biopipen dependency version to 1.1.5<ul>
 <li>fix(scrna.MarkersFinder): update database handling in enrichment plots in case it is from gmt files</li>
 <li>fix(scrna.PseudoBulkDEG): update database handling in enrichment plots to use unique databases in case gmt files were used</li>
 <li>fix(scrna.CellTypeAnnotation): ensure at least 2 clusters for cell type annotation for scCATCH</li>
 <li>feat(tcr.ClonalStats): add caching functionality for plots</li>
 <li>feat(scrna.ScFGSEA): add caching functionality for GSEA results</li>
 <li>feat(scrna.CellTypeAnnotation): enhance cell type annotation functionality to support dict input for direct annotations</li>
+</ul>
+</li>
 </ul>
 <h3 id="230">2.3.0<a class="headerlink" href="#230" title="Permanent link">&para;</a></h3>
 <ul>
@@ -512,19 +536,27 @@
 <li>docs: update process documentation with additional references and image links</li>
 <li>docs: update installation and running documentation to reflect dependency changes</li>
 <li>docs: add FAQ entry for mouse data support in the pipeline</li>
-<li>chore: update r-biopipen.utils version to 0.3.5 in environment_rpkgs.yml</li>
+<li>chore: update r-biopipen.utils version to 0.3.5 in environment_rpkgs.yml<ul>
 <li>fix(RunSeuratDEAnalysis): handle +Inf/-Inf values in avg_log2FC to make visualization works</li>
-<li>chore: bump biopipen to 1.1.1</li>
+</ul>
+</li>
+<li>chore: bump biopipen to 1.1.1<ul>
 <li>docs(tcr.ClonalStats): correct typo in documentation for ClonalStatsPlot reference</li>
+</ul>
+</li>
 </ul>
 <h3 id="222">2.2.2<a class="headerlink" href="#222" title="Permanent link">&para;</a></h3>
 <ul>
-<li>chore: force conda to rebuild with biopipen.utils.R v0.3.4-7</li>
+<li>chore: force conda to rebuild with biopipen.utils.R v0.3.4-7<ul>
 <li>make sure 'direct' method of CellTypeAnnotation keeps the order</li>
+</ul>
+</li>
 <li>chore: update r-plotthis dependency version to 0.9.0=r43_3</li>
-<li>chore: update biopipen dependency to version 1.0.0</li>
+<li>chore: update biopipen dependency to version 1.0.0<ul>
 <li>fix(scrna.CellTypeAnnotation): handle NA values in cell type processing to prevent errors</li>
 <li>chore(scrna.SeuratPreparing): update min_cells parameter to require at least 3 cells for SCTransform</li>
+</ul>
+</li>
 <li>fix: enhance seurat path resolution and error handling in check_genes function</li>
 <li>fix: improve seurat path resolution for containerized environments in check_dim function</li>
 </ul>
@@ -540,23 +572,29 @@
 <li>chore: add .dockerignore file to exclude unnecessary files from Docker builds</li>
 <li>chore: update Python version to 3.12 and adjust biopipen.utils version in environment files</li>
 <li>chore: add Dockerhub descriptions for immunopipe, immunopipe-base, and immunopipe-rpkgs</li>
-<li>chore: update r-scplotter version to 0.6.4=r43_2 in environment_rpkgs.yml</li>
+<li>chore: update r-scplotter version to 0.6.4=r43_2 in environment_rpkgs.yml<ul>
 <li>fix(ClonalDiversityPlot): fix calculating Gini coefficient</li>
 <li>fix(MarkersPlot): handle errors when subsetting object features</li>
 <li>fix(MarkersPlot): exclude groups that failed DE analysis from plotting</li>
-<li>chore: update r-plotthis version to 0.9.0=r43_1 in environment_rpkgs.yml</li>
+</ul>
+</li>
+<li>chore: update r-plotthis version to 0.9.0=r43_1 in environment_rpkgs.yml<ul>
 <li>fix(boxviolinplot): skip processing for data frames with less than 2 rows</li>
 <li>fix(network): update ggplot2 version check for link_type_by support</li>
 <li>fix(velocityplot): update ggplot2 version check for arrow length handling</li>
 <li>chore(heatmap): add warning for unknown arguments in HeatmapAtomic function</li>
 <li>feat: add list_fonts and import_font utilities</li>
-<li>chore: update r-biopipen.utils version in environment_rpkgs.yml to 0.3.4=r43_7</li>
+</ul>
+</li>
+<li>chore: update r-biopipen.utils version in environment_rpkgs.yml to 0.3.4=r43_7<ul>
 <li>fix(RunSeuratDEAnalysis): improve error handling by returning empty data frame on logic error and adding traceback on stop</li>
 <li>feat: set default font to "LiberationSans" for plotthis plots</li>
 <li>fix: update RunUMAPArgs to use the correct reduction and improve dims handling</li>
 <li>fix(RunSeuratUMAP): avoid changing of identity when using features for RunUMAP</li>
 <li>chore(RunSeuratTransformation, RunSeuratMap2Ref): ensure return.only.var.genes defaults to FALSE when using SCTransform</li>
-<li>chore: update biopipen version to ^0.34.28 in pyproject.toml</li>
+</ul>
+</li>
+<li>chore: update biopipen version to ^0.34.28 in pyproject.toml<ul>
 <li>feat(tcr.ClonalStats): add save_data parameter to ClonalStats for saving plot data</li>
 <li>fix(scrna.PseudoBulkDEG): change default assay from "RNA" to None so that default assay can be used by default</li>
 <li>feat(scrna.ScFGSEA): add assay parameter to allow specification of assay in analysis</li>
@@ -565,6 +603,8 @@
 <li>fix(scrna.CellTypeAnnotation): update package requirement from celltypist to celltypist2 (a version adopts numpy v2)</li>
 <li>fix(tcr.TESSA): add Keras model migration support for v2 and v3</li>
 <li>fix(scrna.CellTypeAnnotation): improve handling of over_clustering assignment from Seurat object for celltypist</li>
+</ul>
+</li>
 </ul>
 <h3 id="220">2.2.0<a class="headerlink" href="#220" title="Permanent link">&para;</a></h3>
 <ul>
@@ -587,7 +627,7 @@ But the the figures will be still displayed in the report as before.</p>
 <li>test: update configuration files and tests</li>
 <li>test: update assertions in test_route_sampleinfo_full for correct flow after refactoring</li>
 <li>test: reorder assertions in test_route_sampleinfo_full for correct flow due to the swapping of SeuratMap2Ref and SeuratClustering</li>
-<li>chore: bump biopipen version to 0.34.23 (related changes below)</li>
+<li>chore: bump biopipen version to 0.34.23 (related changes below)<ul>
 <li>docs(scrna.SeuratPreparing): improve documentation for SeuratPreparing to make sure new lines in code blocks</li>
 <li>docs(scrna.SeuratClusterStats): enhance documentation for cluster statistics plots</li>
 <li>docs(tcr.ClonalStats): add exapmle configurations and plots</li>
@@ -613,6 +653,8 @@ But the the figures will be still displayed in the report as before.</p>
 <li>docs(scrna.CellTypeAnnotation): clarify renaming of original identity column during cell type annotation</li>
 <li>see full changelog at <a href="https://pwwang.github.io/biopipen/CHANGELOG/">https://pwwang.github.io/biopipen/CHANGELOG/</a>.</li>
 </ul>
+</li>
+</ul>
 <h3 id="213">2.1.3<a class="headerlink" href="#213" title="Permanent link">&para;</a></h3>
 <ul>
 <li>docs: update docs for ClusterMarkers with examples</li>
@@ -625,9 +667,11 @@ But the the figures will be still displayed in the report as before.</p>
 <li>test: add ScFGSEA tests and configuration</li>
 <li>test: add CellCellCommunication and CellCellCommunicationPlots tests</li>
 <li>docs: update ScrnaMetabolicLandscape doc images</li>
-<li>chore: bump biopipen to 0.34.17</li>
+<li>chore: bump biopipen to 0.34.17<ul>
 <li>fix(scrna.MarkersFinder): enhance error handling in enrichment plotting and fix all-enrich plots when ident_1 is NULL</li>
 <li>fix(tcr.ClonalStats): replace deprecated ClonalDynamicsPlot with ClonalStatPlot</li>
+</ul>
+</li>
 </ul>
 <h3 id="212">2.1.2<a class="headerlink" href="#212" title="Permanent link">&para;</a></h3>
 <ul>
@@ -657,8 +701,10 @@ But the the figures will be still displayed in the report as before.</p>
 <li>chore: bump pipen-cli-gbatch to v0.1.3</li>
 <li>chore: bump pipen-args to v0.17.7</li>
 <li>chore: bump pipen-report to 0.23.13</li>
-<li>chore: update biopipen to version 0.34.16</li>
+<li>chore: update biopipen to version 0.34.16<ul>
 <li>feat(scrna.MarkersFinder): allow using other metadata columns from object for enrichment plot of all subcases</li>
+</ul>
+</li>
 </ul>
 <h3 id="203">2.0.3<a class="headerlink" href="#203" title="Permanent link">&para;</a></h3>
 <ul>
@@ -669,27 +715,31 @@ But the the figures will be still displayed in the report as before.</p>
 <li>docs: update volume mounting syntax in docker and singularity commands</li>
 <li>docs: update <code>immunopipe gbatch</code> options for running the pipeline on Google Cloud Batch Jobs</li>
 <li>chore: bump pipen-cli-gbatch to 0.0.7 and pipen-report to 0.23.12</li>
-<li>chore: bump biopipen to 0.34.14</li>
+<li>chore: bump biopipen to 0.34.14<ul>
 <li>fix(scrna_metabolic_landscape): fix report paging issue</li>
 <li>docs(scrna.MarkersFinder): fix links in docs</li>
 <li>fix(scrna.SeuratClusterStats): improve error handling in feature plotting when save_code (due to upgrade to ggplot2 v4)</li>
 <li>feat(MarkersFinder): use <code>scplotter::MarkersPlot</code> (wrapped by <code>biopipen.utils::VizDEGs</code> to visualize marker</li>
 <li>fix(scrna.CellTypeAnnotation): update logging for celltypist command execution</li>
 </ul>
+</li>
+</ul>
 <h3 id="202">2.0.2<a class="headerlink" href="#202" title="Permanent link">&para;</a></h3>
 <ul>
 <li>fix: fix immunopipe -h/--help not working as expected</li>
 <li>feat(gbatch): enhance validation and default handling in main function</li>
 <li>feat(gbatch): add --mount-as-cwd option to mount a cloudpath as working directory</li>
-<li>chore: bump biopipen to 0.34.10</li>
+<li>chore: bump biopipen to 0.34.10<ul>
 <li>docs(scrna.SeuratPreparing): enhance cell_qc parameter description in SeuratPreparing</li>
 <li>docs(scrna.ModuleScoreCalculator): update link format in ModuleScoreCalculator docstring</li>
+</ul>
+</li>
 </ul>
 <h3 id="201">2.0.1<a class="headerlink" href="#201" title="Permanent link">&para;</a></h3>
 <ul>
 <li>feat: add utility cli for gene checking and dimension verification</li>
 <li>chore: make tests order work as expected</li>
-<li>chore: bump biopipen to 0.34.9</li>
+<li>chore: bump biopipen to 0.34.9<ul>
 <li>fix(scrna.CellCellCommunication): handle numpy product attribute error</li>
 <li>feat(scrna.ModuleScoreCalculator): add post mutaters functionality to allow compound modules based on added modules</li>
 <li>docs(scrna.MarkersFinder): correct URL in documentation</li>
@@ -697,20 +747,26 @@ But the the figures will be still displayed in the report as before.</p>
 <li>feat(scrna.MarkersFinder): enhance enrichment plot descriptions</li>
 <li>chore(scrna.CellCellCommunicationPlots): set default case to "Cell-Cell Communication"</li>
 <li>feat(scrna.CellCellCommunicationPlots): add table output option for ccc data</li>
-<li>chore: bump scplotter to 0.6.0 in docker image</li>
+</ul>
+</li>
+<li>chore: bump scplotter to 0.6.0 in docker image<ul>
 <li>chore: optimize clonal_size_data</li>
 <li>feat(featurestatplot): add pos_only parameter to filter positive feature values</li>
 <li>chore(enrichmentplot) remove preset label_nudge parameter in BarPlot call</li>
 <li>feat: add downsample parameter to feature statistic plots</li>
 <li>feat(featurestatplot) default options to TRUE to show row and column names when plot_type is heatmap-alike</li>
 </ul>
+</li>
+</ul>
 <h3 id="200-cloud-support-enhanced-visualization-new-analysesfeatures-and-more">2.0.0 (Cloud support, enhanced visualization, new analyses/features, and more ...)<a class="headerlink" href="#200-cloud-support-enhanced-visualization-new-analysesfeatures-and-more" title="Permanent link">&para;</a></h3>
 <h4 id="cloud-support">Cloud support<a class="headerlink" href="#cloud-support" title="Permanent link">&para;</a></h4>
 <ul>
-<li>feat: immunopipe can now be run on Google Cloud Batch Jobs, allowing for scalable and efficient processing of larger datasets.</li>
+<li>feat: immunopipe can now be run on Google Cloud Batch Jobs, allowing for scalable and efficient processing of larger datasets.<ul>
 <li>You can either run the pipeline using the <a href="https://pwwang.github.io/pipen/scheduler/#gbatch">gbatch scheduler</a>; or</li>
 <li>run the entire pipeline on Gooble Batch Jobs using <code>immunopipe gbatch</code> command.</li>
 <li>See <a href="https://pwwang.github.io/immunopipe/latest/running/#run-the-pipeline-using-google-cloud-batch-jobs">Run the pipeline using Google Cloud Batch Jobs¶</a> for more details.</li>
+</ul>
+</li>
 </ul>
 <h4 id="enhanced-visualization">Enhanced visualization<a class="headerlink" href="#enhanced-visualization" title="Permanent link">&para;</a></h4>
 <ul>
@@ -748,15 +804,13 @@ But the the figures will be still displayed in the report as before.</p>
 <li>chore(deps): add gcc_linux-64 to Docker environment dependencies</li>
 <li>docs: add input and output sections to multiple process documentation files</li>
 <li>feat: add PDF output for K-means and T cell plots, enhancing report generation</li>
-<li>deps: bump biopipen to 0.32.3</li>
-<li>0.32.1:<ul>
+<li>deps: bump biopipen to 0.32.3<ul>
+<li>0.32.1:</li>
 <li>fix(scrna.ScFGSEA): fix case gmtfile not working</li>
 <li>fix(TopExpressingGenes): add InlineNotification component to TopExpressingGenes.svelte</li>
 <li>fix(scrna.SeuratClusterStats): fix kind not being added to the figure file name for plots of features</li>
 <li>feat(scrna.SeuratPreparing): support percent.mt, percent.ribo, percent.hb and percent.plat for mouse</li>
-</ul>
-</li>
-<li>0.32.2:<ul>
+<li>0.32.2:</li>
 <li>feat: add PDF output option for SampleInfo plots</li>
 <li>feat: add PDF output options for violin and scatter plots in Seurat preparation scripts</li>
 <li>feat: add PDF output options for volcano, dotplot, venn, and upset plots</li>
@@ -771,9 +825,7 @@ But the the figures will be still displayed in the report as before.</p>
 <li>feat: add PDF output options for pie charts, heatmaps, Venn plots, and UpSet plots; enhance reporting with downloadable PDF files</li>
 <li>feat: add PDF output options for Enrichr plots; enhance reporting with downloadable PDF files</li>
 <li>feat: add PDF output options for estimated coefficients and distribution plots; enhance reporting with downloadable PDF files</li>
-</ul>
-</li>
-<li>0.32.3:<ul>
+<li>0.32.3:</li>
 <li>chore: add descriptive summaries for fgsea and enrichr results</li>
 </ul>
 </li>
@@ -781,8 +833,10 @@ But the the figures will be still displayed in the report as before.</p>
 <h3 id="143">1.4.3<a class="headerlink" href="#143" title="Permanent link">&para;</a></h3>
 <ul>
 <li>deps: update pipen-runinfo dependency to version 0.8.0 (pipen to 0.15.2)</li>
-<li>deps: update biopipen dependency to version 0.31.4</li>
+<li>deps: update biopipen dependency to version 0.31.4<ul>
 <li>fix(scrna.SeuratMap2Ref): fix refnorm not detected for NormlizeData'ed reference</li>
+</ul>
+</li>
 </ul>
 <h3 id="142">1.4.2<a class="headerlink" href="#142" title="Permanent link">&para;</a></h3>
 <ul>
@@ -801,7 +855,7 @@ But the the figures will be still displayed in the report as before.</p>
 <li>ci: use latest actions</li>
 <li>deps: add r-clustree as a dependency in docker environment files</li>
 <li>deps: update dependencies in docker environment files (python3.10, R4.3)</li>
-<li>deps: bump biopipen to 0.29.0</li>
+<li>deps: bump biopipen to 0.29.0<ul>
 <li>fix(tcr.TCRClusterStats): fix envs.shared_clusters.heatmap_meta being broken by envs.shared_clusters.sample_order (@<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#108;&#105;&#46;&#121;&#105;&#110;&#103;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;">&#108;&#105;&#46;&#121;&#105;&#110;&#103;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;</a>)</li>
 <li>choir(scrna.SeuratMap2Ref): present better error message when envs.use or values of envs.MapQuery.refdata not in reference (@<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#108;&#105;&#46;&#121;&#105;&#110;&#103;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;">&#108;&#105;&#46;&#121;&#105;&#110;&#103;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;</a>)</li>
 <li>fix(scrna.MarkersFinder): run PrepSCTFindMarkers when needed</li>
@@ -810,7 +864,9 @@ But the the figures will be still displayed in the report as before.</p>
 <li>feat(scrna.SeuratClustering): add clustree plot (@<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#108;&#105;&#46;&#121;&#105;&#110;&#103;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;">&#108;&#105;&#46;&#121;&#105;&#110;&#103;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;</a>)</li>
 <li>feat(scrna.SeuratSubClustering): add clustree plot</li>
 <li>tests(scrna.SeuratClusterStats): add assertion for clustree plot generation</li>
-<li>deps: bump biopipen to 0.29.1</li>
+</ul>
+</li>
+<li>deps: bump biopipen to 0.29.1<ul>
 <li>fix(delim.SampleInfo): fix numbers not split up when each is specified.</li>
 <li>enh(delim.SampleInfo): make sizes of pie charts proportional to number of samples when each is specified</li>
 <li>enh(scrna.MarkersFinder): run PrepSCTFindMarkers when necessary before calling FindMarkers</li>
@@ -819,12 +875,16 @@ But the the figures will be still displayed in the report as before.</p>
 <li>chore(scrna.SeuratClustering): record PrepSCTFindMarkers command in sobj@commands</li>
 <li>tests(scrna.SeuratClusterStats): use less stringent p-value cutoff for DEG/MarkersFinder</li>
 <li>tests(scrna.SeuratPreparing): add doubletfinder in tests</li>
-<li>deps: bump biopipen to 0.29.2</li>
+</ul>
+</li>
+<li>deps: bump biopipen to 0.29.2<ul>
 <li>chore(scrna.SeuratClusterStats): use ident label length to adjust default height for feature plots</li>
 <li>fix(scrna.MetaMarkers): fix seurat object not updated when expanding cases and run <code>PrepSCTFindMarkers</code> when necessary before calling meta-markers</li>
 <li>fix(scrna.MarkersFinder): fix fetching command when composing the PrepSCTFindMarkers command</li>
 <li>fix(scrna_metabolic_landscape): handle null values in for loop in MetabolicFeatures and MetabolicFeaturesIntraSubset for report generation</li>
-<li>deps: bump biopipen to 0.30.0</li>
+</ul>
+</li>
+<li>deps: bump biopipen to 0.30.0<ul>
 <li>BREAKING(scrna): move clustree plots from SeuratClustering/SeuratSubClustering to SeuratClusterStats</li>
 <li>feat(scrna.CellTypeAnnotation): allow to merge/not to merge (envs.merge) the clusters with the same labels predicted</li>
 <li>feat(scrna.SeuratPreparing): add scDblFinder to detect doublets</li>
@@ -838,27 +898,35 @@ But the the figures will be still displayed in the report as before.</p>
 <li>chore(scrna.SeuratMap2Ref): optimize memory usage</li>
 <li>chore(scrna.MetaMarkers): remove plugin_opts.poplog_max</li>
 <li>chore(tcr.CloneResidency): improve logging when handling subjects</li>
-<li>deps: bump biopipen to 0.31.3</li>
+</ul>
+</li>
+<li>deps: bump biopipen to 0.31.3<ul>
 <li>enh(scrna.SeuratMap2Ref): check if reference has SCTModel if SCTransform'ed (likely prepared by old Seurat)</li>
 <li>fix(tcr.CDR3AAPhyschem): use sequence from TRB chain only</li>
 <li>fix(tcr.CDR3AAPhyschem): fix when chain is not available</li>
 <li>fix(tcr.TCRClustering): fix for multi-chain TCRs, use TRB only if on_multi is false</li>
 <li>fix(tcr.TCRClustering): fix when chain is not available</li>
 </ul>
+</li>
+</ul>
 <h3 id="139">1.3.9<a class="headerlink" href="#139" title="Permanent link">&para;</a></h3>
 <ul>
 <li>docs: update docs for TCellSelection to avoid confusion</li>
-<li>deps: bump biopipen to 0.27.9</li>
+<li>deps: bump biopipen to 0.27.9<ul>
 <li>feat(tcr.TCRClusterStats): add sample_order to set sample order on heatmap and cluster_rows to switch row clustering on/off</li>
+</ul>
+</li>
 </ul>
 <h3 id="138">1.3.8<a class="headerlink" href="#138" title="Permanent link">&para;</a></h3>
 <ul>
 <li>docs: remove -w option for apptainer/singularity as no writing is necessary since pipen-board 0.15.1</li>
-<li>deps: update biopipen to version 0.27.8</li>
+<li>deps: update biopipen to version 0.27.8<ul>
 <li>fix(scrna.SeuratClusterStats): fix selected columns not unique for stats</li>
 <li>feat(scrna.SeuratMap2Ref): allow non-SCTransform'ed reference</li>
 <li>feat(scrna.SeuratMap2Ref): allow splitting query object for mapping (pwwang/immunopipe#61)</li>
 <li>deps: update pipen-board to version 0.15.1 (allow configuration file path in the URL box on Web UI)</li>
+</ul>
+</li>
 </ul>
 <h3 id="137">1.3.7<a class="headerlink" href="#137" title="Permanent link">&para;</a></h3>
 <ul>
@@ -877,7 +945,7 @@ But the the figures will be still displayed in the report as before.</p>
 <li>tests: update SeuratPreparing test to disable export</li>
 <li>tests: add tests for SeuratClusteringOfAllCells/SeuratClustering</li>
 <li>docs: update installation instructions (@<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#116;&#101;&#105;&#110;&#46;&#109;&#97;&#114;&#105;&#97;&#109;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;">&#115;&#116;&#101;&#105;&#110;&#46;&#109;&#97;&#114;&#105;&#97;&#109;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;</a>)</li>
-<li>deps: bump biopipen to version 0.27.7 (0.27.5-0.27.7)</li>
+<li>deps: bump biopipen to version 0.27.7 (0.27.5-0.27.7)<ul>
 <li>fix(scrna.SeuratClusterStats): fix color palette for ridge plots (@<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#116;&#101;&#105;&#110;&#46;&#109;&#97;&#114;&#105;&#97;&#109;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;">&#115;&#116;&#101;&#105;&#110;&#46;&#109;&#97;&#114;&#105;&#97;&#109;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;</a>)</li>
 <li>feat(scrna.SeuratPreparing): add envs.cell_qc_per_sample to filter cells before merging instead after</li>
 <li>fix(scrna_metabolic_landscape.MetabolicFeatures): fix return value of groups with less than 5 cells in <code>do_one_group</code></li>
@@ -885,12 +953,16 @@ But the the figures will be still displayed in the report as before.</p>
 <li>fix(scrna_metabolic_landscape.MetabolicFeatures/MetabolicFeaturesIntraSubset): skip groups with less than 5 cells in <code>do_one_group</code> and save a warning file under the case</li>
 <li>chore: fix typo in class name <code>ExprImpution</code> to <code>ExprImputation</code></li>
 </ul>
+</li>
+</ul>
 <h3 id="135">1.3.5<a class="headerlink" href="#135" title="Permanent link">&para;</a></h3>
 <ul>
 <li>ci/test: add tests in CI and deploy output in a different branch</li>
-<li>deps: bump biopipen to 0.27.4</li>
+<li>deps: bump biopipen to 0.27.4<ul>
 <li>choir(delim.SampleInfo): add alpha to the colors of the plots using biopipen color pallete</li>
 <li>docs(tcr/scrna/scrna_metabolic_landscape): update links of images in docs</li>
+</ul>
+</li>
 </ul>
 <h3 id="134-post">1.3.4-post<a class="headerlink" href="#134-post" title="Permanent link">&para;</a></h3>
 <ul>
@@ -899,7 +971,7 @@ But the the figures will be still displayed in the report as before.</p>
 </ul>
 <h3 id="134">1.3.4<a class="headerlink" href="#134" title="Permanent link">&para;</a></h3>
 <ul>
-<li>deps: bump biopipen to 0.27.3</li>
+<li>deps: bump biopipen to 0.27.3<ul>
 <li>deps: bump pipen-poplog to 0.1.2 (quick fix for populating logs when job fails)</li>
 <li>deps: temporary fix copier breaks with pyyaml-include v2 (copier-org/copier#1568)</li>
 <li>choir(scrna.ScFGSEA): Skip cases when no cells found (#50)</li>
@@ -907,20 +979,24 @@ But the the figures will be still displayed in the report as before.</p>
 <li>choir(scrna.MetaMarkers): Skip cases when no cells found (#50)</li>
 <li>feat(scrna.SeuratPreparing): support <code>DoubletFinder</code> (#52)</li>
 </ul>
+</li>
+</ul>
 <h3 id="133">1.3.3<a class="headerlink" href="#133" title="Permanent link">&para;</a></h3>
 <ul>
 <li>deps: temporary fix copier breaks with pyyaml-include v2 (copier-org/copier#1568)</li>
 <li>docs: update FAQ.md with instructions for running pipeline on a cluster</li>
-<li>deps: bump biopipen to 0.27.2</li>
+<li>deps: bump biopipen to 0.27.2<ul>
 <li>fix(scrna.RadarPlots): fix mutaters not working</li>
 <li>feat(tcr.CloneResidency): support <code>envs.upset_ymax</code> to set the max value of y axis in upset bar plot.</li>
+</ul>
+</li>
 </ul>
 <h3 id="132">1.3.2<a class="headerlink" href="#132" title="Permanent link">&para;</a></h3>
 <ul>
 <li>deps: bump pipen to 0.14.5</li>
 <li>deps: add r-complexupset package to environment.yml and environment_full.yml for CloneResidency</li>
 <li>deps: pin tensorflow to 2.15 for TESSA</li>
-<li>deps: bump biopipen to 0.27.1</li>
+<li>deps: bump biopipen to 0.27.1<ul>
 <li>depr(scrna.MarkersFinder): remove <code>envs.use_presto</code> as it's used by Seurat v5 by default</li>
 <li>enh(tcr.CloneResidency): support log scale for y axis of upset bar plots</li>
 <li>enh(scrna.SeuratClusterStats): allow to rotate labels in circos plot (pwwang/immunopipe#48) @<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#108;&#105;&#46;&#121;&#105;&#110;&#103;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;">&#108;&#105;&#46;&#121;&#105;&#110;&#103;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;</a></li>
@@ -939,11 +1015,13 @@ But the the figures will be still displayed in the report as before.</p>
 <li>docs: add more detailed docs for <code>envs.section</code> for multiple processes</li>
 <li>BREAKING(scrna.SeuratMap2Ref): rename envs.name to envs.ident so envs.MapQuery.refdata is not - required anymore. It will be inferred from envs.ident and envs.use. @<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#108;&#105;&#46;&#121;&#105;&#110;&#103;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;">&#108;&#105;&#46;&#121;&#105;&#110;&#103;&#64;&#109;&#97;&#121;&#111;&#46;&#101;&#100;&#117;</a></li>
 </ul>
+</li>
+</ul>
 <h3 id="131">1.3.1<a class="headerlink" href="#131" title="Permanent link">&para;</a></h3>
 <ul>
 <li>deps: bump pipen to 0.14.3</li>
 <li>deps: pin ggplot2 to 3.4 for docker due to breaking changes of 3.5</li>
-<li>deps: bump biopipen to 0.26.2</li>
+<li>deps: bump biopipen to 0.26.2<ul>
 <li>deps: bump datar-pandas to 0.5.5 to dismiss deprecated warnings</li>
 <li>fix(utils.misc.R): replace latin and greek characters with closest ascii chars for slugify()</li>
 <li>feat(scrna.TopExpressingGenes): support <code>subset</code></li>
@@ -951,11 +1029,13 @@ But the the figures will be still displayed in the report as before.</p>
 <li>enh(tcr.CloneResidency): add legend for multiplets in upset plots.</li>
 <li>feat(scrna.SeuratClusterStats): add circos plot for cell composition stats (#46).</li>
 </ul>
+</li>
+</ul>
 <h3 id="130">1.3.0<a class="headerlink" href="#130" title="Permanent link">&para;</a></h3>
 <ul>
 <li>deps: bump pipen to 0.14.1</li>
 <li>deps: bump pipen-report to 0.18.2</li>
-<li>deps: bump biopipen to 0.26.0</li>
+<li>deps: bump biopipen to 0.26.0<ul>
 <li>fix(scrna.CellTypeAnnotation): keep factor meta data when input and output are RDS for celltypist</li>
 <li>deps: bump datar to 0.15.4 (support pandas 2.2)</li>
 <li>fix(utils.single_cell.R): fix <code>immdata_from_expanded</code> missing other data columns</li>
@@ -970,6 +1050,8 @@ But the the figures will be still displayed in the report as before.</p>
 <li>choir(scrna.MarkersFinder): Do not convert dashes in case names to dots</li>
 <li>see more at <a href="https://github.com/pwwang/biopipen/releases/tag/0.26.0">https://github.com/pwwang/biopipen/releases/tag/0.26.0</a></li>
 </ul>
+</li>
+</ul>
 <h3 id="120">1.2.0<a class="headerlink" href="#120" title="Permanent link">&para;</a></h3>
 <ul>
 <li>docs: update FAQs to align with Seurat v5</li>
@@ -977,52 +1059,62 @@ But the the figures will be still displayed in the report as before.</p>
 <li>docs: center the flowchart image in README.md</li>
 <li>docs: mention <code>celltypist</code> model prep in preparing input data</li>
 <li>deps: bump pipen to 0.13.2</li>
-<li>deps: bump biopipen to 0.25.2:</li>
+<li>deps: bump biopipen to 0.25.2:<ul>
 <li>scrna.MarkersFinder: allow to cache <code>FindAllMarkers</code> results</li>
 <li>scrna.CellTypeAnnotation: support <code>celltypist</code> (pwwang/biopipen#111)</li>
 <li>scrna.SeuratSubClustering: add <code>envs_depth = 1</code> to replace whole <code>envs.cases</code> when new case assigned</li>
 <li>scrna_metabolic_landscape.MetabolicPathwayHeterogeneit): fix output directory path is not slugified</li>
 <li>tcr.Immunarch: change case filling log to debug level</li>
 </ul>
+</li>
+</ul>
 <h3 id="111">1.1.1<a class="headerlink" href="#111" title="Permanent link">&para;</a></h3>
 <ul>
-<li>deps: Bump biopipen to 0.24.2</li>
+<li>deps: Bump biopipen to 0.24.2<ul>
 <li>chore: use internal slugify instead of slugify library</li>
 <li>tcr.Immunarch: fix spectratyping output file extension is not png</li>
 <li>scrna.SeuratPreparing: fix displaying filters in report</li>
 <li>scrna.SeuratPreparing: fix logging Seurat procedure arguments</li>
 </ul>
+</li>
+</ul>
 <h3 id="110">1.1.0<a class="headerlink" href="#110" title="Permanent link">&para;</a></h3>
 <ul>
 <li>docs: update table in gallery</li>
 <li>deps: use <a href="https://github.com/pwwang/pipen-poplog">pipen-poplog</a> to populate job logs to pipeline running log</li>
-<li>deps: bump biopipen to 0.24. Hights:</li>
+<li>deps: bump biopipen to 0.24. Hights:<ul>
 <li>scrna.ScFGSEA: add subset to filter cells (pwwang/biopipen#112) @yuey11</li>
 <li>scrna.SeuratClustering/SeuratSubClustering: cache Seurat procedures step by step (#40) @xyfqwlzoe</li>
 <li>tcr.Immunarch: add <code>plot_type</code> to support boxplots for diversity metrics</li>
 <li>see more at <a href="https://github.com/pwwang/biopipen/releases/tag/0.24.0">https://github.com/pwwang/biopipen/releases/tag/0.24.0</a></li>
+</ul>
+</li>
 </ul>
 <h3 id="105">1.0.5<a class="headerlink" href="#105" title="Permanent link">&para;</a></h3>
 <ul>
 <li>change: do not rescale gene expression in <code>TCellSelection</code> any more</li>
 <li>fix: fix column names of indicators not aligned with <code>indicator_genes</code></li>
 <li>feat: add feature plots in <code>TCellSelection</code></li>
-<li>deps: bump biopipen to 0.23.8</li>
+<li>deps: bump biopipen to 0.23.8<ul>
 <li>scrna.SeuratPreparing: log Seurat procedure arguments</li>
 <li>scrna.ScFGSEA: add <code>subset</code> to filter cells (pwwang/biopipen#112)</li>
 </ul>
+</li>
+</ul>
 <h3 id="104">1.0.4<a class="headerlink" href="#104" title="Permanent link">&para;</a></h3>
 <ul>
-<li>deps: bump biopipen to 0.23.7</li>
+<li>deps: bump biopipen to 0.23.7<ul>
 <li>scrna.SeuratPreparing: update log message for transformation/scaling step</li>
 <li>scrna_metabolic_landscape.MetabolicPathwayHeterogeneity: add utils.gsea script source to support <code>localizeGmtfile</code></li>
+</ul>
+</li>
 </ul>
 <h3 id="103">1.0.3<a class="headerlink" href="#103" title="Permanent link">&para;</a></h3>
 <ul>
 <li>deps: add r-seuratdisk dependency to conda env files. @yuey11</li>
 <li>deps: pin r-matrixstats to 1.1.0 in conda env files to fix <code>useNames = NA</code> error. @yuey11</li>
 <li>refactor: optimize configuration file validation</li>
-<li>deps: bump biopipen to 0.23.6</li>
+<li>deps: bump biopipen to 0.23.6<ul>
 <li>feat: support url for gmtfile wherever GSEA is performed (pwwang/biopipen#113)</li>
 <li>tcr.Immunarch: add error message for empty filtered/subset data in diversity</li>
 <li>scrna.SeuratPreparing: correct description of default assay in docstr</li>
@@ -1030,28 +1122,34 @@ But the the figures will be still displayed in the report as before.</p>
 <li>scrna.ModuleScoreCalculator: document the names added by cell cycle score (#34)</li>
 <li>scrna.SeuratPreparing: support sample names as <code>reference</code> for <code>IntegrateLayers</code></li>
 </ul>
+</li>
+</ul>
 <h3 id="102">1.0.2<a class="headerlink" href="#102" title="Permanent link">&para;</a></h3>
 <ul>
 <li>deps: add bioconductor-glmgampoi to conda env files (#33)</li>
 <li>docs: correct the Seurat object assay description</li>
-<li>deps: bump biopipen to 0.23.5</li>
+<li>deps: bump biopipen to 0.23.5<ul>
 <li>fix: fix when no enriched items found for <code>scrna.MarkersFinder</code>, <code>scrna.MetaMarkers</code> and <code>scrna.TopExpressingGenes</code></li>
 <li>scrna.SeuratClusterStats: fix when <code>frac</code> or <code>frac_ofall</code> is true and no <code>group-by</code> nor <code>split-by</code> is specified for <code>stats</code></li>
 <li>utils.gsea.R: fix when no enriched items found for <code>runEnrichr</code></li>
 <li>scrna_metabolic_landscript: fix adding report when <code>ncores</code> &gt; 1</li>
+</ul>
+</li>
 </ul>
 <h3 id="101">1.0.1<a class="headerlink" href="#101" title="Permanent link">&para;</a></h3>
 <ul>
 <li>docs: add gallery section to README.md</li>
 <li>change: set default <code>nstart</code> of kmeans to 25 in <code>TCellSelection</code></li>
 <li>deps: add <code>r-hdf5r</code> in conda env files to support <code>Read_10x_h5</code> from Seurat. @yuey11</li>
-<li>deps: bump biopipen to 0.23.4</li>
+<li>deps: bump biopipen to 0.23.4<ul>
 <li>scrna.TopExpressingGenes: fix colnames while pulling average expression</li>
 <li>scrna.CellsDistribution: fix when <code>cells_by</code> has multiple column names</li>
 <li>scrna.CellTypeAnnotation: fix the order of the clusters for <code>direct</code> method</li>
 <li>scrna.SeuratClusterStats: add <code>position</code> options for bar plots for stats</li>
 <li>scrna.RadarPlots: add <code>colors</code> to set the colors of the loops in radar and bar plots</li>
 <li>tcr.Immunarch: add <code>split_by</code> and <code>split_order</code> to put subplots together in one single plots</li>
+</ul>
+</li>
 </ul>
 <h3 id="100">1.0.0<a class="headerlink" href="#100" title="Permanent link">&para;</a></h3>
 <h4 id="highlights">Highlights<a class="headerlink" href="#highlights" title="Permanent link">&para;</a></h4>
@@ -1098,7 +1196,7 @@ But the the figures will be still displayed in the report as before.</p>
 <li>deps: add <code>r-sf</code> to conda env file</li>
 <li>deps: remove <code>vdjtools</code> from conda env files</li>
 <li>deps: bump <code>pipen-report</code> to <a href="https://github.com/pwwang/pipen-report/releases/tag/0.16.3">0.16.3</a></li>
-<li>deps: bump <code>biopipen</code> to <a href="https://github.com/pwwang/biopipen/releases">0.23.3</a>. Hightlight changes:</li>
+<li>deps: bump <code>biopipen</code> to <a href="https://github.com/pwwang/biopipen/releases">0.23.3</a>. Hightlight changes:<ul>
 <li>scrna.MarkersFinder: Add <code>envs.use_presto</code> to use presto to speed up finding markers</li>
 <li>scrna.SeuratPreparing: Set envs.gene_qc.min_cells to 0 by default (instead of 3)</li>
 <li>scrna.ScFGSEA: Allow to ignore small group when fgsea fails due to all NAs for pre-ranks</li>
@@ -1116,6 +1214,8 @@ But the the figures will be still displayed in the report as before.</p>
 <li>utils.mutate_helpers: Add <code>top</code> to select top entities (e.g clones)</li>
 <li>scrna.RadarPlots: Add breakdown and test to break down the cell distribution and run statistic test on the fractions</li>
 </ul>
+</li>
+</ul>
 <h3 id="0112">0.11.2<a class="headerlink" href="#0112" title="Permanent link">&para;</a></h3>
 <ul>
 <li>docs: move <code>Immunarch</code> to the later position in process list</li>
@@ -1129,7 +1229,7 @@ But the the figures will be still displayed in the report as before.</p>
 <li>docs: add version of renaming <code>envs.tcell_indicator</code> to <code>envs.tcell_selector</code></li>
 <li>docs: remove unused doc files</li>
 <li>docs: add metadata illustration</li>
-<li>deps: bump biopipen to 0.22.8. Highlights:</li>
+<li>deps: bump biopipen to 0.22.8. Highlights:<ul>
 <li>deps: bump pipen-board to 0.13.10 (pipen-report to 0.16.2)</li>
 <li>CellsDistribution: Don't add rownames to the output table file</li>
 <li>MarkersFinder (ClusterMarkers/ClusterMarkersOfAllCells): Optimize to use <code>FindAllMarkers</code> if <code>ident.1</code> is not specified</li>
@@ -1137,9 +1237,11 @@ But the the figures will be still displayed in the report as before.</p>
 <li>CellTypeAnnotation: Allow using <code>NA</code> to exclude clusters from output <code>Seurat</code> object</li>
 <li>utils.mutate_helpers: Return ids only when subset is true and group is not <code>NA</code> for <code>uniq = TRUE</code> in <code>expanded</code>, <code>collapsed</code>, <code>emerged</code> and <code>vanished</code></li>
 </ul>
+</li>
+</ul>
 <h3 id="0110">0.11.0<a class="headerlink" href="#0110" title="Permanent link">&para;</a></h3>
 <ul>
-<li>deps: update biopipen to 0.22.1, highlights:</li>
+<li>deps: update biopipen to 0.22.1, highlights:<ul>
 <li>add V-J junction circos plots to <code>Immunarch</code> process</li>
 <li>add cache option to cache the clustering results if nothing changed except ncores, to <code>SeuratClustering</code> process</li>
 <li>add dot plots to <code>MarkersFinder</code> (<code>ClusterMarkersOfAllCells</code>, <code>ClusterMarkers</code>) process</li>
@@ -1151,10 +1253,14 @@ But the the figures will be still displayed in the report as before.</p>
 <li>change metacols to extracols so essential columns get exported for <code>ImmunarchLoading</code> process</li>
 <li>add cache option to cache the clustering results if nothing changed except ncores for <code>SeuratClustering</code> (<code>SeuratClusteringOfAllCells</code>) process</li>
 <li>see more at <a href="https://github.com/pwwang/biopipen/releases/tag/0.22.0">https://github.com/pwwang/biopipen/releases/tag/0.22.0</a> and <a href="https://github.com/pwwang/biopipen/releases/tag/0.22.1">https://github.com/pwwang/biopipen/releases/tag/0.22.1</a></li>
-<li>deps: update pipen-report to 0.16, highlights:</li>
+</ul>
+</li>
+<li>deps: update pipen-report to 0.16, highlights:<ul>
 <li>scroll anchor into view on the page</li>
 <li>build report page when each process is done, instead of the whole pipeline</li>
 <li>see more at <a href="https://github.com/pwwang/pipen-report/releases/tag/0.16.0">https://github.com/pwwang/pipen-report/releases/tag/0.16.0</a></li>
+</ul>
+</li>
 <li>change: remove <code>Immunarch2VDJtools</code> and <code>VJUsage</code> processes (vj usage analysis can be done in <code>Immunarch</code> process)</li>
 <li>change: change <code>tcell_indicator</code> to <code>tcell_selector</code> in <code>TCellSelection</code> process</li>
 <li>enhance: provide better error message when none barcode matches from RNA and TCR data for <code>TCRClustering</code> process</li>
@@ -1171,7 +1277,7 @@ But the the figures will be still displayed in the report as before.</p>
 <ul>
 <li>docker: lock r-matrix version to 1.6_1 for compatibility</li>
 <li>docs: adopt mkdocs-rtd 0.0.10 (add scrollbar to the table of contents)</li>
-<li>deps: bump biopipen to 0.21.1</li>
+<li>deps: bump biopipen to 0.21.1<ul>
 <li>use <code>r-logger</code> for logging in R scripts</li>
 <li>docs: fix internal references in API docs</li>
 <li>deps: bump pipen-board to 0.13.6</li>
@@ -1190,6 +1296,8 @@ But the the figures will be still displayed in the report as before.</p>
 <li>CellsDistribution: allow <code>subset</code> to subset cells for analyses</li>
 <li>utils.mutate_helpers.R: add <code>include_emerged</code> for <code>expanded()</code> and <code>include_vanished</code> for <code>collapsed()</code></li>
 </ul>
+</li>
+</ul>
 <h3 id="093">0.9.3<a class="headerlink" href="#093" title="Permanent link">&para;</a></h3>
 <ul>
 <li>deps: Bump biopipen to 0.20.7</li>
@@ -1202,14 +1310,18 @@ But the the figures will be still displayed in the report as before.</p>
 <h3 id="092">0.9.2<a class="headerlink" href="#092" title="Permanent link">&para;</a></h3>
 <ul>
 <li>➕ Add <code>r-ggnewscale</code> as dependency for <code>CDR3AAPhyschem</code> in docker image</li>
-<li>⬆️ Bump biopipen to 0.20.5</li>
+<li>⬆️ Bump biopipen to 0.20.5<ul>
 <li>🧱 CloneResidency: Integrate RNA data to allow more flexible analysis (i.e. within specific seurat clusters)</li>
 <li>🏗️ CloneResidency: Rename envs.sample_groups to envs.section to be consistent with other processes</li>
 <li>📝 ScFGSEA: Remove the link in the summary of the docstring (since they are not transformed in the report)</li>
 <li>🎨 CDR3AAPhyschem: Give better error message when wrong group items are given</li>
-<li>⬆️ Bump pipen-board to 0.13.3</li>
+</ul>
+</li>
+<li>⬆️ Bump pipen-board to 0.13.3<ul>
 <li>Add items automatically when blurred for list options</li>
 <li>Add other sections to description on the UI for processes</li>
+</ul>
+</li>
 </ul>
 <h3 id="091">0.9.1<a class="headerlink" href="#091" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1310,9 +1422,11 @@ But the the figures will be still displayed in the report as before.</p>
 <h3 id="070">0.7.0<a class="headerlink" href="#070" title="Permanent link">&para;</a></h3>
 <h4 id="housekeeping-and-docs-updates-070">Housekeeping and docs updates-0.7.0<a class="headerlink" href="#housekeeping-and-docs-updates-070" title="Permanent link">&para;</a></h4>
 <ul>
-<li>Fix typos in docs/configurations</li>
+<li>Fix typos in docs/configurations<ul>
 <li><code>TCRClustering</code> should be <code>TCRClusteringStats</code> in Multi-case variable design section</li>
 <li><code>infile</code> of <code>[SampleInfo.in]</code> should be <code>samples.txt</code> rather than <code>sample.txt</code></li>
+</ul>
+</li>
 <li>Remove unused scripts by deprecated processes</li>
 <li>Bump <code>pipen-report</code> to <a href="https://github.com/pwwang/pipen-report/releases/tag/0.12.8">0.12.8</a></li>
 <li>Add <code>master</code> branch and <code>master</code> tag as stable tag for docker image</li>
@@ -1323,12 +1437,18 @@ But the the figures will be still displayed in the report as before.</p>
 </ul>
 <h4 id="added-070">Added-0.7.0<a class="headerlink" href="#added-070" title="Permanent link">&para;</a></h4>
 <ul>
-<li>Add <code>ModuleScoreCalculator</code> to calculate module scores or cell cycle scores</li>
+<li>Add <code>ModuleScoreCalculator</code> to calculate module scores or cell cycle scores<ul>
 <li>See: <a href="https://pwwang.github.io/immunopipe/processes/ModuleScoreCalculator/">https://pwwang.github.io/immunopipe/processes/ModuleScoreCalculator/</a></li>
-<li>Allow <code>SampleInfo</code> to perform statistics on the sample information</li>
+</ul>
+</li>
+<li>Allow <code>SampleInfo</code> to perform statistics on the sample information<ul>
 <li>See: <a href="https://pwwang.github.io/immunopipe/processes/SampleInfo/">https://pwwang.github.io/immunopipe/processes/SampleInfo/</a></li>
-<li>Add <code>TCR_Cluster_Size</code> and <code>TCR_Cluster_Size1</code> from <code>TCRClustering</code> to metadata for further integrative analysis</li>
+</ul>
+</li>
+<li>Add <code>TCR_Cluster_Size</code> and <code>TCR_Cluster_Size1</code> from <code>TCRClustering</code> to metadata for further integrative analysis<ul>
 <li>See: <a href="https://pwwang.github.io/immunopipe/processes/TCRClusters2Seurat/">https://pwwang.github.io/immunopipe/processes/TCRClusters2Seurat/</a></li>
+</ul>
+</li>
 </ul>
 <h4 id="fixed-070">Fixed-0.7.0<a class="headerlink" href="#fixed-070" title="Permanent link">&para;</a></h4>
 <ul>
@@ -1341,8 +1461,10 @@ But the the figures will be still displayed in the report as before.</p>
 <li>Remove <code>MarkersForClustersOfAllCells</code> and <code>TopExpressingGenesOfAllCells</code> processes</li>
 <li>Rename <code>MarkersForClustersOfTCells</code> to <code>ClusterMarkers</code></li>
 <li>Rename <code>TopExpressingGenesOfTCells</code> to <code>TopExpressingGenes</code></li>
-<li>Rename <code>envs.exprs</code> to <code>envs.features</code> for <code>SeuratClusterStats</code></li>
+<li>Rename <code>envs.exprs</code> to <code>envs.features</code> for <code>SeuratClusterStats</code><ul>
 <li><code>envs.exprs.genes</code> is also renamed to <code>envs.features.features</code></li>
+</ul>
+</li>
 </ul>
 <h3 id="060">0.6.0<a class="headerlink" href="#060" title="Permanent link">&para;</a></h3>
 <ul>
