@@ -1,20 +1,25 @@
 # Change Log
 
-
 ## 2.4.3
 
 - chore: update pipen-cli-gbatch version to 1.1.4
-- chore: update r-plotthis to 0.11.0-7 and r-scplotter version to 0.7.1-3 in environment_rpkgs.yml
+- chore: update r-plotthis to 0.11.0-9 and r-scplotter version to 0.7.1-4 in environment_rpkgs.yml
     - fix(ClonalStatPlot): fix xlabs
     - feat(CellStatPlot): support plot pies as heatmap
     - feat(ClonalStatPlot): add subgroup_by for heatmaps
     - feat(ClonalResidencyPlot): add group_by_sep parameter for combining multiple group_by columns
     - feat(ClonalResidencyPlot): add with_class parameter to control clonal class inclusion in plots
     - feat: make default plot size estimation more precise
-- chore: update r-biopipen.utils to 0.3.8-3
+- chore: update biopipen version to 1.2.2
+    - fix(scrna.SeuratClusterStats): fix missing cluster names in pies plot when group_by is used
+    - feat(scrna.ModuleScoreCalculator): add support for mouse cell cycle genes in module scoring
+    - chore(scrna.MarkersFinder): add devpars for Dot Plot dimensions
+    - feat(scrna.SeuratClusterStats): add 'add_box' parameter to ngenes_defaults for enhanced plotting options
+- chore: update r-biopipen.utils to 0.3.8-4
     - fix(LoadSeuratAndPerformQC): fix cell_meta object not found for loom or h5 input
     - feat: support specifying relative `devpars$width` and `devpars$height` for plots
-    - fix(SeuratRunUMAP): set default metric to correlation for UMAP when using umap-learn
+    - fix(RunSeuratUMAP): set default metric to correlation for UMAP when using umap-learn
+    - fix(RunSeuratDEAnalysis): fix handling subsetted object
 - chore: bump pipen to 1.1.11
     - feat: support templated configuration file for the pipeline
 
