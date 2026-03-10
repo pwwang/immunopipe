@@ -46,12 +46,16 @@ viz_type = "stat"
 plot_type = "pies"
 group_by = "Diagnosis"
 groups = ["Colitis", "NoColitis"]
-clones = {"Expanded Clones In Colitis" = "sel(Colitis > 2)", "Expanded Clones In NoColitis" = "sel(NoColitis > 2)"}
 subgroup_by = "seurat_clusters"
 pie_size = "sqrt"
+values_fill = 0
 show_row_names = true
 show_column_names = true
 devpars = {width = 720}
+
+[ClonalStats.envs.cases."Clonal Statistics with Expanded Clones".clones]
+"Expanded Clones In Colitis" = "sel(Colitis > 2, group_by = 'Diagnosis')"
+"Expanded Clones In NoColitis" = "sel(NoColitis > 2, group_by = 'Diagnosis')"
 
 [ClonalStats.envs.cases."Hyperexpanded Clonal Dynamics"]
 viz_type = "stat"
@@ -59,8 +63,11 @@ plot_type = "sankey"
 group_by = "Diagnosis"
 chain = "TRB"
 groups = ["Colitis", "NoColitis"]
-clones = {"Hyper-Expanded Clones In Colitis" = "sel(Colitis > 5)", "Hyper-Expanded Clones In NoColitis" = "sel(NoColitis > 5)"}
 devpars = {width = 800}
+
+[ClonalStats.envs.cases."Hyperexpanded Clonal Dynamics".clones]
+"Hyper-Expanded Clones In Colitis" = "sel(Colitis > 5, group_by = 'Diagnosis')"
+"Hyper-Expanded Clones In NoColitis" = "sel(NoColitis > 5, group_by = 'Diagnosis')"
 
 [ClonalStats.envs.cases."Clonal Composition"]
 viz_type = "composition"

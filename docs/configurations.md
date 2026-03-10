@@ -268,6 +268,48 @@ The following types are supported:
 - `mchoice`/`mchoices`: The value should be chosen from one or more of the choices listed as sub-items.
 - `ns`/`namespace`: There are sub-items for the value. The sub-items will be parsed as key-value pairs.
 
+## Templated configuration files
+
+Since v2.4.3, the configuration files can be templated using [`jinja2`](https://jinja.palletsprojects.com/) or [`liquidpy`](https://github.com/pwwang/liquidpy) syntax. This is helpful for the configurations that contain repeat items, such as multiple cases for the same type of statistics. For example, if you want to plot the clone residency for multiple patients (and you don't want to use `split_by` to put them in one figure):
+
+```liquid
+{% for patient in ["MM003", "MM005"] %}
+[ClonalStats.envs.cases.CloneResidency_{{ patient }}]
+viz_type = "residency"
+group_by = "Tissue"
+groups = ["Tumor", "Blood"]
+{% endfor %}
+```
+
+This will be compiled into the following configuration file:
+
+```toml
+[ClonalStats.envs.cases.CloneResidency_MM003]
+viz_type = "residency"
+group_by = "Tissue"
+groups = ["Tumor", "Blood"]
+
+[ClonalStats.envs.cases.CloneResidency_MM005]
+viz_type = "residency"
+group_by = "Tissue"
+groups = ["Tumor", "Blood"]
+```
+
+Note that your configuration file MUST be named with suffix `.liq.toml` or `.toml.liq`.
+Or in the first line of the configuration file, you can specify the template engine to use:
+
+```toml
+# simpleconf-loader: liquid
+```
+
+or
+
+```toml
+# simpleconf-loader: jinja2
+```
+
+if you are using `liquidpy` or `jinja2` as the template engine, respectively.
+
 ## Understanding the data
 
 Understanding how the data is presented in the pipeline is helpful for the configuration, especially for the processes, such as [`SeuratClusterStats`](processes/SeuratClusterStats.md) and [`ClonalStats`](processes/ClonalStats.md). The configurations of this kind of processes are relying on the metadata.
