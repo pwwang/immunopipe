@@ -284,14 +284,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "1.2.1"
+version = "1.2.2"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-1.2.1-py3-none-any.whl", hash = "sha256:d7cea4eb052e6a935336d02a279d937fcc9bf66a24d52f273d3979f09cabfae0"},
-    {file = "biopipen-1.2.1.tar.gz", hash = "sha256:a8d731fe4bbd365e3a3e478602fc5686a8214b51817dc842262900b0fd058529"},
+    {file = "biopipen-1.2.2-py3-none-any.whl", hash = "sha256:fbbf43c451de72965e6800af67aaa29f7b339b1c607e0fc99a065488ca0f3e2b"},
+    {file = "biopipen-1.2.2.tar.gz", hash = "sha256:1dd5f98605f47782fa9340fddb92e48e775375fd6bab237292586f17c617ca2c"},
 ]
 
 [package.dependencies]
