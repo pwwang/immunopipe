@@ -296,6 +296,19 @@ groups = ["Tumor", "Blood"]
 ```
 
 Note that your configuration file MUST be named with suffix `.liq.toml` or `.toml.liq`.
+Or in the first line of the configuration file, you can specify the template engine to use:
+
+```toml
+# simpleconf-loader: liquid
+```
+
+or
+
+```toml
+# simpleconf-loader: jinja2
+```
+
+if you are using `liquidpy` or `jinja2` as the template engine, respectively.
 
 ## Understanding the data
 

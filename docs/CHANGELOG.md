@@ -1,6 +1,23 @@
 # Change Log
 
 
+## 2.4.3
+
+- chore: update pipen-cli-gbatch version to 1.1.4
+- chore: update r-plotthis to 0.11.0-7 and r-scplotter version to 0.7.1-3 in environment_rpkgs.yml
+    - fix(ClonalStatPlot): fix xlabs
+    - feat(CellStatPlot): support plot pies as heatmap
+    - feat(ClonalStatPlot): add subgroup_by for heatmaps
+    - feat(ClonalResidencyPlot): add group_by_sep parameter for combining multiple group_by columns
+    - feat(ClonalResidencyPlot): add with_class parameter to control clonal class inclusion in plots
+    - feat: make default plot size estimation more precise
+- chore: update r-biopipen.utils to 0.3.8-3
+    - fix(LoadSeuratAndPerformQC): fix cell_meta object not found for loom or h5 input
+    - feat: support specifying relative `devpars$width` and `devpars$height` for plots
+    - fix(SeuratRunUMAP): set default metric to correlation for UMAP when using umap-learn
+- chore: bump pipen to 1.1.11
+    - feat: support templated configuration file for the pipeline
+
 ## 2.4.2
 
 - chore: update r-biopipen.utils to 0.3.7=r43_3, r-scplotter to 0.7.0=r43_2, and r-plotthis to 0.11.0=r43_1 in environment_rpkgs.yml
