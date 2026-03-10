@@ -448,7 +448,14 @@ groups = [&quot;Tumor&quot;, &quot;Blood&quot;]
 <span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Tissue&quot;</span>
 <span class="n">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Tumor&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Blood&quot;</span><span class="p">]</span>
 </code></pre></div>
-<p>Note that your configuration file MUST be named with suffix <code>.liq.toml</code> or <code>.toml.liq</code>.</p>
+<p>Note that your configuration file MUST be named with suffix <code>.liq.toml</code> or <code>.toml.liq</code>.
+Or in the first line of the configuration file, you can specify the template engine to use:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># simpleconf-loader: liquid</span>
+</code></pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># simpleconf-loader: jinja2</span>
+</code></pre></div>
+<p>if you are using <code>liquidpy</code> or <code>jinja2</code> as the template engine, respectively.</p>
 <h3 id="understanding-the-data">Understanding the data<a class="headerlink" href="#understanding-the-data" title="Permanent link">&para;</a></h3>
 <p>Understanding how the data is presented in the pipeline is helpful for the configuration, especially for the processes, such as <a href="../processes/SeuratClusterStats/"><code>SeuratClusterStats</code></a> and <a href="../processes/ClonalStats/"><code>ClonalStats</code></a>. The configurations of this kind of processes are relying on the metadata.</p>
 <p>You can refer to the individual process pages for more details. Here we just give an introduction of how it works to set the configurations.</p>
