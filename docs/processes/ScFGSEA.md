@@ -31,6 +31,10 @@ each gene set, and GSEA plots for the top gene sets.<br />
 - `ncores` *(`type=int`)*: *Default: `1`*. <br />
     Number of cores for parallelization
     Passed to `nproc` of `fgseaMultilevel()`.<br />
+- `cache` *(`type=auto`)*: *Default: `/tmp`*. <br />
+    Where to cache the results.<br />
+    If `True`, cache to `outdir` of the job. If `False`, don't cache.<br />
+    Otherwise, specify the directory to cache to.<br />
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
     The mutaters to mutate the metadata.<br />
     The key-value pairs will be passed the `dplyr::mutate()` to mutate the metadata.<br />

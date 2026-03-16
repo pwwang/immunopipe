@@ -69,6 +69,10 @@ expression, and the control features are randomly selected from each bin.<br />
             The variance of the expression levels
         - `sd`:
             The standard deviation of the expression levels
+    - `<more>`:
+        Other arguments passed to `Seurat::AddModuleScore()` or `Seurat::CellCycleScoring()`.<br />
+        See <https://satijalab.org/seurat/reference/addmodulescore> and
+        <https://satijalab.org/seurat/reference/cellcyclescoring>
 - `modules` *(`type=json`)*: *Default: `{}`*. <br />
     The modules to calculate the scores.<br />
     Keys are the names of the expression programs and values are the
@@ -77,6 +81,7 @@ expression, and the control features are randomly selected from each bin.<br />
 
     ```python
     {
+        "CellCycleMouse": {"features": "cc.genes.mouse"},
         "CellCycle": {"features": "cc.genes.updated.2019"},
         "Exhaustion": {"features": "HAVCR2,ENTPD1,LAYN,LAG3"},
         "Activation": {"features": "IFNG"},

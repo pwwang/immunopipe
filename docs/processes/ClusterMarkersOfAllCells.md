@@ -148,7 +148,7 @@ column name in metadata. Follow `envs.cases` for more details.<br />
         Other arguments passed to [`biopipen.utils::VizDEGs()`](https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html).<br />
         If `plot_type` is `volcano_pct` or `volcano_log2fc`, they will be passed to
         [`scplotter::VolcanoPlot()`](https://pwwang.github.io/plotthis/reference/VolcanoPlot.html).<br />
-- `marker_plots` *(`type=json`)*: *Default: `{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot'})}`*. <br />
+- `marker_plots` *(`type=json`)*: *Default: `{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot', 'devpars': Diot({'width': 'x1.25', 'height': 'x1.8'})})}`*. <br />
     Cases of the plots to generate for the markers.<br />
     Plot cases. The keys are the names of the cases and the values are the dicts inherited from `marker_plots_defaults`.<br />
     The cases under `envs.cases` can inherit this options.<br />

@@ -105,6 +105,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
             The height of the plots.<br />
         - `width` *(`type=int`)*: *Default: `1000`*. <br />
             The width of the plots.<br />
+    - `add_box`: *Default: `True`*. <br />
 - `ngenes` *(`type=json`)*: *Default: `{'Number of genes expressed in each cluster': Diot({})}`*. <br />
     The number of genes expressed in each cell.<br />
     Keys are the names of the plots and values are the dicts inherited from `env.ngenes_defaults`.<br />
@@ -149,6 +150,9 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     Keys are the titles of the cases and values are the dicts inherited from `env.features_defaults`.<br />
 - `dimplots_defaults` *(`ns`)*:
     The default parameters for `dimplots`.<br />
+    You can also set `dims` to `[1, 2, 3]` to make a 3D dimensional reduction plot.<br />
+    Note that the default `n.components` for `RunUMAP` is 2, so if you want to make a 3D UMAP plot,
+    you need to set `n.components` to 3 in `RunUMAP` parameters in `SeuratSubClustering` or `SeuratClustering`.<br />
     - `group_by`:
         The identity to use.<br />
         If it is from subclustering (reduction `sub_umap_<ident>` exists), this reduction will be used if `reduction`

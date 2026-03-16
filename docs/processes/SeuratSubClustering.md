@@ -30,6 +30,9 @@ as the column name.<br />
     Number of cores to use.<br />
     Used in `future::plan(strategy = "multicore", workers = <ncores>)`
     to parallelize some Seurat procedures.<br />
+- `python`: *Default: `python`*. <br />
+    The path to the python executable where `umap-learn` is installed.<br />
+    Needed for `RunUMAP` when `umap.method` is set to `umap-learn`.<br />
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
     The mutaters to mutate the metadata to subset the cells.<br />
     The mutaters will be applied in the order specified.<br />

@@ -93,15 +93,14 @@ using `envs.newcol`, so that the results from different annotation processes won
     Compatible with `sctype_db`.<br />
     See also <https://pwwang.github.io/hitype/articles/prepare-gene-sets.html>
     You can also use built-in databases, including `hitypedb_short`, `hitypedb_full`, and `hitypedb_pbmc3k`.<br />
-- `cell_types` *(`list`)*: *Default: `[]`*. <br />
+- `cell_types` *(`type=auto`)*: *Default: `[]`*. <br />
     The cell types to use for direct annotation.<br />
-    You can use `"-"` or `""` as the placeholder for the clusters that
-    you want to keep the original cell types.<br />
-    If the length of `cell_types` is shorter than the number of
-    clusters, the remaining clusters will be kept as the original cell
-    types.<br />
+    If given as a list (array), you can use `"-"` or `""` as the placeholder for the clusters that
+    you want to keep the original cell types. If the length of `cell_types` is shorter than the number of
+    clusters, the remaining clusters will be kept as the original cell types.<br />
     You can also use `NA` to remove the clusters from downstream analysis. This
     only works when `envs.newcol` is not specified.<br />
+    If given as a dict (map), the keys are the original cluster names and the values are the new cell types.<br />
 
     /// Note
     If `tool` is `direct` and `cell_types` is not specified or an empty list,

@@ -13,12 +13,13 @@ See also
 
 This process will read the scRNA-seq data, based on the information provided by
 `SampleInfo`, specifically, the paths specified by the `RNAData` column.<br />
-Those paths should be either paths to directoies containing `matrix.mtx`,
-`barcodes.tsv` and `features.tsv` files that can be loaded by
-[`Seurat::Read10X()`](https://satijalab.org/seurat/reference/read10x),
-or paths of loom files that can be loaded by `SeuratDisk::LoadLoom()`, or paths to
-`h5` files that can be loaded by
-[`Seurat::Read10X_h5()`](https://satijalab.org/seurat/reference/read10x_h5).<br />
+The RNAData column should contain the path to the 10X, ParseBio data or HIVE data, either a directory or
+a file If the path is a directory, the function will look for barcodes.tsv.gz, features.tsv.gz
+and matrix.mtx.gz. The directory should be loaded by Seurat::Read10X, Seurat::ReadParseBio or
+the HIVE data. Sometimes, there may be prefix in the file names, e.g. "'prefix'.barcodes.tsv.gz",
+which is also supported. If the path is a file ending with ".loom", it will be loaded by
+SeuratDisk::Connect() and converted to a Seurat object. Otherwise, if the path is a file,
+it should be a h5 file that can be loaded by `Seurat::Read10X_h5()`.<br />
 
 Each sample will be loaded individually and then merged into one `Seurat` object, and then perform QC.<br />
 
@@ -126,6 +127,21 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
         ```
         will keep genes that are expressed in at least 3 cells.<br />
         ///
+
+- `ccs_args` *(`ns`)*:
+    Arguments for `RunSeuratCellCycleScoring()`.<br />
+    When "S.Score" and/or "G2M.Score" are specified in `envs.SCTransform.vars-to-regress` when `envs.use_sct = TRUE`
+    or in `envs.ScaleData.vars-to-regress` when `envs.use_sct = FALSE`, this will be automatically enabled
+    to calculate the cell cycle scores and regress them out in the following transformation step.<br />
+    Otherwise if this is empty, cell cycle scoring and the normalization before cell cycle scoring will be skipped.<br />
+    - `trans_args` *(`ns`)*:
+        Arguments for `RunSeuratTransformation()` to normalize the data before cell cycle scoring.<br />
+        `use_sct` will be `FALSE` by default (not using `envs.use_sct`).<br />
+        See <https://github.com/satijalab/seurat/issues/7694>.<br />
+        - `<more>`:
+            See <https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratTransformation.html>.<br />
+    - `<more>`:
+        See <https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratCellCycleScoring.html>.<br />
 - `qc_plots` *(`type=json`)*: *Default: `{'Violin Plots': Diot({'kind': 'cell', 'plot_type': 'violin', 'devpars': Diot({'res': 100, 'height': 600, 'width': 1200})}), 'Scatter Plots': Diot({'kind': 'cell', 'plot_type': 'scatter', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})}), 'Ridge Plots': Diot({'kind': 'cell', 'plot_type': 'ridge', 'devpars': Diot({'res': 100, 'height': 800, 'width': 1200})}), 'Distribution of number of cells a gene is expressed in': Diot({'kind': 'gene', 'plot_type': 'histogram', 'devpars': Diot({'res': 100, 'height': 1200, 'width': 1200})})}`*. <br />
     The plots for QC metrics.<br />
     It should be a json (or python dict) with the keys as the names of the plots and

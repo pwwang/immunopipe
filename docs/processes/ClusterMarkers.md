@@ -108,7 +108,7 @@ you may see the other environment variables of this process are hidden and reado
             The width of the plots.<br />
     - `<more>`:
         Other arguments passed to [`biopipen.utils::VizDEGs()`](https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html).<br />
-- `allmarker_plots` *(`type=json`)*: *Default: `{'Top 10 markers of all clusters': Diot({'plot_type': 'heatmap'})}`*. <br />
+- `allmarker_plots` *(`type=json`)*: *Default: `{'Top 5 markers of each cluster': Diot({'plot_type': 'heatmap_log2fc', 'select': 5, 'cutoff': 0.05})}`*. <br />
     All marker plot cases.<br />
     The keys are the names of the cases and the values are the dicts inherited from `allmarker_plots_defaults`.<br />
 - `allenrich_plots_defaults` *(`ns`)*:
@@ -152,7 +152,7 @@ you may see the other environment variables of this process are hidden and reado
         Other arguments passed to [`biopipen.utils::VizDEGs()`](https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html).<br />
         If `plot_type` is `volcano_pct` or `volcano_log2fc`, they will be passed to
         [`scplotter::VolcanoPlot()`](https://pwwang.github.io/plotthis/reference/VolcanoPlot.html).<br />
-- `marker_plots` *(`type=json`)*: *Default: `{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot'})}`*. <br />
+- `marker_plots` *(`type=json`)*: *Default: `{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot', 'devpars': Diot({'width': 'x1.25', 'height': 'x1.8'})})}`*. <br />
     Cases of the plots to generate for the markers.<br />
     Plot cases. The keys are the names of the cases and the values are the dicts inherited from `marker_plots_defaults`.<br />
     The cases under `envs.cases` can inherit this options.<br />

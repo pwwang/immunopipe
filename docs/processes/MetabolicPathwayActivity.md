@@ -40,12 +40,14 @@ You may also have a merged heatmap to show all subsets in one plot.<br />
 - `gmtfile` *(`pgarg`)*:
     The GMT file with the metabolic pathways.<br />
     Defaults to `ScrnaMetabolicLandscape.gmtfile`
-- `subset_by` *(`pgarg;readonly`)*:
+- `subset_by` *(`pgarg;type=auto;readonly`)*:
     Subset the data by the given column in the
     metadata. For example, `Response`.<br />
     `NA` values will be removed in this column.<br />
     Defaults to `ScrnaMetabolicLandscape.subset_by`
     If None, the data will not be subsetted.<br />
+    Multiple columns can be provided as a list, which is helpful when
+    subsets have overlapping cells.<br />
 - `group_by` *(`pgarg;readonly`)*:
     Group the data by the given column in the
     metadata. For example, `cluster`.<br />
