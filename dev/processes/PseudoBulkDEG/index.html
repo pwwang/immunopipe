@@ -237,8 +237,9 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     The layer to pull and aggregate the data.<br /></li>
 <li><code>assay</code>:
     The assay to pull and aggregate the data.<br /></li>
-<li><code>error</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Error out if no/not enough markers are found or no pathways are enriched.<br />
+<li><code>error</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    Stop the job if errors happen.<br />
+    Helpful when no/not enough markers are found or no pathways are enriched.<br />
     If <code>False</code>, empty results will be returned.<br /></li>
 <li><code>group_by</code>:
     The column name in metadata to group the cells.<br /></li>
