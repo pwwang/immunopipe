@@ -18,4 +18,5 @@ RUN fc-cache -f -v && \
     echo "cache=/tmp/npm-cache" > /home/mambauser/.npmrc
 
 WORKDIR /workdir
+
 ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh", "bash", "/immunopipe/docker/entry.sh" ]

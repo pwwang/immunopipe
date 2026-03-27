@@ -90,23 +90,24 @@ jobs:
             echo "changed=false" >> $GITHUB_OUTPUT
           fi
       - name: Delete cache to save space
-        if: steps.check_changes.outputs.changed == 'true'
+        # If Dockerfile changed or docker-rpkgs changed, we need to rebuild the final image, which depends on the base and rpkgs images. To save space, we delete the cache before building.
+        if: steps.check_changes.outputs.changed == 'true' || needs.docker-rpkgs.outputs.changed == 'true' || needs.docker-base.outputs.changed == 'true'
         # https://github.com/orgs/community/discussions/25678#discussioncomment-5242449
         run: rm -rf /opt/hostedtoolcache
       - name: Set up QEMU
-        if: steps.check_changes.outputs.changed == 'true'
+        if: steps.check_changes.outputs.changed == 'true' || needs.docker-rpkgs.outputs.changed == 'true' || needs.docker-base.outputs.changed == 'true'
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
-        if: steps.check_changes.outputs.changed == 'true'
+        if: steps.check_changes.outputs.changed == 'true' || needs.docker-rpkgs.outputs.changed == 'true' || needs.docker-base.outputs.changed == 'true'
         uses: docker/setup-buildx-action@v3
       - name: Login to DockerHub
-        if: steps.check_changes.outputs.changed == 'true'
+        if: steps.check_changes.outputs.changed == 'true' || needs.docker-rpkgs.outputs.changed == 'true' || needs.docker-base.outputs.changed == 'true'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
-        if: steps.check_changes.outputs.changed == 'true'
+        if: steps.check_changes.outputs.changed == 'true' || needs.docker-rpkgs.outputs.changed == 'true' || needs.docker-base.outputs.changed == 'true'
         uses: docker/build-push-action@v6
         with:
           push: true
