@@ -2410,14 +2410,14 @@ executing = ">=2.0,<3.0"
 
 [[package]]
 name = "pipen"
-version = "1.1.12"
+version = "1.1.13"
 description = "A pipeline framework for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main", "dev", "docs"]
 files = [
-    {file = "pipen-1.1.12-py3-none-any.whl", hash = "sha256:caabd9c64d7ea476314c676428354678545ea0adff70be91e4343cf2f4bf4711"},
-    {file = "pipen-1.1.12.tar.gz", hash = "sha256:0aba1c320d8c50dc9882619ae73f89e498f58b04743538d1526f208c0a0e40ff"},
+    {file = "pipen-1.1.13-py3-none-any.whl", hash = "sha256:bfbe5a14b799ad31b214ee22eb40aca9f7c56c921185288787482175ae82039b"},
+    {file = "pipen-1.1.13.tar.gz", hash = "sha256:58e26b90e5bc5a73434dc65cf28a09239f264938d2812f22edb2d2b3d3326247"},
 ]
 
 [package.dependencies]
@@ -2447,14 +2447,14 @@ pipen = ">=1.0,<2.0"
 
 [[package]]
 name = "pipen-args"
-version = "1.2.0"
+version = "1.2.1"
 description = "Command-line argument parser for pipen."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen_args-1.2.0-py3-none-any.whl", hash = "sha256:82b4ff6cca87fbc6370123ddc627e1baf85d12051d05a078ac611abbedcc08bb"},
-    {file = "pipen_args-1.2.0.tar.gz", hash = "sha256:b94f8c89fdbf92bbc8f536585cee95921723c8fec502f64a8c017fd74e0f160f"},
+    {file = "pipen_args-1.2.1-py3-none-any.whl", hash = "sha256:a72a2e11e4a020e2237e97d1608397480e815feb379d22d55fe534c46fc82a84"},
+    {file = "pipen_args-1.2.1.tar.gz", hash = "sha256:a05b12fc7fb071a8322aca3cde82b9f59f56030608897f448a12774756b15775"},
 ]
 
 [package.dependencies]
@@ -2490,20 +2490,21 @@ report = ["pipen-report (>=1.2,<2.0)"]
 
 [[package]]
 name = "pipen-cli-gbatch"
-version = "1.1.4"
+version = "1.1.5"
 description = "A pipen cli plugin to run command via Google Cloud Batch"
 optional = true
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 markers = "extra == \"cli-gbatch\""
 files = [
-    {file = "pipen_cli_gbatch-1.1.4-py3-none-any.whl", hash = "sha256:e0a859f4cded517b628562da5d72a4bafc2653563acc40e5e9d5a0777d978fdf"},
-    {file = "pipen_cli_gbatch-1.1.4.tar.gz", hash = "sha256:dae4a64764d9dba03f334c8c77292c18745a371a6626e8a503aec387ed971810"},
+    {file = "pipen_cli_gbatch-1.1.5-py3-none-any.whl", hash = "sha256:cbb6755933c63bd7ae258af1e4ac94675a54bab0a1bb5fe349f1be27d56a1f9a"},
+    {file = "pipen_cli_gbatch-1.1.5.tar.gz", hash = "sha256:cb5b1d378926eb36a9576e72af26e8991f6d28782a5b2fcad45b5f2b39fb09a7"},
 ]
 
 [package.dependencies]
 panpath = {version = ">=0.4.9,<0.5.0", extras = ["async-gs"]}
-pipen = ">=1.1.2,<2.0.0"
+pipen = ">=1.1.13,<2.0.0"
+pipen-args = ">=1.2,<2.0"
 pipen-poplog = ">=1.1,<2.0"
 
 [[package]]
