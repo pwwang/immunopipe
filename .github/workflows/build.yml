@@ -7,6 +7,8 @@ jobs:
   docker-base:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[wip]')"
+    outputs:
+      changed: ${{ steps.check_changes.outputs.changed }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -42,6 +44,8 @@ jobs:
   docker-rpkgs:
     runs-on: ubuntu-latest
     needs: docker-base
+    outputs:
+      changed: ${{ steps.check_changes.outputs.changed }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -76,7 +80,8 @@ jobs:
 
   docker:
     runs-on: ubuntu-latest
-    needs: docker-rpkgs
+    needs: [docker-base, docker-rpkgs]
+    if: always()
     steps:
       - uses: actions/checkout@v4
         with:

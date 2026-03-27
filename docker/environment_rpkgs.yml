@@ -6,7 +6,7 @@ channels:
   - nodefaults
 
 dependencies:
-  # Specified in base, but still need it here to avoid PackagesNotFoundError by conda
+  # Specified in base, but we still need it here to avoid PackagesNotFoundError by conda
   - pwwang::bioconductor-screpertoire=2.2
   - r-biopipen.utils=0.3.10=r43_1
   - r-scplotter=0.7.2=r43_1
