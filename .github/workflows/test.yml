@@ -80,6 +80,23 @@ jobs:
           # Use the latest biopipen for tests
           # poetry run pip install --no-deps --force-reinstall --upgrade git+https://github.com/pwwang/biopipen.git@dev
 
+      - name: Check if python packages can be imported
+        run: |
+          echo "Checking scanpy ..."
+          python -c "import scanpy, importlib; print(f'scanpy version: {importlib.metadata.version('scanpy')}')"
+          echo "Checking liana ..."
+          python -c "import liana, importlib; print(f'liana version: {importlib.metadata.version('liana')}')"
+          echo "Checking celltypist2 ..."
+          python -c "import celltypist, importlib; print(f'celltypist2 version: {importlib.metadata.version('celltypist2')}')"
+          echo "Checking BioPython ..."
+          python -c "import Bio, importlib; print(f'BioPython version: {importlib.metadata.version('BioPython')}')"
+          echo "Checking keras ..."
+          python -c "import keras, importlib; print(f'keras version: {importlib.metadata.version('keras')}')"
+          echo "Checking tensorflow ..."
+          python -c "import tensorflow, importlib; print(f'tensorflow version: {importlib.metadata.version('tensorflow')}')"
+          echo "Checking umap-learn ..."
+          python -c "import umap, importlib; print(f'umap-learn version: {importlib.metadata.version('umap-learn')}')"
+
       - name: Check if immunopipe is installed successfully
         run: |
           if ! immunopipe >/dev/null; then
