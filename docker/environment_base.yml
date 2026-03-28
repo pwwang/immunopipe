@@ -20,7 +20,7 @@ dependencies:
   - time  # for pipen-runinfo
   - wget
   - gcc_linux-64
-  - r-base=4.3
+  - r-base=4.4
   - pwwang::bioconductor-data-packages
   - bioconductor-fgsea
   - bioconductor-scater
@@ -67,7 +67,7 @@ dependencies:
   - pwwang::r-tidyprompt
   ## Needed by r-plotthis
   - r-circlize
-  - r-ggplot2
+  # - r-ggplot2 > 4  # required by biopipen.utils.R
   - r-rlang
   - r-dplyr
   - r-tidyr
