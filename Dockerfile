@@ -15,7 +15,11 @@ RUN fc-cache -f -v && \
     rm -rf /home/$MAMBA_USER/.cache/pypoetry/* && \
     pipen report update && \
     rm -rf /home/$MAMBA_USER/.npm/* && \
-    echo "cache=/tmp/npm-cache" > /home/mambauser/.npmrc
+    echo "cache=/tmp/npm-cache" > /home/mambauser/.npmrc && \
+    R -e "install.packages('stringfish', repos='https://cloud.r-project.org')"
+    # stringfish required by r-qs2, errored by conda-forge/r's stringfish v0.17.0
+    # (v0.18 can't be installed with r4.4)
+    # stringfish.so: undefined symbol: _ZTIN3tbb4taskE
 
 WORKDIR /workdir
 

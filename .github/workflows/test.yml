@@ -54,6 +54,9 @@ jobs:
           conda env create -y -f docker/environment_base.yml --name immunopipe
           conda activate immunopipe
           conda env update -f docker/environment_rpkgs.yml --name immunopipe
+          # stringfish required by r-qs2, errored by conda-forge/r's stringfish v0.17.0
+          # (v0.18 can't be installed with r4.4)
+          conda run --no-capture-output -n immunopipe R -e "install.packages('stringfish', repos='https://cloud.r-project.org')"
 
       - name: Cache conda environment
         id: cache-conda
@@ -80,7 +83,7 @@ jobs:
           # Use the latest biopipen for tests
           # poetry run pip install --no-deps --force-reinstall --upgrade git+https://github.com/pwwang/biopipen.git@dev
 
-      - name: Check if python packages can be imported
+      - name: Check if some packages can be imported
         run: |
           echo "Checking scanpy ..."
           python -c "import scanpy, importlib.metadata; print(f'scanpy version: {importlib.metadata.version('scanpy')}')"
@@ -96,6 +99,8 @@ jobs:
           python -c "import tensorflow, importlib.metadata; print(f'tensorflow version: {importlib.metadata.version('tensorflow')}')"
           echo "Checking umap-learn ..."
           python -c "import umap, importlib.metadata; print(f'umap-learn version: {importlib.metadata.version('umap-learn')}')"
+          echo "Checking stringfish (R) ..."
+          R -e "library(stringfish); packageVersion('stringfish')"
 
       - name: Check if immunopipe is installed successfully
         run: |
