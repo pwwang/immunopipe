@@ -24,7 +24,7 @@
             "contents": [
               {
                 "kind": "image",
-                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-diff_pct-.png"
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-diff_pct.png"
               }
             ]
           },
@@ -33,7 +33,7 @@
             "contents": [
               {
                 "kind": "image",
-                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-log2FC-.png"
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-log2FC.png"
               }
             ]
           },
@@ -132,7 +132,7 @@
             "contents": [
               {
                 "kind": "image",
-                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/markers.Volcano-Plot-diff_pct-.png"
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/markers.Volcano-Plot-diff_pct.png"
               }
             ]
           },
@@ -141,7 +141,7 @@
             "contents": [
               {
                 "kind": "image",
-                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/markers.Volcano-Plot-log2FC-.png"
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/markers.Volcano-Plot-log2FC.png"
               }
             ]
           },
@@ -240,7 +240,7 @@
             "contents": [
               {
                 "kind": "image",
-                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/markers.Volcano-Plot-diff_pct-.png"
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/markers.Volcano-Plot-diff_pct.png"
               }
             ]
           },
@@ -249,7 +249,7 @@
             "contents": [
               {
                 "kind": "image",
-                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/markers.Volcano-Plot-log2FC-.png"
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/markers.Volcano-Plot-log2FC.png"
               }
             ]
           },
@@ -332,7 +332,7 @@
             "contents": [
               {
                 "kind": "image",
-                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Top-10-markers-of-all-clusters.png"
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Top-10-markers-of-all-clusters.png"
               }
             ]
           },
@@ -341,7 +341,7 @@
             "contents": [
               {
                 "kind": "image",
-                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Log2FC-of-all-clusters.png"
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Log2FC-of-all-clusters.png"
               }
             ]
           },
@@ -350,7 +350,7 @@
             "contents": [
               {
                 "kind": "image",
-                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Jitter-Plots-for-all-clusters.png"
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Jitter-Plots-for-all-clusters.png"
               }
             ]
           }
@@ -365,7 +365,7 @@
             "contents": [
               {
                 "kind": "image",
-                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps-/Overlapping-Markers.png"
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers.png"
               }
             ]
           }
@@ -380,7 +380,7 @@
             "contents": [
               {
                 "kind": "image",
-                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Enrichments-/allenrich.MSigDB_Hallmark_2020.Heatmap-of-enriched-terms-of-all-clusters.png"
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Enrichments/allenrich.MSigDB_Hallmark_2020.Heatmap-of-enriched-terms-of-all-clusters.png"
               }
             ]
           }

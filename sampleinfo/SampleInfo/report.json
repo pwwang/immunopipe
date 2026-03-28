@@ -28,42 +28,42 @@
         "table_of_images:2": [
           {
             "kind": "table_image",
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie.png",
             "download": [
-              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png",
-              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png"
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie.png",
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie.png"
             ]
           },
           {
             "kind": "table_image",
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar.png",
             "download": [
-              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png",
-              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png"
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar.png",
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar.png"
             ]
           },
           {
             "kind": "table_image",
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution-Histogram-.png",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution-Histogram.png",
             "download": [
-              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution-Histogram-.png",
-              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution-Histogram-.png"
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution-Histogram.png",
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution-Histogram.png"
             ]
           },
           {
             "kind": "table_image",
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot.png",
             "download": [
-              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png",
-              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png"
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot.png",
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot.png"
             ]
           },
           {
             "kind": "table_image",
-            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot.png",
             "download": [
-              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png",
-              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png"
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot.png",
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot.png"
             ]
           }
         ]
