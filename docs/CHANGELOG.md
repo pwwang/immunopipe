@@ -1,5 +1,20 @@
 # Change Log
 
+
+## 2.4.4
+
+- chore: bump biopipen to 1.2.5
+    - make/add `envs.error` to control subsetting resulting empty Seurat object for `MarkersFinder`, `TopExpressingGenes`, `ScFGSEA` and `PseudoBulkDEG` processes
+    - chore(scrna.SeuratClusterStats): make 3d dimplots share the same assets
+- chore(docker): upgrade R version to v4.4
+- chore: update r-plotthis version to 0.11.1=r44_1 in environment_rpkgs.yml
+- chore: update r-scplotter version to 0.7.2=r44_2 in environment_rpkgs.yml
+- chore: update r-biopipen.utils version to 0.3.10=r44_2 in environment_rpkgs.yml
+    - allow genes as features in cell qc plots for SeuratPreparing)
+    - feat(utils.slugify): add strip parameter to control leading/trailing non-alphanumeric character removal (may BREAK existing runs if slugs are used for file naming)
+- chore: remove numpy degrading from Dockerfile (as numba supports numpy 2.4 now)
+- test: correct file path in assertions for sampleinfo and clustermarkers tests (because of biopipen.utils::slugify change)
+
 ## 2.4.3
 
 - chore: update pipen-cli-gbatch version to 1.1.4
