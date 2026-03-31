@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>SeuratMap2Ref - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "SeuratMap2Ref";
+        var mkdocs_page_input_path = "processes/SeuratMap2Ref.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../agent-skills/">Agent Skills</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">SeuratMap2Ref</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#details">Details</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#preparing-a-seurat-reference-for-mapping">Preparing a Seurat reference for mapping</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#step-0-create-the-seurat-reference-object">Step 0: Create the Seurat reference object</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#step-1-choose-normalization-strategy">Step 1: Choose normalization strategy</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#step-2-choose-dimensional-reduction">Step 2: Choose dimensional reduction</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#step-3-compute-neighbors-and-clustering-optional-but-recommended">Step 3: Compute neighbors and clustering (optional but recommended)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#step-4-compute-umap-and-store-the-model">Step 4: Compute UMAP and store the model</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#step-5-annotate-the-reference">Step 5: Annotate the reference</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#step-6-save-the-reference">Step 6: Save the reference</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#prepare-the-query-dataset-can-be-done-with-seuratpreparing-process">Prepare the query dataset (can be done with SeuratPreparing process)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#find-transfer-anchors-arguments-specified-in-envsfindtransferanchors">Find transfer anchors (arguments specified in envs.FindTransferAnchors)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#lognormalize-reference">LogNormalize reference</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#sctransform-reference">SCTransform reference</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#map-the-query-arguments-specified-in-envsmapquery">Map the query (arguments specified in envs.MapQuery)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#decision-summary">Decision summary</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#important-rules">Important rules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#practical-advice">Practical advice</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3Clustering/">CDR3Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
+      <li class="breadcrumb-item active">SeuratMap2Ref</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/SeuratMap2Ref.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="seuratmap2ref">SeuratMap2Ref<a class="headerlink" href="#seuratmap2ref" title="Permanent link">&para;</a></h2>
+<p>Map the seurat object to reference</p>
+<p>See: <a href="https://satijalab.org/seurat/articles/integration_mapping.html">https://satijalab.org/seurat/articles/integration_mapping.html</a>
+and <a href="https://satijalab.org/seurat/articles/multimodal_reference_mapping.html">https://satijalab.org/seurat/articles/multimodal_reference_mapping.html</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have other annotation processes, including <a href="../SeuratClustering/"><code>SeuratClustering</code></a>
+process or <a href="../CellTypeAnnotation/"><code>CellTypeAnnotation</code></a> process enabled in the same run,
+you may want to specify a different name for the column to store the mapped cluster information
+using <code>envs.ident</code>, so that the results from different annotation processes won't overwrite each other.<br /></p>
+</div>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>sobjfile</code>:
+    The seurat object</li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outfile</code>: <em>Default: <code>{{in.sobjfile | stem}}.qs</code></em>. <br />
+    The rds file of seurat object with cell type annotated.<br />
+    Note that the reduction name will be <code>ref.umap</code> for the mapping.<br />
+    To visualize the mapping, you should use <code>ref.umap</code> as the reduction name.<br /></li>
+</ul>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>ncores</code> <em>(<code>type=int;order=-100</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores to use.<br />
+    When <code>split_by</code> is used, this will be the number of cores for each object to map to the reference.<br />
+    When <code>split_by</code> is not used, this is used in <code>future::plan(strategy = "multicore", workers = &lt;ncores&gt;)</code>
+    to parallelize some Seurat procedures.<br />
+    See also: <a href="https://satijalab.org/seurat/archive/v3.0/future_vignette.html">https://satijalab.org/seurat/archive/v3.0/future_vignette.html</a></li>
+<li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The mutaters to mutate the metadata.<br />
+    This is helpful when we want to create new columns for <code>split_by</code>.<br /></li>
+<li><code>use</code>:
+    A column name of metadata from the reference
+    (e.g. <code>celltype.l1</code>, <code>celltype.l2</code>) to transfer to the query as the
+    cell types (ident) for downstream analysis. This field is required.<br />
+    If you want to transfer multiple columns, you can use
+    <code>envs.MapQuery.refdata</code>.<br /></li>
+<li><code>ident</code>: <em>Default: <code>seurat_clusters</code></em>. <br />
+    The name of the ident for query transferred from <code>envs.use</code> of the reference.<br /></li>
+<li><code>ref</code>:
+    The reference seurat object file.<br />
+    Either an RDS file or a h5seurat file that can be loaded by
+    <code>Seurat::LoadH5Seurat()</code>.<br />
+    The file type is determined by the extension. <code>.rds</code> or <code>.RDS</code> for
+    RDS file, <code>.h5seurat</code> or <code>.h5</code> for h5seurat file.<br /></li>
+<li><code>refnorm</code> <em>(<code>choice</code>)</em>: <em>Default: <code>auto</code></em>. <br />
+    Normalization method the reference used. The same method will be used for the query.<br /><ul>
+<li><code>LogNormalize</code>:
+    Using <a href="https://satijalab.org/seurat/reference/normalizedata"><code>NormalizeData</code></a>.<br /></li>
+<li><code>SCTransform</code>:
+    Using <a href="https://satijalab.org/seurat/reference/sctransform"><code>SCTransform</code></a>.<br /></li>
+<li><code>SCT</code>:
+    Alias of SCTransform.<br /></li>
+<li><code>auto</code>:
+    Automatically detect the normalization method.<br />
+    If the default assay of reference is <code>SCT</code>, then <code>SCTransform</code> will be used.<br /></li>
+</ul>
+</li>
+<li><code>split_by</code>:
+    The column name in metadata to split the query into multiple objects.<br />
+    This helps when the original query is too large to process.<br /></li>
+<li><code>skip_if_normalized</code>: <em>Default: <code>True</code></em>. <br />
+    Skip normalization if the query is already normalized.<br />
+    Since the object is supposed to be generated by <code>SeuratPreparing</code>, it is already normalized.<br />
+    However, a different normalization method may be used.<br />
+    If the reference is normalized by the same method as the query, the normalization can be skipped.<br />
+    Otherwise, the normalization cannot be skipped.<br />
+    The normalization method used for the query set is determined by the default assay.<br />
+    If <code>SCT</code>, then <code>SCTransform</code> is used; otherwise, <code>NormalizeData</code> is used.<br />
+    You can set this to <code>False</code> to force re-normalization (with or without the arguments previously used).<br /></li>
+<li><code>SCTransform</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/sctransform"><code>SCTransform()</code></a><ul>
+<li><code>do-correct-umi</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Place corrected UMI matrix in assay counts layer?<br /></li>
+<li><code>do-scale</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to scale residuals to have unit variance?<br /></li>
+<li><code>do-center</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    Whether to center residuals to have mean zero?<br /></li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/sctransform">https://satijalab.org/seurat/reference/sctransform</a>.<br />
+    Note that the hyphen (<code>-</code>) will be transformed into <code>.</code> for the keys.<br /></li>
+</ul>
+</li>
+<li><code>NormalizeData</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/normalizedata"><code>NormalizeData()</code></a><ul>
+<li><code>normalization-method</code>: <em>Default: <code>LogNormalize</code></em>. <br />
+    Normalization method.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/normalizedata">https://satijalab.org/seurat/reference/normalizedata</a>.<br />
+    Note that the hyphen (<code>-</code>) will be transformed into <code>.</code> for the keys.<br /></li>
+</ul>
+</li>
+<li><code>FindTransferAnchors</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/findtransferanchors"><code>FindTransferAnchors()</code></a><ul>
+<li><code>normalization-method</code> <em>(<code>choice</code>)</em>:
+    Name of normalization method used.<br /><ul>
+<li><code>LogNormalize</code>:
+    Log-normalize the data matrix</li>
+<li><code>SCT</code>:
+    Scale data using the SCTransform method</li>
+<li><code>auto</code>:
+    Automatically detect the normalization method.<br />
+    See <code>envs.refnorm</code>.<br /></li>
+</ul>
+</li>
+<li><code>reference-reduction</code>:
+    Name of dimensional reduction to use from the reference if running the pcaproject workflow.<br />
+    Optionally enables reuse of precomputed reference dimensional reduction.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/findtransferanchors">https://satijalab.org/seurat/reference/findtransferanchors</a>.<br />
+    Note that the hyphen (<code>-</code>) will be transformed into <code>.</code> for the keys.<br /></li>
+</ul>
+</li>
+<li><code>MapQuery</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/mapquery"><code>MapQuery()</code></a><ul>
+<li><code>reference-reduction</code>:
+    Name of reduction to use from the reference for neighbor finding</li>
+<li><code>reduction-model</code>:
+    <code>DimReduc</code> object that contains the umap model.<br /></li>
+<li><code>refdata</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Extra data to transfer from the reference to the query.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/mapquery">https://satijalab.org/seurat/reference/mapquery</a>.<br />
+    Note that the hyphen (<code>-</code>) will be transformed into <code>.</code> for the keys.<br /></li>
+</ul>
+</li>
+<li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
+    Whether to cache the information at different steps.<br />
+    If <code>True</code>, the seurat object will be cached in the job output directory, which will be not cleaned up when job is rerunning.<br />
+    The cached seurat object will be saved as <code>&lt;signature&gt;.&lt;kind&gt;.RDS</code> file, where <code>&lt;signature&gt;</code> is the signature determined by
+    the input and envs of the process.<br />
+    See <a href="https://github.com/satijalab/seurat/issues/7849">https://github.com/satijalab/seurat/issues/7849</a>, <a href="https://github.com/satijalab/seurat/issues/5358">https://github.com/satijalab/seurat/issues/5358</a> and
+    <a href="https://github.com/satijalab/seurat/issues/6748">https://github.com/satijalab/seurat/issues/6748</a> for more details also about reproducibility issues.<br />
+    To not use the cached seurat object, you can either set <code>cache</code> to <code>False</code> or delete the cached file at
+    <code>&lt;signature&gt;.RDS</code> in the cache directory.<br /></li>
+<li><code>plots</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{'Mapped Identity': Diot({'features': '{ident}:{use}'}), 'Mapping Score': Diot({'features': '{ident}.score'})}</code></em>. <br />
+    The plots to generate.<br />
+    The keys are the names of the plots and the values are the arguments for the plot.<br />
+    The arguments will be passed to <code>biopipen.utils::VizSeuratMap2Ref()</code> to generate the plots.<br />
+    The plots will be saved to the output directory.<br />
+    See <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratMap2Ref.html">https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratMap2Ref.html</a>.<br /></li>
+</ul>
+<h3 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h3>
+<h4 id="preparing-a-seurat-reference-for-mapping">Preparing a Seurat reference for mapping<a class="headerlink" href="#preparing-a-seurat-reference-for-mapping" title="Permanent link">&para;</a></h4>
+<h5 id="step-0-create-the-seurat-reference-object">Step 0: Create the Seurat reference object<a class="headerlink" href="#step-0-create-the-seurat-reference-object" title="Permanent link">&para;</a></h5>
+<p>Start from raw counts.<br /></p>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">CreateSeuratObject</span><span class="p">(</span><span class="n">counts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reference_counts</span><span class="p">)</span>
+</code></pre></div>
+<p>At this stage the object should contain at least:<br /></p>
+<ul>
+<li>RNA counts</li>
+<li>cell barcodes</li>
+</ul>
+<h5 id="step-1-choose-normalization-strategy">Step 1: Choose normalization strategy<a class="headerlink" href="#step-1-choose-normalization-strategy" title="Permanent link">&para;</a></h5>
+<p>Two main normalization strategies are supported for reference mapping.<br /></p>
+<h6 id="option-a-lognormalize-workflow">Option A — LogNormalize workflow<a class="headerlink" href="#option-a-lognormalize-workflow" title="Permanent link">&para;</a></h6>
+<p>Recommended for:<br /></p>
+<ul>
+<li>standard scRNA-seq</li>
+<li>single modality datasets</li>
+<li>smaller references</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">NormalizeData</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">normalization.method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;LogNormalize&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">scale.factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10000</span><span class="p">)</span>
+<span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindVariableFeatures</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">selection.method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vst&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">nfeatures</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2000</span><span class="p">)</span>
+<span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">ScaleData</span><span class="p">(</span><span class="n">reference</span><span class="p">)</span>
+</code></pre></div>
+<p>This produces the normalized expression matrix used for PCA.<br /></p>
+<h6 id="option-b-sctransform-workflow">Option B — SCTransform workflow<a class="headerlink" href="#option-b-sctransform-workflow" title="Permanent link">&para;</a></h6>
+<p>Recommended for:<br /></p>
+<ul>
+<li>large datasets</li>
+<li>heterogeneous samples</li>
+<li>multimodal references (e.g. CITE-seq)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">SCTransform</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">verbose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span>
+</code></pre></div>
+<p>Important notes:<br /></p>
+<ul>
+<li>Creates an <strong>SCT assay</strong></li>
+<li>Variable features and scaling are performed automatically</li>
+<li>Mapping later requires <code>normalization.method = "SCT"</code></li>
+</ul>
+<h5 id="step-2-choose-dimensional-reduction">Step 2: Choose dimensional reduction<a class="headerlink" href="#step-2-choose-dimensional-reduction" title="Permanent link">&para;</a></h5>
+<p>The reference must contain a dimensional reduction used for mapping.<br /></p>
+<h6 id="option-a-pca-standard-references">Option A — PCA (standard references)<a class="headerlink" href="#option-a-pca-standard-references" title="Permanent link">&para;</a></h6>
+<p>Used with LogNormalize.<br /></p>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">RunPCA</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">verbose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span>
+</code></pre></div>
+<p>Typical usage:<br /></p>
+<ul>
+<li>30-50 PCs</li>
+</ul>
+<h6 id="option-b-spca-supervised-pca">Option B — SPCA (supervised PCA)<a class="headerlink" href="#option-b-spca-supervised-pca" title="Permanent link">&para;</a></h6>
+<p>Used with SCTransform references and often in multimodal workflows.<br /></p>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">RunSPCA</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">assay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SCT&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>SPCA learns a projection supervised by a cell‑cell similarity graph and is commonly used in reference atlases.<br /></p>
+<h5 id="step-3-compute-neighbors-and-clustering-optional-but-recommended">Step 3: Compute neighbors and clustering (optional but recommended)<a class="headerlink" href="#step-3-compute-neighbors-and-clustering-optional-but-recommended" title="Permanent link">&para;</a></h5>
+<p>Precomputing neighbors allows faster anchor finding.<br /></p>
+<h6 id="pca-reference">PCA reference<a class="headerlink" href="#pca-reference" title="Permanent link">&para;</a></h6>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindNeighbors</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;pca&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dims</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">)</span>
+<span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindClusters</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">resolution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+</code></pre></div>
+<h6 id="spca-multimodal-reference">SPCA / multimodal reference<a class="headerlink" href="#spca-multimodal-reference" title="Permanent link">&para;</a></h6>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindMultiModalNeighbors</span><span class="p">(</span>
+<span class="n">reference</span><span class="p">,</span>
+<span class="n">reduction.list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s">&quot;spca&quot;</span><span class="p">),</span>
+<span class="n">dims.list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>This creates a <strong>weighted nearest neighbor (WNN)</strong> graph.<br /></p>
+<h5 id="step-4-compute-umap-and-store-the-model">Step 4: Compute UMAP and store the model<a class="headerlink" href="#step-4-compute-umap-and-store-the-model" title="Permanent link">&para;</a></h5>
+<p>To allow <code>MapQuery</code> to project new cells into the same UMAP space, the model must be saved.<br /></p>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">RunUMAP</span><span class="p">(</span>
+<span class="w">    </span><span class="n">reference</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;pca&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dims</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,</span>
+<span class="w">    </span><span class="n">return.model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>For WNN references:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">RunUMAP</span><span class="p">(</span>
+<span class="w">    </span><span class="n">reference</span><span class="p">,</span>
+<span class="w">    </span><span class="n">nn.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;weighted.nn&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reduction.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;wnn.umap&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">return.model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Storing the model enables <strong>ProjectUMAP / MapQuery</strong> to reuse the trained embedding.<br /></p>
+<h5 id="step-5-annotate-the-reference">Step 5: Annotate the reference<a class="headerlink" href="#step-5-annotate-the-reference" title="Permanent link">&para;</a></h5>
+<p>Reference mapping transfers metadata labels.<br /></p>
+<p>Add cell type annotations to metadata:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="o">$</span><span class="n">celltype</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">annotated_celltypes</span>
+<span class="n">reference</span><span class="o">$</span><span class="n">celltype_l1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">broad_labels</span>
+<span class="n">reference</span><span class="o">$</span><span class="n">celltype_l2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fine_labels</span>
+</code></pre></div>
+<p>Any metadata field can later be transferred.<br /></p>
+<h5 id="step-6-save-the-reference">Step 6: Save the reference<a class="headerlink" href="#step-6-save-the-reference" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nf">saveRDS</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;reference.rds&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Or save it in <a href="https://github.com/qsbase/qs2">qs2</a> format for faster loading:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="n">biopipen.utils</span><span class="o">::</span><span class="nf">save_obj</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;reference.qs&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>This allows the reference to be reused across multiple mapping runs.<br /></p>
+<h4 id="prepare-the-query-dataset-can-be-done-with-seuratpreparing-process">Prepare the query dataset (can be done with <code>SeuratPreparing</code> process)<a class="headerlink" href="#prepare-the-query-dataset-can-be-done-with-seuratpreparing-process" title="Permanent link">&para;</a></h4>
+<p>The <strong>query must use the same normalization method as the reference</strong>.<br /></p>
+<p>If the query is not normalized in the same way as the reference, you can specify arguments
+in <code>envs.NormalizeData</code> or <code>envs.SCTransform</code> for this process to reproduce the same normalization.<br /></p>
+<p>You can also specify <code>envs.skip_if_normalized = false</code> to force re‑normalization of the query dataset.<br /></p>
+<h4 id="find-transfer-anchors-arguments-specified-in-envsfindtransferanchors">Find transfer anchors (arguments specified in <code>envs.FindTransferAnchors</code>)<a class="headerlink" href="#find-transfer-anchors-arguments-specified-in-envsfindtransferanchors" title="Permanent link">&para;</a></h4>
+<p>Anchors link cells between the query and reference.<br /></p>
+<h5 id="lognormalize-reference">LogNormalize reference<a class="headerlink" href="#lognormalize-reference" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="n">anchors</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindTransferAnchors</span><span class="p">(</span>
+<span class="w">    </span><span class="n">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reference</span><span class="p">,</span>
+<span class="w">    </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">query</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reference.reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;pca&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dims</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,</span>
+<span class="w">    </span><span class="n">normalization.method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;LogNormalize&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+<h5 id="sctransform-reference">SCTransform reference<a class="headerlink" href="#sctransform-reference" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="n">anchors</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindTransferAnchors</span><span class="p">(</span>
+<span class="w">    </span><span class="n">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reference</span><span class="p">,</span>
+<span class="w">    </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">query</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reference.reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;spca&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dims</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,</span>
+<span class="w">    </span><span class="n">normalization.method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SCT&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Optional useful parameters:<br /></p>
+<ul>
+<li><code>reference.assay = "SCT"</code></li>
+<li><code>recompute.residuals = TRUE</code></li>
+<li><code>reference.neighbors = "pca.nn"</code> (reuse neighbor index if precomputed)</li>
+</ul>
+<h4 id="map-the-query-arguments-specified-in-envsmapquery">Map the query (arguments specified in <code>envs.MapQuery</code>)<a class="headerlink" href="#map-the-query-arguments-specified-in-envsmapquery" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">query</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">MapQuery</span><span class="p">(</span>
+<span class="w">    </span><span class="n">anchorset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anchors</span><span class="p">,</span>
+<span class="w">    </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">query</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reference</span><span class="p">,</span>
+<span class="w">    </span><span class="n">refdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">celltype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;celltype&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="n">reference.reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;pca&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reduction.model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;umap&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><code>MapQuery</code> performs:<br /></p>
+<ol>
+<li><code>TransferData</code></li>
+<li><code>IntegrateEmbeddings</code></li>
+<li><code>ProjectUMAP</code></li>
+</ol>
+<p>The query cells will:<br /></p>
+<ul>
+<li>receive predicted cell type labels</li>
+<li>be projected into the reference UMAP</li>
+</ul>
+<p>The reference UMAP reduction is reused and saved in the query object as <code>ref.umap</code>.<br /></p>
+<h4 id="decision-summary">Decision summary<a class="headerlink" href="#decision-summary" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Reference type</th>
+<th>Normalization</th>
+<th>Reduction</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard scRNA‑seq</td>
+<td>LogNormalize</td>
+<td>PCA</td>
+<td>Single modality datasets</td>
+</tr>
+<tr>
+<td>Large / atlas reference</td>
+<td>SCTransform</td>
+<td>SPCA</td>
+<td>Large heterogeneous datasets</td>
+</tr>
+<tr>
+<td>Multimodal reference</td>
+<td>SCTransform</td>
+<td>SPCA + WNN</td>
+<td>CITE‑seq / multimodal integration</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="important-rules">Important rules<a class="headerlink" href="#important-rules" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Query and reference <strong>must use the same normalization strategy</strong>.<br /></li>
+<li>The <strong>reference dimensional reduction must already exist</strong>.<br /></li>
+<li>Metadata labels in the reference are required for label transfer.<br /></li>
+<li>Store a <strong>UMAP model (<code>return.model = TRUE</code>)</strong> to enable projection.<br /></li>
+<li>Precomputing neighbors improves performance for repeated mapping.<br /></li>
+<li>Use <code>ref.umap</code> for consistent visualization of mapped query cells.<br /></li>
+</ol>
+<h4 id="practical-advice">Practical advice<a class="headerlink" href="#practical-advice" title="Permanent link">&para;</a></h4>
+<p>For high-quality reference atlases:<br /></p>
+<ul>
+<li>integrate multiple datasets first</li>
+<li>curate annotations carefully</li>
+<li>use ~30-50 PCs</li>
+<li>keep metadata hierarchy (broad → fine labels)</li>
+</ul>
+<p>The reference effectively acts as a <strong>pretrained cell atlas</strong> that new datasets can be projected onto.<br /></p>
+<h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
+<p>The metadata of the <code>Seurat</code> object will be updated with the cluster
+assignments (column name determined by <code>envs.name</code>):<br /></p>
+<p><img alt="SeuratMap2Ref-metadata" src="../images/SeuratClustering-metadata.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../CellTypeAnnotation/" class="btn btn-neutral float-left" title="CellTypeAnnotation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../ClusterMarkers/" class="btn btn-neutral float-right" title="ClusterMarkers">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../CellTypeAnnotation/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../ClusterMarkers/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/version-select.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
