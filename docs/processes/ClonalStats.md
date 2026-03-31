@@ -23,6 +23,12 @@ information.<br />
     The keys are the names of the new variables, and the values are the expressions.<br />
     When it is a `Seurat` object, typically an output of `scRepertoire::combineExpression()`,
     the mutaters will be applied to the `meta.data`.<br />
+- `cache` *(`type=auto`)*: *Default: `/tmp`*. <br />
+    Whether to cache the plots.<br />
+    Currently only plots for features are supported, since creating the those
+    plots can be time consuming.<br />
+    If `True`, the plots will be cached in the job output directory, which will
+    be not cleaned up when job is rerunning.<br />
 - `viz_type` *(`choice`)*:
     The type of visualization to generate.<br />
     - `volume`:
@@ -33,8 +39,8 @@ information.<br />
         The length of the CDR3 sequences using [`ClonalLengthPlot`](https://pwwang.github.io/scplotter/reference/ClonalLengthPlot.html)
     - `residency`:
         The residency of the clones using [`ClonalResidencyPlot`](https://pwwang.github.io/scplotter/reference/ClonalResidencyPlot.html)
-    - `stats`:
-        The stats of the clones using [`ClonalStatsPlot`](https://pwwang.github.io/scplotter/reference/ClonalStatsPlot.html)
+    - `stat`:
+        The stats of the clones using [`ClonalStatPlot`](https://pwwang.github.io/scplotter/reference/ClonalStatPlot.html)
     - `composition`:
         The composition of the clones using [`ClonalCompositionPlot`](https://pwwang.github.io/scplotter/reference/ClonalCompositionPlot.html)
     - `overlap`:

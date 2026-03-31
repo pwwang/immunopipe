@@ -8,7 +8,7 @@ def test_sampleinfo(request):
     outdir = run_process(
         "SampleInfo", "SampleInfo.config.toml", request=request
     )
-    assert outdir.joinpath("Age_distribution-Histogram-.png").is_file()
+    assert outdir.joinpath("Age_distribution-Histogram.png").is_file()
 
 
 @pytest.mark.forked
@@ -52,7 +52,7 @@ def test_clustermarkers(request):
         request=request,
     )
     assert outdir.joinpath(
-        "sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/"
+        "sampleinfo.markers/Cluster/seurat_clusters-All-Markers/"
         "Top-10-markers-of-all-clusters.png"
     ).is_file()
 

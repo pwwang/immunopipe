@@ -38,6 +38,9 @@ for supervised clustering.<br />
 - `ident`: *Default: `seurat_clusters`*. <br />
     The name in the metadata to save the cluster labels.<br />
     A shortcut for `envs["FindClusters"]["cluster.name"]`.<br />
+- `python`: *Default: `python`*. <br />
+    The path to the python executable where `umap-learn` is installed.<br />
+    Needed for `RunUMAP` when `umap.method` is set to `umap-learn`.<br />
 - `RunUMAP` *(`ns`)*:
     Arguments for [`RunUMAP()`](https://satijalab.org/seurat/reference/runumap).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
