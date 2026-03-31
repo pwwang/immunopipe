@@ -53,6 +53,10 @@ each gene set, and GSEA plots for the top gene sets.<br />
     The column name in metadata to separate the cells into different subsets to do the analysis.<br />
 - `subset`:
     An expression to subset the cells.<br />
+- `error` *(`flag`)*: *Default: `False`*. <br />
+    Stop the job if errors happen.<br />
+    Helpful when no/not enough markers are found or no pathways are enriched.<br />
+    If `False`, empty results will be returned.<br />
 - `gmtfile`: *Default: `KEGG_2021_Human`*. <br />
     The pathways in GMT format, with the gene names/ids in the same format as the seurat object.<br />
     You can use built-in dbs in `enrichit`, or provide your own gmt files.<br />

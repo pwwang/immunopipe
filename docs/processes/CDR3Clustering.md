@@ -13,6 +13,9 @@ It uses either
 > repertoire classification by isometric transformation."
 > Nature communications 12.1 (2021): 1-11.<br />
 
+It is designed for TCR clustering, but it can also be used for BCR clustering.<br />
+See <https://github.com/s175573/GIANA/issues/18>.<br />
+
 Or [ClusTCR](https://github.com/svalkiers/clusTCR)
 
 > Sebastiaan Valkiers, Max Van Houcke, Kris Laukens, Pieter Meysman,

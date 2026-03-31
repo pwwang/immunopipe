@@ -43,8 +43,9 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     The layer to pull and aggregate the data.<br />
 - `assay`:
     The assay to pull and aggregate the data.<br />
-- `error` *(`flag`)*: *Default: `False`*. <br />
-    Error out if no/not enough markers are found or no pathways are enriched.<br />
+- `error` *(`flag`)*: *Default: `True`*. <br />
+    Stop the job if errors happen.<br />
+    Helpful when no/not enough markers are found or no pathways are enriched.<br />
     If `False`, empty results will be returned.<br />
 - `group_by`:
     The column name in metadata to group the cells.<br />

@@ -86,11 +86,12 @@ function, and performs enrichment analysis for the markers found.<br />
         alias for `clusterprofiler`
 - `assay`:
     The assay to use.<br />
-- `error` *(`flag`)*: *Default: `False`*. <br />
-    Error out if no/not enough markers are found or no pathways are enriched.<br />
-    If `False`, empty results will be returned.<br />
 - `subset`:
     An expression to subset the cells for each case.<br />
+- `error` *(`flag`)*: *Default: `True`*. <br />
+    Stop the job if errors happen.<br />
+    Helpful when no/not enough markers are found or no pathways are enriched.<br />
+    If `False`, empty results will be returned.<br />
 - `cache` *(`type=auto`)*: *Default: `/tmp`*. <br />
     Where to cache the results.<br />
     If `True`, cache to `outdir` of the job. If `False`, don't cache.<br />
@@ -165,7 +166,7 @@ function, and performs enrichment analysis for the markers found.<br />
         Other arguments passed to [`biopipen.utils::VizDEGs()`](https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html).<br />
         If `plot_type` is `volcano_pct` or `volcano_log2fc`, they will be passed to
         [`scplotter::VolcanoPlot()`](https://pwwang.github.io/plotthis/reference/VolcanoPlot.html).<br />
-- `marker_plots` *(`type=json`)*: *Default: `{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot', 'devpars': Diot({'width': 'x1.25', 'height': 'x1.8'})})}`*. <br />
+- `marker_plots` *(`type=json`)*: *Default: `{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot', 'devpars': Diot({'width': 500, 'height': 720})})}`*. <br />
     Cases of the plots to generate for the markers.<br />
     Plot cases. The keys are the names of the cases and the values are the dicts inherited from `marker_plots_defaults`.<br />
     The cases under `envs.cases` can inherit this options.<br />

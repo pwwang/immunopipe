@@ -87,6 +87,10 @@ readonly.<br />
     The cases under `envs.cases` can inherit this options.<br />
 - `subset`:
     An expression to subset the cells for each case.<br />
+- `error` *(`flag`)*: *Default: `False`*. <br />
+    Stop the job if errors happen.<br />
+    Helpful when no/not enough markers are found or no pathways are enriched.<br />
+    If `False`, empty results will be returned.<br />
 
 ## SeeAlso
 
