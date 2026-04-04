@@ -6,13 +6,6 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_rpkgs.yml &&
     micromamba clean --all --yes && \
     rm -rf /opt/conda/pkgs/*
 
-ARG MAMBA_DOCKERFILE_ACTIVATE=1
-
-# stringfish required by r-qs2, errored by conda-forge/r's stringfish v0.17.0
-# (v0.18 can't be installed with r4.4)
-# stringfish.so: undefined symbol: _ZTIN3tbb4taskE
-RUN R -e "install.packages('stringfish', repos='https://cloud.r-project.org')"
-
 # Fresh stage to avoid metadata bloat
 FROM justold/immunopipe-base:latest
 
@@ -24,7 +17,6 @@ COPY --from=builder /opt/conda/lib/R/library/enrichit /opt/conda/lib/R/library/e
 COPY --from=builder /opt/conda/lib/R/library/plotthis /opt/conda/lib/R/library/plotthis
 COPY --from=builder /opt/conda/lib/R/library/scplotter /opt/conda/lib/R/library/scplotter
 COPY --from=builder /opt/conda/lib/R/library/biopipen.utils /opt/conda/lib/R/library/biopipen.utils
-COPY --from=builder /opt/conda/lib/R/library/stringfish /opt/conda/lib/R/library/stringfish
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh" ]

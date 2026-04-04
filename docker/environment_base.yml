@@ -123,6 +123,8 @@ dependencies:
   - r-hitype  # sctype will also be supported
   - r-plotly
   - r-htmlwidgets
+  # unable to load shared object: stringfish.so for the one from r channel
+  - pwwang::r-stringfish
   - pip:
     - liana
     - celltypist2
