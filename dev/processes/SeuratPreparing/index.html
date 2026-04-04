@@ -275,6 +275,11 @@ If you are using <code>cca</code> or <code>rpca</code> interation, the default a
     express to be kept. This is used in <code>Seurat::CreateSeuratObject()</code>.<br />
     Futher QC (<code>envs.cell_qc</code>, <code>envs.gene_qc</code>) will be performed after this.<br />
     It doesn't work when data is loaded from loom files or RDS/qs2 files.<br /></li>
+<li><code>features</code> <em>(<code>type=auto</code>)</em>:
+    Features to rename. It can be a dict with the keys as
+    the original feature names and the values as the new feature names, or
+    file path to a two-column tab-delimited file (no header) with the first column as
+    the original feature names and the second column as the new feature names.<br /></li>
 <li>
 <p><code>cell_qc</code>:
     Filter expression to filter cells, using
