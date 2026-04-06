@@ -259,11 +259,6 @@
 <p class="admonition-title">Tip</p>
 <p>An example configuration file with possible configuration items is provided in the repository as <code>immunopipe.config.example.toml</code>. You can refer to it when creating your own configuration file.</p>
 </div>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>With <a href="https://github.com/pwwang/pipen-args"><code>pipen-args</code></a> plugin, the arguments can also be passed from command line directly. For example, you can pass <code>--TESSA.envs.python python_np1</code> from command line to set the <code>python</code> with dependencies installed for <code>TESSA</code> process.</p>
-<p>We know that when a process name appears in the configuration file, the process will be enabled. However, this won't work for the arguments passed from command line. You need to make sure that the process is enabled in the configuration file first. Then you can override the environment variables from command line.</p>
-</div>
 <h3 id="pipeline-configurations">Pipeline configurations<a class="headerlink" href="#pipeline-configurations" title="Permanent link">&para;</a></h3>
 <p>There are pipeline level configurations and process level configurations. The pipeline level configurations are used to control the pipeline itself. The process level configurations set here are the default values for all the processes. You can override the default values for each process in the process level configurations.</p>
 <p>You can check all available configuration items and <a href="https://pwwang.github.io/pipen/configurations/">more details here</a>. Here we only list some of the most important ones. The rest ones are not recommended to change unless you know what you are doing.</p>

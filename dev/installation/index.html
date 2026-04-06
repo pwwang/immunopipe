@@ -52,7 +52,7 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Installation</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#install-the-pipline-and-the-dependencies-using-conda">Install the pipline and the dependencies using conda</a>
+    <li class="toctree-l2"><a class="reference internal" href="#install-the-pipline-and-the-dependencies-using-condamamba">Install the pipline and the dependencies using conda/mamba</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#use-the-docker-image">Use the docker image</a>
         <ul>
@@ -197,7 +197,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<h3 id="install-the-pipline-and-the-dependencies-using-conda">Install the pipline and the dependencies using conda<a class="headerlink" href="#install-the-pipline-and-the-dependencies-using-conda" title="Permanent link">&para;</a></h3>
+<h3 id="install-the-pipline-and-the-dependencies-using-condamamba">Install the pipline and the dependencies using conda/mamba<a class="headerlink" href="#install-the-pipline-and-the-dependencies-using-condamamba" title="Permanent link">&para;</a></h3>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>If you plan to use the docker image to run the pipeline locally, you can skip this section.</p>
@@ -214,33 +214,6 @@
 </code></pre></div>
 <p>If the URL doesn't work, you can download the file and create the environment locally.</p>
 <p>For more detailed instructions of <code>conda env create</code>, please refer to <a href="https://docs.conda.io/projects/conda/en/latest/commands/env/create.html">conda docs</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you are using <code>celltypist</code> for cell type annotation:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[CellTypeAnnotation.envs]</span>
-<span class="n">tool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;celltypist&quot;</span>
-</code></pre></div>
-<p>Or if you are enabling <code>TESSA</code> and <code>CDR3Clustering</code> processes, you need to install additional dependencies, including <code>numpy</code> <code>v1</code>, which is not compatible with some other packages in the base environment. You can create a separate conda environment for these processes.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-n<span class="w"> </span>python_np1<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-f<span class="w"> </span>https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_np1.yml
-</code></pre></div>
-<p>Then in your pipeline configuration file, specify the conda environment for these processes:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[CellTypeAnnotation.envs]</span>
-<span class="n">tool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;celltypist&quot;</span>
-
-<span class="w">  </span><span class="k">[CellTypeAnnotation.envs.celltypist_args]</span>
-<span class="w">  </span><span class="n">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;data/Immune_All_Low.pkl&quot;</span>
-<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/path/to/conda/envs/python_np1/bin/python&quot;</span>
-
-<span class="k">[CDR3Clustering]</span>
-<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/path/to/conda/envs/python_np1/bin/python&quot;</span>
-
-<span class="k">[TESSA.envs]</span>
-<span class="n">predefined_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="n">python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/path/to/conda/envs/python_np1/bin/python&quot;</span>
-</code></pre></div>
-</div>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>The pipeline itself is NOT included in the conda environment. You need to install it separately.</p>
