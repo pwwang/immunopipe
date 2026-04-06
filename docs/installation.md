@@ -1,6 +1,6 @@
 # Installation
 
-## Install the pipline and the dependencies using conda
+## Install the pipline and the dependencies using conda/mamba
 
 /// Tip
 If you plan to use the docker image to run the pipeline locally, you can skip this section.
@@ -25,43 +25,6 @@ $ conda env update \
 If the URL doesn't work, you can download the file and create the environment locally.
 
 For more detailed instructions of `conda env create`, please refer to [conda docs](https://docs.conda.io/projects/conda/en/latest/commands/env/create.html).
-
-/// Note
-
-If you are using `celltypist` for cell type annotation:
-
-```toml
-[CellTypeAnnotation.envs]
-tool = "celltypist"
-```
-
-Or if you are enabling `TESSA` and `CDR3Clustering` processes, you need to install additional dependencies, including `numpy` `v1`, which is not compatible with some other packages in the base environment. You can create a separate conda environment for these processes.
-
-```shell
-$ conda env create \
-    -n python_np1 \
-    -f https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_np1.yml
-```
-
-Then in your pipeline configuration file, specify the conda environment for these processes:
-
-```toml
-[CellTypeAnnotation.envs]
-tool = "celltypist"
-
-  [CellTypeAnnotation.envs.celltypist_args]
-  model = "data/Immune_All_Low.pkl"
-  python = "/path/to/conda/envs/python_np1/bin/python"
-
-[CDR3Clustering]
-  python = "/path/to/conda/envs/python_np1/bin/python"
-
-[TESSA.envs]
-predefined_b = true
-python = "/path/to/conda/envs/python_np1/bin/python"
-```
-
-///
 
 /// Attention
 The pipeline itself is NOT included in the conda environment. You need to install it separately.
