@@ -248,7 +248,7 @@ $<span class="w"> </span>pipen<span class="w"> </span>report<span class="w"> </s
 </div>
 <p>To run the pipeline use the image, please refer to <a href="../running/">Running the pipeline</a>.</p>
 <h4 id="the-directory-structure-in-the-container">The directory structure in the container<a class="headerlink" href="#the-directory-structure-in-the-container" title="Permanent link">&para;</a></h4>
-<p>The docker image is build upon <a href="https://hub.docker.com/layers/mambaorg/micromamba/1.4.3/images/sha256-0251b94151c021c85d3e4f4ffe1fc81c436f18e01337d3b367d0f7c76ee716ac?context=explore"><code>mambaorg/micromamba:2.3.0</code></a>. The OS is linux/amd64. Other than the default directories, the following directories are also created or should be mapped during the run:</p>
+<p>The docker image is build upon <a href="https://hub.docker.com/r/mambaorg/micromamba"><code>mambaorg/micromamba:2.5.0</code></a>. The OS is linux/amd64. Other than the default directories, the following directories are also created or should be mapped during the run:</p>
 <ul>
 <li><code>/immunopipe</code>: The directory where the source code of the pipeline is. It is general a clone of the <a href="https://github.com/pwwang/immunopipe">repository</a>. The pipeline is also installed from this directory.</li>
 <li><code>/workdir</code>: The working directory. It is the directory where the pipeline is run. It is recommended to map the current directory (<code>.</code>) to this directory.</li>
