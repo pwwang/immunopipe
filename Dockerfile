@@ -1,4 +1,4 @@
-FROM justold/immunopipe-rpkgs:latest
+FROM justold/immunopipe-rpkgs:latest AS builder
 
 COPY --chown=$MAMBA_USER:$MAMBA_USER . /immunopipe
 
@@ -12,10 +12,40 @@ RUN fc-cache -f -v && \
     python -m poetry install --no-cache -v --all-extras && \
     python -m pip cache purge && \
     python -m poetry cache clear --all pypi && \
-    rm -rf /home/$MAMBA_USER/.cache/pypoetry/* && \
     pipen report update && \
-    rm -rf /home/$MAMBA_USER/.npm/* && \
-    echo "cache=/tmp/npm-cache" > /home/mambauser/.npmrc
+    # --- Post-Install Cleanup ---
+    # Remove JS source maps
+    find /opt/conda -follow -type f -name '*.js.map' -delete && \
+    # Remove Cython source files (not needed at runtime)
+    find /opt/conda/lib/python*/site-packages -follow -type f -name '*.pyx' -delete && \
+    # Remove __pycache__ directories (includes all .pyc files)
+    find /opt/conda -name '__pycache__' -type d -exec rm -rf '{}' + 2>/dev/null || true && \
+    # Remove Python test directories in site-packages
+    find /opt/conda/lib/python*/site-packages -maxdepth 2 \
+        \( -name 'tests' -o -name 'test' \) -type d -exec rm -rf '{}' + 2>/dev/null || true && \
+    # --- npm / node_modules Cleanup (pipen-report frontend) ---
+    # Remove markdown docs and TypeScript declarations (not needed by rollup at runtime)
+    find /opt/conda/lib/python*/site-packages/pipen_report/frontend/node_modules \
+        \( -name '*.md' -o -name '*.d.ts' \) -type f -delete 2>/dev/null || true && \
+    # Remove test directories inside node_modules
+    find /opt/conda/lib/python*/site-packages/pipen_report/frontend/node_modules \
+        -type d \( -name 'test' -o -name 'tests' -o -name '__tests__' \) \
+        -exec rm -rf '{}' + 2>/dev/null || true
+
+# Fresh stage: carry over only the installed environment and runtime files,
+# not the full repo (docs/, tests/, skills/, notebooks, etc.)
+FROM justold/immunopipe-rpkgs:latest
+
+# Installed Python packages (poetry install target), including R scripts and
+# report templates shipped as package data under site-packages/immunopipe/
+COPY --from=builder /opt/conda /opt/conda
+# Runtime entry script
+COPY --from=builder --chown=$MAMBA_USER:$MAMBA_USER /immunopipe/docker /immunopipe/docker
+
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
+
+# Redirect npm cache to a writable tmp location
+RUN echo "cache=/tmp/npm-cache" > /home/$MAMBA_USER/.npmrc
 
 WORKDIR /workdir
 

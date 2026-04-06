@@ -71,7 +71,7 @@ To run the pipeline use the image, please refer to [Running the pipeline](./runn
 
 ### The directory structure in the container
 
-The docker image is build upon [`mambaorg/micromamba:2.3.0`][1]. The OS is linux/amd64. Other than the default directories, the following directories are also created or should be mapped during the run:
+The docker image is build upon [`mambaorg/micromamba:2.5.0`][1]. The OS is linux/amd64. Other than the default directories, the following directories are also created or should be mapped during the run:
 
 - `/immunopipe`: The directory where the source code of the pipeline is. It is general a clone of the [repository][2]. The pipeline is also installed from this directory.
 - `/workdir`: The working directory. It is the directory where the pipeline is run. It is recommended to map the current directory (`.`) to this directory.
@@ -108,7 +108,7 @@ If you choose to use [`pipen-cli-gbatch`][4] (running the pipeline via `immunopi
 $ pip install -U immunopipe[cli-gbatch]
 ```
 
-[1]: https://hub.docker.com/layers/mambaorg/micromamba/1.4.3/images/sha256-0251b94151c021c85d3e4f4ffe1fc81c436f18e01337d3b367d0f7c76ee716ac?context=explore
+[1]: https://hub.docker.com/r/mambaorg/micromamba
 [2]: https://github.com/pwwang/immunopipe
 [3]: https://github.com/pwwang/xqute
 [4]: https://github.com/pwwang/pipen-cli-gbatch
