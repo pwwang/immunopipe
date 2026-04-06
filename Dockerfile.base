@@ -35,6 +35,7 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && 
         \( -name 'help' -o -name 'doc' -o -name 'html' \
         -o -name 'vignettes' -o -name 'demo' -o -name 'tests' \
         -o -name 'data' -o -name 'extdata' -o -name 'data-raw' \) \
+        -not -path '*/SeuratObject/data' \
         -type d -exec rm -rf '{}' + 2>/dev/null || true && \
     # --- Compiler & Dev Tool Cleanup ---
     # Remove headers (only needed for compilation)
