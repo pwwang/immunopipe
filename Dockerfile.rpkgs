@@ -4,9 +4,8 @@ COPY --chown=$MAMBA_USER:$MAMBA_USER ./docker /immunopipe/docker
 
 RUN micromamba env update -n base -f /immunopipe/docker/environment_rpkgs.yml && \
     micromamba clean --all --yes && \
-    # remove the example data from scRepertoire, plotthis, scplotter and biopipen.utils
+    # remove the example data from scRepertoire, scplotter and biopipen.utils
     rm -rf /opt/conda/lib/R/library/scRepertoire/data/* && \
-    rm -rf /opt/conda/lib/R/library/plotthis/data/* && \
     rm -rf /opt/conda/lib/R/library/scplotter/data/* && \
     rm -rf /opt/conda/lib/R/library/biopipen.utils/inst/extdata/* && \
     # remove pip and poetry caches to reduce image size
