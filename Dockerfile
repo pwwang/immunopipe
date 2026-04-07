@@ -25,6 +25,18 @@ RUN fc-cache -f -v && \
     # Remove Python test directories in site-packages
     find /opt/conda/lib/python*/site-packages -maxdepth 2 \
         \( -name 'tests' -o -name 'test' \) -type d -exec rm -rf '{}' + 2>/dev/null || true && \
+    # Remove Python 'testing' and 'kernel_tests' directories (deeper nesting levels)
+    find /opt/conda/lib/python*/site-packages -maxdepth 4 \
+        \( -name 'testing' -o -name 'kernel_tests' \) -type d -exec rm -rf '{}' + 2>/dev/null || true && \
+    # Remove R library test and example directories
+    find /opt/conda/lib/R/library -type d \
+        \( -name 'tinytest' -o -name 'unitTests' -o -name 'testthat' \
+           -o -name 'testme' -o -name 'testdata' -o -name 'unittests' \
+           -o -name 'paramtest' -o -name 'test-scripts' -o -name 'testfiles' \
+           -o -name 'test' -o -name 'tests' -o -name 'examples' \) \
+        -exec rm -rf '{}' + 2>/dev/null || true && \
+    rm -rf /opt/conda/lib/R/library/plotly/examples && \
+    rm -rf /opt/conda/lib/R/library/XML/exampleData && \
     # --- npm / node_modules Cleanup (pipen-report frontend) ---
     # Remove markdown docs and TypeScript declarations (not needed at runtime)
     find /opt/conda/lib/python*/site-packages/pipen_report/frontend/node_modules \
@@ -41,7 +53,29 @@ RUN fc-cache -f -v && \
         -exec rm -rf '{}' + 2>/dev/null || true && \
     # Remove .github directories inside node_modules
     find /opt/conda/lib/python*/site-packages/pipen_report/frontend/node_modules \
-        -type d -name '.github' -exec rm -rf '{}' + 2>/dev/null || true
+        -type d -name '.github' -exec rm -rf '{}' + 2>/dev/null || true && \
+    # Remove npm docs
+    rm -rf /opt/conda/lib/node_modules/npm/docs && \
+    # Remove the sample input from celltypist
+    rm -rf /opt/conda/lib/python*/site-packages/celltypist/data/samples/Ensembl11* && \
+    rm -rf /opt/conda/lib/python*/site-packages/celltypist/data/samples/GENCODE* && \
+    rm -rf /opt/conda/lib/python*/site-packages/celltypist/data/samples/sample_cell_by_gene.csv && \
+    # Remove datar's data
+    rm -rf /opt/conda/lib/python*/site-packages/datar/data/*.gz && \
+    # We don't need tensorboard
+    rm -rf /opt/conda/lib/python*/site-packages/tensorboard* && \
+    rm -rf /opt/conda/lib/python*/site-packages/tensorboard_data_server* && \
+    # We don't need qt
+    rm -rf /opt/conda/lib/qt* && \
+    # We don't need pyside
+    rm -rf /opt/conda/lib/python*/site-packages/PySide* && \
+    rm -rf /opt/conda/share/PySide* && \
+    # Remove plotnine's data
+    rm -rf /opt/conda/lib/python*/site-packages/plotnine/data/* && \
+    # Remove man pages
+    rm -rf /opt/conda/man /opt/conda/share/man && \
+    # Remove test files
+    rm -rf /opt/conda/etc/conda/test-files/*
 
 # Fresh stage: carry over only the installed environment and runtime files,
 # not the full repo (docs/, tests/, skills/, notebooks, etc.)
