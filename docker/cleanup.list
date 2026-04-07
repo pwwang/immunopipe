@@ -1,0 +1,351 @@
+# Docker Image Cleanup Manifest
+# Processed by docker/cleanup.py during the builder stage to reduce final image size.
+#
+# Format:
+#   path/to/remove        — exact path relative to /opt/conda (removed with rm -rf / rm -f)
+#   path/with/*/glob      — shell glob (supports *, **, ?) relative to /opt/conda
+#   # comment             — ignored
+#   ! (blank line)        — ignored
+#   !path/to/keep         — exclusion: never remove this path even if matched by a pattern above
+
+# =====================================================================
+# Pandoc (transitive R dep, not used in this pipeline)
+# =====================================================================
+bin/pandoc
+bin/pandoc-lua
+bin/pandoc-server
+share/pandoc
+
+# =====================================================================
+# Build-time CLI tools
+# Shared libs (libcurl.so, libz.so, etc.) are kept for runtime.
+# Uncomment to remove the CLI binaries as well:
+# bin/wget
+# bin/curl
+# =====================================================================
+
+# =====================================================================
+# Static libraries (linking artefacts, not needed at runtime)
+# =====================================================================
+**/*.a
+
+# =====================================================================
+# JavaScript source maps
+# =====================================================================
+**/*.js.map
+
+# =====================================================================
+# Python: Cython source files
+# =====================================================================
+lib/python*/site-packages/**/*.pyx
+lib/python*/site-packages/**/*.pyi
+
+# =====================================================================
+# Python: bytecode cache
+# =====================================================================
+**/__pycache__
+
+# =====================================================================
+# Python: test suites in site-packages
+# =====================================================================
+lib/python*/site-packages/*/tests
+lib/python*/site-packages/*/test
+lib/python*/site-packages/*/*/tests
+lib/python*/site-packages/*/*/test
+lib/python*/site-packages/*/*/*/kernel_tests
+
+# =====================================================================
+# Python: stdlib components not needed in production containers
+# =====================================================================
+lib/python*/ensurepip
+lib/python*/idlelib
+lib/python*/lib2to3
+lib/python*/tkinter
+lib/python*/turtledemo
+lib/python*/turtle.py
+lib/python*/test
+
+# =====================================================================
+# JavaScript/TypeScript: remove .d.ts and dev-only dirs from node_modules
+#
+# .d.ts files are TypeScript type declarations consumed only by the
+# TypeScript type-checker (tsc). Bundlers (Vite, esbuild, SvelteKit),
+# and Node.js itself do NOT read .d.ts files at runtime or during a
+# production build — so they are safe to remove even when the pipeline
+# compiles Svelte/web report pages inside the container.
+# =====================================================================
+lib/node_modules/**/*.d.ts
+lib/node_modules/**/test
+lib/node_modules/**/tests
+lib/node_modules/**/__tests__
+lib/node_modules/**/.github
+lib/node_modules/**/docs
+lib/node_modules/**/examples
+lib/node_modules/**/demo
+# pipen_report's bundled frontend node_modules
+lib/python*/site-packages/pipen_report/frontend/node_modules/**/*.d.ts
+lib/python*/site-packages/pipen_report/frontend/node_modules/**/test
+lib/python*/site-packages/pipen_report/frontend/node_modules/**/tests
+lib/python*/site-packages/pipen_report/frontend/node_modules/**/__tests__
+lib/python*/site-packages/pipen_report/frontend/node_modules/**/.github
+lib/python*/site-packages/pipen_report/frontend/node_modules/**/docs
+lib/python*/site-packages/pipen_report/frontend/node_modules/**/examples
+lib/python*/site-packages/pipen_report/frontend/node_modules/**/demo
+
+# =====================================================================
+# Specific test/sample files
+# =====================================================================
+# celltypist
+lib/python*/site-packages/celltypist/data/samples/Ensembl11*
+lib/python*/site-packages/celltypist/data/samples/GENCODE*
+lib/python*/site-packages/celltypist/data/samples/sample_cell_by_gene.csv
+# datar
+lib/python*/site-packages/datar/data/*.gz
+# plotnine
+lib/python*/site-packages/plotnine/data/*
+
+# =====================================================================
+# General documentation and locale data
+# =====================================================================
+man
+share/doc
+share/man
+share/info
+share/locale
+
+# =====================================================================
+# R: package documentation, help, demos, vignettes, tests and data dirs
+# (maxdepth-2 scoping is implicit via the single-star path below)
+# SeuratObject/data is excluded because it ships required reference data.
+# =====================================================================
+lib/R/library/*/help
+lib/R/library/*/doc
+lib/R/library/*/html
+lib/R/library/*/vignettes
+lib/R/library/*/demo
+lib/R/library/*/tests
+lib/R/library/*/data
+lib/R/library/*/extdata
+lib/R/library/*/data-raw
+# keep pbmc_small
+!lib/R/library/SeuratObject/data
+# the palettes
+!lib/R/library/plotthis/data
+# builtin genesets
+!lib/R/library/enrichit/data
+!lib/R/library/enrichit/extdata
+
+# =====================================================================
+# R: non-standard test directory names (any depth inside library)
+# =====================================================================
+lib/R/library/**/tinytest
+lib/R/library/**/unitTests
+lib/R/library/**/testthat
+lib/R/library/**/testme
+lib/R/library/**/testdata
+lib/R/library/**/unittests
+lib/R/library/**/paramtest
+lib/R/library/**/test-scripts
+lib/R/library/**/testfiles
+lib/R/library/**/examples
+lib/R/library/**/exampleData
+
+# =====================================================================
+# R: inline documentation files (.Rd)
+# =====================================================================
+lib/R/library/**/*.Rd
+
+# =====================================================================
+# R: README / NEWS / CHANGELOG files in package roots
+# =====================================================================
+lib/R/library/*/README*
+lib/R/library/*/NEWS*
+lib/R/library/*/CHANGELOG*
+lib/R/library/*/ChangeLog*
+
+# =====================================================================
+# GUI / desktop share data (headless pipeline container)
+# =====================================================================
+share/applications
+share/icons
+share/mime
+share/pixmaps
+share/X11
+share/gtk-doc
+share/dbus-1
+share/aclocal
+share/bash-completion
+share/zsh
+share/themes
+share/gir-1.*
+
+# =====================================================================
+# Build-system and dev-tool share data
+# =====================================================================
+share/cmake
+share/cmake-3.*
+share/LIEF
+share/azure-core-cpp
+share/azure-identity-cpp
+share/azure-storage-blobs-cpp
+share/azure-storage-common-cpp
+share/hdf5_examples
+share/pkgconfig
+share/gcc-*
+share/WebP
+share/et
+share/examples
+share/keyutils
+share/tabset
+share/gettext
+share/thumbnailers
+share/emacs
+share/vim
+share/terminfo
+
+# =====================================================================
+# Jupyter (pipeline container — not a notebook server)
+# =====================================================================
+share/jupyter
+
+# =====================================================================
+# PostgreSQL server bootstrap data (no PG server in this container)
+# =====================================================================
+share/extension
+share/timezonesets
+share/tsearch_data
+share/postgres.bki
+share/postgresql.conf.sample
+share/pg_hba.conf.sample
+share/pg_ident.conf.sample
+share/pg_service.conf.sample
+share/psqlrc.sample
+share/information_schema.sql
+share/system_views.sql
+share/system_functions.sql
+share/system_constraints.sql
+share/snowball_create.sql
+share/sql_features.txt
+share/errcodes.txt
+
+# =====================================================================
+# Compiler & dev headers (only needed at compile time)
+# =====================================================================
+include
+lib/pkgconfig
+lib/cmake
+compiler_compat
+
+# =====================================================================
+# GCC compiler toolchain
+# =====================================================================
+lib/gcc
+lib/libcc1.so*
+libexec/gcc
+x86_64-conda-linux-gnu
+
+# =====================================================================
+# GCC binaries
+# =====================================================================
+bin/gcc*
+bin/g++*
+bin/cpp*
+bin/x86_64-conda-*
+bin/as
+bin/ld
+bin/ar
+bin/nm
+bin/objcopy
+bin/objdump
+bin/ranlib
+bin/strip
+bin/size
+bin/strings
+bin/addr2line
+bin/c++filt
+
+# =====================================================================
+# LLVM / Clang shared libraries
+# (llvmlite bundles its own LLVM; these are orphaned system copies)
+# =====================================================================
+lib/libLLVM.so.*
+lib/libclang-cpp.so.*
+lib/libclang.so.*
+
+# =====================================================================
+# Protobuf compiler (only libprotobuf.so is needed at runtime)
+# =====================================================================
+lib/libprotoc.so*
+
+# =====================================================================
+# Debug / sanitizer / profiling libraries
+# =====================================================================
+lib/libompd.so
+lib/libhwasan.so*
+lib/libarcher.so.bak
+lib/libasan.so*
+lib/libtsan.so*
+lib/liblsan.so*
+lib/libubsan.so*
+
+# =====================================================================
+# Perl runtime (not used at runtime by any R or Python package here)
+# =====================================================================
+lib/perl5
+
+# =====================================================================
+# Tcl/Tk (only needed for R's interactive tcltk GUI, not headless pipelines)
+# =====================================================================
+lib/tcl8.*
+lib/tk8.*
+lib/libtcl8.*.so
+lib/libtk8.*.so
+
+# =====================================================================
+# npm documentation and man pages
+# =====================================================================
+lib/node_modules/npm/docs
+lib/node_modules/npm/man
+
+# =====================================================================
+# Qt / PySide (GUI framework, unused in this pipeline)
+# =====================================================================
+lib/qt6*
+lib/libQt6*
+lib/python*/site-packages/PySide*
+share/PySide*
+PySide*
+lib/libpyside*
+
+# =====================================================================
+# R: header-only and dev-only packages (compile-time only)
+# =====================================================================
+lib/R/library/BH
+lib/R/library/testthat
+lib/R/library/assorthead
+lib/R/library/BiocManager
+
+# =====================================================================
+# R: bundled C++ header directories in Rcpp* packages
+# =====================================================================
+lib/R/library/Rcpp/include
+lib/R/library/RcppEigen/include
+lib/R/library/RcppArmadillo/include
+lib/R/library/RcppParallel/include
+lib/R/library/RcppThread/include
+lib/R/library/RcppHNSW/include
+lib/R/library/RcppAnnoy/include
+
+# =====================================================================
+# TensorFlow: bundled C headers and tensorboard
+# =====================================================================
+lib/python*/site-packages/tensorflow/include
+lib/python*/site-packages/tensorboard*
+lib/python*/site-packages/tensorboard_data_server*
+
+# =====================================================================
+# conda / micromamba package metadata (no further package management)
+# =====================================================================
+conda-meta
+pkgs
+etc/conda/test-files/*
