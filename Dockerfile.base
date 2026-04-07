@@ -35,7 +35,7 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && 
     rm -rf /opt/conda/lib/python*/test && \
     # Remove general documentation, locale data, and terminal info
     rm -rf /opt/conda/man /opt/conda/share/doc /opt/conda/share/man /opt/conda/share/info \
-           /opt/conda/share/locale /opt/conda/share/terminfo && \
+           /opt/conda/share/locale && \
     # Remove R package documentation, help files, demos, vignettes, tests, and data
     find /opt/conda/lib/R/library -maxdepth 2 \
         \( -name 'help' -o -name 'doc' -o -name 'html' \
@@ -75,21 +75,56 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && 
     rm -rf /opt/conda/lib/cmake && \
     # Remove compiler compatibility files
     rm -rf /opt/conda/compiler_compat && \
+    # Remove GCC compiler toolchain (compile-time only)
+    rm -rf /opt/conda/lib/gcc && \
+    rm -rf /opt/conda/lib/libcc1.so* && \
     # Remove GCC internal files and sysroot tools
     rm -rf /opt/conda/libexec/gcc && \
     rm -rf /opt/conda/x86_64-conda-linux-gnu && \
+    # Remove LLVM/Clang shared libraries (llvmlite bundles its own LLVM; these are orphaned)
+    rm -f /opt/conda/lib/libLLVM.so.21.1 \
+          /opt/conda/lib/libLLVM.so.22.1 \
+          /opt/conda/lib/libclang-cpp.so.21.1 \
+          /opt/conda/lib/libclang.so.13 && \
+    # Remove protobuf compiler (only libprotobuf.so is needed at runtime)
+    rm -f /opt/conda/lib/libprotoc.so* && \
+    # Remove OpenMP debugger interface (not the runtime — libomp.so stays)
+    rm -f /opt/conda/lib/libompd.so && \
+    # Remove HardwareAddressSanitizer (debug/testing only)
+    rm -f /opt/conda/lib/libhwasan.so* && \
+    # Remove .bak backup artifact
+    rm -f /opt/conda/lib/libarcher.so.bak && \
     # Remove compiler sanitizer runtime libraries (ASAN/TSAN/LSAN/UBSAN)
     find /opt/conda/lib -maxdepth 1 \
         \( -name 'libasan.so*' -o -name 'libtsan.so*' \
         -o -name 'liblsan.so*' -o -name 'libubsan.so*' \) \
         -delete 2>/dev/null || true && \
+    # Remove Perl (not needed by any R package or Python package at runtime)
+    rm -rf /opt/conda/lib/perl5 && \
+    # Remove Tcl/Tk (only needed for R's interactive tcltk GUI, not headless pipelines)
+    rm -rf /opt/conda/lib/tcl8.6 \
+           /opt/conda/lib/tk8.6 && \
+    rm -f /opt/conda/lib/libtcl8.6.so \
+          /opt/conda/lib/libtk8.6.so && \
     # Remove npm docs
     rm -rf /opt/conda/lib/node_modules/npm/docs && \
     # We don't need qt
-    rm -rf /opt/conda/lib/qt* && \
+    rm -rf /opt/conda/lib/qt6* && \
+    rm -rf /opt/conda/lib/libQt6* && \
     # We don't need pyside
     rm -rf /opt/conda/lib/python*/site-packages/PySide* && \
     rm -rf /opt/conda/share/PySide* && \
+    rm -rf /opt/conda/PySide* && \
+    rm -rf /opt/conda/lib/libpyside6* && \
+    # BH is a header-only R package (Boost headers) used only at compile time — safe to remove
+    rm -rf /opt/conda/lib/R/library/BH && \
+    # assorthead is header-only (compile-time LinkingTo dependency for beachmat/scran/etc.)
+    rm -rf /opt/conda/lib/R/library/assorthead && \
+    # BiocManager is a package installer utility — not needed in a sealed container
+    rm -rf /opt/conda/lib/R/library/BiocManager && \
+    # RcppEigen and RcppArmadillo: keep R package but strip bundled C++ headers
+    rm -rf /opt/conda/lib/R/library/RcppEigen/include && \
+    rm -rf /opt/conda/lib/R/library/RcppArmadillo/include && \
     # --- TensorFlow Specific Cleanup ---
     rm -rf /opt/conda/lib/python*/site-packages/tensorflow/include && \
     # --- conda/micromamba Metadata Cleanup ---
