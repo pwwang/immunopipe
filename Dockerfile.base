@@ -6,6 +6,9 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && \
     micromamba clean --all --yes && \
+    # Remove pandoc (pulled in as a transitive R dep, not needed in a pipeline container)
+    rm -f /opt/conda/bin/pandoc /opt/conda/bin/pandoc-lua /opt/conda/bin/pandoc-server && \
+    rm -rf /opt/conda/share/pandoc && \
     # --- General Cleanup ---
     # Remove static libraries (only needed for linking)
     find /opt/conda -follow -type f -name '*.a' -delete && \
@@ -37,6 +40,23 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && 
         -o -name 'data' -o -name 'extdata' -o -name 'data-raw' \) \
         -not -path '*/SeuratObject/data' \
         -type d -exec rm -rf '{}' + 2>/dev/null || true && \
+    # Remove R inline documentation files (.Rd) — not needed at runtime
+    find /opt/conda/lib/R/library -name '*.Rd' -delete 2>/dev/null || true && \
+    # Remove R package README / NEWS / CHANGELOG files from package roots
+    find /opt/conda/lib/R/library -maxdepth 2 \
+        \( -name 'README*' -o -name 'NEWS*' -o -name 'CHANGELOG*' -o -name 'ChangeLog*' \) \
+        -delete 2>/dev/null || true && \
+    # Remove GUI / desktop-related shared data (not needed in pipeline containers)
+    rm -rf /opt/conda/share/applications \
+           /opt/conda/share/icons \
+           /opt/conda/share/mime \
+           /opt/conda/share/pixmaps \
+           /opt/conda/share/X11 \
+           /opt/conda/share/gtk-doc \
+           /opt/conda/share/dbus-1 \
+           /opt/conda/share/aclocal \
+           /opt/conda/share/bash-completion \
+           /opt/conda/share/zsh && \
     # --- Compiler & Dev Tool Cleanup ---
     # Remove headers (only needed for compilation)
     rm -rf /opt/conda/include && \

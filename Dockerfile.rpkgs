@@ -8,8 +8,13 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_rpkgs.yml &&
     rm -rf /opt/conda/lib/R/library/scRepertoire/data/* && \
     rm -rf /opt/conda/lib/R/library/scplotter/data/* && \
     rm -rf /opt/conda/lib/R/library/biopipen.utils/inst/extdata/* && \
-    # remove pip and poetry caches to reduce image size
-    rm -rf /opt/conda/pkgs/*
+    # Remove R inline documentation files (.Rd) — not needed at runtime
+    find /opt/conda/lib/R/library -name '*.Rd' -delete 2>/dev/null || true && \
+    # Remove R package README / NEWS / CHANGELOG files from package roots
+    find /opt/conda/lib/R/library -maxdepth 2 \
+        \( -name 'README*' -o -name 'NEWS*' -o -name 'CHANGELOG*' -o -name 'ChangeLog*' \) \
+        -delete 2>/dev/null || true && \
+    rm -rf /opt/conda/pkgs
 
 # Fresh stage to avoid metadata bloat
 FROM justold/immunopipe-base:latest
