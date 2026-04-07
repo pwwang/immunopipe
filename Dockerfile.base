@@ -21,9 +21,9 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && 
     # Remove Python test directories in site-packages
     find /opt/conda/lib/python*/site-packages -maxdepth 2 \
         \( -name 'tests' -o -name 'test' \) -type d -exec rm -rf '{}' + 2>/dev/null || true && \
-    # Remove Python 'testing' and 'kernel_tests' directories (deeper nesting levels)
+    # Remove Python 'kernel_tests' directories (deeper nesting levels)
     find /opt/conda/lib/python*/site-packages -maxdepth 4 \
-        \( -name 'testing' -o -name 'kernel_tests' \) -type d -exec rm -rf '{}' + 2>/dev/null || true && \
+        \( -name 'kernel_tests' \) -type d -exec rm -rf '{}' + 2>/dev/null || true && \
     # Remove Python stdlib components not needed in production containers
     rm -rf /opt/conda/lib/python*/ensurepip \
            /opt/conda/lib/python*/idlelib \
@@ -78,6 +78,13 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && 
     # Remove GCC compiler toolchain (compile-time only)
     rm -rf /opt/conda/lib/gcc && \
     rm -rf /opt/conda/lib/libcc1.so* && \
+    # Remove GCC binaries
+    find /opt/conda/bin -maxdepth 1 \
+        \( -name 'gcc*' -o -name 'g++*' -o -name 'cpp*' -o -name 'x86_64-conda-*' \
+        -o -name 'as' -o -name 'ld' -o -name 'ar' -o -name 'nm' \
+        -o -name 'objcopy' -o -name 'objdump' -o -name 'ranlib' -o -name 'strip' \
+        -o -name 'size' -o -name 'strings' -o -name 'addr2line' -o -name 'c++filt' \) \
+        -delete 2>/dev/null || true && \
     # Remove GCC internal files and sysroot tools
     rm -rf /opt/conda/libexec/gcc && \
     rm -rf /opt/conda/x86_64-conda-linux-gnu && \
@@ -118,6 +125,8 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && 
     rm -rf /opt/conda/lib/libpyside6* && \
     # BH is a header-only R package (Boost headers) used only at compile time — safe to remove
     rm -rf /opt/conda/lib/R/library/BH && \
+    # testthat is a unit-testing framework (not needed at runtime)
+    rm -rf /opt/conda/lib/R/library/testthat && \
     # assorthead is header-only (compile-time LinkingTo dependency for beachmat/scran/etc.)
     rm -rf /opt/conda/lib/R/library/assorthead && \
     # BiocManager is a package installer utility — not needed in a sealed container
