@@ -201,7 +201,7 @@ share/gettext
 share/thumbnailers
 share/emacs
 share/vim
-# We need to keep the terminfo database for pipen to detect the log width
+# We need to keep the terminfo database for pipen to detect the log message width
 # share/terminfo
 
 # =====================================================================
