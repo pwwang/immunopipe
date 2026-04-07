@@ -3309,21 +3309,6 @@ pytest = ">=7"
 testing = ["process-tests", "pytest-xdist", "virtualenv"]
 
 [[package]]
-name = "pytest-dependency"
-version = "0.6.1"
-description = "Manage dependencies of tests"
-optional = false
-python-versions = ">=3.4"
-groups = ["dev"]
-files = [
-    {file = "pytest_dependency-0.6.1.tar.gz", hash = "sha256:246c24d2a5fc743a942cec4408853640e56a05ba58d46e5b213a1d4b738a2464"},
-]
-
-[package.dependencies]
-pytest = ">=3.7.0"
-setuptools = "*"
-
-[[package]]
 name = "pytest-forked"
 version = "1.6.0"
 description = "run tests in isolated forked subprocesses"
@@ -3697,27 +3682,6 @@ files = [
     {file = "rtoml-0.12.0-cp39-cp39-win_amd64.whl", hash = "sha256:b7c6bdc9128c0a4ebf45e6720ae03c99ed7443a7135e494d93d3c30c14769eb3"},
     {file = "rtoml-0.12.0.tar.gz", hash = "sha256:662e56bd5953ee7ebcc5798507ae90daa329940a5d5157a48f3d477ebf99c55b"},
 ]
-
-[[package]]
-name = "setuptools"
-version = "82.0.1"
-description = "Most extensible Python build backend with support for C/C++ extension modules"
-optional = false
-python-versions = ">=3.9"
-groups = ["dev"]
-files = [
-    {file = "setuptools-82.0.1-py3-none-any.whl", hash = "sha256:a59e362652f08dcd477c78bb6e7bd9d80a7995bc73ce773050228a348ce2e5bb"},
-    {file = "setuptools-82.0.1.tar.gz", hash = "sha256:7d872682c5d01cfde07da7bccc7b65469d3dca203318515ada1de5eda35efbf9"},
-]
-
-[package.extras]
-check = ["pytest-checkdocs (>=2.4)", "pytest-ruff (>=0.2.1) ; sys_platform != \"cygwin\"", "ruff (>=0.13.0) ; sys_platform != \"cygwin\""]
-core = ["importlib_metadata (>=6) ; python_version < \"3.10\"", "jaraco.functools (>=4)", "jaraco.text (>=3.7)", "more_itertools", "more_itertools (>=8.8)", "packaging (>=24.2)", "tomli (>=2.0.1) ; python_version < \"3.11\"", "wheel (>=0.43.0)"]
-cover = ["pytest-cov"]
-doc = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "pygments-github-lexers (==0.0.5)", "pyproject-hooks (!=1.1)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-favicon", "sphinx-inline-tabs", "sphinx-lint", "sphinx-notfound-page (>=1,<2)", "sphinx-reredirects", "sphinxcontrib-towncrier", "towncrier (<24.7)"]
-enabler = ["pytest-enabler (>=2.2)"]
-test = ["build[virtualenv] (>=1.0.3)", "filelock (>=3.4.0)", "ini2toml[lite] (>=0.14)", "jaraco.develop (>=7.21) ; python_version >= \"3.9\" and sys_platform != \"cygwin\"", "jaraco.envs (>=2.2)", "jaraco.path (>=3.7.2)", "jaraco.test (>=5.5)", "packaging (>=24.2)", "pip (>=19.1)", "pyproject-hooks (!=1.1)", "pytest (>=6,!=8.1.*)", "pytest-home (>=0.5)", "pytest-perf ; sys_platform != \"cygwin\"", "pytest-subprocess", "pytest-timeout", "pytest-xdist (>=3)", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel (>=0.44.0)"]
-type = ["importlib_metadata (>=7.0.2) ; python_version < \"3.10\"", "jaraco.develop (>=7.21) ; sys_platform != \"cygwin\"", "mypy (==1.18.*)", "pytest-mypy"]
 
 [[package]]
 name = "simplug"
@@ -4379,4 +4343,4 @@ runinfo = ["pipen-runinfo"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "d1fbf771212e992753b8e3e4a547389202a979ae521688500bec3fe4570296c0"
+content-hash = "003dc562c2bae1100ad77ba2c91b385c66f0e7ccccbbea557ae881bd66293e61"
