@@ -21,6 +21,9 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && 
     # Remove Python test directories in site-packages
     find /opt/conda/lib/python*/site-packages -maxdepth 2 \
         \( -name 'tests' -o -name 'test' \) -type d -exec rm -rf '{}' + 2>/dev/null || true && \
+    # Remove Python 'testing' and 'kernel_tests' directories (deeper nesting levels)
+    find /opt/conda/lib/python*/site-packages -maxdepth 4 \
+        \( -name 'testing' -o -name 'kernel_tests' \) -type d -exec rm -rf '{}' + 2>/dev/null || true && \
     # Remove Python stdlib components not needed in production containers
     rm -rf /opt/conda/lib/python*/ensurepip \
            /opt/conda/lib/python*/idlelib \
@@ -31,7 +34,7 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && 
     # Remove Python's own test suite from stdlib
     rm -rf /opt/conda/lib/python*/test && \
     # Remove general documentation, locale data, and terminal info
-    rm -rf /opt/conda/share/doc /opt/conda/share/man /opt/conda/share/info \
+    rm -rf /opt/conda/man /opt/conda/share/doc /opt/conda/share/man /opt/conda/share/info \
            /opt/conda/share/locale /opt/conda/share/terminfo && \
     # Remove R package documentation, help files, demos, vignettes, tests, and data
     find /opt/conda/lib/R/library -maxdepth 2 \
@@ -40,6 +43,13 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && 
         -o -name 'data' -o -name 'extdata' -o -name 'data-raw' \) \
         -not -path '*/SeuratObject/data' \
         -type d -exec rm -rf '{}' + 2>/dev/null || true && \
+    # Remove R library test directories with non-standard names (at any depth)
+    find /opt/conda/lib/R/library -type d \
+        \( -name 'tinytest' -o -name 'unitTests' -o -name 'testthat' \
+           -o -name 'testme' -o -name 'testdata' -o -name 'unittests' \
+           -o -name 'paramtest' -o -name 'test-scripts' -o -name 'testfiles' \
+           -o -name 'examples' -o -name 'exampleData' \) \
+        -exec rm -rf '{}' + 2>/dev/null || true && \
     # Remove R inline documentation files (.Rd) — not needed at runtime
     find /opt/conda/lib/R/library -name '*.Rd' -delete 2>/dev/null || true && \
     # Remove R package README / NEWS / CHANGELOG files from package roots
@@ -73,6 +83,13 @@ RUN micromamba env update -n base -f /immunopipe/docker/environment_base.yml && 
         \( -name 'libasan.so*' -o -name 'libtsan.so*' \
         -o -name 'liblsan.so*' -o -name 'libubsan.so*' \) \
         -delete 2>/dev/null || true && \
+    # Remove npm docs
+    rm -rf /opt/conda/lib/node_modules/npm/docs && \
+    # We don't need qt
+    rm -rf /opt/conda/lib/qt* && \
+    # We don't need pyside
+    rm -rf /opt/conda/lib/python*/site-packages/PySide* && \
+    rm -rf /opt/conda/share/PySide* && \
     # --- TensorFlow Specific Cleanup ---
     rm -rf /opt/conda/lib/python*/site-packages/tensorflow/include && \
     # --- conda/micromamba Metadata Cleanup ---
