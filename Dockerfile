@@ -27,7 +27,7 @@ RUN fc-cache -f -v && \
         \( -name 'tests' -o -name 'test' \) -type d -exec rm -rf '{}' + 2>/dev/null || true && \
     # Remove Python 'testing' and 'kernel_tests' directories (deeper nesting levels)
     find /opt/conda/lib/python*/site-packages -maxdepth 4 \
-        \( -name 'testing' -o -name 'kernel_tests' \) -type d -exec rm -rf '{}' + 2>/dev/null || true && \
+        \( -name 'kernel_tests' \) -type d -exec rm -rf '{}' + 2>/dev/null || true && \
     # Remove R library test and example directories
     find /opt/conda/lib/R/library -type d \
         \( -name 'tinytest' -o -name 'unitTests' -o -name 'testthat' \
