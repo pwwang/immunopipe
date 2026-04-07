@@ -201,7 +201,8 @@ share/gettext
 share/thumbnailers
 share/emacs
 share/vim
-share/terminfo
+# We need to keep the terminfo database for pipen to detect the log width
+# share/terminfo
 
 # =====================================================================
 # Jupyter (pipeline container — not a notebook server)
