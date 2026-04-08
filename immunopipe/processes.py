@@ -193,7 +193,7 @@ class SampleInfo(SampleInfo_):
         split_by = "Diagnosis"
         ```
 
-        ![Samples_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png)
+        ![Samples_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie.png)
 
         What if we want a bar plot instead of a pie chart?
 
@@ -204,7 +204,7 @@ class SampleInfo(SampleInfo_):
         split_by = "Diagnosis"
         ```
 
-        ![Samples_Diagnosis_bar]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png)
+        ![Samples_Diagnosis_bar]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar.png)
 
         ### Explore Age distribution
 
@@ -216,7 +216,7 @@ class SampleInfo(SampleInfo_):
         x = "Age"
         ```
 
-        ![Age_distribution]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution-Histogram-.png)
+        ![Age_distribution]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution-Histogram.png)
 
         How about the distribution of Age in each Diagnosis, and make it
         violin + boxplot?
@@ -229,7 +229,7 @@ class SampleInfo(SampleInfo_):
         add_box = true
         ```
 
-        ![Age_distribution_per_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png)
+        ![Age_distribution_per_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot.png)
 
         How about Age distribution per Sex in each Diagnosis?
 
@@ -243,7 +243,7 @@ class SampleInfo(SampleInfo_):
         devpars = {height = 450}
         ```
 
-        ![Age_distribution_per_Sex_in_each_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png)
+        ![Age_distribution_per_Sex_in_each_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot.png)
 
     Input:
         infile%(required)s: {{Input.infile.help | indent: 8}}.
@@ -650,7 +650,7 @@ class ClusterMarkers(MarkersFinder_):
         plot_type = "volcano_log2fc"
         ```
 
-        ![Volcano Plot (log2FC)]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-log2FC-.png)
+        ![Volcano Plot (log2FC)]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-log2FC.png)
 
         ### Visualize differential percentage of expression of Markers
 
@@ -659,7 +659,7 @@ class ClusterMarkers(MarkersFinder_):
         plot_type = "volcano_pct"
         ```
 
-        ![Volcano Plot (pct_diff)]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-diff_pct-.png)
+        ![Volcano Plot (pct_diff)]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-diff_pct.png)
 
         ### Visualize Average Expression of Markers with Dot Plot
 
@@ -719,7 +719,7 @@ class ClusterMarkers(MarkersFinder_):
         plot_type = "heatmap"
         ```
 
-        ![Top 10 markers of all clusters]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Top-10-markers-of-all-clusters.png)
+        ![Top 10 markers of all clusters]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Top-10-markers-of-all-clusters.png)
 
         ### Visualize Log2 Fold Change of all markers
 
@@ -729,7 +729,7 @@ class ClusterMarkers(MarkersFinder_):
         subset_by = "seurat_clusters"
         ```
 
-        ![Log2 Fold Change of all markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Log2FC-of-all-clusters.png)
+        ![Log2 Fold Change of all markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Log2FC-of-all-clusters.png)
 
         ### Visualize all markers in all clusters with Jitter Plots
 
@@ -739,7 +739,7 @@ class ClusterMarkers(MarkersFinder_):
         subset_by = "seurat_clusters"
         ```
 
-        ![Jitter Plots of all markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Jitter-Plots-for-all-clusters.png)
+        ![Jitter Plots of all markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Jitter-Plots-for-all-clusters.png)
 
         ### Visualize all enrichment analysis results of all clusters
 
@@ -748,7 +748,7 @@ class ClusterMarkers(MarkersFinder_):
         plot_type = "heatmap"
         ```
 
-        ![Heatmap of enriched terms of all clusters]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Enrichments-/allenrich.MSigDB_Hallmark_2020.Heatmap-of-enriched-terms-of-all-clusters.png)
+        ![Heatmap of enriched terms of all clusters]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Enrichments/allenrich.MSigDB_Hallmark_2020.Heatmap-of-enriched-terms-of-all-clusters.png)
 
         ### Overlapping markers
 
@@ -757,7 +757,7 @@ class ClusterMarkers(MarkersFinder_):
         plot_type = "venn"
         ```
 
-        ![Overlapping Markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps-/Overlapping-Markers.png)
+        ![Overlapping Markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers.png)
 
     """  # noqa: E501
 

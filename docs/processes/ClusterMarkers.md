@@ -232,7 +232,7 @@ you may see the other environment variables of this process are hidden and reado
 plot_type = "volcano_log2fc"
 ```
 
-![Volcano Plot (log2FC)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-log2FC-.png)
+![Volcano Plot (log2FC)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-log2FC.png)
 
 ### Visualize differential percentage of expression of Markers
 
@@ -241,7 +241,7 @@ plot_type = "volcano_log2fc"
 plot_type = "volcano_pct"
 ```
 
-![Volcano Plot (pct_diff)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-diff_pct-.png)
+![Volcano Plot (pct_diff)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-diff_pct.png)
 
 ### Visualize Average Expression of Markers with Dot Plot
 
@@ -301,7 +301,7 @@ plot_type = "wordcloud"
 plot_type = "heatmap"
 ```
 
-![Top 10 markers of all clusters](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Top-10-markers-of-all-clusters.png)
+![Top 10 markers of all clusters](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Top-10-markers-of-all-clusters.png)
 
 ### Visualize Log2 Fold Change of all markers
 
@@ -311,7 +311,7 @@ plot_type = "heatmap_log2fc"
 subset_by = "seurat_clusters"
 ```
 
-![Log2 Fold Change of all markers](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Log2FC-of-all-clusters.png)
+![Log2 Fold Change of all markers](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Log2FC-of-all-clusters.png)
 
 ### Visualize all markers in all clusters with Jitter Plots
 
@@ -321,7 +321,7 @@ plot_type = "jitter"
 subset_by = "seurat_clusters"
 ```
 
-![Jitter Plots of all markers](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Jitter-Plots-for-all-clusters.png)
+![Jitter Plots of all markers](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Jitter-Plots-for-all-clusters.png)
 
 ### Visualize all enrichment analysis results of all clusters
 
@@ -330,7 +330,7 @@ subset_by = "seurat_clusters"
 plot_type = "heatmap"
 ```
 
-![Heatmap of enriched terms of all clusters](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Enrichments-/allenrich.MSigDB_Hallmark_2020.Heatmap-of-enriched-terms-of-all-clusters.png)
+![Heatmap of enriched terms of all clusters](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Enrichments/allenrich.MSigDB_Hallmark_2020.Heatmap-of-enriched-terms-of-all-clusters.png)
 
 ### Overlapping markers
 
@@ -339,5 +339,5 @@ plot_type = "heatmap"
 plot_type = "venn"
 ```
 
-![Overlapping Markers](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps-/Overlapping-Markers.png)
+![Overlapping Markers](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers.png)
 

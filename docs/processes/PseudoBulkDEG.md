@@ -31,6 +31,7 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     The column name in metadata to separate the cells into different cases.<br />
     When specified, the case will be expanded to multiple cases for
     each value in the column.<br />
+    `"ident"` can be used as an alias for the default identity column (e.g. `"seurat_clusters"`).<br />
 - `cache` *(`type=auto`)*: *Default: `/tmp`*. <br />
     Where to cache the results.<br />
     If `True`, cache to `outdir` of the job. If `False`, don't cache.<br />

@@ -53,6 +53,7 @@ function, and performs enrichment analysis for the markers found.<br />
     then the case will be expanded as `envs.cases."Cluster Markers - Sample1"`, `envs.cases."Cluster Markers - Sample2"`, etc.<br />
     You can specify `allmarker_plots` and `overlaps` to plot the markers for all cases in the same plot and plot the overlaps of the markers
     between different cases by values in this column.<br />
+    `"ident"` can be used as an alias for the default identity column (e.g. `"seurat_clusters"`).<br />
 - `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />
     The dbs to do enrichment analysis for significant markers.<br />
     You can use built-in dbs in `enrichit`, or provide your own gmt files.<br />
