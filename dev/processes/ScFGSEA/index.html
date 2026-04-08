@@ -251,7 +251,8 @@ each gene set, and GSEA plots for the top gene sets.<br /></p>
 <li><code>assay</code>:
     The assay to use. If not provided, the default assay will be used.<br /></li>
 <li><code>each</code>:
-    The column name in metadata to separate the cells into different subsets to do the analysis.<br /></li>
+    The column name in metadata to separate the cells into different subsets to do the analysis.<br />
+    <code>"ident"</code> can be used as an alias for the default identity column (e.g. <code>"seurat_clusters"</code>).<br /></li>
 <li><code>subset</code>:
     An expression to subset the cells.<br /></li>
 <li><code>error</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />

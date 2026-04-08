@@ -262,7 +262,8 @@ function, and performs enrichment analysis for the markers found.<br /></p>
     the column in metadata. For example, when you have <code>envs.cases."Cluster Markers".each = "Sample"</code>,
     then the case will be expanded as <code>envs.cases."Cluster Markers - Sample1"</code>, <code>envs.cases."Cluster Markers - Sample2"</code>, etc.<br />
     You can specify <code>allmarker_plots</code> and <code>overlaps</code> to plot the markers for all cases in the same plot and plot the overlaps of the markers
-    between different cases by values in this column.<br /></li>
+    between different cases by values in this column.<br />
+    <code>"ident"</code> can be used as an alias for the default identity column (e.g. <code>"seurat_clusters"</code>).<br /></li>
 <li><code>dbs</code> <em>(<code>list</code>)</em>: <em>Default: <code>['KEGG_2021_Human', 'MSigDB_Hallmark_2020']</code></em>. <br />
     The dbs to do enrichment analysis for significant markers.<br />
     You can use built-in dbs in <code>enrichit</code>, or provide your own gmt files.<br />
