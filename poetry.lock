@@ -284,14 +284,14 @@ files = [
 
 [[package]]
 name = "biopipen"
-version = "1.2.7"
+version = "1.2.8"
 description = "Bioinformatics processes/pipelines that can be run from `pipen run`"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "biopipen-1.2.7-py3-none-any.whl", hash = "sha256:754910c61f7c7a30da768b289fe4731aacc8cff96c3145e2d51d18c632750d82"},
-    {file = "biopipen-1.2.7.tar.gz", hash = "sha256:bffaef7296ba20e909aadc14a6d2b7e9441607e73547d98c0a0821ec6c1cadd0"},
+    {file = "biopipen-1.2.8-py3-none-any.whl", hash = "sha256:ca33d0ba0ba4242b643486816e1519de0aa7d5642776a883eed7a10e3737ad7b"},
+    {file = "biopipen-1.2.8.tar.gz", hash = "sha256:8cffb440211106810a69bd2ce889d20ad4eb4b36585e7cd12059fa9108b829ad"},
 ]
 
 [package.dependencies]
@@ -345,7 +345,7 @@ description = "Foreign Function Interface for Python calling C code."
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "extra == \"cli-gbatch\" and platform_python_implementation != \"PyPy\""
+markers = "platform_python_implementation != \"PyPy\" and extra == \"cli-gbatch\""
 files = [
     {file = "cffi-2.0.0-cp310-cp310-macosx_10_13_x86_64.whl", hash = "sha256:0cf2d91ecc3fcc0625c2c530fe004f82c110405f101548512cce44322fa8ac44"},
     {file = "cffi-2.0.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:f73b96c41e3b2adedc34a7356e64c8eb96e03a3782b535e043a986276ce12a49"},
@@ -2646,8 +2646,8 @@ files = [
 
 [package.dependencies]
 copier = [
-    {version = ">=9.5,<9.11", markers = "python_version < \"3.10\""},
     {version = ">=9.5", markers = "python_version >= \"3.10\""},
+    {version = ">=9.5,<9.11", markers = "python_version < \"3.10\""},
 ]
 imagesize = ">=1.4,<2.0"
 Markdown = ">=3,<4"
@@ -3338,8 +3338,8 @@ files = [
 
 [package.dependencies]
 pytest = [
-    {version = ">=5.0", markers = "python_version < \"3.10\""},
     {version = ">=6.2.4", markers = "python_version >= \"3.10\""},
+    {version = ">=5.0", markers = "python_version < \"3.10\""},
 ]
 
 [[package]]
