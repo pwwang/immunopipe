@@ -238,7 +238,10 @@ each gene set, and GSEA plots for the top gene sets.<br /></p>
     The mutaters to mutate the metadata.<br />
     The key-value pairs will be passed the <code>dplyr::mutate()</code> to mutate the metadata.<br />
     You can also use the clone selectors to select the TCR clones/clusters.<br />
-    See <a href="https://pwwang.github.io/scplotter/reference/clone_selectors.html">https://pwwang.github.io/scplotter/reference/clone_selectors.html</a>.<br /></p>
+    See <a href="https://pwwang.github.io/scplotter/reference/clone_selectors.html">https://pwwang.github.io/scplotter/reference/clone_selectors.html</a>.<br />
+    You can also use key <code>&lt;newcol&gt;:ident</code> to set the <code>&lt;newcol&gt;</code> as the default
+    ident for the stats.<br />
+    See also <a href="https://pwwang.github.io/biopipen.utils.R/reference/MutateSeuratMeta.html">https://pwwang.github.io/biopipen.utils.R/reference/MutateSeuratMeta.html</a></p>
 </li>
 <li>
 <p><code>group_by</code>:

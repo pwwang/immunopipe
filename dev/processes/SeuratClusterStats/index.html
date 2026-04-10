@@ -261,7 +261,10 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
     The mutaters to mutate the metadata to subset the cells.<br />
     The mutaters will be applied in the order specified.<br />
     You can also use the clone selectors to select the TCR clones/clusters.<br />
-    See <a href="https://pwwang.github.io/scplotter/reference/clone_selectors.html">https://pwwang.github.io/scplotter/reference/clone_selectors.html</a>.<br /></li>
+    See <a href="https://pwwang.github.io/scplotter/reference/clone_selectors.html">https://pwwang.github.io/scplotter/reference/clone_selectors.html</a>.<br />
+    You can also use key <code>&lt;newcol&gt;:ident</code> to set the <code>&lt;newcol&gt;</code> as the default
+    ident for the stats.<br />
+    See also <a href="https://pwwang.github.io/biopipen.utils.R/reference/MutateSeuratMeta.html">https://pwwang.github.io/biopipen.utils.R/reference/MutateSeuratMeta.html</a></li>
 <li><code>cache</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>/tmp</code></em>. <br />
     Whether to cache the plots.<br />
     Currently only plots for features are supported, since creating the those

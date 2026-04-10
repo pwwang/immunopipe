@@ -220,7 +220,10 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
     expressions to mutate the columns. These new columns can be
     used to define your cases.<br />
     You can also use the clone selectors to select the TCR clones/clusters.<br />
-    See <a href="https://pwwang.github.io/scplotter/reference/clone_selectors.html">https://pwwang.github.io/scplotter/reference/clone_selectors.html</a>.<br /></li>
+    See <a href="https://pwwang.github.io/scplotter/reference/clone_selectors.html">https://pwwang.github.io/scplotter/reference/clone_selectors.html</a>.<br />
+    You can also use key <code>&lt;newcol&gt;:ident</code> to set the <code>&lt;newcol&gt;</code> as the default
+    ident for the stats.<br />
+    See <a href="https://pwwang.github.io/biopipen.utils.R/reference/MutateSeuratMeta.html">https://pwwang.github.io/biopipen.utils.R/reference/MutateSeuratMeta.html</a></li>
 <li><code>each</code>:
     The column name in metadata to separate the cells into different cases.<br />
     When specified, the case will be expanded to multiple cases for
