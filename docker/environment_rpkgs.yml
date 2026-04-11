@@ -10,6 +10,6 @@ dependencies:
   - pwwang::bioconductor-screpertoire=2.2
   - r-biopipen.utils=0.3.11=r44_9
   - r-scplotter=0.7.3=r44_1
-  - r-plotthis=0.12.0=r44_3
+  - r-plotthis=0.12.0=r44_4
   - r-enrichit=0.0.4=r44_1
   - r-gglogger=0.1.7=r44_1
