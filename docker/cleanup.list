@@ -129,6 +129,8 @@ lib/R/library/*/extdata
 lib/R/library/*/data-raw
 # keep pbmc_small
 !lib/R/library/SeuratObject/data
+# cc.genes
+!lib/R/library/Seurat/data
 # the palettes
 !lib/R/library/plotthis/data
 # builtin genesets
