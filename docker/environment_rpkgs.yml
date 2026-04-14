@@ -12,4 +12,4 @@ dependencies:
   - r-scplotter=0.7.3=r44_1
   - r-plotthis=0.12.0=r44_4
   - r-enrichit=0.0.4=r44_1
-  - r-gglogger=0.1.7=r44_1
+  - r-gglogger=0.1.8=r44_1
