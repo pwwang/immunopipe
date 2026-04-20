@@ -233,7 +233,7 @@ using <code>envs.newcol</code>, so that the results from different annotation pr
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>outfile</code>: <em>Default: <code>&lt;template#0&gt;.annotated.{{- ext0(in.sobjfile) if envs.outtype == 'input' else envs.outtype -}}</code></em>. <br />
+<li><code>outfile</code>: <em>Default: <code>{{in.sobjfile | stem}}.annotated.{{- ext0(in.sobjfile) if envs.outtype == 'input' else envs.outtype -}}</code></em>. <br />
     The rds/qs/qs2/h5ad file of seurat object with cell type annotated.<br />
     A text file containing the mapping from the old identity to the new cell types
     will be generated and saved to <code>cluster2celltype.tsv</code> under the job output directory.<br />
