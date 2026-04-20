@@ -7,11 +7,7 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 WORKDIR /immunopipe
 
 RUN fc-cache -f -v && \
-    python -m pip install --no-cache-dir -U poetry && \
-    python -m poetry config virtualenvs.create false && \
-    python -m poetry install --no-cache -v --all-extras && \
-    python -m pip cache purge && \
-    python -m poetry cache clear --all pypi && \
+    uv pip install --system -e .[diagram,runinfo,dry,cli-gbatch] && \
     pipen report update && \
     python /immunopipe/docker/cleanup.py
 
@@ -19,10 +15,10 @@ RUN fc-cache -f -v && \
 # not the full repo (docs/, tests/, skills/, notebooks, etc.)
 FROM justold/immunopipe-rpkgs:latest
 
-# Installed Python packages (poetry install target), including R scripts and
+# Installed Python packages (uv pip install target), including R scripts and
 # report templates shipped as package data under site-packages/immunopipe/
 COPY --from=builder /opt/conda /opt/conda
-# The Python package itself: poetry installs it as an editable reference to
+# The Python package itself: uv installs it as an editable reference to
 # /immunopipe, so this directory must exist in the final image.
 # Only the package module is copied — docs/, tests/, skills/, etc. are excluded.
 COPY --from=builder --chown=$MAMBA_USER:$MAMBA_USER /immunopipe/immunopipe /immunopipe/immunopipe

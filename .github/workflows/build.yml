@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[wip]')"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 2
       - name: Check if base files changed
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: docker-base
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 2
       - name: Check if rpkgs files changed
@@ -81,7 +81,7 @@ jobs:
       - name: Delete cache to save space
         # https://github.com/orgs/community/discussions/25678#discussioncomment-5242449
         run: rm -rf /opt/hostedtoolcache
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx

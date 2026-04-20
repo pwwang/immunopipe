@@ -1,5 +1,5 @@
 local:
-	pipen ref --pipeline "immunopipe:Immunopipe" \
+	uv run pipen ref --pipeline "immunopipe:Immunopipe" \
 		--destdir docs/processes \
 		--replace-titles "Envs=Environment Variables" \
 		--hide-sections Requires \
@@ -8,13 +8,13 @@ local:
 		--replace "${USER}=pwwang"
 
 api:
-	pipen ref --pipeline "immunopipe:Immunopipe" \
+	uv run pipen ref --pipeline "immunopipe:Immunopipe" \
 		--destdir docs/processes \
 		--replace-titles "Envs=Environment Variables" \
 		--hide-sections Requires
 
 test:
-	@poetry run pytest tests -v
+	@uv run pytest tests -v
 
 test-data:
 	curl -s \
@@ -71,7 +71,7 @@ ddversion:
 		echo "  make ddversion 2.x.x           # Delete all versions starting with 2"; \
 		exit 0; \
 	fi; \
-	AVAILABLE_VERSIONS=$$(poetry run mike list); \
+	AVAILABLE_VERSIONS=$$(uv run mike list); \
 	VERSIONS_TO_DELETE=""; \
 	for VERSION_PATTERN in $$VERSIONS_INPUT; do \
 		if echo "$$VERSION_PATTERN" | grep -q "x"; then \
@@ -98,7 +98,7 @@ ddversion:
 	done; \
 	for VERSION in $$VERSIONS_TO_DELETE; do \
 		echo "Deleting version $$VERSION..."; \
-		poetry run mike delete $$VERSION; \
+		uv run mike delete $$VERSION; \
 	done; \
 	echo "Pushing to gh-pages..."; \
 	git push origin gh-pages; \
