@@ -72,7 +72,7 @@ jobs:
 
       - name: Install immunopipe
         run: |
-          uv pip install --system -v -e ".[cli-gbatch]"
+          uv pip install --system -e ".[cli-gbatch]"
 
       - name: Check if some packages can be imported
         run: |
