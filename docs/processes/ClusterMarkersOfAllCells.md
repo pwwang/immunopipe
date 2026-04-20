@@ -120,6 +120,9 @@ column name in metadata. Follow `envs.cases` for more details.<br />
             The height of the plots.<br />
         - `width` *(`type=int`)*:
             The width of the plots.<br />
+    - `db` *(`type=str`)*:
+        The database(s) to apply for the plot. If not specified, all databases will be applied.<br />
+        `dbs` can also be used as an alias for this parameter.<br />
     - `<more>`:
         See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
 - `allenrich_plots` *(`type=json`)*: *Default: `{}`*. <br />

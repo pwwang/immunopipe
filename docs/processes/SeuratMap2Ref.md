@@ -37,6 +37,7 @@ using `envs.ident`, so that the results from different annotation processes won'
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
     The mutaters to mutate the metadata.<br />
     This is helpful when we want to create new columns for `split_by`.<br />
+    See <https://pwwang.github.io/biopipen.utils.R/reference/MutateSeuratMeta.html>.<br />
 - `use`:
     A column name of metadata from the reference
     (e.g. `celltype.l1`, `celltype.l2`) to transfer to the query as the

@@ -75,6 +75,7 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
     The mutaters to mutate the metadata to the cells.<br />
     These new columns will be added to the metadata of the Seurat object and
     will be saved in the output file.<br />
+    See <https://pwwang.github.io/biopipen.utils.R/reference/MutateSeuratMeta.html>
 - `min_cells` *(`type=int`)*: *Default: `0`*. <br />
     The minimum number of cells that a gene must be
     expressed in to be kept. This is used in `Seurat::CreateSeuratObject()`.<br />

@@ -36,6 +36,7 @@ as the column name.<br />
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
     The mutaters to mutate the metadata to subset the cells.<br />
     The mutaters will be applied in the order specified.<br />
+    See <https://pwwang.github.io/biopipen.utils.R/reference/MutateSeuratMeta.html>
 - `subset`:
     An expression to subset the cells, will be passed to
     [`tidyseurat::filter()`](https://stemangiola.github.io/tidyseurat/reference/filter.html).<br />

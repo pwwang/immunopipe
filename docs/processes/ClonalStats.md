@@ -23,6 +23,9 @@ information.<br />
     The keys are the names of the new variables, and the values are the expressions.<br />
     When it is a `Seurat` object, typically an output of `scRepertoire::combineExpression()`,
     the mutaters will be applied to the `meta.data`.<br />
+    You can also use key `<newcol>:ident` to set the `<newcol>` as the default
+    ident for the stats. Only works when the object is a `Seurat` object created by `scRepertoire::combineExpression()`.<br />
+    See <https://pwwang.github.io/biopipen.utils.R/reference/MutateScRep.html>
 - `cache` *(`type=auto`)*: *Default: `/tmp`*. <br />
     Whether to cache the plots.<br />
     Currently only plots for features are supported, since creating the those
