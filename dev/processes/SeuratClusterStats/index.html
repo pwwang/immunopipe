@@ -409,9 +409,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
     Note that the default <code>n.components</code> for <code>RunUMAP</code> is 2, so if you want to make a 3D UMAP plot,
     you need to set <code>n.components</code> to 3 in <code>RunUMAP</code> parameters in <code>SeuratSubClustering</code> or <code>SeuratClustering</code>.<br /><ul>
 <li><code>group_by</code>:
-    The identity to use.<br />
-    If it is from subclustering (reduction <code>sub_umap_&lt;ident&gt;</code> exists), this reduction will be used if <code>reduction</code>
-    is set to <code>dim</code> or <code>auto</code>.<br /></li>
+    The identity to use.<br /></li>
 <li><code>split_by</code>:
     The column name in metadata to split the cells into different plots.<br /></li>
 <li><code>subset</code>:
@@ -429,9 +427,9 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
 <li><code>reduction</code> <em>(<code>choice</code>)</em>: <em>Default: <code>dim</code></em>. <br />
     Which dimensionality reduction to use.<br /><ul>
 <li><code>dim</code>:
-    Use <code>Seurat::DimPlot</code>.<br />
-    First searches for <code>umap</code>, then <code>tsne</code>, then <code>pca</code>.<br />
-    If <code>ident</code> is from subclustering, <code>sub_umap_&lt;ident&gt;</code> will be used.<br /></li>
+    If <code>ident</code> is from subclustering, <code>&lt;group_by&gt;.&lt;reduction&gt;</code> will be used.<br />
+    Otherwise, <code>scplotter:::default_dimreduc(obj)</code> will be used to determine
+    the default dimensionality reduction to use based on the reductions available in the object.<br /></li>
 <li><code>auto</code>:
     Same as <code>dim</code></li>
 <li><code>umap</code>:
