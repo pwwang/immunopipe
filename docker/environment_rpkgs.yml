@@ -9,7 +9,7 @@ dependencies:
   # Specified in base, but we still need it here to avoid PackagesNotFoundError by conda
   - pwwang::bioconductor-screpertoire=2.2
   - r-biopipen.utils=0.3.11=r44_10
-  - r-scplotter=0.7.3=r44_2
-  - r-plotthis=0.12.0=r44_4
+  - r-scplotter=0.7.3=r44_3
+  - r-plotthis=0.12.0=r44_5
   - r-enrichit=0.0.4=r44_1
   - r-gglogger=0.1.8=r44_1
