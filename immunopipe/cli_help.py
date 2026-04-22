@@ -22,7 +22,9 @@ def main(args: list[str]) -> None:
     help_message.append("Processes:")
     for proc in pipe.procs:
         doc = proc.__doc__ or proc.__bases__[0].__doc__
-        help_message.append(f"* {proc.name}: {doc.strip().splitlines()[0]}")
+        help_message.append(
+            f"* {proc.name}: {doc.strip().splitlines()[0]}"  # type: ignore
+        )
 
     parser.add_argument(
         "topic",

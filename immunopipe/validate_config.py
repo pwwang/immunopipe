@@ -9,6 +9,10 @@ from pipen.utils import logger
 
 WARNINGS = []
 
+# pyright: reportPossiblyUnboundVariable=false
+# pyright: reportAttributeAccessIssue=false
+# pyright: reportOperatorIssue=false
+
 
 def _get_arg_from_cli(
     argname: str,
@@ -93,30 +97,44 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
     config.has_vdj = True  # Default to True, will be updated later
     running_in_gbatch = len(args) > 1 and args[1] == "gbatch"
 
-    if "TOrBCellSelection" not in config and "SeuratClusteringOfAllCells" in config:
+    if (
+        "TOrBCellSelection" not in config  # type: ignore
+        and "SeuratClusteringOfAllCells" in config  # type: ignore
+    ):
         _log_error(
             "All cells are T cells ([TOrBCellSelection] is not set), "
             "so [SeuratClusteringOfAllCells] should not be used, "
             "use [SeuratClustering] instead."
         )
 
-    if "TOrBCellSelection" not in config and "ClusterMarkersOfAllCells" in config:
+    if (
+        "TOrBCellSelection" not in config  # type: ignore
+        and "ClusterMarkersOfAllCells" in config  # type: ignore
+    ):
         WARNINGS.append(
             "All cells are T cells ([TOrBCellSelection] is not set), "
             "so [ClusterMarkersOfAllCells] should not be used and will be ignored."
         )
 
-    if "TOrBCellSelection" not in config and "TopExpressingGenesOfAllCells" in config:
+    if (
+        "TOrBCellSelection" not in config  # type: ignore
+        and "TopExpressingGenesOfAllCells" in config  # type: ignore
+    ):
         WARNINGS.append(
             "All cells are T cells ([TOrBCellSelection] is not set), "
             "so [TopExpressingGenesOfAllCells] should not be used and will be ignored."
         )
 
     # Input from Seurat object
-    if "LoadingRNAFromSeurat" in config:
+    if "LoadingRNAFromSeurat" in config:  # type: ignore
         LoadingRNAFromSeurat_prepared = _get_arg_from_cli(
             "LoadingRNAFromSeurat.envs.prepared",
-            config.get("LoadingRNAFromSeurat", {}).get("envs", {}).get("prepared"),
+            (
+                config  # type: ignore
+                .get("LoadingRNAFromSeurat", {})  # type: ignore
+                .get("envs", {})
+                .get("prepared")
+            ),
             is_flag=True,
         )
         if LoadingRNAFromSeurat_prepared is None:
@@ -124,7 +142,12 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
 
         LoadingRNAFromSeurat_clustered = _get_arg_from_cli(
             "LoadingRNAFromSeurat.envs.clustered",
-            config.get("LoadingRNAFromSeurat", {}).get("envs", {}).get("clustered"),
+            (
+                config  # type: ignore
+                .get("LoadingRNAFromSeurat", {})  # type: ignore
+                .get("envs", {})
+                .get("clustered")
+            ),
             is_flag=True,
         )
         if LoadingRNAFromSeurat_clustered is None:
@@ -151,7 +174,7 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
             or "ClonalStats" in config
             or "CDR3AAPhyschem" in config
         )
-        return config
+        return config  # type: ignore
 
     # Input from sample info file
     else:
@@ -217,4 +240,4 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
     if WARNINGS:
         _log_error()
 
-    return config
+    return config  # type: ignore
