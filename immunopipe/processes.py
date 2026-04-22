@@ -70,7 +70,7 @@ def when(
         The decorator function
     """
 
-    def decorator(cls: Type[Proc]) -> Type[Proc]:
+    def decorator(cls: Type[Proc]) -> Type[Proc] | None:
         if condition or just_loading:
             if requires is not None:
                 cls.requires = requires
@@ -274,7 +274,7 @@ class SampleInfo(SampleInfo_):
 
 # When SampleInfo is used, it should always have VDJ data to be loaded
 # if has_vdj is True
-@when(SampleInfo and config.has_vdj, requires=SampleInfo)
+@when(SampleInfo and config.has_vdj, requires=SampleInfo)  # type: ignore
 @annotate.format_doc()
 class ScRepLoading(ScRepLoading_):
     pass
@@ -327,7 +327,7 @@ RNAInput = LoadingRNAFromSeurat or SampleInfo
         # Even when we load RNA-seq data from Seurat, we may still need SeuratPreparing
         # for QC, transformation, etc.
         "LoadingRNAFromSeurat" in config
-        and not config.LoadingRNAFromSeurat.envs.prepared
+        and not config.LoadingRNAFromSeurat.envs.prepared  # type: ignore
     )
     or (
         # Or when we load RNA-seq data from SampleInfo
@@ -387,7 +387,7 @@ class SeuratClusteringOfAllCells(SeuratClustering_):
 RNAInput = SeuratClusteringOfAllCells or RNAInput
 
 
-@when(SeuratClusteringOfAllCells, requires=RNAInput)
+@when(SeuratClusteringOfAllCells, requires=RNAInput)  # type: ignore
 @annotate.format_doc()
 class ClusterMarkersOfAllCells(MarkersFinder_):
     """Markers for clusters of all cells.
@@ -415,7 +415,8 @@ class ClusterMarkersOfAllCells(MarkersFinder_):
 
 
 @when(
-    SeuratClusteringOfAllCells and "TopExpressingGenesOfAllCells" in config,
+    SeuratClusteringOfAllCells  # type: ignore
+    and "TopExpressingGenesOfAllCells" in config,
     requires=RNAInput,
 )
 @annotate.format_doc()
@@ -442,7 +443,7 @@ class TopExpressingGenesOfAllCells(TopExpressingGenes_):
 
 @when(
     "TOrBCellSelection" in config,
-    requires=[RNAInput, VDJInput] if VDJInput else RNAInput,
+    requires=[RNAInput, VDJInput] if VDJInput else RNAInput,  # type: ignore
 )
 @annotate.format_doc()
 class TOrBCellSelection(TOrBCellSelection_):
@@ -476,7 +477,7 @@ RNAInput = ModuleScoreCalculator or RNAInput
         "SeuratMap2Ref" not in config
         and (
             "LoadingRNAFromSeurat" not in config
-            or not config.LoadingRNAFromSeurat.envs.clustered
+            or not config.LoadingRNAFromSeurat.envs.clustered  # type: ignore
         )
     ),
     requires=RNAInput,
@@ -761,7 +762,7 @@ class ClusterMarkers(MarkersFinder_):
 
     """  # noqa: E501
 
-    requires = RNAInput
+    requires = RNAInput  # type: ignore
     envs = {
         "cases": {"Cluster": {"group_by": None}},
         "marker_plots_defaults": {"order_by": "desc(avg_log2FC)"},
@@ -819,7 +820,7 @@ class TopExpressingGenes(TopExpressingGenes_):
     order = 3
 
 
-@when(VDJInput, requires=[VDJInput, RNAInput])
+@when(VDJInput, requires=[VDJInput, RNAInput])  # type: ignore
 class ScRepCombiningExpression(ScRepCombiningExpression_):
     pass
 
@@ -827,7 +828,10 @@ class ScRepCombiningExpression(ScRepCombiningExpression_):
 CombinedInput = ScRepCombiningExpression or RNAInput
 
 
-@when(VDJInput and "CDR3Clustering" in config, requires=CombinedInput)
+@when(
+    VDJInput and "CDR3Clustering" in config,  # type: ignore
+    requires=CombinedInput,
+)
 @annotate.format_doc()
 class CDR3Clustering(CDR3Clustering_):
     input_data = lambda ch1: ch1.iloc[:, [0]]
@@ -837,7 +841,7 @@ class CDR3Clustering(CDR3Clustering_):
 CombinedInput = CDR3Clustering or CombinedInput
 
 
-@when(VDJInput and "TESSA" in config, requires=CombinedInput)
+@when(VDJInput and "TESSA" in config, requires=CombinedInput)  # type: ignore
 @annotate.format_doc()
 class TESSA(TESSA_):
     """{{Summary}}
@@ -872,7 +876,7 @@ class CellCellCommunicationPlots(CellCellCommunicationPlots_):
 
 
 class SeuratClusterStats(SeuratClusterStats_):
-    requires = CombinedInput
+    requires = CombinedInput  # type: ignore
     order = -1
     envs_depth = 3
     envs = {
@@ -888,7 +892,7 @@ class SeuratClusterStats(SeuratClusterStats_):
         }
 
 
-@when(VDJInput, requires=CombinedInput)
+@when(VDJInput, requires=CombinedInput)  # type: ignore
 class ClonalStats(ClonalStats_):
     envs_depth = 3
     order = 8
@@ -1030,7 +1034,7 @@ class MarkersFinder(MarkersFinder_):
     order = 11
 
 
-@when(VDJInput and "CDR3AAPhyschem" in config, requires=CombinedInput)
+@when(VDJInput and "CDR3AAPhyschem" in config, requires=CombinedInput)  # type: ignore
 class CDR3AAPhyschem(CDR3AAPhyschem_):
     order = 12
 
@@ -1053,5 +1057,5 @@ if "ScrnaMetabolicLandscape" in config or just_loading:
     else:
         scrna_metabolic_landscape = ScrnaMetabolicLandscape(is_seurat=True)
 
-    scrna_metabolic_landscape.p_input.requires = CombinedInput
+    scrna_metabolic_landscape.p_input.requires = CombinedInput  # type: ignore
     scrna_metabolic_landscape.p_input.order = 99

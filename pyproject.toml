@@ -61,3 +61,7 @@ immunopipe = "immunopipe.router:run"
 line-length = 88
 target-version = ['py39', 'py310', 'py311', 'py312']
 include = '\.pyi?$'
+
+[tool.pyright]
+ignore = ["tests"]
+reportFunctionMemberAccess = false
