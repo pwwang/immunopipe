@@ -2398,7 +2398,7 @@ report = [
 
 [[package]]
 name = "pipen-cli-gbatch"
-version = "1.1.6"
+version = "1.1.7"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "panpath", extra = ["async-gs"] },
@@ -2406,9 +2406,9 @@ dependencies = [
     { name = "pipen-args" },
     { name = "pipen-poplog" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/91/15/c715cfb358b2809e200b0d9acb42279e8b2feaedef04b39a5b90a040ed5b/pipen_cli_gbatch-1.1.6.tar.gz", hash = "sha256:ada37cd64e7a981a30c8a81066fc74a1a661bba576d5978d5ab65445b6b5c036", size = 203662, upload-time = "2026-04-22T18:48:29.704Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e1/8b/7bf5204ec9c9f6bdf88120fbec11ace5034e291c6b61610f6c463dca229d/pipen_cli_gbatch-1.1.7.tar.gz", hash = "sha256:c44c17734c1daa09c68cb960777708d38906ad01fd76a8c718e488aa7f44b985", size = 203661, upload-time = "2026-04-23T05:33:44.114Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/7f/24/34d6bda2e8607d0179020470c6af14fd3be82222a1af2885d6ed681d400e/pipen_cli_gbatch-1.1.6-py3-none-any.whl", hash = "sha256:a972fc95cebb079c7fa5b46b3f6f9ba32a61ee7f9fa1bf2187006960c576f41d", size = 15571, upload-time = "2026-04-22T18:48:30.663Z" },
+    { url = "https://files.pythonhosted.org/packages/e4/2c/ca2cb5a78a0b51cb3a5eb22833e692bebe5710a521ccf10a9ad202baadad/pipen_cli_gbatch-1.1.7-py3-none-any.whl", hash = "sha256:57126d7663e344068d77e43d715fd65e0fc7c4f3433dfd9e043676f04cd25e67", size = 15571, upload-time = "2026-04-23T05:33:45.028Z" },
 ]
 
 [[package]]
@@ -2487,14 +2487,14 @@ wheels = [
 
 [[package]]
 name = "pipen-log2file"
-version = "1.1.1"
+version = "1.1.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pipen" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/a5/5e/67041b152f06d58fe9b8844bd511ea95258958007b3311a3011a6d385d53/pipen_log2file-1.1.1.tar.gz", hash = "sha256:8e94e6fae1321df7806cbeb85324da968be7dbed09425e0238c0857232afa041", size = 5548, upload-time = "2026-03-27T04:20:50.525Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b3/74/cae31e3a6f14f78d9a90c74fc7036ba6e617dfe0e2f5bf4892adc94118bb/pipen_log2file-1.1.3.tar.gz", hash = "sha256:731e5357f46289599f913d5f8f4a007d88b26c62ff2ac69fd169a25f9ebbb928", size = 185868, upload-time = "2026-04-23T19:12:11.825Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/07/4f/f131c6541b66ae8ff0547a7a109932f3783ef39f9b68d7f4b18385d9d649/pipen_log2file-1.1.1-py3-none-any.whl", hash = "sha256:f6f24c1e252eb920e89dabf507150398984b610bd02d17335d13e8847d8a34f9", size = 5879, upload-time = "2026-03-27T04:20:51.468Z" },
+    { url = "https://files.pythonhosted.org/packages/dd/7a/9c779445126d5662c15971e859e8652c5bbb1406c5694c6ad3971eec137f/pipen_log2file-1.1.3-py3-none-any.whl", hash = "sha256:3eabb9d96a64339af5266d440b072c8777facfd70222d0d16008ca6611ebc955", size = 5866, upload-time = "2026-04-23T19:12:12.905Z" },
 ]
 
 [[package]]
