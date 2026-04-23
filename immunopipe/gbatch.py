@@ -20,7 +20,7 @@ from pipen_cli_gbatch import (
     __version__ as cli_gbatch_version,
     __file__ as cli_gbatch_file,
 )
-from .pipeline import Immunopipe, parser
+from .pipeline import Immunopipe, parser  # type: ignore
 
 sys.excepthook = sys.__excepthook__
 
@@ -84,6 +84,8 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemon):
 
 async def main(argv):
     """The main function to run the pipeline on Google Cloud Batch."""
+    from .version import __version__
+
     act_group = parser._extra_parser.add_mutually_exclusive_group(required=False)
     act_group.title = "Actions (extra options)"
     act_group.description = (
@@ -216,4 +218,5 @@ async def main(argv):
 
     command = ["immunopipe", *parser._cli_args]
     daemon = ImmunopipeGbatchDaemon(cli_gbatch_config, command)
+    daemon.envs["IMMUNOPIPE_HOST_VERSION"] = __version__
     await daemon.run()

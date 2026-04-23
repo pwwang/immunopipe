@@ -75,6 +75,7 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
     The mutaters to mutate the metadata to the cells.<br />
     These new columns will be added to the metadata of the Seurat object and
     will be saved in the output file.<br />
+    See <https://pwwang.github.io/biopipen.utils.R/reference/MutateSeuratMeta.html>
 - `min_cells` *(`type=int`)*: *Default: `0`*. <br />
     The minimum number of cells that a gene must be
     expressed in to be kept. This is used in `Seurat::CreateSeuratObject()`.<br />
@@ -85,6 +86,11 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
     express to be kept. This is used in `Seurat::CreateSeuratObject()`.<br />
     Futher QC (`envs.cell_qc`, `envs.gene_qc`) will be performed after this.<br />
     It doesn't work when data is loaded from loom files or RDS/qs2 files.<br />
+- `features` *(`type=auto`)*:
+    Features to rename. It can be a dict with the keys as
+    the original feature names and the values as the new feature names, or
+    file path to a two-column tab-delimited file (no header) with the first column as
+    the original feature names and the second column as the new feature names.<br />
 - `cell_qc`:
     Filter expression to filter cells, using
     `tidyrseurat::filter()`.<br />

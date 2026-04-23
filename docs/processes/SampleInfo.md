@@ -216,7 +216,7 @@ x = "sample"
 split_by = "Diagnosis"
 ```
 
-![Samples_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png)
+![Samples_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie.png)
 
 What if we want a bar plot instead of a pie chart?<br />
 
@@ -227,7 +227,7 @@ x = "Sample"
 split_by = "Diagnosis"
 ```
 
-![Samples_Diagnosis_bar](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png)
+![Samples_Diagnosis_bar](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar.png)
 
 ### Explore Age distribution
 
@@ -239,7 +239,7 @@ plot_type = "histogram"
 x = "Age"
 ```
 
-![Age_distribution](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution-Histogram-.png)
+![Age_distribution](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution-Histogram.png)
 
 How about the distribution of Age in each Diagnosis, and make it
 violin + boxplot?<br />
@@ -252,7 +252,7 @@ plot_type = "violin"
 add_box = true
 ```
 
-![Age_distribution_per_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png)
+![Age_distribution_per_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot.png)
 
 How about Age distribution per Sex in each Diagnosis?<br />
 
@@ -266,5 +266,5 @@ ncol = 3
 devpars = {height = 450}
 ```
 
-![Age_distribution_per_Sex_in_each_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png)
+![Age_distribution_per_Sex_in_each_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot.png)
 

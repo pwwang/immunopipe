@@ -40,6 +40,9 @@ each gene set, and GSEA plots for the top gene sets.<br />
     The key-value pairs will be passed the `dplyr::mutate()` to mutate the metadata.<br />
     You can also use the clone selectors to select the TCR clones/clusters.<br />
     See <https://pwwang.github.io/scplotter/reference/clone_selectors.html>.<br />
+    You can also use key `<newcol>:ident` to set the `<newcol>` as the default
+    ident for the stats.<br />
+    See also <https://pwwang.github.io/biopipen.utils.R/reference/MutateSeuratMeta.html>
 
 - `group_by`:
     The column name in metadata to group the cells.<br />
@@ -51,6 +54,7 @@ each gene set, and GSEA plots for the top gene sets.<br />
     The assay to use. If not provided, the default assay will be used.<br />
 - `each`:
     The column name in metadata to separate the cells into different subsets to do the analysis.<br />
+    `"ident"` can be used as an alias for the default identity column (e.g. `"seurat_clusters"`).<br />
 - `subset`:
     An expression to subset the cells.<br />
 - `error` *(`flag`)*: *Default: `False`*. <br />
@@ -158,5 +162,5 @@ plot_type = "heatmap"
 group_by = "Diagnosis"
 ```
 
-![GSEA summary for all subsets](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/GSEA-all-seurat_clusters-/all.Heatmap.png){: width="80%"}
+![GSEA summary for all subsets](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/GSEA-all-seurat_clusters/all.Heatmap.png){: width="80%"}
 

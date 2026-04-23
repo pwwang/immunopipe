@@ -8,13 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[wip]')"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 2
       - name: Check if base files changed
         id: check_changes
         run: |
-          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(environment_base\.yml|Dockerfile\.base)$'; then
+          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(cleanup\.list|environment_base\.yml|Dockerfile\.base)$'; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -43,13 +43,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: docker-base
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 2
       - name: Check if rpkgs files changed
         id: check_changes
         run: |
-          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(environment_(base|rpkgs)\.yml|Dockerfile\.(base|rpkgs))$'; then
+          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(cleanup\.list|environment_(base|rpkgs)\.yml|Dockerfile\.(base|rpkgs))$'; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -81,7 +81,7 @@ jobs:
       - name: Delete cache to save space
         # https://github.com/orgs/community/discussions/25678#discussioncomment-5242449
         run: rm -rf /opt/hostedtoolcache
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx

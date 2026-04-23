@@ -81,5 +81,5 @@ x_text_angle = 90
 method = "interaction"
 ```
 
-![Box Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Interaction-Box-Plot-.png){: width="80%"}
+![Box Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Interaction-Box-Plot.png){: width="80%"}
 

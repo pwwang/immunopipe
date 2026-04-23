@@ -70,7 +70,7 @@ def when(
         The decorator function
     """
 
-    def decorator(cls: Type[Proc]) -> Type[Proc]:
+    def decorator(cls: Type[Proc]) -> Type[Proc] | None:
         if condition or just_loading:
             if requires is not None:
                 cls.requires = requires
@@ -193,7 +193,7 @@ class SampleInfo(SampleInfo_):
         split_by = "Diagnosis"
         ```
 
-        ![Samples_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie-.png)
+        ![Samples_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie.png)
 
         What if we want a bar plot instead of a pie chart?
 
@@ -204,7 +204,7 @@ class SampleInfo(SampleInfo_):
         split_by = "Diagnosis"
         ```
 
-        ![Samples_Diagnosis_bar]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar-.png)
+        ![Samples_Diagnosis_bar]({{output_baseurl}}/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar.png)
 
         ### Explore Age distribution
 
@@ -216,7 +216,7 @@ class SampleInfo(SampleInfo_):
         x = "Age"
         ```
 
-        ![Age_distribution]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution-Histogram-.png)
+        ![Age_distribution]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution-Histogram.png)
 
         How about the distribution of Age in each Diagnosis, and make it
         violin + boxplot?
@@ -229,7 +229,7 @@ class SampleInfo(SampleInfo_):
         add_box = true
         ```
 
-        ![Age_distribution_per_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot-.png)
+        ![Age_distribution_per_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot.png)
 
         How about Age distribution per Sex in each Diagnosis?
 
@@ -243,7 +243,7 @@ class SampleInfo(SampleInfo_):
         devpars = {height = 450}
         ```
 
-        ![Age_distribution_per_Sex_in_each_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot-.png)
+        ![Age_distribution_per_Sex_in_each_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot.png)
 
     Input:
         infile%(required)s: {{Input.infile.help | indent: 8}}.
@@ -274,7 +274,7 @@ class SampleInfo(SampleInfo_):
 
 # When SampleInfo is used, it should always have VDJ data to be loaded
 # if has_vdj is True
-@when(SampleInfo and config.has_vdj, requires=SampleInfo)
+@when(SampleInfo and config.has_vdj, requires=SampleInfo)  # type: ignore
 @annotate.format_doc()
 class ScRepLoading(ScRepLoading_):
     pass
@@ -327,7 +327,7 @@ RNAInput = LoadingRNAFromSeurat or SampleInfo
         # Even when we load RNA-seq data from Seurat, we may still need SeuratPreparing
         # for QC, transformation, etc.
         "LoadingRNAFromSeurat" in config
-        and not config.LoadingRNAFromSeurat.envs.prepared
+        and not config.LoadingRNAFromSeurat.envs.prepared  # type: ignore
     )
     or (
         # Or when we load RNA-seq data from SampleInfo
@@ -387,7 +387,7 @@ class SeuratClusteringOfAllCells(SeuratClustering_):
 RNAInput = SeuratClusteringOfAllCells or RNAInput
 
 
-@when(SeuratClusteringOfAllCells, requires=RNAInput)
+@when(SeuratClusteringOfAllCells, requires=RNAInput)  # type: ignore
 @annotate.format_doc()
 class ClusterMarkersOfAllCells(MarkersFinder_):
     """Markers for clusters of all cells.
@@ -415,7 +415,8 @@ class ClusterMarkersOfAllCells(MarkersFinder_):
 
 
 @when(
-    SeuratClusteringOfAllCells and "TopExpressingGenesOfAllCells" in config,
+    SeuratClusteringOfAllCells  # type: ignore
+    and "TopExpressingGenesOfAllCells" in config,
     requires=RNAInput,
 )
 @annotate.format_doc()
@@ -442,7 +443,7 @@ class TopExpressingGenesOfAllCells(TopExpressingGenes_):
 
 @when(
     "TOrBCellSelection" in config,
-    requires=[RNAInput, VDJInput] if VDJInput else RNAInput,
+    requires=[RNAInput, VDJInput] if VDJInput else RNAInput,  # type: ignore
 )
 @annotate.format_doc()
 class TOrBCellSelection(TOrBCellSelection_):
@@ -476,7 +477,7 @@ RNAInput = ModuleScoreCalculator or RNAInput
         "SeuratMap2Ref" not in config
         and (
             "LoadingRNAFromSeurat" not in config
-            or not config.LoadingRNAFromSeurat.envs.clustered
+            or not config.LoadingRNAFromSeurat.envs.clustered  # type: ignore
         )
     ),
     requires=RNAInput,
@@ -650,7 +651,7 @@ class ClusterMarkers(MarkersFinder_):
         plot_type = "volcano_log2fc"
         ```
 
-        ![Volcano Plot (log2FC)]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-log2FC-.png)
+        ![Volcano Plot (log2FC)]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-log2FC.png)
 
         ### Visualize differential percentage of expression of Markers
 
@@ -659,7 +660,7 @@ class ClusterMarkers(MarkersFinder_):
         plot_type = "volcano_pct"
         ```
 
-        ![Volcano Plot (pct_diff)]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-diff_pct-.png)
+        ![Volcano Plot (pct_diff)]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-diff_pct.png)
 
         ### Visualize Average Expression of Markers with Dot Plot
 
@@ -719,7 +720,7 @@ class ClusterMarkers(MarkersFinder_):
         plot_type = "heatmap"
         ```
 
-        ![Top 10 markers of all clusters]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Top-10-markers-of-all-clusters.png)
+        ![Top 10 markers of all clusters]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Top-10-markers-of-all-clusters.png)
 
         ### Visualize Log2 Fold Change of all markers
 
@@ -729,7 +730,7 @@ class ClusterMarkers(MarkersFinder_):
         subset_by = "seurat_clusters"
         ```
 
-        ![Log2 Fold Change of all markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Log2FC-of-all-clusters.png)
+        ![Log2 Fold Change of all markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Log2FC-of-all-clusters.png)
 
         ### Visualize all markers in all clusters with Jitter Plots
 
@@ -739,7 +740,7 @@ class ClusterMarkers(MarkersFinder_):
         subset_by = "seurat_clusters"
         ```
 
-        ![Jitter Plots of all markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers-/Jitter-Plots-for-all-clusters.png)
+        ![Jitter Plots of all markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Jitter-Plots-for-all-clusters.png)
 
         ### Visualize all enrichment analysis results of all clusters
 
@@ -748,7 +749,7 @@ class ClusterMarkers(MarkersFinder_):
         plot_type = "heatmap"
         ```
 
-        ![Heatmap of enriched terms of all clusters]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Enrichments-/allenrich.MSigDB_Hallmark_2020.Heatmap-of-enriched-terms-of-all-clusters.png)
+        ![Heatmap of enriched terms of all clusters]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Enrichments/allenrich.MSigDB_Hallmark_2020.Heatmap-of-enriched-terms-of-all-clusters.png)
 
         ### Overlapping markers
 
@@ -757,11 +758,11 @@ class ClusterMarkers(MarkersFinder_):
         plot_type = "venn"
         ```
 
-        ![Overlapping Markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps-/Overlapping-Markers.png)
+        ![Overlapping Markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers.png)
 
     """  # noqa: E501
 
-    requires = RNAInput
+    requires = RNAInput  # type: ignore
     envs = {
         "cases": {"Cluster": {"group_by": None}},
         "marker_plots_defaults": {"order_by": "desc(avg_log2FC)"},
@@ -819,7 +820,7 @@ class TopExpressingGenes(TopExpressingGenes_):
     order = 3
 
 
-@when(VDJInput, requires=[VDJInput, RNAInput])
+@when(VDJInput, requires=[VDJInput, RNAInput])  # type: ignore
 class ScRepCombiningExpression(ScRepCombiningExpression_):
     pass
 
@@ -827,7 +828,10 @@ class ScRepCombiningExpression(ScRepCombiningExpression_):
 CombinedInput = ScRepCombiningExpression or RNAInput
 
 
-@when(VDJInput and "CDR3Clustering" in config, requires=CombinedInput)
+@when(
+    VDJInput and "CDR3Clustering" in config,  # type: ignore
+    requires=CombinedInput,
+)
 @annotate.format_doc()
 class CDR3Clustering(CDR3Clustering_):
     input_data = lambda ch1: ch1.iloc[:, [0]]
@@ -837,7 +841,7 @@ class CDR3Clustering(CDR3Clustering_):
 CombinedInput = CDR3Clustering or CombinedInput
 
 
-@when(VDJInput and "TESSA" in config, requires=CombinedInput)
+@when(VDJInput and "TESSA" in config, requires=CombinedInput)  # type: ignore
 @annotate.format_doc()
 class TESSA(TESSA_):
     """{{Summary}}
@@ -872,7 +876,7 @@ class CellCellCommunicationPlots(CellCellCommunicationPlots_):
 
 
 class SeuratClusterStats(SeuratClusterStats_):
-    requires = CombinedInput
+    requires = CombinedInput  # type: ignore
     order = -1
     envs_depth = 3
     envs = {
@@ -888,7 +892,7 @@ class SeuratClusterStats(SeuratClusterStats_):
         }
 
 
-@when(VDJInput, requires=CombinedInput)
+@when(VDJInput, requires=CombinedInput)  # type: ignore
 class ClonalStats(ClonalStats_):
     envs_depth = 3
     order = 8
@@ -1030,7 +1034,7 @@ class MarkersFinder(MarkersFinder_):
     order = 11
 
 
-@when(VDJInput and "CDR3AAPhyschem" in config, requires=CombinedInput)
+@when(VDJInput and "CDR3AAPhyschem" in config, requires=CombinedInput)  # type: ignore
 class CDR3AAPhyschem(CDR3AAPhyschem_):
     order = 12
 
@@ -1053,5 +1057,5 @@ if "ScrnaMetabolicLandscape" in config or just_loading:
     else:
         scrna_metabolic_landscape = ScrnaMetabolicLandscape(is_seurat=True)
 
-    scrna_metabolic_landscape.p_input.requires = CombinedInput
+    scrna_metabolic_landscape.p_input.requires = CombinedInput  # type: ignore
     scrna_metabolic_landscape.p_input.order = 99

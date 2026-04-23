@@ -23,6 +23,9 @@ information.<br />
     The keys are the names of the new variables, and the values are the expressions.<br />
     When it is a `Seurat` object, typically an output of `scRepertoire::combineExpression()`,
     the mutaters will be applied to the `meta.data`.<br />
+    You can also use key `<newcol>:ident` to set the `<newcol>` as the default
+    ident for the stats. Only works when the object is a `Seurat` object created by `scRepertoire::combineExpression()`.<br />
+    See <https://pwwang.github.io/biopipen.utils.R/reference/MutateScRep.html>
 - `cache` *(`type=auto`)*: *Default: `/tmp`*. <br />
     Whether to cache the plots.<br />
     Currently only plots for features are supported, since creating the those
@@ -152,7 +155,7 @@ viz_type = "length"
 chain = "TRB"
 ```
 
-![CDR3_Length_Beta_Chain](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Sequence-Length/CDR3-Length-Beta-Chain-.png){: width="80%"}
+![CDR3_Length_Beta_Chain](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Sequence-Length/CDR3-Length-Beta-Chain.png){: width="80%"}
 
 ### Clonal Residency
 
@@ -180,7 +183,7 @@ groups = ["Colitis", "NoColitis"]
 devpars = {width = 800}
 ```
 
-![Clonal_Residency_UpSet_Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Residency/Clonal-Residency-UpSet-Plot-.png){: width="80%"}
+![Clonal_Residency_UpSet_Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Residency/Clonal-Residency-UpSet-Plot.png){: width="80%"}
 
 ### Clonal Statistics with Expanded Clones
 
@@ -258,7 +261,7 @@ comparisons = true
 devpars = {height = 600, width = 600}
 ```
 
-![Clonal_Diversity_gini_coeff_by_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Diversity/Clonal-Diversity-gini-coeff-by-Diagnosis-.png){: width="80%"}
+![Clonal_Diversity_gini_coeff_by_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Diversity/Clonal-Diversity-gini-coeff-by-Diagnosis.png){: width="80%"}
 
 ### Gene Usage Frequency
 

@@ -28,7 +28,9 @@ function, and performs enrichment analysis for the markers found.<br />
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
     The mutaters to mutate the metadata.<br />
     You can also use the clone selectors to select the TCR clones/clusters.<br />
-    See <https://pwwang.github.io/scplotter/reference/clone_selectors.html>..<br />
+    See <https://pwwang.github.io/scplotter/reference/clone_selectors.html>.<br />
+    You can also use key `<newcol>:ident` to set the `<newcol>` as the default ident for the stats.<br />
+    See also <https://pwwang.github.io/biopipen.utils.R/reference/MutateSeuratMeta.html>.<br />
     See also
     [mutating the metadata](../configurations.md#mutating-the-metadata).<br />
 - `group_by`:
@@ -53,6 +55,7 @@ function, and performs enrichment analysis for the markers found.<br />
     then the case will be expanded as `envs.cases."Cluster Markers - Sample1"`, `envs.cases."Cluster Markers - Sample2"`, etc.<br />
     You can specify `allmarker_plots` and `overlaps` to plot the markers for all cases in the same plot and plot the overlaps of the markers
     between different cases by values in this column.<br />
+    `"ident"` can be used as an alias for the default identity column (e.g. `"seurat_clusters"`).<br />
 - `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />
     The dbs to do enrichment analysis for significant markers.<br />
     You can use built-in dbs in `enrichit`, or provide your own gmt files.<br />
@@ -137,6 +140,9 @@ function, and performs enrichment analysis for the markers found.<br />
             The height of the plots.<br />
         - `width` *(`type=int`)*:
             The width of the plots.<br />
+    - `db` *(`type=str`)*:
+        The database(s) to apply for the plot. If not specified, all databases will be applied.<br />
+        `dbs` can also be used as an alias for this parameter.<br />
     - `<more>`:
         See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
 - `allenrich_plots` *(`type=json`)*: *Default: `{}`*. <br />

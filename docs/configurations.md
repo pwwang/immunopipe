@@ -43,14 +43,6 @@ An example configuration file with possible configuration items is provided in t
 
 ///
 
-/// Attention
-
-With [`pipen-args`][5] plugin, the arguments can also be passed from command line directly. For example, you can pass `--TESSA.envs.python python_np1` from command line to set the `python` with dependencies installed for `TESSA` process.
-
-We know that when a process name appears in the configuration file, the process will be enabled. However, this won't work for the arguments passed from command line. You need to make sure that the process is enabled in the configuration file first. Then you can override the environment variables from command line.
-
-///
-
 ## Pipeline configurations
 
 There are pipeline level configurations and process level configurations. The pipeline level configurations are used to control the pipeline itself. The process level configurations set here are the default values for all the processes. You can override the default values for each process in the process level configurations.

@@ -1,6 +1,6 @@
 # Installation
 
-## Install the pipline and the dependencies using conda
+## Install the pipline and the dependencies using conda/mamba
 
 /// Tip
 If you plan to use the docker image to run the pipeline locally, you can skip this section.
@@ -25,43 +25,6 @@ $ conda env update \
 If the URL doesn't work, you can download the file and create the environment locally.
 
 For more detailed instructions of `conda env create`, please refer to [conda docs](https://docs.conda.io/projects/conda/en/latest/commands/env/create.html).
-
-/// Note
-
-If you are using `celltypist` for cell type annotation:
-
-```toml
-[CellTypeAnnotation.envs]
-tool = "celltypist"
-```
-
-Or if you are enabling `TESSA` and `CDR3Clustering` processes, you need to install additional dependencies, including `numpy` `v1`, which is not compatible with some other packages in the base environment. You can create a separate conda environment for these processes.
-
-```shell
-$ conda env create \
-    -n python_np1 \
-    -f https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_np1.yml
-```
-
-Then in your pipeline configuration file, specify the conda environment for these processes:
-
-```toml
-[CellTypeAnnotation.envs]
-tool = "celltypist"
-
-  [CellTypeAnnotation.envs.celltypist_args]
-  model = "data/Immune_All_Low.pkl"
-  python = "/path/to/conda/envs/python_np1/bin/python"
-
-[CDR3Clustering]
-  python = "/path/to/conda/envs/python_np1/bin/python"
-
-[TESSA.envs]
-predefined_b = true
-python = "/path/to/conda/envs/python_np1/bin/python"
-```
-
-///
 
 /// Attention
 The pipeline itself is NOT included in the conda environment. You need to install it separately.
@@ -108,7 +71,7 @@ To run the pipeline use the image, please refer to [Running the pipeline](./runn
 
 ### The directory structure in the container
 
-The docker image is build upon [`mambaorg/micromamba:2.3.0`][1]. The OS is linux/amd64. Other than the default directories, the following directories are also created or should be mapped during the run:
+The docker image is build upon [`mambaorg/micromamba:2.5.0`][1]. The OS is linux/amd64. Other than the default directories, the following directories are also created or should be mapped during the run:
 
 - `/immunopipe`: The directory where the source code of the pipeline is. It is general a clone of the [repository][2]. The pipeline is also installed from this directory.
 - `/workdir`: The working directory. It is the directory where the pipeline is run. It is recommended to map the current directory (`.`) to this directory.
@@ -145,7 +108,7 @@ If you choose to use [`pipen-cli-gbatch`][4] (running the pipeline via `immunopi
 $ pip install -U immunopipe[cli-gbatch]
 ```
 
-[1]: https://hub.docker.com/layers/mambaorg/micromamba/1.4.3/images/sha256-0251b94151c021c85d3e4f4ffe1fc81c436f18e01337d3b367d0f7c76ee716ac?context=explore
+[1]: https://hub.docker.com/r/mambaorg/micromamba
 [2]: https://github.com/pwwang/immunopipe
 [3]: https://github.com/pwwang/xqute
 [4]: https://github.com/pwwang/pipen-cli-gbatch

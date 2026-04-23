@@ -11,11 +11,11 @@ dependencies:
   - python=3.12
   - curl  # force using conda-forge version
   - pip
-  - poetry
   - procps-ng
   - fontconfig
   - graphviz  # pipen-diagram
   - git  # for copier, used by pipen-report
+  - uv
   - libiconv # fix git: error while loading shared libraries: libiconv.so.2
   - time  # for pipen-runinfo
   - wget
@@ -123,6 +123,8 @@ dependencies:
   - r-hitype  # sctype will also be supported
   - r-plotly
   - r-htmlwidgets
+  # unable to load shared object: stringfish.so for the one from r channel
+  - pwwang::r-stringfish
   - pip:
     - liana
     - celltypist2
