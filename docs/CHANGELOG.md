@@ -1,6 +1,34 @@
 # Change Log
 
 
+## 2.5.0
+
+- feat: add host version check in for gbatch runner
+- refactor: migrate from poetry to uv for dependency management and packaging
+- chore: update biopipen version to 1.3.1
+    - feat(scrna.SeuratPreparing): add features parameter to LoadSeuratAndPerformQC for renaming features
+    - feat(scrna): allow using "ident" as an alias for the default identity column in multiple processes
+    - chore(scrna.SeuratMap2Ref): log default identity of query after mapping
+    - docs(scrna.SeuratClusterStats): update image URLs for cluster statistics plots
+    - feat(scrna.MarkersFinder/PseduBulkDEG): add db parameter for allenrich plot database selection
+    - feat(scrna/sctcr): allow `envs.mutaters` to set a new column as default identity for Seurat objects in all Seurat-based processes
+    - feat(scrna): use `scplotter:::default_dimreduc()` to get default dimensionality reduction for Seurat objects where reduction is not specified in dimplots
+- docs: update image URLs in documentation to remove trailing dashes
+- chore: update r-biopipen.utils version to 0.3.11=r44_10 in environment_rpkgs.yml
+    - fix(RunSeuratMap2Ref): fix FindTransferAnchors with reduction = 'cca'
+    - feat(VizSeuratMap2Ref): improve identity handling and ensure factors are set correctly
+    - fix(case_info): refactor prefix generation to use rlang::exec for improved flexibility
+    - fix(VizGSEA): add error handling for no significant pathways found
+    - feat(RunSeuratMap2Ref): set default reduction to `ref.<reduction>` after mapping
+- chore: optimize Dockerfile by merging cleanup steps and removing redundant commands for reduced image size
+- chore: update r-plotthis version to 0.12.0 in environment_rpkgs.yml
+    - refactor(Heatmap): remove deprecated annotation parameters and introduce alias support
+    - feat(Heatmap): add default dimensions for simple annotations in Heatmap function
+    - fix(Heatmap): resolve annotation name and legend overlap issue in ComplexHeatmap
+- chore: update r-scplotter version to 0.7.3=r44_3 in environment_rpkgs.yml
+    - fix(ClonalResidencyPlot): update data selection to include unique split_by parameter for upset plots
+    - feat: use `scplotter:::default_dimreduc()` to get default dimensionality reduction for Seurat objects where reduction is not specified in CellDimPlot and FeatureStatPlot dimplots
+
 ## 2.4.4
 
 - chore: bump biopipen to 1.2.5
