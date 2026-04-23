@@ -6,13 +6,45 @@ import sys
 from typing import Any, Dict
 
 from panpath import PanPath
-from pipen.utils import logger
-
-WARNINGS = []
+from pipen.utils import logger, get_logger
+from pipen import plugin
 
 # pyright: reportPossiblyUnboundVariable=false
 # pyright: reportAttributeAccessIssue=false
 # pyright: reportOperatorIssue=false
+
+
+class ImmunopipePlugin:
+    """The immunopipe plugin for pipen."""
+    name = "immpipe"
+
+    @plugin.impl
+    async def on_start(pipen):
+        # host version was set by immunopipe gbatch to let the VM know the version of
+        # immunopipe running on host, so that we can decide whether the host and the VM
+        # versions are compatible. If not compatible, we will show a warning message to
+        # users, but we will still try to run the pipeline in case the incompatibility
+        # does not affect the execution.
+        host_version = os.environ.get("IMMUNOPIPE_HOST_VERSION", None)
+        if host_version:
+            from .version import __version__
+            log = get_logger("immpipe")
+
+            if host_version != __version__:
+                log.warning(
+                    f"Immunopipe version mismatch: host version is {host_version}, "
+                    f"but VM version is {__version__}."
+                )
+                log.warning(
+                    "This may cause unexpected errors. "
+                    "Please make sure to use the same version of immunopipe "
+                    "on host and VM."
+                )
+
+
+plugin.register(ImmunopipePlugin)
+
+WARNINGS = []
 
 
 def _get_arg_from_cli(
@@ -87,25 +119,6 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
     Args:
         config: The configuration.
     """
-    # host version was set by immunopipe gbatch to let the VM know the version of
-    # immunopipe running on host, so that we can decide whether the host and the VM
-    # versions are compatible. If not compatible, we will show a warning message to
-    # users, but we will still try to run the pipeline in case the incompatibility
-    # does not affect the execution.
-    host_version = os.environ.get("IMMUNOPIPE_HOST_VERSION", None)
-    if host_version:
-        from .version import __version__
-
-        if host_version != __version__:
-            WARNINGS.append(
-                f"Immunopipe version mismatch: host version is {host_version}, "
-                f"but VM version is {__version__}."
-            )
-            WARNINGS.append(
-                "This may cause unexpected errors. "
-                "Please make sure to use the same version of immunopipe on host and VM."
-            )
-
     if args is None:
         args = sys.argv
 
