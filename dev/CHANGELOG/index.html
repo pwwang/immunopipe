@@ -158,6 +158,8 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Change log</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#250">2.5.0</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#244">2.4.4</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#243">2.4.3</a>
@@ -397,6 +399,42 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h2>
+<h3 id="250">2.5.0<a class="headerlink" href="#250" title="Permanent link">&para;</a></h3>
+<ul>
+<li>feat: add host version check in for gbatch runner</li>
+<li>refactor: migrate from poetry to uv for dependency management and packaging</li>
+<li>chore: update biopipen version to 1.3.1<ul>
+<li>feat(scrna.SeuratPreparing): add features parameter to LoadSeuratAndPerformQC for renaming features</li>
+<li>feat(scrna): allow using "ident" as an alias for the default identity column in multiple processes</li>
+<li>chore(scrna.SeuratMap2Ref): log default identity of query after mapping</li>
+<li>docs(scrna.SeuratClusterStats): update image URLs for cluster statistics plots</li>
+<li>feat(scrna.MarkersFinder/PseduBulkDEG): add db parameter for allenrich plot database selection</li>
+<li>feat(scrna/sctcr): allow <code>envs.mutaters</code> to set a new column as default identity for Seurat objects in all Seurat-based processes</li>
+<li>feat(scrna): use <code>scplotter:::default_dimreduc()</code> to get default dimensionality reduction for Seurat objects where reduction is not specified in dimplots</li>
+</ul>
+</li>
+<li>docs: update image URLs in documentation to remove trailing dashes</li>
+<li>chore: update r-biopipen.utils version to 0.3.11=r44_10 in environment_rpkgs.yml<ul>
+<li>fix(RunSeuratMap2Ref): fix FindTransferAnchors with reduction = 'cca'</li>
+<li>feat(VizSeuratMap2Ref): improve identity handling and ensure factors are set correctly</li>
+<li>fix(case_info): refactor prefix generation to use rlang::exec for improved flexibility</li>
+<li>fix(VizGSEA): add error handling for no significant pathways found</li>
+<li>feat(RunSeuratMap2Ref): set default reduction to <code>ref.&lt;reduction&gt;</code> after mapping</li>
+</ul>
+</li>
+<li>chore: optimize Dockerfile by merging cleanup steps and removing redundant commands for reduced image size</li>
+<li>chore: update r-plotthis version to 0.12.0 in environment_rpkgs.yml<ul>
+<li>refactor(Heatmap): remove deprecated annotation parameters and introduce alias support</li>
+<li>feat(Heatmap): add default dimensions for simple annotations in Heatmap function</li>
+<li>fix(Heatmap): resolve annotation name and legend overlap issue in ComplexHeatmap</li>
+</ul>
+</li>
+<li>chore: update r-scplotter version to 0.7.3=r44_3 in environment_rpkgs.yml<ul>
+<li>fix(ClonalResidencyPlot): update data selection to include unique split_by parameter for upset plots</li>
+<li>feat: use <code>scplotter:::default_dimreduc()</code> to get default dimensionality reduction for Seurat objects where reduction is not specified in CellDimPlot and FeatureStatPlot dimplots</li>
+</ul>
+</li>
+</ul>
 <h3 id="244">2.4.4<a class="headerlink" href="#244" title="Permanent link">&para;</a></h3>
 <ul>
 <li>chore: bump biopipen to 1.2.5<ul>
