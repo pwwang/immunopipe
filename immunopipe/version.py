@@ -1,6 +1,6 @@
 import os
 
-__version__ = "2.5.0"
+__version__ = "2.5.1"
 
 desc = (
     f"Immunopipe v{__version__}\n"
