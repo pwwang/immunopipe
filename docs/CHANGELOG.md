@@ -1,5 +1,12 @@
 # Change Log
 
+## 2.5.1
+
+- chore update r-biopipen.utils to 0.4.0=r44_1 and r-scplotter to 0.7.3-7 in environment file
+    - fix: fix assigning default reduction after mapping
+    - fix: fix signatures for caching
+- chore update biopipen to 1.3.4
+    - fix(scrna.ScFGSEA): handle null Seurat object in do_case function
 
 ## 2.5.0
 
