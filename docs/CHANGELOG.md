@@ -1,5 +1,12 @@
 # Change Log
 
+## 2.5.2
+
+- chore: update r-plotthis to version 0.12.1 in environment file
+    - feat: add `palreverse` to reverse the color palette in plots
+- chore: update biopipen to version 1.3.7
+    - feat(scrna): add `descr` parameter to processes for plot description in reports
+
 ## 2.5.1
 
 - chore update r-biopipen.utils to 0.4.0=r44_1 and r-scplotter to 0.7.3-7 in environment file
