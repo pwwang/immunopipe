@@ -72,6 +72,8 @@ jobs:
 
       - name: Install immunopipe
         run: |
+          # For tests
+          uv pip install --system pytest pytest-forked pytest-asyncio pytest-order pytest-cov pipen-dry
           uv pip install --system -e ".[cli-gbatch]"
 
       - name: Check if some packages can be imported
@@ -127,7 +129,7 @@ jobs:
         run: make test-data
 
       - name: Run tests
-        run: make test
+        run: pytest tests -v
 
       - name: Add README.md to tests/running/output
         run: |
