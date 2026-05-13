@@ -199,7 +199,7 @@
 <p>Load, prepare and apply QC to data, using <code>Seurat</code></p>
 <p>This process will -
 - Prepare the seurat object
-- Apply QC to the data
+- Apply QC to the data (gene, cell, and contamination)
 - Integrate the data from different samples</p>
 <p>See also
 - <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html#standard-pre-processing-workflow-1)">https://satijalab.org/seurat/articles/pbmc3k_tutorial.html#standard-pre-processing-workflow-1)</a>
@@ -353,15 +353,17 @@ will keep genes that are expressed in at least 3 cells.<br /></p>
     It should be a json (or python dict) with the keys as the names of the plots and
     the values also as dicts with the following keys:<br /></p>
 <ul>
-<li>kind: The kind of QC. Either <code>gene</code> or <code>cell</code> (default).<br /></li>
+<li>kind: The kind of QC. Either <code>gene</code>, <code>cell</code> (default), or <code>contam</code>/<code>contamination</code>.<br /></li>
 <li>devpars: The device parameters for the plot. A dict with <code>res</code>, <code>height</code>, and <code>width</code>.<br /></li>
 <li>more_formats: The formats to save the plots other than <code>png</code>.<br /></li>
 <li>save_code: Whether to save the code to reproduce the plot.<br /></li>
 <li>other arguments passed to
 <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratCellQC.html"><code>biopipen.utils::VizSeuratCellQC</code></a>
-when <code>kind</code> is <code>cell</code> or
+when <code>kind</code> is <code>cell</code>,
 <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratGeneQC.html"><code>biopipen.utils::VizSeuratGeneQC</code></a>
-when <code>kind</code> is <code>gene</code>.<br /></li>
+when <code>kind</code> is <code>gene</code>, or
+<a href="https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratContamination.html"><code>biopipen.utils::RunSeuratContamination</code></a>
+when <code>kind</code> is <code>contam</code>/<code>contamination</code>.<br /></li>
 </ul>
 </li>
 <li>
@@ -471,8 +473,54 @@ See <a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-s
     See <a href="https://satijalab.org/seurat/reference/integratelayers">https://satijalab.org/seurat/reference/integratelayers</a></li>
 </ul>
 </li>
-<li><code>doublet_detector</code> <em>(<code>choice</code>)</em>: <em>Default: <code>none</code></em>. <br />
-    The doublet detector to use.<br /><ul>
+<li><code>contam_correction</code> <em>(<code>choice</code>)</em>:
+    The tool used to perform contamination correction.<br />
+    If None or not specified, no contamination correction will be performed.<br /><ul>
+<li><code>decontX</code>:
+    Use <code>decontX</code> to perform contamination correction.<br />
+    See: https://www.camplab.net/decontx/</li>
+<li><code>scCDC</code>:
+    Use <code>scCDC</code> to perform contamination correction.<br />
+    See: https://github.com/ZJU-UoE-CCW-LAB/scCDC</li>
+</ul>
+</li>
+<li><code>decontX</code> <em>(<code>ns</code>)</em>:
+    Arguments for <code>decontX()</code>.<br /><ul>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://rdrr.io/bioc/celda/man/decontX.html">https://rdrr.io/bioc/celda/man/decontX.html</a></li>
+</ul>
+</li>
+<li><code>scCDC</code> <em>(<code>ns</code>)</em>:
+    Arguments for <code>scCDC</code> functions:<br /><ul>
+<li><code>Detection</code> <em>(<code>ns</code>)</em>:
+    arguments for <code>scCDC::ContaminationDetection()</code><ul>
+<li><code>&lt;more&gt;</code>:
+    See https://github.com/ZJU-UoE-CCW-LAB/scCDC/blob/main/R/Contamination_Detection.R#L273</li>
+</ul>
+</li>
+<li><code>Correction</code> <em>(<code>ns</code>)</em>:
+    arguments for <code>scCDC::ContaminationCorrection()</code><ul>
+<li><code>&lt;more&gt;</code>:
+    See https://github.com/ZJU-UoE-CCW-LAB/scCDC/blob/main/R/Contamination_Correction.R#L147</li>
+</ul>
+</li>
+<li><code>Quantification</code> <em>(<code>ns</code>)</em>:
+    arguments for <code>scCDC::ContaminationQuantification()</code><ul>
+<li><code>&lt;more&gt;</code>:
+    See https://github.com/ZJU-UoE-CCW-LAB/scCDC/blob/main/R/Contamination_Quantification.R#L60</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>keep_contam_assay</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to keep the "Contaminated" (original) assay after QC is finished.<br />
+    If kept, we can use it to visualize some marker expressions for comparisons.<br /></p>
+</li>
+<li>
+<p><code>doublet_detector</code> <em>(<code>choice</code>)</em>: <em>Default: <code>none</code></em>. <br />
+    The doublet detector to use.<br /></p>
+<ul>
 <li><code>none</code>:
     Do not use any doublet detector.<br /></li>
 <li><code>DoubletFinder</code>:
