@@ -54,6 +54,7 @@ dependencies:
   - r-tidyseurat
   - r-zip
   - bioconda::bioconductor-biocparallel
+  - bioconda::bioconductor-celda
   - bioconda::bioconductor-mygene
   - bioconda::bioconductor-scdblfinder
   - pwwang::r-seuratdisk
@@ -85,6 +86,7 @@ dependencies:
   - r-zoo
   # Suggests
   - pwwang::r-sccatch
+  - pwwang::r-sccdc
   - r-matrix
   - r-alluvial
   - bioconda::bioconductor-complexheatmap
