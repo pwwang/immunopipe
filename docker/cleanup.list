@@ -136,6 +136,8 @@ lib/R/library/*/data-raw
 # builtin genesets
 !lib/R/library/enrichit/data
 !lib/R/library/enrichit/extdata
+# 'hgnc.table' is not an exported object from 'namespace:HGNChelper'
+!lib/R/library/HGNChelper/data
 
 # =====================================================================
 # R: non-standard test directory names (any depth inside library)
