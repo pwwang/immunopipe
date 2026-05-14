@@ -158,6 +158,8 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Change log</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#253">2.5.3</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#252">2.5.2</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#251">2.5.1</a>
@@ -403,6 +405,33 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h2>
+<h3 id="253">2.5.3<a class="headerlink" href="#253" title="Permanent link">&para;</a></h3>
+<ul>
+<li>feat: upgrade xqute to v2.1.0 (to introduce timeout as an option of scheduler_opts)</li>
+<li>feat: support contamination (ambient RNA) correction suing <code>decontX</code> or <code>scCDC</code>.</li>
+<li>chore: move version mismatch check to config validation</li>
+<li>chore: update r-plotthis to version 0.12.1=r44_2 in environment file</li>
+<li>chore: update r-scplotter to version 0.7.4=r44_2 in environment file<ul>
+<li>feat(ClonalStatPlot): enhance group selection (argument: groups) with named vector/list</li>
+<li>feat(ClonalResidencyPlot): enhance group handling for scatter plots with named vectors/lists</li>
+<li>feat(MarkersPlot): enhance selection functionality with custom filtering conditions</li>
+</ul>
+</li>
+<li>chore: update r-biopipen.utils to version 0.4.1=r44_2 in environment file<ul>
+<li>refactor: reduce complexity of LoadSeuratAndPerformQC</li>
+<li>feat: add RunSeuratAmbientRemoval function for ambient RNA removal in Seurat objects</li>
+<li>chore: remove DotPlot and RidgePlot from NAMESPACE to avoid conflicts</li>
+<li>feat(scrna-utils): move utility functions for scRNA-seq data processing to a separate file</li>
+<li>feat(scrna): added scCDC contaminant RNA correction support</li>
+<li>feat(FinishSeuratQC): added keep_contam_assay param</li>
+<li>feat(scrna-viz): added VizSeuratContamination function</li>
+<li>refactor(scrna): renamed RunSeuratAmbientRemoval function to RunSeuratContamCorrection</li>
+<li>fix(seurat-disk-patch): fixed dimension check in h5group_to_list</li>
+<li>fix(scrna): cast assays to Assay5 for Seurat v5</li>
+<li>feat(scrna-viz): added bar contamination plot for DecontX</li>
+</ul>
+</li>
+</ul>
 <h3 id="252">2.5.2<a class="headerlink" href="#252" title="Permanent link">&para;</a></h3>
 <ul>
 <li>chore: update r-plotthis to version 0.12.1 in environment file<ul>
