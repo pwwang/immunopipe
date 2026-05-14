@@ -4,7 +4,7 @@
 
 - feat: upgrade xqute to v2.1.0 (to introduce timeout as an option of scheduler_opts)
 - feat: support contamination (ambient RNA) correction suing `decontX` or `scCDC`.
-- chore: move version mismatch check to config validation
+- refactor: move host version check to pipen plugin hook
 - chore: update r-plotthis to version 0.12.1=r44_2 in environment file
 - chore: update r-scplotter to version 0.7.4=r44_2 in environment file
     - feat(ClonalStatPlot): enhance group selection (argument: groups) with named vector/list

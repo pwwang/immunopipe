@@ -3,10 +3,16 @@ from __future__ import annotations
 import os
 import re
 import sys
-from typing import Any, Dict
+from typing import Any, Dict, TYPE_CHECKING
 
 from panpath import PanPath
 from pipen.utils import logger
+from pipen.pluginmgr import plugin
+
+from .version import __version__
+
+if TYPE_CHECKING:
+    from pipen import Pipen
 
 # pyright: reportPossiblyUnboundVariable=false
 # pyright: reportAttributeAccessIssue=false
@@ -81,12 +87,42 @@ def _log_error(message: str | None = None) -> None:
     logger.warning("")
 
 
+def _check_host_version():
+    """Check the host immunopipe version and the local version,
+    especially when running with gbatch.
+
+    We shouldn't do this with WARNINGS or logger, because this information
+    was not written to file hence not captured by cli-gbatch.
+
+    Let's tweak pipen's core plugin to do this, instead of writing a pipen plugin,
+    which is a overkill.
+    """
+    @plugin.impl
+    async def on_start(pipen: Pipen) -> None:
+        host_version = os.environ.get("IMMUNOPIPE_HOST_VERSION", None)
+        if host_version:
+            logger.warning("[bold][red]Immunopipe version mismatch:[/red][/bold]")
+            logger.warning(
+                f"[red]- host version is 'v{host_version}', "
+                f"but VM version is 'v{__version__}'.[/red]"
+            )
+            logger.warning(
+                "[red]- This may cause unexpected errors. "
+                "Make sure to use the same version of immunopipe on host and VM.[/red]"
+            )
+
+    plg = plugin.get_plugin("core", raw=True)
+    plg.on_start = on_start
+
+
 def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
     """Validate the configuration.
 
     Args:
         config: The configuration.
     """
+    _check_host_version()
+
     if args is None:
         args = sys.argv
 
@@ -94,19 +130,6 @@ def validate_config(args: list[str] | None = None) -> Dict[str, Any]:
         from pipen_args import config
     except Exception as e:
         _log_error(f"Failed to load configuration.\n{e}")
-
-    from .version import __version__ as immver
-
-    host_version = os.environ.get("IMMUNOPIPE_HOST_VERSION", None)
-    if host_version:
-        WARNINGS.append("Immunopipe version mismatch:")
-        WARNINGS.append(
-            f"  host version is 'v{host_version}', but VM version is 'v{immver}'."
-        )
-        WARNINGS.append(
-            "  This may cause unexpected errors. "
-            "Make sure to use the same version of immunopipe on host and VM."
-        )
 
     config.has_vdj = True  # Default to True, will be updated later
     running_in_gbatch = len(args) > 1 and args[1] == "gbatch"
