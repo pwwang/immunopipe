@@ -1,5 +1,28 @@
 # Change Log
 
+## 2.5.3
+
+- feat: upgrade xqute to v2.1.0 (to introduce timeout as an option of scheduler_opts)
+- feat: support contamination (ambient RNA) correction suing `decontX` or `scCDC`.
+- chore: move version mismatch check to config validation
+- chore: update r-plotthis to version 0.12.1=r44_2 in environment file
+- chore: update r-scplotter to version 0.7.4=r44_2 in environment file
+    - feat(ClonalStatPlot): enhance group selection (argument: groups) with named vector/list
+    - feat(ClonalResidencyPlot): enhance group handling for scatter plots with named vectors/lists
+    - feat(MarkersPlot): enhance selection functionality with custom filtering conditions
+- chore: update r-biopipen.utils to version 0.4.1=r44_2 in environment file
+    - refactor: reduce complexity of LoadSeuratAndPerformQC
+    - feat: add RunSeuratAmbientRemoval function for ambient RNA removal in Seurat objects
+    - chore: remove DotPlot and RidgePlot from NAMESPACE to avoid conflicts
+    - feat(scrna-utils): move utility functions for scRNA-seq data processing to a separate file
+    - feat(scrna): added scCDC contaminant RNA correction support
+    - feat(FinishSeuratQC): added keep_contam_assay param
+    - feat(scrna-viz): added VizSeuratContamination function
+    - refactor(scrna): renamed RunSeuratAmbientRemoval function to RunSeuratContamCorrection
+    - fix(seurat-disk-patch): fixed dimension check in h5group_to_list
+    - fix(scrna): cast assays to Assay5 for Seurat v5
+    - feat(scrna-viz): added bar contamination plot for DecontX
+
 ## 2.5.2
 
 - chore: update r-plotthis to version 0.12.1 in environment file
