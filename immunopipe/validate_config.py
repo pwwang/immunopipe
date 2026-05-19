@@ -100,7 +100,7 @@ def _check_host_version():
     @plugin.impl
     async def on_start(pipen: Pipen) -> None:
         host_version = os.environ.get("IMMUNOPIPE_HOST_VERSION", None)
-        if host_version:
+        if host_version and host_version != __version__:
             logger.warning("[bold][red]Immunopipe version mismatch:[/red][/bold]")
             logger.warning(
                 f"[red]- host version is 'v{host_version}', "
