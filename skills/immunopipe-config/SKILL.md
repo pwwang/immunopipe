@@ -267,6 +267,8 @@ Some processes have dependencies:
 - `TOrBCellSelection` usually follows `SeuratClusteringOfAllCells`
 - `CellCellCommunication` requires clustering to be complete
 
+When a process has dependencies, the input will be inferred from its dependencies, in `in` should be specified.
+
 ### Mutually Exclusive Options
 
 - Use EITHER `SampleInfo` OR `LoadingRNAFromSeurat` as entry point (not both)
@@ -294,7 +296,7 @@ When process options reference external packages, expand them:
 - When seeing `Seurat::FunctionName`, check: https://satijalab.org/seurat/reference/
 - Common functions: `FindMarkers()`, `FindClusters()`, `SCTransform()`, `RunUMAP()`
 
-### Plotthis Functions  
+### Plotthis Functions
 - Plot types map to functions: `bar` → `BarPlot`, `box` → `BoxPlot`
 - Full reference: https://pwwang.github.io/plotthis/reference/
 
