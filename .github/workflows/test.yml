@@ -163,6 +163,7 @@ jobs:
           force: true
 
       - name: Delete old test running data cache
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # if: steps.restore-running.outputs.cache-hit != 'true'
