@@ -229,6 +229,12 @@
 <li><code>specificity</code>:
     The column name in the data to use as the specificity of the communication.<br />
     By default, the last column will be used. If the method doesn't have a specificity, set it to None.<br /></li>
+<li><code>ligand_expr</code>: <em>Default: <code>ligand_means</code></em>. <br />
+    The name of the column containing the mean (or otherwise summarized) expression of the ligand.<br />
+    Only used when plot_type = "linkedheatmap".<br /></li>
+<li><code>receptor_expr</code>: <em>Default: <code>receptor_means</code></em>. <br />
+    The name of the column containing the mean (or otherwise summarized) expression of the receptor.<br />
+    Only used when plot_type = "linkedheatmap".<br /></li>
 <li><code>devpars</code> <em>(<code>ns</code>)</em>:
     The parameters for the plot.<br /><ul>
 <li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
