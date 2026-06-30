@@ -275,6 +275,7 @@
 <span class="w">    </span>justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>@config.toml
 </code></pre></div>
+<p>If you encounter permission issues when running the docker container, you can add <code>--user $(id -u):$(id -g)</code> to the command to run the container as the current user.</p>
 </div>
 <div class="tabbed-block">
 <p>You also need to mount the current working directory to the <code>/workdir</code> directory in the container if you are using <code>singularity</code>. You also need to specify the configuration file via <code>@&lt;configfile&gt;</code> option. For example:</p>
