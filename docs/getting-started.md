@@ -61,6 +61,7 @@ docker run \
     @ImmunopipeMinimal.config.toml
 ```
 
+If you encounter permission issues when running the docker container, you can add `--user $(id -u):$(id -g)` to the command to run the container as the current user.
 ///
 
 /// tab | Using singularity
