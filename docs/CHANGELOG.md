@@ -1,5 +1,25 @@
 # Change Log
 
+## 2.5.4
+
+- fix(ci): allow deletion of old test running data cache to continue on error
+- docs: update SKILL.md to clarify process dependencies and input inference
+- docs: add note for permission issues when running docker container
+- chore: update r-biopipen.utils version to 0.4.2=r44_1 in environment_rpkgs.yml
+    - fix(ConvertSeuratToAnnData): handle empty meta.features in Assay5 conversion
+- chore: bump biopipen to 1.3.9
+    - feat(scrna.SeuratPreparing): add ambient RNA removal and decontX arguments
+    - feat(scrna.SeuratPreparing): added scCDC contamination correction and contam QC plots
+    - feat(scrna.CellCellCommunicationPlots): add ligand and receptor expression parameters for linked heatmap
+- chore: update r-scplotter version to 0.7.5=r44_4 in environment_rpkgs.yml
+    - fix(FeatureStatPlot): hide column names for heatmap with cell_type bars
+    - fix(CCCPlot): fix rows_split_by and columns_split_by for heatmp with method = 'interaction'
+    - fix: enhance handling of heatmap and dot plot types in FeatureStatPlot function
+    - fix: enhance gene selection logic in MarkersPlot function for heatmap and dot plots
+    - feat: add linkedheatmap plot type to CCCPlot function with new parameters for ligand and receptor expressions
+- chore: update r-plotthis version to 0.13.0=r44_5 in environment_rpkgs.yml
+    - see: https://github.com/pwwang/plotthis/releases/tag/0.13.0
+
 ## 2.5.3
 
 - feat: upgrade xqute to v2.1.0 (to introduce timeout as an option of scheduler_opts)
