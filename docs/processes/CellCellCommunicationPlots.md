@@ -26,6 +26,12 @@ Visualization for cell-cell communication inference.
 - `specificity`:
     The column name in the data to use as the specificity of the communication.<br />
     By default, the last column will be used. If the method doesn't have a specificity, set it to None.<br />
+- `ligand_expr`: *Default: `ligand_means`*. <br />
+    The name of the column containing the mean (or otherwise summarized) expression of the ligand.<br />
+    Only used when plot_type = "linkedheatmap".<br />
+- `receptor_expr`: *Default: `receptor_means`*. <br />
+    The name of the column containing the mean (or otherwise summarized) expression of the receptor.<br />
+    Only used when plot_type = "linkedheatmap".<br />
 - `devpars` *(`ns`)*:
     The parameters for the plot.<br />
     - `res` *(`type=int`)*: *Default: `100`*. <br />

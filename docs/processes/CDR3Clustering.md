@@ -46,7 +46,7 @@ CDR3 sequence may be shared by multiple cells.<br />
 
 ## Output
 
-- `outfile`: *Default: `{{in.screpfile | stem}}.tcr_clustered.qs`*. <br />
+- `outfile`: *Default: `{{in.screpfile | stem}}.cdr3_clustered.qs`*. <br />
     The `scRepertoire` object in qs with TCR/BCR cluster information.<br />
     Column `CDR3_Cluster` will be added to the metadata.<br />
 

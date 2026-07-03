@@ -4,7 +4,7 @@ Load, prepare and apply QC to data, using `Seurat`
 
 This process will -
 - Prepare the seurat object
-- Apply QC to the data
+- Apply QC to the data (gene, cell, and contamination)
 - Integrate the data from different samples
 
 See also
@@ -152,15 +152,17 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
     The plots for QC metrics.<br />
     It should be a json (or python dict) with the keys as the names of the plots and
     the values also as dicts with the following keys:<br />
-    * kind: The kind of QC. Either `gene` or `cell` (default).<br />
+    * kind: The kind of QC. Either `gene`, `cell` (default), or `contam`/`contamination`.<br />
     * devpars: The device parameters for the plot. A dict with `res`, `height`, and `width`.<br />
     * more_formats: The formats to save the plots other than `png`.<br />
     * save_code: Whether to save the code to reproduce the plot.<br />
     * other arguments passed to
     [`biopipen.utils::VizSeuratCellQC`](https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratCellQC.html)
-    when `kind` is `cell` or
+    when `kind` is `cell`,
     [`biopipen.utils::VizSeuratGeneQC`](https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratGeneQC.html)
-    when `kind` is `gene`.<br />
+    when `kind` is `gene`, or
+    [`biopipen.utils::RunSeuratContamination`](https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratContamination.html)
+    when `kind` is `contam`/`contamination`.<br />
 
 - `use_sct` *(`flag`)*: *Default: `False`*. <br />
     Whether use SCTransform routine to integrate samples or not.<br />
@@ -254,6 +256,37 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
             Same as `scVIIntegration`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/integratelayers>
+- `contam_correction` *(`choice`)*:
+    The tool used to perform contamination correction.<br />
+    If None or not specified, no contamination correction will be performed.<br />
+    - `decontX`:
+        Use `decontX` to perform contamination correction.<br />
+        See: https://www.camplab.net/decontx/
+    - `scCDC`:
+        Use `scCDC` to perform contamination correction.<br />
+        See: https://github.com/ZJU-UoE-CCW-LAB/scCDC
+- `decontX` *(`ns`)*:
+    Arguments for `decontX()`.<br />
+    - `<more>`:
+        See <https://rdrr.io/bioc/celda/man/decontX.html>
+- `scCDC` *(`ns`)*:
+    Arguments for `scCDC` functions:<br />
+    - `Detection` *(`ns`)*:
+        arguments for `scCDC::ContaminationDetection()`
+        - `<more>`:
+            See https://github.com/ZJU-UoE-CCW-LAB/scCDC/blob/main/R/Contamination_Detection.R#L273
+    - `Correction` *(`ns`)*:
+        arguments for `scCDC::ContaminationCorrection()`
+        - `<more>`:
+            See https://github.com/ZJU-UoE-CCW-LAB/scCDC/blob/main/R/Contamination_Correction.R#L147
+    - `Quantification` *(`ns`)*:
+        arguments for `scCDC::ContaminationQuantification()`
+        - `<more>`:
+            See https://github.com/ZJU-UoE-CCW-LAB/scCDC/blob/main/R/Contamination_Quantification.R#L60
+- `keep_contam_assay` *(`flag`)*: *Default: `False`*. <br />
+    Whether to keep the "Contaminated" (original) assay after QC is finished.<br />
+    If kept, we can use it to visualize some marker expressions for comparisons.<br />
+
 - `doublet_detector` *(`choice`)*: *Default: `none`*. <br />
     The doublet detector to use.<br />
     - `none`:

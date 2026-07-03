@@ -111,6 +111,8 @@ function, and performs enrichment analysis for the markers found.<br />
         The type of the plot.<br />
         See <https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html>.<br />
         Available types are `violin`, `box`, `bar`, `ridge`, `dim`, `heatmap` and `dot`.<br />
+    - `descr`:
+        A description of the plot to be shown above the plot image.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
         The extra formats to save the plot in.<br />
     - `save_code` *(`flag`)*: *Default: `False`*. <br />
@@ -132,6 +134,8 @@ function, and performs enrichment analysis for the markers found.<br />
     Default options for the plots to generate for the enrichment analysis.<br />
     - `plot_type`: *Default: `heatmap`*. <br />
         The type of the plot.<br />
+    - `descr`:
+        A description of the plot to be shown above the plot image.<br />
     - `devpars` *(`ns`)*:
         The device parameters for the plots.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
@@ -156,6 +160,8 @@ function, and performs enrichment analysis for the markers found.<br />
         See <https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html>.<br />
         Available types are `violin`, `box`, `bar`, `ridge`, `dim`, `heatmap` and `dot`.<br />
         There are two additional types available - `volcano_pct` and `volcano_log2fc`.<br />
+    - `descr`:
+        A description of the plot to be shown above the plot image.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
         The extra formats to save the plot in.<br />
     - `save_code` *(`flag`)*: *Default: `False`*. <br />
@@ -182,6 +188,8 @@ function, and performs enrichment analysis for the markers found.<br />
         The type of the plot.<br />
         See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
         Available types are `bar`, `dot`, `lollipop`, `network`, `enrichmap` and `wordcloud`.<br />
+    - `descr`:
+        A description of the plot to be shown above the plot image.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
         The extra formats to save the plot in.<br />
     - `save_code` *(`flag`)*: *Default: `False`*. <br />
@@ -206,6 +214,8 @@ function, and performs enrichment analysis for the markers found.<br />
     - `sigmarkers`:
         The expression to filter the significant markers for each case.<br />
         If not provided, `envs.sigmarkers` will be used.<br />
+    - `descr`:
+        A description of the plot to be shown above the plot image.<br />
     - `plot_type` *(`choice`)*: *Default: `venn`*. <br />
         The type of the plot to generate for the overlaps.<br />
         - `venn`:
