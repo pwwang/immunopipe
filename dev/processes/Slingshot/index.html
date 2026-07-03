@@ -82,7 +82,7 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
@@ -110,6 +110,18 @@
                   <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScVelo/">ScVelo</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Slingshot</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input">Input</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ScRepLoading/">ScRepLoading</a>
                   </li>
@@ -174,6 +186,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Processes</li>
       <li class="breadcrumb-item active">Slingshot</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/Slingshot.md">Edit on pwwang/immunopipe</a>
@@ -227,10 +240,15 @@
     Whether to align the starting pseudotime values at the maximum pseudotime.<br /></li>
 <li><code>seed</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>8525</code></em>. <br />
     The seed for the random number generator.<br /></li>
+<li><code>outtype</code>: <em>Default: <code>qs2</code></em>. <br /></li>
 </ul>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../ScVelo/" class="btn btn-neutral float-left" title="ScVelo"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../ScRepLoading/" class="btn btn-neutral float-right" title="ScRepLoading">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -258,6 +276,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../ScVelo/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../ScRepLoading/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
