@@ -615,10 +615,16 @@ class ScVelo(ScVelo_):
     envs = {"outtype": "qs2"}
 
 
+RNAInput = ScVelo or RNAInput
+
+
 @when("Slingshot" in config, requires=RNAInput)
 @annotate.format_doc()
 class Slingshot(Slingshot_):
-    ...
+    envs = {"outtype": "qs2"}
+
+
+RNAInput = Slingshot or RNAInput
 
 
 @annotate.format_doc(vars={"output_baseurl": TEST_OUTPUT_BASEURL})

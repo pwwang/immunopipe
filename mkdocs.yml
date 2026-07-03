@@ -50,6 +50,8 @@ nav:
       - 'ClusterMarkers': 'processes/ClusterMarkers.md'
       - 'TopExpressingGenes': 'processes/TopExpressingGenes.md'
       - 'SeuratSubClustering': 'processes/SeuratSubClustering.md'
+      - 'ScVelo': 'processes/ScVelo.md'
+      - 'Slingshot': 'processes/Slingshot.md'
       # ScTCR-seq processes
       - 'ScRepLoading': 'processes/ScRepLoading.md'
       - 'ScRepCombiningExpression': 'processes/ScRepCombiningExpression.md'
