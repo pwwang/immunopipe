@@ -58,6 +58,7 @@ dependencies:
   - bioconda::bioconductor-celda
   - bioconda::bioconductor-mygene
   - bioconda::bioconductor-scdblfinder
+  - bioconda::bioconductor-genomeinfodb
   - pwwang::r-seuratdisk
   - r-qs2
   # Needed by r-scplotter
