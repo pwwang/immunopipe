@@ -224,10 +224,12 @@
     Default is the default identity of the seurat object.<br /></li>
 <li><code>reduction</code>:
     The nonlinear reduction to use for the trajectory analysis.<br /></li>
-<li><code>dims</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>[1, 2]</code></em>. <br />
+<li><code>dims</code> <em>(<code>type=auto</code>)</em>:
     The dimensions to use for the analysis.<br />
     A list or a string with comma separated values.<br />
-    Consecutive numbers can be specified with a colon (<code>:</code>) or a dash (<code>-</code>).<br /></li>
+    Consecutive numbers can be specified with a colon (<code>:</code>) or a dash (<code>-</code>).<br />
+    Or a single number greater than 1, which will be expanded to <code>1:number</code>.<br />
+    If <code>None</code>, all dimensions will be used.<br /></li>
 <li><code>start</code>:
     The starting group for the Slingshot analysis.<br /></li>
 <li><code>end</code>:
