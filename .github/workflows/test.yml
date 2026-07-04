@@ -88,6 +88,8 @@ jobs:
           python -c "import Bio, importlib.metadata; print(f'BioPython version: {importlib.metadata.version('BioPython')}')"
           echo "Checking keras ..."
           python -c "import keras, importlib.metadata; print(f'keras version: {importlib.metadata.version('keras')}')"
+          echo "Checking scvelo ..."
+          python -c "import scvelo, importlib.metadata; print(f'scvelo version: {importlib.metadata.version('scvelo')}')"
           echo "Checking tensorflow ..."
           python -c "import tensorflow, importlib.metadata; print(f'tensorflow version: {importlib.metadata.version('tensorflow')}')"
           echo "Checking umap-learn ..."
