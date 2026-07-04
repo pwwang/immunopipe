@@ -25,7 +25,6 @@ from biopipen.ns.scrna import (
     SeuratClustering as SeuratClustering_,
     SeuratSubClustering as SeuratSubClustering_,
     SeuratMap2Ref as SeuratMap2Ref_,
-    ScVelo as ScVelo_,
     Slingshot as Slingshot_,
     SeuratClusterStats as SeuratClusterStats_,
     # SeuratMetadataMutater as SeuratMetadataMutater_,
@@ -607,15 +606,6 @@ class SeuratSubClustering(SeuratSubClustering_):
 
 
 RNAInput = SeuratSubClustering or RNAInput
-
-
-@when("ScVelo" in config, requires=RNAInput)
-@annotate.format_doc()
-class ScVelo(ScVelo_):
-    envs = {"outtype": "qs2"}
-
-
-RNAInput = ScVelo or RNAInput
 
 
 @when("Slingshot" in config, requires=RNAInput)
