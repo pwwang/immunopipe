@@ -15,6 +15,7 @@ dependencies:
   - fontconfig
   - graphviz  # pipen-diagram
   - git  # for copier, used by pipen-report
+  - jq  # Needed by bioconda::bioconductor-genomeinfodbdata post-link
   - uv
   - libiconv # fix git: error while loading shared libraries: libiconv.so.2
   - time  # for pipen-runinfo
@@ -58,8 +59,6 @@ dependencies:
   - bioconda::bioconductor-celda
   - bioconda::bioconductor-mygene
   - bioconda::bioconductor-scdblfinder
-  - bioconda::bioconductor-genomeinfodb
-  - bioconda::bioconductor-genomeinfodbdata
   - pwwang::r-seuratdisk
   - r-qs2
   # Needed by r-scplotter
