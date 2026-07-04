@@ -28,6 +28,7 @@ dependencies:
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
   - bioconda::bioconductor-deseq2
   - bioconda::bioconductor-edger
+  - bioconda::bioconductor-slingshot
   - r-hdf5r  # Read_10x_h5() by Seurat
   - r-laplacesdemon  # TESSA
   - libgdal
@@ -135,3 +136,4 @@ dependencies:
     - keras  # TESSA
     - tensorflow==2.20 # TESSA
     - umap-learn  # RunUMAP with umap.method = "umap-learn"
+    - scvelo
