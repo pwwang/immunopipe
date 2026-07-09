@@ -99,7 +99,17 @@ def run_process(
             workdir=tmp_path,
         )
         if not pipe.run():
-            raise RuntimeError("Failed to run the process.")
+            session_file = pipe.workdir / process / "0" / "job.runinfo.session"
+            if session_file.is_file():
+                session = (
+                    "\n====================================="
+                    "\nSession Info:"
+                    "\n=====================================\n"
+                    f"{session_file.read_text()}\n"
+                )
+            else:
+                session = ""
+            raise RuntimeError(f"Failed to run the process. {session}")
 
     return pipe.outdir / process
 
