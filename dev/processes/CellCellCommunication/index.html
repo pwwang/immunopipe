@@ -212,7 +212,7 @@ to visualize the results.<br /></p>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>sobjfile</code>:
-    The seurat object file in RDS or h5seurat format or AnnData file.<br /></li>
+    The seurat object file in RDS or AnnData file.<br /></li>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
@@ -424,22 +424,24 @@ proportion of cells within should express the genes.<br /></li>
 </li>
 <li><code>subset</code>:
     An expression in string to subset the cells.<br />
-    When a <code>.rds</code> or <code>.h5seurat</code> file is provided for <code>in.sobjfile</code>, you can provide an expression in <code>R</code>,
+    When a <code>.rds</code> file is provided for <code>in.sobjfile</code>, you can provide an expression in <code>R</code>,
     which will be passed to <code>base::subset()</code> in <code>R</code> to subset the cells.<br />
     But you can always pass an expression in <code>python</code> to subset the cells.<br />
     See <a href="https://anndata.readthedocs.io/en/latest/tutorials/notebooks/getting-started.html#subsetting-using-metadata">https://anndata.readthedocs.io/en/latest/tutorials/notebooks/getting-started.html#subsetting-using-metadata</a>.<br />
     You should use <code>adata</code> to refer to the AnnData object. For example, <code>adata.obs.groups == "g1"</code> will subset the cells
     with <code>groups</code> equal to <code>g1</code>.<br /></li>
-<li><code>subset_using</code>: <em>Default: <code>auto</code></em>. <br />
+<li><code>subset_using</code> <em>(<code>choice</code>)</em>: <em>Default: <code>auto</code></em>. <br />
     The method to subset the cells.<br /><ul>
-<li><code>auto</code>:
-    Automatically detect the method to use.<br />
-    Note that this is not always accurate. We simply check if <code>[</code> is in the expression.<br />
-    If so, we use <code>python</code> to subset the cells; otherwise, we use <code>R</code>.<br /></li>
 <li><code>python</code>:
-    Use python to subset the cells.<br /></li>
+    Use python to subset the cells.<br />
+    The expression will be evaluated by <code>adata.obs.query()</code> to subset the cells, e.g.: <code>groups == "g1"</code>.<br /></li>
 <li><code>r</code>:
-    Use R to subset the cells.<br /></li>
+    Use R to subset the cells.<br />
+    A subset expression will be passed to <code>dplyr::filter()</code> applying to the metadata of the Seurat object.<br />
+    Note that this is only available when the input is a Seurat object in RDS format and
+    only available for <code>envs.subset_using</code>, but not for <code>cases.&lt;case&gt;.subset_using</code>.<br /></li>
+<li><code>R</code>:
+    alias for <code>r</code></li>
 </ul>
 </li>
 <li><code>split_by</code>:
@@ -484,6 +486,15 @@ proportion of cells within should express the genes.<br /></li>
     The path to the Rscript executable used to convert RDS file to AnnData.<br />
     if <code>in.sobjfile</code> is an RDS file, it will be converted to AnnData file (h5ad).<br />
     You need <code>Seurat</code>, <code>SeuratDisk</code> and <code>digest</code> installed.<br /></li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Different cases for the analysis.<br />
+    The keys are the names of the cases, which will be saved in the <code>Case</code> column in the output file.<br />
+    The values are the arguments for from <code>envs</code> to override the default values, except
+    <code>method</code>, <code>species</code> and <code>rscript</code>, to keep the output from different cases with the same columns.<br />
+    Note that <code>subset</code> and <code>subset_using</code> will not be inherited from <code>envs</code>, and only <code>subset_using = "python"</code>
+    is supported for the cases. When using subset in the cases, the data is subsetted after the default subset in <code>envs</code> is applied.<br />
+    If no cases are given, a default case will be used, with the arguments from <code>envs</code>, and
+    no <code>Case</code> column will be added in the output file.<br /></li>
 <li><code>&lt;more&gt;</code>:
     Other arguments for the method.<br />
     The arguments are passed to the method directly.<br />
