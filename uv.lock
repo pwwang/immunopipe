@@ -3022,14 +3022,14 @@ wheels = [
 
 [[package]]
 name = "pipen-verbose"
-version = "1.1.2"
+version = "1.1.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pipen" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b3/49/799ce1b99840f932d3a543d0c82ad415156ff294294d4e8b538144b71b50/pipen_verbose-1.1.2.tar.gz", hash = "sha256:1b430d08c43085b2f3b16af196eecaba4648c97db3a7041502fc75534809e466", size = 7305, upload-time = "2026-03-08T05:39:51.939Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/51/4c/4bafc94656694d8dc9432386e786753c0db042222d64b778628bdec90225/pipen_verbose-1.1.3.tar.gz", hash = "sha256:82081a3eb083a28c2fd4c75907fb9f9b3f7381b9df5b4425494a63cabc0ec00b", size = 133740, upload-time = "2026-07-10T05:03:23.681Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/98/d4/35e45b2066efd6c5f30575895cdd693d686511fb3526482a2a4be650b213/pipen_verbose-1.1.2-py3-none-any.whl", hash = "sha256:f510e3e4c62f9dc372cd2137d0d8892558665282bb5cf928756740042cb3d961", size = 6781, upload-time = "2026-03-08T05:39:52.574Z" },
+    { url = "https://files.pythonhosted.org/packages/2f/0b/cc5d4e9ebaf8bd540996d749bc52dd92f321bb7c70f085a3f48fb1bc82f1/pipen_verbose-1.1.3-py3-none-any.whl", hash = "sha256:09f74e780ddd1e1a5f8bdf108b2ff196ed40b0c000f7e92852ca90b0dffda431", size = 6776, upload-time = "2026-07-10T05:03:22.619Z" },
 ]
 
 [[package]]
