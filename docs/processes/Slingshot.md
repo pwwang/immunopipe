@@ -38,13 +38,19 @@ This process is implemented based on the R package `slingshot`.<br />
     The starting group for the Slingshot analysis.<br />
 - `end`:
     The ending group for the Slingshot analysis.<br />
-- `prefix`:
-    The prefix to add to the column names of the resulting pseudotime variable.<br />
 - `reverse` *(`flag`)*: *Default: `False`*. <br />
     Logical value indicating whether to reverse the pseudotime variable.<br />
 - `align_start` *(`flag`)*: *Default: `False`*. <br />
     Whether to align the starting pseudotime values at the maximum pseudotime.<br />
 - `seed` *(`type=int`)*: *Default: `8525`*. <br />
     The seed for the random number generator.<br />
+- `cases`: *Default: `{}`*. <br />
+    A dictionary of cases to run the analysis.<br />
+    The keys are the names of the cases, which will be served as the
+    prefix to add to the column names of the resulting pseudotime variable.<br />
+    For example, if the case name is `case1`, the resulting pseudotime variable
+    will be stored in the column `case1_LineageX` and `case1_BranchID`.<br />
+    The values are the arguments and will be inherited from the `envs` above, except for `cases`.<br />
+    The default case will be added with the default values under `envs` with an empty prefix.<br />
 - `outtype`: *Default: `qs2`*. <br />
 
