@@ -454,23 +454,6 @@ class TOrBCellSelection(TOrBCellSelection_):
 RNAInput = TOrBCellSelection or RNAInput
 
 
-@when("ModuleScoreCalculator" in config, requires=RNAInput)
-@annotate.format_doc()
-class ModuleScoreCalculator(ModuleScoreCalculator_):
-    """{{Summary}}
-
-    Metadata:
-        The metadata of the `Seurat` object will be updated with the module scores:
-
-        ![ModuleScoreCalculator-metadata](images/ModuleScoreCalculator-metadata.png)
-    """  # noqa: E501
-
-    input_data = lambda ch1: ch1.iloc[:, [0]]
-
-
-RNAInput = ModuleScoreCalculator or RNAInput
-
-
 @when(
     "SeuratClustering" in config
     or "CellTypeAnnotation" in config
@@ -554,6 +537,7 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
     # Change the default to direct, which doesn't do any annotation
     envs = {"tool": "direct", "sctype_db": None}
+    input_data = lambda ch1: ch1.iloc[:, [0]]
 
 
 RNAInput = CellTypeAnnotation or RNAInput
@@ -828,6 +812,21 @@ class TopExpressingGenes(TopExpressingGenes_):
 
     envs = {"cases": {"Cluster": {}}}
     order = 3
+
+
+@when("ModuleScoreCalculator" in config, requires=RNAInput)
+@annotate.format_doc()
+class ModuleScoreCalculator(ModuleScoreCalculator_):
+    """{{Summary}}
+
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the module scores:
+
+        ![ModuleScoreCalculator-metadata](images/ModuleScoreCalculator-metadata.png)
+    """  # noqa: E501
+
+
+RNAInput = ModuleScoreCalculator or RNAInput
 
 
 @when(VDJInput, requires=[VDJInput, RNAInput])  # type: ignore
