@@ -243,14 +243,24 @@ setting <code>envs.ignore_vdj</code> to true.<br /></p>
     higher expression values as T/B cells.<br /></li>
 <li><code>selector</code>:
     The expression passed to <code>tidyseurat::mutate(is_TCell = ...)</code>
-    to indicate whether a cell is a T cell. For example, <code>Clonotype_Pct &gt; 0.25</code>
+    to indicate whether a cell is a T cell, or
+    a file containing the cell barcodes regarding as T cells
+    (beginning with <code>file://</code>).<br />
+    For example, <code>Clonotype_Pct &gt; 0.25</code>
     to indicate cells with clonotype percentage &gt; 25% are T cells.<br />
     If <code>indicator_genes</code> is provided, the expression values can also be used
     in the expression. For example, <code>Clonotype_Pct &gt; 0.25 &amp; CD3E &gt; 0</code>.<br />
     If <code>selector</code> is not provided, a kmeans clustering will be performed
     on the expression values of <code>indicator_genes</code> and <code>Clonotype_Pct</code>,
     with K=2, and the cluster with higher clonotype percentage will be selected
-    as T/B cells.<br /></li>
+    as T/B cells.<br />
+    With a file is provided, the column name of the cell barcodes can be
+    provided after the path to the file, separated by <code>#</code>. For example,
+    <code>file://path/to/cell_barcodes.txt#cell_barcode</code> to indicate
+    the cell barcodes are in the column <code>cell_barcode</code> of the file.<br />
+    If the column name is not provided, the file is assumed to have only
+    one column without a header, and the cell barcodes will be read from
+    the first column.<br /></li>
 <li>
 <p><code>indicator_genes</code> <em>(<code>list</code>)</em>: <em>Default: <code>['CD3E']</code></em>. <br />
     A list of indicator genes whose expression values and

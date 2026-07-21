@@ -232,15 +232,15 @@
 <path fill="none" stroke="#3d314a" d="M634.41,-813.07C648.17,-788.65 675.61,-739.94 692.24,-710.43"/>
 <polygon fill="#3d314a" stroke="#3d314a" points="694.73,-711.71 696.22,-703.37 689.85,-708.96 694.73,-711.71"/>
 </g>
-<!-- TCellSelection -->
+<!-- TOrBCellSelection -->
 <g id="node14" class="node">
-<title>TCellSelection</title>
+<title>TOrBCellSelection</title>
 <path fill="#219ebc" stroke="transparent" d="M742,-631C742,-631 670,-631 670,-631 664,-631 658,-625 658,-619 658,-619 658,-607 658,-607 658,-601 664,-595 670,-595 670,-595 742,-595 742,-595 748,-595 754,-601 754,-607 754,-607 754,-619 754,-619 754,-625 748,-631 742,-631"/>
-<text text-anchor="middle" x="706" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#ffffff">TCellSelection</text>
+<text text-anchor="middle" x="706" y="-609.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#ffffff">TOrBCellSelection</text>
 </g>
-<!-- ScRepLoading&#45;&gt;TCellSelection -->
+<!-- ScRepLoading&#45;&gt;TOrBCellSelection -->
 <g id="edge5" class="edge">
-<title>ScRepLoading&#45;&gt;TCellSelection</title>
+<title>ScRepLoading&#45;&gt;TOrBCellSelection</title>
 <path fill="none" stroke="#3d314a" d="M706,-666.7C706,-658.39 706,-648.28 706,-639.14"/>
 <polygon fill="#3d314a" stroke="#3d314a" points="708.8,-639.1 706,-631.1 703.2,-639.1 708.8,-639.1"/>
 </g>
@@ -262,9 +262,9 @@
 <path fill="none" stroke="#3d314a" d="M505.79,-666.88C478.23,-656.88 443.34,-644.23 414.61,-633.81"/>
 <polygon fill="#3d314a" stroke="#3d314a" points="415.54,-631.16 407.06,-631.07 413.63,-636.43 415.54,-631.16"/>
 </g>
-<!-- SeuratClusteringOfAllCells&#45;&gt;TCellSelection -->
+<!-- SeuratClusteringOfAllCells&#45;&gt;TOrBCellSelection -->
 <g id="edge7" class="edge">
-<title>SeuratClusteringOfAllCells&#45;&gt;TCellSelection</title>
+<title>SeuratClusteringOfAllCells&#45;&gt;TOrBCellSelection</title>
 <path fill="none" stroke="#3d314a" d="M590.43,-666.88C611.81,-657.09 638.76,-644.77 661.25,-634.47"/>
 <polygon fill="#3d314a" stroke="#3d314a" points="662.58,-636.94 668.69,-631.07 660.25,-631.85 662.58,-636.94"/>
 </g>
@@ -292,9 +292,9 @@
 </a>
 </g>
 </g>
-<!-- TCellSelection&#45;&gt;ModuleScoreCalculator -->
+<!-- TOrBCellSelection&#45;&gt;ModuleScoreCalculator -->
 <g id="edge14" class="edge">
-<title>TCellSelection&#45;&gt;ModuleScoreCalculator</title>
+<title>TOrBCellSelection&#45;&gt;ModuleScoreCalculator</title>
 <path fill="none" stroke="#3d314a" d="M701.3,-594.7C699.03,-586.3 696.25,-576.07 693.75,-566.86"/>
 <polygon fill="#3d314a" stroke="#3d314a" points="696.44,-566.09 691.64,-559.1 691.04,-567.56 696.44,-566.09"/>
 </g>
@@ -337,7 +337,7 @@
 <!-- SeuratClustering -->
 <g id="node17" class="node">
 <title>SeuratClustering</title>
-<g id="a_node17"><a xlink:title="Cluster all T cells or selected T cells selected by `TCellSelection`.">
+<g id="a_node17"><a xlink:title="Cluster all T cells or selected T cells selected by `TOrBCellSelection`.">
 <path fill="#219ebc" stroke="transparent" d="M715.5,-487C715.5,-487 632.5,-487 632.5,-487 626.5,-487 620.5,-481 620.5,-475 620.5,-475 620.5,-463 620.5,-463 620.5,-457 626.5,-451 632.5,-451 632.5,-451 715.5,-451 715.5,-451 721.5,-451 727.5,-457 727.5,-463 727.5,-463 727.5,-475 727.5,-475 727.5,-481 721.5,-487 715.5,-487"/>
 <text text-anchor="middle" x="674" y="-465.9" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#ffffff">SeuratClustering</text>
 </a>

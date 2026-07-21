@@ -53,7 +53,7 @@
 <!-- SeuratClustering -->
 <g id="node4" class="node">
 <title>SeuratClustering</title>
-<g id="a_node4"><a xlink:title="Cluster all T cells or selected T cells selected by `TCellSelection`.">
+<g id="a_node4"><a xlink:title="Cluster all T cells or selected T cells selected by `TOrBCellSelection`.">
 <path fill="none" stroke="black" d="M123.5,-180C123.5,-180 40.5,-180 40.5,-180 34.5,-180 28.5,-174 28.5,-168 28.5,-168 28.5,-156 28.5,-156 28.5,-150 34.5,-144 40.5,-144 40.5,-144 123.5,-144 123.5,-144 129.5,-144 135.5,-150 135.5,-156 135.5,-156 135.5,-168 135.5,-168 135.5,-174 129.5,-180 123.5,-180"/>
 <text text-anchor="middle" x="82" y="-158.9" font-family="Helvetica,sans-Serif" font-size="12.00">SeuratClustering</text>
 </a>
