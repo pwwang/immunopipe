@@ -42,7 +42,6 @@ from biopipen.ns.scrna_metabolic_landscape import ScrnaMetabolicLandscape
 
 # inhouse processes
 from .inhouse import (
-    # TCellSelection as TCellSelection_,
     TOrBCellSelection as TOrBCellSelection_,
 )
 from .validate_config import validate_config
