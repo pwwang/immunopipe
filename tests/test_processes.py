@@ -57,11 +57,22 @@ def test_clustermarkers(request):
     ).is_file()
 
 
-@pytest.mark.forked
+# @pytest.mark.forked
 def test_torbcellselection(request):
     outdir = run_process(
         "TOrBCellSelection",
         "TOrBCellSelection.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath("sampleinfo.seurat.qs").is_file()
+
+
+@pytest.mark.forked
+def test_torbcellselection_with_cellbarcodes(request):
+    outdir = run_process(
+        "TOrBCellSelection",
+        "TOrBCellSelectionWithCellbarcodes.config.toml",
         export=True,
         request=request,
     )

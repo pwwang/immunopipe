@@ -94,7 +94,10 @@ class TOrBCellSelection(Proc):
             must be a positive marker, which will be used to select the cluster with
             higher expression values as T/B cells.
         selector: The expression passed to `tidyseurat::mutate(is_TCell = ...)`
-            to indicate whether a cell is a T cell. For example, `Clonotype_Pct > 0.25`
+            to indicate whether a cell is a T cell, or
+            a file containing the cell barcodes regarding as T cells
+            (beginning with `file://`).
+            For example, `Clonotype_Pct > 0.25`
             to indicate cells with clonotype percentage > 25% are T cells.
             If `indicator_genes` is provided, the expression values can also be used
             in the expression. For example, `Clonotype_Pct > 0.25 & CD3E > 0`.
@@ -102,6 +105,13 @@ class TOrBCellSelection(Proc):
             on the expression values of `indicator_genes` and `Clonotype_Pct`,
             with K=2, and the cluster with higher clonotype percentage will be selected
             as T/B cells.
+            With a file is provided, the column name of the cell barcodes can be
+            provided after the path to the file, separated by `#`. For example,
+            `file://path/to/cell_barcodes.txt#cell_barcode` to indicate
+            the cell barcodes are in the column `cell_barcode` of the file.
+            If the column name is not provided, the file is assumed to have only
+            one column without a header, and the cell barcodes will be read from
+            the first column.
         indicator_genes (list): A list of indicator genes whose expression values and
             clonotype percentage will be used to determine T/B cells.
             The markers could be either positive, such as `CD3E`, `CD3D`, `CD3G`, or
