@@ -260,11 +260,13 @@ using <code>envs.newcol</code>, so that the results from different annotation pr
     See <a href="https://github.com/Teichlab/celltypist">https://github.com/Teichlab/celltypist</a></li>
 <li><code>direct</code>:
     Directly assign cell types</li>
+<li><code>cell</code>:
+    Directly assign cell types, but at cell-level instead of cluster-level.<br /></li>
 </ul>
 </li>
 <li><code>sctype_tissue</code>:
     The tissue to use for <code>sctype</code>.<br />
-    Avaiable tissues should be the first column (<code>tissueType</code>) of <code>sctype_db</code>.<br />
+    Available tissues should be the first column (<code>tissueType</code>) of <code>sctype_db</code>.<br />
     If not specified, all rows in <code>sctype_db</code> will be used.<br /></li>
 <li><code>sctype_db</code>:
     The database to use for sctype.<br />
@@ -273,14 +275,17 @@ using <code>envs.newcol</code>, so that the results from different annotation pr
     The column name in metadata to use as the clusters.<br />
     If not specified, the identity column will be used when input is rds/qs/qs2 (supposing we have a Seurat object).<br />
     If input data is h5ad, this is required to run cluster-based annotation tools.<br />
-    For <code>celltypist</code>, this is a shortcut to set <code>over_clustering</code> in <code>celltypist_args</code>.<br /></li>
+    For <code>celltypist</code>, this is a shortcut to set <code>over_clustering</code> in <code>celltypist_args</code>.<br />
+    For tool <code>cell</code>, this can be used to set the Seurat object identity to the specified
+    column in the cell type annotation file (by default, the first cell type column will
+    be set as identity).<br /></li>
 <li><code>backup_col</code>: <em>Default: <code>seurat_clusters_id</code></em>. <br />
     The backup column name to store the original identities.<br />
     If not specified, the original identity column will not be stored.<br />
     If <code>envs.newcol</code> is specified, this will be ignored.<br /></li>
 <li><code>hitype_tissue</code>:
     The tissue to use for <code>hitype</code>.<br />
-    Avaiable tissues should be the first column (<code>tissueType</code>) of <code>hitype_db</code>.<br />
+    Available tissues should be the first column (<code>tissueType</code>) of <code>hitype_db</code>.<br />
     If not specified, all rows in <code>hitype_db</code> will be used.<br /></li>
 <li><code>hitype_db</code>:
     The database to use for hitype.<br />
@@ -289,7 +294,8 @@ using <code>envs.newcol</code>, so that the results from different annotation pr
     You can also use built-in databases, including <code>hitypedb_short</code>, <code>hitypedb_full</code>, and <code>hitypedb_pbmc3k</code>.<br /></li>
 <li>
 <p><code>cell_types</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>[]</code></em>. <br />
-    The cell types to use for direct annotation.<br />
+    The cell types to use for direct or cell-level annotation.<br />
+    For <code>direct</code>, the cell types will be assigned to the clusters in the order of the original identities.<br />
     If given as a list (array), you can use <code>"-"</code> or <code>""</code> as the placeholder for the clusters that
     you want to keep the original cell types. If the length of <code>cell_types</code> is shorter than the number of
     clusters, the remaining clusters will be kept as the original cell types.<br />
@@ -301,6 +307,16 @@ using <code>envs.newcol</code>, so that the results from different annotation pr
 <p>If <code>tool</code> is <code>direct</code> and <code>cell_types</code> is not specified or an empty list,
 the original cell types will be kept and nothing will be changed.<br /></p>
 </div>
+<p>For <code>cell</code>, it must be a TSV file with cell-level annotations.<br />
+You can specify the column names after the <code>#</code>. For example,
+<code>file:///path/to/cell_types.tsv#cell_id,cell_type</code> will use <code>cell_id</code> as the cell id column
+to match the cell ids in the Seurat object, and <code>cell_type</code> as the cell type column to assign the cell types.<br />
+Multiple cell type columns can be specified, and the first one will be used as the new identity column.<br />
+You can also use 1-based column index to specify the columns, for example, <code>file:///path/to/cell_types.tsv#1,3</code>
+will use the first column as the cell id column and the third column as the cell type column.<br />
+If cells in the Seurat object are not found in the cell type file, <code>NA</code>s will be assigned to those cells.<br />
+If not columns are specified, the first two columns will be used as the cell id and cell type columns.<br />
+Prefix <code>file://</code> is optional.<br /></p>
 </li>
 <li>
 <p><code>more_cell_types</code> <em>(<code>type=json</code>)</em>:
