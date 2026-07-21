@@ -57,7 +57,7 @@ def test_clustermarkers(request):
     ).is_file()
 
 
-# @pytest.mark.forked
+@pytest.mark.forked
 def test_torbcellselection(request):
     outdir = run_process(
         "TOrBCellSelection",
