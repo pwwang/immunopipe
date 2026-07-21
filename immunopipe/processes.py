@@ -301,6 +301,7 @@ class LoadingRNAFromSeurat(Proc):
             Force `prepared` to be `True` if this is `True`.
         sample: The column name in the metadata of the Seurat object that
             indicates the sample name.
+            Multiple columns will be concatenated with `_` to form the sample name.
 
     SeeAlso:
         - [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-seq-data).
