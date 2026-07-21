@@ -127,27 +127,6 @@ class TOrBCellSelection(Proc):
     order = 5
 
 
-class CloneHeterogeneity(Proc):
-    """Clone heterogeneity in each cluster
-
-    Envs:
-        cases (type=json): Cases with keys as case names.
-            Each case has arguments with keys:
-            * cut: How to cut the clones by sizes
-            * subsetting: How to subset the cells
-            * design: Designed comparisons
-    """
-    input = "sobjfile:file"
-    output = "outdir:dir:CloneHeterogeneity"
-    lang = config.lang.rscript
-    script = "file://scripts/CloneHeterogeneity.R"
-    envs = {"cases": {}}
-    plugin_opts = {
-        "report": "file://reports/CloneHeterogeneity.svelte",
-    }
-    order = 11
-
-
 class MetaMarkers(Proc):
     """Meta markers for different groups
 

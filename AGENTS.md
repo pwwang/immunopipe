@@ -24,7 +24,7 @@ immunopipe/
 │   ├── toml_generator.py # TOML generation utilities
 │   └── doc_extractor.py  # Process documentation extraction
 ├── cli_utils/            # Utility commands (check-genes, check-dim)
-├── scripts/              # R analysis scripts (5 files: TOrBCellSelection, CloneHeterogeneity, etc.)
+├── scripts/              # R analysis scripts (for TOrBCellSelection, etc.)
 └── reports/              # Svelte report templates (4 files)
 
 tests/running/configs/    # TOML config examples for integration tests
