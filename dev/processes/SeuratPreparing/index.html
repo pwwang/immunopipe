@@ -383,8 +383,10 @@ and <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">https:/
 See <a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis">https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis</a></p>
 </li>
 <li>
-<p><code>no_integration</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Whether to skip integration or not.<br /></p>
+<p><code>no_integration</code> <em>(<code>flag</code>)</em>:
+    Whether to skip integration or not.<br />
+    By default, if there are multiple samples, integration will be performed. If <code>no_integration</code> is <code>True</code>, the samples will be merged without integration.<br />
+    If there is only one sample, integration will be skipped regardless of the value of <code>no_integration</code>.<br /></p>
 </li>
 <li><code>NormalizeData</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/normalizedata"><code>NormalizeData()</code></a>.<br />

@@ -201,13 +201,21 @@
               
                 <h2 id="celltypeannotation">CellTypeAnnotation<a class="headerlink" href="#celltypeannotation" title="Permanent link">&para;</a></h2>
 <p>Annotate all or selected T/B cell clusters.</p>
-<p>Annotate the cell clusters. Currently, four ways are supported:<br /></p>
+<p>Annotate the cell clusters. Currently, the following ways are supported:<br /></p>
 <ol>
-<li>Pass the cell type annotation directly</li>
+<li>Pass the cell type annotation directly (at cluster-level or cell-level)</li>
 <li>Use <a href="https://github.com/IanevskiAleksandr/sc-type"><code>ScType</code></a></li>
 <li>Use <a href="https://github.com/ZJUFanLab/scCATCH"><code>scCATCH</code></a></li>
 <li>Use <a href="https://github.com/pwwang/hitype"><code>hitype</code></a></li>
 <li>Use <a href="https://github.com/Teichlab/celltypist"><code>celltypist</code></a></li>
+<li>Use <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7898451/"><code>scSorter</code></a></li>
+<li>Use <a href="https://github.com/jcao89757/SCINA"><code>SCINA</code></a></li>
+<li>Use <a href="https://github.com/dviraran/SingleR"><code>SingleR</code></a></li>
+<li>Use <a href="https://github.com/shangruJia/scHDeepInsight"><code>scHDeepInsight</code></a></li>
+<li>Use <a href="https://github.com/Winnie09/GPTCelltype"><code>GPTCelltype</code></a></li>
+<li>Use <a href="https://github.com/Irrationone/cellassign"><code>cellassign</code></a></li>
+<li>Use <a href="https://github.com/TencentAILabHealthcare/scBERT"><code>scBERT</code></a></li>
+<li>Use <a href="https://github.com/RausellLab/CelliD"><code>CelliD</code></a></li>
 </ol>
 <p>The annotated cell types will replace the original identity column in the metadata,
 so that the downstream processes will use the annotated cell types.<br /></p>
@@ -258,12 +266,45 @@ using <code>envs.newcol</code>, so that the results from different annotation pr
 <li><code>celltypist</code>:
     Use <code>celltypist</code> to annotate cell types.<br />
     See <a href="https://github.com/Teichlab/celltypist">https://github.com/Teichlab/celltypist</a></li>
+<li><code>scsorter</code>:
+    Use <code>scSorter</code> to annotate cell types.<br />
+    See <a href="https://github.com/pwwang/scSorter">https://github.com/pwwang/scSorter</a></li>
+<li><code>scina</code>:
+    Use <code>SCINA</code> to annotate cell types.<br />
+    See <a href="https://github.com/jcao89757/SCINA">https://github.com/jcao89757/SCINA</a></li>
+<li><code>singler</code>:
+    Use <code>SingleR</code> to annotate cell types.<br />
+    See <a href="https://github.com/dviraran/SingleR">https://github.com/dviraran/SingleR</a></li>
+<li><code>schdeepinsight</code>:
+    Use <code>scHDeepInsight</code> to annotate cell types.<br />
+    See <a href="https://github.com/shangruJia/scHDeepInsight">https://github.com/shangruJia/scHDeepInsight</a></li>
+<li><code>gptcelltype</code>:
+    Use <code>GPTCelltype</code> to annotate cell types
+    with GPT-4. See <a href="https://github.com/Winnie09/GPTCelltype">https://github.com/Winnie09/GPTCelltype</a></li>
+<li><code>cellassign</code>:
+    Use <code>cellassign</code> to annotate cell types
+    with a probabilistic model.<br />
+    See <a href="https://github.com/Irrationone/cellassign">https://github.com/Irrationone/cellassign</a></li>
+<li><code>scbert</code>:
+    Use <code>scBERT</code> to annotate cell types with a
+    BERT-based transformer model.<br />
+    See <a href="https://github.com/TencentAILabHealthcare/scBERT">https://github.com/TencentAILabHealthcare/scBERT</a></li>
+<li><code>cellid</code>:
+    Use <code>CelliD</code> to annotate cell types with MCA-based
+    per-cell gene signature enrichment.<br />
+    See <a href="https://github.com/RausellLab/CelliD">https://github.com/RausellLab/CelliD</a></li>
 <li><code>direct</code>:
     Directly assign cell types</li>
 <li><code>cell</code>:
     Directly assign cell types, but at cell-level instead of cluster-level.<br /></li>
 </ul>
 </li>
+<li><code>assay</code>:
+    The assay to use for the analysis. If not specified, the default assay will be used.<br />
+    Will not be inherited by the cases under <code>envs.cases</code>.<br />
+    To use a different assay for a case, specify it in the case args.<br />
+    This will be also used to convert Seurat object to h5ad if the input is Seurat object
+    and the output is h5ad.<br /></li>
 <li><code>sctype_tissue</code>:
     The tissue to use for <code>sctype</code>.<br />
     Available tissues should be the first column (<code>tissueType</code>) of <code>sctype_db</code>.<br />
@@ -275,10 +316,7 @@ using <code>envs.newcol</code>, so that the results from different annotation pr
     The column name in metadata to use as the clusters.<br />
     If not specified, the identity column will be used when input is rds/qs/qs2 (supposing we have a Seurat object).<br />
     If input data is h5ad, this is required to run cluster-based annotation tools.<br />
-    For <code>celltypist</code>, this is a shortcut to set <code>over_clustering</code> in <code>celltypist_args</code>.<br />
-    For tool <code>cell</code>, this can be used to set the Seurat object identity to the specified
-    column in the cell type annotation file (by default, the first cell type column will
-    be set as identity).<br /></li>
+    For <code>celltypist</code>, this is a shortcut to set <code>over_clustering</code> in <code>celltypist_args</code>.<br /></li>
 <li><code>backup_col</code>: <em>Default: <code>seurat_clusters_id</code></em>. <br />
     The backup column name to store the original identities.<br />
     If not specified, the original identity column will not be stored.<br />
@@ -292,6 +330,222 @@ using <code>envs.newcol</code>, so that the results from different annotation pr
     Compatible with <code>sctype_db</code>.<br />
     See also <a href="https://pwwang.github.io/hitype/articles/prepare-gene-sets.html">https://pwwang.github.io/hitype/articles/prepare-gene-sets.html</a>
     You can also use built-in databases, including <code>hitypedb_short</code>, <code>hitypedb_full</code>, and <code>hitypedb_pbmc3k</code>.<br /></li>
+<li><code>scsorter_db</code>:
+    The database to use for scSorter. It will be loaded and passed to the <code>anno</code>
+    argument of <code>RunScSorter()</code>. It could be either:<br /><ul>
+<li>A TSV file with cell type annotations, with columns <code>Type</code>, <code>Marker</code>, and <code>Weight</code>.<br /></li>
+<li>A RDS/qs2 file of the annotation data frame with the same columns as above.<br />
+You can also use <code>#</code> followed by the column names to specify the columns as <code>Type</code>, <code>Marker</code> and <code>weight</code> (optional),
+for example, <code>file:///path/to/scsorter_db.tsv#celltype,marker,weight</code>.<br /></li>
+</ul>
+</li>
+<li><code>scsorter_args</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>scSorter::RunScSorter()</code> if <code>tool</code> is <code>scsorter</code>.<br /><ul>
+<li><code>&lt;more&gt;</code>:
+    Other arguments for <a href="https://github.com/pwwang/scSorter/blob/9baae9f0e0904ddbf3f9bb5dacb9227503a8ce3e/R/scSorter.R#L73"><code>scSorter::RunScSorter()</code></a>.<br /></li>
+</ul>
+</li>
+<li><code>scina_db</code> <em>(<code>type=str</code>)</em>:
+    The path to the SCINA signature file.<br />
+    It can be an RDS file containing a named list of
+    signature genes (the names are the cell types and the
+    values are the marker gene symbols), or a CSV file
+    with the markers for each cell type in a column.<br /></li>
+<li><code>scina_args</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>SCINA::SCINA()</code> if <code>tool</code> is <code>scina</code>.<br /><ul>
+<li><code>max_iter</code>:
+    Maximum number of EM iterations (default: 100).<br /></li>
+<li><code>convergence_n</code>:
+    Stop if assignment stays stable for N consecutive rounds (default: 10).<br /></li>
+<li><code>convergence_rate</code>:
+    Fraction of cells with stable assignment for convergence (default: 0.99).<br /></li>
+<li><code>sensitivity_cutoff</code>:
+    Cutoff (0-1) for removing signatures of absent cell types (default: 1).<br /></li>
+<li><code>rm_overlap</code> <em>(<code>flag</code>)</em>:
+    Whether to remove genes shared between multiple signatures (default: TRUE).<br /></li>
+<li><code>allow_unknown</code> <em>(<code>flag</code>)</em>:
+    Whether to allow unknown cells (default: TRUE).<br /></li>
+<li><code>&lt;more&gt;</code>:
+    Other arguments for <a href="https://rdrr.io/cran/SCINA/man/SCINA.html"><code>SCINA::SCINA()</code></a>.<br /></li>
+</ul>
+</li>
+<li><code>singler_db</code> <em>(<code>type=str</code>)</em>:
+    The path to the SingleR reference file.<br />
+    It can be an RDS, qs, or qs2 file containing a reference object,
+    supporting:<br /><ul>
+<li><code>SummarizedExperiment</code> (e.g., from the <code>celldex</code> package).<br />
+References can be obtained via <code>celldex::HumanPrimaryCellAtlasData()</code>,
+<code>celldex::BlueprintEncodeData()</code>, <code>celldex::MonacoImmuneData()</code>,
+<code>celldex::DatabaseImmuneCellExpressionData()</code>,
+<code>celldex::NovershternHematopoieticData()</code>, <code>celldex::ImmGenData()</code>,
+<code>celldex::MouseRNAseqData()</code>.<br /></li>
+<li><code>Seurat</code> object. Labels are auto-detected from metadata.<br />
+Save with <code>saveRDS()</code> or <code>biopipen.utils::write_obj()</code>.<br />
+Both the Bioconductor and CRAN versions of SingleR are supported
+and auto-detected at runtime.<br /></li>
+</ul>
+</li>
+<li><code>singler_args</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>SingleR::SingleR()</code> if <code>tool</code> is <code>singler</code>.<br />
+    Both the <a href="https://bioconductor.org/packages/SingleR">Bioconductor</a>
+    and <a href="https://github.com/dviraran/SingleR">CRAN</a> versions are
+    auto-detected.<br /><ul>
+<li><code>label</code> <em>(<code>type=str</code>)</em>:
+    The metadata/colData column name for
+    reference labels. Auto-detected from <code>label.main</code>,
+    <code>label.fine</code>, <code>label.ont</code>, <code>label</code> in order.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    See the SingleR documentation for your version:<br /></li>
+<li><code>[</code>Bioconductor<code>](https</code>:
+    //rdrr.io/bioc/SingleR/man/SingleR.html)
+    or <a href="https://github.com/dviraran/SingleR"><code>CRAN</code></a>.<br /></li>
+</ul>
+</li>
+<li><code>schdeepinsight_ref</code> <em>(<code>type=str</code>)</em>:
+    The path to the scHDeepInsight
+    reference RDS file. The bundled <code>reference.rds</code> from the
+    scHDeepInsight repo provides immune cell reference.<br />
+    See <a href="https://github.com/shangruJia/scHDeepInsight">https://github.com/shangruJia/scHDeepInsight</a>.<br /></li>
+<li><code>schdeepinsight_args</code> <em>(<code>ns</code>)</em>:
+    The arguments for scHDeepInsight
+    if <code>tool</code> is <code>schdeepinsight</code>.<br /><ul>
+<li><code>batch_size</code> <em>(<code>type=int</code>)</em>:
+    Batch size for CNN prediction</li>
+<li><code>(default</code>:
+    128).<br /></li>
+<li><code>python</code> <em>(<code>type=str</code>)</em>:
+    Path to Python executable with
+    <code>SCHdeepinsight</code> installed.<br /></li>
+<li><code>assay</code> <em>(<code>type=str</code>)</em>:
+    Assay to use for h5ad conversion.<br /></li>
+</ul>
+</li>
+<li><code>gptcelltype_args</code> <em>(<code>ns</code>)</em>:
+    The arguments for
+    <code>GPTCelltype::gptcelltype()</code> if <code>tool</code> is <code>gptcelltype</code>.<br /><ul>
+<li><code>api_key</code> <em>(<code>type=str</code>)</em>:
+    OpenAI API key (required).<br /></li>
+<li><code>model</code> <em>(<code>type=str</code>)</em>:
+    GPT model (required, e.g.<br />
+    'gpt-4', 'gpt-4o').<br /></li>
+<li><code>base_url</code> <em>(<code>type=str</code>)</em>:
+    Custom base URL for
+    OpenAI-compatible providers. Sets
+    <code>OPENAI_BASE_URL</code> environment variable.<br /></li>
+<li><code>tissuename</code> <em>(<code>type=str</code>)</em>:
+    Tissue name for context.<br /></li>
+<li><code>assay</code> <em>(<code>type=str</code>)</em>:
+    Assay to use for
+    <code>FindAllMarkers()</code>.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    Additional args passed to</li>
+<li><code>`Seurat:</code>:
+    FindAllMarkers()`.<br /></li>
+</ul>
+</li>
+<li><code>cellassign_db</code> <em>(<code>type=str</code>)</em>:
+    The path to the marker gene info
+    file for <code>cellassign</code>. Supports:<br /><ul>
+<li>RDS/qs2 file: a binary gene×celltype matrix or a
+named list (cell type → vector of marker genes)</li>
+<li>CSV/TSV file: with columns <code>gene</code> and <code>cell_type</code></li>
+</ul>
+</li>
+<li><code>cellassign_args</code> <em>(<code>ns</code>)</em>:
+    The arguments for
+    <code>cellassign::cellassign()</code> if <code>tool</code> is <code>cellassign</code>.<br /><ul>
+<li><code>python</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>python</code></em>. <br />
+    Path to Python with <code>tensorflow</code> installed.<br /></li>
+<li><code>assay</code> <em>(<code>type=str</code>)</em>:
+    Assay to extract raw counts from.<br /></li>
+<li><code>min_delta</code> <em>(<code>type=int</code>)</em>:
+    Min log-fold change for marker
+    overexpression (default: 2).<br /></li>
+<li><code>B</code> <em>(<code>type=int</code>)</em>:
+    Number of RBF dispersion bases</li>
+<li><code>(default</code>:
+    20).<br /></li>
+<li><code>shrinkage</code> <em>(<code>flag</code>)</em>:
+    Hierarchical shrinkage on delta</li>
+<li><code>n_batches</code> <em>(<code>type=int</code>)</em>:
+    Data subsample batches</li>
+<li><code>learning_rate</code> <em>(<code>type=float</code>)</em>:
+    ADAM learning rate</li>
+<li><code>max_iter_em</code> <em>(<code>type=int</code>)</em>:
+    Max EM iterations</li>
+<li><code>verbose</code> <em>(<code>flag</code>)</em>:
+    Print progress (default: TRUE).<br /></li>
+<li><code>&lt;more&gt;</code>:
+    Additional args to</li>
+<li><code>`cellassign:</code>:
+    cellassign()`.<br /></li>
+</ul>
+</li>
+<li><code>scbert_ref</code> <em>(<code>type=str</code>)</em>:
+    The path to the scBERT repo
+    directory (containing <code>performer_pytorch/</code>).<br /></li>
+<li><code>scbert_model</code> <em>(<code>type=str</code>)</em>:
+    The path to the fine-tuned
+    model checkpoint (.pth file).<br /></li>
+<li><code>scbert_label_dict</code> <em>(<code>type=str</code>)</em>:
+    The path to the label
+    dictionary pickle file (maps class indices to cell
+    type names).<br /></li>
+<li><code>scbert_args</code> <em>(<code>ns</code>)</em>:
+    The arguments for scBERT inference
+    if <code>tool</code> is <code>scbert</code>.<br /><ul>
+<li><code>python</code> <em>(<code>type=str</code>)</em>:
+    Path to Python with scBERT
+    dependencies (torch, scanpy, etc.).<br /></li>
+<li><code>bin_num</code> <em>(<code>type=int</code>)</em>:
+    Number of bins for
+    expression embedding (default: 5).<br /></li>
+<li><code>gene_num</code> <em>(<code>type=int</code>)</em>:
+    Number of genes expected
+    by the model (default: 16906).<br /></li>
+<li><code>seed</code> <em>(<code>type=int</code>)</em>:
+    Random seed (default: 2021).<br /></li>
+<li><code>pos_embed</code> <em>(<code>flag</code>)</em>:
+    Use Gene2vec positional
+    encoding (default: TRUE).<br /></li>
+<li><code>novel_type</code> <em>(<code>flag</code>)</em>:
+    Enable novel cell type
+    detection (default: FALSE).<br /></li>
+<li><code>unassign_thres</code> <em>(<code>type=float</code>)</em>:
+    Confidence
+    threshold for unassigned cells (default: 0.5).<br /></li>
+<li><code>&lt;more&gt;</code>:
+    Additional args to the wrapper script.<br /></li>
+</ul>
+</li>
+<li><code>cellid_db</code> <em>(<code>type=str</code>)</em>:
+    The path to the marker gene set
+    file for <code>cellid</code>. Supports:<br /><ul>
+<li>RDS/qs2 file: a named list (cell type → vector
+of marker genes)</li>
+<li>CSV/TSV file: with columns <code>gene</code> and <code>cell_type</code></li>
+</ul>
+</li>
+<li><code>cellid_args</code> <em>(<code>ns</code>)</em>:
+    The arguments for CelliD
+    if <code>tool</code> is <code>cellid</code>.<br /><ul>
+<li><code>nmcs</code> <em>(<code>type=int</code>)</em>:
+    Number of MCA components</li>
+<li><code>(default</code>:
+    TRUE).<br /></li>
+<li><code>n_features</code> <em>(<code>type=int</code>)</em>:
+    Top n features per
+    cell for hypergeometric test (default: 200).<br /></li>
+<li><code>dims</code> <em>(<code>type=auto</code>)</em>:
+    MCA dimensions to use</li>
+<li><code>min_size</code> <em>(<code>type=int</code>)</em>:
+    Min overlapping genes</li>
+<li><code>log_trans</code> <em>(<code>flag</code>)</em>:
+    -log10 transform p-values</li>
+<li><code>p_adjust</code> <em>(<code>flag</code>)</em>:
+    Benjamini-Hochberg correction</li>
+</ul>
+</li>
 <li>
 <p><code>cell_types</code> <em>(<code>type=auto</code>)</em>: <em>Default: <code>[]</code></em>. <br />
     The cell types to use for direct or cell-level annotation.<br />
@@ -371,7 +625,25 @@ Prefix <code>file://</code> is optional.<br /></p>
 <li><code>newcol</code>:
     The new column name to store the cell types.<br />
     If not specified, the identity column will be overwritten.<br />
-    If specified, the original identity column will be kept and <code>Idents</code> will be kept as the original identity.<br /></li>
+    If specified, the original identity column will be kept and <code>Idents</code> will be kept as the original identity.<br />
+    For tool <code>cell</code>, this can be used to save the cell types to a new column in metadata
+    in additional to the column name specified in the cell type annotation file (and set as the identity).<br />
+    For tool <code>scsorter</code>, this can be used to save the cell types to a new column in metadata in addition to
+    <code>scSorter_celltype</code> (and set as the identity).<br /></li>
+<li><code>add_prefix</code> <em>(<code>flag</code>)</em>:
+    Whether to add a prefix to the new column names in metadata.<br />
+    Only used when in non-default cases. The prefix will be the case name followed by <code>_</code>.<br /></li>
+<li><code>cases</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    Run multiple cases of cell type annotation on the same Seurat object.<br />
+    The keys are the prefix of column names added to the metadata (unless <code>add_prefix</code> is <code>False</code>),
+    and the values will inherit the above options.<br />
+    The default case is <code>DEFAULT</code>, meaning no prefix will be added to the column names.<br />
+    The annotation from the last case will be set as the identity of the output Seurat object.<br />
+    If any case requires h5ad conversion (e.g., <code>celltypist</code>), the object is pre-converted
+    once and shared across those tools.<br /></li>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores to use for parallel execution of multiple cases.<br />
+    When &gt; 1, cases are run in parallel via <code>mclapply</code>. This is not inherited by individual cases.<br /></li>
 <li><code>outtype</code> <em>(<code>choice</code>)</em>: <em>Default: <code>input</code></em>. <br />
     The output file type. Currently only works for <code>celltypist</code>.<br />
     An RDS file will be generated for other tools.<br /><ul>
