@@ -58,6 +58,9 @@ filterwarnings = [
 [project.scripts]
 immunopipe = "immunopipe.router:run"
 
+[tool.uv]
+prerelease = "allow"
+
 [tool.black]
 line-length = 88
 target-version = ['py39', 'py310', 'py311', 'py312']
