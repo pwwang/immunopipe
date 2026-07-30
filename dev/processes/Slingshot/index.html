@@ -238,6 +238,13 @@
     Whether to align the starting pseudotime values at the maximum pseudotime.<br /></li>
 <li><code>seed</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>8525</code></em>. <br />
     The seed for the random number generator.<br /></li>
+<li><code>subset</code>:
+    An expression in string to subset the cells.<br /></li>
+<li><code>split_by</code>:
+    The column name in metadata to split the cells to run the method separately.<br />
+    After run, the results will be combined together with this column in the final output.<br />
+    The lineages will be all stored in the columns <code>&lt;prefix&gt;_LineageX</code> and <code>&lt;prefix&gt;_BranchID</code>.<br />
+    If a lineage is not found in a split, the corresponding columns will be filled with <code>NA</code>.<br /></li>
 <li><code>cases</code>: <em>Default: <code>{}</code></em>. <br />
     A dictionary of cases to run the analysis.<br />
     The keys are the names of the cases, which will be served as the
