@@ -26,6 +26,7 @@ Repository = "https://github.com/pwwang/immunopipe"
 [project.optional-dependencies]
 diagram = ["pipen-diagram>=1.1,<2"]
 runinfo = ["pipen-runinfo>=1.1,<2"]
+email = ["pipen-email>=0.0"]
 dry = ["pipen-dry>=1.1,<2"]
 cli-gbatch = ["pipen-cli-gbatch>=1.1.6,<2"]
 

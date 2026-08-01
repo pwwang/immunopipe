@@ -7,7 +7,7 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 WORKDIR /immunopipe
 
 RUN fc-cache -f -v && \
-    uv pip install --system -e .[diagram,runinfo,dry,cli-gbatch] && \
+    uv pip install --system -e .[diagram,runinfo,dry,email,cli-gbatch] && \
     pipen report update && \
     python /immunopipe/docker/cleanup.py
 
