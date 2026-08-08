@@ -43,29 +43,9 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemon):
         logger.info(f"Immunopipe version: v{__version__}")
         super()._show_versions()
 
-    async def _get_arg_from_command(self, arg: str) -> str | None:
-        return await super()._get_arg_from_command(arg) or "Immunopipe"
-
-    async def _handle_outdir(self):
-        command_outdir = await super()._get_arg_from_command("outdir")
-
-        if command_outdir:
-            coudir = PanPath(command_outdir)
-            if (
-                not isinstance(coudir, GSPath)
-                and not coudir.is_absolute()
-                and self.mount_as_cwd
-            ):
-                self._replace_arg_in_command("outdir", f"{MOUNTED_CWD}/{coudir}")
-            else:
-                self._add_mount(command_outdir, GbatchScheduler.MOUNTED_OUTDIR)
-                self._replace_arg_in_command("outdir", GbatchScheduler.MOUNTED_OUTDIR)
-        elif self.mount_as_cwd:
-            command_name = await self._get_arg_from_command("name") or self.config.name
-            self._replace_arg_in_command(
-                "outdir",
-                f"{MOUNTED_CWD}/{command_name}-output",
-            )
+    async def _handle_workdir(self):
+        await super()._handle_workdir()
+        mounted_workdir = await self._get_arg_from_command("workdir")
 
         # Copy configuration file over
         cf_at = [cmd.startswith("@") for cmd in self.command]
@@ -73,13 +53,12 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemon):
             cf_index = cf_at.index(True)
             cf_path = PanPath(self.command[cf_index][1:])
             cf_dest = PanPath(self.config["workdir"]).joinpath(
-                self.config["name"],
+                self.daemon_name,
                 cf_path.name,
             )
             await cf_path.a_copy(cf_dest)
-            self.command[cf_index] = (
-                f"@{DEFAULT_MOUNTED_ROOT}/xqute_workdir/{cf_path.name}"
-            )
+
+            self.command[cf_index] = f"@{mounted_workdir}/{cf_path.name}"
 
 
 async def main(argv):
