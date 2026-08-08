@@ -224,9 +224,9 @@ so that the downstream processes will use the annotated cell types.<br /></p>
 <p>When cell types are annotated, the original identity column (e.g. <code>seurat_clusters</code>) will be renamed
 to <code>envs.backup_col</code> (e.g. <code>seurat_clusters_id</code>), and the new identity column will be added.<br /></p>
 </div>
-<p>If you are using <code>ScType</code>, <code>scCATCH</code>, or <code>hitype</code>, a text file containing the mapping from
+<p>If you are using cluster-based tool, a text file containing the mapping from
 the original identity to the new cell types will be generated and saved to
-<code>cluster2celltype.tsv</code> under <code>&lt;workdir&gt;/&lt;pipline_name&gt;/CellTypeAnnotation/0/output/</code>.<br /></p>
+a tsv file under <code>&lt;workdir&gt;/&lt;pipline_name&gt;/CellTypeAnnotation/0/output/</code>.<br /></p>
 <p>The <code>&lt;workdir&gt;</code> is typically <code>./.pipen</code> and the <code>&lt;pipline_name&gt;</code> is <code>Immunopipe</code>
 by default.<br /></p>
 <div class="admonition note">
