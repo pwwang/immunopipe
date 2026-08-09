@@ -1902,7 +1902,8 @@ dev = [
     { name = "pytest-asyncio", version = "1.2.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "pytest-asyncio", version = "1.4.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "pytest-cov" },
-    { name = "pytest-forked" },
+    { name = "pytest-forked", version = "1.6.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
+    { name = "pytest-forked", version = "1.7.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "pytest-order" },
 ]
 docs = [
@@ -3017,7 +3018,7 @@ report = [
 
 [[package]]
 name = "pipen-cli-gbatch"
-version = "1.2.0a1"
+version = "1.2.0a3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "panpath", extra = ["async-gs"] },
@@ -3025,9 +3026,9 @@ dependencies = [
     { name = "pipen-args" },
     { name = "pipen-poplog" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/66/73/1a1a1b03227ee721cc50e8103287d4e500b7809414bd81166f923b21d757/pipen_cli_gbatch-1.2.0a1.tar.gz", hash = "sha256:b59000cf15df201769203cbd0cf7429af3ba5531a48635d792fb9c1847eff23a", size = 348619, upload-time = "2026-08-07T21:33:12.563Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/72/42/c28edd41ebba2354b66543f907bcaeaca7db268fb4b79fb3a874b7fbfd9b/pipen_cli_gbatch-1.2.0a3.tar.gz", hash = "sha256:905eaec2d5fe116e1d70260b05c28b7f329d0d725242f2398bd44ef622882e98", size = 348650, upload-time = "2026-08-09T06:27:54.856Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d5/e5/9e622817f7b5374f7020b6434c1b0796c4c383f96832b24b534d117319c7/pipen_cli_gbatch-1.2.0a1-py3-none-any.whl", hash = "sha256:1158ab869ff4b4baff389f560e1ce9a433c7a8cda70fbc859a2469f99b33a6cc", size = 15906, upload-time = "2026-08-07T21:33:10.751Z" },
+    { url = "https://files.pythonhosted.org/packages/0f/09/ae93202245c95459224eacd9c35046528ba462f79226a3404ec62d34ed9a/pipen_cli_gbatch-1.2.0a3-py3-none-any.whl", hash = "sha256:9b4f9f3ac5bead483616957a46239ff02318f0b3034ab59f43f35ed5c3eebcef", size = 15940, upload-time = "2026-08-09T06:27:53.429Z" },
 ]
 
 [[package]]
@@ -3045,14 +3046,14 @@ wheels = [
 
 [[package]]
 name = "pipen-cli-run"
-version = "1.0.5"
+version = "1.0.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pipen-args" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e7/fb/05b393ac88eb0dc1ad529db9a4ef798b644dc7168017b39dce577fd2adf6/pipen_cli_run-1.0.5.tar.gz", hash = "sha256:1a3892ea5b6c726fac3c6d898bcf65cf94de54b2464cd74e5e4167faa80c8fe6", size = 98945, upload-time = "2026-08-06T03:21:48.769Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ce/1c/e2da39744eb6958d06384afac1ca6e77678789444efa0bb197b5b945141a/pipen_cli_run-1.0.6.tar.gz", hash = "sha256:b567bfff1377e01e87b5a2b292da891527a26d6ec158319062158faf2cab1717", size = 639782, upload-time = "2026-08-08T06:58:20.839Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/18/32/79d7da5c9e27f22e25faf35b6311458429f42c86d8cb18c265766a5f0f02/pipen_cli_run-1.0.5-py3-none-any.whl", hash = "sha256:51c9eb0f0245334f3e24f0b260936816341883f51b086836ea690b4969e241b5", size = 3611, upload-time = "2026-08-06T03:21:47.738Z" },
+    { url = "https://files.pythonhosted.org/packages/45/d3/b5cf81325099649108e9c5adbccdf54632fb83efc18a4ecfb362cbbb2fef/pipen_cli_run-1.0.6-py3-none-any.whl", hash = "sha256:deb5895cead8a3274fcb921c3e20dacedf09ff530322e748bb179902cbaab5da", size = 3787, upload-time = "2026-08-08T06:58:20.042Z" },
 ]
 
 [[package]]
@@ -4179,14 +4180,40 @@ wheels = [
 name = "pytest-forked"
 version = "1.6.0"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version < '3.10'",
+]
 dependencies = [
     { name = "py" },
-    { name = "pytest", version = "8.4.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
-    { name = "pytest", version = "9.1.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "pytest", version = "8.4.2", source = { registry = "https://pypi.org/simple" } },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/8c/c9/93ad2ba2413057ee694884b88cf7467a46c50c438977720aeac26e73fdb7/pytest-forked-1.6.0.tar.gz", hash = "sha256:4dafd46a9a600f65d822b8f605133ecf5b3e1941ebb3588e943b4e3eb71a5a3f", size = 9977, upload-time = "2023-02-12T23:22:27.544Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f4/af/9c0bda43e486a3c9bf1e0f876d0f241bc3f229d7d65d09331a0868db9629/pytest_forked-1.6.0-py3-none-any.whl", hash = "sha256:810958f66a91afb1a1e2ae83089d8dc1cd2437ac96b12963042fbb9fb4d16af0", size = 4897, upload-time = "2023-02-12T23:22:26.022Z" },
+]
+
+[[package]]
+name = "pytest-forked"
+version = "1.7.5"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.14' and sys_platform == 'win32'",
+    "python_full_version >= '3.14' and sys_platform == 'emscripten'",
+    "python_full_version >= '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version >= '3.12' and python_full_version < '3.14' and sys_platform == 'win32'",
+    "python_full_version == '3.11.*' and sys_platform == 'win32'",
+    "python_full_version >= '3.12' and python_full_version < '3.14' and sys_platform == 'emscripten'",
+    "python_full_version == '3.11.*' and sys_platform == 'emscripten'",
+    "python_full_version >= '3.12' and python_full_version < '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version == '3.11.*' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version == '3.10.*'",
+]
+dependencies = [
+    { name = "pytest", version = "9.1.1", source = { registry = "https://pypi.org/simple" } },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/99/92/98bd460b998f9ec053acba2e3efbbca12a9a408ec8648bd55abd2df784f0/pytest_forked-1.7.5.tar.gz", hash = "sha256:00f2bee51612f29b8e6b81eed2c3b2975e824c2693394f5bdaf7a1369078ba5f", size = 12981, upload-time = "2026-08-08T12:05:12.374Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/18/f1/46d32fe4b9aae09fe397e768ff376d9b6bdbb4f11faaa727f163c3457b43/pytest_forked-1.7.5-py3-none-any.whl", hash = "sha256:e9f3475fa0a42927f5e370d721de9c2d785616a06a4c506712d6cb8055e37c84", size = 6317, upload-time = "2026-08-08T12:05:11.086Z" },
 ]
 
 [[package]]

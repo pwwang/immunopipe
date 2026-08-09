@@ -7,15 +7,11 @@ from typing import Any
 
 from simpleconf import Config
 from panpath import PanPath
-from xqute.schedulers.gbatch_scheduler import DEFAULT_MOUNTED_ROOT
 from pipen.defaults import CONFIG_FILES
 from pipen_args.plugin import ArgsPlugin
 from pipen_cli_gbatch import (
-    MOUNTED_CWD,
     CliGbatchDaemon,
     CliGbatchPlugin,
-    GSPath,
-    GbatchScheduler,
     logger,
     __version__ as cli_gbatch_version,
     __file__ as cli_gbatch_file,
