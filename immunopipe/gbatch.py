@@ -41,20 +41,28 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemonPipeline):
 
     async def handle_workdir(self):
         await super().handle_workdir()
+
+        if "workdir" in self._command_args:
+            del self._command_args["workdir"]
+
         mounted_workdir = await self._get_arg_from_command("workdir")
 
         # Copy configuration file over
         cf_at = [cmd.startswith("@") for cmd in self.command]
         if any(cf_at):
+            command_name = await self.command_name()
+            command_workdir = await self.command_workdir()
             cf_index = cf_at.index(True)
             cf_path = PanPath(self.command[cf_index][1:])
-            cf_dest = PanPath(self.config["workdir"]).joinpath(
+            cf_dest = PanPath(command_workdir).joinpath(
                 self.daemon_name,
                 cf_path.name,
             )
             await cf_path.a_copy(cf_dest)
 
-            self.command[cf_index] = f"@{mounted_workdir}/{cf_path.name}"
+            self.command[cf_index] = (
+                f"@{mounted_workdir}/{command_name}/{self.daemon_name}/{cf_path.name}"
+            )
 
 
 async def main(argv):
