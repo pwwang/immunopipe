@@ -7,12 +7,12 @@ from typing import Any
 
 from simpleconf import Config
 from panpath import PanPath
+from xqute.utils import logger
 from pipen.defaults import CONFIG_FILES
 from pipen_args.plugin import ArgsPlugin
 from pipen_cli_gbatch import (
-    CliGbatchDaemon,
+    CliGbatchDaemonPipeline,
     CliGbatchPlugin,
-    logger,
     __version__ as cli_gbatch_version,
     __file__ as cli_gbatch_file,
 )
@@ -21,7 +21,7 @@ from .pipeline import Immunopipe, parser  # type: ignore
 sys.excepthook = sys.__excepthook__
 
 
-class ImmunopipeGbatchDaemon(CliGbatchDaemon):
+class ImmunopipeGbatchDaemon(CliGbatchDaemonPipeline):
 
     def _run_version(self):
         """Print version information for pipen-cli-gbatch and pipen."""
@@ -39,8 +39,8 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemon):
         logger.info(f"Immunopipe version: v{__version__}")
         super()._show_versions()
 
-    async def _handle_workdir(self):
-        await super()._handle_workdir()
+    async def handle_workdir(self):
+        await super().handle_workdir()
         mounted_workdir = await self._get_arg_from_command("workdir")
 
         # Copy configuration file over
@@ -135,8 +135,9 @@ async def main(argv):
         CONFIG_FILES,
         cli_gbatch_config.profile,
     )
+    default_scheduler_opts = defaults.pop("scheduler_opts", {})
     # update parsed with the defaults
-    for key, val in defaults.items():
+    for key, val in default_scheduler_opts.items():
         if (
             key == "mount"
             and val
@@ -163,10 +164,10 @@ async def main(argv):
 
         setattr(cli_gbatch_config, key, val)
 
-    cli_gbatch_config.name = ".ImmunopipeCliGbatch"
+    cli_gbatch_config.name = ".ImmunopipeGbatch"
     cli_gbatch_config.plain = False
     cli_gbatch_config.workdir = None  # will infer from command
-    cli_gbatch_config.jobname_prefix = "immunopipe-cli-gbatch"
+    cli_gbatch_config.jobname_prefix = "immunopipe-gbatch"
     # cli_gbatch_config.cwd = None
     cli_gbatch_config.entrypoint = "/usr/local/bin/_entrypoint.sh"
     cli_gbatch_config.commands = ["{lang}", "{script}"]
@@ -191,6 +192,7 @@ async def main(argv):
         print("\033[1;4mError\033[0m: --gbatch.location is required.\n")
         sys.exit(1)
 
+    setattr(cli_gbatch_config, "_other_opts", defaults)
     command = ["immunopipe", *parser._cli_args]
     daemon = ImmunopipeGbatchDaemon(cli_gbatch_config, command)
     daemon.envs["IMMUNOPIPE_HOST_VERSION"] = __version__
