@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Installation - immunopipe</title>
+    <title>CLI utilities - immunopipe</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Installation";
-        var mkdocs_page_input_path = "installation.md";
+        var mkdocs_page_name = "CLI utilities";
+        var mkdocs_page_input_path = "cli-utils.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -49,20 +49,8 @@
                 <li class="toctree-l1"><a class="reference internal" href="../introduction/">Introduction</a>
                 </li>
               </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Installation</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#install-the-pipline-and-the-dependencies-using-condamamba">Install the pipline and the dependencies using conda/mamba</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#use-the-docker-image">Use the docker image</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#the-directory-structure-in-the-container">The directory structure in the container</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#prepare-to-run-the-pipeline-via-google-batch-jobs">Prepare to run the pipeline via Google Batch Jobs</a>
-    </li>
-    </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
                 </li>
               </ul>
               <ul>
@@ -85,8 +73,30 @@
                 <li class="toctree-l1"><a class="reference internal" href="../configurations/">Configurations</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../cli-utils/">CLI utilities</a>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">CLI utilities</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#check-genes">check-genes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#options">Options</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#check-dim">check-dim</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#options_1">Options</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#select-markers">select-markers</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#options_2">Options</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
                 </li>
               </ul>
               <ul>
@@ -192,9 +202,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Installation</li>
+      <li class="breadcrumb-item active">CLI utilities</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/installation.md">Edit on pwwang/immunopipe</a>
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/cli-utils.md">Edit on pwwang/immunopipe</a>
     </li>
   </ul>
   <hr/>
@@ -202,89 +212,62 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<h3 id="install-the-pipline-and-the-dependencies-using-condamamba">Install the pipline and the dependencies using conda/mamba<a class="headerlink" href="#install-the-pipline-and-the-dependencies-using-condamamba" title="Permanent link">&para;</a></h3>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>If you plan to use the docker image to run the pipeline locally, you can skip this section.</p>
-</div>
-<p><code>immunopipe</code> is built upon <a href="https://github.com/pwwang/pipen"><code>pipen</code></a> framework, and a number of packages written in <code>R</code> and <code>python</code>. It's not recommended to install the packages manually. Instead, you can use the provided <code>environment_base.yml</code> to create a conda environment.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-n<span class="w"> </span>immunopipe<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-f<span class="w"> </span>https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_base.yml
+                <h2 id="cli-utilities">CLI utilities<a class="headerlink" href="#cli-utilities" title="Permanent link">&para;</a></h2>
+<p>Besides running the pipeline, <code>immunopipe</code> ships a set of utility commands for inspecting the pipeline outputs after a run:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span>--help
 </code></pre></div>
-<p>Then update the environment with essential <code>R</code> packages:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>env<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-n<span class="w"> </span>immunopipe<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-f<span class="w"> </span>https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_rpkgs.yml
+<h3 id="check-genes">check-genes<a class="headerlink" href="#check-genes" title="Permanent link">&para;</a></h3>
+<p>Verify that gene symbols exist in the data before visualizing their expressions in <a href="../processes/SeuratClusterStats/"><code>SeuratClusterStats</code></a>. The Seurat object is read from the output of the <a href="../processes/SeuratPreparing/"><code>SeuratPreparing</code></a> process.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span>check-genes<span class="w"> </span>-w<span class="w"> </span>./pipen/&lt;pipeline<span class="w"> </span>name&gt;<span class="w"> </span>-g<span class="w"> </span>CD3D,CD4,CD8A
 </code></pre></div>
-<p>If the URL doesn't work, you can download the file and create the environment locally.</p>
-<p>For more detailed instructions of <code>conda env create</code>, please refer to <a href="https://docs.conda.io/projects/conda/en/latest/commands/env/create.html">conda docs</a>.</p>
+<h4 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>-w, --workdir</code> (required): Working directory of the pipeline, typically <code>./pipen/&lt;pipeline name&gt;</code></li>
+<li><code>-g, --genes</code> (required): Comma-separated gene symbols to check, or a file path prefixed with <code>file://</code> containing gene symbols (one per line). Tab-separated files are also accepted, in which case only the first column is used.</li>
+<li><code>--assay</code>: The assay to check the genes against (e.g. <code>RNA</code>, <code>ADT</code>). The genes are checked against the default assay if not specified.</li>
+<li><code>--rscript</code>: Path to the <code>Rscript</code> executable (default: <code>Rscript</code>)</li>
+</ul>
+<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check comma-separated genes</span>
+$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span>check-genes<span class="w"> </span>-w<span class="w"> </span>./pipen/pipeline1<span class="w"> </span>-g<span class="w"> </span>CD3D,CD4,CD8A
+
+<span class="c1"># Check genes from a file</span>
+$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span>check-genes<span class="w"> </span>-w<span class="w"> </span>./pipen/pipeline1<span class="w"> </span>-g<span class="w"> </span>file://genes.txt
+
+<span class="c1"># Check genes in a specific assay</span>
+$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span>check-genes<span class="w"> </span>-w<span class="w"> </span>./pipen/pipeline1<span class="w"> </span>-g<span class="w"> </span>CD3D,CD4<span class="w"> </span>--assay<span class="w"> </span>ADT
+</code></pre></div>
+<h3 id="check-dim">check-dim<a class="headerlink" href="#check-dim" title="Permanent link">&para;</a></h3>
+<p>Print the cell and gene counts before and after QC to inspect the effect of the QC filtering in <a href="../processes/SeuratPreparing/"><code>SeuratPreparing</code></a>. The output tables are the full contents of <code>qc/cell_qc.txt</code> and <code>qc/gene_qc.txt</code> in the <code>SeuratPreparing</code> output directory.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span>check-dim<span class="w"> </span>-w<span class="w"> </span>./pipen/&lt;pipeline<span class="w"> </span>name&gt;
+</code></pre></div>
+<h4 id="options_1">Options<a class="headerlink" href="#options_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>-w, --workdir</code> (required): Working directory of the pipeline, typically <code>./pipen/&lt;pipeline name&gt;</code></li>
+<li><code>--rscript</code>: Path to the <code>Rscript</code> executable (default: <code>Rscript</code>)</li>
+</ul>
+<h3 id="select-markers">select-markers<a class="headerlink" href="#select-markers" title="Permanent link">&para;</a></h3>
+<p>Select the top marker genes for each cluster from the <a href="../processes/ClusterMarkers/"><code>ClusterMarkers</code></a> process, for downstream analysis and visualization. The selected markers are written to stdout as a tab-separated table, so you can redirect it to a file:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span><span class="k">select</span>-markers<span class="w"> </span>-o<span class="w"> </span>./pipen/&lt;pipeline<span class="w"> </span>name&gt;<span class="w"> </span>&gt;<span class="w"> </span>selected_markers.tsv
+</code></pre></div>
+<h4 id="options_2">Options<a class="headerlink" href="#options_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>-o, --outdir</code> (required): Output directory of the pipeline (the directory containing the <code>ClusterMarkers</code> output)</li>
+<li><code>-t, --top-n</code>: Number of top markers to keep per cluster (default: <code>10</code>)</li>
+<li><code>--order-by</code>: An R expression to order the markers by before selecting the top ones. Available variables: <code>avg_log2FC</code>, <code>pct.1</code>, <code>pct.2</code>, <code>p_val</code>, <code>p_val_adj</code> (default: <code>desc(avg_log2FC)</code>)</li>
+<li><code>-f, --filter</code>: An R expression to filter the markers before selection. Available variables: <code>avg_log2FC</code>, <code>pct.1</code>, <code>pct.2</code>, <code>p_val</code>, <code>p_val_adj</code> (default: <code>p_val_adj &lt; 0.05</code>)</li>
+<li><code>--rscript</code>: Path to the <code>Rscript</code> executable (default: <code>Rscript</code>)</li>
+</ul>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>The pipeline itself is NOT included in the conda environment. You need to install it separately.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>activate<span class="w"> </span>immunopipe
-$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>immunopipe
-$<span class="w"> </span><span class="c1"># If you want to create diagram and generate running information</span>
-$<span class="w"> </span><span class="c1"># or use the dry run scheduler, install with the extras</span>
-$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>immunopipe<span class="o">[</span>diagram,runinfo,dry<span class="o">]</span>
-$<span class="w"> </span><span class="c1"># You also need to install the frontend dependencies to generate reports</span>
-$<span class="w"> </span>pipen<span class="w"> </span>report<span class="w"> </span>update
-</code></pre></div>
+<p>The output directory must contain exactly one <code>ClusterMarkers/*.markers/</code> directory with exactly one case directory inside. If multiple are found, the command will list them and exit; specify the correct directory with <code>-o</code>.</p>
 </div>
-<h3 id="use-the-docker-image">Use the docker image<a class="headerlink" href="#use-the-docker-image" title="Permanent link">&para;</a></h3>
-<p>You can also use the docker image to run the pipeline. The image is built upon <code>miniconda3</code> and <code>micromamba</code> is used as the package manager. The image is available at <a href="https://hub.docker.com/r/justold/immunopipe">Docker Hub</a>.</p>
-<p>To pull the image:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Using docker</label><label for="__tabbed_1_2">Using singularity</label><label for="__tabbed_1_3">Using apptainer</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>pull<span class="w"> </span>justold/immunopipe:&lt;tag&gt;
-</code></pre></div>
-</div>
-<div class="tabbed-block">
-<p>If you are using <code>singularity</code>, you can pull and convert the image to <code>sif</code> format:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>singularity<span class="w"> </span>pull<span class="w"> </span>docker://justold/immunopipe:&lt;tag&gt;
-</code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>apptainer<span class="w"> </span>pull<span class="w"> </span>docker://justold/immunopipe:&lt;tag&gt;
-</code></pre></div>
-</div>
-</div>
-</div>
-<p>To run the pipeline use the image, please refer to <a href="../running/">Running the pipeline</a>.</p>
-<h4 id="the-directory-structure-in-the-container">The directory structure in the container<a class="headerlink" href="#the-directory-structure-in-the-container" title="Permanent link">&para;</a></h4>
-<p>The docker image is build upon <a href="https://hub.docker.com/r/mambaorg/micromamba"><code>mambaorg/micromamba:2.5.0</code></a>. The OS is linux/amd64. Other than the default directories, the following directories are also created or should be mapped during the run:</p>
-<ul>
-<li><code>/immunopipe</code>: The directory where the source code of the pipeline is. It is general a clone of the <a href="https://github.com/pwwang/immunopipe">repository</a>. The pipeline is also installed from this directory.</li>
-<li><code>/workdir</code>: The working directory. It is the directory where the pipeline is run. It is recommended to map the current directory (<code>.</code>) to this directory.</li>
-</ul>
-<h3 id="prepare-to-run-the-pipeline-via-google-batch-jobs">Prepare to run the pipeline via Google Batch Jobs<a class="headerlink" href="#prepare-to-run-the-pipeline-via-google-batch-jobs" title="Permanent link">&para;</a></h3>
-<p>There are two ways of running the pipeline via Google Batch Jobs: using the <code>gbatch</code> scheduler (provided by <a href="https://github.com/pwwang/xqute"><code>xqute</code></a>) or using <a href="https://github.com/pwwang/pipen-cli-gbatch"><code>pipen-cli-gbatch</code></a>. See more details in <a href="../running/#run-the-pipeline-using-google-cloud-batch-jobs">Running the pipeline via Google Batch Jobs</a>.</p>
-<p>In addition to prepare the docker image in the artifact registry (or docker hub if your google cloud project allows pulling from docker hub), you also need to install some dependencies locally.</p>
-<p>If you choose to use the <code>gbatch</code> scheduler, in addition to installing the pipeline:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>immunopipe
-
-<span class="c1"># install cloud dependencies</span>
-$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>panpath<span class="o">[</span>gs,async-gs<span class="o">]</span>
-</code></pre></div>
-<p>You still have to install the following dependencies to generate reports:</p>
-<ul>
-<li><a href="https://nodejs.org/"><code>nodejs</code></a>: Follow the instructions at <a href="https://nodejs.org/en/download/package-manager/">https://nodejs.org/en/download/package-manager/</a> to install <code>nodejs</code> for your system (v20+ is required); or</li>
-<li><a href="https://bun.sh/"><code>bunjs</code></a>: Follow the instructions at <a href="https://bun.sh/docs/install">https://bun.sh/docs/install</a> to install <code>bunjs</code> for your system.</li>
-</ul>
-<p>Then you need to install frontend dependencies for report generation:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pipen<span class="w"> </span>report<span class="w"> </span>update
-</code></pre></div>
-<p>If you choose to use <a href="https://github.com/pwwang/pipen-cli-gbatch"><code>pipen-cli-gbatch</code></a> (running the pipeline via <code>immunopipe gbatch</code>), you just need to install the pipeline with the <code>cli-gbatch</code> extra:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>immunopipe<span class="o">[</span>cli-gbatch<span class="o">]</span>
-</code></pre></div>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../introduction/" class="btn btn-neutral float-left" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../getting-started/" class="btn btn-neutral float-right" title="Geting started">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../configurations/" class="btn btn-neutral float-left" title="Configurations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../agent-skills/" class="btn btn-neutral float-right" title="Agent Skills">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -313,10 +296,10 @@ $<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </sp
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../introduction/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../configurations/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../getting-started/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../agent-skills/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
