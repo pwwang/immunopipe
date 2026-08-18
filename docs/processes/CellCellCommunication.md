@@ -111,9 +111,12 @@ to visualize the results.<br />
         only available for `envs.subset_using`, but not for `cases.<case>.subset_using`.<br />
     - `R`:
         alias for `r`
-- `split_by`:
-    The column name in metadata to split the cells to run the method separately.<br />
+- `split_by` *(`auto`)*:
+    The column names in metadata to split the cells to run the method separately.<br />
     The results will be combined together with this column in the final output.<br />
+    Multiple columns can be provided as a list and the data will be split by the combination of the columns
+    (the column values are concatenated only for the splitting).<br />
+    In the final output, each column will be recovered with its original values.<br />
 - `assay`:
     The assay to use for the analysis.<br />
     Only works for Seurat object.<br />

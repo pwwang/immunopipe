@@ -179,8 +179,10 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
     * [`SCTransform`](https://satijalab.org/seurat/reference/sctransform).<br />
     See <https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis>
 
-- `no_integration` *(`flag`)*: *Default: `False`*. <br />
+- `no_integration` *(`flag`)*:
     Whether to skip integration or not.<br />
+    By default, if there are multiple samples, integration will be performed. If `no_integration` is `True`, the samples will be merged without integration.<br />
+    If there is only one sample, integration will be skipped regardless of the value of `no_integration`.<br />
 - `NormalizeData` *(`ns`)*:
     Arguments for [`NormalizeData()`](https://satijalab.org/seurat/reference/normalizedata).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
@@ -194,6 +196,7 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
 - `ScaleData` *(`ns`)*:
     Arguments for [`ScaleData()`](https://satijalab.org/seurat/reference/scaledata).<br />
     `object` and `features` is specified internally, and `-` in the key will be replaced with `.`.<br />
+    You can specify `features` to scale specific features, or set it to `"__all__"` to scale all features.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/scaledata>
 - `RunPCA` *(`ns`)*:
@@ -207,9 +210,9 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
 - `SCTransform` *(`ns`)*:
     Arguments for [`SCTransform()`](https://satijalab.org/seurat/reference/sctransform).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
-    - `return-only-var-genes`: *Default: `False`*. <br />
+    - `return-only-var-genes`:
         Whether to return only variable genes.<br />
-    - `min_cells`: *Default: `3`*. <br />
+    - `min_cells`:
         The minimum number of cells that a gene must be expressed in to be kept.<br />
         A hidden argument of `SCTransform` to filter genes.<br />
         If you try to keep all genes in the `RNA` assay, you can set `min_cells` to `0` and

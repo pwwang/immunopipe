@@ -107,10 +107,16 @@ function, and performs enrichment analysis for the markers found.<br />
         See <https://satijalab.org/seurat/reference/findmarkers>
 - `allmarker_plots_defaults` *(`ns`)*:
     Default options for the plots for all markers when `ident_1` is not specified.<br />
+    To reproduce what [`Seurat::DoHeatmap()`](https://satijalab.org/seurat/reference/doheatmap) does, you can
+    `select_overall = True` to select the top N (default: 20) markers all together (instead of selecting top N markers for each cluster),
+    and set `plot_type = "heatmap"` and `cell_type = "bars"` to plot the heatmap of the top N markers.<br />
+    You may also want to use `order_by` to order the markers and `select = N` to select the top N markers.<br />
     - `plot_type`:
         The type of the plot.<br />
         See <https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html>.<br />
         Available types are `violin`, `box`, `bar`, `ridge`, `dim`, `heatmap` and `dot`.<br />
+    - `select_overall` *(`flag`)*: *Default: `False`*. <br />
+        Whether to select the top N markers from all clusters together.<br />
     - `descr`:
         A description of the plot to be shown above the plot image.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />

@@ -521,6 +521,16 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
     ///
 
+    /// Attention
+
+    If you are running the pipeline with the Docker image, following tools are not available in the Docker image:
+
+    - `scHDeepInsight`
+    - `scBERT`
+    - `cellassign`
+
+    ///
+
     Metadata:
         When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
         the `Seurat` object will be kept as is.

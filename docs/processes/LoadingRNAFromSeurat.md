@@ -27,6 +27,7 @@ Load RNA data from a Seurat object, instead of RNAData from SampleInfo
 - `sample`: *Default: `Sample`*. <br />
     The column name in the metadata of the Seurat object that
     indicates the sample name.<br />
+    Multiple columns will be concatenated with `_` to form the sample name.<br />
 
 ## SeeAlso
 
