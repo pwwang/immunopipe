@@ -46,7 +46,7 @@ dependencies:
   # needed by r-biopipen.utils
   - r-bracer
   - r-digest
-  - r-doubletfinder
+  - r-doubletfinder >=2.0.6
   - r-jsonlite
   - r-r6
   - r-seurat
