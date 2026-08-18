@@ -232,11 +232,11 @@ bash<span class="w"> </span>prepare-data.sh
 <p>To run the pipeline, we need to prepare a configuration file (recommended) or pass the arguments directly via command line. Here we will use the configuration file. See also <a href="../configurations/">Configurations</a> for more details.</p>
 <p>As explained in the <a href="../configurations/">Configurations</a> page, we can provide a configuration file with <a href="../configurations/#minimal-configurations">a minimal set of configuration items</a> to get the pipeline running. The only required configuration item is the input file for the <a href="../processes/SampleInfo/"><code>SampleInfo</code></a> process. However, here we want to give the pipeline a different name and output directory to distinguish it from other runs with a different set of configurations.</p>
 <p>The configuration file shall be in the <a href="https://toml.io/en/">TOML</a> format. We can create a file named <code>ImmunopipeMinimal.config.toml</code> with the following content:</p>
-<div class="highlight"><pre><span></span><code><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ImmunopipeMinimal&quot;</span>
-<span class="n">outdir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;minimal&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ImmunopipeMinimal"</span>
+<span class="n">outdir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"minimal"</span>
 
 <span class="k">[SampleInfo.in]</span>
-<span class="n">infile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;data/samples.txt&quot;</span><span class="w"> </span><span class="p">]</span>
+<span class="n">infile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"data/samples.txt"</span><span class="w"> </span><span class="p">]</span>
 </code></pre></div>
 <h3 id="run-the-pipeline">Run the pipeline<a class="headerlink" href="#run-the-pipeline" title="Permanent link">&para;</a></h3>
 <p>The easiest way to run the pipeline is to run it within the docker container. We can use the following command to run the pipeline with the configuration file we just created:</p>

@@ -215,7 +215,7 @@
 the sample information in the report.<br /></p>
 <p>To specify the input file in the configuration file, use the following</p>
 <div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.in]</span>
-<span class="n">infile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;path/to/sample_info.txt&quot;</span><span class="w"> </span><span class="p">]</span>
+<span class="n">infile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"path/to/sample_info.txt"</span><span class="w"> </span><span class="p">]</span>
 </code></pre></div>
 <p>Or with <code>pipen-board</code>, find the <code>SampleInfo</code> process and click the <code>Edit</code> button.<br />
 Then you can specify the input file here</p>
@@ -256,7 +256,7 @@ cached (previous) results for other processes, you can set <code>cache</code> at
 pipeline level to <code>"force"</code> to force the pipeline to use the cached results
 and <code>cache</code> of <code>SampleInfo</code> to <code>false</code> to force the pipeline to re-run the
 <code>SampleInfo</code> process only.<br /></p>
-<div class="highlight"><pre><span></span><code><span class="n">cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;force&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="n">cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"force"</span>
 
 <span class="k">[SampleInfo]</span>
 <span class="n">cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
@@ -524,41 +524,41 @@ returned ids. Non-paired ids will be <code>NA</code>.<br /></li>
 </tbody>
 </table>
 <h4 id="count-the-number-of-samples-per-diagnosis">Count the number of samples per Diagnosis<a class="headerlink" href="#count-the-number-of-samples-per-diagnosis" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;N_Samples_per_Diagnosis (pie)&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;pie&quot;</span>
-<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sample&quot;</span>
-<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">"N_Samples_per_Diagnosis (pie)"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"pie"</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"sample"</span>
+<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
 </code></pre></div>
 <p><img alt="Samples_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-pie.png" /></p>
 <p>What if we want a bar plot instead of a pie chart?<br /></p>
-<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;N_Samples_per_Diagnosis (bar)&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span>
-<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sample&quot;</span>
-<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">"N_Samples_per_Diagnosis (bar)"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"bar"</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Sample"</span>
+<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
 </code></pre></div>
 <p><img alt="Samples_Diagnosis_bar" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/N_Samples_per_Diagnosis-bar.png" /></p>
 <h4 id="explore-age-distribution">Explore Age distribution<a class="headerlink" href="#explore-age-distribution" title="Permanent link">&para;</a></h4>
 <p>The distribution of Age of all samples</p>
-<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution (histogram)&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;histogram&quot;</span>
-<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">"Age_distribution (histogram)"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"histogram"</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Age"</span>
 </code></pre></div>
 <p><img alt="Age_distribution" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution-Histogram.png" /></p>
 <p>How about the distribution of Age in each Diagnosis, and make it
 violin + boxplot?<br /></p>
-<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution_per_Diagnosis (violin + boxplot)&quot;</span><span class="k">]</span>
-<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
-<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;violin&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">"Age_distribution_per_Diagnosis (violin + boxplot)"</span><span class="k">]</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Age"</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"violin"</span>
 <span class="n">add_box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 </code></pre></div>
 <p><img alt="Age_distribution_per_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot.png" /></p>
 <p>How about Age distribution per Sex in each Diagnosis?<br /></p>
-<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">&quot;Age_distribution_per_Sex_in_each_Diagnosis (boxplot)&quot;</span><span class="k">]</span>
-<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Age&quot;</span>
-<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sex&quot;</span>
-<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;box&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">"Age_distribution_per_Sex_in_each_Diagnosis (boxplot)"</span><span class="k">]</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Age"</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Sex"</span>
+<span class="n">split_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"box"</span>
 <span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
 <span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">height</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">450</span><span class="p">}</span>
 </code></pre></div>

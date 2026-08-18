@@ -240,6 +240,15 @@ process or <a href="../SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> process en
 you may want to specify a different name for the column to store the annotated cell types
 using <code>envs.newcol</code>, so that the results from different annotation processes won't overwrite each other.<br /></p>
 </div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you are running the pipeline with the Docker image, following tools are not available in the Docker image:<br /></p>
+<ul>
+<li><code>scHDeepInsight</code></li>
+<li><code>scBERT</code></li>
+<li><code>cellassign</code></li>
+</ul>
+</div>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>sobjfile</code>:
@@ -666,8 +675,8 @@ Prefix <code>file://</code> is optional.<br /></p>
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">[CellTypeAnnotation.envs]</span>
-<span class="n">tool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;direct&quot;</span>
-<span class="n">cell_types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;CellType1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CellType2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CellType4&quot;</span><span class="p">]</span>
+<span class="n">tool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"direct"</span>
+<span class="n">cell_types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"CellType1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"CellType2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"-"</span><span class="p">,</span><span class="w"> </span><span class="s2">"CellType4"</span><span class="p">]</span>
 </code></pre></div>
 <p>The cell types will be assigned as:<br /></p>
 <div class="highlight"><pre><span></span><code>0 -&gt; CellType1

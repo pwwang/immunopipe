@@ -322,11 +322,17 @@ You can also fetch more dbs from <a href="https://maayanlab.cloud/Enrichr/#libra
 </ul>
 </li>
 <li><code>allmarker_plots_defaults</code> <em>(<code>ns</code>)</em>:
-    Default options for the plots for all markers when <code>ident_1</code> is not specified.<br /><ul>
+    Default options for the plots for all markers when <code>ident_1</code> is not specified.<br />
+    To reproduce what <a href="https://satijalab.org/seurat/reference/doheatmap"><code>Seurat::DoHeatmap()</code></a> does, you can
+    <code>select_overall = True</code> to select the top N (default: 20) markers all together (instead of selecting top N markers for each cluster),
+    and set <code>plot_type = "heatmap"</code> and <code>cell_type = "bars"</code> to plot the heatmap of the top N markers.<br />
+    You may also want to use <code>order_by</code> to order the markers and <code>select = N</code> to select the top N markers.<br /><ul>
 <li><code>plot_type</code>:
     The type of the plot.<br />
     See <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html">https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html</a>.<br />
     Available types are <code>violin</code>, <code>box</code>, <code>bar</code>, <code>ridge</code>, <code>dim</code>, <code>heatmap</code> and <code>dot</code>.<br /></li>
+<li><code>select_overall</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to select the top N markers from all clusters together.<br /></li>
 <li><code>descr</code>:
     A description of the plot to be shown above the plot image.<br /></li>
 <li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
@@ -494,75 +500,75 @@ You can also fetch more dbs from <a href="https://maayanlab.cloud/Enrichr/#libra
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <h4 id="visualize-log2-fold-change-of-markers">Visualize Log2 Fold Change of Markers<a class="headerlink" href="#visualize-log2-fold-change-of-markers" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.marker_plots.</span><span class="s2">&quot;Volcano Plot (log2FC)&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;volcano_log2fc&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.marker_plots.</span><span class="s2">"Volcano Plot (log2FC)"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"volcano_log2fc"</span>
 </code></pre></div>
 <p><img alt="Volcano Plot (log2FC)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-log2FC.png" /></p>
 <h4 id="visualize-differential-percentage-of-expression-of-markers">Visualize differential percentage of expression of Markers<a class="headerlink" href="#visualize-differential-percentage-of-expression-of-markers" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.marker_plots.</span><span class="s2">&quot;Volcano Plot (pct_diff)&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;volcano_pct&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.marker_plots.</span><span class="s2">"Volcano Plot (pct_diff)"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"volcano_pct"</span>
 </code></pre></div>
 <p><img alt="Volcano Plot (pct_diff)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Volcano-Plot-diff_pct.png" /></p>
 <h4 id="visualize-average-expression-of-markers-with-dot-plot">Visualize Average Expression of Markers with Dot Plot<a class="headerlink" href="#visualize-average-expression-of-markers-with-dot-plot" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.marker_plots.</span><span class="s2">&quot;Dot Plot (AvgExp)&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;dotplot&quot;</span>
-<span class="n">order_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;desc(avg_log2FC)&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.marker_plots.</span><span class="s2">"Dot Plot (AvgExp)"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dotplot"</span>
+<span class="n">order_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"desc(avg_log2FC)"</span>
 </code></pre></div>
 <p><img alt="Dot Plot (AvgExp)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Dot-Plot.png" /></p>
 <h4 id="visualize-average-expression-of-markers-with-heatmap">Visualize Average Expression of Markers with Heatmap<a class="headerlink" href="#visualize-average-expression-of-markers-with-heatmap" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.marker_plots.</span><span class="s2">&quot;Heatmap (AvgExp)&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;heatmap&quot;</span>
-<span class="n">order_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;desc(avg_log2FC)&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.marker_plots.</span><span class="s2">"Heatmap (AvgExp)"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"heatmap"</span>
+<span class="n">order_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"desc(avg_log2FC)"</span>
 </code></pre></div>
 <p><img alt="Heatmap (AvgExp)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Heatmap-of-Expressions-of-Top-Markers.png" /></p>
 <h4 id="visualize-expression-of-markers-with-violin-plots">Visualize Expression of Markers with Violin Plots<a class="headerlink" href="#visualize-expression-of-markers-with-violin-plots" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.marker_plots.</span><span class="s2">&quot;Violin Plots&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;violin&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.marker_plots.</span><span class="s2">"Violin Plots"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"violin"</span>
 </code></pre></div>
 <p><img alt="Violin Plots" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Violin-Plots-for-Top-Markers.png" /></p>
 <h4 id="visualize-enrichment-analysis-results-with-barenrichmapnetworkwordcloud-plots">Visualize enrichment analysis results with Bar/EnrichMap/Network/WordCloud Plots<a class="headerlink" href="#visualize-enrichment-analysis-results-with-barenrichmapnetworkwordcloud-plots" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="c1"># Visualize enrichment of markers</span>
-<span class="k">[ClusterMarkers.envs.enrich_plots.</span><span class="s2">&quot;Bar Plot&quot;</span><span class="k">]</span><span class="w">  </span><span class="c1"># Default</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span>
+<span class="k">[ClusterMarkers.envs.enrich_plots.</span><span class="s2">"Bar Plot"</span><span class="k">]</span><span class="w">  </span><span class="c1"># Default</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"bar"</span>
 
-<span class="k">[ClusterMarkers.envs.enrich_plots.</span><span class="s2">&quot;Network&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;network&quot;</span>
+<span class="k">[ClusterMarkers.envs.enrich_plots.</span><span class="s2">"Network"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"network"</span>
 
-<span class="k">[ClusterMarkers.envs.enrich_plots.</span><span class="s2">&quot;Enrichmap&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;enrichmap&quot;</span>
+<span class="k">[ClusterMarkers.envs.enrich_plots.</span><span class="s2">"Enrichmap"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"enrichmap"</span>
 
-<span class="k">[ClusterMarkers.envs.enrich_plots.</span><span class="s2">&quot;Word Cloud&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;wordcloud&quot;</span>
+<span class="k">[ClusterMarkers.envs.enrich_plots.</span><span class="s2">"Word Cloud"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"wordcloud"</span>
 </code></pre></div>
 <p><img alt="Bar Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Bar-Plot.png" />
 <img alt="Network" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Network.png" />
 <img alt="Enrichmap" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Enrichmap.png" />
 <img alt="Word Cloud" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Word-Cloud.png" /></p>
 <h4 id="visualize-top-markers-of-all-clusters-with-heatmap">Visualize top markers of all clusters with Heatmap<a class="headerlink" href="#visualize-top-markers-of-all-clusters-with-heatmap" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.allmarker_plots.</span><span class="s2">&quot;Top 10 markers of all clusters&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;heatmap&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.allmarker_plots.</span><span class="s2">"Top 10 markers of all clusters"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"heatmap"</span>
 </code></pre></div>
 <p><img alt="Top 10 markers of all clusters" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Top-10-markers-of-all-clusters.png" /></p>
 <h4 id="visualize-log2-fold-change-of-all-markers">Visualize Log2 Fold Change of all markers<a class="headerlink" href="#visualize-log2-fold-change-of-all-markers" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.allmarker_plots.</span><span class="s2">&quot;Log2 Fold Change of all markers&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;heatmap_log2fc&quot;</span>
-<span class="n">subset_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.allmarker_plots.</span><span class="s2">"Log2 Fold Change of all markers"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"heatmap_log2fc"</span>
+<span class="n">subset_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"seurat_clusters"</span>
 </code></pre></div>
 <p><img alt="Log2 Fold Change of all markers" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Log2FC-of-all-clusters.png" /></p>
 <h4 id="visualize-all-markers-in-all-clusters-with-jitter-plots">Visualize all markers in all clusters with Jitter Plots<a class="headerlink" href="#visualize-all-markers-in-all-clusters-with-jitter-plots" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.allmarker_plots.</span><span class="s2">&quot;Jitter Plots of all markers&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;jitter&quot;</span>
-<span class="n">subset_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.allmarker_plots.</span><span class="s2">"Jitter Plots of all markers"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jitter"</span>
+<span class="n">subset_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"seurat_clusters"</span>
 </code></pre></div>
 <p><img alt="Jitter Plots of all markers" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Markers/Jitter-Plots-for-all-clusters.png" /></p>
 <h4 id="visualize-all-enrichment-analysis-results-of-all-clusters">Visualize all enrichment analysis results of all clusters<a class="headerlink" href="#visualize-all-enrichment-analysis-results-of-all-clusters" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.allenrich_plots.</span><span class="s2">&quot;Heatmap of enriched terms of all clusters&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;heatmap&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.allenrich_plots.</span><span class="s2">"Heatmap of enriched terms of all clusters"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"heatmap"</span>
 </code></pre></div>
 <p><img alt="Heatmap of enriched terms of all clusters" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-All-Enrichments/allenrich.MSigDB_Hallmark_2020.Heatmap-of-enriched-terms-of-all-clusters.png" /></p>
 <h4 id="overlapping-markers">Overlapping markers<a class="headerlink" href="#overlapping-markers" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.overlaps.</span><span class="s2">&quot;Overlapping Markers&quot;</span><span class="k">]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;venn&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.overlaps.</span><span class="s2">"Overlapping Markers"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"venn"</span>
 </code></pre></div>
 <p><img alt="Overlapping Markers" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers.png" /></p>
               

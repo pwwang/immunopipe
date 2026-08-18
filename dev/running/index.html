@@ -252,7 +252,7 @@
 <span class="w"> </span>*
 <span class="w"> </span>*<span class="w"> </span>Configure<span class="w"> </span>and<span class="w"> </span>run<span class="w"> </span>pipen<span class="w"> </span>pipelines<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>web
 <span class="w"> </span>*
-<span class="w"> </span>*<span class="w"> </span>Serving<span class="w"> </span>Quart<span class="w"> </span>app<span class="w"> </span><span class="s1">&#39;pipen_board&#39;</span>
+<span class="w"> </span>*<span class="w"> </span>Serving<span class="w"> </span>Quart<span class="w"> </span>app<span class="w"> </span><span class="s1">'pipen_board'</span>
 <span class="w"> </span>*<span class="w"> </span>Environment:<span class="w"> </span>development
 <span class="w"> </span>*<span class="w"> </span>Debug<span class="w"> </span>mode:<span class="w"> </span>True
 <span class="w"> </span>*<span class="w"> </span>Running<span class="w"> </span>on<span class="w"> </span>http://0.0.0.0:18521<span class="w"> </span><span class="o">(</span>CTRL<span class="w"> </span>+<span class="w"> </span>C<span class="w"> </span>to<span class="w"> </span>quit<span class="o">)</span>
@@ -369,7 +369,7 @@ Options<span class="w"> </span>For<span class="w"> </span>Pipen-cli-gbatch<span 
 <span class="w">  </span>--gbatch.error-strategy<span class="w"> </span><span class="o">{</span>retry,halt<span class="o">}</span>
 <span class="w">                        </span>The<span class="w"> </span>strategy<span class="w"> </span>when<span class="w"> </span>there<span class="w"> </span>is<span class="w"> </span>error<span class="w"> </span>happened<span class="w"> </span><span class="o">[</span>default:<span class="w"> </span>halt<span class="o">]</span>
 <span class="w">  </span>--gbatch.num-retries<span class="w"> </span>NUM_RETRIES
-<span class="w">                        </span>The<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>retries<span class="w"> </span>when<span class="w"> </span>there<span class="w"> </span>is<span class="w"> </span>error<span class="w"> </span>happened.<span class="w"> </span>Only<span class="w"> </span>valid<span class="w"> </span>when<span class="w"> </span>--error-strategy<span class="w"> </span>is<span class="w"> </span><span class="s1">&#39;retry&#39;</span>.<span class="w"> </span><span class="o">[</span>default:<span class="w"> </span><span class="m">0</span><span class="o">]</span>
+<span class="w">                        </span>The<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>retries<span class="w"> </span>when<span class="w"> </span>there<span class="w"> </span>is<span class="w"> </span>error<span class="w"> </span>happened.<span class="w"> </span>Only<span class="w"> </span>valid<span class="w"> </span>when<span class="w"> </span>--error-strategy<span class="w"> </span>is<span class="w"> </span><span class="s1">'retry'</span>.<span class="w"> </span><span class="o">[</span>default:<span class="w"> </span><span class="m">0</span><span class="o">]</span>
 <span class="w">  </span>--gbatch.prescript<span class="w"> </span>PRESCRIPT
 <span class="w">                        </span>The<span class="w"> </span>prescript<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>before<span class="w"> </span>the<span class="w"> </span>main<span class="w"> </span>command.
 <span class="w">  </span>--gbatch.postscript<span class="w"> </span>POSTSCRIPT
@@ -414,7 +414,7 @@ Options<span class="w"> </span>For<span class="w"> </span>Pipen-cli-gbatch<span 
 <span class="w">  </span>--gbatch.runnables<span class="w"> </span>RUNNABLES
 <span class="w">                        </span>The<span class="w"> </span>JSON<span class="w"> </span>string<span class="w"> </span>of<span class="w"> </span>extra<span class="w"> </span>settings<span class="w"> </span>of<span class="w"> </span>runnables<span class="w"> </span>add<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>job.json.
 <span class="w">                        </span>Refer<span class="w"> </span>to<span class="w"> </span>https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#Runnable<span class="w"> </span><span class="k">for</span><span class="w"> </span>details.
-<span class="w">                        </span>You<span class="w"> </span>can<span class="w"> </span>have<span class="w"> </span>an<span class="w"> </span>extra<span class="w"> </span>key<span class="w"> </span><span class="s1">&#39;order&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>runnable,<span class="w"> </span>where<span class="w"> </span>negative<span class="w"> </span>values<span class="w"> </span>mean<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>before<span class="w"> </span>the<span class="w"> </span>main<span class="w"> </span>command,
+<span class="w">                        </span>You<span class="w"> </span>can<span class="w"> </span>have<span class="w"> </span>an<span class="w"> </span>extra<span class="w"> </span>key<span class="w"> </span><span class="s1">'order'</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>runnable,<span class="w"> </span>where<span class="w"> </span>negative<span class="w"> </span>values<span class="w"> </span>mean<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>before<span class="w"> </span>the<span class="w"> </span>main<span class="w"> </span>command,
 <span class="w">                        </span>and<span class="w"> </span>positive<span class="w"> </span>values<span class="w"> </span>mean<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>after<span class="w"> </span>the<span class="w"> </span>main<span class="w"> </span>command.
 <span class="w">  </span>--gbatch.allocationPolicy<span class="w"> </span>ALLOCATIONPOLICY
 <span class="w">                        </span>The<span class="w"> </span>JSON<span class="w"> </span>string<span class="w"> </span>of<span class="w"> </span>extra<span class="w"> </span>settings<span class="w"> </span>of<span class="w"> </span>allocationPolicy<span class="w"> </span>add<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>job.json.<span class="w"> </span>Refer<span class="w"> </span>to
@@ -430,8 +430,8 @@ Options<span class="w"> </span>For<span class="w"> </span>Pipen-cli-gbatch<span 
 </code></pre></div>
 <p>When <code>--gbatch.profile</code> is provided, the default scheduler options will be used from <code>~/.pipen.toml</code> and <code>./pipen.toml</code>. For example, you can add the following to <code>~/.pipen.toml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[gbatch.scheduler_opts]</span>
-<span class="n">project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-project&quot;</span>
-<span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;us-central1&quot;</span>
+<span class="n">project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my-project"</span>
+<span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"us-central1"</span>
 </code></pre></div>
 <p>Then you can run the pipeline using the following command:</p>
 <div class="highlight"><pre><span></span><code>&gt;<span class="w"> </span>immunopipe<span class="w"> </span>gbatch<span class="w"> </span>@config.toml<span class="w"> </span>--gbatch.profile<span class="w"> </span>gbatch
@@ -439,15 +439,15 @@ Options<span class="w"> </span>For<span class="w"> </span>Pipen-cli-gbatch<span 
 <p>To use the default <code>project</code> and <code>location</code>.</p>
 <p>You can also specify these options directly in the command line or under a section <code>gbatch</code> in the configuration file. The options specified in the command line will override the ones in the configuration file, which will override the ones in the profile.</p>
 <p>For example, you may have the following in <code>config.toml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Immunopipe&quot;</span>
-<span class="n">workdir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gs://my-bucket/immunopipe_workdir&quot;</span>
-<span class="n">outdir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gs://my-bucket/immunopipe_outdir&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Immunopipe"</span>
+<span class="n">workdir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gs://my-bucket/immunopipe_workdir"</span>
+<span class="n">outdir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gs://my-bucket/immunopipe_outdir"</span>
 
 <span class="k">[gbatch]</span>
-<span class="n">project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-project&quot;</span>
-<span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;us-central1&quot;</span>
-<span class="n">machine-type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;n2d-standard-4&quot;</span>
-<span class="n">provisioning-model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;SPOT&quot;</span>
+<span class="n">project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my-project"</span>
+<span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"us-central1"</span>
+<span class="n">machine-type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"n2d-standard-4"</span>
+<span class="n">provisioning-model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"SPOT"</span>
 <span class="c1"># More scheduler options...</span>
 </code></pre></div>
 <p>There are other actions you can do with <code>gbatch</code>:</p>
@@ -462,50 +462,50 @@ Options<span class="w"> </span>For<span class="w"> </span>Pipen-cli-gbatch<span 
 <p>You can also run the pipeline using Google Cloud Batch Jobs directly. In this case, you need to create a job definition file and submit the job using <code>gcloud batch jobs submit</code>. The job definition file should specify the container image, the command to run the pipeline, and the resources required for the job.</p>
 <p>Here is an example of a job definition file (<code>job.json</code>):</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;allocationPolicy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;serviceAccount&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="w">  </span><span class="nt">"allocationPolicy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"serviceAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;network&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;instances&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">"network"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"instances"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;machineType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;n2d-standard-4&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;provisioningModel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SPOT&quot;</span>
+<span class="w">        </span><span class="nt">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"machineType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"n2d-standard-4"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"provisioningModel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPOT"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;taskGroups&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"taskGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;taskSpec&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;runnables&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="nt">"taskSpec"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"runnables"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">          </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;container&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;image_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;docker.io/justold/immunopipe:dev&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;entrypoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/usr/local/bin/_entrypoint.sh&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;commands&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">&quot;immunopipe&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">&quot;@/mnt/disks/workdir/Immunopipe.config.toml&quot;</span>
+<span class="w">            </span><span class="nt">"container"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"image_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker.io/justold/immunopipe:dev"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"entrypoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/local/bin/_entrypoint.sh"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"commands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">"immunopipe"</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">"@/mnt/disks/workdir/Immunopipe.config.toml"</span>
 <span class="w">              </span><span class="p">]</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;volumes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="nt">"volumes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">          </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;gcs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;remotePath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;bucket&gt;/path/to/workdir&quot;</span>
+<span class="w">            </span><span class="nt">"gcs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"remotePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;bucket&gt;/path/to/workdir"</span>
 <span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="nt">&quot;mountPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/mnt/disks/workdir&quot;</span>
+<span class="w">            </span><span class="nt">"mountPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/mnt/disks/workdir"</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">]</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;logsPolicy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;destination&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CLOUD_LOGGING&quot;</span>
+<span class="w">  </span><span class="nt">"logsPolicy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"destination"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CLOUD_LOGGING"</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;labels&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="w">  </span><span class="nt">"labels"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Then you can submit the job using the following command:</p>

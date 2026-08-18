@@ -362,14 +362,14 @@ You can also fetch more dbs from <a href="https://maayanlab.cloud/Enrichr/#libra
 <p>If you use <code>each</code> to separate the cells into different subsets, this is useful to
 make a summary plot for all subsets. Or if you don't specify <code>ident_1</code>, the summary plot for all idents in <code>group_by</code> will be generated.<br /></p>
 <div class="highlight"><pre><span></span><code><span class="k">[ScFGSEA.envs]</span>
-<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
-<span class="n">ident_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Colitis&quot;</span>
-<span class="n">ident_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Control&quot;</span>
-<span class="n">each</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
+<span class="n">ident_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Colitis"</span>
+<span class="n">ident_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Control"</span>
+<span class="n">each</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"seurat_clusters"</span>
 
 <span class="k">[ScFGSEA.envs.alleach_plots.Heatmap]</span>
-<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;heatmap&quot;</span>
-<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Diagnosis&quot;</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"heatmap"</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
 </code></pre></div>
 <p><img alt="GSEA summary for all subsets" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/GSEA-all-seurat_clusters/all.Heatmap.png" width="80%" /></p>
               

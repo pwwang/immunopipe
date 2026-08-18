@@ -328,11 +328,17 @@ You can also fetch more dbs from <a href="https://maayanlab.cloud/Enrichr/#libra
 </ul>
 </li>
 <li><code>allmarker_plots_defaults</code> <em>(<code>ns</code>)</em>:
-    Default options for the plots for all markers when <code>ident_1</code> is not specified.<br /><ul>
+    Default options for the plots for all markers when <code>ident_1</code> is not specified.<br />
+    To reproduce what <a href="https://satijalab.org/seurat/reference/doheatmap"><code>Seurat::DoHeatmap()</code></a> does, you can
+    <code>select_overall = True</code> to select the top N (default: 20) markers all together (instead of selecting top N markers for each cluster),
+    and set <code>plot_type = "heatmap"</code> and <code>cell_type = "bars"</code> to plot the heatmap of the top N markers.<br />
+    You may also want to use <code>order_by</code> to order the markers and <code>select = N</code> to select the top N markers.<br /><ul>
 <li><code>plot_type</code>:
     The type of the plot.<br />
     See <a href="https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html">https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html</a>.<br />
     Available types are <code>violin</code>, <code>box</code>, <code>bar</code>, <code>ridge</code>, <code>dim</code>, <code>heatmap</code> and <code>dot</code>.<br /></li>
+<li><code>select_overall</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to select the top N markers from all clusters together.<br /></li>
 <li><code>descr</code>:
     A description of the plot to be shown above the plot image.<br /></li>
 <li><code>more_formats</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>[]</code></em>. <br />
@@ -576,8 +582,8 @@ markers as the results.<br /></p>
 <p><code>each</code> is used to separate the cells into different cases. <code>group_by</code>
 is still <code>seurat_clusters</code>.<br /></p>
 <div class="highlight"><pre><span></span><code><span class="k">[</span><span class="err">&lt;</span><span class="k">Proc</span><span class="err">&gt;</span><span class="k">.envs]</span>
-<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
-<span class="n">each</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Group&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"seurat_clusters"</span>
+<span class="n">each</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Group"</span>
 </code></pre></div>
 <ul>
 <li>A:Cluster<ul>
@@ -595,8 +601,8 @@ is still <code>seurat_clusters</code>.<br /></p>
 <p><code>ident_1</code> is used to specify the first group of cells to compare.<br />
 Then the rest of the cells in the case are used for <code>ident_2</code>.<br /></p>
 <div class="highlight"><pre><span></span><code><span class="k">[</span><span class="err">&lt;</span><span class="k">Proc</span><span class="err">&gt;</span><span class="k">.envs]</span>
-<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
-<span class="n">ident_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"seurat_clusters"</span>
+<span class="n">ident_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"1"</span>
 </code></pre></div>
 <ul>
 <li>Cluster<ul>
@@ -608,9 +614,9 @@ Then the rest of the cells in the case are used for <code>ident_2</code>.<br /><
 <p><code>ident_1</code> and <code>ident_2</code> are used to specify the two groups of cells to
 compare.<br /></p>
 <div class="highlight"><pre><span></span><code><span class="k">[</span><span class="err">&lt;</span><span class="k">Proc</span><span class="err">&gt;</span><span class="k">.envs]</span>
-<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;seurat_clusters&quot;</span>
-<span class="n">ident_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
-<span class="n">ident_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;2&quot;</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"seurat_clusters"</span>
+<span class="n">ident_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"1"</span>
+<span class="n">ident_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"2"</span>
 </code></pre></div>
 <ul>
 <li>Cluster<ul>
@@ -620,8 +626,8 @@ compare.<br /></p>
 </ul>
 <h4 id="multiple-cases">Multiple cases<a class="headerlink" href="#multiple-cases" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">[</span><span class="err">&lt;</span><span class="k">Proc</span><span class="err">&gt;</span><span class="k">.envs.cases]</span>
-<span class="n">c1_vs_c2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">ident_1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ident_2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">}</span>
-<span class="n">c3_vs_c4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">ident_1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;3&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ident_2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;4&quot;</span><span class="p">}</span>
+<span class="n">c1_vs_c2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">ident_1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w"> </span><span class="n">ident_2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"2"</span><span class="p">}</span>
+<span class="n">c3_vs_c4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">ident_1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w"> </span><span class="n">ident_2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"4"</span><span class="p">}</span>
 </code></pre></div>
 <ul>
 <li>DEFAULT:c1_vs_c2<ul>

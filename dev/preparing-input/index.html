@@ -229,7 +229,7 @@ These files can also be gzipped.</p>
 <p>With v2+, we also support loading expression data directly from a <code>Seurat</code> object in <code>RDS</code> or <a href="https://github.com/qsbase/qs2"><code>qs/qs2</code></a> file.
 To do so, you need to enable the <code>LoadingRNAFromSeurat</code> process in the configuration file, and provide the path to the <code>RDS</code> or <code>qs2</code> file:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[LoadingRNAFromSeurat.in]</span>
-<span class="n">infile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;path/to/seurat_object.rds&quot;</span>
+<span class="n">infile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"path/to/seurat_object.rds"</span>
 
 <span class="k">[LoadingRNAFromSeurat.envs]</span>
 <span class="c1"># When true, SeuratPreparing will be skipped</span>
@@ -241,7 +241,7 @@ To do so, you need to enable the <code>LoadingRNAFromSeurat</code> process in th
 <span class="n">clustered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
 
 <span class="c1"># The column name in meta.data to use for sample identity</span>
-<span class="n">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sample&quot;</span>
+<span class="n">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Sample"</span>
 </code></pre></div>
 <p>For <code>ParseBio</code> data, you can provide the path to the directory containing <code>all_genes.csv</code>, <code>cell_metadata.csv</code> and <code>matrix.mtx</code> files. The <code>all_genes.csv</code> file should contain the gene names, and the <code>cell_metadata.csv</code> file should contain the cell metadata. The <code>matrix.mtx</code> file should contain the expression matrix in the <code>Matrix Market</code> format.</p>
 <p>For <code>HIVE</code> data, you can provide the path to the directory containing <code>*TCM.tsv.gz</code> and <code>*ReadsQC.tsv</code> files. The <code>*TCM.tsv.gz</code> file displays the number of unique molecule counts for each transcriptome that mapped to a specific gene in the reference genome and the <code>*ReadsQC.tsv</code> file contains the quality control metrics for each cell barcode.</p>

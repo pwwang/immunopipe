@@ -304,7 +304,7 @@ If you are using <code>cca</code> or <code>rpca</code> interation, the default a
 and <code>percent.plat</code>. For example:<br /></p>
 <p><div class="highlight"><pre><span></span><code><span class="k">[SeuratPreparing.envs]</span>
 
-<span class="n">cell_qc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;nFeature_RNA &gt; 200 &amp; percent.mt &lt; 5&quot;</span>
+<span class="n">cell_qc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"nFeature_RNA &gt; 200 &amp; percent.mt &lt; 5"</span>
 </code></pre></div>
 will keep cells with more than 200 genes and less than 5%% mitochondrial
 genes.<br /></p>
@@ -408,7 +408,8 @@ See <a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-s
 </li>
 <li><code>ScaleData</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/scaledata"><code>ScaleData()</code></a>.<br />
-    <code>object</code> and <code>features</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br /><ul>
+    <code>object</code> and <code>features</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br />
+    You can specify <code>features</code> to scale specific features, or set it to <code>"__all__"</code> to scale all features.<br /><ul>
 <li><code>&lt;more&gt;</code>:
     See <a href="https://satijalab.org/seurat/reference/scaledata">https://satijalab.org/seurat/reference/scaledata</a></li>
 </ul>
@@ -426,9 +427,9 @@ See <a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-s
 <li><code>SCTransform</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/sctransform"><code>SCTransform()</code></a>.<br />
     <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br /><ul>
-<li><code>return-only-var-genes</code>: <em>Default: <code>False</code></em>. <br />
+<li><code>return-only-var-genes</code>:
     Whether to return only variable genes.<br /></li>
-<li><code>min_cells</code>: <em>Default: <code>3</code></em>. <br />
+<li><code>min_cells</code>:
     The minimum number of cells that a gene must be expressed in to be kept.<br />
     A hidden argument of <code>SCTransform</code> to filter genes.<br />
     If you try to keep all genes in the <code>RNA</code> assay, you can set <code>min_cells</code> to <code>0</code> and

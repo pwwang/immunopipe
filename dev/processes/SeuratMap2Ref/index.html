@@ -407,8 +407,8 @@ using <code>envs.ident</code>, so that the results from different annotation pro
 <li>single modality datasets</li>
 <li>smaller references</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">NormalizeData</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">normalization.method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;LogNormalize&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">scale.factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10000</span><span class="p">)</span>
-<span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindVariableFeatures</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">selection.method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vst&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">nfeatures</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2000</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">NormalizeData</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">normalization.method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"LogNormalize"</span><span class="p">,</span><span class="w"> </span><span class="n">scale.factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10000</span><span class="p">)</span>
+<span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindVariableFeatures</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">selection.method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"vst"</span><span class="p">,</span><span class="w"> </span><span class="n">nfeatures</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2000</span><span class="p">)</span>
 <span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">ScaleData</span><span class="p">(</span><span class="n">reference</span><span class="p">)</span>
 </code></pre></div>
 <p>This produces the normalized expression matrix used for PCA.<br /></p>
@@ -439,19 +439,19 @@ using <code>envs.ident</code>, so that the results from different annotation pro
 </ul>
 <h6 id="option-b-spca-supervised-pca">Option B — SPCA (supervised PCA)<a class="headerlink" href="#option-b-spca-supervised-pca" title="Permanent link">&para;</a></h6>
 <p>Used with SCTransform references and often in multimodal workflows.<br /></p>
-<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">RunSPCA</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">assay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SCT&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">RunSPCA</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">assay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SCT"</span><span class="p">)</span>
 </code></pre></div>
 <p>SPCA learns a projection supervised by a cell‑cell similarity graph and is commonly used in reference atlases.<br /></p>
 <h5 id="step-3-compute-neighbors-and-clustering-optional-but-recommended">Step 3: Compute neighbors and clustering (optional but recommended)<a class="headerlink" href="#step-3-compute-neighbors-and-clustering-optional-but-recommended" title="Permanent link">&para;</a></h5>
 <p>Precomputing neighbors allows faster anchor finding.<br /></p>
 <h6 id="pca-reference">PCA reference<a class="headerlink" href="#pca-reference" title="Permanent link">&para;</a></h6>
-<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindNeighbors</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;pca&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dims</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindNeighbors</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"pca"</span><span class="p">,</span><span class="w"> </span><span class="n">dims</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">)</span>
 <span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindClusters</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">resolution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
 </code></pre></div>
 <h6 id="spca-multimodal-reference">SPCA / multimodal reference<a class="headerlink" href="#spca-multimodal-reference" title="Permanent link">&para;</a></h6>
 <div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindMultiModalNeighbors</span><span class="p">(</span>
 <span class="n">reference</span><span class="p">,</span>
-<span class="n">reduction.list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s">&quot;spca&quot;</span><span class="p">),</span>
+<span class="n">reduction.list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s">"spca"</span><span class="p">),</span>
 <span class="n">dims.list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">)</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -460,7 +460,7 @@ using <code>envs.ident</code>, so that the results from different annotation pro
 <p>To allow <code>MapQuery</code> to project new cells into the same UMAP space, the model must be saved.<br /></p>
 <div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">RunUMAP</span><span class="p">(</span>
 <span class="w">    </span><span class="n">reference</span><span class="p">,</span>
-<span class="w">    </span><span class="n">reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;pca&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"pca"</span><span class="p">,</span>
 <span class="w">    </span><span class="n">dims</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,</span>
 <span class="w">    </span><span class="n">return.model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span>
 <span class="p">)</span>
@@ -468,8 +468,8 @@ using <code>envs.ident</code>, so that the results from different annotation pro
 <p>For WNN references:<br /></p>
 <div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">RunUMAP</span><span class="p">(</span>
 <span class="w">    </span><span class="n">reference</span><span class="p">,</span>
-<span class="w">    </span><span class="n">nn.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;weighted.nn&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">reduction.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;wnn.umap&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">nn.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"weighted.nn"</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reduction.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"wnn.umap"</span><span class="p">,</span>
 <span class="w">    </span><span class="n">return.model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -483,10 +483,10 @@ using <code>envs.ident</code>, so that the results from different annotation pro
 </code></pre></div>
 <p>Any metadata field can later be transferred.<br /></p>
 <h5 id="step-6-save-the-reference">Step 6: Save the reference<a class="headerlink" href="#step-6-save-the-reference" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="nf">saveRDS</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;reference.rds&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nf">saveRDS</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="s">"reference.rds"</span><span class="p">)</span>
 </code></pre></div>
 <p>Or save it in <a href="https://github.com/qsbase/qs2">qs2</a> format for faster loading:<br /></p>
-<div class="highlight"><pre><span></span><code><span class="n">biopipen.utils</span><span class="o">::</span><span class="nf">save_obj</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;reference.qs&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">biopipen.utils</span><span class="o">::</span><span class="nf">save_obj</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="s">"reference.qs"</span><span class="p">)</span>
 </code></pre></div>
 <p>This allows the reference to be reused across multiple mapping runs.<br /></p>
 <h4 id="prepare-the-query-dataset-can-be-done-with-seuratpreparing-process">Prepare the query dataset (can be done with <code>SeuratPreparing</code> process)<a class="headerlink" href="#prepare-the-query-dataset-can-be-done-with-seuratpreparing-process" title="Permanent link">&para;</a></h4>
@@ -500,18 +500,18 @@ in <code>envs.NormalizeData</code> or <code>envs.SCTransform</code> for this pro
 <div class="highlight"><pre><span></span><code><span class="n">anchors</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindTransferAnchors</span><span class="p">(</span>
 <span class="w">    </span><span class="n">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reference</span><span class="p">,</span>
 <span class="w">    </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">query</span><span class="p">,</span>
-<span class="w">    </span><span class="n">reference.reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;pca&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reference.reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"pca"</span><span class="p">,</span>
 <span class="w">    </span><span class="n">dims</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,</span>
-<span class="w">    </span><span class="n">normalization.method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;LogNormalize&quot;</span>
+<span class="w">    </span><span class="n">normalization.method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"LogNormalize"</span>
 <span class="p">)</span>
 </code></pre></div>
 <h5 id="sctransform-reference">SCTransform reference<a class="headerlink" href="#sctransform-reference" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code><span class="n">anchors</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">FindTransferAnchors</span><span class="p">(</span>
 <span class="w">    </span><span class="n">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reference</span><span class="p">,</span>
 <span class="w">    </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">query</span><span class="p">,</span>
-<span class="w">    </span><span class="n">reference.reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;spca&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reference.reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"spca"</span><span class="p">,</span>
 <span class="w">    </span><span class="n">dims</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,</span>
-<span class="w">    </span><span class="n">normalization.method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SCT&quot;</span>
+<span class="w">    </span><span class="n">normalization.method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SCT"</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>Optional useful parameters:<br /></p>
@@ -525,9 +525,9 @@ in <code>envs.NormalizeData</code> or <code>envs.SCTransform</code> for this pro
 <span class="w">    </span><span class="n">anchorset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anchors</span><span class="p">,</span>
 <span class="w">    </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">query</span><span class="p">,</span>
 <span class="w">    </span><span class="n">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reference</span><span class="p">,</span>
-<span class="w">    </span><span class="n">refdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">celltype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;celltype&quot;</span><span class="p">),</span>
-<span class="w">    </span><span class="n">reference.reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;pca&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">reduction.model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;umap&quot;</span>
+<span class="w">    </span><span class="n">refdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">celltype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"celltype"</span><span class="p">),</span>
+<span class="w">    </span><span class="n">reference.reduction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"pca"</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reduction.model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"umap"</span>
 <span class="p">)</span>
 </code></pre></div>
 <p><code>MapQuery</code> performs:<br /></p>

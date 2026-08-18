@@ -347,7 +347,7 @@ immunopipe<span class="w"> </span>mcp
 3. Identify exhausted T cells
 4. Analyze TCR clonality by cluster
 
-Agent: I&#39;ll generate a configuration for your TCR-seq analysis workflow.
+Agent: I'll generate a configuration for your TCR-seq analysis workflow.
       Let me use the immunopipe configuration skill...
 
 [Agent generates complete TOML configuration with:
@@ -358,13 +358,13 @@ Agent: I&#39;ll generate a configuration for your TCR-seq analysis workflow.
  - ScRepCombiningExpression to integrate TCR data
  - ClonalStats for clonality analysis]
 
-Here&#39;s your configuration. Would you like me to explain any section?
+Here's your configuration. Would you like me to explain any section?
 </code></pre></div></p>
 <h4 id="option-2-direct-skill-access-for-other-ai-agents">Option 2: Direct Skill Access (For Other AI Agents)<a class="headerlink" href="#option-2-direct-skill-access-for-other-ai-agents" title="Permanent link">&para;</a></h4>
 <p>AI agents with file system access can directly read skill files:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Example: Agent reading skills</span>
-<span class="n">main_skill</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;skills/immunopipe-config/SKILL.md&quot;</span><span class="p">)</span>
-<span class="n">process_skill</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;skills/seuratclustering/SKILL.md&quot;</span><span class="p">)</span>
+<span class="n">main_skill</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">"skills/immunopipe-config/SKILL.md"</span><span class="p">)</span>
+<span class="n">process_skill</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">"skills/seuratclustering/SKILL.md"</span><span class="p">)</span>
 
 <span class="c1"># Agent uses skill content to generate configuration</span>
 <span class="n">config</span> <span class="o">=</span> <span class="n">generate_toml_from_user_request</span><span class="p">(</span><span class="n">user_query</span><span class="p">,</span> <span class="n">main_skill</span><span class="p">,</span> <span class="n">process_skill</span><span class="p">)</span>

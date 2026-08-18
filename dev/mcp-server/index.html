@@ -309,11 +309,11 @@ immunopipe<span class="w"> </span>mcp<span class="w"> </span>--transport<span cl
 <h3 id="vscode-integration">VSCode Integration<a class="headerlink" href="#vscode-integration" title="Permanent link">&para;</a></h3>
 <p>To integrate with VSCode and Claude, add the following to your VSCode settings:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;mcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;servers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;immunopipe&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-m&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;immunopipe.mcp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--transport&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;stdio&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"mcp"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"servers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"immunopipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-m"</span><span class="p">,</span><span class="w"> </span><span class="s2">"immunopipe.mcp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--transport"</span><span class="p">,</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">]</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
@@ -430,17 +430,17 @@ immunopipe<span class="w"> </span>mcp<span class="w"> </span>--transport<span cl
 <h4 id="natural-language-configuration">Natural Language Configuration<a class="headerlink" href="#natural-language-configuration" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="c1"># Configure immunopipe using natural language</span>
 <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tools</span><span class="o">.</span><span class="n">configure_immunopipe</span><span class="p">(</span>
-    <span class="n">requirements</span><span class="o">=</span><span class="s2">&quot;I want to analyze single-cell TCR data with clustering resolution 0.8&quot;</span>
+    <span class="n">requirements</span><span class="o">=</span><span class="s2">"I want to analyze single-cell TCR data with clustering resolution 0.8"</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>  <span class="c1"># Complete TOML configuration</span>
 </code></pre></div>
 <h4 id="process-discovery">Process Discovery<a class="headerlink" href="#process-discovery" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="c1"># List available processes</span>
 <span class="n">processes</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tools</span><span class="o">.</span><span class="n">list_processes</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">processes</span><span class="o">.</span><span class="n">content</span><span class="p">)</span><span class="si">}</span><span class="s2"> processes&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">processes</span><span class="o">.</span><span class="n">content</span><span class="p">)</span><span class="si">}</span><span class="s2"> processes"</span><span class="p">)</span>
 
 <span class="c1"># Get details for a specific process</span>
-<span class="n">details</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tools</span><span class="o">.</span><span class="n">get_process_details</span><span class="p">(</span><span class="s2">&quot;SeuratClustering&quot;</span><span class="p">)</span>
+<span class="n">details</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tools</span><span class="o">.</span><span class="n">get_process_details</span><span class="p">(</span><span class="s2">"SeuratClustering"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">details</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 </code></pre></div>
 <h4 id="configuration-manipulation">Configuration Manipulation<a class="headerlink" href="#configuration-manipulation" title="Permanent link">&para;</a></h4>
@@ -460,11 +460,11 @@ you can add the MCP server to your Claude or VSCode setup to enable intelligent 
 <div class="highlight"><pre><span></span><code>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>immunopipe-mcp<span class="w"> </span>http://localhost:80000
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;mcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;servers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;immunopipe&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-m&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;immunopipe&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mcp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--transport&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;stdio&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"mcp"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"servers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"immunopipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-m"</span><span class="p">,</span><span class="w"> </span><span class="s2">"immunopipe"</span><span class="p">,</span><span class="w"> </span><span class="s2">"mcp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--transport"</span><span class="p">,</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">]</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>

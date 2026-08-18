@@ -283,18 +283,18 @@ expression, and the control features are randomly selected from each bin.<br /><
     dicts inherited from <code>env.defaults</code>.<br />
     Here are some examples -</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="s2">&quot;CellCycleMouse&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="s2">&quot;cc.genes.mouse&quot;</span><span class="p">},</span>
-    <span class="s2">&quot;CellCycle&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="s2">&quot;cc.genes.updated.2019&quot;</span><span class="p">},</span>
-    <span class="s2">&quot;Exhaustion&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="s2">&quot;HAVCR2,ENTPD1,LAYN,LAG3&quot;</span><span class="p">},</span>
-    <span class="s2">&quot;Activation&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="s2">&quot;IFNG&quot;</span><span class="p">},</span>
-    <span class="s2">&quot;Proliferation&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="s2">&quot;STMN1,TUBB&quot;</span><span class="p">}</span>
+    <span class="s2">"CellCycleMouse"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"features"</span><span class="p">:</span> <span class="s2">"cc.genes.mouse"</span><span class="p">},</span>
+    <span class="s2">"CellCycle"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"features"</span><span class="p">:</span> <span class="s2">"cc.genes.updated.2019"</span><span class="p">},</span>
+    <span class="s2">"Exhaustion"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"features"</span><span class="p">:</span> <span class="s2">"HAVCR2,ENTPD1,LAYN,LAG3"</span><span class="p">},</span>
+    <span class="s2">"Activation"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"features"</span><span class="p">:</span> <span class="s2">"IFNG"</span><span class="p">},</span>
+    <span class="s2">"Proliferation"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"features"</span><span class="p">:</span> <span class="s2">"STMN1,TUBB"</span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>For <code>CellCycle</code>, the columns <code>S.Score</code>, <code>G2M.Score</code> and <code>Phase</code> will
 be added to the metadata. <code>S.Score</code> and <code>G2M.Score</code> are the cell cycle
 scores for each cell, and <code>Phase</code> is the cell cycle phase for each cell.<br /></p>
 <p>You can also add Diffusion Components (DC) to the modules</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="s2">&quot;DC&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;diffmap&quot;</span><span class="p">}}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="s2">"DC"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"features"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"kind"</span><span class="p">:</span> <span class="s2">"diffmap"</span><span class="p">}}</span>
 </code></pre></div>
 <p>will perform diffusion map as a reduction and add the first 2
 components as <code>DC_1</code> and <code>DC_2</code> to the metadata. <code>diffmap</code> is a shortcut

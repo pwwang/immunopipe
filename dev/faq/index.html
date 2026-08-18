@@ -281,17 +281,17 @@
 <li><code>ssh</code>: Run the pipeline on a remote host via ssh.</li>
 </ul>
 <p>The scheduler can be specified via <code>scheduler_opts</code> for the whole pipeline or for a specific process. For example, to run the whole pipeline on a slurm cluster, you can use the following configuration file:</p>
-<div class="highlight"><pre><span></span><code><span class="n">scheduler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="n">scheduler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"slurm"</span>
 
 <span class="k">[scheduler_opts]</span>
-<span class="n">sbatch_partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1-day&quot;</span>
+<span class="n">sbatch_partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"1-day"</span>
 </code></pre></div>
 <p>To run a specific process on a slurm cluster, you can use the following configuration file:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[</span><span class="err">&lt;</span><span class="k">Process</span><span class="err">&gt;</span><span class="k">]</span>
-<span class="n">scheduler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span>
+<span class="n">scheduler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"slurm"</span>
 
 <span class="k">[</span><span class="err">&lt;</span><span class="k">Process</span><span class="err">&gt;</span><span class="k">.scheduler_opts]</span>
-<span class="n">sbatch_partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1-day&quot;</span>
+<span class="n">sbatch_partition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"1-day"</span>
 </code></pre></div>
 <p>You can also use profiles to switch between different schedulers. See also <a href="https://pwwang.github.io/pipen/configurations/#profiles">https://pwwang.github.io/pipen/configurations/#profiles</a></p>
 <p>Unlike the pipeline installed locally, using a doker image to run the pipeline on a cluster, we need to run the whole pipeline as a job. For example, to run the pipeline on a slurm cluster using <code>apptainer</code>, you can use <code>slurm</code> to submit the job:</p>
@@ -337,7 +337,7 @@ apptainer<span class="w"> </span>pull<span class="w"> </span>justold/immunopipe:
 </code></pre></div>
 <p>The other strategy is to use Reference-based integration <code>reference = [1, 2]</code> for <a href="https://satijalab.org/seurat/reference/findintegrationanchors"><code>IntegrateLayers</code></a> with method <code>rpca</code> or <code>cca</code>. See also description about <code>IntegrateLayers</code> <a href="../processes/SeuratPreparing/#environment-variables">here</a>. For example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[SeuratPreparing.envs.IntegrateLayers]</span>
-<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;rpca&quot;</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"rpca"</span>
 <span class="n">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w">  </span><span class="c1"># You can also use sample names instead of indices</span>
 </code></pre></div>
 <p>See also these issues for more details:</p>
@@ -350,7 +350,7 @@ apptainer<span class="w"> </span>pull<span class="w"> </span>justold/immunopipe:
 <summary>Got error <code>Not all stats values are finite numbers</code> while running <a href="../processes/ScFGSEA/"><code>ScFGSEA</code></a>?</summary>
 <p>It's probably because that there are too many missing values in the expression matrix and <code>signal_to_noise</code> is not able to detect the rank of the genes. You can try a different method for gene preranking. For example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[ScFGSEA.envs]</span>
-<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;diff_of_classes&quot;</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"diff_of_classes"</span>
 </code></pre></div>
 </details>
 <details>
@@ -363,7 +363,7 @@ apptainer<span class="w"> </span>pull<span class="w"> </span>justold/immunopipe:
 <p>For optional processes, you can just remove them from the configuration file or comment them out. For example, to skip the <a href="../processes/ScFGSEA/"><code>ScFGSEA</code></a> process, you can remove the <code>[ScFGSEA]</code> section from the configuration file or comment it out.</p>
 <p>You can't skip some processes that are depended by other processes, if other processes are not skipped. However, you can skip some processes even they belong to the minimal set of processes required for the pipeline, by using the <code>dry</code> scheduler (runner). For example, to skip the <a href="../processes/ClusterMarkers/"><code>ClusterMarkers</code></a> process, you can use the following configuration file:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.scheduler_opts]</span>
-<span class="n">scheduler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;dry&quot;</span>
+<span class="n">scheduler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dry"</span>
 </code></pre></div>
 <p>You need to install the <a href="https://github.com/pwwang/pipen-dry"><code>pipen-dry</code></a> package to use the <code>dry</code> scheduler. If you are using the docker image to run the pipeline, it is already included in the image.</p>
 <p>```shell</p>
