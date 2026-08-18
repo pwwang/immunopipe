@@ -89,6 +89,14 @@ dependencies:
   # Suggests
   - pwwang::r-sccatch
   - pwwang::r-sccdc
+  - pwwang::r-scsorter
+  - pwwang::r-scina
+  - pwwang::r-cellid
+  - pwwang::r-gptcelltype
+  # singleR
+  - conda-forge::r-snow
+  - conda-forge::r-futile.logger
+  - bioconda::bioconductor-singler
   - r-matrix
   - r-alluvial
   - bioconda::bioconductor-complexheatmap
