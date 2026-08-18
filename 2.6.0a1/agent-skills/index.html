@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Agent Skills - immunopipe</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Agent Skills";
+        var mkdocs_page_input_path = "agent-skills.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Agent Skills</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#why-use-agent-skills">Why Use Agent Skills?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#available-skills">Available Skills</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-main-pipeline-skill">1. Main Pipeline Skill</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-process-specific-skills">2. Process-Specific Skills</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#core-workflow-8-processes">Core Workflow (8 processes)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#tcrbcr-analysis-7-processes">TCR/BCR Analysis (7 processes)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#marker-annotation-7-processes">Marker &amp; Annotation (7 processes)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#advanced-analysis-10-processes">Advanced Analysis (10 processes)</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-to-use-agent-skills">How to Use Agent Skills</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#option-1-mcp-server-recommended-for-claude-desktop">Option 1: MCP Server (Recommended for Claude Desktop)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#option-2-direct-skill-access-for-other-ai-agents">Option 2: Direct Skill Access (For Other AI Agents)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#option-3-manual-reference">Option 3: Manual Reference</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#skill-format">Skill Format</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example-workflows">Example Workflows</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#workflow-1-basic-tcr-seq-analysis">Workflow 1: Basic TCR-seq Analysis</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#workflow-2-cell-cell-communication">Workflow 2: Cell-Cell Communication</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#workflow-3-metabolic-profiling">Workflow 3: Metabolic Profiling</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#benefits-for-different-users">Benefits for Different Users</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#for-beginners">For Beginners</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#for-experienced-users">For Experienced Users</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#for-workflow-developers">For Workflow Developers</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#skill-development">Skill Development</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#related-documentation">Related Documentation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#external-resources">External Resources</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CDR3Clustering/">CDR3Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Agent Skills</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/agent-skills.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="agent-skills">Agent Skills<a class="headerlink" href="#agent-skills" title="Permanent link">&para;</a></h2>
+<h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<p><strong>Agent Skills</strong> are AI-powered configuration assistants that help you create immunopipe configuration files through natural language. Instead of manually writing TOML configuration files, you can describe what you want to do in plain English, and AI agents use these skills to generate the correct configuration.</p>
+<div class="admonition note">
+<p class="admonition-title">What are Agent Skills?</p>
+<p>Agent Skills are a lightweight, open format for extending AI agent capabilities with specialized knowledge and workflows. Learn more at <a href="https://agentskills.io">agentskills.io</a>.</p>
+</div>
+<h3 id="why-use-agent-skills">Why Use Agent Skills?<a class="headerlink" href="#why-use-agent-skills" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Immunopipe has 30+ processes with hundreds of configuration options. Understanding which processes to use, how to configure them, and how they interact requires deep pipeline knowledge.</p>
+<p><strong>Solution</strong>: Agent Skills provide structured knowledge that AI agents can use to:
+- <strong>Recommend processes</strong> based on your analysis goals
+- <strong>Generate complete configurations</strong> with sensible defaults
+- <strong>Explain parameters</strong> and their effects
+- <strong>Validate configurations</strong> before running</p>
+<h3 id="available-skills">Available Skills<a class="headerlink" href="#available-skills" title="Permanent link">&para;</a></h3>
+<p>Immunopipe provides two types of skills:</p>
+<h4 id="1-main-pipeline-skill">1. Main Pipeline Skill<a class="headerlink" href="#1-main-pipeline-skill" title="Permanent link">&para;</a></h4>
+<p><strong>Location</strong>: <code>skills/immunopipe-config/SKILL.md</code></p>
+<p>This is the entry point skill that helps AI agents:
+- Assess your data type (scRNA-seq only vs scRNA+scTCR/BCR-seq)
+- Determine analysis goals (QC, clustering, TCR analysis, metabolic profiling, etc.)
+- Route to appropriate process-specific skills
+- Generate pipeline-level configuration</p>
+<p><strong>Example use</strong>: "I have PBMC data with TCR-seq. I want to identify exhausted CD8+ T cells and analyze their clonality."</p>
+<h4 id="2-process-specific-skills">2. Process-Specific Skills<a class="headerlink" href="#2-process-specific-skills" title="Permanent link">&para;</a></h4>
+<p><strong>Location</strong>: <code>skills/{process-name}/SKILL.md</code> (32 individual process skills)</p>
+<p>Each process has a dedicated skill documenting:
+- <strong>Purpose</strong>: What the process does
+- <strong>When to use</strong>: Conditions and requirements
+- <strong>Configuration structure</strong>: Complete TOML syntax
+- <strong>Parameters</strong>: All environment variables with types, defaults, and descriptions
+- <strong>Examples</strong>: Minimal, typical, and advanced configurations
+- <strong>Common patterns</strong>: Real-world usage scenarios
+- <strong>Troubleshooting</strong>: Common issues and solutions</p>
+<p><strong>Categories</strong>:</p>
+<h5 id="core-workflow-8-processes">Core Workflow (8 processes)<a class="headerlink" href="#core-workflow-8-processes" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>SampleInfo</code> - Sample metadata entry point</li>
+<li><code>LoadingRNAFromSeurat</code> - Load pre-processed Seurat objects</li>
+<li><code>ScRepLoading</code> - Load TCR/BCR repertoire data</li>
+<li><code>SeuratPreparing</code> - QC, normalization, integration</li>
+<li><code>SeuratClustering</code> - Standard clustering workflow</li>
+<li><code>SeuratClusteringOfAllCells</code> - Pre-selection clustering</li>
+<li><code>SeuratSubClustering</code> - Sub-clustering specific populations</li>
+<li><code>SeuratClusterStats</code> - Cluster visualization and QC</li>
+</ul>
+<h5 id="tcrbcr-analysis-7-processes">TCR/BCR Analysis (7 processes)<a class="headerlink" href="#tcrbcr-analysis-7-processes" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>TOrBCellSelection</code> - T or B cell selection</li>
+<li><code>ScRepCombiningExpression</code> - Integrate TCR/BCR with RNA</li>
+<li><code>CDR3Clustering</code> - CDR3 sequence clustering</li>
+<li><code>TESSA</code> - TCR epitope-specific analysis</li>
+<li><code>CDR3AAPhyschem</code> - Physicochemical properties</li>
+<li><code>ClonalStats</code> - Clonality and diversity metrics</li>
+</ul>
+<h5 id="marker-annotation-7-processes">Marker &amp; Annotation (7 processes)<a class="headerlink" href="#marker-annotation-7-processes" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>ClusterMarkers</code> - Differential expression per cluster</li>
+<li><code>ClusterMarkersOfAllCells</code> - Markers before selection</li>
+<li><code>CellTypeAnnotation</code> - Automated cell type annotation</li>
+<li><code>SeuratMap2Ref</code> - Reference-based annotation</li>
+<li><code>MarkersFinder</code> - Custom group comparisons</li>
+<li><code>TopExpressingGenes</code> - Highly expressed genes</li>
+<li><code>TopExpressingGenesOfAllCells</code> - Top genes before selection</li>
+</ul>
+<h5 id="advanced-analysis-10-processes">Advanced Analysis (10 processes)<a class="headerlink" href="#advanced-analysis-10-processes" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>ModuleScoreCalculator</code> - Gene signature scoring</li>
+<li><code>CellCellCommunication</code> - Ligand-receptor interactions</li>
+<li><code>CellCellCommunicationPlots</code> - Communication visualization</li>
+<li><code>ScFGSEA</code> - Gene set enrichment analysis</li>
+<li><code>PseudoBulkDEG</code> - Pseudo-bulk differential expression</li>
+<li>Metabolic processes (6): <code>ScrnaMetabolicLandscape</code>, <code>MetabolicInput</code>, <code>MetabolicExprImputation</code>, <code>MetabolicFeatures</code>, <code>MetabolicPathwayActivity</code>, <code>MetabolicPathwayHeterogeneity</code></li>
+</ul>
+<h3 id="how-to-use-agent-skills">How to Use Agent Skills<a class="headerlink" href="#how-to-use-agent-skills" title="Permanent link">&para;</a></h3>
+<h4 id="option-1-mcp-server-recommended-for-claude-desktop">Option 1: MCP Server (Recommended for Claude Desktop)<a class="headerlink" href="#option-1-mcp-server-recommended-for-claude-desktop" title="Permanent link">&para;</a></h4>
+<p>Immunopipe includes a built-in Model Context Protocol (MCP) server that exposes skills to AI agents like Claude:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Start MCP server</span>
+immunopipe<span class="w"> </span>mcp
+
+<span class="c1"># Or configure in Claude Desktop settings</span>
+<span class="c1"># See docs/mcp-server.md for full setup</span>
+</code></pre></div>
+<p>The MCP server provides tools:
+- <code>configure_immunopipe</code> - Generate configurations via natural language
+- <code>generate_full_config</code> - Create complete pipeline configurations
+- <code>suggest_processes</code> - Recommend processes for your analysis
+- <code>list_options</code> - Browse available configuration options</p>
+<p><strong>Example interaction</strong>:
+<div class="highlight"><pre><span></span><code>User: I have 5 PBMC samples with TCR-seq data. I want to:
+1. QC and normalize the data
+2. Cluster T cells
+3. Identify exhausted T cells
+4. Analyze TCR clonality by cluster
+
+Agent: I&#39;ll generate a configuration for your TCR-seq analysis workflow.
+      Let me use the immunopipe configuration skill...
+
+[Agent generates complete TOML configuration with:
+ - SampleInfo for your 5 samples
+ - SeuratPreparing with appropriate QC thresholds
+ - SeuratClustering for T cell clustering
+ - ModuleScoreCalculator for exhaustion scoring
+ - ScRepCombiningExpression to integrate TCR data
+ - ClonalStats for clonality analysis]
+
+Here&#39;s your configuration. Would you like me to explain any section?
+</code></pre></div></p>
+<h4 id="option-2-direct-skill-access-for-other-ai-agents">Option 2: Direct Skill Access (For Other AI Agents)<a class="headerlink" href="#option-2-direct-skill-access-for-other-ai-agents" title="Permanent link">&para;</a></h4>
+<p>AI agents with file system access can directly read skill files:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example: Agent reading skills</span>
+<span class="n">main_skill</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;skills/immunopipe-config/SKILL.md&quot;</span><span class="p">)</span>
+<span class="n">process_skill</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;skills/seuratclustering/SKILL.md&quot;</span><span class="p">)</span>
+
+<span class="c1"># Agent uses skill content to generate configuration</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">generate_toml_from_user_request</span><span class="p">(</span><span class="n">user_query</span><span class="p">,</span> <span class="n">main_skill</span><span class="p">,</span> <span class="n">process_skill</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="option-3-manual-reference">Option 3: Manual Reference<a class="headerlink" href="#option-3-manual-reference" title="Permanent link">&para;</a></h4>
+<p>Even without AI agents, skills serve as comprehensive documentation:
+- Browse skill directories (e.g., <code>skills/seuratclustering/</code>, <code>skills/clustermarkers/</code>)
+- Each <code>SKILL.md</code> file includes complete configuration examples
+- Copy-paste examples and adapt to your needs</p>
+<h3 id="skill-format">Skill Format<a class="headerlink" href="#skill-format" title="Permanent link">&para;</a></h3>
+<p>Skills follow the <a href="https://agentskills.io/specification">Agent Skills specification</a>:</p>
+<p><strong>Directory Structure</strong>:
+<div class="highlight"><pre><span></span><code>skills/
+├── immunopipe-config/
+│   └── SKILL.md                # Main routing skill
+├── sampleinfo/
+│   └── SKILL.md                # Process-specific skill
+├── seuratclustering/
+│   └── SKILL.md
+└── ...                         # + 30 more process skills
+</code></pre></div></p>
+<p><strong>File Format</strong> (<code>SKILL.md</code>):
+<div class="highlight"><pre><span></span><code>---
+name: process-name              # Matches directory name
+<span class="gu">description: When to use this process and what it does (max 1024 chars)</span>
+<span class="gu">---</span>
+
+<span class="gh"># Process Name</span>
+
+<span class="gu">## Purpose</span>
+What this process does...
+
+<span class="gu">## Configuration Examples</span>
+[Complete TOML examples]
+
+<span class="gu">## Troubleshooting</span>
+[Common issues and solutions]
+</code></pre></div></p>
+<h3 id="example-workflows">Example Workflows<a class="headerlink" href="#example-workflows" title="Permanent link">&para;</a></h3>
+<h4 id="workflow-1-basic-tcr-seq-analysis">Workflow 1: Basic TCR-seq Analysis<a class="headerlink" href="#workflow-1-basic-tcr-seq-analysis" title="Permanent link">&para;</a></h4>
+<p><strong>User goal</strong>: "Analyze PBMC TCR-seq data to identify clonally expanded T cells"</p>
+<p><strong>Skills used</strong>:
+1. <code>immunopipe-config/</code> - Routes to TCR workflow
+2. <code>sampleinfo/</code> - Configure sample metadata
+3. <code>seuratpreparing/</code> - QC and normalization
+4. <code>screploading/</code> - Load TCR data
+5. <code>seuratclustering/</code> - Cluster T cells
+6. <code>screpcombiningexpression/</code> - Integrate TCR + RNA
+7. <code>clonalstats/</code> - Calculate clonality metrics</p>
+<p><strong>Output</strong>: Complete TOML configuration with all processes correctly wired</p>
+<h4 id="workflow-2-cell-cell-communication">Workflow 2: Cell-Cell Communication<a class="headerlink" href="#workflow-2-cell-cell-communication" title="Permanent link">&para;</a></h4>
+<p><strong>User goal</strong>: "Analyze ligand-receptor interactions between T cells and myeloid cells"</p>
+<p><strong>Skills used</strong>:
+1. <code>immunopipe-config/</code> - Routes to non-TCR workflow
+2. <code>seuratclustering/</code> - Cluster all cells
+3. <code>celltypeannotation/</code> - Annotate T and myeloid cells
+4. <code>cellcellcommunication/</code> - Infer interactions
+5. <code>cellcellcommunicationplots/</code> - Visualize networks</p>
+<p><strong>Output</strong>: Configuration focused on communication analysis</p>
+<h4 id="workflow-3-metabolic-profiling">Workflow 3: Metabolic Profiling<a class="headerlink" href="#workflow-3-metabolic-profiling" title="Permanent link">&para;</a></h4>
+<p><strong>User goal</strong>: "Compare metabolic pathway activity between exhausted and effector T cells"</p>
+<p><strong>Skills used</strong>:
+1. <code>modulescorecalculator/</code> - Score exhaustion/effector signatures
+2. <code>scrnametaboliclandscape/</code> - Full metabolic analysis pipeline
+3. <code>seuratclusterstats/</code> - Visualize metabolic scores</p>
+<p><strong>Output</strong>: Configuration with metabolic analysis modules</p>
+<h3 id="benefits-for-different-users">Benefits for Different Users<a class="headerlink" href="#benefits-for-different-users" title="Permanent link">&para;</a></h3>
+<h4 id="for-beginners">For Beginners<a class="headerlink" href="#for-beginners" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Lower barrier</strong>: Describe goals in natural language instead of learning TOML syntax</li>
+<li><strong>Guided selection</strong>: AI recommends appropriate processes</li>
+<li><strong>Error prevention</strong>: Generated configs are validated</li>
+<li><strong>Learning resource</strong>: Skills document all options with examples</li>
+</ul>
+<h4 id="for-experienced-users">For Experienced Users<a class="headerlink" href="#for-experienced-users" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Faster prototyping</strong>: Generate base configs quickly, then customize</li>
+<li><strong>Parameter discovery</strong>: Find advanced options you didn't know existed</li>
+<li><strong>Best practices</strong>: Learn common patterns from skill examples</li>
+<li><strong>Troubleshooting</strong>: Quick reference for common issues</li>
+</ul>
+<h4 id="for-workflow-developers">For Workflow Developers<a class="headerlink" href="#for-workflow-developers" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Reproducibility</strong>: AI-generated configs are complete and documented</li>
+<li><strong>Standardization</strong>: Consistent configuration patterns across projects</li>
+<li><strong>Collaboration</strong>: Share natural language requirements, generate consistent configs</li>
+</ul>
+<h3 id="skill-development">Skill Development<a class="headerlink" href="#skill-development" title="Permanent link">&para;</a></h3>
+<p>Immunopipe skills are actively maintained alongside the pipeline:</p>
+<ul>
+<li><strong>Location</strong>: <a href="https://github.com/pwwang/immunopipe/tree/dev/skills"><code>skills/</code></a> directory in repository</li>
+<li><strong>Format</strong>: <a href="https://agentskills.io/specification">Agent Skills specification</a> - directories with <code>SKILL.md</code> files</li>
+<li><strong>Structure</strong>: One directory per skill with YAML frontmatter</li>
+<li><strong>Updates</strong>: Skills are updated when processes change</li>
+<li><strong>Contributions</strong>: Submit improvements via pull requests</li>
+</ul>
+<p>Each skill includes:
+- YAML frontmatter with <code>name</code> and <code>description</code>
+- Complete process documentation
+- All configuration parameters with types and defaults
+- Realistic usage examples (minimal, typical, advanced)
+- Common troubleshooting scenarios with solutions</p>
+<h3 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><a href="../mcp-server/">MCP Server</a></strong>: Set up the Model Context Protocol server for Claude Desktop</li>
+<li><strong><a href="../configurations/">Configurations</a></strong>: Manual TOML configuration reference</li>
+<li><strong><a href="../processes/SampleInfo/">Processes</a></strong>: Individual process documentation</li>
+<li><strong><a href="../getting-started/">Getting Started</a></strong>: Quick start guide for immunopipe</li>
+</ul>
+<h3 id="external-resources">External Resources<a class="headerlink" href="#external-resources" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://agentskills.io/specification">Agent Skills Specification</a> - Official format documentation</li>
+<li><a href="https://github.com/anthropics/skills">Agent Skills Examples</a> - Example skills from Anthropic</li>
+<li><a href="https://modelcontextprotocol.io">MCP Documentation</a> - Model Context Protocol specification</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../configurations/" class="btn btn-neutral float-left" title="Configurations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../mcp-server/" class="btn btn-neutral float-right" title="MCP Sever">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../configurations/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../mcp-server/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/version-select.js"></script>
+      <script src="../assets/script.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
