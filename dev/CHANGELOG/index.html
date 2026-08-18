@@ -164,6 +164,12 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Change log</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#260a1">2.6.0a1</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#dependency-updates">Dependency Updates</a>
+    </li>
+        </ul>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#254">2.5.4</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#253">2.5.3</a>
@@ -413,6 +419,68 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h2>
+<h3 id="260a1">2.6.0a1<a class="headerlink" href="#260a1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>BREAKING: move ModuleScoreCalculator later before ScRepCombiningExpression so that we don't need to redo clustering and related if more module scores are needed for later run</li>
+<li>feat(LoadingRNAFromSeurat): support multiple columns for envs.sample</li>
+<li>feat(TOrBCellSelection): support envs.selector to be a file that contains a list of cell barcodes to select T/B cells</li>
+<li>feat: remove deprecated CloneHeterogeneity, TCellSelection, and MarkersOverlapping scripts</li>
+<li>feat: deprecate CloneHeterogeneity process and update related documentation</li>
+<li>feat: deprecate TCellSelection and use TOrBCellSelection and update related documentation</li>
+<li>feat: add Slingshot for pseudotime trajectory inference</li>
+<li>feat: add pipen-email as dependency to notify for status changes</li>
+<li>feat: add select-markers command to CLI utils for gene selection from ClusterMarkers process</li>
+<li>refactor: adopt pipen-cli-gbatch v1.2</li>
+<li>fix(TOrBCellSelection): add missing glue library import</li>
+<li>fix(TOrBCellSelection): ensure indicator genes are scaled for visualization in TOrBCellSelection script</li>
+<li>ci: enhance package import checks with version reporting</li>
+<li>chore: update pipen-verbose to version 1.1.3</li>
+<li>chore: use pwwang::r-metap (v1.14) in base docker image</li>
+<li>chore: add pipen-runinfo as a dependency in test environment</li>
+<li>chore: bump pipen-cli-gbatch to 1.2.0</li>
+<li>chore: bump pipen-report to 1.2.4</li>
+<li>test: enhance error reporting in run_process by including session info</li>
+<li>docs: update CellTypeAnnotation documentation and add Docker image tool limitations</li>
+<li>docs: add CLI utilities documentation for utility commands and options</li>
+<li>docs(gallery): add dataset YostKE-2019 to gallery</li>
+</ul>
+<h4 id="dependency-updates">Dependency Updates<a class="headerlink" href="#dependency-updates" title="Permanent link">&para;</a></h4>
+<ul>
+<li>r-plotthis to 0.13.3-2<ul>
+<li>feat(Heatmap): overhaul annotation arguments into structured list params; add <code>name</code> sub-key in annotation entries to alias the displayed annotation name and legend title (<code>name = FALSE</code> hides it); support rownames/colnames split annotations with concatenated names and display modes for row/column names and split titles</li>
+<li>feat(Heatmap): for <code>cell_type = "bars"</code>, column widths are now proportional to bar counts and <code>bars_sample</code> accepts a fraction or whole count; center slice titles</li>
+<li>feat(LinkedHeatmap): replace <code>title_gp</code> with <code>title_params</code>, update link width/color parameter names, support constant link width, fix alignment when a column title is provided, handle multiple <code>split_by</code> values</li>
+<li>feat(DimPlot): support <code>pt_size</code> as a column name; fix gtable conversion destroying ggplot structure</li>
+<li>feat(RidgePlot): add <code>x_min</code>/<code>x_max</code> parameters; feat: add <code>y_brackets</code> for significance brackets in box/violin/beeswarm plots</li>
+<li>fix: name annotation with empty levels, BoxViolinPlot with fewer than 2 levels, ViolinPlot conditionally loads ggpubr, multiple <code>split_by</code> columns (Network, keep_na/keep_empty clearing), links placement in graph-based plots</li>
+</ul>
+</li>
+<li>r-scplotter to 0.8.0-1<ul>
+<li>BREAKING: set default <code>layer</code> to "scale.data" in FeatureStatPlot</li>
+<li>fix(MarkersPlot): set default <code>order_by</code> to "desc(abs(avg_log2FC))"; replace deprecated <code>subset_by</code> with <code>each</code></li>
+<li>fix(CCCPlot): clarify link_alpha usage, <code>link_width_by</code> defaults to magnitude, use unicode arrow for <code>-&gt;</code></li>
+</ul>
+</li>
+<li>r-biopipen.utils to 0.4.3-6<ul>
+<li>feat: support h5ad file type in read_obj/save_obj; handle null assay/ident attributes in ConvertAnnDataToSeurat (with AssembleAssay monkey-patching); null active_ident check in ConvertSeuratToAnnData; .Rds file support; add other assays to layers in list_to_h5group; ignore .qs files in Rbuildignore</li>
+<li>feat(read_write_table): add read_table/write_table with annotated factor levels and load_table/save_table aliases for txt/tsv/csv; use read.delim</li>
+<li>feat(EnsureSeuratScaleData): add function to ensure marker genes are in scale.data layer; improve scale.data merging and missing feature handling</li>
+<li>feat(RunSeuratUMAP): support overwriting UMAP results from a TSV file; feat(RunSeuratDoubletFinder): add reuse.pANN parameter (require r-doubletfinder &gt;=2.0.6)</li>
+<li>fix(VizDEGs): default <code>order_by</code> to "desc(abs(avg_log2FC))", handle missing features in scale.data, replace <code>subset_by</code>/<code>subset_as_facet</code> with <code>each</code>/<code>facet_each</code></li>
+<li>fix: RunSeuratMap2Ref refdata check and JoinLayers usage; RunSeuratTransformation handles <code>"__all__"</code> features; LoadSeuratAndPerformQC warns on 'integrated' default assay</li>
+</ul>
+</li>
+<li>biopipen to 1.4.0<ul>
+<li>feat(scrna.CellTypeAnnotation): add support for scSorter, SCINA, SingleR, scHDeepInsight, GPTCelltype, cellassign, scBERT and CelliD tools; support cell-level annotations and multiple cases; add assay parameter and Python executable for cellassign; save cluster-to-cell-type mappings; fix ident handling, missing clusters/special values, and celltypist treated as cluster-based without over_clustering</li>
+<li>feat(scrna.Slingshot): add Slingshot process for pseudotime trajectory inference — multiple cases, enhanced dims handling, cell subsetting/splitting, varying lineage outputs</li>
+<li>feat(scrna.CellCellCommunication): support multiple cases and multiple split_by columns; monkey-patch anndata.AnnData dtype keyword; output tables inherit factor levels; improve default ligand/receptor expression columns (CellCellCommunicationPlots)</li>
+<li>feat(tcr.ScRepCombiningExpression): add cell ID transformation functions; group-based clonal proportion calculation and enhanced clone size handling with logging</li>
+<li>feat(scrna.MarkersFinder): default plot type heatmap_log2fc, add select_overall option, use case$group_by; feat(scrna.SeuratClusterStats): handle missing features in scale.data via GetAssayData</li>
+<li>feat(scrna.SeuratPreparing): use orig.ident or a uniformed value when 'Sample' column is missing; simplify metadata reading; remove unnecessary SCTransform parameters</li>
+<li>fix: make .Rds legal as reference in SeuratMap2Ref</li>
+</ul>
+</li>
+</ul>
 <h3 id="254">2.5.4<a class="headerlink" href="#254" title="Permanent link">&para;</a></h3>
 <ul>
 <li>fix(ci): allow deletion of old test running data cache to continue on error</li>
