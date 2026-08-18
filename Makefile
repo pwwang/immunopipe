@@ -33,9 +33,8 @@ version:
 		NEW_VERSION="$(word 2,$(MAKECMDGOALS))"; \
 	fi; \
 	echo "Updating version to $$NEW_VERSION"; \
-	sed -i "s/^version = .*/version = \"$$NEW_VERSION\"/" pyproject.toml; \
 	sed -i "s/^__version__ = .*/__version__ = \"$$NEW_VERSION\"/" immunopipe/version.py; \
-	LAST_MERGE=$$(git log --grep="Merge remote-tracking branch '"'"'origin/master'"'"' into dev" --format="%H" -n 1 2>/dev/null || echo ""); \
+	LAST_MERGE=$$(git log --grep="Merge remote-tracking branch '"'"'origin/master'"'"' into dev" --grep="^[0-9]\+\.[0-9]\+\.[0-9]\+" --format="%H" -n 1 2>/dev/null || echo ""); \
 	if [ -z "$$LAST_MERGE" ]; then \
 		COMMITS=$$(git log --pretty=format:"- %s" HEAD); \
 	else \
