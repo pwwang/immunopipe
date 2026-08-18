@@ -438,6 +438,10 @@ reporter$add(
     ),
     h1 = "Feature plots"
 )
+
+# Ensure the indicator genes are scaled for visualization
+sobj <- EnsureSeuratScaleData(sobj, features = indicator_genes)
+
 p <- scplotter::FeatureStatPlot(
     sobj,
     features = indicator_genes,
