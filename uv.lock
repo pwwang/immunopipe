@@ -454,7 +454,7 @@ wheels = [
 
 [[package]]
 name = "biopipen"
-version = "1.4.0a10"
+version = "1.4.0a11"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "datar", extra = ["pandas"] },
@@ -465,9 +465,9 @@ dependencies = [
     { name = "pipen-poplog" },
     { name = "pipen-verbose" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c8/ef/cc6f132df49e88ce799e408b977230508f63913a765070e3d9d4f394bd95/biopipen-1.4.0a10.tar.gz", hash = "sha256:c77cdea3035f49299ffa2bbf6e708dc5ddeb9b1ce9f6c5b2d570fbfb052c5f06", size = 2208743, upload-time = "2026-08-18T05:35:18.993Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/0a/6c/2d202927773abb61203908974683d291fb97faa14fd9750c3b3c5488cc31/biopipen-1.4.0a11.tar.gz", hash = "sha256:20dcc2e402dc6b59b3851e8f40b523d888458df676bc19bf49357ca89f63bc7e", size = 2208720, upload-time = "2026-08-20T06:31:55.058Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/25/67/1024f5731993ce25107aa0eb19f380504eb4582d3fc495968e4bfc406bb2/biopipen-1.4.0a10-py3-none-any.whl", hash = "sha256:a6d6f202689d91c58d392a45e9729608c87842156bd5a45cb35343734f03967a", size = 956807, upload-time = "2026-08-18T05:35:15.529Z" },
+    { url = "https://files.pythonhosted.org/packages/f0/74/95b3b99fce3b0694d9e5f8bb734120376a236c20422f30df2b57b3caf3eb/biopipen-1.4.0a11-py3-none-any.whl", hash = "sha256:8a5ff5cb177a227f06562ab854d6b03794b57775e279007313ab5bf7a6613175", size = 956792, upload-time = "2026-08-20T06:31:51.509Z" },
 ]
 
 [[package]]
@@ -867,7 +867,7 @@ wheels = [
 
 [[package]]
 name = "copier"
-version = "9.17.1"
+version = "9.17.2"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
@@ -897,9 +897,9 @@ dependencies = [
     { name = "questionary" },
     { name = "typing-extensions", marker = "python_full_version < '3.11'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/40/65/11c8635a27ce06ef525946bb02b1d5271b0f11e5acf9c5ab6d242512598e/copier-9.17.1.tar.gz", hash = "sha256:778e85f1c2de86824a72ddf4a34140744921d6354450c427c4c8a475371b1bda", size = 647338, upload-time = "2026-08-04T09:15:04.826Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/2e/4c/2e593d85827c49f478ea4925d1008a144bb8ff2189c6e9f405c37bb56edb/copier-9.17.2.tar.gz", hash = "sha256:02e9c0d05281603c06d52f48350e48ffca0b4283d9f025664fbce4befabaa555", size = 650501, upload-time = "2026-08-19T13:49:17.456Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/7f/bf/3adcb9b3091b36de729dad91c107179c8c7c51adb2b08c31177bb540bef1/copier-9.17.1-py3-none-any.whl", hash = "sha256:f6a48f296e2e536c635213e1000ea71099f9f58f3b464a60f2f0fd386e343628", size = 66364, upload-time = "2026-08-04T09:15:03.026Z" },
+    { url = "https://files.pythonhosted.org/packages/ec/ec/466bbf501af8e9f718b3f4875cb32fe75a1f17538c2fba507f64a32c2b0f/copier-9.17.2-py3-none-any.whl", hash = "sha256:24757d8875cdf4e076ff338e5ea984e85f5d5da9afcecea8a9dde0f151310b19", size = 67003, upload-time = "2026-08-19T13:49:15.987Z" },
 ]
 
 [[package]]
@@ -3034,7 +3034,7 @@ dependencies = [
     { name = "psutil" },
     { name = "python-slugify" },
     { name = "quart", version = "0.20.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
-    { name = "quart", version = "0.21.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "quart", version = "0.22.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "taskgroup", marker = "python_full_version < '3.11'" },
     { name = "websocket-client" },
 ]
@@ -3180,7 +3180,7 @@ version = "1.2.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "copier", version = "9.10.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
-    { name = "copier", version = "9.17.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "copier", version = "9.17.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "imagesize", version = "1.5.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "imagesize", version = "2.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "markdown", version = "3.9", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
@@ -4430,7 +4430,7 @@ wheels = [
 
 [[package]]
 name = "quart"
-version = "0.21.0"
+version = "0.22.0"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
@@ -4454,9 +4454,9 @@ dependencies = [
     { name = "markupsafe" },
     { name = "werkzeug" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/29/a7/d3e1a5f2afac1b20ca65e740bd2686b45b2c8c9de418d851feddeafadaa0/quart-0.21.0.tar.gz", hash = "sha256:ec05a784151386cf87df51f764825d55f3ac402df4f04fd1dc81faca8897ceda", size = 65409, upload-time = "2026-07-23T20:11:36.585Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/82/8a/13962df31309fa024b1811102981577b1702916779d3f17067bbf1f7691d/quart-0.22.0.tar.gz", hash = "sha256:6ba567bb29e0ea66f7c0a0297c2b6225bb531e37dbf9b75dbf4a6e1713c4c934", size = 65475, upload-time = "2026-08-19T19:53:30.212Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/44/a1/05114d779ddad67d45b03faf2de941a74146b37ee1d626a9d193ac4c2153/quart-0.21.0-py3-none-any.whl", hash = "sha256:a21377754d52ee3a9de7f9bff140dc3bb055e2eec8ac187da1789b36cf4c66ca", size = 78863, upload-time = "2026-07-23T20:11:35.162Z" },
+    { url = "https://files.pythonhosted.org/packages/81/80/0159d6fe2fc76915f2354e5b9187082987f7d648f0298d49770320c086ef/quart-0.22.0-py3-none-any.whl", hash = "sha256:bb659545f1a8a287a14df9434b9225a3d4738362a3ed170744d0e03bb9447b50", size = 78912, upload-time = "2026-08-19T19:53:28.961Z" },
 ]
 
 [[package]]
