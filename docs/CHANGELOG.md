@@ -34,7 +34,7 @@
     - feat(DimPlot): support `pt_size` as a column name; fix gtable conversion destroying ggplot structure
     - feat(RidgePlot): add `x_min`/`x_max` parameters; feat: add `y_brackets` for significance brackets in box/violin/beeswarm plots
     - fix: name annotation with empty levels, BoxViolinPlot with fewer than 2 levels, ViolinPlot conditionally loads ggpubr, multiple `split_by` columns (Network, keep_na/keep_empty clearing), links placement in graph-based plots
-- r-scplotter to 0.8.0-1
+- r-scplotter to 0.8.0-2
     - BREAKING: set default `layer` to "scale.data" in FeatureStatPlot
     - fix(MarkersPlot): set default `order_by` to "desc(abs(avg_log2FC))"; replace deprecated `subset_by` with `each`
     - fix(CCCPlot): clarify link_alpha usage, `link_width_by` defaults to magnitude, use unicode arrow for `->`
