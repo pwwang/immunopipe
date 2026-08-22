@@ -454,7 +454,7 @@ wheels = [
 
 [[package]]
 name = "biopipen"
-version = "1.4.0a12"
+version = "1.4.0a13"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "datar", extra = ["pandas"] },
@@ -465,9 +465,9 @@ dependencies = [
     { name = "pipen-poplog" },
     { name = "pipen-verbose" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/36/32/93fe9b6052fb2a4a1b56d51f8217df6617324029fdbdef57d0c68cfaeaae/biopipen-1.4.0a12.tar.gz", hash = "sha256:ed0e7083d411f4e9ae05d24b2320161dab6d10600305028ba6da3b7fbb2ecde2", size = 2208876, upload-time = "2026-08-21T06:04:06.584Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ed/51/49cd6cb68533ab050784b19fa5e73bb594586f87303681626d7f1cafe1d3/biopipen-1.4.0a13.tar.gz", hash = "sha256:fd10d53cad65caa470e6fef69aa02687814c105b6895dd4bcafcb25c1db4a820", size = 2209273, upload-time = "2026-08-22T19:58:18.828Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ee/67/535e9c4b66d10e8da21a2369272cb33137189e50c1981da7600bfbdf5e81/biopipen-1.4.0a12-py3-none-any.whl", hash = "sha256:e47046b1ccc4ae86c6f7c5c328dc56d8d9974d7e872dfc17ef305c4f1fb6ce03", size = 956885, upload-time = "2026-08-21T06:04:02.645Z" },
+    { url = "https://files.pythonhosted.org/packages/24/53/87ebe39ab792e36a993af7531989a842b4a361f859f0441ba3a2d5d7a4ec/biopipen-1.4.0a13-py3-none-any.whl", hash = "sha256:df4a66085e25255f103a994088f52529fe61662d2951a3d826eece6d1b342798", size = 957130, upload-time = "2026-08-22T19:58:15.169Z" },
 ]
 
 [[package]]
@@ -1922,7 +1922,7 @@ docs = [
     { name = "mkdocs-rtd" },
     { name = "pipen-cli-ref" },
     { name = "pymdown-extensions", version = "10.21.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
-    { name = "pymdown-extensions", version = "11.0.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "pymdown-extensions", version = "11.0.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
 ]
 
 [package.metadata]
@@ -2982,7 +2982,7 @@ wheels = [
 
 [[package]]
 name = "pipen"
-version = "1.2.0"
+version = "1.2.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "argx" },
@@ -2995,9 +2995,9 @@ dependencies = [
     { name = "varname" },
     { name = "xqute" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/84/bf/123e9f554e318a00b4c47e3d642504ca218b6a7bed448d31a9538f57625d/pipen-1.2.0.tar.gz", hash = "sha256:83b650789a27f4e0c56c38172872d16c7c28e25fce93ed2b55710f64b7a2097e", size = 747082, upload-time = "2026-08-12T18:31:36.591Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/32/27/c5b86b8affda61623b80a64d0d9e833f00dfc308dddd87f2df44221b5a7a/pipen-1.2.1.tar.gz", hash = "sha256:76970d8da9112734d5f18749f5ba7e57c4862bb3b4ec16f637e6752dc617e2e9", size = 748776, upload-time = "2026-08-22T01:46:18.824Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1f/6c/8c1362404cc3a606ba915a21854fa4924523e3fac08b9e533cdd8406e7d1/pipen-1.2.0-py3-none-any.whl", hash = "sha256:7c17c384493a5dcefe87098f471e321040602370dbea698585cb3a611fa90d9e", size = 59039, upload-time = "2026-08-12T18:31:35.377Z" },
+    { url = "https://files.pythonhosted.org/packages/42/26/574cbe8b601780bed07b51b29636e82f3d6df18782b620c7926ba38a5ad3/pipen-1.2.1-py3-none-any.whl", hash = "sha256:c013a013a32d3412cd3136a7825e90dc8e2e3bb987b0cf3495ad57cae5997bb0", size = 59093, upload-time = "2026-08-22T01:46:17.703Z" },
 ]
 
 [[package]]
@@ -4067,7 +4067,7 @@ wheels = [
 
 [[package]]
 name = "pymdown-extensions"
-version = "11.0.1"
+version = "11.0.2"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
@@ -4085,9 +4085,9 @@ dependencies = [
     { name = "markdown", version = "3.10.3", source = { registry = "https://pypi.org/simple" } },
     { name = "pyyaml" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/21/a9/5f0c535ba3b08fe09270c16808e053a968868242ecbd5676d4e3a488bf28/pymdown_extensions-11.0.1.tar.gz", hash = "sha256:dd2905ae6fc5b75582fafb139a1266ffc754705efa902aa50067fa7ff4f94ec0", size = 857113, upload-time = "2026-07-02T17:59:22.955Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ad/17/2db4b414de89659144488e0d9c6c0bf0c8395841dc12d81d0532cc6ef310/pymdown_extensions-11.0.2.tar.gz", hash = "sha256:9506fcbe66fa355a775b768084334238dd6805020ac4b92bea0c0dda6f8f223d", size = 855419, upload-time = "2026-08-22T19:28:47.236Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d6/54/da572c98c0b77626a91b5d3b89f0231d8bff5125c225420908632f8b342d/pymdown_extensions-11.0.1-py3-none-any.whl", hash = "sha256:db3943a62bab7e03af1364f0c4083e64b91fb097675a4b6cceccfbe9a77e5eb2", size = 269455, upload-time = "2026-07-02T17:59:21.271Z" },
+    { url = "https://files.pythonhosted.org/packages/a6/43/9f45ec4d14e596efc32c925a78104934790438b0c0628b70d741016734ad/pymdown_extensions-11.0.2-py3-none-any.whl", hash = "sha256:259910762019732caa1dfd76f3faa62c59f191d46573e80bcb1d13c0f675bbe5", size = 269929, upload-time = "2026-08-22T19:28:45.389Z" },
 ]
 
 [[package]]
