@@ -8,7 +8,7 @@
             "contents": [
               {
                 "kind": "descr",
-                "content": "Showing top 100 markers ordered by p_val_adj ascendingly, then abs(avg_log2FC) descendingly. Use 'Download the entire data' button to download all significant markers by 'p_val_adj &lt; 0.05 &amp; avg_log2FC &gt; 0'."
+                "content": "Showing top 100 (if more than 100) markers ordered by abs(avg_log2FC) descendingly. Use 'Download the entire data' button to download all significant markers by 'p_val_adj &lt; 0.05 &amp; avg_log2FC &gt; 0'."
               },
               {
                 "kind": "table",
@@ -116,7 +116,7 @@
             "contents": [
               {
                 "kind": "descr",
-                "content": "Showing top 100 markers ordered by p_val_adj ascendingly, then abs(avg_log2FC) descendingly. Use 'Download the entire data' button to download all significant markers by 'p_val_adj &lt; 0.05 &amp; avg_log2FC &gt; 0'."
+                "content": "Showing top 100 (if more than 100) markers ordered by abs(avg_log2FC) descendingly. Use 'Download the entire data' button to download all significant markers by 'p_val_adj &lt; 0.05 &amp; avg_log2FC &gt; 0'."
               },
               {
                 "kind": "table",
@@ -224,7 +224,7 @@
             "contents": [
               {
                 "kind": "descr",
-                "content": "Showing top 100 markers ordered by p_val_adj ascendingly, then abs(avg_log2FC) descendingly. Use 'Download the entire data' button to download all significant markers by 'p_val_adj &lt; 0.05 &amp; avg_log2FC &gt; 0'."
+                "content": "Showing top 100 (if more than 100) markers ordered by abs(avg_log2FC) descendingly. Use 'Download the entire data' button to download all significant markers by 'p_val_adj &lt; 0.05 &amp; avg_log2FC &gt; 0'."
               },
               {
                 "kind": "table",
