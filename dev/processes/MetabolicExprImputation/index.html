@@ -232,14 +232,15 @@ of the process group to <code>True</code>.<br /></p>
     Use magic() from Rmagic</li>
 </ul>
 </li>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores to use for reading and writing,
+    the Seurat object, and for scimpute and rmagic if applicable.<br /></li>
 <li><code>scimpute_args</code> <em>(<code>ns</code>)</em>:
     The arguments for scimpute<ul>
 <li><code>drop_thre</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.5</code></em>. <br />
     The dropout threshold</li>
 <li><code>kcluster</code> <em>(<code>type=int</code>)</em>:
     Number of clusters to use</li>
-<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
-    Number of cores to use</li>
 <li><code>refgene</code>: <em>Default: <code>""</code></em>. <br />
     The reference gene file</li>
 </ul>

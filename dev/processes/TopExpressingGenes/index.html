@@ -231,6 +231,8 @@ readonly.<br /></p>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores to use for reading and writing the seurat object.<br /></li>
 <li><code>dbs</code> <em>(<code>list</code>)</em>: <em>Default: <code>['KEGG_2021_Human', 'MSigDB_Hallmark_2020']</code></em>. <br />
     The dbs to do enrichment analysis for significant markers.<br />
     You can use built-in dbs in <code>enrichit</code>, or provide your own gmt files.<br />

@@ -257,6 +257,8 @@ information.<br /></p>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>:
+    The number of cores to use for data reading and writing.<br /></li>
 <li><code>mutaters</code> <em>(<code>type=json;order=-9</code>)</em>: <em>Default: <code>{}</code></em>. <br />
     The mutaters passed to <code>dplyr::mutate()</code> to add new variables.<br />
     When the object loaded form <code>in.screpfile</code> is a list, the mutaters will be applied to each element.<br />
