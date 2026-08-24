@@ -454,7 +454,7 @@ wheels = [
 
 [[package]]
 name = "biopipen"
-version = "1.4.0a14"
+version = "1.4.0a15"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "datar", extra = ["pandas"] },
@@ -465,9 +465,9 @@ dependencies = [
     { name = "pipen-poplog" },
     { name = "pipen-verbose" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1f/00/6fadc41b19bc109a1ccab17d339d10a43634a91ea91a31bbdba029b54722/biopipen-1.4.0a14.tar.gz", hash = "sha256:fa6d247b251e8f035aa4ed823e81f4a8a6dbef10ef5dc8f0b00c902657c44ec7", size = 2209397, upload-time = "2026-08-23T07:28:23.133Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/53/a8/693632e8b40281ab85a10d08334a9adc166052a9003a32b2a1210331e561/biopipen-1.4.0a15.tar.gz", hash = "sha256:06183e7e57ae43114350a873c35d45ddfcf33cf825556deea8d27927cd5b99ef", size = 2210329, upload-time = "2026-08-24T18:15:52.488Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/cf/f2/7728d5c941a299f5251edefefc9d72da6d8b5115617bc9031c48dc4a6840/biopipen-1.4.0a14-py3-none-any.whl", hash = "sha256:009467e1c10492bc7dd47ff648e4d6b320f22d2f07cc3a99f93523b84e4b8d4c", size = 957166, upload-time = "2026-08-23T07:28:19.294Z" },
+    { url = "https://files.pythonhosted.org/packages/ce/29/3a15d45ff98997ccd823b9f995641e36fdd4e943c6595ca1de9b436c6e35/biopipen-1.4.0a15-py3-none-any.whl", hash = "sha256:d72f4787b8765be1c8e5bab33d25fc0aa71c94d4dbbfa73b9cd291bec214449a", size = 958335, upload-time = "2026-08-24T18:15:48.363Z" },
 ]
 
 [[package]]
