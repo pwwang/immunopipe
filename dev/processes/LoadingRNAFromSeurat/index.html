@@ -227,6 +227,15 @@
     The column name in the metadata of the Seurat object that
     indicates the sample name.<br />
     Multiple columns will be concatenated with <code>_</code> to form the sample name.<br /></li>
+<li><code>mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
+    The mutaters to mutate the metadata
+    Keys are the names of the mutaters and values are the R expressions
+    passed by <code>dplyr::mutate()</code> to mutate the metadata.<br /></li>
+<li><code>subset</code>:
+    An expression to subset the cells, will be passed to <code>dplyr::filter()</code>.<br />
+    This will be applied after mutating the metadata.<br /></li>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    The number of threads used to load/save the Seurat object.<br /></li>
 </ul>
 <h3 id="seealso">SeeAlso<a class="headerlink" href="#seealso" title="Permanent link">&para;</a></h3>
 <ul>

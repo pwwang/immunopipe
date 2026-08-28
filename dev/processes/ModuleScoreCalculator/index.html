@@ -204,13 +204,43 @@
                 <h2 id="modulescorecalculator">ModuleScoreCalculator<a class="headerlink" href="#modulescorecalculator" title="Permanent link">&para;</a></h2>
 <p>Calculate the module scores for each cell</p>
 <p>The module scores are calculated by
-<a href="https://satijalab.org/seurat/reference/addmodulescore"><code>Seurat::AddModuleScore()</code></a>
-or <a href="https://satijalab.org/seurat/reference/cellcyclescoring"><code>Seurat::CellCycleScoring()</code></a>
-for cell cycle scores.<br /></p>
-<p>The module scores are calculated as the average expression levels of each
-program on single cell level, subtracted by the aggregated expression of
-control feature sets. All analyzed features are binned based on averaged
-expression, and the control features are randomly selected from each bin.<br /></p>
+<a href="https://pwwang.github.io/biopipen.utils.R/reference/RunModuleScoring.html"><code>biopipen.utils::RunModuleScoring()</code></a>
+with the scoring method specified by <code>env.defaults.method</code> (or per module
+by <code>method</code> in the module dict):<br /></p>
+<ul>
+<li><code>seurat</code>: <a href="https://satijalab.org/seurat/reference/addmodulescore"><code>Seurat::AddModuleScore()</code></a>,
+the default. The module scores are calculated as the average expression
+levels of each program on single cell level, subtracted by the
+aggregated expression of control feature sets. All analyzed features
+are binned based on averaged expression, and the control features are
+randomly selected from each bin. (Tirosh I, et al. 2016. Dissecting the
+multicellular ecosystem of metastatic melanoma by single-cell RNA-seq.<br />
+<em>Science</em> 352(6282):189-196.<br />
+<a href="https://www.science.org/doi/10.1126/science.aad0501">https://www.science.org/doi/10.1126/science.aad0501</a>)</li>
+<li><code>ucell</code>: <a href="https://bioconductor.org/packages/release/bioc/html/UCell.html"><code>UCell::AddModuleScore_UCell()</code></a>
+(Andreatta M, Carmona SJ. 2021. UCell: Robust and scalable single-cell
+gene signature scoring. <em>Comput Struct Biotechnol J</em> 19:3796-3798.<br />
+<a href="https://doi.org/10.1016/j.csbj.2021.06.043">https://doi.org/10.1016/j.csbj.2021.06.043</a>). Missing genes are
+imputed with expression 0 (with a warning).<br /></li>
+<li><code>aucell</code>: <a href="https://bioconductor.org/packages/release/bioc/html/AUCell.html"><code>AUCell::AUCell_calcAUC()</code></a>
+(Aibar S, et al. 2017. SCENIC: single-cell regulatory network inference
+and clustering. <em>Nat Methods</em> 14:1083-1086.<br />
+<a href="https://doi.org/10.1038/nmeth.4463">https://doi.org/10.1038/nmeth.4463</a>)</li>
+<li><code>ssgsea</code>: <a href="https://bioconductor.org/packages/release/bioc/html/GSVA.html"><code>GSVA::gsva()</code></a>
+with <code>method = "ssgsea"</code> (Barbie DA, et al. 2009. Systematic RNA
+interference reveals that oncogenic KRAS-driven cancers require TBK1.<br />
+<em>Nature</em> 462:108-112. <a href="https://doi.org/10.1038/nature08460">https://doi.org/10.1038/nature08460</a>)</li>
+<li><code>jasmine</code>: (Noureen N, et al. 2022. Integrated analysis of telomerase
+enzymatic activity unravels an association with cancer stemness and
+proliferation. <em>eLife</em> 11:e71994. <a href="https://doi.org/10.7554/eLife.71994">https://doi.org/10.7554/eLife.71994</a>)</li>
+<li><code>scse</code>: (Pont F, et al. 2019. Single-cell signature explorer for
+personalized transcriptomics studies and drug discovery. <em>Nucleic Acids
+Res</em> 47(19):e90. <a href="https://doi.org/10.1093/nar/gkz601">https://doi.org/10.1093/nar/gkz601</a>)</li>
+<li><code>scps</code>: (the scPS benchmarking study:<br />
+<a href="https://academic.oup.com/nargab/article/6/3/lqae124/7770961">https://academic.oup.com/nargab/article/6/3/lqae124/7770961</a>)</li>
+</ul>
+<p>Scores from different methods are not comparable with each other — only
+the column names are consistent.<br /></p>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>srtobj</code>:
@@ -225,55 +255,65 @@ expression, and the control features are randomly selected from each bin.<br /><
 <ul>
 <li><code>defaults</code> <em>(<code>ns</code>)</em>:
     The default parameters for <code>modules</code>.<br /><ul>
+<li><code>method</code> <em>(<code>choice</code>)</em>: <em>Default: <code>seurat</code></em>. <br />
+    The scoring method to use, one of <code>seurat</code>,
+    <code>ucell</code>, <code>aucell</code>, <code>ssgsea</code>, <code>jasmine</code>, <code>scse</code> or <code>scps</code>.<br />
+    Can be overridden per module.<br /></li>
 <li><code>features</code>:
-    The features to calculate the scores. Multiple features
-    should be separated by comma.<br />
-    You can also specify <code>cc.genes</code> or <code>cc.genes.updated.2019</code> to
-    use the cell cycle genes to calculate cell cycle scores.<br />
-    If so, three columns will be added to the metadata, including
-    <code>S.Score</code>, <code>G2M.Score</code> and <code>Phase</code>.<br />
-    Only one type of cell cycle scores can be calculated at a time.<br /></li>
+    The features (genes) to calculate the scores.<br />
+    A comma-separated string of genes, e.g.<br />
+    <code>"HAVCR2,ENTPD1,LAYN,LAG3"</code>, yields one score column named by
+    the module key. A list of gene vectors, e.g.<br />
+    <code>["HAVCR2","ENTPD1"]</code>, yields one column per element, named
+    <code>{key}1</code>, <code>{key}2</code>, ... if unnamed, or <code>{key}_{name}</code> if
+    named. You can also specify <code>cc.genes</code>,
+    <code>cc.genes.updated.2019</code> or <code>cc.genes.mouse</code> (or use
+    <code>kind: "cc"</code>, with <code>features</code> defaulting to <code>cc.genes</code>) to
+    calculate cell cycle scores. Three columns will be added to
+    the metadata: <code>{key}_S.Score</code>, <code>{key}_G2M.Score</code> and
+    <code>{key}_Phase</code>. This works for all methods. Use one of the
+    reserved no-prefix keys (<code>"_"</code>, <code>"-"</code>, <code>"*"</code> or <code>"#"</code>) as the
+    module key to keep the plain <code>S.Score</code>, <code>G2M.Score</code> and
+    <code>Phase</code> names. For diffusion map modules (<code>kind: "dm"</code>), this
+    is the number of components to keep (default 2).<br /></li>
 <li><code>nbin</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>24</code></em>. <br />
     Number of bins of aggregate expression levels
-    for all analyzed features.<br /></li>
+    for all analyzed features. Only for the <code>seurat</code> method.<br /></li>
 <li><code>ctrl</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
     Number of control features selected from
-    the same bin per analyzed feature.<br /></li>
+    the same bin per analyzed feature. Only for the <code>seurat</code>
+    method.<br /></li>
 <li><code>k</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Use feature clusters returned from <code>DoKMeans</code>.<br /></li>
+    Use feature clusters returned from <code>DoKMeans</code>.<br />
+    Only for the <code>seurat</code> method.<br /></li>
 <li><code>assay</code>:
-    The assay to use.<br /></li>
+    The assay to use (for tools that accept it).<br /></li>
 <li><code>seed</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>8525</code></em>. <br />
-    Set a random seed.<br /></li>
+    Set a random seed. Only for the <code>seurat</code> method.<br /></li>
 <li><code>search</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Search for symbol synonyms for features in
-    features that don't match features in object?<br /></li>
-<li><code>keep</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Keep the scores for each feature?<br />
-    Only works for non-cell cycle scores.<br /></li>
-<li><code>agg</code> <em>(<code>choice</code>)</em>: <em>Default: <code>mean</code></em>. <br />
-    The aggregation function to use.<br />
-    Only works for non-cell cycle scores.<br /><ul>
-<li><code>mean</code>:
-    The mean of the expression levels</li>
-<li><code>median</code>:
-    The median of the expression levels</li>
-<li><code>sum</code>:
-    The sum of the expression levels</li>
-<li><code>max</code>:
-    The max of the expression levels</li>
-<li><code>min</code>:
-    The min of the expression levels</li>
-<li><code>var</code>:
-    The variance of the expression levels</li>
-<li><code>sd</code>:
-    The standard deviation of the expression levels</li>
-</ul>
-</li>
+    Search for symbol synonyms for features that
+    don't match features in object? Only for the <code>seurat</code> method.<br /></li>
 <li><code>&lt;more&gt;</code>:
-    Other arguments passed to <code>Seurat::AddModuleScore()</code> or <code>Seurat::CellCycleScoring()</code>.<br />
-    See <a href="https://satijalab.org/seurat/reference/addmodulescore">https://satijalab.org/seurat/reference/addmodulescore</a> and
-    <a href="https://satijalab.org/seurat/reference/cellcyclescoring">https://satijalab.org/seurat/reference/cellcyclescoring</a></li>
+    Other parameters, passed to the underlying tool of the
+    <code>method</code>. For <code>seurat</code>, they go to <code>Seurat::AddModuleScore()</code>
+    or <code>Seurat::CellCycleScoring()</code> (see
+    <a href="https://satijalab.org/seurat/reference/addmodulescore">https://satijalab.org/seurat/reference/addmodulescore</a> and
+    <a href="https://satijalab.org/seurat/reference/cellcyclescoring">https://satijalab.org/seurat/reference/cellcyclescoring</a>).<br />
+    For <code>ucell</code>: <code>maxRank</code>, <code>w_neg</code> and <code>slot</code> (default
+    <code>"counts"</code>, not <code>layer</code>). For <code>aucell</code>: <code>aucMaxRank</code>,
+    <code>plotStats</code>. For <code>ssgsea</code>: <code>kcdf</code>, <code>verbose</code>, <code>min.sz</code>,
+    <code>max.sz</code>, <code>tau</code>, etc. For <code>scse</code>/<code>scps</code>: <code>layer</code> (default
+    <code>"data"</code>). <code>scps</code> uses the bundled scPS implementation, which
+    runs PCA on the <code>scale.data</code> of the object, so the signature
+    genes must be scaled first (<code>ScaleData(features = ...)</code> or
+    <code>SCTransform</code>); it also requires the
+    <a href="https://bioconductor.org/packages/release/bioc/html/GSEABase.html"><code>GSEABase</code></a>
+    package. For diffmap modules (<code>kind: "dm"</code>): <code>n_pcs</code> (use PCA
+    embeddings instead of assay data) and other arguments passed
+    to
+    <a href="https://www.rdocumentation.org/packages/destiny/versions/2.0.4/topics/DiffusionMap%20class"><code>destiny::DiffusionMap()</code></a>.<br />
+    The <code>agg</code> and <code>keep</code> parameters from old versions are removed
+    and ignored.<br /></li>
 </ul>
 </li>
 <li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
@@ -286,25 +326,35 @@ expression, and the control features are randomly selected from each bin.<br /><
     Here are some examples -</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
     <span class="s2">"CellCycleMouse"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"features"</span><span class="p">:</span> <span class="s2">"cc.genes.mouse"</span><span class="p">},</span>
-    <span class="s2">"CellCycle"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"features"</span><span class="p">:</span> <span class="s2">"cc.genes.updated.2019"</span><span class="p">},</span>
-    <span class="s2">"Exhaustion"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"features"</span><span class="p">:</span> <span class="s2">"HAVCR2,ENTPD1,LAYN,LAG3"</span><span class="p">},</span>
-    <span class="s2">"Activation"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"features"</span><span class="p">:</span> <span class="s2">"IFNG"</span><span class="p">},</span>
-    <span class="s2">"Proliferation"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"features"</span><span class="p">:</span> <span class="s2">"STMN1,TUBB"</span><span class="p">}</span>
+    <span class="s2">"CellCycle"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"kind"</span><span class="p">:</span> <span class="s2">"cc"</span><span class="p">,</span> <span class="s2">"features"</span><span class="p">:</span> <span class="s2">"cc.genes.updated.2019"</span><span class="p">},</span>
+    <span class="s2">"TcellState"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"features"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Exhaustion"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"HAVCR2"</span><span class="p">,</span> <span class="s2">"ENTPD1"</span><span class="p">,</span> <span class="s2">"LAYN"</span><span class="p">,</span> <span class="s2">"LAG3"</span><span class="p">],</span>
+            <span class="s2">"Activation"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"IFNG"</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s2">"method"</span><span class="p">:</span> <span class="s2">"ucell"</span><span class="p">,</span>
+        <span class="s2">"maxRank"</span><span class="p">:</span> <span class="mi">500</span>
+    <span class="p">},</span>
+    <span class="s2">"Proliferation"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"features"</span><span class="p">:</span> <span class="s2">"STMN1,TUBB"</span><span class="p">},</span>
+    <span class="s2">"DC"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"kind"</span><span class="p">:</span> <span class="s2">"dm"</span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>For <code>CellCycle</code>, the columns <code>S.Score</code>, <code>G2M.Score</code> and <code>Phase</code> will
-be added to the metadata. <code>S.Score</code> and <code>G2M.Score</code> are the cell cycle
-scores for each cell, and <code>Phase</code> is the cell cycle phase for each cell.<br /></p>
-<p>You can also add Diffusion Components (DC) to the modules</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="s2">"DC"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"features"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"kind"</span><span class="p">:</span> <span class="s2">"diffmap"</span><span class="p">}}</span>
-</code></pre></div>
-<p>will perform diffusion map as a reduction and add the first 2
-components as <code>DC_1</code> and <code>DC_2</code> to the metadata. <code>diffmap</code> is a shortcut
-for <code>diffusion_map</code>. Other key-value pairs will pass to
-<a href="https://www.rdocumentation.org/packages/destiny/versions/2.0.4/topics/DiffusionMap class"><code>destiny::DiffusionMap()</code></a>.<br />
+<p>For <code>CellCycle</code>, the columns <code>CellCycle_S.Score</code>,
+<code>CellCycle_G2M.Score</code> and <code>CellCycle_Phase</code> will be added to the
+metadata.<br /></p>
+<p>For <code>TcellState</code>, the columns <code>TcellState_Exhaustion</code> and
+<code>TcellState_Activation</code> will be added to the metadata, one for each
+program in the named <code>features</code> list (the list values are gene
+vectors, not comma-separated strings).<br /></p>
+<p>For <code>DC</code>, a diffusion map will be calculated with
+<a href="https://bioconductor.org/packages/release/bioc/html/destiny.html"><code>destiny</code></a>
+(regardless of <code>method</code>), and the first 2 components will be added
+as the <code>DC</code> reduction as well as the <code>DC_1</code> and <code>DC_2</code> columns to
+the metadata. <code>dm</code> is a shortcut for <code>diffmap</code>/<code>diffusion_map</code>.<br />
 You can later plot the diffusion map by using
 <code>reduction = "DC"</code> in <code>env.dimplots</code> in <code>SeuratClusterStats</code>.<br />
-This requires <a href="https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html"><code>SingleCellExperiment</code></a>
+This requires
+<a href="https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html"><code>SingleCellExperiment</code></a>
 and <a href="https://bioconductor.org/packages/release/bioc/html/destiny.html"><code>destiny</code></a> R packages.<br />
 - <code>post_mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
 The mutaters to mutate the metadata after
