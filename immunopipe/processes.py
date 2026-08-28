@@ -302,6 +302,12 @@ class LoadingRNAFromSeurat(Proc):
         sample: The column name in the metadata of the Seurat object that
             indicates the sample name.
             Multiple columns will be concatenated with `_` to form the sample name.
+        mutaters (type=json): The mutaters to mutate the metadata
+            Keys are the names of the mutaters and values are the R expressions
+            passed by `dplyr::mutate()` to mutate the metadata.
+        subset: An expression to subset the cells, will be passed to `dplyr::filter()`.
+            This will be applied after mutating the metadata.
+        ncores (type=int): The number of threads used to load/save the Seurat object.
 
     SeeAlso:
         - [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-seq-data).
@@ -315,6 +321,9 @@ class LoadingRNAFromSeurat(Proc):
         "prepared": False,
         "clustered": False,
         "sample": "Sample",
+        "mutaters": {},
+        "subset": None,
+        "ncores": biopipen_config.misc.ncores,
     }
     script = "file://scripts/LoadingRNAFromSeurat.R"
 
