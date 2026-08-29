@@ -430,10 +430,12 @@
 <li>feat: add Slingshot for pseudotime trajectory inference</li>
 <li>feat: add pipen-email as dependency to notify for status changes</li>
 <li>feat: add select-markers command to CLI utils for gene selection from ClusterMarkers process</li>
+<li>feat: enhance LoadingRNAFromSeurat with mutaters, subset, and ncores parameters</li>
 <li>refactor: adopt pipen-cli-gbatch v1.2</li>
 <li>fix(TOrBCellSelection): add missing glue library import</li>
 <li>fix(TOrBCellSelection): ensure indicator genes are scaled for visualization in TOrBCellSelection script</li>
 <li>ci: enhance package import checks with version reporting</li>
+<li>ci: update setup-miniconda action to version 4</li>
 <li>chore: update pipen-verbose to version 1.1.3</li>
 <li>chore: use pwwang::r-metap (v1.14) in base docker image</li>
 <li>chore: add pipen-runinfo as a dependency in test environment</li>
@@ -501,6 +503,7 @@
 <li>feat(scrna, tcr): add ncores parameter for loading/saving objects</li>
 <li>feat(scrna.MarkersFinder): add default assay handling and check for SCTAssay preparation</li>
 <li>feat(scrna.AnnData2Seurat): add layer parameter to FeatureStatPlot for improved plotting</li>
+<li>feat(SampleInfo): use biopipen.utils::read_table and write_table so factor levels can be saved and loaded</li>
 <li>fix: make .Rds legal as reference in SeuratMap2Ref</li>
 <li>chore(scrna): enhance cache log messages to include cache paths for better traceability</li>
 <li>refactor(scrna.ModuleScoreCalculator): refactor ModuleScoreCalculator to use biopipen.utils::RunModuleScoring (supporting multiple tools)</li>

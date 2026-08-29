@@ -226,12 +226,7 @@ we recommend to run it with a different pipeline instance with configuration fil
 <a href="../../preparing-input/#metadata">here</a>.<br /></p>
 <p>You can add some columns to the input file while doing the statistics or you can
 even pass them on to the next processes. See <code>envs.mutaters</code> and
-<code>envs.save_mutated</code>.<br />
-But if you are adding a factor (categorical) column with desired levels, the order
-can't be guaranteed, because we are saving them to a text file, where we can't
-guarantee the order of the levels. If you want to add a factor column with desired
-levels, you can set <code>envs.mutaters</code> of the <code>SeuratPreparing</code> process to mutate the
-column.<br /></p>
+<code>envs.save_mutated</code>.<br /></p>
 <p>Once the pipeline is finished, you can see the sample information in the report</p>
 <p><img alt="report" src="../images/SampleInfo-report.png" /></p>
 <p>Note that the required <code>RNAData</code> (if not loaded from a Seurat object) and
