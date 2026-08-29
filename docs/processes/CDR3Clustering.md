@@ -71,6 +71,8 @@ CDR3 sequence may be shared by multiple cells.<br />
         by Li lab at UT Southwestern Medical Center
     - `ClusTCR`:
         by Sebastiaan Valkiers, etc
+- `ncores` *(`type=int`)*:
+    The number of cores to use for data reading and writing.<br />
 - `python`: *Default: `python`*. <br />
     The path of python with `GIANA`'s dependencies installed
     or with `clusTCR` installed. Depending on the `tool` you choose.<br />

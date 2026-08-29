@@ -78,6 +78,7 @@
     - feat(scrna, tcr): add ncores parameter for loading/saving objects
     - feat(scrna.MarkersFinder): add default assay handling and check for SCTAssay preparation
     - feat(scrna.AnnData2Seurat): add layer parameter to FeatureStatPlot for improved plotting
+    - feat(SampleInfo): use biopipen.utils::read_table and write_table so factor levels can be saved and loaded
     - fix: make .Rds legal as reference in SeuratMap2Ref
     - chore(scrna): enhance cache log messages to include cache paths for better traceability
     - refactor(scrna.ModuleScoreCalculator): refactor ModuleScoreCalculator to use biopipen.utils::RunModuleScoring (supporting multiple tools)

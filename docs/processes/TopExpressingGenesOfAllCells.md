@@ -16,6 +16,8 @@ Top expressing genes for clusters of all cells.
 
 ## Environment Variables
 
+- `ncores` *(`type=int`)*: *Default: `1`*. <br />
+    Number of cores to use for reading and writing the seurat object.<br />
 - `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />
     The dbs to do enrichment analysis for significant markers.<br />
     You can use built-in dbs in `enrichit`, or provide your own gmt files.<br />

@@ -21,6 +21,8 @@ AA (hydrophobicity, volume and isolectric point).<br />
 
 ## Environment Variables
 
+- `ncores`:
+    The number of cores to use for reading and writing the data.<br />
 - `group`:
     The key of group in metadata to define the groups to
     compare. For example, `CellType`, which has cell types annotated

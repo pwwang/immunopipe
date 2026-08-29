@@ -31,14 +31,15 @@ of the process group to `True`.<br />
         Use scImpute() from scimpute
     - `rmagic`:
         Use magic() from Rmagic
+- `ncores` *(`type=int`)*: *Default: `1`*. <br />
+    Number of cores to use for reading and writing,
+    the Seurat object, and for scimpute and rmagic if applicable.<br />
 - `scimpute_args` *(`ns`)*:
     The arguments for scimpute
     - `drop_thre` *(`type=float`)*: *Default: `0.5`*. <br />
         The dropout threshold
     - `kcluster` *(`type=int`)*:
         Number of clusters to use
-    - `ncores` *(`type=int`)*: *Default: `1`*. <br />
-        Number of cores to use
     - `refgene`: *Default: `""`*. <br />
         The reference gene file
 - `rmagic_args` *(`ns`)*:

@@ -21,6 +21,8 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
 
 ## Environment Variables
 
+- `ncores` *(`type=int`)*: *Default: `1`*. <br />
+    Number of cores to use for reading and writing the data.<br />
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
     The mutaters to mutate the metadata to subset the cells.<br />
     The mutaters will be applied in the order specified.<br />

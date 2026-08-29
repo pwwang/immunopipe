@@ -29,6 +29,8 @@ See also: <https://www.borch.dev/uploads/screpertoire/reference/combineexpressio
 
 ## Environment Variables
 
+- `ncores` *(`type=int`)*:
+    The number of cores to use for reading and writing the data.<br />
 - `cloneCall`: *Default: `aa`*. <br />
     How to call the clone - VDJC gene (gene), CDR3 nucleotide (nt),
     CDR3 amino acid (aa), VDJC gene + CDR3 nucleotide (strict) or

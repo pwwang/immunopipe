@@ -113,11 +113,6 @@ class SampleInfo(SampleInfo_):
     You can add some columns to the input file while doing the statistics or you can
     even pass them on to the next processes. See `envs.mutaters` and
     `envs.save_mutated`.
-    But if you are adding a factor (categorical) column with desired levels, the order
-    can't be guaranteed, because we are saving them to a text file, where we can't
-    guarantee the order of the levels. If you want to add a factor column with desired
-    levels, you can set `envs.mutaters` of the `SeuratPreparing` process to mutate the
-    column.
 
     Once the pipeline is finished, you can see the sample information in the report
 

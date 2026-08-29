@@ -28,6 +28,15 @@ Load RNA data from a Seurat object, instead of RNAData from SampleInfo
     The column name in the metadata of the Seurat object that
     indicates the sample name.<br />
     Multiple columns will be concatenated with `_` to form the sample name.<br />
+- `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
+    The mutaters to mutate the metadata
+    Keys are the names of the mutaters and values are the R expressions
+    passed by `dplyr::mutate()` to mutate the metadata.<br />
+- `subset`:
+    An expression to subset the cells, will be passed to `dplyr::filter()`.<br />
+    This will be applied after mutating the metadata.<br />
+- `ncores` *(`type=int`)*: *Default: `1`*. <br />
+    The number of threads used to load/save the Seurat object.<br />
 
 ## SeeAlso
 
