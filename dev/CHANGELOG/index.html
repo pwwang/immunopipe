@@ -446,28 +446,49 @@
 </ul>
 <h4 id="dependency-updates">Dependency Updates<a class="headerlink" href="#dependency-updates" title="Permanent link">&para;</a></h4>
 <ul>
-<li>r-plotthis to 0.13.3-2<ul>
+<li>r-plotthis to 0.13.3-5<ul>
 <li>feat(Heatmap): overhaul annotation arguments into structured list params; add <code>name</code> sub-key in annotation entries to alias the displayed annotation name and legend title (<code>name = FALSE</code> hides it); support rownames/colnames split annotations with concatenated names and display modes for row/column names and split titles</li>
 <li>feat(Heatmap): for <code>cell_type = "bars"</code>, column widths are now proportional to bar counts and <code>bars_sample</code> accepts a fraction or whole count; center slice titles</li>
 <li>feat(LinkedHeatmap): replace <code>title_gp</code> with <code>title_params</code>, update link width/color parameter names, support constant link width, fix alignment when a column title is provided, handle multiple <code>split_by</code> values</li>
 <li>feat(DimPlot): support <code>pt_size</code> as a column name; fix gtable conversion destroying ggplot structure</li>
 <li>feat(RidgePlot): add <code>x_min</code>/<code>x_max</code> parameters; feat: add <code>y_brackets</code> for significance brackets in box/violin/beeswarm plots</li>
+<li>feat(ScatterPlot): add border_size parameter to control point border size</li>
+<li>feat(VolcanoPlot): add parameters for point shape, border color, and border size; enable raster plotting</li>
+<li>feat(JitterPlot): add raster and raster_dpi parameters for efficient plotting</li>
+<li>docs(VolcanoPlot): add example for trimming extreme x-values using winsorization</li>
+<li>feat(VolcanoPlot): update ytrans parameter to accept function names as strings</li>
+<li>fix(VolcanoPlot): fix highlight data selection</li>
 <li>fix: name annotation with empty levels, BoxViolinPlot with fewer than 2 levels, ViolinPlot conditionally loads ggpubr, multiple <code>split_by</code> columns (Network, keep_na/keep_empty clearing), links placement in graph-based plots</li>
 </ul>
 </li>
-<li>r-scplotter to 0.8.0-2<ul>
+<li>r-scplotter to 0.8.0-6<ul>
 <li>BREAKING: set default <code>layer</code> to "scale.data" in FeatureStatPlot</li>
 <li>fix(MarkersPlot): set default <code>order_by</code> to "desc(abs(avg_log2FC))"; replace deprecated <code>subset_by</code> with <code>each</code></li>
+<li>fix(MarkersPlot): ensure unique gene selection for top markers</li>
 <li>fix(CCCPlot): clarify link_alpha usage, <code>link_width_by</code> defaults to magnitude, use unicode arrow for <code>-&gt;</code></li>
+<li>fix(MarkersPlot): enforce object requirement when using 'each' format and improve group validation</li>
+<li>fix(FeatureStatPlot): ensure FeatureGroups are factors with specified levels</li>
+<li>fix(MarkersPlot): ensure gene selection maintains order and respects factor levels</li>
+<li>fix(FeatureStatPlot): update bg_cutoff default value to NULL for consistency across functions</li>
+<li>feat(MarkersPlot): support selecting markers not per-each group</li>
+<li>feat(FeatureStatPlot): add center_zero parameter to control colorbar centering</li>
+<li>chore(MarkersPlot): update default selection logic for markers based on plot type and group selection</li>
 </ul>
 </li>
-<li>r-biopipen.utils to 0.4.3-6<ul>
+<li>r-biopipen.utils to 0.4.4-3<ul>
 <li>feat: support h5ad file type in read_obj/save_obj; handle null assay/ident attributes in ConvertAnnDataToSeurat (with AssembleAssay monkey-patching); null active_ident check in ConvertSeuratToAnnData; .Rds file support; add other assays to layers in list_to_h5group; ignore .qs files in Rbuildignore</li>
 <li>feat(read_write_table): add read_table/write_table with annotated factor levels and load_table/save_table aliases for txt/tsv/csv; use read.delim</li>
 <li>feat(EnsureSeuratScaleData): add function to ensure marker genes are in scale.data layer; improve scale.data merging and missing feature handling</li>
 <li>feat(RunSeuratUMAP): support overwriting UMAP results from a TSV file; feat(RunSeuratDoubletFinder): add reuse.pANN parameter (require r-doubletfinder &gt;=2.0.6)</li>
+<li>feat(RunSeuratDEAnalysis): remove unused object_sig and add log and log_prefix parameters for improved logging</li>
+<li>feat(logging): enhance cache logging messages to include cache path</li>
+<li>feat(VizDEGs): remove deprecated comparison_by</li>
+<li>feat(VizDEGs): add log, log_prefix and cache parameters for improved logging and caching</li>
+<li>feat(RunSeuratIntegration): add support for SCTAssay in marker preparation</li>
+<li>feat(RunModuleScoring): add module scoring functionality for Seurat objects with multiple scoring methods</li>
 <li>fix(VizDEGs): default <code>order_by</code> to "desc(abs(avg_log2FC))", handle missing features in scale.data, replace <code>subset_by</code>/<code>subset_as_facet</code> with <code>each</code>/<code>facet_each</code></li>
 <li>fix: RunSeuratMap2Ref refdata check and JoinLayers usage; RunSeuratTransformation handles <code>"__all__"</code> features; LoadSeuratAndPerformQC warns on 'integrated' default assay</li>
+<li>fix(LoadSeuratAndPerformQC): handle factor levels in metadata</li>
 </ul>
 </li>
 <li>biopipen to 1.4.0<ul>
@@ -475,9 +496,14 @@
 <li>feat(scrna.Slingshot): add Slingshot process for pseudotime trajectory inference — multiple cases, enhanced dims handling, cell subsetting/splitting, varying lineage outputs</li>
 <li>feat(scrna.CellCellCommunication): support multiple cases and multiple split_by columns; monkey-patch anndata.AnnData dtype keyword; output tables inherit factor levels; improve default ligand/receptor expression columns (CellCellCommunicationPlots)</li>
 <li>feat(tcr.ScRepCombiningExpression): add cell ID transformation functions; group-based clonal proportion calculation and enhanced clone size handling with logging</li>
-<li>feat(scrna.MarkersFinder): default plot type heatmap_log2fc, add select_overall option, use case$group_by; feat(scrna.SeuratClusterStats): handle missing features in scale.data via GetAssayData</li>
+<li>feat(scrna.MarkersFinder): handle missing features in scale.data via GetAssayData</li>
 <li>feat(scrna.SeuratPreparing): use orig.ident or a uniformed value when 'Sample' column is missing; simplify metadata reading; remove unnecessary SCTransform parameters</li>
+<li>feat(scrna, tcr): add ncores parameter for loading/saving objects</li>
+<li>feat(scrna.MarkersFinder): add default assay handling and check for SCTAssay preparation</li>
+<li>feat(scrna.AnnData2Seurat): add layer parameter to FeatureStatPlot for improved plotting</li>
 <li>fix: make .Rds legal as reference in SeuratMap2Ref</li>
+<li>chore(scrna): enhance cache log messages to include cache paths for better traceability</li>
+<li>refactor(scrna.ModuleScoreCalculator): refactor ModuleScoreCalculator to use biopipen.utils::RunModuleScoring (supporting multiple tools)</li>
 </ul>
 </li>
 </ul>
