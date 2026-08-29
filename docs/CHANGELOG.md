@@ -11,6 +11,7 @@
 - feat: add Slingshot for pseudotime trajectory inference
 - feat: add pipen-email as dependency to notify for status changes
 - feat: add select-markers command to CLI utils for gene selection from ClusterMarkers process
+- feat: enhance LoadingRNAFromSeurat with mutaters, subset, and ncores parameters
 - refactor: adopt pipen-cli-gbatch v1.2
 - fix(TOrBCellSelection): add missing glue library import
 - fix(TOrBCellSelection): ensure indicator genes are scaled for visualization in TOrBCellSelection script
