@@ -16,6 +16,7 @@
 - fix(TOrBCellSelection): add missing glue library import
 - fix(TOrBCellSelection): ensure indicator genes are scaled for visualization in TOrBCellSelection script
 - ci: enhance package import checks with version reporting
+- ci: update setup-miniconda action to version 4
 - chore: update pipen-verbose to version 1.1.3
 - chore: use pwwang::r-metap (v1.14) in base docker image
 - chore: add pipen-runinfo as a dependency in test environment
