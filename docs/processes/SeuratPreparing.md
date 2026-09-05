@@ -289,6 +289,10 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
 - `keep_contam_assay` *(`flag`)*: *Default: `False`*. <br />
     Whether to keep the "Contaminated" (original) assay after QC is finished.<br />
     If kept, we can use it to visualize some marker expressions for comparisons.<br />
+    Note that when `False` (default), the `Contaminated` assay is dropped per-sample right after
+    contamination correction (before samples are merged) to reduce the memory usage.<br />
+    Contamination-expression QC plots (with `metric` of `expr`/`expression`) in `qc_plots`
+    require this to be `True`.<br />
 
 - `doublet_detector` *(`choice`)*: *Default: `none`*. <br />
     The doublet detector to use.<br />
@@ -334,6 +338,9 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
     <https://github.com/satijalab/seurat/issues/6748> for more details also about reproducibility issues.<br />
     To not use the cached seurat object, you can either set `cache` to `False` or delete the cached file at
     `<signature>.RDS` in the cache directory.<br />
+    Note that caching saves full snapshots of the seurat object at step boundaries, which transiently
+    increases the peak memory (on both save and load). Set `cache` to `False` on memory-constrained
+    runs with big data to avoid the extra peaks.<br />
 
 ## Metadata
 

@@ -521,7 +521,7 @@ class CellTypeAnnotation(CellTypeAnnotation_):
     If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
     process or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run,
     you may want to specify a different name for the column to store the annotated cell types
-    using `envs.newcol`, so that the results from different annotation processes won't overwrite each other.
+    using `envs.anno_col`, so that the results from different annotation processes won't overwrite each other.
 
     ///
 
@@ -532,6 +532,7 @@ class CellTypeAnnotation(CellTypeAnnotation_):
     - `scHDeepInsight`
     - `scBERT`
     - `cellassign`
+    - `scAgentType`
 
     ///
 
@@ -539,8 +540,8 @@ class CellTypeAnnotation(CellTypeAnnotation_):
         When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
         the `Seurat` object will be kept as is.
 
-        When `envs.newcol` is specified, the original identity column (e.g. `seurat_clusters`) will
-        be kept is, and the annotated cell types will be saved in the new column.
+        When `envs.anno_col` is specified, the original identity column (e.g. `seurat_clusters`) will
+        be kept as is, and the annotated cell types will be saved in the new column.
         Otherwise, the original identity column will be replaced by the
         annotated cell types and the original identity column will be
         saved at `envs.backup_col` (e.g. `seurat_clusters_id`).
