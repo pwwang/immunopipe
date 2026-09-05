@@ -113,6 +113,16 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-tools-can-be-divided-into-two-categories">The tools can be divided into two categories</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-tools-can-also-be-divided-by-their-input-types">The tools can also be divided by their input types</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-following-envs-are-deprecated-and-will-be-removed-in-future-versions">The following envs are deprecated and will be removed in future versions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#universal-marker-format">Universal marker format</a>
+    </li>
+        </ul>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
@@ -208,29 +218,20 @@
 <p>Annotate the cell clusters. Currently, the following ways are supported:<br /></p>
 <ol>
 <li>Pass the cell type annotation directly (at cluster-level or cell-level)</li>
-<li>Use <a href="https://github.com/IanevskiAleksandr/sc-type"><code>ScType</code></a></li>
-<li>Use <a href="https://github.com/ZJUFanLab/scCATCH"><code>scCATCH</code></a></li>
-<li>Use <a href="https://github.com/pwwang/hitype"><code>hitype</code></a></li>
-<li>Use <a href="https://github.com/Teichlab/celltypist"><code>celltypist</code></a></li>
-<li>Use <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7898451/"><code>scSorter</code></a></li>
-<li>Use <a href="https://github.com/jcao89757/SCINA"><code>SCINA</code></a></li>
-<li>Use <a href="https://github.com/dviraran/SingleR"><code>SingleR</code></a></li>
-<li>Use <a href="https://github.com/shangruJia/scHDeepInsight"><code>scHDeepInsight</code></a></li>
-<li>Use <a href="https://github.com/Winnie09/GPTCelltype"><code>GPTCelltype</code></a></li>
-<li>Use <a href="https://github.com/Irrationone/cellassign"><code>cellassign</code></a></li>
-<li>Use <a href="https://github.com/TencentAILabHealthcare/scBERT"><code>scBERT</code></a></li>
-<li>Use <a href="https://github.com/RausellLab/CelliD"><code>CelliD</code></a></li>
+<li>Use <a href="https://github.com/IanevskiAleksandr/sc-type"><code>ScType</code></a> (cluster-level, marker-based)</li>
+<li>Use <a href="https://github.com/ZJUFanLab/scCATCH"><code>scCATCH</code></a> (cluster-level, marker-based)</li>
+<li>Use <a href="https://github.com/pwwang/hitype"><code>hitype</code></a> (cluster-level, marker-based)</li>
+<li>Use <a href="https://github.com/Teichlab/celltypist"><code>celltypist</code></a> (cell-level, model-based)</li>
+<li>Use <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7898451/"><code>scSorter</code></a> (cluster-level, marker-based)</li>
+<li>Use <a href="https://github.com/jcao89757/SCINA"><code>SCINA</code></a> (cell-level, marker-based)</li>
+<li>Use <a href="https://github.com/dviraran/SingleR"><code>SingleR</code></a> (cluster-level, model-based)</li>
+<li>Use <a href="https://github.com/shangruJia/scHDeepInsight"><code>scHDeepInsight</code></a> (cell-level, model-based)</li>
+<li>Use <a href="https://github.com/pwwang/LLMCelltype"><code>LLMCelltype</code></a> (cluster-level, LLM-based)</li>
+<li>Use <a href="https://github.com/Irrationone/cellassign"><code>cellassign</code></a> (cell-level, marker-based)</li>
+<li>Use <a href="https://github.com/TencentAILabHealthcare/scBERT"><code>scBERT</code></a> (cell-level, model-based)</li>
+<li>Use <a href="https://github.com/RausellLab/CelliD"><code>CelliD</code></a> (cell-level, marker-based)</li>
+<li>Use <a href="https://github.com/sathyasjali/scAgentType"><code>scAgentType</code></a> (cluster-level, LLM-based, agentic)</li>
 </ol>
-<p>The annotated cell types will replace the original identity column in the metadata,
-so that the downstream processes will use the annotated cell types.<br /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When cell types are annotated, the original identity column (e.g. <code>seurat_clusters</code>) will be renamed
-to <code>envs.backup_col</code> (e.g. <code>seurat_clusters_id</code>), and the new identity column will be added.<br /></p>
-</div>
-<p>If you are using cluster-based tool, a text file containing the mapping from
-the original identity to the new cell types will be generated and saved to
-a tsv file under <code>&lt;workdir&gt;/&lt;pipline_name&gt;/CellTypeAnnotation/0/output/</code>.<br /></p>
 <p>The <code>&lt;workdir&gt;</code> is typically <code>./.pipen</code> and the <code>&lt;pipline_name&gt;</code> is <code>Immunopipe</code>
 by default.<br /></p>
 <div class="admonition note">
@@ -238,7 +239,7 @@ by default.<br /></p>
 <p>If you have other annotation processes, including <a href="../SeuratClustering/"><code>SeuratClustering</code></a>
 process or <a href="../SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> process enabled in the same run,
 you may want to specify a different name for the column to store the annotated cell types
-using <code>envs.newcol</code>, so that the results from different annotation processes won't overwrite each other.<br /></p>
+using <code>envs.anno_col</code>, so that the results from different annotation processes won't overwrite each other.<br /></p>
 </div>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -247,6 +248,7 @@ using <code>envs.newcol</code>, so that the results from different annotation pr
 <li><code>scHDeepInsight</code></li>
 <li><code>scBERT</code></li>
 <li><code>cellassign</code></li>
+<li><code>scAgentType</code></li>
 </ul>
 </div>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
@@ -260,55 +262,64 @@ using <code>envs.newcol</code>, so that the results from different annotation pr
     The rds/qs/qs2/h5ad file of seurat object with cell type annotated.<br />
     A text file containing the mapping from the old identity to the new cell types
     will be generated and saved to <code>cluster2celltype.tsv</code> under the job output directory.<br />
-    Note that if <code>envs.ident</code> is specified, the output Seurat object will have
-    the identity set to the specified column in metadata.<br /></li>
+    Another text file containing the per-cell annotations will be generated and saved
+    to <code>cell2celltype.tsv</code> under the job output directory, with the cell barcodes in
+    the first column (<code>Cell</code>) and one column per case that produces cell-level annotations.<br />
+    Note that the identity of the output Seurat object will be set to the annotation
+    column (<code>envs.anno_col</code>) when <code>envs.set_ident</code> is <code>True</code> (see <code>envs.set_ident</code>).<br /></li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>tool</code> <em>(<code>choice</code>)</em>: <em>Default: <code>direct</code></em>. <br />
     The tool to use for cell type annotation.<br /><ul>
-<li><code>sctype</code>:
+<li><code>sctype</code> <em>(<code>cluster-level</code>)</em>:
     Use <code>scType</code> to annotate cell types.<br />
     See <a href="https://github.com/IanevskiAleksandr/sc-type">https://github.com/IanevskiAleksandr/sc-type</a></li>
-<li><code>hitype</code>:
+<li><code>hitype</code> <em>(<code>cluster-level</code>)</em>:
     Use <code>hitype</code> to annotate cell types.<br />
     See <a href="https://github.com/pwwang/hitype">https://github.com/pwwang/hitype</a></li>
-<li><code>sccatch</code>:
+<li><code>sccatch</code> <em>(<code>cluster-level</code>)</em>:
     Use <code>scCATCH</code> to annotate cell types.<br />
     See <a href="https://github.com/ZJUFanLab/scCATCH">https://github.com/ZJUFanLab/scCATCH</a></li>
-<li><code>celltypist</code>:
+<li><code>celltypist</code> <em>(<code>cell-level</code>)</em>:
     Use <code>celltypist</code> to annotate cell types.<br />
+    It can also generate cluster-level annotations via its over-clustering
+    mechanism (<code>envs.celltypist.over_clustering</code> or <code>envs.ident</code>).<br />
     See <a href="https://github.com/Teichlab/celltypist">https://github.com/Teichlab/celltypist</a></li>
-<li><code>scsorter</code>:
+<li><code>scsorter</code> <em>(<code>cluster-level</code>)</em>:
     Use <code>scSorter</code> to annotate cell types.<br />
-    See <a href="https://github.com/pwwang/scSorter">https://github.com/pwwang/scSorter</a></li>
-<li><code>scina</code>:
+    See <a href="https://github.com/pwwang/scSorter">https://github.com/pwwang/scSorter</a>, an optimized version of
+    <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7898451/">https://pmc.ncbi.nlm.nih.gov/articles/PMC7898451/</a>, which increases the
+    speed of the original scSorter.<br /></li>
+<li><code>scina</code> <em>(<code>cell-level</code>)</em>:
     Use <code>SCINA</code> to annotate cell types.<br />
     See <a href="https://github.com/jcao89757/SCINA">https://github.com/jcao89757/SCINA</a></li>
-<li><code>singler</code>:
+<li><code>singler</code> <em>(<code>cluster-level</code>)</em>:
     Use <code>SingleR</code> to annotate cell types.<br />
     See <a href="https://github.com/dviraran/SingleR">https://github.com/dviraran/SingleR</a></li>
-<li><code>schdeepinsight</code>:
+<li><code>schdeepinsight</code> <em>(<code>cell-level</code>)</em>:
     Use <code>scHDeepInsight</code> to annotate cell types.<br />
     See <a href="https://github.com/shangruJia/scHDeepInsight">https://github.com/shangruJia/scHDeepInsight</a></li>
-<li><code>gptcelltype</code>:
-    Use <code>GPTCelltype</code> to annotate cell types
-    with GPT-4. See <a href="https://github.com/Winnie09/GPTCelltype">https://github.com/Winnie09/GPTCelltype</a></li>
-<li><code>cellassign</code>:
+<li><code>llmcelltype</code> <em>(<code>cluster-level</code>)</em>:
+    Use <code>LLMCelltype</code> to annotate cell types
+    with LLMs. See <a href="https://github.com/pwwang/LLMCelltype">https://github.com/pwwang/LLMCelltype</a>
+    It is the model provider agnostic version of
+    <a href="https://github.com/Winnie09/GPTCelltype"><code>gptcelltype</code></a>.<br /></li>
+<li><code>cellassign</code> <em>(<code>cell-level</code>)</em>:
     Use <code>cellassign</code> to annotate cell types
     with a probabilistic model.<br />
     See <a href="https://github.com/Irrationone/cellassign">https://github.com/Irrationone/cellassign</a></li>
-<li><code>scbert</code>:
+<li><code>scbert</code> <em>(<code>cell-level</code>)</em>:
     Use <code>scBERT</code> to annotate cell types with a
     BERT-based transformer model.<br />
     See <a href="https://github.com/TencentAILabHealthcare/scBERT">https://github.com/TencentAILabHealthcare/scBERT</a></li>
-<li><code>cellid</code>:
+<li><code>cellid</code> <em>(<code>cell-level</code>)</em>:
     Use <code>CelliD</code> to annotate cell types with MCA-based
     per-cell gene signature enrichment.<br />
     See <a href="https://github.com/RausellLab/CelliD">https://github.com/RausellLab/CelliD</a></li>
-<li><code>direct</code>:
+<li><code>direct</code> <em>(<code>cluster-level</code>)</em>:
     Directly assign cell types</li>
-<li><code>cell</code>:
+<li><code>cell</code> <em>(<code>cell-level</code>)</em>:
     Directly assign cell types, but at cell-level instead of cluster-level.<br /></li>
 </ul>
 </li>
@@ -318,61 +329,134 @@ using <code>envs.newcol</code>, so that the results from different annotation pr
     To use a different assay for a case, specify it in the case args.<br />
     This will be also used to convert Seurat object to h5ad if the input is Seurat object
     and the output is h5ad.<br /></li>
-<li><code>sctype_tissue</code>:
-    The tissue to use for <code>sctype</code>.<br />
-    Available tissues should be the first column (<code>tissueType</code>) of <code>sctype_db</code>.<br />
-    If not specified, all rows in <code>sctype_db</code> will be used.<br /></li>
-<li><code>sctype_db</code>:
-    The database to use for sctype.<br />
-    Check examples at <a href="https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_full.xlsx">https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_full.xlsx</a></li>
 <li><code>ident</code>:
     The column name in metadata to use as the clusters.<br />
-    If not specified, the identity column will be used when input is rds/qs/qs2 (supposing we have a Seurat object).<br />
+    For cluster-level tools, this is required, and if not specified,
+    the identity column will be used when input is rds/qs/qs2 (supposing we have a Seurat object).<br />
     If input data is h5ad, this is required to run cluster-based annotation tools.<br />
-    For <code>celltypist</code>, this is a shortcut to set <code>over_clustering</code> in <code>celltypist_args</code>.<br /></li>
-<li><code>backup_col</code>: <em>Default: <code>seurat_clusters_id</code></em>. <br />
-    The backup column name to store the original identities.<br />
-    If not specified, the original identity column will not be stored.<br />
-    If <code>envs.newcol</code> is specified, this will be ignored.<br /></li>
-<li><code>hitype_tissue</code>:
+    For cell-level tools, if specified, a cluster-level annotation will also be generated
+    by majority vote of the cells in each cluster, and saved to <code>cluster2celltype.tsv</code>.<br />
+    For <code>celltypist</code>, this is a shortcut to set <code>over_clustering</code> in <code>envs.celltypist</code>
+    (see <code>envs.celltypist.over_clustering</code>).<br />
+    <code>"ident"</code> can be used as an alias for the identity column.<br />
+    To set it for a specific case, use <code>envs.cases.X.ident</code>.<br /></li>
+<li><code>anno_col</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>CellType</code></em>. <br />
+    The name of the column to store the annotated cell types (default: <code>CellType</code>).<br />
+    For cluster-level tools (or cell-level tools with <code>envs.ident</code>), the annotation
+    column stores the cluster-level cell types.<br />
+    For cell-level tools, the per-cell annotations are also saved to a tool-specific
+    column (e.g. <code>scina_celltype</code>), and if <code>envs.ident</code> is specified, <code>anno_col</code> stores
+    the majority-vote results of the clusters.<br />
+    For the default case (<code>DEFAULT</code>), the column is named as <code>anno_col</code>; for other cases,
+    the case name is prefixed to the column name unless <code>envs.add_prefix</code> is <code>False</code>.<br /></li>
+<li><code>set_ident</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    Whether to set the identity of the output Seurat object to the annotation column.<br />
+    If all cases have <code>set_ident</code> set to <code>False</code>, the original identity is kept.<br />
+    If multiple cases have <code>set_ident</code> set to <code>True</code>, a warning is given and the last case wins.<br />
+    Can be set per case via <code>envs.cases.X.set_ident</code> (default: True).<br /></li>
+<li><code>sctype</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>sctype</code> if <code>tool</code> is <code>sctype</code>.<br /><ul>
+<li><code>tissue</code>:
+    The tissue to use for <code>sctype</code>.<br />
+    Available tissues should be the first column (<code>tissueType</code>) of <code>db</code>.<br />
+    If not specified, all rows in <code>db</code> will be used.<br /></li>
+<li><code>cancer</code>:
+    Filter the markers by the <code>cancer</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>cancer</code> column.<br /></li>
+<li><code>species</code>:
+    Filter the markers by the <code>species</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>species</code> column.<br /></li>
+<li><code>db</code>: <em>Default: <code>""</code></em>. <br />
+    The database to use for sctype.<br />
+    Check examples at <a href="https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_full.xlsx">https://github.com/IanevskiAleksandr/sc-type/blob/master/ScTypeDB_full.xlsx</a>
+    Can also be a universal marker table (see the note above).<br /></li>
+</ul>
+</li>
+<li><code>hitype</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>hitype</code> if <code>tool</code> is <code>hitype</code>.<br /><ul>
+<li><code>tissue</code>:
     The tissue to use for <code>hitype</code>.<br />
-    Available tissues should be the first column (<code>tissueType</code>) of <code>hitype_db</code>.<br />
-    If not specified, all rows in <code>hitype_db</code> will be used.<br /></li>
-<li><code>hitype_db</code>:
+    Available tissues should be the first column (<code>tissueType</code>) of <code>db</code>.<br />
+    If not specified, all rows in <code>db</code> will be used.<br /></li>
+<li><code>cancer</code>:
+    Filter the markers by the <code>cancer</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>cancer</code> column.<br /></li>
+<li><code>species</code>:
+    Filter the markers by the <code>species</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>species</code> column.<br /></li>
+<li><code>db</code>:
     The database to use for hitype.<br />
-    Compatible with <code>sctype_db</code>.<br />
+    Compatible with <code>sctype.db</code>.<br />
     See also <a href="https://pwwang.github.io/hitype/articles/prepare-gene-sets.html">https://pwwang.github.io/hitype/articles/prepare-gene-sets.html</a>
-    You can also use built-in databases, including <code>hitypedb_short</code>, <code>hitypedb_full</code>, and <code>hitypedb_pbmc3k</code>.<br /></li>
-<li><code>scsorter_db</code>:
+    You can also use built-in databases, including <code>hitypedb_short</code>, <code>hitypedb_full</code>, and <code>hitypedb_pbmc3k</code>.<br />
+    Can also be a universal marker table (see the note above).<br /></li>
+</ul>
+</li>
+<li><code>scsorter</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>scSorter::RunScSorter()</code> if <code>tool</code> is <code>scsorter</code>.<br /><ul>
+<li><code>db</code>:
     The database to use for scSorter. It will be loaded and passed to the <code>anno</code>
     argument of <code>RunScSorter()</code>. It could be either:<br /><ul>
 <li>A TSV file with cell type annotations, with columns <code>Type</code>, <code>Marker</code>, and <code>Weight</code>.<br /></li>
 <li>A RDS/qs2 file of the annotation data frame with the same columns as above.<br />
-You can also use <code>#</code> followed by the column names to specify the columns as <code>Type</code>, <code>Marker</code> and <code>weight</code> (optional),
-for example, <code>file:///path/to/scsorter_db.tsv#celltype,marker,weight</code>.<br /></li>
+Can also be a universal marker table (see the note above).<br />
+You can also use <code>#</code> followed by the column names (aliases allowed)
+or 1-based indices to specify the columns, for example,
+<code>file:///path/to/scsorter_db.tsv#celltype,marker,weight</code>.<br />
+A third column is used as <code>Weight</code> only if it is named <code>weight</code> (or an alias of it).<br /></li>
 </ul>
 </li>
-<li><code>scsorter_args</code> <em>(<code>ns</code>)</em>:
-    The arguments for <code>scSorter::RunScSorter()</code> if <code>tool</code> is <code>scsorter</code>.<br /><ul>
+<li><code>assay</code>:
+    The assay to use for <code>RunScSorter()</code>.<br />
+    If not specified, <code>envs.assay</code> will be used.<br /></li>
+<li><code>tissue</code>:
+    Filter the markers by the <code>tissue</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>tissue</code> column.<br /></li>
+<li><code>cancer</code>:
+    Filter the markers by the <code>cancer</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>cancer</code> column.<br /></li>
+<li><code>species</code>:
+    Filter the markers by the <code>species</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>species</code> column.<br /></li>
 <li><code>&lt;more&gt;</code>:
     Other arguments for <a href="https://github.com/pwwang/scSorter/blob/9baae9f0e0904ddbf3f9bb5dacb9227503a8ce3e/R/scSorter.R#L73"><code>scSorter::RunScSorter()</code></a>.<br /></li>
 </ul>
 </li>
-<li><code>scina_db</code> <em>(<code>type=str</code>)</em>:
+<li><code>scina</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>SCINA::SCINA()</code> if <code>tool</code> is <code>scina</code>.<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
     The path to the SCINA signature file.<br />
     It can be an RDS file containing a named list of
     signature genes (the names are the cell types and the
     values are the marker gene symbols), or a CSV file
-    with the markers for each cell type in a column.<br /></li>
-<li><code>scina_args</code> <em>(<code>ns</code>)</em>:
-    The arguments for <code>SCINA::SCINA()</code> if <code>tool</code> is <code>scina</code>.<br /><ul>
-<li><code>max_iter</code>:
+    with the markers for each cell type in a column.<br />
+    Can also be a universal marker table (see the note above).<br /></li>
+<li><code>tissue</code>:
+    Filter the markers by the <code>tissue</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>tissue</code> column.<br /></li>
+<li><code>cancer</code>:
+    Filter the markers by the <code>cancer</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>cancer</code> column.<br /></li>
+<li><code>species</code>:
+    Filter the markers by the <code>species</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>species</code> column.<br /></li>
+<li><code>max_iter</code> <em>(<code>type=int</code>)</em>:
     Maximum number of EM iterations (default: 100).<br /></li>
-<li><code>convergence_n</code>:
+<li><code>convergence_n</code> <em>(<code>type=int</code>)</em>:
     Stop if assignment stays stable for N consecutive rounds (default: 10).<br /></li>
-<li><code>convergence_rate</code>:
+<li><code>convergence_rate</code> <em>(<code>type=float</code>)</em>:
     Fraction of cells with stable assignment for convergence (default: 0.99).<br /></li>
-<li><code>sensitivity_cutoff</code>:
+<li><code>sensitivity_cutoff</code> <em>(<code>type=float</code>)</em>:
     Cutoff (0-1) for removing signatures of absent cell types (default: 1).<br /></li>
 <li><code>rm_overlap</code> <em>(<code>flag</code>)</em>:
     Whether to remove genes shared between multiple signatures (default: TRUE).<br /></li>
@@ -382,7 +466,12 @@ for example, <code>file:///path/to/scsorter_db.tsv#celltype,marker,weight</code>
     Other arguments for <a href="https://rdrr.io/cran/SCINA/man/SCINA.html"><code>SCINA::SCINA()</code></a>.<br /></li>
 </ul>
 </li>
-<li><code>singler_db</code> <em>(<code>type=str</code>)</em>:
+<li><code>singler</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>SingleR::SingleR()</code> if <code>tool</code> is <code>singler</code>.<br />
+    Both the <a href="https://bioconductor.org/packages/SingleR">Bioconductor</a>
+    and <a href="https://github.com/dviraran/SingleR">CRAN</a> versions are
+    auto-detected.<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
     The path to the SingleR reference file.<br />
     It can be an RDS, qs, or qs2 file containing a reference object,
     supporting:<br /><ul>
@@ -398,34 +487,27 @@ Both the Bioconductor and CRAN versions of SingleR are supported
 and auto-detected at runtime.<br /></li>
 </ul>
 </li>
-<li><code>singler_args</code> <em>(<code>ns</code>)</em>:
-    The arguments for <code>SingleR::SingleR()</code> if <code>tool</code> is <code>singler</code>.<br />
-    Both the <a href="https://bioconductor.org/packages/SingleR">Bioconductor</a>
-    and <a href="https://github.com/dviraran/SingleR">CRAN</a> versions are
-    auto-detected.<br /><ul>
 <li><code>label</code> <em>(<code>type=str</code>)</em>:
     The metadata/colData column name for
     reference labels. Auto-detected from <code>label.main</code>,
     <code>label.fine</code>, <code>label.ont</code>, <code>label</code> in order.<br /></li>
 <li><code>&lt;more&gt;</code>:
-    See the SingleR documentation for your version:<br /></li>
-<li><code>[</code>Bioconductor<code>](https</code>:
-    //rdrr.io/bioc/SingleR/man/SingleR.html)
+    See the SingleR documentation for your version:<br />
+    <a href="https://rdrr.io/bioc/SingleR/man/SingleR.html"><code>Bioconductor</code></a>
     or <a href="https://github.com/dviraran/SingleR"><code>CRAN</code></a>.<br /></li>
 </ul>
 </li>
-<li><code>schdeepinsight_ref</code> <em>(<code>type=str</code>)</em>:
+<li><code>schdeepinsight</code> <em>(<code>ns</code>)</em>:
+    The arguments for scHDeepInsight
+    if <code>tool</code> is <code>schdeepinsight</code>.<br /><ul>
+<li><code>ref</code> <em>(<code>type=str</code>)</em>:
     The path to the scHDeepInsight
     reference RDS file. The bundled <code>reference.rds</code> from the
     scHDeepInsight repo provides immune cell reference.<br />
     See <a href="https://github.com/shangruJia/scHDeepInsight">https://github.com/shangruJia/scHDeepInsight</a>.<br /></li>
-<li><code>schdeepinsight_args</code> <em>(<code>ns</code>)</em>:
-    The arguments for scHDeepInsight
-    if <code>tool</code> is <code>schdeepinsight</code>.<br /><ul>
 <li><code>batch_size</code> <em>(<code>type=int</code>)</em>:
-    Batch size for CNN prediction</li>
-<li><code>(default</code>:
-    128).<br /></li>
+    Batch size for CNN prediction
+    (default: 128).<br /></li>
 <li><code>python</code> <em>(<code>type=str</code>)</em>:
     Path to Python executable with
     <code>SCHdeepinsight</code> installed.<br /></li>
@@ -433,40 +515,55 @@ and auto-detected at runtime.<br /></li>
     Assay to use for h5ad conversion.<br /></li>
 </ul>
 </li>
-<li><code>gptcelltype_args</code> <em>(<code>ns</code>)</em>:
+<li><code>llmcelltype</code> <em>(<code>ns</code>)</em>:
     The arguments for
-    <code>GPTCelltype::gptcelltype()</code> if <code>tool</code> is <code>gptcelltype</code>.<br /><ul>
+    <code>LLMCelltype::llmcelltype()</code> if <code>tool</code> is <code>llmcelltype</code>.<br /><ul>
 <li><code>api_key</code> <em>(<code>type=str</code>)</em>:
-    OpenAI API key (required).<br /></li>
+    OpenAI API key</li>
 <li><code>model</code> <em>(<code>type=str</code>)</em>:
     GPT model (required, e.g.<br />
     'gpt-4', 'gpt-4o').<br /></li>
 <li><code>base_url</code> <em>(<code>type=str</code>)</em>:
     Custom base URL for
-    OpenAI-compatible providers. Sets
-    <code>OPENAI_BASE_URL</code> environment variable.<br /></li>
+    OpenAI-compatible providers.<br /></li>
 <li><code>tissuename</code> <em>(<code>type=str</code>)</em>:
     Tissue name for context.<br /></li>
+<li><code>sigmarkers</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>p_val_adj &lt; 0.05</code></em>. <br />
+    A expression to filter the result from <code>RunSeuratDEAnalysis()</code>, e.g. <code>avg_log2FC &gt; 0.25 &amp; p_val_adj &lt; 0.05</code>,
+    to be used for generating the marker gene list for LLM.<br /></li>
 <li><code>assay</code> <em>(<code>type=str</code>)</em>:
     Assay to use for
     <code>FindAllMarkers()</code>.<br /></li>
 <li><code>&lt;more&gt;</code>:
-    Additional args passed to</li>
-<li><code>`Seurat:</code>:
-    FindAllMarkers()`.<br /></li>
+    Additional args passed to
+    <a href="https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratDEAnalysis.html"><code>biopipen.utils::RunSeuratDEAnalysis()</code></a>.<br /></li>
+<li><code>cache</code>: <em>Default: <code>/tmp</code></em>. <br /></li>
 </ul>
 </li>
-<li><code>cellassign_db</code> <em>(<code>type=str</code>)</em>:
+<li><code>cellassign</code> <em>(<code>ns</code>)</em>:
+    The arguments for
+    <code>cellassign::cellassign()</code> if <code>tool</code> is <code>cellassign</code>.<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
     The path to the marker gene info
     file for <code>cellassign</code>. Supports:<br /><ul>
 <li>RDS/qs2 file: a binary gene×celltype matrix or a
 named list (cell type → vector of marker genes)</li>
-<li>CSV/TSV file: with columns <code>gene</code> and <code>cell_type</code></li>
+<li>CSV/TSV file: with columns <code>gene</code> and <code>cell_type</code>
+Can also be a universal marker table (see the note above).<br /></li>
 </ul>
 </li>
-<li><code>cellassign_args</code> <em>(<code>ns</code>)</em>:
-    The arguments for
-    <code>cellassign::cellassign()</code> if <code>tool</code> is <code>cellassign</code>.<br /><ul>
+<li><code>tissue</code>:
+    Filter the markers by the <code>tissue</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>tissue</code> column.<br /></li>
+<li><code>cancer</code>:
+    Filter the markers by the <code>cancer</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>cancer</code> column.<br /></li>
+<li><code>species</code>:
+    Filter the markers by the <code>species</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>species</code> column.<br /></li>
 <li><code>python</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>python</code></em>. <br />
     Path to Python with <code>tensorflow</code> installed.<br /></li>
 <li><code>assay</code> <em>(<code>type=str</code>)</em>:
@@ -475,38 +572,40 @@ named list (cell type → vector of marker genes)</li>
     Min log-fold change for marker
     overexpression (default: 2).<br /></li>
 <li><code>B</code> <em>(<code>type=int</code>)</em>:
-    Number of RBF dispersion bases</li>
-<li><code>(default</code>:
-    20).<br /></li>
+    Number of RBF dispersion bases
+    (default: 10).<br /></li>
 <li><code>shrinkage</code> <em>(<code>flag</code>)</em>:
-    Hierarchical shrinkage on delta</li>
+    Hierarchical shrinkage on delta
+    (default: TRUE).<br /></li>
 <li><code>n_batches</code> <em>(<code>type=int</code>)</em>:
-    Data subsample batches</li>
+    Data subsample batches
+    (default: 1).<br /></li>
 <li><code>learning_rate</code> <em>(<code>type=float</code>)</em>:
-    ADAM learning rate</li>
+    ADAM learning rate
+    (default: 0.1).<br /></li>
 <li><code>max_iter_em</code> <em>(<code>type=int</code>)</em>:
-    Max EM iterations</li>
+    Max EM iterations
+    (default: 20).<br /></li>
 <li><code>verbose</code> <em>(<code>flag</code>)</em>:
     Print progress (default: TRUE).<br /></li>
 <li><code>&lt;more&gt;</code>:
-    Additional args to</li>
-<li><code>`cellassign:</code>:
-    cellassign()`.<br /></li>
+    Additional args to
+    <code>cellassign::cellassign()</code>.<br /></li>
 </ul>
 </li>
-<li><code>scbert_ref</code> <em>(<code>type=str</code>)</em>:
+<li><code>scbert</code> <em>(<code>ns</code>)</em>:
+    The arguments for scBERT inference
+    if <code>tool</code> is <code>scbert</code>.<br /><ul>
+<li><code>ref</code> <em>(<code>type=str</code>)</em>:
     The path to the scBERT repo
     directory (containing <code>performer_pytorch/</code>).<br /></li>
-<li><code>scbert_model</code> <em>(<code>type=str</code>)</em>:
+<li><code>model</code> <em>(<code>type=str</code>)</em>:
     The path to the fine-tuned
     model checkpoint (.pth file).<br /></li>
-<li><code>scbert_label_dict</code> <em>(<code>type=str</code>)</em>:
+<li><code>label_dict</code> <em>(<code>type=str</code>)</em>:
     The path to the label
     dictionary pickle file (maps class indices to cell
     type names).<br /></li>
-<li><code>scbert_args</code> <em>(<code>ns</code>)</em>:
-    The arguments for scBERT inference
-    if <code>tool</code> is <code>scbert</code>.<br /><ul>
 <li><code>python</code> <em>(<code>type=str</code>)</em>:
     Path to Python with scBERT
     dependencies (torch, scanpy, etc.).<br /></li>
@@ -531,32 +630,48 @@ named list (cell type → vector of marker genes)</li>
     Additional args to the wrapper script.<br /></li>
 </ul>
 </li>
-<li><code>cellid_db</code> <em>(<code>type=str</code>)</em>:
+<li><code>cellid</code> <em>(<code>ns</code>)</em>:
+    The arguments for CelliD
+    if <code>tool</code> is <code>cellid</code>.<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
     The path to the marker gene set
     file for <code>cellid</code>. Supports:<br /><ul>
 <li>RDS/qs2 file: a named list (cell type → vector
 of marker genes)</li>
-<li>CSV/TSV file: with columns <code>gene</code> and <code>cell_type</code></li>
+<li>CSV/TSV file: with columns <code>gene</code> and <code>cell_type</code>
+Can also be a universal marker table (see the note above).<br /></li>
 </ul>
 </li>
-<li><code>cellid_args</code> <em>(<code>ns</code>)</em>:
-    The arguments for CelliD
-    if <code>tool</code> is <code>cellid</code>.<br /><ul>
+<li><code>tissue</code>:
+    Filter the markers by the <code>tissue</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>tissue</code> column.<br /></li>
+<li><code>cancer</code>:
+    Filter the markers by the <code>cancer</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>cancer</code> column.<br /></li>
+<li><code>species</code>:
+    Filter the markers by the <code>species</code> column of a universal
+    marker table (see the note above). Only works with a universal
+    marker table that has a <code>species</code> column.<br /></li>
 <li><code>nmcs</code> <em>(<code>type=int</code>)</em>:
-    Number of MCA components</li>
-<li><code>(default</code>:
-    TRUE).<br /></li>
+    Number of MCA components
+    (default: 50).<br /></li>
 <li><code>n_features</code> <em>(<code>type=int</code>)</em>:
     Top n features per
     cell for hypergeometric test (default: 200).<br /></li>
 <li><code>dims</code> <em>(<code>type=auto</code>)</em>:
-    MCA dimensions to use</li>
+    MCA dimensions to use
+    (default: seq(nmcs)).<br /></li>
 <li><code>min_size</code> <em>(<code>type=int</code>)</em>:
-    Min overlapping genes</li>
+    Min overlapping genes
+    (default: 10).<br /></li>
 <li><code>log_trans</code> <em>(<code>flag</code>)</em>:
-    -log10 transform p-values</li>
+    -log10 transform p-values
+    (default: TRUE).<br /></li>
 <li><code>p_adjust</code> <em>(<code>flag</code>)</em>:
-    Benjamini-Hochberg correction</li>
+    Benjamini-Hochberg correction
+    (default: TRUE).<br /></li>
 </ul>
 </li>
 <li>
@@ -566,14 +681,20 @@ of marker genes)</li>
     If given as a list (array), you can use <code>"-"</code> or <code>""</code> as the placeholder for the clusters that
     you want to keep the original cell types. If the length of <code>cell_types</code> is shorter than the number of
     clusters, the remaining clusters will be kept as the original cell types.<br />
-    You can also use <code>NA</code> to remove the clusters from downstream analysis. This
-    only works when <code>envs.newcol</code> is not specified.<br />
-    If given as a dict (map), the keys are the original cluster names and the values are the new cell types.<br /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If <code>tool</code> is <code>direct</code> and <code>cell_types</code> is not specified or an empty list,
-the original cell types will be kept and nothing will be changed.<br /></p>
-</div>
+    You can also use <code>NA</code> to remove the clusters from downstream analysis
+    (the cells in these clusters will be removed from the Seurat object).<br />
+    If given as a dict (map), the keys are the original cluster names and the values are the new cell types.<br />
+    For <code>cell</code>, it must be a TSV file with cell-level annotations.<br />
+    You can specify the column names after the <code>#</code>. For example,
+    <code>file:///path/to/cell_types.tsv#cell_id,cell_type</code> will use <code>cell_id</code> as the cell id column
+    to match the cell ids in the Seurat object, and <code>cell_type</code> as the cell type column to assign the cell types.<br />
+    Multiple cell type columns can be specified, and the first one will be used as the annotation column
+    (the others will be added as additional annotation columns).<br />
+    You can also use 1-based column index to specify the columns, for example, <code>file:///path/to/cell_types.tsv#1,3</code>
+    will use the first column as the cell id column and the third column as the cell type column.<br />
+    If cells in the Seurat object are not found in the cell type file, <code>NA</code>s will be assigned to those cells.<br />
+    If no columns are specified, the first two columns will be used as the cell id and cell type columns.<br />
+    Prefix <code>file://</code> is optional.<br /></p>
 <p>For <code>cell</code>, it must be a TSV file with cell-level annotations.<br />
 You can specify the column names after the <code>#</code>. For example,
 <code>file:///path/to/cell_types.tsv#cell_id,cell_type</code> will use <code>cell_id</code> as the cell id column
@@ -593,26 +714,41 @@ Prefix <code>file://</code> is optional.<br /></p>
     This is useful when you want to keep multiple annotations of cell types.<br /></p>
 </li>
 <li>
-<p><code>sccatch_args</code> <em>(<code>ns</code>)</em>:
+<p><code>sccatch</code> <em>(<code>ns</code>)</em>:
     The arguments for <code>scCATCH::findmarkergene()</code> if <code>tool</code> is <code>sccatch</code>.<br /></p>
 <ul>
 <li><code>species</code>:
-    The specie of cells.<br /></li>
-<li><code>cancer</code>: <em>Default: <code>Normal</code></em>. <br />
-    If the sample is from cancer tissue, then the cancer type may be defined.<br /></li>
+    The specie of cells.<br />
+    When <code>marker</code> is a custom (universal) marker table, only the rows
+    matching the value are kept; otherwise it is used to filter the
+    built-in scCATCH database.<br /></li>
+<li><code>cancer</code>:
+    If the sample is from cancer tissue, then the cancer type may be defined.<br />
+    Defaults to "Normal" if not <code>if_use_custom_marker</code>.<br />
+    When <code>marker</code> is a custom (universal) marker table, only the rows
+    matching the value are kept; otherwise it is used to filter the
+    built-in scCATCH database.<br /></li>
 <li><code>tissue</code>:
-    Tissue origin of cells must be defined.<br /></li>
+    Tissue origin of cells must be defined.<br />
+    When <code>marker</code> is a custom (universal) marker table, only the rows
+    matching the value are kept; otherwise it is used to filter the
+    built-in scCATCH database.<br /></li>
 <li><code>marker</code>:
-    The marker genes for cell type identification.<br /></li>
+    The marker genes for cell type identification.<br />
+    Can also be a universal marker table (see the note above).<br />
+    An error is raised if <code>species</code>, <code>cancer</code>, or <code>tissue</code> is set but
+    the table has no such column or no rows match.<br /></li>
 <li><code>if_use_custom_marker</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
-    Whether to use custom marker genes. If <code>True</code>, no <code>species</code>, <code>cancer</code>, and <code>tissue</code> are needed.<br /></li>
+    Whether to use custom marker genes.<br />
+    When <code>marker</code> is provided, this is set to <code>True</code> automatically, and
+    <code>species</code>, <code>cancer</code>, and <code>tissue</code> filter the custom markers if set.<br /></li>
 <li><code>&lt;more&gt;</code>:
     Other arguments for <a href="https://rdrr.io/cran/scCATCH/man/findmarkergene.html"><code>scCATCH::findmarkergene()</code></a>.<br />
-    You can pass an RDS file to <code>sccatch_args.marker</code> to work as custom marker. If so,
+    You can pass an RDS file to <code>sccatch.marker</code> to work as custom marker. If so,
     <code>if_use_custom_marker</code> will be set to <code>TRUE</code> automatically.<br /></li>
 </ul>
 </li>
-<li><code>celltypist_args</code> <em>(<code>ns</code>)</em>:
+<li><code>celltypist</code> <em>(<code>ns</code>)</em>:
     The arguments for <code>celltypist::celltypist()</code> if <code>tool</code> is <code>celltypist</code>.<br /><ul>
 <li><code>model</code>:
     The path to model file.<br /></li>
@@ -632,17 +768,43 @@ Prefix <code>file://</code> is optional.<br /></p>
     If input is Seurat object in RDS, this defaults to the default assay.<br /></li>
 </ul>
 </li>
+<li><code>scagenttype</code> <em>(<code>ns</code>)</em>:
+    The arguments for the scAgentType annotation agent
+    if <code>tool</code> is <code>scagenttype</code>. It annotates each cluster via an agentic
+    LLM workflow (ReAct) and needs Python &gt;=3.10 with the <code>scagenttype</code>
+    package installed, e.g.<br />
+    <code>pip install "scagenttype[llm] @ git+https://github.com/sathyasjali/scAgentType.git"</code>.<br /><ul>
+<li><code>python</code>: <em>Default: <code>python</code></em>. <br />
+    The python path where <code>scagenttype</code> is installed.<br /></li>
+<li><code>api</code>: <em>Default: <code>openai</code></em>. <br />
+    The LLM provider: <code>openai</code>, <code>anthropic</code>, or <code>google</code> (default: <code>openai</code>).<br /></li>
+<li><code>api_key</code>:
+    The API key for the provider.<br />
+    When not set, the key is read from the environment variable of
+    the provider (<code>OPENAI_API_KEY</code>, <code>ANTHROPIC_API_KEY</code>, or <code>GOOGLE_API_KEY</code>).<br /></li>
+<li><code>model</code>:
+    The model to use. Defaults are chosen per provider when not set.<br /></li>
+<li><code>base_url</code>:
+    Custom API base URL (e.g. for proxies).<br />
+    Passed to the subprocess via <code>OPENAI_BASE_URL</code> or <code>ANTHROPIC_BASE_URL</code>.<br /></li>
+<li><code>tissue</code>:
+    The tissue of the data, e.g. <code>Human peripheral blood</code>.<br />
+    Folded into <code>tissue_context</code> when <code>tissue_context</code> is not set.<br /></li>
+<li><code>species</code>:
+    The species of the data.<br />
+    Folded into <code>tissue_context</code> when <code>tissue_context</code> is not set.<br /></li>
+<li><code>assay</code>:
+    When converting a Seurat object to AnnData, the assay to use.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    Other arguments for <a href="https://github.com/sathyasjali/scAgentType"><code>AnnotationAgent()</code></a>,
+    e.g. <code>tissue_context</code>, <code>n_markers</code>, <code>max_react_steps</code>,
+    <code>confidence_threshold</code>, <code>self_consistency_n</code>, <code>cache_dir</code>,
+    <code>enable_cellxgene</code>.<br /></li>
+</ul>
+</li>
 <li><code>merge</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to merge the clusters with the same cell types.<br />
     Otherwise, a suffix will be added to the cell types (ie. <code>.1</code>, <code>.2</code>, etc).<br /></li>
-<li><code>newcol</code>:
-    The new column name to store the cell types.<br />
-    If not specified, the identity column will be overwritten.<br />
-    If specified, the original identity column will be kept and <code>Idents</code> will be kept as the original identity.<br />
-    For tool <code>cell</code>, this can be used to save the cell types to a new column in metadata
-    in additional to the column name specified in the cell type annotation file (and set as the identity).<br />
-    For tool <code>scsorter</code>, this can be used to save the cell types to a new column in metadata in addition to
-    <code>scSorter_celltype</code> (and set as the identity).<br /></li>
 <li><code>add_prefix</code> <em>(<code>flag</code>)</em>:
     Whether to add a prefix to the new column names in metadata.<br />
     Only used when in non-default cases. The prefix will be the case name followed by <code>_</code>.<br /></li>
@@ -651,7 +813,8 @@ Prefix <code>file://</code> is optional.<br /></p>
     The keys are the prefix of column names added to the metadata (unless <code>add_prefix</code> is <code>False</code>),
     and the values will inherit the above options.<br />
     The default case is <code>DEFAULT</code>, meaning no prefix will be added to the column names.<br />
-    The annotation from the last case will be set as the identity of the output Seurat object.<br />
+    The identity of the output Seurat object will be set according to <code>envs.set_ident</code> of each case
+    (see <code>envs.set_ident</code>).<br />
     If any case requires h5ad conversion (e.g., <code>celltypist</code>), the object is pre-converted
     once and shared across those tools.<br /></li>
 <li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
@@ -672,7 +835,95 @@ Prefix <code>file://</code> is optional.<br /></p>
     Use AnnData file.<br /></li>
 </ul>
 </li>
+<li><code>sctype_db</code>:</li>
 </ul>
+<h3 id="the-tools-can-be-divided-into-two-categories">The tools can be divided into two categories<a class="headerlink" href="#the-tools-can-be-divided-into-two-categories" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Cluster-level tools: annotate the clusters, each cluster being assigned one cell type.<br />
+  These include <code>sctype</code>, <code>hitype</code>, <code>sccatch</code>, <code>scsorter</code>, <code>singler</code>, <code>llmcelltype</code>, <code>scagenttype</code>, and <code>direct</code>.<br /></li>
+<li>Cell-level tools: annotate the cells, each cell being assigned one cell type.<br />
+  These include <code>scina</code>, <code>cellassign</code>, <code>cellid</code>, <code>scbert</code>, <code>schdeepinsight</code>, <code>llmcelltype</code>, and <code>cell</code>.<br />
+  For cell-level tools, a cluster-level annotation can also be generated by specifying
+  <code>envs.ident</code> (or <code>envs.cases.X.ident</code> for a specific case), where each cluster is
+  assigned the cell type by majority vote of the cells in the cluster.<br /></li>
+<li><code>celltypist</code> is a special cell-level tool, which can also generate cluster-level
+  annotations via its over-clustering mechanism (<code>envs.celltypist.over_clustering</code>
+  or <code>envs.ident</code>).<br /></li>
+</ul>
+<h3 id="the-tools-can-also-be-divided-by-their-input-types">The tools can also be divided by their input types<a class="headerlink" href="#the-tools-can-also-be-divided-by-their-input-types" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Marker-based tools: take marker genes for the cell types, including
+  <code>sctype</code>, <code>hitype</code>, <code>sccatch</code>, <code>scsorter</code>, <code>scina</code>, <code>cellassign</code>, and <code>cellid</code>.<br />
+  They all accept the universal marker format (see the note below).<br /></li>
+<li>Model/reference-based tools: take a trained model or a reference object,
+  including <code>celltypist</code>, <code>scbert</code>, <code>singler</code>, and <code>schdeepinsight</code>.<br /></li>
+<li>Direct-annotation tools: take the cell types directly via <code>envs.cell_types</code>,
+  including <code>direct</code> and <code>cell</code>.<br /></li>
+</ul>
+<p>The annotated cell types will be saved to a new column (<code>envs.anno_col</code>, default: <code>CellType</code>)
+in the metadata, so that the downstream processes will use the annotated cell types
+(the identity will be set to the annotation column unless <code>envs.set_ident</code> is <code>False</code>).<br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The original identity column (e.g. <code>seurat_clusters</code>) is never modified.<br /></p>
+<p>For <code>tool</code> set to <code>direct</code>, if <code>envs.cell_types</code> is not specified or is an empty list,
+the original cell types will be kept and nothing will be changed.<br /></p>
+</div>
+<p>If you are using a cluster-level tool (or a cell-level tool with <code>envs.ident</code>), a text file
+containing the mapping from the original identity to the new cell types will be generated
+and saved to <code>cluster2celltype.tsv</code> under the job output directory.<br />
+The per-cell annotations from cell-level tools will be saved to <code>cell2celltype.tsv</code>
+under the job output directory.<br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<h3 id="the-following-envs-are-deprecated-and-will-be-removed-in-future-versions">The following envs are deprecated and will be removed in future versions<a class="headerlink" href="#the-following-envs-are-deprecated-and-will-be-removed-in-future-versions" title="Permanent link">&para;</a></h3>
+<p><code>sctype_tissue</code>, <code>sctype_db</code>, <code>hitype_tissue</code>, <code>hitype_db</code>, <code>scsorter_db</code>, <code>scsorter_args</code>,
+<code>scina_db</code>, <code>scina_args</code>, <code>singler_db</code>, <code>singler_args</code>, <code>schdeepinsight_ref</code>,
+<code>schdeepinsight_args</code>, <code>llmcelltype_args</code>, <code>cellassign_db</code>, <code>cellassign_args</code>,
+<code>scbert_ref</code>, <code>scbert_model</code>, <code>scbert_label_dict</code>, <code>scbert_args</code>, <code>cellid_db</code>,
+<code>cellid_args</code>, <code>sccatch_args</code>, <code>celltypist_args</code>, <code>newcol</code>, and <code>backup_col</code>.<br />
+Use the corresponding <code>envs.&lt;tool&gt;</code> namespace instead (e.g. <code>envs.sctype_db</code> →
+<code>envs.sctype.db</code>). The deprecated envs still work, with a warning, and take precedence
+over the new-style envs when both are provided.<br />
+<code>envs.newcol</code> is replaced by <code>envs.anno_col</code>, and <code>envs.backup_col</code> is no longer
+needed (the original identity column is never modified).<br /></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<h4 id="universal-marker-format">Universal marker format<a class="headerlink" href="#universal-marker-format" title="Permanent link">&para;</a></h4>
+<p>The marker-based tools (<code>sctype</code>, <code>hitype</code>, <code>sccatch</code>, <code>scsorter</code>, <code>scina</code>,
+<code>cellassign</code>, and <code>cellid</code>) accept a universal marker table in addition to
+their native formats. The table can be a TSV, CSV, or an RDS/qs/qs2 file
+containing a data.frame, in long format with one row per gene per cell type:<br /></p>
+<ul>
+<li><code>cell_type</code> (required): the cell type.<br /></li>
+<li><code>gene</code> (required): the marker gene.<br /></li>
+<li><code>direction</code>: <code>positive</code>/<code>negative</code> (aliases: <code>pos</code>/<code>neg</code>/<code>+</code>/<code>-</code>).<br />
+  For <code>sctype</code>/<code>hitype</code>, negative markers are used as down-regulated markers
+  (<code>geneSymbolmore2</code>). For <code>scsorter</code>, negative markers become negative
+  <code>Weight</code>s. For the other tools (<code>scina</code>, <code>cellassign</code>, <code>cellid</code>,
+  <code>sccatch</code>), negative markers cannot be represented and are ignored
+  (only positive markers are used).<br /></li>
+<li><code>weight</code>: a numeric weight, only used by <code>scsorter</code> (as the <code>Weight</code> column).<br /></li>
+<li><code>species</code>, <code>cancer</code>, <code>tissue</code>: optional. When the matching env
+  (<code>envs.&lt;tool&gt;.species</code>/<code>cancer</code>/<code>tissue</code>) is set, only the rows with the
+  given value are kept (an error is raised if the table has no such column
+  or no rows match). For <code>sctype</code>/<code>hitype</code>, <code>tissue</code> also becomes the
+  <code>tissueType</code> column, and it can be used to filter a native ScType xlsx/TSV
+  database as well (the other two columns only exist in universal tables).<br /></li>
+<li><code>level</code>: an integer, only used by <code>sctype</code>/<code>hitype</code>.<br /></li>
+</ul>
+<p>Column aliases are auto-detected: <code>celltype</code>/<code>cellType</code>/<code>Type</code> → <code>cell_type</code>,
+<code>marker</code>/<code>Marker</code>/<code>gene_symbol</code> → <code>gene</code>, <code>sign</code> → <code>direction</code>, and
+<code>tissueType</code> → <code>tissue</code>.<br /></p>
+<p>You can specify the columns after <code>#</code> in the file path, for example,
+<code>file:///path/to/markers.tsv#cell_type,gene,direction</code>, using column names
+(aliases allowed) or 1-based indices. The <code>file://</code> prefix is optional.<br /></p>
+<p>A file without <code>cell_type</code>/<code>gene</code> columns is treated as the tool's native
+format (e.g. a ScType xlsx for <code>sctype</code>/<code>hitype</code>, a per-cell-type-column CSV
+for <code>scina</code>, a named-list RDS for <code>scina</code>/<code>cellassign</code>/<code>cellid</code>, an RDS
+data.frame for <code>sccatch</code>, etc.).<br /></p>
+</div>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">[CellTypeAnnotation.envs]</span>
 <span class="n">tool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"direct"</span>
@@ -687,8 +938,8 @@ Prefix <code>file://</code> is optional.<br /></p>
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
 <p>When <code>envs.tool</code> is <code>direct</code> and <code>envs.cell_types</code> is empty, the metadata of
 the <code>Seurat</code> object will be kept as is.<br /></p>
-<p>When <code>envs.newcol</code> is specified, the original identity column (e.g. <code>seurat_clusters</code>) will
-be kept is, and the annotated cell types will be saved in the new column.<br />
+<p>When <code>envs.anno_col</code> is specified, the original identity column (e.g. <code>seurat_clusters</code>) will
+be kept as is, and the annotated cell types will be saved in the new column.<br />
 Otherwise, the original identity column will be replaced by the
 annotated cell types and the original identity column will be
 saved at <code>envs.backup_col</code> (e.g. <code>seurat_clusters_id</code>).<br /></p>

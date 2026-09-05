@@ -524,7 +524,11 @@ See <a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-s
 <li>
 <p><code>keep_contam_assay</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to keep the "Contaminated" (original) assay after QC is finished.<br />
-    If kept, we can use it to visualize some marker expressions for comparisons.<br /></p>
+    If kept, we can use it to visualize some marker expressions for comparisons.<br />
+    Note that when <code>False</code> (default), the <code>Contaminated</code> assay is dropped per-sample right after
+    contamination correction (before samples are merged) to reduce the memory usage.<br />
+    Contamination-expression QC plots (with <code>metric</code> of <code>expr</code>/<code>expression</code>) in <code>qc_plots</code>
+    require this to be <code>True</code>.<br /></p>
 </li>
 <li>
 <p><code>doublet_detector</code> <em>(<code>choice</code>)</em>: <em>Default: <code>none</code></em>. <br />
@@ -577,7 +581,10 @@ See <a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-s
     See <a href="https://github.com/satijalab/seurat/issues/7849">https://github.com/satijalab/seurat/issues/7849</a>, <a href="https://github.com/satijalab/seurat/issues/5358">https://github.com/satijalab/seurat/issues/5358</a> and
     <a href="https://github.com/satijalab/seurat/issues/6748">https://github.com/satijalab/seurat/issues/6748</a> for more details also about reproducibility issues.<br />
     To not use the cached seurat object, you can either set <code>cache</code> to <code>False</code> or delete the cached file at
-    <code>&lt;signature&gt;.RDS</code> in the cache directory.<br /></li>
+    <code>&lt;signature&gt;.RDS</code> in the cache directory.<br />
+    Note that caching saves full snapshots of the seurat object at step boundaries, which transiently
+    increases the peak memory (on both save and load). Set <code>cache</code> to <code>False</code> on memory-constrained
+    runs with big data to avoid the extra peaks.<br /></li>
 </ul>
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
 <p>Here is the demonstration of basic metadata for the <code>Seurat</code> object. Future
