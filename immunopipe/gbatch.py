@@ -40,6 +40,12 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemonPipeline):
         super()._show_versions()
 
     async def handle_workdir(self):
+        """Handle the workdir argument for the pipeline."""
+        cname = await self._get_arg_from_command("name")
+        if not cname:
+            cname = "Immunopipe"
+            self._command_args["name"] = cname
+
         await super().handle_workdir()
 
         if "workdir" in self._command_args:
