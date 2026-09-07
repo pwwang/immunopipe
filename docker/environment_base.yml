@@ -109,7 +109,7 @@ dependencies:
   - r-ggalluvial
   - r-ggvenndiagram
   - r-ggupset
-  - r-ggpubr
+  - r-ggpubr >1.0.0  # https://github.com/kassambara/ggpubr/issues/751
   - r-ggforce
   - r-ggraph
   - r-ggridges

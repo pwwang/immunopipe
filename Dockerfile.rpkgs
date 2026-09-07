@@ -18,7 +18,6 @@ COPY --from=builder /opt/conda/lib/R/library/enrichit /opt/conda/lib/R/library/e
 COPY --from=builder /opt/conda/lib/R/library/plotthis /opt/conda/lib/R/library/plotthis
 COPY --from=builder /opt/conda/lib/R/library/scplotter /opt/conda/lib/R/library/scplotter
 COPY --from=builder /opt/conda/lib/R/library/biopipen.utils /opt/conda/lib/R/library/biopipen.utils
-COPY --from=builder /opt/conda/lib/R/library/ggpubr /opt/conda/lib/R/library/ggpubr
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 ENTRYPOINT [ "/usr/local/bin/_entrypoint.sh" ]
