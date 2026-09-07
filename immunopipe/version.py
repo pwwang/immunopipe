@@ -1,4 +1,4 @@
-__version__ = "2.6.0a1"
+__version__ = "2.6.0"
 
 desc = (
     f"Immunopipe v{__version__}\n"

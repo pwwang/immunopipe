@@ -1,6 +1,6 @@
 # Change Log
 
-## 2.6.0a1
+## 2.6.0
 
 - BREAKING: move ModuleScoreCalculator later before ScRepCombiningExpression so that we don't need to redo clustering and related if more module scores are needed for later run
 - feat(LoadingRNAFromSeurat): support multiple columns for envs.sample
@@ -12,6 +12,7 @@
 - feat: add pipen-email as dependency to notify for status changes
 - feat: add select-markers command to CLI utils for gene selection from ClusterMarkers process
 - feat: enhance LoadingRNAFromSeurat with mutaters, subset, and ncores parameters
+- fix(gbatch): default command name to "Immunopipe" for gbatch
 - refactor: adopt pipen-cli-gbatch v1.2
 - fix(TOrBCellSelection): add missing glue library import
 - fix(TOrBCellSelection): ensure indicator genes are scaled for visualization in TOrBCellSelection script
@@ -54,7 +55,7 @@
     - feat(MarkersPlot): support selecting markers not per-each group
     - feat(FeatureStatPlot): add center_zero parameter to control colorbar centering
     - chore(MarkersPlot): update default selection logic for markers based on plot type and group selection
-- r-biopipen.utils to 0.4.4-3
+- r-biopipen.utils to 0.4.4-4
     - feat: support h5ad file type in read_obj/save_obj; handle null assay/ident attributes in ConvertAnnDataToSeurat (with AssembleAssay monkey-patching); null active_ident check in ConvertSeuratToAnnData; .Rds file support; add other assays to layers in list_to_h5group; ignore .qs files in Rbuildignore
     - feat(read_write_table): add read_table/write_table with annotated factor levels and load_table/save_table aliases for txt/tsv/csv; use read.delim
     - feat(EnsureSeuratScaleData): add function to ensure marker genes are in scale.data layer; improve scale.data merging and missing feature handling
@@ -65,11 +66,12 @@
     - feat(VizDEGs): add log, log_prefix and cache parameters for improved logging and caching
     - feat(RunSeuratIntegration): add support for SCTAssay in marker preparation
     - feat(RunModuleScoring): add module scoring functionality for Seurat objects with multiple scoring methods
+    - feat(LoadSeuratAndPerformQC): add keep_contam_assay parameter to manage original counts retention
     - fix(VizDEGs): default `order_by` to "desc(abs(avg_log2FC))", handle missing features in scale.data, replace `subset_by`/`subset_as_facet` with `each`/`facet_each`
     - fix: RunSeuratMap2Ref refdata check and JoinLayers usage; RunSeuratTransformation handles `"__all__"` features; LoadSeuratAndPerformQC warns on 'integrated' default assay
     - fix(LoadSeuratAndPerformQC): handle factor levels in metadata
 - biopipen to 1.4.0
-    - feat(scrna.CellTypeAnnotation): add support for scSorter, SCINA, SingleR, scHDeepInsight, GPTCelltype, cellassign, scBERT and CelliD tools; support cell-level annotations and multiple cases; add assay parameter and Python executable for cellassign; save cluster-to-cell-type mappings; fix ident handling, missing clusters/special values, and celltypist treated as cluster-based without over_clustering
+    - feat(scrna.CellTypeAnnotation): add support for scSorter, SCINA, SingleR, scHDeepInsight, LLMCelltype, cellassign, scBERT, CelliD and scAgentType tools; support cell-level annotations and multiple cases; add assay parameter and Python executable for cellassign; save cluster-to-cell-type mappings; fix ident handling, missing clusters/special values, and celltypist treated as cluster-based without over_clustering
     - feat(scrna.Slingshot): add Slingshot process for pseudotime trajectory inference — multiple cases, enhanced dims handling, cell subsetting/splitting, varying lineage outputs
     - feat(scrna.CellCellCommunication): support multiple cases and multiple split_by columns; monkey-patch anndata.AnnData dtype keyword; output tables inherit factor levels; improve default ligand/receptor expression columns (CellCellCommunicationPlots)
     - feat(tcr.ScRepCombiningExpression): add cell ID transformation functions; group-based clonal proportion calculation and enhanced clone size handling with logging
