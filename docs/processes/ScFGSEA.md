@@ -111,6 +111,8 @@ each gene set, and GSEA plots for the top gene sets.<br />
     Default options for the plots to generate for all pathways.<br />
     - `plot_type`: *Default: `heatmap`*. <br />
         The type of the plot, currently either dot or heatmap (default)
+    - `descr`:
+        A description of the plot to be shown above the plot image.<br />
     - `devpars` *(`ns`)*:
         The device parameters for the plots.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />

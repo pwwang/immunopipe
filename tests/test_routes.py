@@ -355,12 +355,12 @@ def test_route_sampleinfo_full(tmp_path):
 
         [TOrBCellSelection]
         [TopExpressingGenesOfAllCells]
-        [ModuleScoreCalculator]
         [SeuratClustering]
         [SeuratMap2Ref]
         [CellTypeAnnotation]
         [TopExpressingGenes]
         [SeuratSubClustering]
+        [ModuleScoreCalculator]
         [CDR3Clustering]
         [TESSA]
         [MarkersFinder]
@@ -394,22 +394,22 @@ def test_route_sampleinfo_full(tmp_path):
         "TOrBCellSelection: <<< ['SeuratClusteringOfAllCells', 'ScRepLoading']"
         in output
     )
-    assert "TOrBCellSelection: >>> ['ModuleScoreCalculator']" in output
-    assert "ModuleScoreCalculator: <<< ['TOrBCellSelection']" in output
-    assert "ModuleScoreCalculator: >>> ['SeuratClustering']" in output
+    assert "TOrBCellSelection: >>> ['SeuratClustering']" in output
+    assert (
+        "SeuratSubClustering: >>> ['ClusterMarkers', 'TopExpressingGenes', "
+        "'ModuleScoreCalculator']" in output
+    )
+    assert "SeuratSubClustering: <<< ['SeuratMap2Ref']" in output
     assert "SeuratMap2Ref: <<< ['CellTypeAnnotation']" in output
     assert "SeuratMap2Ref: >>> ['SeuratSubClustering']" in output
-    assert "SeuratClustering: <<< ['ModuleScoreCalculator']" in output
+    assert "SeuratClustering: <<< ['TOrBCellSelection']" in output
     assert "SeuratClustering: >>> ['CellTypeAnnotation']" in output
     assert "CellTypeAnnotation: <<< ['SeuratClustering']" in output
     assert "CellTypeAnnotation: >>> ['SeuratMap2Ref']" in output
-    assert "SeuratSubClustering: <<< ['SeuratMap2Ref']" in output
+    assert "ModuleScoreCalculator: <<< ['SeuratSubClustering']" in output
+    assert "ModuleScoreCalculator: >>> ['ScRepCombiningExpression']" in output
     assert (
-        "SeuratSubClustering: >>> ['ClusterMarkers', 'TopExpressingGenes', "
-        "'ScRepCombiningExpression']" in output
-    )
-    assert (
-        "ScRepCombiningExpression: <<< ['ScRepLoading', 'SeuratSubClustering']"
+        "ScRepCombiningExpression: <<< ['ScRepLoading', 'ModuleScoreCalculator']"
         in output
     )
     assert "ScRepCombiningExpression: >>> ['CDR3Clustering']" in output

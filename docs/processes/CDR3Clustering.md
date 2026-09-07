@@ -46,7 +46,7 @@ CDR3 sequence may be shared by multiple cells.<br />
 
 ## Output
 
-- `outfile`: *Default: `{{in.screpfile | stem}}.tcr_clustered.qs`*. <br />
+- `outfile`: *Default: `{{in.screpfile | stem}}.cdr3_clustered.qs`*. <br />
     The `scRepertoire` object in qs with TCR/BCR cluster information.<br />
     Column `CDR3_Cluster` will be added to the metadata.<br />
 
@@ -71,6 +71,8 @@ CDR3 sequence may be shared by multiple cells.<br />
         by Li lab at UT Southwestern Medical Center
     - `ClusTCR`:
         by Sebastiaan Valkiers, etc
+- `ncores` *(`type=int`)*:
+    The number of cores to use for data reading and writing.<br />
 - `python`: *Default: `python`*. <br />
     The path of python with `GIANA`'s dependencies installed
     or with `clusTCR` installed. Depending on the `tool` you choose.<br />

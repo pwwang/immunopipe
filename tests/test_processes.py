@@ -69,6 +69,17 @@ def test_torbcellselection(request):
 
 
 @pytest.mark.forked
+def test_torbcellselection_with_cellbarcodes(request):
+    outdir = run_process(
+        "TOrBCellSelection",
+        "TOrBCellSelectionWithCellbarcodes.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath("sampleinfo.seurat.qs").is_file()
+
+
+@pytest.mark.forked
 def test_screploading(request):
     outdir = run_process(
         "ScRepLoading",

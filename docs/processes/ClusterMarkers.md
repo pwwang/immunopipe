@@ -91,10 +91,16 @@ you may see the other environment variables of this process are hidden and reado
         See <https://satijalab.org/seurat/reference/findmarkers>
 - `allmarker_plots_defaults` *(`ns`)*:
     Default options for the plots for all markers when `ident_1` is not specified.<br />
+    To reproduce what [`Seurat::DoHeatmap()`](https://satijalab.org/seurat/reference/doheatmap) does, you can
+    `each = ':seurat_cluster'` to select the top N (default: 20) markers all together (instead of selecting top N markers for each cluster),
+    and set `plot_type = "heatmap"` and `cell_type = "bars"` to plot the heatmap of the top N markers.<br />
+    You may also want to use `order_by` to order the markers and `select = N` to select the top N markers.<br />
     - `plot_type`:
         The type of the plot.<br />
         See <https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html>.<br />
         Available types are `violin`, `box`, `bar`, `ridge`, `dim`, `heatmap` and `dot`.<br />
+    - `descr`:
+        A description of the plot to be shown above the plot image.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
         The extra formats to save the plot in.<br />
     - `save_code` *(`flag`)*: *Default: `False`*. <br />
@@ -116,6 +122,8 @@ you may see the other environment variables of this process are hidden and reado
     Default options for the plots to generate for the enrichment analysis.<br />
     - `plot_type`: *Default: `heatmap`*. <br />
         The type of the plot.<br />
+    - `descr`:
+        A description of the plot to be shown above the plot image.<br />
     - `devpars` *(`ns`)*:
         The device parameters for the plots.<br />
         - `res` *(`type=int`)*: *Default: `100`*. <br />
@@ -140,6 +148,8 @@ you may see the other environment variables of this process are hidden and reado
         See <https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html>.<br />
         Available types are `violin`, `box`, `bar`, `ridge`, `dim`, `heatmap` and `dot`.<br />
         There are two additional types available - `volcano_pct` and `volcano_log2fc`.<br />
+    - `descr`:
+        A description of the plot to be shown above the plot image.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
         The extra formats to save the plot in.<br />
     - `save_code` *(`flag`)*: *Default: `False`*. <br />
@@ -156,7 +166,7 @@ you may see the other environment variables of this process are hidden and reado
         Other arguments passed to [`biopipen.utils::VizDEGs()`](https://pwwang.github.io/biopipen.utils.R/reference/VizDEGs.html).<br />
         If `plot_type` is `volcano_pct` or `volcano_log2fc`, they will be passed to
         [`scplotter::VolcanoPlot()`](https://pwwang.github.io/plotthis/reference/VolcanoPlot.html).<br />
-- `marker_plots` *(`type=json`)*: *Default: `{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot', 'devpars': Diot({'width': 500, 'height': 720})})}`*. <br />
+- `marker_plots` *(`type=json`)*: *Default: `{'Volcano Plot (diff_pct)': Diot({'plot_type': 'volcano_pct'}), 'Volcano Plot (log2FC)': Diot({'plot_type': 'volcano_log2fc'}), 'Dot Plot': Diot({'plot_type': 'dot'})}`*. <br />
     Cases of the plots to generate for the markers.<br />
     Plot cases. The keys are the names of the cases and the values are the dicts inherited from `marker_plots_defaults`.<br />
     The cases under `envs.cases` can inherit this options.<br />
@@ -166,6 +176,8 @@ you may see the other environment variables of this process are hidden and reado
         The type of the plot.<br />
         See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
         Available types are `bar`, `dot`, `lollipop`, `network`, `enrichmap` and `wordcloud`.<br />
+    - `descr`:
+        A description of the plot to be shown above the plot image.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
         The extra formats to save the plot in.<br />
     - `save_code` *(`flag`)*: *Default: `False`*. <br />
@@ -190,6 +202,8 @@ you may see the other environment variables of this process are hidden and reado
     - `sigmarkers`:
         The expression to filter the significant markers for each case.<br />
         If not provided, `envs.sigmarkers` will be used.<br />
+    - `descr`:
+        A description of the plot to be shown above the plot image.<br />
     - `plot_type` *(`choice`)*: *Default: `venn`*. <br />
         The type of the plot to generate for the overlaps.<br />
         - `venn`:

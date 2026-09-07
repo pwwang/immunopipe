@@ -41,6 +41,8 @@ functional landscape of the TCR repertoire.<br />
 
 - `python`: *Default: `python`*. <br />
     The path of python with `TESSA`'s dependencies installed
+- `ncores` *(`type=int`)*:
+    The number of cores to use for reading and writing the data.<br />
 - `within_sample` *(`flag`)*: *Default: `False`*. <br />
     Whether the TCR networks are constructed only
     within TCRs from the same sample/patient (True) or with all the

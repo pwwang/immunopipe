@@ -25,6 +25,7 @@ from biopipen.ns.scrna import (
     SeuratClustering as SeuratClustering_,
     SeuratSubClustering as SeuratSubClustering_,
     SeuratMap2Ref as SeuratMap2Ref_,
+    Slingshot as Slingshot_,
     SeuratClusterStats as SeuratClusterStats_,
     # SeuratMetadataMutater as SeuratMetadataMutater_,
     MarkersFinder as MarkersFinder_,
@@ -41,7 +42,6 @@ from biopipen.ns.scrna_metabolic_landscape import ScrnaMetabolicLandscape
 
 # inhouse processes
 from .inhouse import (
-    # TCellSelection as TCellSelection_,
     TOrBCellSelection as TOrBCellSelection_,
 )
 from .validate_config import validate_config
@@ -113,11 +113,6 @@ class SampleInfo(SampleInfo_):
     You can add some columns to the input file while doing the statistics or you can
     even pass them on to the next processes. See `envs.mutaters` and
     `envs.save_mutated`.
-    But if you are adding a factor (categorical) column with desired levels, the order
-    can't be guaranteed, because we are saving them to a text file, where we can't
-    guarantee the order of the levels. If you want to add a factor column with desired
-    levels, you can set `envs.mutaters` of the `SeuratPreparing` process to mutate the
-    column.
 
     Once the pipeline is finished, you can see the sample information in the report
 
@@ -301,6 +296,13 @@ class LoadingRNAFromSeurat(Proc):
             Force `prepared` to be `True` if this is `True`.
         sample: The column name in the metadata of the Seurat object that
             indicates the sample name.
+            Multiple columns will be concatenated with `_` to form the sample name.
+        mutaters (type=json): The mutaters to mutate the metadata
+            Keys are the names of the mutaters and values are the R expressions
+            passed by `dplyr::mutate()` to mutate the metadata.
+        subset: An expression to subset the cells, will be passed to `dplyr::filter()`.
+            This will be applied after mutating the metadata.
+        ncores (type=int): The number of threads used to load/save the Seurat object.
 
     SeeAlso:
         - [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-seq-data).
@@ -314,6 +316,9 @@ class LoadingRNAFromSeurat(Proc):
         "prepared": False,
         "clustered": False,
         "sample": "Sample",
+        "mutaters": {},
+        "subset": None,
+        "ncores": biopipen_config.misc.ncores,
     }
     script = "file://scripts/LoadingRNAFromSeurat.R"
 
@@ -453,23 +458,6 @@ class TOrBCellSelection(TOrBCellSelection_):
 RNAInput = TOrBCellSelection or RNAInput
 
 
-@when("ModuleScoreCalculator" in config, requires=RNAInput)
-@annotate.format_doc()
-class ModuleScoreCalculator(ModuleScoreCalculator_):
-    """{{Summary}}
-
-    Metadata:
-        The metadata of the `Seurat` object will be updated with the module scores:
-
-        ![ModuleScoreCalculator-metadata](images/ModuleScoreCalculator-metadata.png)
-    """  # noqa: E501
-
-    input_data = lambda ch1: ch1.iloc[:, [0]]
-
-
-RNAInput = ModuleScoreCalculator or RNAInput
-
-
 @when(
     "SeuratClustering" in config
     or "CellTypeAnnotation" in config
@@ -533,7 +521,18 @@ class CellTypeAnnotation(CellTypeAnnotation_):
     If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
     process or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run,
     you may want to specify a different name for the column to store the annotated cell types
-    using `envs.newcol`, so that the results from different annotation processes won't overwrite each other.
+    using `envs.anno_col`, so that the results from different annotation processes won't overwrite each other.
+
+    ///
+
+    /// Attention
+
+    If you are running the pipeline with the Docker image, following tools are not available in the Docker image:
+
+    - `scHDeepInsight`
+    - `scBERT`
+    - `cellassign`
+    - `scAgentType`
 
     ///
 
@@ -541,8 +540,8 @@ class CellTypeAnnotation(CellTypeAnnotation_):
         When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
         the `Seurat` object will be kept as is.
 
-        When `envs.newcol` is specified, the original identity column (e.g. `seurat_clusters`) will
-        be kept is, and the annotated cell types will be saved in the new column.
+        When `envs.anno_col` is specified, the original identity column (e.g. `seurat_clusters`) will
+        be kept as is, and the annotated cell types will be saved in the new column.
         Otherwise, the original identity column will be replaced by the
         annotated cell types and the original identity column will be
         saved at `envs.backup_col` (e.g. `seurat_clusters_id`).
@@ -553,6 +552,7 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
     # Change the default to direct, which doesn't do any annotation
     envs = {"tool": "direct", "sctype_db": None}
+    input_data = lambda ch1: ch1.iloc[:, [0]]
 
 
 RNAInput = CellTypeAnnotation or RNAInput
@@ -605,6 +605,15 @@ class SeuratSubClustering(SeuratSubClustering_):
 
 
 RNAInput = SeuratSubClustering or RNAInput
+
+
+@when("Slingshot" in config, requires=RNAInput)
+@annotate.format_doc()
+class Slingshot(Slingshot_):
+    envs = {"outtype": "qs2"}
+
+
+RNAInput = Slingshot or RNAInput
 
 
 @annotate.format_doc(vars={"output_baseurl": TEST_OUTPUT_BASEURL})
@@ -818,6 +827,21 @@ class TopExpressingGenes(TopExpressingGenes_):
 
     envs = {"cases": {"Cluster": {}}}
     order = 3
+
+
+@when("ModuleScoreCalculator" in config, requires=RNAInput)
+@annotate.format_doc()
+class ModuleScoreCalculator(ModuleScoreCalculator_):
+    """{{Summary}}
+
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the module scores:
+
+        ![ModuleScoreCalculator-metadata](images/ModuleScoreCalculator-metadata.png)
+    """  # noqa: E501
+
+
+RNAInput = ModuleScoreCalculator or RNAInput
 
 
 @when(VDJInput, requires=[VDJInput, RNAInput])  # type: ignore

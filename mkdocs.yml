@@ -32,6 +32,7 @@ nav:
     - 'Running the pipeline': 'running.md'
     - 'Preparing the input': 'preparing-input.md'
     - 'Configurations': 'configurations.md'
+    - 'CLI utilities': 'cli-utils.md'
     - 'Agent Skills': 'agent-skills.md'
     - 'MCP Sever': 'mcp-server.md'
     - 'Processes':
@@ -50,6 +51,7 @@ nav:
       - 'ClusterMarkers': 'processes/ClusterMarkers.md'
       - 'TopExpressingGenes': 'processes/TopExpressingGenes.md'
       - 'SeuratSubClustering': 'processes/SeuratSubClustering.md'
+      - 'Slingshot': 'processes/Slingshot.md'
       # ScTCR-seq processes
       - 'ScRepLoading': 'processes/ScRepLoading.md'
       - 'ScRepCombiningExpression': 'processes/ScRepCombiningExpression.md'

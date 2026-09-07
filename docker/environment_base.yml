@@ -15,6 +15,7 @@ dependencies:
   - fontconfig
   - graphviz  # pipen-diagram
   - git  # for copier, used by pipen-report
+  - jq  # Needed by bioconda::bioconductor-genomeinfodbdata post-link
   - uv
   - libiconv # fix git: error while loading shared libraries: libiconv.so.2
   - time  # for pipen-runinfo
@@ -28,6 +29,7 @@ dependencies:
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
   - bioconda::bioconductor-deseq2
   - bioconda::bioconductor-edger
+  - bioconda::bioconductor-slingshot
   - r-hdf5r  # Read_10x_h5() by Seurat
   - r-laplacesdemon  # TESSA
   - libgdal
@@ -44,7 +46,7 @@ dependencies:
   # needed by r-biopipen.utils
   - r-bracer
   - r-digest
-  - r-doubletfinder
+  - r-doubletfinder >=2.0.6
   - r-jsonlite
   - r-r6
   - r-seurat
@@ -57,6 +59,9 @@ dependencies:
   - bioconda::bioconductor-celda
   - bioconda::bioconductor-mygene
   - bioconda::bioconductor-scdblfinder
+  - bioconda::bioconductor-ucell
+  - bioconda::bioconductor-aucell
+  - bioconda::bioconductor-gseabase
   - pwwang::r-seuratdisk
   - r-qs2
   # Needed by r-scplotter
@@ -64,7 +69,7 @@ dependencies:
   - r-seuratobject
   - pwwang::bioconductor-screpertoire=2.2
   - r-gridgraphics
-  - r-metap
+  - pwwang::r-metap
   - pwwang::r-tidyprompt
   ## Needed by r-plotthis
   - r-circlize
@@ -87,6 +92,14 @@ dependencies:
   # Suggests
   - pwwang::r-sccatch
   - pwwang::r-sccdc
+  - pwwang::r-scsorter
+  - pwwang::r-scina
+  - pwwang::r-cellid
+  - pwwang::r-gptcelltype
+  # singleR
+  - conda-forge::r-snow
+  - conda-forge::r-futile.logger
+  - bioconda::bioconductor-singler
   - r-matrix
   - r-alluvial
   - bioconda::bioconductor-complexheatmap
@@ -96,7 +109,7 @@ dependencies:
   - r-ggalluvial
   - r-ggvenndiagram
   - r-ggupset
-  - r-ggpubr
+  - r-ggpubr >1.0.0  # https://github.com/kassambara/ggpubr/issues/751
   - r-ggforce
   - r-ggraph
   - r-ggridges
@@ -135,3 +148,4 @@ dependencies:
     - keras  # TESSA
     - tensorflow==2.20 # TESSA
     - umap-learn  # RunUMAP with umap.method = "umap-learn"
+    - scvelo

@@ -1,5 +1,90 @@
 # Change Log
 
+## 2.6.0
+
+- BREAKING: move ModuleScoreCalculator later before ScRepCombiningExpression so that we don't need to redo clustering and related if more module scores are needed for later run
+- feat(LoadingRNAFromSeurat): support multiple columns for envs.sample
+- feat(TOrBCellSelection): support envs.selector to be a file that contains a list of cell barcodes to select T/B cells
+- feat: remove deprecated CloneHeterogeneity, TCellSelection, and MarkersOverlapping scripts
+- feat: deprecate CloneHeterogeneity process and update related documentation
+- feat: deprecate TCellSelection and use TOrBCellSelection and update related documentation
+- feat: add Slingshot for pseudotime trajectory inference
+- feat: add pipen-email as dependency to notify for status changes
+- feat: add select-markers command to CLI utils for gene selection from ClusterMarkers process
+- feat: enhance LoadingRNAFromSeurat with mutaters, subset, and ncores parameters
+- fix(gbatch): default command name to "Immunopipe" for gbatch
+- refactor: adopt pipen-cli-gbatch v1.2
+- fix(TOrBCellSelection): add missing glue library import
+- fix(TOrBCellSelection): ensure indicator genes are scaled for visualization in TOrBCellSelection script
+- ci: enhance package import checks with version reporting
+- ci: update setup-miniconda action to version 4
+- chore: update pipen-verbose to version 1.1.3
+- chore: use pwwang::r-metap (v1.14) in base docker image
+- chore: add pipen-runinfo as a dependency in test environment
+- chore: bump pipen-cli-gbatch to 1.2.0
+- chore: bump pipen-report to 1.2.4
+- test: enhance error reporting in run_process by including session info
+- docs: update CellTypeAnnotation documentation and add Docker image tool limitations
+- docs: add CLI utilities documentation for utility commands and options
+- docs(gallery): add dataset YostKE-2019 to gallery
+
+### Dependency Updates
+
+- r-plotthis to 0.13.3-5
+    - feat(Heatmap): overhaul annotation arguments into structured list params; add `name` sub-key in annotation entries to alias the displayed annotation name and legend title (`name = FALSE` hides it); support rownames/colnames split annotations with concatenated names and display modes for row/column names and split titles
+    - feat(Heatmap): for `cell_type = "bars"`, column widths are now proportional to bar counts and `bars_sample` accepts a fraction or whole count; center slice titles
+    - feat(LinkedHeatmap): replace `title_gp` with `title_params`, update link width/color parameter names, support constant link width, fix alignment when a column title is provided, handle multiple `split_by` values
+    - feat(DimPlot): support `pt_size` as a column name; fix gtable conversion destroying ggplot structure
+    - feat(RidgePlot): add `x_min`/`x_max` parameters; feat: add `y_brackets` for significance brackets in box/violin/beeswarm plots
+    - feat(ScatterPlot): add border_size parameter to control point border size
+    - feat(VolcanoPlot): add parameters for point shape, border color, and border size; enable raster plotting
+    - feat(JitterPlot): add raster and raster_dpi parameters for efficient plotting
+    - docs(VolcanoPlot): add example for trimming extreme x-values using winsorization
+    - feat(VolcanoPlot): update ytrans parameter to accept function names as strings
+    - fix(VolcanoPlot): fix highlight data selection
+    - fix: name annotation with empty levels, BoxViolinPlot with fewer than 2 levels, ViolinPlot conditionally loads ggpubr, multiple `split_by` columns (Network, keep_na/keep_empty clearing), links placement in graph-based plots
+- r-scplotter to 0.8.0-6
+    - BREAKING: set default `layer` to "scale.data" in FeatureStatPlot
+    - fix(MarkersPlot): set default `order_by` to "desc(abs(avg_log2FC))"; replace deprecated `subset_by` with `each`
+    - fix(MarkersPlot): ensure unique gene selection for top markers
+    - fix(CCCPlot): clarify link_alpha usage, `link_width_by` defaults to magnitude, use unicode arrow for `->`
+    - fix(MarkersPlot): enforce object requirement when using 'each' format and improve group validation
+    - fix(FeatureStatPlot): ensure FeatureGroups are factors with specified levels
+    - fix(MarkersPlot): ensure gene selection maintains order and respects factor levels
+    - fix(FeatureStatPlot): update bg_cutoff default value to NULL for consistency across functions
+    - feat(MarkersPlot): support selecting markers not per-each group
+    - feat(FeatureStatPlot): add center_zero parameter to control colorbar centering
+    - chore(MarkersPlot): update default selection logic for markers based on plot type and group selection
+- r-biopipen.utils to 0.4.4-4
+    - feat: support h5ad file type in read_obj/save_obj; handle null assay/ident attributes in ConvertAnnDataToSeurat (with AssembleAssay monkey-patching); null active_ident check in ConvertSeuratToAnnData; .Rds file support; add other assays to layers in list_to_h5group; ignore .qs files in Rbuildignore
+    - feat(read_write_table): add read_table/write_table with annotated factor levels and load_table/save_table aliases for txt/tsv/csv; use read.delim
+    - feat(EnsureSeuratScaleData): add function to ensure marker genes are in scale.data layer; improve scale.data merging and missing feature handling
+    - feat(RunSeuratUMAP): support overwriting UMAP results from a TSV file; feat(RunSeuratDoubletFinder): add reuse.pANN parameter (require r-doubletfinder >=2.0.6)
+    - feat(RunSeuratDEAnalysis): remove unused object_sig and add log and log_prefix parameters for improved logging
+    - feat(logging): enhance cache logging messages to include cache path
+    - feat(VizDEGs): remove deprecated comparison_by
+    - feat(VizDEGs): add log, log_prefix and cache parameters for improved logging and caching
+    - feat(RunSeuratIntegration): add support for SCTAssay in marker preparation
+    - feat(RunModuleScoring): add module scoring functionality for Seurat objects with multiple scoring methods
+    - feat(LoadSeuratAndPerformQC): add keep_contam_assay parameter to manage original counts retention
+    - fix(VizDEGs): default `order_by` to "desc(abs(avg_log2FC))", handle missing features in scale.data, replace `subset_by`/`subset_as_facet` with `each`/`facet_each`
+    - fix: RunSeuratMap2Ref refdata check and JoinLayers usage; RunSeuratTransformation handles `"__all__"` features; LoadSeuratAndPerformQC warns on 'integrated' default assay
+    - fix(LoadSeuratAndPerformQC): handle factor levels in metadata
+- biopipen to 1.4.0
+    - feat(scrna.CellTypeAnnotation): add support for scSorter, SCINA, SingleR, scHDeepInsight, LLMCelltype, cellassign, scBERT, CelliD and scAgentType tools; support cell-level annotations and multiple cases; add assay parameter and Python executable for cellassign; save cluster-to-cell-type mappings; fix ident handling, missing clusters/special values, and celltypist treated as cluster-based without over_clustering
+    - feat(scrna.Slingshot): add Slingshot process for pseudotime trajectory inference — multiple cases, enhanced dims handling, cell subsetting/splitting, varying lineage outputs
+    - feat(scrna.CellCellCommunication): support multiple cases and multiple split_by columns; monkey-patch anndata.AnnData dtype keyword; output tables inherit factor levels; improve default ligand/receptor expression columns (CellCellCommunicationPlots)
+    - feat(tcr.ScRepCombiningExpression): add cell ID transformation functions; group-based clonal proportion calculation and enhanced clone size handling with logging
+    - feat(scrna.MarkersFinder): handle missing features in scale.data via GetAssayData
+    - feat(scrna.SeuratPreparing): use orig.ident or a uniformed value when 'Sample' column is missing; simplify metadata reading; remove unnecessary SCTransform parameters
+    - feat(scrna, tcr): add ncores parameter for loading/saving objects
+    - feat(scrna.MarkersFinder): add default assay handling and check for SCTAssay preparation
+    - feat(scrna.AnnData2Seurat): add layer parameter to FeatureStatPlot for improved plotting
+    - feat(SampleInfo): use biopipen.utils::read_table and write_table so factor levels can be saved and loaded
+    - fix: make .Rds legal as reference in SeuratMap2Ref
+    - chore(scrna): enhance cache log messages to include cache paths for better traceability
+    - refactor(scrna.ModuleScoreCalculator): refactor ModuleScoreCalculator to use biopipen.utils::RunModuleScoring (supporting multiple tools)
+
 ## 2.5.4
 
 - fix(ci): allow deletion of old test running data cache to continue on error

@@ -1,7 +1,7 @@
 # IMMUNOPIPE PROJECT KNOWLEDGE BASE
 
-**Generated:** 2026-01-20 15:08 MST  
-**Commit:** 95a0d60  
+**Generated:** 2026-01-20 15:08 MST
+**Commit:** 95a0d60
 **Branch:** dev
 
 ## OVERVIEW
@@ -24,7 +24,7 @@ immunopipe/
 │   ├── toml_generator.py # TOML generation utilities
 │   └── doc_extractor.py  # Process documentation extraction
 ├── cli_utils/            # Utility commands (check-genes, check-dim)
-├── scripts/              # R analysis scripts (5 files: TCellSelection, CloneHeterogeneity, etc.)
+├── scripts/              # R analysis scripts (for TOrBCellSelection, etc.)
 └── reports/              # Svelte report templates (4 files)
 
 tests/running/configs/    # TOML config examples for integration tests
@@ -59,7 +59,7 @@ board.toml               # pipen-board web wizard config
 ### Multi-Language Execution
 - **Python**: Orchestration, workflow logic, data validation
 - **R scripts**: Seurat/Bioconductor analysis (in `scripts/` directory)
-- **Script naming**: Match process class name (e.g., `TCellSelection.R` for `TCellSelection` process)
+- **Script naming**: Match process class name (e.g., `TOrBCellSelection.R` for `TOrBCellSelection` process)
 
 ### Configuration Management
 - **TOML configs**: User-facing configuration format (see `tests/running/configs/`)

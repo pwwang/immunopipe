@@ -29,6 +29,8 @@ See also: <https://www.borch.dev/uploads/screpertoire/reference/combineexpressio
 
 ## Environment Variables
 
+- `ncores` *(`type=int`)*:
+    The number of cores to use for reading and writing the data.<br />
 - `cloneCall`: *Default: `aa`*. <br />
     How to call the clone - VDJC gene (gene), CDR3 nucleotide (nt),
     CDR3 amino acid (aa), VDJC gene + CDR3 nucleotide (strict) or
@@ -54,4 +56,18 @@ See also: <https://www.borch.dev/uploads/screpertoire/reference/combineexpressio
     This will add a label to the frequency header, allowing the
     user to try multiple group_by variables or recalculate frequencies after
     subsetting the data.<br />
+- `imm_cell_id_trans`:
+    A string of R function to transform the cell barcodes in
+    the `scRepertoire` object to match the cell barcodes in the `Seurat` object.<br />
+    The function should take a vector of cell barcodes as input and return
+    a vector of transformed cell barcodes. For example,
+    if the cell barcodes in the `scRepertoire` object have a suffix "-1"
+    and the cell barcodes in the `Seurat` object do not have the suffix,
+    you can use the following function to transform the cell barcodes in the
+    `scRepertoire` object: `function(x) gsub("-1$", "", x)`.<br />
+- `rna_cell_id_trans`:
+    A string of R function to transform the cell barcodes in
+    the `Seurat` object to match the cell barcodes in the `scRepertoire` object.<br />
+    Similar to `imm_cell_id_trans`, the function should take a vector of
+    cell barcodes as input and return a vector of transformed cell barcodes.<br />
 

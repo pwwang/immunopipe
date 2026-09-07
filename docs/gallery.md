@@ -13,6 +13,7 @@ The following are some datasets with both scRNA-seq and scTCR-seq data available
 | 7  | [GSE148190][7] | [immunopipe-MahuronKM-2020][16] | Skin cancer |
 | 8  | [GSE139555][8] | [immunopipe-ThomasW-2020][17] | Anti-PD1 therapy |
 | 9  | [GSE145370][9] | [immunopipe-ZhengY-2020][18] | Oesophageal cancer |
+| 10 | [GSE123813][19] | [immunopipe-YostKE-2019][20] | Basal cell carcinoma |
 
 | ID | # Individuals | # Samples | # Cells | # matched TCR seqs |
 | -- | ------------- | --------- | ------- | ----------------- |
@@ -25,6 +26,7 @@ The following are some datasets with both scRNA-seq and scTCR-seq data available
 | 7  | 1 | 2 | 8,794 | 4,904 |
 | 8  | 14 | 32 | 194,519 | 67,700 |
 | 9  | 7 | 14 | 108,226 | 35,449 |
+| 10 | 21| 11 | 53,031 | 28,408 |
 
 | ID | Reference |
 | -- | --------- |
@@ -37,6 +39,7 @@ The following are some datasets with both scRNA-seq and scTCR-seq data available
 | 7  | [Mahuron, Kelly M., et al. 2020](https://rupress.org/jem/article/217/9/e20192080/151858/Layilin-augments-integrin-activation-to-promote) |
 | 8  | [Wu, Thomas D., et al. 2020](https://www.nature.com/articles/s41586-020-2056-8) |
 | 9  | [Zheng, Y., et al. 2020](https://www.nature.com/articles/s41467-020-20019-0) |
+| 10 | [Yost, K. E., et al. 2019](https://pmc.ncbi.nlm.nih.gov/articles/PMC6689255) |
 
 [1]: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE144469
 [2]: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE176201
@@ -56,3 +59,5 @@ The following are some datasets with both scRNA-seq and scTCR-seq data available
 [16]: https://github.com/pwwang/immunopipe-MahuronKM-2020
 [17]: https://github.com/pwwang/immunopipe-ThomasW-2020
 [18]: https://github.com/pwwang/immunopipe-ZhengY-2020
+[19]: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE123813
+[20]: https://github.com/pwwang/immunopipe-YostKE-2019

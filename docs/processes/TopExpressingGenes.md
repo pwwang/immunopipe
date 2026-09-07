@@ -35,6 +35,8 @@ readonly.<br />
 
 ## Environment Variables
 
+- `ncores` *(`type=int`)*: *Default: `1`*. <br />
+    Number of cores to use for reading and writing the seurat object.<br />
 - `dbs` *(`list`)*: *Default: `['KEGG_2021_Human', 'MSigDB_Hallmark_2020']`*. <br />
     The dbs to do enrichment analysis for significant markers.<br />
     You can use built-in dbs in `enrichit`, or provide your own gmt files.<br />
@@ -67,6 +69,8 @@ readonly.<br />
         The type of the plot.<br />
         See <https://pwwang.github.io/scplotter/reference/EnrichmentPlot.html>.<br />
         Available types are `bar`, `dot`, `lollipop`, `network`, `enrichmap` and `wordcloud`.<br />
+    - `descr`:
+        A description of the plot to be shown above the plot image.<br />
     - `more_formats` *(`type=list`)*: *Default: `[]`*. <br />
         The extra formats to save the plot in.<br />
     - `save_code` *(`flag`)*: *Default: `False`*. <br />

@@ -21,6 +21,8 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
 
 ## Environment Variables
 
+- `ncores` *(`type=int`)*: *Default: `1`*. <br />
+    Number of cores to use for reading and writing the data.<br />
 - `mutaters` *(`type=json`)*: *Default: `{}`*. <br />
     The mutaters to mutate the metadata to subset the cells.<br />
     The mutaters will be applied in the order specified.<br />
@@ -158,8 +160,6 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     you need to set `n.components` to 3 in `RunUMAP` parameters in `SeuratSubClustering` or `SeuratClustering`.<br />
     - `group_by`:
         The identity to use.<br />
-        If it is from subclustering (reduction `sub_umap_<ident>` exists), this reduction will be used if `reduction`
-        is set to `dim` or `auto`.<br />
     - `split_by`:
         The column name in metadata to split the cells into different plots.<br />
     - `subset`:
@@ -175,9 +175,9 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
     - `reduction` *(`choice`)*: *Default: `dim`*. <br />
         Which dimensionality reduction to use.<br />
         - `dim`:
-            Use `Seurat::DimPlot`.<br />
-            First searches for `umap`, then `tsne`, then `pca`.<br />
-            If `ident` is from subclustering, `sub_umap_<ident>` will be used.<br />
+            If `ident` is from subclustering, `<group_by>.<reduction>` will be used.<br />
+            Otherwise, `scplotter:::default_dimreduc(obj)` will be used to determine
+            the default dimensionality reduction to use based on the reductions available in the object.<br />
         - `auto`:
             Same as `dim`
         - `umap`:

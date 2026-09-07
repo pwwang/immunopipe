@@ -7,16 +7,12 @@ from typing import Any
 
 from simpleconf import Config
 from panpath import PanPath
-from xqute.schedulers.gbatch_scheduler import DEFAULT_MOUNTED_ROOT
+from xqute.utils import logger
 from pipen.defaults import CONFIG_FILES
 from pipen_args.plugin import ArgsPlugin
 from pipen_cli_gbatch import (
-    MOUNTED_CWD,
-    CliGbatchDaemon,
+    CliGbatchDaemonPipeline,
     CliGbatchPlugin,
-    GSPath,
-    GbatchScheduler,
-    logger,
     __version__ as cli_gbatch_version,
     __file__ as cli_gbatch_file,
 )
@@ -25,7 +21,7 @@ from .pipeline import Immunopipe, parser  # type: ignore
 sys.excepthook = sys.__excepthook__
 
 
-class ImmunopipeGbatchDaemon(CliGbatchDaemon):
+class ImmunopipeGbatchDaemon(CliGbatchDaemonPipeline):
 
     def _run_version(self):
         """Print version information for pipen-cli-gbatch and pipen."""
@@ -43,42 +39,35 @@ class ImmunopipeGbatchDaemon(CliGbatchDaemon):
         logger.info(f"Immunopipe version: v{__version__}")
         super()._show_versions()
 
-    async def _get_arg_from_command(self, arg: str) -> str | None:
-        return await super()._get_arg_from_command(arg) or "Immunopipe"
+    async def handle_workdir(self):
+        """Handle the workdir argument for the pipeline."""
+        cname = await self._get_arg_from_command("name")
+        if not cname:
+            cname = "Immunopipe"
+            self._command_args["name"] = cname
 
-    async def _handle_outdir(self):
-        command_outdir = await super()._get_arg_from_command("outdir")
+        await super().handle_workdir()
 
-        if command_outdir:
-            coudir = PanPath(command_outdir)
-            if (
-                not isinstance(coudir, GSPath)
-                and not coudir.is_absolute()
-                and self.mount_as_cwd
-            ):
-                self._replace_arg_in_command("outdir", f"{MOUNTED_CWD}/{coudir}")
-            else:
-                self._add_mount(command_outdir, GbatchScheduler.MOUNTED_OUTDIR)
-                self._replace_arg_in_command("outdir", GbatchScheduler.MOUNTED_OUTDIR)
-        elif self.mount_as_cwd:
-            command_name = await self._get_arg_from_command("name") or self.config.name
-            self._replace_arg_in_command(
-                "outdir",
-                f"{MOUNTED_CWD}/{command_name}-output",
-            )
+        if "workdir" in self._command_args:
+            del self._command_args["workdir"]
+
+        mounted_workdir = await self._get_arg_from_command("workdir")
 
         # Copy configuration file over
         cf_at = [cmd.startswith("@") for cmd in self.command]
         if any(cf_at):
+            command_name = await self.command_name()
+            command_workdir = await self.command_workdir()
             cf_index = cf_at.index(True)
             cf_path = PanPath(self.command[cf_index][1:])
-            cf_dest = PanPath(self.config["workdir"]).joinpath(
-                self.config["name"],
+            cf_dest = PanPath(command_workdir).joinpath(
+                self.daemon_name,
                 cf_path.name,
             )
             await cf_path.a_copy(cf_dest)
+
             self.command[cf_index] = (
-                f"@{DEFAULT_MOUNTED_ROOT}/xqute_workdir/{cf_path.name}"
+                f"@{mounted_workdir}/{command_name}/{self.daemon_name}/{cf_path.name}"
             )
 
 
@@ -160,8 +149,9 @@ async def main(argv):
         CONFIG_FILES,
         cli_gbatch_config.profile,
     )
+    default_scheduler_opts = defaults.pop("scheduler_opts", {})
     # update parsed with the defaults
-    for key, val in defaults.items():
+    for key, val in default_scheduler_opts.items():
         if (
             key == "mount"
             and val
@@ -188,10 +178,10 @@ async def main(argv):
 
         setattr(cli_gbatch_config, key, val)
 
-    cli_gbatch_config.name = ".ImmunopipeCliGbatch"
+    cli_gbatch_config.name = ".ImmunopipeGbatch"
     cli_gbatch_config.plain = False
     cli_gbatch_config.workdir = None  # will infer from command
-    cli_gbatch_config.jobname_prefix = "immunopipe-cli-gbatch"
+    cli_gbatch_config.jobname_prefix = "immunopipe-gbatch"
     # cli_gbatch_config.cwd = None
     cli_gbatch_config.entrypoint = "/usr/local/bin/_entrypoint.sh"
     cli_gbatch_config.commands = ["{lang}", "{script}"]
@@ -216,6 +206,7 @@ async def main(argv):
         print("\033[1;4mError\033[0m: --gbatch.location is required.\n")
         sys.exit(1)
 
+    setattr(cli_gbatch_config, "_other_opts", defaults)
     command = ["immunopipe", *parser._cli_args]
     daemon = ImmunopipeGbatchDaemon(cli_gbatch_config, command)
     daemon.envs["IMMUNOPIPE_HOST_VERSION"] = __version__

@@ -17,6 +17,8 @@ information.<br />
 
 ## Environment Variables
 
+- `ncores` *(`type=int`)*:
+    The number of cores to use for data reading and writing.<br />
 - `mutaters` *(`type=json;order=-9`)*: *Default: `{}`*. <br />
     The mutaters passed to `dplyr::mutate()` to add new variables.<br />
     When the object loaded form `in.screpfile` is a list, the mutaters will be applied to each element.<br />

@@ -4,7 +4,7 @@ Load, prepare and apply QC to data, using `Seurat`
 
 This process will -
 - Prepare the seurat object
-- Apply QC to the data
+- Apply QC to the data (gene, cell, and contamination)
 - Integrate the data from different samples
 
 See also
@@ -152,15 +152,17 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
     The plots for QC metrics.<br />
     It should be a json (or python dict) with the keys as the names of the plots and
     the values also as dicts with the following keys:<br />
-    * kind: The kind of QC. Either `gene` or `cell` (default).<br />
+    * kind: The kind of QC. Either `gene`, `cell` (default), or `contam`/`contamination`.<br />
     * devpars: The device parameters for the plot. A dict with `res`, `height`, and `width`.<br />
     * more_formats: The formats to save the plots other than `png`.<br />
     * save_code: Whether to save the code to reproduce the plot.<br />
     * other arguments passed to
     [`biopipen.utils::VizSeuratCellQC`](https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratCellQC.html)
-    when `kind` is `cell` or
+    when `kind` is `cell`,
     [`biopipen.utils::VizSeuratGeneQC`](https://pwwang.github.io/biopipen.utils.R/reference/VizSeuratGeneQC.html)
-    when `kind` is `gene`.<br />
+    when `kind` is `gene`, or
+    [`biopipen.utils::RunSeuratContamination`](https://pwwang.github.io/biopipen.utils.R/reference/RunSeuratContamination.html)
+    when `kind` is `contam`/`contamination`.<br />
 
 - `use_sct` *(`flag`)*: *Default: `False`*. <br />
     Whether use SCTransform routine to integrate samples or not.<br />
@@ -177,8 +179,10 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
     * [`SCTransform`](https://satijalab.org/seurat/reference/sctransform).<br />
     See <https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis>
 
-- `no_integration` *(`flag`)*: *Default: `False`*. <br />
+- `no_integration` *(`flag`)*:
     Whether to skip integration or not.<br />
+    By default, if there are multiple samples, integration will be performed. If `no_integration` is `True`, the samples will be merged without integration.<br />
+    If there is only one sample, integration will be skipped regardless of the value of `no_integration`.<br />
 - `NormalizeData` *(`ns`)*:
     Arguments for [`NormalizeData()`](https://satijalab.org/seurat/reference/normalizedata).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
@@ -192,6 +196,7 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
 - `ScaleData` *(`ns`)*:
     Arguments for [`ScaleData()`](https://satijalab.org/seurat/reference/scaledata).<br />
     `object` and `features` is specified internally, and `-` in the key will be replaced with `.`.<br />
+    You can specify `features` to scale specific features, or set it to `"__all__"` to scale all features.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/scaledata>
 - `RunPCA` *(`ns`)*:
@@ -205,9 +210,9 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
 - `SCTransform` *(`ns`)*:
     Arguments for [`SCTransform()`](https://satijalab.org/seurat/reference/sctransform).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />
-    - `return-only-var-genes`: *Default: `False`*. <br />
+    - `return-only-var-genes`:
         Whether to return only variable genes.<br />
-    - `min_cells`: *Default: `3`*. <br />
+    - `min_cells`:
         The minimum number of cells that a gene must be expressed in to be kept.<br />
         A hidden argument of `SCTransform` to filter genes.<br />
         If you try to keep all genes in the `RNA` assay, you can set `min_cells` to `0` and
@@ -254,6 +259,41 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
             Same as `scVIIntegration`.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/integratelayers>
+- `contam_correction` *(`choice`)*:
+    The tool used to perform contamination correction.<br />
+    If None or not specified, no contamination correction will be performed.<br />
+    - `decontX`:
+        Use `decontX` to perform contamination correction.<br />
+        See: https://www.camplab.net/decontx/
+    - `scCDC`:
+        Use `scCDC` to perform contamination correction.<br />
+        See: https://github.com/ZJU-UoE-CCW-LAB/scCDC
+- `decontX` *(`ns`)*:
+    Arguments for `decontX()`.<br />
+    - `<more>`:
+        See <https://rdrr.io/bioc/celda/man/decontX.html>
+- `scCDC` *(`ns`)*:
+    Arguments for `scCDC` functions:<br />
+    - `Detection` *(`ns`)*:
+        arguments for `scCDC::ContaminationDetection()`
+        - `<more>`:
+            See https://github.com/ZJU-UoE-CCW-LAB/scCDC/blob/main/R/Contamination_Detection.R#L273
+    - `Correction` *(`ns`)*:
+        arguments for `scCDC::ContaminationCorrection()`
+        - `<more>`:
+            See https://github.com/ZJU-UoE-CCW-LAB/scCDC/blob/main/R/Contamination_Correction.R#L147
+    - `Quantification` *(`ns`)*:
+        arguments for `scCDC::ContaminationQuantification()`
+        - `<more>`:
+            See https://github.com/ZJU-UoE-CCW-LAB/scCDC/blob/main/R/Contamination_Quantification.R#L60
+- `keep_contam_assay` *(`flag`)*: *Default: `False`*. <br />
+    Whether to keep the "Contaminated" (original) assay after QC is finished.<br />
+    If kept, we can use it to visualize some marker expressions for comparisons.<br />
+    Note that when `False` (default), the `Contaminated` assay is dropped per-sample right after
+    contamination correction (before samples are merged) to reduce the memory usage.<br />
+    Contamination-expression QC plots (with `metric` of `expr`/`expression`) in `qc_plots`
+    require this to be `True`.<br />
+
 - `doublet_detector` *(`choice`)*: *Default: `none`*. <br />
     The doublet detector to use.<br />
     - `none`:
@@ -298,6 +338,9 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
     <https://github.com/satijalab/seurat/issues/6748> for more details also about reproducibility issues.<br />
     To not use the cached seurat object, you can either set `cache` to `False` or delete the cached file at
     `<signature>.RDS` in the cache directory.<br />
+    Note that caching saves full snapshots of the seurat object at step boundaries, which transiently
+    increases the peak memory (on both save and load). Set `cache` to `False` on memory-constrained
+    runs with big data to avoid the extra peaks.<br />
 
 ## Metadata
 
