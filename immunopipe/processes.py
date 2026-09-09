@@ -533,6 +533,7 @@ class CellTypeAnnotation(CellTypeAnnotation_):
     - `scBERT`
     - `cellassign`
     - `scAgentType`
+    - `Garnett`
 
     ///
 

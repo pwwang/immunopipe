@@ -463,7 +463,7 @@ wheels = [
 
 [[package]]
 name = "biopipen"
-version = "1.4.0"
+version = "1.4.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "datar", extra = ["pandas"] },
@@ -474,9 +474,9 @@ dependencies = [
     { name = "pipen-poplog" },
     { name = "pipen-verbose" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b4/b5/98f2534a1846a77f34070c3bc5c52c89eed23f55ed8ba2c0bb1617d46908/biopipen-1.4.0.tar.gz", hash = "sha256:c9a4f636de98dcc0d6ab83282ad6d14104d1cefa1f338586163b3e56f0e4dd0e", size = 2272535, upload-time = "2026-09-05T05:03:12.621Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/54/5c/9604728694ee6d0023ed18e7ce1e9b0906f1bd065cf411b142697d37250f/biopipen-1.4.1.tar.gz", hash = "sha256:58c3f79cee1bacf6ec538b700789fdb7362113b9eb52faafe48516aece8f573c", size = 2294624, upload-time = "2026-09-09T08:08:41.72Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/12/be/3d8a3968756dd75c6e7377ea2e506d263c7ed1c764bc5340c4131d285497/biopipen-1.4.0-py3-none-any.whl", hash = "sha256:98be310755a1661106e0d38bc1193d62bd4ba0a7f3a262bcae493781e974294f", size = 1004089, upload-time = "2026-09-05T05:03:10.921Z" },
+    { url = "https://files.pythonhosted.org/packages/1c/f5/c0b1765a12635314066282ea88a9a44bdb171a38debb7dbe25a616105c15/biopipen-1.4.1-py3-none-any.whl", hash = "sha256:dec092487141318b0b2d8a1f797df389007b35c37501bc13e9cf8a1c6c79d6fe", size = 1017570, upload-time = "2026-09-09T08:08:40.086Z" },
 ]
 
 [[package]]
@@ -907,7 +907,7 @@ dependencies = [
     { name = "jinja2-ansible-filters" },
     { name = "packaging" },
     { name = "pathspec" },
-    { name = "platformdirs", version = "4.11.7", source = { registry = "https://pypi.org/simple" } },
+    { name = "platformdirs", version = "4.11.8", source = { registry = "https://pypi.org/simple" } },
     { name = "plumbum" },
     { name = "pydantic" },
     { name = "pygments" },
@@ -2372,7 +2372,7 @@ dependencies = [
     { name = "importlib-metadata", marker = "python_full_version < '3.10'" },
     { name = "mergedeep" },
     { name = "platformdirs", version = "4.4.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
-    { name = "platformdirs", version = "4.11.7", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "platformdirs", version = "4.11.8", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "pyyaml" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/ce/25/b3cccb187655b9393572bde9b09261d267c3bf2f2cdabe347673be5976a6/mkdocs_get_deps-0.2.2.tar.gz", hash = "sha256:8ee8d5f316cdbbb2834bc1df6e69c08fe769a83e040060de26d3c19fad3599a1", size = 11047, upload-time = "2026-03-10T02:46:33.632Z" }
@@ -3089,7 +3089,8 @@ dependencies = [
     { name = "pipen-args" },
     { name = "pipen-log2file" },
     { name = "psutil" },
-    { name = "python-slugify" },
+    { name = "python-slugify", version = "8.0.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
+    { name = "python-slugify", version = "9.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "quart", version = "0.20.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "quart", version = "0.22.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11' and python_full_version < '3.13'" },
     { name = "quart", version = "0.23.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.13'" },
@@ -3116,7 +3117,8 @@ dependencies = [
     { name = "pipen" },
     { name = "pipen-args" },
     { name = "pipen-poplog" },
-    { name = "python-slugify" },
+    { name = "python-slugify", version = "8.0.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
+    { name = "python-slugify", version = "9.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/c0/ce/3df7b8b89f421a8cd1d434df046e064e03f848f6c64507b0ecde96a7c648/pipen_cli_gbatch-1.2.0.tar.gz", hash = "sha256:44dbde92e97ee60f9d029ab88f4081605576a78a3025a6778b0e7ea3912e3cc1", size = 358053, upload-time = "2026-08-12T18:34:11.206Z" }
 wheels = [
@@ -3235,7 +3237,7 @@ wheels = [
 
 [[package]]
 name = "pipen-report"
-version = "1.2.5"
+version = "1.2.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "copier", version = "9.10.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
@@ -3245,11 +3247,12 @@ dependencies = [
     { name = "markdown", version = "3.9", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "markdown", version = "3.10.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "pipen" },
-    { name = "python-slugify" },
+    { name = "python-slugify", version = "8.0.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
+    { name = "python-slugify", version = "9.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b1/8f/0de224f2f4ee7a7d117ec3398df5ecde8ada0ac090b8e512d1e3b1dcbceb/pipen_report-1.2.5.tar.gz", hash = "sha256:6d8f202e2fda49ef9a2b9084891f8a49cfa3fdd3598e6cfce6ca39da6850e4dd", size = 5981828, upload-time = "2026-08-24T15:16:57.331Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/57/c2/aba7204fc841eefa64322647167a848c8a4e9fd95ea7286f2f3e5fc17cca/pipen_report-1.2.6.tar.gz", hash = "sha256:811be28351ec56099e2e7fe2e16e26c621e4d20d02520c559065f522ab3ac9c9", size = 5981989, upload-time = "2026-09-07T20:37:09.642Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/63/80/719890ca8ee20adf48a7bc376ecce25695ddf2709aed7d5d5bb98bad58b1/pipen_report-1.2.5-py3-none-any.whl", hash = "sha256:02ca4fd44b492df87702ef66bca20e957140be64382ec2cce9c44333b9e1ab30", size = 84758, upload-time = "2026-08-24T15:16:55.963Z" },
+    { url = "https://files.pythonhosted.org/packages/88/cc/38a530b6ca12ed22f998a638c53cec0e036bbff3251a5f3748b8682f29d6/pipen_report-1.2.6-py3-none-any.whl", hash = "sha256:10a41ff940f15073f1693496d5df6345aa6256706fd6a3b1e4a3ae19787f8cd9", size = 84812, upload-time = "2026-09-07T20:37:08.436Z" },
 ]
 
 [[package]]
@@ -3290,7 +3293,7 @@ wheels = [
 
 [[package]]
 name = "platformdirs"
-version = "4.11.7"
+version = "4.11.8"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
@@ -3307,9 +3310,9 @@ resolution-markers = [
     "python_full_version == '3.11.*' and sys_platform != 'emscripten' and sys_platform != 'win32'",
     "python_full_version == '3.10.*'",
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/69/b7/802a56eca9f2fac455b8bab5375a2647b0f0e14a2cd63ef077de3c4a7658/platformdirs-4.11.7.tar.gz", hash = "sha256:4f41487eeeeeb07f3a6625e61d9bc0ae6809f92d3386dbd74392fbb76108104d", size = 35127, upload-time = "2026-09-01T13:35:10.502Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/53/18/f3bb8ef0d3b930692343da8aa4d3cbcd6749477c053959395ac81965a6e9/platformdirs-4.11.8.tar.gz", hash = "sha256:f23abafea7dd4276d1f29104b83598d7dcc567cafd07c9c951e66665645437fc", size = 37182, upload-time = "2026-09-08T22:20:42.866Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/27/6e/80993e10a0482f630cef528635789233224f36b1ffd11592aa15d13ff9ce/platformdirs-4.11.7-py3-none-any.whl", hash = "sha256:8a02cb259042c79d1cd0450facc2fe6dc9d303ae7901afbe33bf8ea0b188cef6", size = 23938, upload-time = "2026-09-01T13:35:09.02Z" },
+    { url = "https://files.pythonhosted.org/packages/f4/e1/5b7b8bbb55084d1425bcb9bc823ff519e1b2be05f6ebb0089e2eacc38413/platformdirs-4.11.8-py3-none-any.whl", hash = "sha256:52f2f181bbfde907966932cc8312d967d02976422d66d537ea16092b8e291081", size = 24027, upload-time = "2026-09-08T22:20:41.537Z" },
 ]
 
 [[package]]
@@ -4191,12 +4194,42 @@ toml = [
 name = "python-slugify"
 version = "8.0.4"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version < '3.10'",
+]
 dependencies = [
     { name = "text-unidecode" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/87/c7/5e1547c44e31da50a460df93af11a535ace568ef89d7a811069ead340c4a/python-slugify-8.0.4.tar.gz", hash = "sha256:59202371d1d05b54a9e7720c5e038f928f45daaffe41dd10822f3907b937c856", size = 10921, upload-time = "2024-02-08T18:32:45.488Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a4/62/02da182e544a51a5c3ccf4b03ab79df279f9c60c5e82d5e8bec7ca26ac11/python_slugify-8.0.4-py2.py3-none-any.whl", hash = "sha256:276540b79961052b66b7d116620b36518847f52d5fd9e3a70164fc8c50faa6b8", size = 10051, upload-time = "2024-02-08T18:32:43.911Z" },
+]
+
+[[package]]
+name = "python-slugify"
+version = "9.0.0"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.14' and sys_platform == 'win32'",
+    "python_full_version >= '3.14' and sys_platform == 'emscripten'",
+    "python_full_version >= '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version == '3.13.*' and sys_platform == 'win32'",
+    "python_full_version == '3.13.*' and sys_platform == 'emscripten'",
+    "python_full_version == '3.13.*' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32'",
+    "python_full_version == '3.11.*' and sys_platform == 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'emscripten'",
+    "python_full_version == '3.11.*' and sys_platform == 'emscripten'",
+    "python_full_version == '3.12.*' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version == '3.11.*' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version == '3.10.*'",
+]
+dependencies = [
+    { name = "text-unidecode" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/1c/e7/dc2331a18e4b18721d6382468d2ca163fabacba45d2185945557f364ab39/python_slugify-9.0.0.tar.gz", hash = "sha256:1cd20fe7ebf941b11964a92aba9e5319edfe18606276c6e2481b92e737cde44a", size = 60189, upload-time = "2026-09-08T20:56:07.965Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/16/cc/bf2237784cddf5c37f5e4cb25f60670a0c57c3d8ce15d43da16f472c08ef/python_slugify-9.0.0-py3-none-any.whl", hash = "sha256:b1180fb0fd6b3590e7fbd8328b08d56cde9dcac736527a070c0a811480621316", size = 13133, upload-time = "2026-09-08T20:56:06.953Z" },
 ]
 
 [[package]]
