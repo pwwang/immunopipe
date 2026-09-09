@@ -220,7 +220,7 @@
 <li>Pass the cell type annotation directly (at cluster-level or cell-level)</li>
 <li>Use <a href="https://github.com/IanevskiAleksandr/sc-type"><code>ScType</code></a> (cluster-level, marker-based)</li>
 <li>Use <a href="https://github.com/ZJUFanLab/scCATCH"><code>scCATCH</code></a> (cluster-level, marker-based)</li>
-<li>Use <a href="https://github.com/pwwang/hitype"><code>hitype</code></a> (cluster-level, marker-based)</li>
+<li>Use <a href="https://github.com/pwwang/hitype"><code>hitype</code></a> (cell-level or cluster-level, marker-based)</li>
 <li>Use <a href="https://github.com/Teichlab/celltypist"><code>celltypist</code></a> (cell-level, model-based)</li>
 <li>Use <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7898451/"><code>scSorter</code></a> (cluster-level, marker-based)</li>
 <li>Use <a href="https://github.com/jcao89757/SCINA"><code>SCINA</code></a> (cell-level, marker-based)</li>
@@ -231,6 +231,7 @@
 <li>Use <a href="https://github.com/TencentAILabHealthcare/scBERT"><code>scBERT</code></a> (cell-level, model-based)</li>
 <li>Use <a href="https://github.com/RausellLab/CelliD"><code>CelliD</code></a> (cell-level, marker-based)</li>
 <li>Use <a href="https://github.com/sathyasjali/scAgentType"><code>scAgentType</code></a> (cluster-level, LLM-based, agentic)</li>
+<li>Use <a href="https://cole-trapnell-lab.github.io/garnett/"><code>garnett</code></a> (cell-level, model-based)</li>
 </ol>
 <p>The <code>&lt;workdir&gt;</code> is typically <code>./.pipen</code> and the <code>&lt;pipline_name&gt;</code> is <code>Immunopipe</code>
 by default.<br /></p>
@@ -249,6 +250,7 @@ using <code>envs.anno_col</code>, so that the results from different annotation 
 <li><code>scBERT</code></li>
 <li><code>cellassign</code></li>
 <li><code>scAgentType</code></li>
+<li><code>Garnett</code></li>
 </ul>
 </div>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
@@ -275,9 +277,11 @@ using <code>envs.anno_col</code>, so that the results from different annotation 
 <li><code>sctype</code> <em>(<code>cluster-level</code>)</em>:
     Use <code>scType</code> to annotate cell types.<br />
     See <a href="https://github.com/IanevskiAleksandr/sc-type">https://github.com/IanevskiAleksandr/sc-type</a></li>
-<li><code>hitype</code> <em>(<code>cluster-level</code>)</em>:
+<li><code>hitype</code> <em>(<code>cell-level</code>)</em>:
     Use <code>hitype</code> to annotate cell types.<br />
-    See <a href="https://github.com/pwwang/hitype">https://github.com/pwwang/hitype</a></li>
+    Runs at cell-level by default; set <code>envs.ident</code> for cluster-level
+    annotations (hitype then scores each cluster as a whole and
+    assigns it one cell type). See <a href="https://github.com/pwwang/hitype">https://github.com/pwwang/hitype</a></li>
 <li><code>sccatch</code> <em>(<code>cluster-level</code>)</em>:
     Use <code>scCATCH</code> to annotate cell types.<br />
     See <a href="https://github.com/ZJUFanLab/scCATCH">https://github.com/ZJUFanLab/scCATCH</a></li>
@@ -297,6 +301,10 @@ using <code>envs.anno_col</code>, so that the results from different annotation 
 <li><code>singler</code> <em>(<code>cluster-level</code>)</em>:
     Use <code>SingleR</code> to annotate cell types.<br />
     See <a href="https://github.com/dviraran/SingleR">https://github.com/dviraran/SingleR</a></li>
+<li><code>garnett</code> <em>(<code>cell-level</code>)</em>:
+    Use <code>Garnett</code> to annotate cell types with a
+    pre-trained classifier (trained from marker genes and expression data).<br />
+    See <a href="https://cole-trapnell-lab.github.io/garnett/">https://cole-trapnell-lab.github.io/garnett/</a></li>
 <li><code>schdeepinsight</code> <em>(<code>cell-level</code>)</em>:
     Use <code>scHDeepInsight</code> to annotate cell types.<br />
     See <a href="https://github.com/shangruJia/scHDeepInsight">https://github.com/shangruJia/scHDeepInsight</a></li>
@@ -336,6 +344,8 @@ using <code>envs.anno_col</code>, so that the results from different annotation 
     If input data is h5ad, this is required to run cluster-based annotation tools.<br />
     For cell-level tools, if specified, a cluster-level annotation will also be generated
     by majority vote of the cells in each cluster, and saved to <code>cluster2celltype.tsv</code>.<br />
+    For <code>hitype</code>, this switches to cluster-level scoring (cell-level is the default
+    when it is not set).<br />
     For <code>celltypist</code>, this is a shortcut to set <code>over_clustering</code> in <code>envs.celltypist</code>
     (see <code>envs.celltypist.over_clustering</code>).<br />
     <code>"ident"</code> can be used as an alias for the identity column.<br />
@@ -393,7 +403,10 @@ using <code>envs.anno_col</code>, so that the results from different annotation 
     Compatible with <code>sctype.db</code>.<br />
     See also <a href="https://pwwang.github.io/hitype/articles/prepare-gene-sets.html">https://pwwang.github.io/hitype/articles/prepare-gene-sets.html</a>
     You can also use built-in databases, including <code>hitypedb_short</code>, <code>hitypedb_full</code>, and <code>hitypedb_pbmc3k</code>.<br />
-    Can also be a universal marker table (see the note above).<br /></li>
+    Can also be a universal marker table (see the note above).<br />
+    When the table has a <code>weight</code> column (e.g. trained by
+    <code>HitypeWeightTrainer</code>), the weights are used as-is for
+    scoring (hitype &gt;= 0.0.6).<br /></li>
 </ul>
 </li>
 <li><code>scsorter</code> <em>(<code>ns</code>)</em>:
@@ -495,6 +508,45 @@ and auto-detected at runtime.<br /></li>
     See the SingleR documentation for your version:<br />
     <a href="https://rdrr.io/bioc/SingleR/man/SingleR.html"><code>Bioconductor</code></a>
     or <a href="https://github.com/dviraran/SingleR"><code>CRAN</code></a>.<br /></li>
+</ul>
+</li>
+<li><code>garnett</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>garnett::classify_cells()</code>
+    if <code>tool</code> is <code>garnett</code>. The process takes a <strong>trained</strong> classifier
+    and predicts the cell types for each cell — no training step is
+    performed. A classifier can be trained with the
+    <code>GarnettClassifierTrainer</code> process from a Seurat object and marker
+    genes, or you can use a pre-trained one from
+    <a href="https://cole-trapnell-lab.github.io/garnett/classifiers/">https://cole-trapnell-lab.github.io/garnett/classifiers/</a>.<br />
+    The Seurat object is converted to a monocle3 <code>cell_data_set</code> for
+    classification, and cells that cannot be confidently classified
+    are labeled <code>Unknown</code>.<br /><ul>
+<li><code>classifier</code> <em>(<code>type=str</code>)</em>:
+    The path to the trained classifier
+    file (an RDS file containing a <code>garnett_classifier</code> object,
+    saved by <code>garnett::save_classifier()</code>).<br /></li>
+<li><code>db</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>none</code></em>. <br />
+    The name of the installed annotation package
+    used to convert the gene IDs of the expression data to the
+    gene IDs the classifier was trained on (default: <code>none</code>, i.e.<br />
+    no conversion). The official pre-trained classifiers are
+    trained on ENSEMBL gene IDs, so for expression data with gene
+    symbols you need e.g. <code>db: org.Hs.eg.db</code> together with
+    <code>cds_gene_id_type: SYMBOL</code>.<br /></li>
+<li><code>cds_gene_id_type</code> <em>(<code>choice</code>)</em>: <em>Default: <code>SYMBOL</code></em>. <br />
+    The gene ID type of the expression
+    data, used when <code>db</code> is not <code>none</code> (default: <code>SYMBOL</code>).<br />
+    Supported types include <code>SYMBOL</code>, <code>ENSEMBL</code>, <code>ENTREZID</code>.<br /></li>
+<li><code>assay</code> <em>(<code>type=str</code>)</em>:
+    The assay to use for classification.<br />
+    If not specified, <code>envs.assay</code> will be used.<br />
+    The assay must contain raw counts.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    Other arguments for
+    <a href="https://github.com/cole-trapnell-lab/garnett/blob/monocle3/R/classify.R"><code>garnett::classify_cells()</code></a>,
+    e.g. <code>rank_prob_ratio</code>, <code>cluster_extend</code>,
+    <code>cluster_extend_max_frac_unknown</code>, <code>cluster_extend_max_frac_incorrect</code>,
+    <code>return_type_levels</code>, and <code>verbose</code>.<br /></li>
 </ul>
 </li>
 <li><code>schdeepinsight</code> <em>(<code>ns</code>)</em>:
@@ -840,12 +892,15 @@ Prefix <code>file://</code> is optional.<br /></p>
 <h3 id="the-tools-can-be-divided-into-two-categories">The tools can be divided into two categories<a class="headerlink" href="#the-tools-can-be-divided-into-two-categories" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Cluster-level tools: annotate the clusters, each cluster being assigned one cell type.<br />
-  These include <code>sctype</code>, <code>hitype</code>, <code>sccatch</code>, <code>scsorter</code>, <code>singler</code>, <code>llmcelltype</code>, <code>scagenttype</code>, and <code>direct</code>.<br /></li>
+  These include <code>sctype</code>, <code>sccatch</code>, <code>scsorter</code>, <code>singler</code>, <code>llmcelltype</code>, <code>scagenttype</code>, and <code>direct</code>.<br /></li>
 <li>Cell-level tools: annotate the cells, each cell being assigned one cell type.<br />
-  These include <code>scina</code>, <code>cellassign</code>, <code>cellid</code>, <code>scbert</code>, <code>schdeepinsight</code>, <code>llmcelltype</code>, and <code>cell</code>.<br />
+  These include <code>scina</code>, <code>hitype</code>, <code>cellassign</code>, <code>cellid</code>, <code>scbert</code>, <code>schdeepinsight</code>, <code>llmcelltype</code>, <code>cell</code>, and <code>garnett</code>.<br />
   For cell-level tools, a cluster-level annotation can also be generated by specifying
   <code>envs.ident</code> (or <code>envs.cases.X.ident</code> for a specific case), where each cluster is
   assigned the cell type by majority vote of the cells in the cluster.<br /></li>
+<li><code>hitype</code> can run at either level: cell-level when <code>envs.ident</code> is not set,
+  or cluster-level when <code>envs.ident</code> is set (hitype then scores each cluster
+  as a whole and assigns its cell type directly, not by majority vote).<br /></li>
 <li><code>celltypist</code> is a special cell-level tool, which can also generate cluster-level
   annotations via its over-clustering mechanism (<code>envs.celltypist.over_clustering</code>
   or <code>envs.ident</code>).<br /></li>
@@ -856,7 +911,9 @@ Prefix <code>file://</code> is optional.<br /></p>
   <code>sctype</code>, <code>hitype</code>, <code>sccatch</code>, <code>scsorter</code>, <code>scina</code>, <code>cellassign</code>, and <code>cellid</code>.<br />
   They all accept the universal marker format (see the note below).<br /></li>
 <li>Model/reference-based tools: take a trained model or a reference object,
-  including <code>celltypist</code>, <code>scbert</code>, <code>singler</code>, and <code>schdeepinsight</code>.<br /></li>
+  including <code>celltypist</code>, <code>scbert</code>, <code>singler</code>, <code>schdeepinsight</code>, and <code>garnett</code>.<br />
+  A <code>garnett</code> classifier is trained from marker genes and expression data
+  (it is model-based, not a plain marker-table input like the marker-based tools).<br /></li>
 <li>Direct-annotation tools: take the cell types directly via <code>envs.cell_types</code>,
   including <code>direct</code> and <code>cell</code>.<br /></li>
 </ul>
@@ -904,7 +961,9 @@ containing a data.frame, in long format with one row per gene per cell type:<br 
   <code>Weight</code>s. For the other tools (<code>scina</code>, <code>cellassign</code>, <code>cellid</code>,
   <code>sccatch</code>), negative markers cannot be represented and are ignored
   (only positive markers are used).<br /></li>
-<li><code>weight</code>: a numeric weight, only used by <code>scsorter</code> (as the <code>Weight</code> column).<br /></li>
+<li><code>weight</code>: a numeric weight. Used by <code>scsorter</code> (as the <code>Weight</code>
+  column) and, when present, by <code>hitype</code> (hitype &gt;= 0.0.6), where the
+  weights are used as-is in the scoring. Ignored by the other tools.<br /></li>
 <li><code>species</code>, <code>cancer</code>, <code>tissue</code>: optional. When the matching env
   (<code>envs.&lt;tool&gt;.species</code>/<code>cancer</code>/<code>tissue</code>) is set, only the rows with the
   given value are kept (an error is raised if the table has no such column
