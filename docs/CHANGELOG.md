@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.6.1
+
+- feat: add more tools support for CellTypeAnnotation
+
 ## 2.6.0
 
 - BREAKING: move ModuleScoreCalculator later before ScRepCombiningExpression so that we don't need to redo clustering and related if more module scores are needed for later run
