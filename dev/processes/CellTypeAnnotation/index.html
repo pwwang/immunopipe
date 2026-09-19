@@ -222,16 +222,31 @@
 <li>Use <a href="https://github.com/ZJUFanLab/scCATCH"><code>scCATCH</code></a> (cluster-level, marker-based)</li>
 <li>Use <a href="https://github.com/pwwang/hitype"><code>hitype</code></a> (cell-level or cluster-level, marker-based)</li>
 <li>Use <a href="https://github.com/Teichlab/celltypist"><code>celltypist</code></a> (cell-level, model-based)</li>
-<li>Use <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7898451/"><code>scSorter</code></a> (cluster-level, marker-based)</li>
+<li>Use <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7898451/"><code>scSorter</code></a> (cell-level, marker-based)</li>
 <li>Use <a href="https://github.com/jcao89757/SCINA"><code>SCINA</code></a> (cell-level, marker-based)</li>
 <li>Use <a href="https://github.com/dviraran/SingleR"><code>SingleR</code></a> (cluster-level, model-based)</li>
 <li>Use <a href="https://github.com/shangruJia/scHDeepInsight"><code>scHDeepInsight</code></a> (cell-level, model-based)</li>
-<li>Use <a href="https://github.com/pwwang/LLMCelltype"><code>LLMCelltype</code></a> (cluster-level, LLM-based)</li>
+<li>Use <a href="https://github.com/pwwang/LLMCelltype"><code>LLMCelltype</code></a> (cluster-level, LLM-based, a fork of <a href="https://github.com/Winnie09/GPTCelltype"><code>gptcelltype</code></a>)</li>
 <li>Use <a href="https://github.com/Irrationone/cellassign"><code>cellassign</code></a> (cell-level, marker-based)</li>
 <li>Use <a href="https://github.com/TencentAILabHealthcare/scBERT"><code>scBERT</code></a> (cell-level, model-based)</li>
 <li>Use <a href="https://github.com/RausellLab/CelliD"><code>CelliD</code></a> (cell-level, marker-based)</li>
 <li>Use <a href="https://github.com/sathyasjali/scAgentType"><code>scAgentType</code></a> (cluster-level, LLM-based, agentic)</li>
 <li>Use <a href="https://cole-trapnell-lab.github.io/garnett/"><code>garnett</code></a> (cell-level, model-based)</li>
+<li>Use <a href="https://github.com/carmonalab/UCell"><code>UCell</code></a> (cell-level, marker-based scoring)</li>
+<li>Use <a href="https://github.com/aertslab/AUCell"><code>AUCell</code></a> (cell-level, marker-based scoring)</li>
+<li>Use <a href="https://bioconductor.org/packages/release/bioc/html/GSVA.html"><code>GSVA</code></a> (cell-level, marker-based scoring)</li>
+<li>Use <a href="https://bioconductor.org/packages/release/bioc/html/singscore.html"><code>singscore</code></a> (cell-level, marker-based scoring)</li>
+<li>Use <a href="https://bioconductor.org/packages/release/bioc/html/scmap.html"><code>scmap</code></a> (cell-level or cluster-level, reference-based)</li>
+<li>Use <a href="https://bioconductor.org/packages/release/bioc/html/CHETAH.html"><code>CHETAH</code></a> (cell-level, reference-based)</li>
+<li>Use <a href="https://bioconductor.org/packages/release/bioc/html/scClassify.html"><code>scClassify</code></a> (cell-level, reference-based)</li>
+<li>Use <a href="https://github.com/powellgenomicslab/scPred"><code>scPred</code></a> (cell-level, reference-based)</li>
+<li>Use <a href="https://github.com/satijalab/azimuth"><code>Azimuth</code></a> (cluster-level, reference-based)</li>
+<li>Use <a href="https://github.com/bioinfo-ibms-pumc/SCSA"><code>SCSA</code></a> (cluster-level, marker-based, python)</li>
+<li>Use <a href="https://github.com/ImXman/MACA"><code>MACA</code></a> (cell-level, marker-based, python, a modernized fork should be used, https://github.com/pwwang/MACA/tree/modernize)</li>
+<li>Use <a href="https://github.com/Yuz7/scMapNet"><code>scMapNet</code></a> (cell-level, marker-based, python)</li>
+<li>Use <a href="https://github.com/cafferychen777/mLLMCelltype"><code>mLLMCelltype</code></a> (cluster-level, LLM-based)</li>
+<li>Use <a href="https://github.com/Glowworm-cell/LICT"><code>LICT</code></a> (cluster-level, LLM-based, a modernized fork should be used, https://github.com/pwwang/LICT/tree/modernize)</li>
+<li>Use <a href="https://satijalab.org/seurat/reference/mapquery"><code>MapQuery</code></a> (cell-level, reference-based)</li>
 </ol>
 <p>The <code>&lt;workdir&gt;</code> is typically <code>./.pipen</code> and the <code>&lt;pipline_name&gt;</code> is <code>Immunopipe</code>
 by default.<br /></p>
@@ -246,11 +261,11 @@ using <code>envs.anno_col</code>, so that the results from different annotation 
 <p class="admonition-title">Attention</p>
 <p>If you are running the pipeline with the Docker image, following tools are not available in the Docker image:<br /></p>
 <ul>
-<li><code>scHDeepInsight</code></li>
-<li><code>scBERT</code></li>
-<li><code>cellassign</code></li>
-<li><code>scAgentType</code></li>
-<li><code>Garnett</code></li>
+<li>Direct assignment: <code>direct</code>, <code>cell</code></li>
+<li>Marker-based: <code>ScType</code>, <code>hitype</code>, <code>scSorter</code>, <code>SCINA</code>, <code>CelliD</code>, <code>UCell</code>, <code>AUCell</code>, <code>GSVA</code>, <code>singscore</code>, <code>SCSA</code>, <code>MACA</code></li>
+<li>Model-based: <code>celltypist</code>, <code>SingleR</code></li>
+<li>LLM-based: <code>LLMCelltype</code>, <code>mLLMCelltype</code>, <code>LICT</code></li>
+<li>Reference-based: <code>scmap</code>, <code>CHETAH</code>, <code>scClassify</code>, <code>MapQuery</code></li>
 </ul>
 </div>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
@@ -325,6 +340,65 @@ using <code>envs.anno_col</code>, so that the results from different annotation 
     Use <code>CelliD</code> to annotate cell types with MCA-based
     per-cell gene signature enrichment.<br />
     See <a href="https://github.com/RausellLab/CelliD">https://github.com/RausellLab/CelliD</a></li>
+<li><code>scagenttype</code> <em>(<code>cluster-level</code>)</em>:
+    Use <code>scAgentType</code> to annotate cell types
+    with an agentic LLM workflow.<br />
+    See <a href="https://github.com/sathyasjali/scAgentType">https://github.com/sathyasjali/scAgentType</a></li>
+<li><code>ucell</code> <em>(<code>cell-level</code>)</em>:
+    Use <code>UCell</code> to annotate cell types by scoring the
+    marker table with equal weights.<br />
+    See <a href="https://github.com/carmonalab/UCell">https://github.com/carmonalab/UCell</a></li>
+<li><code>aucell</code> <em>(<code>cell-level</code>)</em>:
+    Use <code>AUCell</code> to annotate cell types by scoring the
+    marker table with equal weights.<br />
+    See <a href="https://github.com/aertslab/AUCell">https://github.com/aertslab/AUCell</a></li>
+<li><code>gsva</code> <em>(<code>cell-level</code>)</em>:
+    Use <code>GSVA</code> to annotate cell types by scoring the
+    marker table with equal weights.<br />
+    See <a href="https://bioconductor.org/packages/release/bioc/html/GSVA.html">https://bioconductor.org/packages/release/bioc/html/GSVA.html</a></li>
+<li><code>singscore</code> <em>(<code>cell-level</code>)</em>:
+    Use <code>singscore</code> to annotate cell types by scoring
+    the marker table with equal weights.<br />
+    See <a href="https://bioconductor.org/packages/release/bioc/html/singscore.html">https://bioconductor.org/packages/release/bioc/html/singscore.html</a></li>
+<li><code>scmap</code> <em>(<code>cell-level</code>)</em>:
+    Use <code>scmap</code> to transfer the cell types of a
+    reference object.<br />
+    See <a href="https://bioconductor.org/packages/release/bioc/html/scmap.html">https://bioconductor.org/packages/release/bioc/html/scmap.html</a></li>
+<li><code>cheetah</code> <em>(<code>cell-level</code>)</em>:
+    Use <code>CHETAH</code> to transfer the cell types of a
+    reference object.<br />
+    See <a href="https://bioconductor.org/packages/release/bioc/html/CHETAH.html">https://bioconductor.org/packages/release/bioc/html/CHETAH.html</a></li>
+<li><code>scclassify</code> <em>(<code>cell-level</code>)</em>:
+    Use <code>scClassify</code> to transfer the cell types of
+    a reference object.<br />
+    See <a href="https://bioconductor.org/packages/release/bioc/html/scClassify.html">https://bioconductor.org/packages/release/bioc/html/scClassify.html</a></li>
+<li><code>scpred</code> <em>(<code>cell-level</code>)</em>:
+    Use <code>scPred</code> to transfer the cell types of a
+    reference object.<br />
+    See <a href="https://github.com/powellgenomicslab/scPred">https://github.com/powellgenomicslab/scPred</a></li>
+<li><code>azimuth</code> <em>(<code>cell-level</code>)</em>:
+    Use <code>Azimuth</code> to transfer the annotation levels of
+    a published reference.<br />
+    See <a href="https://github.com/satijalab/azimuth">https://github.com/satijalab/azimuth</a></li>
+<li><code>scsa</code> <em>(<code>cluster-level</code>)</em>:
+    Use <code>SCSA</code> to annotate cell types.<br />
+    See <a href="https://github.com/bioinfo-ibms-pumc/SCSA">https://github.com/bioinfo-ibms-pumc/SCSA</a></li>
+<li><code>maca</code> <em>(<code>cell-level</code>)</em>:
+    Use <code>MACA</code> to annotate cell types.<br />
+    See <a href="https://github.com/ImXman/MACA">https://github.com/ImXman/MACA</a></li>
+<li><code>scmapnet</code> <em>(<code>cell-level</code>)</em>:
+    Use <code>scMapNet</code> to annotate cell types.<br />
+    See <a href="https://github.com/Yuz7/scMapNet">https://github.com/Yuz7/scMapNet</a></li>
+<li><code>mllmcelltype</code> <em>(<code>cluster-level</code>)</em>:
+    Use <code>mLLMCelltype</code> to annotate cell types
+    with LLMs. See <a href="https://github.com/cafferychen777/mLLMCelltype">https://github.com/cafferychen777/mLLMCelltype</a></li>
+<li><code>lict</code> <em>(<code>cluster-level</code>)</em>:
+    Use <code>LICT</code> to annotate cell types with LLMs.<br />
+    See <a href="https://github.com/Glowworm-cell/LICT">https://github.com/Glowworm-cell/LICT</a></li>
+<li><code>mapquery</code> <em>(<code>cell-level</code>)</em>:
+    Use <code>Seurat::MapQuery()</code> to transfer the cell
+    types of a reference object.<br />
+    See <a href="https://satijalab.org/seurat/reference/mapquery">https://satijalab.org/seurat/reference/mapquery</a></li>
 <li><code>direct</code> <em>(<code>cluster-level</code>)</em>:
     Directly assign cell types</li>
 <li><code>cell</code> <em>(<code>cell-level</code>)</em>:
@@ -337,6 +411,8 @@ using <code>envs.anno_col</code>, so that the results from different annotation 
     To use a different assay for a case, specify it in the case args.<br />
     This will be also used to convert Seurat object to h5ad if the input is Seurat object
     and the output is h5ad.<br /></li>
+<li><code>layer</code>:
+    The layer in the assay to use for the analysis. If not specified, the default layer will be used.<br /></li>
 <li><code>ident</code>:
     The column name in metadata to use as the clusters.<br />
     For cluster-level tools, this is required, and if not specified,
@@ -407,6 +483,17 @@ using <code>envs.anno_col</code>, so that the results from different annotation 
     When the table has a <code>weight</code> column (e.g. trained by
     <code>HitypeWeightTrainer</code>), the weights are used as-is for
     scoring (hitype &gt;= 0.0.6).<br /></li>
+<li><code>norm</code>: <em>Default: <code>sqrt</code></em>. <br />
+    The normalization method for <code>hitype::hitype_score()</code>.<br />
+    One of "sqrt", "weight", "none" (default: "sqrt").<br />
+    "weight" is recommended when scoring with learned weights.<br /></li>
+<li><code>use_sensitivity</code>: <em>Default: <code>True</code></em>. <br />
+    Whether to weight markers by their
+    sensitivity (default: <code>True</code>). <code>False</code> is recommended when
+    scoring with learned weights.<br /></li>
+<li><code>threshold</code>: <em>Default: <code>0.0</code></em>. <br />
+    The assignment threshold passed to <code>RunHitype</code>
+    (default: <code>0.0</code>).<br /></li>
 </ul>
 </li>
 <li><code>scsorter</code> <em>(<code>ns</code>)</em>:
@@ -533,25 +620,38 @@ and auto-detected at runtime.<br /></li>
     trained on ENSEMBL gene IDs, so for expression data with gene
     symbols you need e.g. <code>db: org.Hs.eg.db</code> together with
     <code>cds_gene_id_type: SYMBOL</code>.<br /></li>
-<li><code>cds_gene_id_type</code> <em>(<code>choice</code>)</em>: <em>Default: <code>SYMBOL</code></em>. <br />
+<li><code>cds_gene_id_type</code> <em>(<code>choice</code>)</em>: <em>Default: <code>custom</code></em>. <br />
     The gene ID type of the expression
-    data, used when <code>db</code> is not <code>none</code> (default: <code>SYMBOL</code>).<br />
-    Supported types include <code>SYMBOL</code>, <code>ENSEMBL</code>, <code>ENTREZID</code>.<br /></li>
+    data, used when <code>db</code> is not <code>none</code> (default: <code>custom</code>).<br />
+    Supported types include <code>custom</code>, <code>SYMBOL</code>, <code>ENSEMBL</code>, <code>ENTREZID</code>.<br /></li>
 <li><code>assay</code> <em>(<code>type=str</code>)</em>:
     The assay to use for classification.<br />
     If not specified, <code>envs.assay</code> will be used.<br />
     The assay must contain raw counts.<br /></li>
+<li><code>cluster_extend</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Use Garnett's own cluster mode: the
+    clusters are passed as the <code>garnett_cluster</code> column of the
+    <code>cell_data_set</code>, and <code>classify_cells()</code> extends the labels over
+    each cluster (<code>cluster_ext_type</code>) instead of the engine
+    aggregating the per-cell labels by majority vote
+    (default: FALSE).<br /></li>
 <li><code>&lt;more&gt;</code>:
     Other arguments for
     <a href="https://github.com/cole-trapnell-lab/garnett/blob/monocle3/R/classify.R"><code>garnett::classify_cells()</code></a>,
-    e.g. <code>rank_prob_ratio</code>, <code>cluster_extend</code>,
+    e.g. <code>rank_prob_ratio</code>,
     <code>cluster_extend_max_frac_unknown</code>, <code>cluster_extend_max_frac_incorrect</code>,
     <code>return_type_levels</code>, and <code>verbose</code>.<br /></li>
 </ul>
 </li>
 <li><code>schdeepinsight</code> <em>(<code>ns</code>)</em>:
     The arguments for scHDeepInsight
-    if <code>tool</code> is <code>schdeepinsight</code>.<br /><ul>
+    if <code>tool</code> is <code>schdeepinsight</code>. Gated by default: the
+    <code>SCHdeepinsight</code> package (0.3.5) is not installed, and the tool
+    additionally needs a reference file and a pretrained checkpoint.<br />
+    To un-gate it, run <code>pip install SCHdeepinsight</code> (plus
+    <code>pip install git+https://github.com/alok-ai-lab/pyDeepInsight.git</code>)
+    in <code>python</code> and download the checkpoint from
+    <a href="https://github.com/shangruJia/scHDeepInsight">https://github.com/shangruJia/scHDeepInsight</a>.<br /><ul>
 <li><code>ref</code> <em>(<code>type=str</code>)</em>:
     The path to the scHDeepInsight
     reference RDS file. The bundled <code>reference.rds</code> from the
@@ -724,6 +824,12 @@ Can also be a universal marker table (see the note above).<br /></li>
 <li><code>p_adjust</code> <em>(<code>flag</code>)</em>:
     Benjamini-Hochberg correction
     (default: TRUE).<br /></li>
+<li><code>group_gsea</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Use CelliD's own cluster mode
+    (<code>CelliD::RunGroupGSEA()</code>): the clusters are annotated from the
+    gene-set enrichment scores of the whole group (the best-scoring
+    pathway by NES) instead of the engine aggregating the per-cell
+    hypergeometric test by majority vote (default: FALSE).<br /></li>
 </ul>
 </li>
 <li>
@@ -854,6 +960,423 @@ Prefix <code>file://</code> is optional.<br /></p>
     <code>enable_cellxgene</code>.<br /></li>
 </ul>
 </li>
+<li><code>ucell</code> <em>(<code>ns</code>)</em>:
+    The arguments for <a href="https://github.com/carmonalab/UCell"><code>UCell::AddModuleScore_UCell()</code></a>
+    if <code>tool</code> is <code>ucell</code>. UCell scores the universal marker table with
+    equal (unit) weights, and each cell gets the cell type of its highest
+    score (see the marker-based note above).<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
+    The path to the marker table (required).<br />
+    Must be a universal marker table (see the note above).<br /></li>
+<li><code>assay</code> <em>(<code>type=str</code>)</em>:
+    The assay to score. If not specified,
+    the default assay will be used.<br /></li>
+<li><code>maxRank</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1000</code></em>. <br />
+    The number of top-ranked genes used to score
+    a signature (default: 1000).<br /></li>
+<li><code>w_neg</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    The weight of the negative markers
+    (default: 1).<br /></li>
+<li><code>name</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>_UCell</code></em>. <br />
+    The suffix of the score columns added to the
+    metadata (default: <code>_UCell</code>).<br /></li>
+<li><code>tissue</code>:
+    Filter the markers by the <code>tissue</code> column of the universal
+    marker table (see the note above).<br /></li>
+<li><code>cancer</code>:
+    Filter the markers by the <code>cancer</code> column of the universal
+    marker table (see the note above).<br /></li>
+<li><code>species</code>:
+    Filter the markers by the <code>species</code> column of the universal
+    marker table (see the note above).<br /></li>
+</ul>
+</li>
+<li><code>aucell</code> <em>(<code>ns</code>)</em>:
+    The arguments for <a href="https://github.com/aertslab/AUCell"><code>AUCell::AUCell_calcAUC()</code></a>
+    if <code>tool</code> is <code>aucell</code>. The negative-direction markers of the marker
+    table are dropped (a ranked list has no direction).<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
+    The path to the marker table (required).<br />
+    Must be a universal marker table (see the note above).<br /></li>
+<li><code>assay</code> <em>(<code>type=str</code>)</em>:
+    The assay to score. If not specified,
+    the default assay will be used.<br /></li>
+<li><code>aucMaxRank</code> <em>(<code>type=int</code>)</em>:
+    The number of top-ranked genes to
+    calculate the AUC on (default: 5% of the genes).<br /></li>
+<li><code>normAUC</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    Whether to normalize the AUC to the maximum
+    possible AUC (default: TRUE).<br /></li>
+<li><code>tissue</code> <em>(<code>type=str</code>)</em>:
+    Filter the marker table by tissue, e.g.<br />
+    <code>Immune system</code>.<br /></li>
+<li><code>cancer</code> <em>(<code>type=str</code>)</em>:
+    Filter the marker table by cancer, e.g.<br />
+    <code>Breast cancer</code>.<br /></li>
+<li><code>species</code> <em>(<code>type=str</code>)</em>:
+    Filter the marker table by species, e.g.<br />
+    <code>Human</code>.<br /></li>
+</ul>
+</li>
+<li><code>gsva</code> <em>(<code>ns</code>)</em>:
+    The arguments for <a href="https://bioconductor.org/packages/release/bioc/html/GSVA.html"><code>GSVA::gsva()</code></a>
+    if <code>tool</code> is <code>gsva</code>. The negative-direction markers of the marker
+    table are dropped (a gene set has no direction).<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
+    The path to the marker table (required).<br />
+    Must be a universal marker table (see the note above).<br /></li>
+<li><code>assay</code> <em>(<code>type=str</code>)</em>:
+    The assay to score. If not specified,
+    the default assay will be used.<br /></li>
+<li><code>kcdf</code> <em>(<code>choice</code>)</em>: <em>Default: <code>Gaussian</code></em>. <br />
+    The kernel to use for the enrichment scores.<br />
+    <code>Gaussian</code> (default), <code>Poisson</code>, or <code>none</code>.<br /></li>
+<li><code>minSize</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    The minimum number of genes in a gene set
+    (default: 1).<br /></li>
+<li><code>maxSize</code> <em>(<code>type=int</code>)</em>:
+    The maximum number of genes in a gene set
+    (default: <code>Inf</code>, i.e. no limit).<br /></li>
+<li><code>tissue</code> <em>(<code>type=str</code>)</em>:
+    Filter the marker table by tissue, e.g.<br />
+    <code>Immune system</code>.<br /></li>
+<li><code>cancer</code> <em>(<code>type=str</code>)</em>:
+    Filter the marker table by cancer, e.g.<br />
+    <code>Breast cancer</code>.<br /></li>
+<li><code>species</code> <em>(<code>type=str</code>)</em>:
+    Filter the marker table by species, e.g.<br />
+    <code>Human</code>.<br /></li>
+</ul>
+</li>
+<li><code>singscore</code> <em>(<code>ns</code>)</em>:
+    The arguments for <a href="https://bioconductor.org/packages/release/bioc/html/singscore.html"><code>singscore::simpleScore()</code></a>
+    if <code>tool</code> is <code>singscore</code>. Unlike the other scorers, the direction of
+    the markers is used as-is (<code>upSet</code>/<code>downSet</code>).<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
+    The path to the marker table (required).<br />
+    Must be a universal marker table (see the note above).<br /></li>
+<li><code>assay</code> <em>(<code>type=str</code>)</em>:
+    The assay to score. If not specified,
+    the default assay will be used.<br /></li>
+<li><code>subSamples</code> <em>(<code>type=int</code>)</em>:
+    The number of random subsets of the ranked
+    genes to score. Cells left out are assigned <code>NA</code>.<br /></li>
+<li><code>centerScore</code> <em>(<code>flag</code>)</em>:
+    Whether to center the scores to a [0, 1]
+    range.<br /></li>
+<li><code>tissue</code> <em>(<code>type=str</code>)</em>:
+    Filter the marker table by tissue, e.g.<br />
+    <code>Immune system</code>.<br /></li>
+<li><code>cancer</code> <em>(<code>type=str</code>)</em>:
+    Filter the marker table by cancer, e.g.<br />
+    <code>Breast cancer</code>.<br /></li>
+<li><code>species</code> <em>(<code>type=str</code>)</em>:
+    Filter the marker table by species, e.g.<br />
+    <code>Human</code>.<br /></li>
+</ul>
+</li>
+<li><code>scmap</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>scmap::scmapCluster()</code> (<code>scmap::scmapCell()</code>
+    when <code>use_cell_index</code> is <code>True</code>) if <code>tool</code> is <code>scmap</code>. The reference
+    is a <code>SingleCellExperiment</code> (or a Seurat object, converted on the fly)
+    with a <code>logcounts</code> assay.<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
+    The path to the reference (required).<br /></li>
+<li><code>assay</code> <em>(<code>type=str</code>)</em>:
+    The assay of the reference and of the object
+    (default: <code>RNA</code>).<br /></li>
+<li><code>cluster_col</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>cell_type1</code></em>. <br />
+    The column of the reference's <code>colData</code>
+    holding the cell types (default: <code>cell_type1</code>).<br /></li>
+<li><code>features</code> <em>(<code>type=auto</code>)</em>:
+    The features used for the scmap index.<br />
+    Defaults to all the features of the reference.<br /></li>
+<li><code>threshold</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.5</code></em>. <br />
+    The similarity threshold below which a
+    cell is labeled <code>unassigned</code> (default: 0.5).<br /></li>
+<li><code>use_cell_index</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Use the scmap-cell (k-means) index instead
+    of the scmap-cluster index (default: FALSE).<br /></li>
+</ul>
+</li>
+<li><code>cheetah</code> <em>(<code>ns</code>)</em>:
+    The arguments for <a href="https://bioconductor.org/packages/release/bioc/html/CHETAH.html"><code>CHETAH::CHETAHclassifier()</code></a>
+    if <code>tool</code> is <code>cheetah</code>. The reference is a <code>SingleCellExperiment</code>
+    (or a Seurat object, converted on the fly) holding counts.<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
+    The path to the reference (required).<br /></li>
+<li><code>assay</code> <em>(<code>type=str</code>)</em>:
+    The assay of the reference and of the object
+    (default: <code>RNA</code>).<br /></li>
+<li><code>input_c</code> <em>(<code>type=str</code>)</em>:
+    The name of the assay of the input to use.<br /></li>
+<li><code>thresh</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.1</code></em>. <br />
+    The confidence threshold below which a cell
+    is labeled <code>Unassigned</code> (default: 0.1).<br /></li>
+<li><code>n_genes</code> <em>(<code>type=int</code>)</em>:
+    The number of genes used for the classification.<br /></li>
+<li><code>pc_thresh</code> <em>(<code>type=float</code>)</em>:
+    The threshold for the principal components.<br /></li>
+<li><code>only_pos</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to use only the positively correlated
+    genes. Defaults to the CHETAH default.<br /></li>
+<li><code>ref_ct</code> <em>(<code>type=str</code>)</em>:
+    The reference's cell-type column name
+    (auto-detected when not given).<br /></li>
+<li><code>label</code> <em>(<code>type=str</code>)</em>:
+    The label vector/column used when the reference
+    carries several.<br /></li>
+</ul>
+</li>
+<li><code>scclassify</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>scClassify::scClassify()</code> /
+    <code>scClassify::predict_scClassify()</code> if <code>tool</code> is <code>scclassify</code>.<br />
+    The reference is either a labelled matrix (a list with <code>exprsMat</code> and
+    <code>cellTypes</code>), or a pre-trained model from
+    <code>scClassify::train_scClassify()</code>.<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
+    The path to the reference (required).<br /></li>
+<li><code>assay</code> <em>(<code>type=str</code>)</em>:
+    The assay to classify (default: <code>RNA</code>).<br /></li>
+<li><code>algorithm</code> <em>(<code>choice</code>)</em>:
+    The algorithm to use. <code>WKNN</code> (default), <code>KNN</code>,
+    or <code>DWKNN</code> (the <code>lr</code> of the scClassify docs is not supported by
+    the installed scClassify).<br /></li>
+<li><code>topN</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>50</code></em>. <br />
+    The number of features used by the model
+    (default: 50).<br /></li>
+<li><code>prob_threshold</code> <em>(<code>type=float</code>)</em>:
+    The probability threshold below which
+    a cell is labeled <code>unassigned</code>.<br /></li>
+<li><code>parallel</code> <em>(<code>flag</code>)</em>:
+    Whether to run scClassify in parallel.<br /></li>
+</ul>
+</li>
+<li><code>scpred</code> <em>(<code>ns</code>)</em>:
+    The arguments for <a href="https://github.com/powellgenomicslab/scPred"><code>scPred::scPredict()</code></a>
+    if <code>tool</code> is <code>scpred</code>. The reference is a labelled Seurat object, and
+    the feature space is extracted and the model trained on it at runtime.<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
+    The path to the reference (required).<br /></li>
+<li><code>assay</code> <em>(<code>type=str</code>)</em>:
+    The assay to predict.<br /></li>
+<li><code>pvar</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>cell_type</code></em>. <br />
+    The metadata column of the reference holding the
+    cell types (default: <code>cell_type</code>).<br /></li>
+<li><code>model</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>svmRadial</code></em>. <br />
+    The model to train (default: <code>svmRadial</code>).<br /></li>
+<li><code>reduction</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>pca</code></em>. <br />
+    The reduction used for the feature space
+    (default: <code>pca</code>).<br /></li>
+<li><code>threshold</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.55</code></em>. <br />
+    The prediction-probability threshold
+    passed to <code>scPredict()</code> (default: 0.55).<br /></li>
+</ul>
+</li>
+<li><code>azimuth</code> <em>(<code>ns</code>)</em>:
+    The arguments for <a href="https://github.com/satijalab/azimuth"><code>Azimuth::RunAzimuth()</code></a>
+    if <code>tool</code> is <code>azimuth</code>. The reference's own annotation levels are
+    transferred to the query, and each cluster gets the majority call of
+    its cells.<br /><ul>
+<li><code>ref</code> <em>(<code>type=str</code>)</em>:
+    The reference name (looked up through <code>SeuratData</code>,
+    e.g. <code>pbmcref</code>, downloaded when not installed) or the path to a
+    directory holding <code>ref.Rds</code> + <code>idx.annoy</code> (required).<br /></li>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
+    An alias of <code>ref</code>.<br /></li>
+<li><code>assay</code> <em>(<code>type=str</code>)</em>:
+    The assay to transfer.<br /></li>
+<li><code>anno_col_in</code> <em>(<code>type=str</code>)</em>:
+    The <code>predicted.*</code> column of the Azimuth
+    result to use as the annotation. Defaults to
+    <code>predicted.celltype.l1</code> when present, otherwise the first
+    <code>predicted.*</code> column.<br /></li>
+<li><code>dims</code>:
+    Ignored with a warning: the installed Azimuth reads the
+    dimensionality off the reference's own annoy index.<br /></li>
+<li><code>k.anchor</code>:
+    Ignored with a warning, see <code>dims</code>.<br /></li>
+</ul>
+</li>
+<li><code>scsa</code> <em>(<code>ns</code>)</em>:
+    The arguments for <a href="https://github.com/bioinfo-ibms-pumc/SCSA"><code>SCSA</code></a>
+    if <code>tool</code> is <code>scsa</code>. SCSA is not on CRAN/Bioconductor/PyPI and its
+    <code>SCSA.py</code> does not run on current numpy/pandas, so the wrapper
+    lives in <code>biopipen/scripts/scrna/scsa-wrapper.py</code> and ports its
+    scoring; the marker table is all it needs (SCSA's own reference
+    database is not used).<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
+    The path to the marker table (required).<br />
+    Must be a universal marker table (see the note above).<br /></li>
+<li><code>foldchange</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>2.0</code></em>. <br />
+    The minimum fold change of a marker for
+    it to be used (default: 2.0, SCSA's own <code>-f</code>).<br /></li>
+<li><code>pvalue</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.05</code></em>. <br />
+    The maximum adjusted p-value of a marker for
+    it to be used (default: 0.05, SCSA's own <code>-p</code>). A cluster with
+    no marker left is not annotated.<br /></li>
+<li><code>python</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>python</code></em>. <br />
+    The python path with the SCSA dependencies
+    (<code>pandas</code>, <code>numpy</code>, <code>scanpy</code>) installed
+    (default: the same python as the pipeline).<br /></li>
+</ul>
+</li>
+<li><code>maca</code> <em>(<code>ns</code>)</em>:
+    The arguments for <a href="https://github.com/ImXman/MACA"><code>MACA</code></a>
+    if <code>tool</code> is <code>maca</code>. MACA pins <code>scanpy==1.6.0</code> and <code>anndata==0.7.5</code>,
+    so it needs its own environment. The MACA script lives in
+    <code>biopipen/scripts/scrna/maca-wrapper.py</code>.<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
+    The path to the marker table (required).<br />
+    Must be a universal marker table (see the note above).<br /></li>
+<li><code>python</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>python</code></em>. <br />
+    The python path with MACA installed
+    (default: the same python as the pipeline).<br /></li>
+<li><code>n_pcs</code> <em>(<code>type=int</code>)</em>:
+    The number of principal components.<br /></li>
+<li><code>res</code> <em>(<code>type=auto</code>)</em>:
+    The Louvain resolutions, e.g. <code>[1, 2, 3]</code>
+    (default: MACA's own <code>[1, 2, 3]</code>).<br /></li>
+<li><code>n_neis</code> <em>(<code>type=auto</code>)</em>:
+    The numbers of neighbors, e.g. <code>[5, 10]</code>
+    (default: MACA's own <code>[5, 10]</code>).<br /></li>
+<li><code>freq</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.5</code></em>. <br />
+    The frequency threshold of the cluster mapping
+    (default: 0.5).<br /></li>
+<li><code>use_weight</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to weight the markers by their order in
+    the marker table (default: FALSE).<br /></li>
+</ul>
+</li>
+<li><code>scmapnet</code> <em>(<code>ns</code>)</em>:
+    The arguments for <a href="https://github.com/Yuz7/scMapNet"><code>scMapNet</code></a>
+    if <code>tool</code> is <code>scmapnet</code>. scMapNet turns each cell into a treemap image
+    and classifies it with a vision transformer. Its pipeline (treemap
+    image generation + <code>main_finetune.py</code>) is driven by
+    <code>biopipen/scripts/scrna/scmapnet-wrapper.py</code>.<br />
+    The pre-trained weights are a manual download and are licensed
+    CC BY-NC 4.0 (non-commercial).<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
+    The path to the marker table (required).<br />
+    Must be a universal marker table (see the note above).<br /></li>
+<li><code>python</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>python</code></em>. <br />
+    The python path with the scMapNet dependencies
+    (<code>torch</code>, <code>timm</code>, <code>torchvision</code>) installed
+    (default: the same python as the pipeline).<br /></li>
+<li><code>scmapnet_dir</code> <em>(<code>type=str</code>)</em>:
+    The path to the cloned scMapNet repo
+    (required), i.e. the directory holding <code>main_finetune.py</code> and
+    <code>generate_image_script.sh</code>.<br /></li>
+<li><code>weights</code> <em>(<code>type=str</code>)</em>:
+    The path to the checkpoint used for the
+    prediction (required). The pre-trained weights are not part of
+    the repo, see <a href="https://github.com/Yuz7/scMapNet">https://github.com/Yuz7/scMapNet</a>. The checkpoint
+    must be fine-tuned on the cell types of the marker table, and
+    the cell types are indexed in their sorted order.<br /></li>
+<li><code>organ</code> <em>(<code>type=str</code>)</em>:
+    The organ of the cells. scMapNet builds the
+    treemap images from an organ → cell type → gene hierarchy, so
+    this is the <code>organ</code> of every marker in the table.<br /></li>
+</ul>
+</li>
+<li><code>mllmcelltype</code> <em>(<code>ns</code>)</em>:
+    The arguments for
+    <code>mLLMCelltype::annotate_cell_types()</code> if <code>tool</code> is <code>mllmcelltype</code>.<br />
+    One call is made per run, with the top markers of every cluster.<br /><ul>
+<li><code>tissue</code> <em>(<code>type=str</code>)</em>:
+    The tissue of the cells (required),
+    e.g. <code>human PBMC</code>.<br /></li>
+<li><code>model</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>gpt-5.5</code></em>. <br />
+    The LLM to use (default: <code>gpt-5.5</code>).<br />
+    The model decides the provider, and so which API key is needed.<br /></li>
+<li><code>api_key</code> <em>(<code>type=str</code>)</em>:
+    The API key of the provider. When not set, the
+    key is read from the environment variable of the provider
+    (<code>OPENAI_API_KEY</code> or <code>ANTHROPIC_API_KEY</code>); without one, only the
+    prompt is built and an error is raised instead of annotating.<br /></li>
+<li><code>top_gene_count</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>10</code></em>. <br />
+    The number of top markers per cluster
+    put into the prompt (default: 10).<br /></li>
+<li><code>base_urls</code> <em>(<code>type=str</code>)</em>:
+    The base URLs of the providers, for
+    OpenAI-compatible endpoints. A single URL is the request URL
+    mLLMCelltype posts to, so a host-only one (or a <code>.../v1</code>) is
+    completed with the <code>/chat/completions</code> path; a named list of
+    per-provider URLs is used as it is.<br /></li>
+<li><code>return_reasoning</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to return the reasoning of the
+    model along with the cell types (default: FALSE).<br /></li>
+</ul>
+</li>
+<li><code>lict</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>LICT::LLMCellType()</code> if <code>tool</code> is <code>lict</code>.<br />
+    LICT queries every provider at once and combines the answers; the
+    providers without a key are skipped.<br /><ul>
+<li><code>species</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>Human</code></em>. <br />
+    The species of the cells (default: <code>Human</code>).<br /></li>
+<li><code>tissue</code> <em>(<code>type=str</code>)</em>:
+    The tissue of the cells.<br /></li>
+<li><code>topgenenumber</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>30</code></em>. <br />
+    The number of top markers per cluster
+    put into the prompt (default: 30).<br /></li>
+<li><code>validate</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    Whether to validate the markers
+    (default: TRUE).<br /></li>
+<li><code>percent</code> <em>(<code>type=float</code>)</em>: <em>Default: <code>0.5</code></em>. <br />
+    The percentage of the markers to use
+    (default: 0.5).<br /></li>
+<li><code>keys</code> <em>(<code>type=json</code>)</em>:
+    The API keys of the providers, as a map from the
+    environment variable name to its value, e.g.<br />
+    <code>{ "openai_api_key": "&lt;key&gt;" }</code>. They are set in the R session
+    (and inherited by the child processes) before the call.<br /></li>
+<li><code>provider</code> <em>(<code>type=str</code>)</em>:
+    The provider whose answer to use. Defaults to
+    the first provider that answered.<br /></li>
+</ul>
+</li>
+<li><code>mapquery</code> <em>(<code>ns</code>)</em>:
+    The arguments for <a href="https://satijalab.org/seurat/reference/mapquery"><code>Seurat::MapQuery()</code></a>
+    if <code>tool</code> is <code>mapquery</code>. The reference's cell types are transferred to
+    the cells of the query; as for the other cell-level tools, each cluster
+    also gets the majority call of its cells when <code>envs.ident</code> is set.<br /><ul>
+<li><code>db</code> <em>(<code>type=str</code>)</em>:
+    The reference Seurat object file (required).<br /></li>
+<li><code>use</code> <em>(<code>type=str</code>)</em>:
+    The metadata column of the reference holding the
+    cell types to transfer (required).<br /></li>
+<li><code>ident_name</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>predicted.id</code></em>. <br />
+    The metadata column of the query that receives
+    the transferred labels (kept distinct from <code>ident</code> so the clustering
+    column is not overwritten) (default: <code>predicted.id</code>).<br /></li>
+<li><code>refnorm</code> <em>(<code>choice</code>)</em>: <em>Default: <code>auto</code></em>. <br />
+    The normalization method the reference used; the
+    same method is used for the query (default: <code>auto</code>).<br /><ul>
+<li><code>LogNormalize</code>:
+    Normalize the query with <code>NormalizeData()</code>.<br /></li>
+<li><code>SCT</code>:
+    Normalize the query with <code>SCTransform()</code>.<br /></li>
+<li><code>SCTransform</code>:
+    An alias of <code>SCT</code>.<br /></li>
+<li><code>auto</code>:
+    Automatically detect the normalization method.<br /></li>
+</ul>
+</li>
+<li><code>skip_if_normalized</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    Whether to skip the normalization if the
+    query is already normalized (default: TRUE).<br /></li>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores to use for the mapping.<br /></li>
+<li><code>map_query</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>Seurat::MapQuery()</code>.<br /></li>
+<li><code>find_transfer_anchors</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>Seurat::FindTransferAnchors()</code>.<br /></li>
+<li><code>sctransform</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>Seurat::SCTransform()</code>.<br /></li>
+<li><code>normalize_data</code> <em>(<code>ns</code>)</em>:
+    The arguments for <code>Seurat::NormalizeData()</code>.<br /></li>
+</ul>
+</li>
 <li><code>merge</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
     Whether to merge the clusters with the same cell types.<br />
     Otherwise, a suffix will be added to the cell types (ie. <code>.1</code>, <code>.2</code>, etc).<br /></li>
@@ -892,9 +1415,12 @@ Prefix <code>file://</code> is optional.<br /></p>
 <h3 id="the-tools-can-be-divided-into-two-categories">The tools can be divided into two categories<a class="headerlink" href="#the-tools-can-be-divided-into-two-categories" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Cluster-level tools: annotate the clusters, each cluster being assigned one cell type.<br />
-  These include <code>sctype</code>, <code>sccatch</code>, <code>scsorter</code>, <code>singler</code>, <code>llmcelltype</code>, <code>scagenttype</code>, and <code>direct</code>.<br /></li>
+  These include <code>sctype</code>, <code>sccatch</code>, <code>scsorter</code>, <code>singler</code>, <code>azimuth</code>, <code>llmcelltype</code>,
+  <code>mllmcelltype</code>, <code>lict</code>, <code>scagenttype</code>, <code>scsa</code>, and <code>direct</code>.<br /></li>
 <li>Cell-level tools: annotate the cells, each cell being assigned one cell type.<br />
-  These include <code>scina</code>, <code>hitype</code>, <code>cellassign</code>, <code>cellid</code>, <code>scbert</code>, <code>schdeepinsight</code>, <code>llmcelltype</code>, <code>cell</code>, and <code>garnett</code>.<br />
+  These include <code>scina</code>, <code>hitype</code>, <code>cellassign</code>, <code>cellid</code>, <code>scbert</code>, <code>schdeepinsight</code>,
+  <code>llmcelltype</code>, <code>cell</code>, <code>garnett</code>, <code>ucell</code>, <code>aucell</code>, <code>gsva</code>, <code>singscore</code>, <code>scmap</code>,
+  <code>cheetah</code>, <code>scclassify</code>, <code>scpred</code>, <code>mapquery</code>, <code>maca</code>, and <code>scmapnet</code>.<br />
   For cell-level tools, a cluster-level annotation can also be generated by specifying
   <code>envs.ident</code> (or <code>envs.cases.X.ident</code> for a specific case), where each cluster is
   assigned the cell type by majority vote of the cells in the cluster.<br /></li>
@@ -905,18 +1431,33 @@ Prefix <code>file://</code> is optional.<br /></p>
   annotations via its over-clustering mechanism (<code>envs.celltypist.over_clustering</code>
   or <code>envs.ident</code>).<br /></li>
 </ul>
+<p><code>scsa</code> annotates the clusters like <code>sctype</code> and <code>sccatch</code>, but its wrapper maps
+the cluster labels back onto the cells, so a per-cell column is produced as well
+(the same shape as <code>azimuth</code>: a cluster-level mapping plus per-cell labels).<br /></p>
 <h3 id="the-tools-can-also-be-divided-by-their-input-types">The tools can also be divided by their input types<a class="headerlink" href="#the-tools-can-also-be-divided-by-their-input-types" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Marker-based tools: take marker genes for the cell types, including
   <code>sctype</code>, <code>hitype</code>, <code>sccatch</code>, <code>scsorter</code>, <code>scina</code>, <code>cellassign</code>, and <code>cellid</code>.<br />
-  They all accept the universal marker format (see the note below).<br /></li>
+  They all accept the universal marker format (see the note below).<br />
+  The scorer family (<code>ucell</code>, <code>aucell</code>, <code>gsva</code>, and <code>singscore</code>) is also
+  marker-based: it scores the <em>same</em> marker table for every cell with equal
+  weights (no learned weights), and assigns each cell the cell type with the
+  highest score, so a <code>weight</code> column in the marker table is ignored.<br /></li>
 <li>Model/reference-based tools: take a trained model or a reference object,
-  including <code>celltypist</code>, <code>scbert</code>, <code>singler</code>, <code>schdeepinsight</code>, and <code>garnett</code>.<br />
+  including <code>celltypist</code>, <code>scbert</code>, <code>singler</code>, <code>schdeepinsight</code>, <code>garnett</code>,
+  <code>scmap</code>, <code>cheetah</code>, <code>scclassify</code>, <code>scpred</code>, <code>azimuth</code>, and <code>mapquery</code>.<br />
+  <code>mapquery</code> consumes a labeled reference and annotates the <em>cells</em> of the
+  query; like the other cell-level tools, the cluster-level view comes from
+  <code>envs.ident</code> (or <code>envs.cases.X.ident</code>), not from the tool itself.<br />
   A <code>garnett</code> classifier is trained from marker genes and expression data
   (it is model-based, not a plain marker-table input like the marker-based tools).<br /></li>
 <li>Direct-annotation tools: take the cell types directly via <code>envs.cell_types</code>,
   including <code>direct</code> and <code>cell</code>.<br /></li>
 </ul>
+<p><code>scsa</code>, <code>maca</code>, and <code>scmapnet</code> are python-based tools, driven through wrapper
+scripts under <code>biopipen/scripts/scrna/</code> like the other python-based tools
+(<code>celltypist</code>, <code>scbert</code>, <code>schdeepinsight</code>, <code>scagenttype</code>); their python
+dependencies are not installed by biopipen, see the <code>envs.&lt;tool&gt;</code> below.<br /></p>
 <p>The annotated cell types will be saved to a new column (<code>envs.anno_col</code>, default: <code>CellType</code>)
 in the metadata, so that the downstream processes will use the annotated cell types
 (the identity will be set to the annotation column unless <code>envs.set_ident</code> is <code>False</code>).<br /></p>
@@ -997,11 +1538,6 @@ data.frame for <code>sccatch</code>, etc.).<br /></p>
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
 <p>When <code>envs.tool</code> is <code>direct</code> and <code>envs.cell_types</code> is empty, the metadata of
 the <code>Seurat</code> object will be kept as is.<br /></p>
-<p>When <code>envs.anno_col</code> is specified, the original identity column (e.g. <code>seurat_clusters</code>) will
-be kept as is, and the annotated cell types will be saved in the new column.<br />
-Otherwise, the original identity column will be replaced by the
-annotated cell types and the original identity column will be
-saved at <code>envs.backup_col</code> (e.g. <code>seurat_clusters_id</code>).<br /></p>
 <p><img alt="CellTypeAnnotation-metadata" src="../images/CellTypeAnnotation-metadata.png" /></p>
               
             </div>
