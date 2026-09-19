@@ -62,6 +62,11 @@ dependencies:
   - bioconda::bioconductor-ucell
   - bioconda::bioconductor-aucell
   - bioconda::bioconductor-gseabase
+  - bioconda::bioconductor-singscore
+  - bioconda::bioconductor-scmap
+  - bioconda::bioconductor-chetah
+  - bioconda::bioconductor-scclassify
+  - bioconda::bioconductor-gsva
   - pwwang::r-seuratdisk
   - r-qs2
   # Needed by r-scplotter
@@ -140,6 +145,10 @@ dependencies:
   - r-htmlwidgets
   # unable to load shared object: stringfish.so for the one from r channel
   - pwwang::r-stringfish
+  - pwwang::r-llmcelltype
+  - pwwang::r-mllmcelltype
+  - pwwang::r-lict
+  - r-scpred
   - pip:
     - liana
     - celltypist2
