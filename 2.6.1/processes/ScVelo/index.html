@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>ScVelo - immunopipe</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ScVelo";
+        var mkdocs_page_input_path = "processes/ScVelo.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../cli-utils/">CLI utilities</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../agent-skills/">Agent Skills</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Slingshot/">Slingshot</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3Clustering/">CDR3Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">ScVelo</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/processes/ScVelo.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="scvelo">ScVelo<a class="headerlink" href="#scvelo" title="Permanent link">&para;</a></h2>
+<p>Velocity analysis for single-cell RNA-seq data</p>
+<p>This process is implemented based on the Python package <code>scvelo</code> (v0.3.3).<br />
+Note that it doesn't work with <code>numpy&gt;=2</code>.<br /></p>
+<h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>sobjfile</code>:
+    The seurat object file in RDS or h5seurat format or AnnData file.<br /></li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>outfile</code>: <em>Default: <code>{{in.sobjfile | stem}}-scvelo.{{ext0(in.sobjfile) if envs.outtype == '&lt;input&gt;' else envs.outtype}}</code></em>. <br />
+    The output object with the velocity embeddings and information.<br />
+    In either RDS, h5seurat or h5ad format, depending on the <code>envs.outtype</code>.<br />
+    There will be also plots generated in the output directory
+    (parent directory of <code>outfile</code>).<br />
+    Note that these plots will not be used in the report, but can be used as
+    supplementary information for the velocity analysis.<br />
+    To visualize the velocity embeddings, you can use the <code>SeuratClusterStats</code>
+    process with <code>v_reduction</code> provided to one of the <code>envs.dimplots</code>.<br /></li>
+</ul>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>ncores</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1</code></em>. <br />
+    Number of cores to use.<br /></li>
+<li><code>group_by</code>:
+    The column name in metadata to group the cells.<br />
+    Typically, this column should be the cluster id.<br />
+    If provided input is a Seurat object, the default identity will be used by
+    default. Otherwise, it is recommended to provide this parameter.<br />
+    "seurat_clusters" will be used with a warning if the input is in AnnData
+    format and this parameter is not provided.<br /></li>
+<li><code>mode</code> <em>(<code>type=list</code>)</em>: <em>Default: <code>['deterministic', 'stochastic', 'dynamical']</code></em>. <br />
+    The mode to use for the velocity analysis.<br />
+    It should be a subset of <code>['deterministic', 'stochastic', 'dynamical']</code>,
+    meaning that we can perform the velocity analysis in multiple modes.<br /></li>
+<li><code>fitting_by</code> <em>(<code>choice</code>)</em>: <em>Default: <code>stochastic</code></em>. <br />
+    The mode to use for fitting the velocities.<br /><ul>
+<li><code>stochastic</code>:
+    Stochastic mode</li>
+<li><code>deterministic</code>:
+    Deterministic mode</li>
+</ul>
+</li>
+<li><code>min_shared_counts</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>30</code></em>. <br />
+    Minimum number of counts
+    (both unspliced and spliced) required for a gene.<br /></li>
+<li><code>n_neighbors</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>30</code></em>. <br />
+    The number of neighbors to use for the velocity graph.<br /></li>
+<li><code>n_pcs</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>30</code></em>. <br />
+    The number of PCs to use for the velocity graph.<br /></li>
+<li><code>denoise</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to denoise the data.<br /></li>
+<li><code>denoise_topn</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>3</code></em>. <br />
+    Number of genes with highest likelihood selected to
+    infer velocity directions.<br /></li>
+<li><code>kinetics</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to compute the RNA velocity kinetics.<br /></li>
+<li><code>kinetics_topn</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    Number of genes with highest likelihood selected to
+    infer velocity directions.<br /></li>
+<li><code>calculate_velocity_genes</code> <em>(<code>flag</code>)</em>: <em>Default: <code>False</code></em>. <br />
+    Whether to calculate the velocity genes.<br /></li>
+<li><code>top_n</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>6</code></em>. <br />
+    The number of top features to plot.<br /></li>
+<li><code>rscript</code>: <em>Default: <code>Rscript</code></em>. <br />
+    The path to the Rscript executable used to convert RDS file to AnnData.<br />
+    if <code>in.sobjfile</code> is an RDS file, it will be converted to AnnData file
+    (h5ad). You need <code>Seurat</code>, <code>SeuratDisk</code> and <code>digest</code> installed.<br /></li>
+<li><code>outtype</code> <em>(<code>choice</code>)</em>: <em>Default: <code>&lt;input&gt;</code></em>. <br />
+    The output file type.<br /><ul>
+<li><code>&lt;input&gt;</code>:
+    The same as the input file type.<br /></li>
+<li><code>h5seurat</code>:
+    h5seurat file</li>
+<li><code>h5ad</code>:
+    h5ad file</li>
+<li><code>qs</code>:
+    qs/qs2 file</li>
+<li><code>qs2</code>:
+    qs2 file</li>
+<li><code>rds</code>:
+    RDS file</li>
+</ul>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/version-select.js"></script>
+      <script src="../../assets/script.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

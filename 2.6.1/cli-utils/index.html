@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>CLI utilities - immunopipe</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CLI utilities";
+        var mkdocs_page_input_path = "cli-utils.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../rtd-logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../introduction/">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Geting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../gallery/">Gallery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../running/">Running the pipeline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../preparing-input/">Preparing the input</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../configurations/">Configurations</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">CLI utilities</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#check-genes">check-genes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#options">Options</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#check-dim">check-dim</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#options_1">Options</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#select-markers">select-markers</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#options_2">Options</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../agent-skills/">Agent Skills</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../mcp-server/">MCP Sever</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Processes</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SampleInfo/">SampleInfo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/LoadingRNAFromSeurat/">LoadingRNAFromSeurat</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratPreparing/">SeuratPreparing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusteringOfAllCells/">SeuratClusteringOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkersOfAllCells/">ClusterMarkersOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TOrBCellSelection/">TOrBCellSelection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ModuleScoreCalculator/">ModuleScoreCalculator</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClustering/">SeuratClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellTypeAnnotation/">CellTypeAnnotation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClusterMarkers/">ClusterMarkers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TopExpressingGenes/">TopExpressingGenes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratSubClustering/">SeuratSubClustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/Slingshot/">Slingshot</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepLoading/">ScRepLoading</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScRepCombiningExpression/">ScRepCombiningExpression</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CDR3Clustering/">CDR3Clustering</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/TESSA/">TESSA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/SeuratClusterStats/">SeuratClusterStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScFGSEA/">ScFGSEA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MarkersFinder/">MarkersFinder</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/PseudoBulkDEG/">PseudoBulkDEG</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ClonalStats/">ClonalStats</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CDR3AAPhyschem/">CDR3AAPhyschem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellCellCommunication/">CellCellCommunication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/CellCellCommunicationPlots/">CellCellCommunicationPlots</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Metabolic Landscape Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/ScrnaMetabolicLandscape/">Introduction & Group Arguments</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicInput/">MetabolicInput</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicExprImputation/">MetabolicExprImputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicFeatures/">MetabolicFeatures</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayActivity/">MetabolicPathwayActivity</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../processes/MetabolicPathwayHeterogeneity/">MetabolicPathwayHeterogeneity</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">Change log</a>
+                </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">immunopipe</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">CLI utilities</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/immunopipe/blob/dev/docs/cli-utils.md">Edit on pwwang/immunopipe</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="cli-utilities">CLI utilities<a class="headerlink" href="#cli-utilities" title="Permanent link">&para;</a></h2>
+<p>Besides running the pipeline, <code>immunopipe</code> ships a set of utility commands for inspecting the pipeline outputs after a run:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span>--help
+</code></pre></div>
+<h3 id="check-genes">check-genes<a class="headerlink" href="#check-genes" title="Permanent link">&para;</a></h3>
+<p>Verify that gene symbols exist in the data before visualizing their expressions in <a href="../processes/SeuratClusterStats/"><code>SeuratClusterStats</code></a>. The Seurat object is read from the output of the <a href="../processes/SeuratPreparing/"><code>SeuratPreparing</code></a> process.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span>check-genes<span class="w"> </span>-w<span class="w"> </span>./pipen/&lt;pipeline<span class="w"> </span>name&gt;<span class="w"> </span>-g<span class="w"> </span>CD3D,CD4,CD8A
+</code></pre></div>
+<h4 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>-w, --workdir</code> (required): Working directory of the pipeline, typically <code>./pipen/&lt;pipeline name&gt;</code></li>
+<li><code>-g, --genes</code> (required): Comma-separated gene symbols to check, or a file path prefixed with <code>file://</code> containing gene symbols (one per line). Tab-separated files are also accepted, in which case only the first column is used.</li>
+<li><code>--assay</code>: The assay to check the genes against (e.g. <code>RNA</code>, <code>ADT</code>). The genes are checked against the default assay if not specified.</li>
+<li><code>--rscript</code>: Path to the <code>Rscript</code> executable (default: <code>Rscript</code>)</li>
+</ul>
+<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check comma-separated genes</span>
+$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span>check-genes<span class="w"> </span>-w<span class="w"> </span>./pipen/pipeline1<span class="w"> </span>-g<span class="w"> </span>CD3D,CD4,CD8A
+
+<span class="c1"># Check genes from a file</span>
+$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span>check-genes<span class="w"> </span>-w<span class="w"> </span>./pipen/pipeline1<span class="w"> </span>-g<span class="w"> </span>file://genes.txt
+
+<span class="c1"># Check genes in a specific assay</span>
+$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span>check-genes<span class="w"> </span>-w<span class="w"> </span>./pipen/pipeline1<span class="w"> </span>-g<span class="w"> </span>CD3D,CD4<span class="w"> </span>--assay<span class="w"> </span>ADT
+</code></pre></div>
+<h3 id="check-dim">check-dim<a class="headerlink" href="#check-dim" title="Permanent link">&para;</a></h3>
+<p>Print the cell and gene counts before and after QC to inspect the effect of the QC filtering in <a href="../processes/SeuratPreparing/"><code>SeuratPreparing</code></a>. The output tables are the full contents of <code>qc/cell_qc.txt</code> and <code>qc/gene_qc.txt</code> in the <code>SeuratPreparing</code> output directory.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span>check-dim<span class="w"> </span>-w<span class="w"> </span>./pipen/&lt;pipeline<span class="w"> </span>name&gt;
+</code></pre></div>
+<h4 id="options_1">Options<a class="headerlink" href="#options_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>-w, --workdir</code> (required): Working directory of the pipeline, typically <code>./pipen/&lt;pipeline name&gt;</code></li>
+<li><code>--rscript</code>: Path to the <code>Rscript</code> executable (default: <code>Rscript</code>)</li>
+</ul>
+<h3 id="select-markers">select-markers<a class="headerlink" href="#select-markers" title="Permanent link">&para;</a></h3>
+<p>Select the top marker genes for each cluster from the <a href="../processes/ClusterMarkers/"><code>ClusterMarkers</code></a> process, for downstream analysis and visualization. The selected markers are written to stdout as a tab-separated table, so you can redirect it to a file:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>immunopipe<span class="w"> </span>utils<span class="w"> </span>select-markers<span class="w"> </span>-o<span class="w"> </span>./pipen/&lt;pipeline<span class="w"> </span>name&gt;<span class="w"> </span>&gt;<span class="w"> </span>selected_markers.tsv
+</code></pre></div>
+<h4 id="options_2">Options<a class="headerlink" href="#options_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>-o, --outdir</code> (required): Output directory of the pipeline (the directory containing the <code>ClusterMarkers</code> output)</li>
+<li><code>-t, --top-n</code>: Number of top markers to keep per cluster (default: <code>10</code>)</li>
+<li><code>--order-by</code>: An R expression to order the markers by before selecting the top ones. Available variables: <code>avg_log2FC</code>, <code>pct.1</code>, <code>pct.2</code>, <code>p_val</code>, <code>p_val_adj</code> (default: <code>desc(avg_log2FC)</code>)</li>
+<li><code>-f, --filter</code>: An R expression to filter the markers before selection. Available variables: <code>avg_log2FC</code>, <code>pct.1</code>, <code>pct.2</code>, <code>p_val</code>, <code>p_val_adj</code> (default: <code>p_val_adj &lt; 0.05</code>)</li>
+<li><code>--rscript</code>: Path to the <code>Rscript</code> executable (default: <code>Rscript</code>)</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The output directory must contain exactly one <code>ClusterMarkers/*.markers/</code> directory with exactly one case directory inside. If multiple are found, the command will list them and exit; specify the correct directory with <code>-o</code>.</p>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../configurations/" class="btn btn-neutral float-left" title="Configurations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../agent-skills/" class="btn btn-neutral float-right" title="Agent Skills">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    
+    Version: <div id="mike-versions"></div>
+    <div class="footer-sep"></div>
+    <a href="https://github.com/pwwang/immunopipe" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../configurations/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../agent-skills/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/version-select.js"></script>
+      <script src="../assets/script.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
