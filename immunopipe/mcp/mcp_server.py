@@ -91,8 +91,10 @@ class MCPServer:
             if method == "initialize":
                 return {"jsonrpc": "2.0", "id": request_id, "result": self.server_info}
 
-            elif method == "initialized":
-                # No response needed for initialized notification
+            elif method == "initialized" or (method or "").startswith("notifications/"):
+                # Notifications must never be answered (JSON-RPC 2.0 / MCP): a reply
+                # carrying a null id is not a valid MCP JSONRPCMessage, and stock
+                # clients report it as a parse failure on connect.
                 return None
 
             elif method == "tools/list":
@@ -145,10 +147,6 @@ class MCPServer:
                 level = params.get("level", "info")
                 logger.info(f"Setting log level to: {level}")
                 return {"jsonrpc": "2.0", "id": request_id, "result": {}}
-
-            elif method == "notifications/cancelled":
-                # Handle cancellation notifications
-                return None
 
             elif method == "completion/complete":
                 # Handle completion requests
