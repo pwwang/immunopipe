@@ -56,12 +56,15 @@ The easiest way to run the pipeline is to run it within the docker container. We
 
 ```bash
 docker run \
-    --rm -w /workdir -v .:/workdir \
+    --rm -w /workdir \
+    -v .:/workdir \
+    -v /tmp:/tmp \
+    --user "$(id -u):$(id -g)" \
     justold/immunopipe:master \
     @ImmunopipeMinimal.config.toml
 ```
 
-If you encounter permission issues when running the docker container, you can add `--user $(id -u):$(id -g)` to the command to run the container as the current user.
+`-v /tmp:/tmp` is required: the pipeline stages intermediate files under the container's `/tmp`, which otherwise lives in the container's writable layer and can run out of space — the symptom is `No space left on device` (see the [FAQ](./faq.md)). `--user "$(id -u):$(id -g)"` makes the outputs owned by you rather than `root` — drop it only if you do not mind `sudo` to clean up. Memory: the example dataset needs ≥16 GB.
 ///
 
 /// tab | Using singularity
