@@ -6,23 +6,32 @@
 If you plan to use the docker image to run the pipeline locally, you can skip this section.
 ///
 
-`immunopipe` is built upon [`pipen`](https://github.com/pwwang/pipen) framework, and a number of packages written in `R` and `python`. It's not recommended to install the packages manually. Instead, you can use the provided `environment_base.yml` to create a conda environment.
+`immunopipe` is built upon [`pipen`](https://github.com/pwwang/pipen) framework, and a number of packages written in `R` and `python`. It's not recommended to install the packages manually. Instead, you can use the provided `environment_base.yml` to create a conda environment. Download the environment files first:
+
+```shell
+$ curl -fLO https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_base.yml
+$ curl -fLO https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_rpkgs.yml
+```
+
+Then create the environment with the base file:
 
 ```shell
 $ conda env create \
     -n immunopipe \
-    -f https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_base.yml
+    -f ./environment_base.yml
 ```
 
-Then update the environment with essential `R` packages:
+And update it with the essential `R` packages:
 
 ```shell
 $ conda env update \
     -n immunopipe \
-    -f https://raw.githubusercontent.com/pwwang/immunopipe/master/docker/environment_rpkgs.yml
+    -f ./environment_rpkgs.yml
 ```
 
-If the URL doesn't work, you can download the file and create the environment locally.
+/// Attention
+Do not pass the environment file as a URL (that is, do not use `-f https://...`). In `conda env create`, `-f` accepts a *list* of paths; when the argument is a URL, conda fails in its own pip step with `AttributeError: 'list' object has no attribute 'split'` (see `conda/env/pip_util.py`). The dependency solve succeeds and every package is installed before that failure, so the environment is left **silently incomplete** — the `pip:` entries (`tensorflow`, `scvelo`, `liana`, `keras`, ...) are missing, and the error only appears at the very end of a long installation. Downloading the files first, as above, avoids this. Verified with conda 26.7.2.
+///
 
 For more detailed instructions of `conda env create`, please refer to [conda docs](https://docs.conda.io/projects/conda/en/latest/commands/env/create.html).
 
