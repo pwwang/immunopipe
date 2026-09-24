@@ -946,13 +946,13 @@ class ImmunopipeConfigTools:
                 config["envs"] = envs
 
         elif process_name == "TOrBCellSelection":
-            envs = {}
-            if "tcr" in requirements_lower or "t cell" in requirements_lower:
-                envs["cell_type"] = "T"
-            elif "bcr" in requirements_lower or "b cell" in requirements_lower:
-                envs["cell_type"] = "B"
-            if envs:
-                config["envs"] = envs
+            # `selector` is the option to indicate which cells are T/B cells
+            # (`cell_type` does not exist for this process)
+            if any(
+                keyword in requirements_lower
+                for keyword in ("tcr", "t cell", "bcr", "b cell")
+            ):
+                config["envs"] = {"selector": "Clonotype_Pct > 0.25"}
 
         # Add user-specified parameters
         if parameters.get(process_name):

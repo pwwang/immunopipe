@@ -1,6 +1,9 @@
 """Tests for MCP TOML generator module."""
 
+from pathlib import Path
+
 import pytest
+from immunopipe.mcp.options import OptionsDiscovery
 from immunopipe.mcp.toml_generator import (
     _toml_loads,
     ConfigSection,
@@ -9,6 +12,8 @@ from immunopipe.mcp.toml_generator import (
 )
 # Required for test ordering
 pytest_order = 100
+
+CONFIGDIR = Path(__file__).parent / "running" / "configs"
 
 
 class TestConfigSection:
@@ -143,7 +148,7 @@ outdir = "./output"
 cache = true
 
 [SampleInfo.envs]
-param1 = "value1"
+sep = "\\t"
 '''
 
         is_valid, errors = generator.validate_config(valid_config)
@@ -284,6 +289,137 @@ class TestConfigTemplateGenerator:
         assert "project = \"your-google-project\"" in template
         assert "region = \"us-central1\"" in template
         assert "machine_type = \"e2-standard-4\"" in template
+
+
+class TestTCRTemplateOptions:
+    """The TCR template must only use the options of the installed pipeline."""
+
+    def test_tcr_template_uses_real_torbcellselection_envs(self):
+        """Regression: `cell_type` is not an option of TOrBCellSelection."""
+        template = ConfigTemplateGenerator().generate_tcr_analysis_template()
+        config = _toml_loads(template)
+
+        envs = config["TOrBCellSelection"]["envs"]
+        processes = OptionsDiscovery().get_process_options()
+        real_envs = processes["TOrBCellSelection"]["envs"]
+
+        assert envs, "The template should indicate how to select T cells"
+        assert "cell_type" not in envs
+        assert set(envs) <= set(real_envs), sorted(set(envs) - set(real_envs))
+
+    def test_tcr_template_validates(self):
+        """The generated template must pass the server's own validation."""
+        template = ConfigTemplateGenerator().generate_tcr_analysis_template()
+        is_valid, errors = TOMLGenerator().validate_config(template)
+
+        assert is_valid is True, errors
+
+
+class TestValidateConfigAgainstPipeline:
+    """`validate_config` must check a config against the installed pipeline."""
+
+    def test_invented_sections_and_envs_are_rejected(self):
+        config = """
+name = "test_pipeline"
+outdir = "./output"
+
+[NotAProcess]
+envs = {foo = 1}
+
+[TOrBCellSelection.envs]
+cell_type = "T"
+"""
+        is_valid, errors = TOMLGenerator().validate_config(config)
+
+        assert is_valid is False
+        assert any("NotAProcess" in error for error in errors), errors
+        assert any("cell_type" in error for error in errors), errors
+
+    def test_real_options_at_the_wrong_level_are_warnings(self):
+        """pipen silently ignores `min_cells` outside [SeuratPreparing.envs]."""
+        config = """
+[SeuratPreparing]
+min_cells = 3
+"""
+        is_valid, errors = TOMLGenerator().validate_config(config)
+
+        assert is_valid is True
+        assert any(
+            error.startswith("Warning:") and "min_cells" in error for error in errors
+        ), errors
+
+    def test_real_options_are_accepted(self):
+        config = """
+name = "test_pipeline"
+outdir = "./output"
+forks = 2
+
+[SampleInfo.in]
+infile = "sample_info.txt"
+
+[TOrBCellSelection.envs]
+selector = "Clonotype_Pct > 0.25"
+"""
+        is_valid, errors = TOMLGenerator().validate_config(config)
+
+        assert is_valid is True, errors
+
+    def test_named_registries_are_accepted(self):
+        """`cases`/`stats`-like options take user-chosen names as their keys."""
+        config = """
+[ClonalStats.envs.cases."A case"]
+viz_type = "volume"
+
+[ClonalStats.envs.cases."Another case"]
+viz_type = "volume"
+
+[SampleInfo.envs.stats."A stat"]
+plot_type = "pie"
+
+[SeuratClusterStats.envs.stats."A cluster stat"]
+plot_type = "bar"
+
+[SeuratClusterStats.envs.features."A feature plot"]
+plot_type = "violin"
+"""
+        is_valid, errors = TOMLGenerator().validate_config(config)
+
+        assert is_valid is True, errors
+
+    def test_unknown_pipeline_option_is_rejected(self):
+        is_valid, errors = TOMLGenerator().validate_config("bogus_option = 1\n")
+
+        assert is_valid is False
+        assert any("bogus_option" in error for error in errors), errors
+
+    def test_repo_configs_have_no_false_positives(self):
+        """The repo configs validate, except the genuinely broken ones.
+
+        `malformed.config.toml` is not valid TOML, and the two SeuratPreparing
+        configs set `envs.cell_qc_per_sample`, which the installed biopipen
+        does not have (pipen silently ignores it and passes it to the job).
+        """
+        stale = {
+            "SeuratPreparing.config.toml",
+            "SeuratPreparing_sct.config.toml",
+        }
+
+        unexpected = {}
+        for path in sorted(CONFIGDIR.glob("*.toml")):
+            is_valid, errors = TOMLGenerator().validate_config(path.read_text())
+
+            if path.name == "malformed.config.toml":
+                assert is_valid is False, path.name
+            elif path.name in stale:
+                assert is_valid is False, path.name
+                assert all("cell_qc_per_sample" in error for error in errors), (
+                    path.name,
+                    errors,
+                )
+            elif not is_valid:
+                unexpected[path.name] = errors
+
+        assert unexpected == {}
 
 
 if __name__ == "__main__":

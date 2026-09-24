@@ -93,7 +93,7 @@ asyncio.run(main())
    ```python
    result = await client.call_tool("generate_full_config", {
        "pipeline_options": {"name": "my_tcr_analysis"},
-       "processes": {"TOrBCellSelection": {"envs": {"cell_type": "T"}}},
+       "processes": {"TOrBCellSelection": {"envs": {"selector": "Clonotype_Pct > 0.25"}}},
        "description": "TCR analysis configuration"
    })
    ```

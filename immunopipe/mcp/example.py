@@ -92,7 +92,7 @@ async def demonstrate_mcp_tools():
         pipeline_opts = {"name": "demo_analysis", "outdir": "./demo_output"}
         process_configs = {
             "SampleInfo": {"in": {"infile": ["sample_info.txt"]}},
-            "TOrBCellSelection": {"envs": {"cell_type": "T"}},
+            "TOrBCellSelection": {"envs": {"selector": "Clonotype_Pct > 0.25"}},
         }
         gbatch_opts = {"project": "demo-project", "region": "us-central1"}
 

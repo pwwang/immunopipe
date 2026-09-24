@@ -93,6 +93,22 @@ class TestPipelineOptionsDiscovery:
         empty_option = {}
         assert discovery._infer_type(empty_option) == 'str'
 
+    def test_infer_type_from_string(self):
+        """`PIPEN_ARGS` describes types as strings, not as type objects."""
+        discovery = PipelineOptionsDiscovery()
+
+        assert discovery._infer_type({"type": "str"}) == "str"
+        assert discovery._infer_type({"type": "anypath"}) == "anypath"
+        assert discovery._infer_type({"type": str}) == "str"
+
+    def test_get_pipeline_options_from_installed_pipeline(self):
+        """Regression: the discovery returned an empty dict for every call."""
+        discovery = PipelineOptionsDiscovery()
+        options = discovery.get_pipeline_options()
+
+        assert options, "pipeline options must be discovered from the pipeline"
+        assert {"name", "outdir", "forks"} <= set(options)
+
 
 class TestProcessDiscovery:
     """Test ProcessDiscovery class."""

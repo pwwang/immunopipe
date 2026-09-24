@@ -122,6 +122,30 @@ class TestImmunopipeConfigTools:
         assert result.content["test_option"]["description"] == "Test option"
 
     @pytest.mark.asyncio
+    async def test_list_pipeline_options_returns_real_options(self):
+        """Regression: the tool returned `{}` on every call."""
+        tools = ImmunopipeConfigTools()
+        result = await tools.execute_tool("list_pipeline_options", {})
+
+        assert result.success is True
+        assert result.content, "list_pipeline_options must not be empty"
+        assert {"name", "outdir"} <= set(result.content)
+        assert result.content["name"]["description"]
+
+    @pytest.mark.asyncio
+    async def test_validate_config_tool_detects_invented_options(self):
+        """The tool reports the errors of TOMLGenerator.validate_config."""
+        tools = ImmunopipeConfigTools()
+        result = await tools.execute_tool(
+            "validate_config",
+            {"config_content": "[FakeProcess]\nfake_option = 1\n"},
+        )
+
+        assert result.success is True
+        assert result.content["valid"] is False
+        assert result.content["errors"]
+
+    @pytest.mark.asyncio
     @patch("immunopipe.mcp.tools.OptionsDiscovery")
     async def test_list_processes(self, mock_options_discovery):
         """Test list_processes tool."""
