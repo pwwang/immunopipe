@@ -203,7 +203,7 @@ You need install the dependencies via `pip install -U immunopipe[cli-gbatch]` to
 > immunopipe gbatch @config.toml
 ```
 
-To provide the scheduler options to run the wrapped job (daemon) on Google Cloud Batch Jobs, you can specify them by `--gbatch.machine-type`, `--gbatch.provisioning-model`, `--gbatch.disk-size-gb`, etc. See the help message of `immunopipe gbatch --help` for more details.
+To provide the scheduler options to run the wrapped job (daemon) on Google Cloud Batch Jobs, you can specify them by `--gbatch.machine-type`, `--gbatch.provisioning-model`, `--gbatch.service-account`, `--gbatch.mount`, etc. VM settings that do not have their own option, such as the disk size, can be passed through `--gbatch.allocationPolicy`, which takes a JSON string that is merged into the job's `allocationPolicy`. See the help message of `immunopipe gbatch --help` for more details.
 
 ```shell
 > immunopipe gbatch --help
