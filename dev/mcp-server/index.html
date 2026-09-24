@@ -88,7 +88,15 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#vscode-integration">VSCode Integration</a>
+    <li class="toctree-l2"><a class="reference internal" href="#editor-agent-integration">Editor / agent integration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#vscode-copilot-agent-mode">VSCode (Copilot agent mode)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#claude-desktop">Claude Desktop</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#any-client-check-it-before-blaming-the-client">Any client — check it before blaming the client</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#available-tools">Available Tools</a>
         <ul>
@@ -306,19 +314,48 @@ immunopipe<span class="w"> </span>mcp<span class="w"> </span>--transport<span cl
 <span class="c1"># Run with HTTP transport (for testing)</span>
 immunopipe<span class="w"> </span>mcp<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
 </code></pre></div>
-<h3 id="vscode-integration">VSCode Integration<a class="headerlink" href="#vscode-integration" title="Permanent link">&para;</a></h3>
-<p>To integrate with VSCode and Claude, add the following to your VSCode settings:</p>
+<h3 id="editor-agent-integration">Editor / agent integration<a class="headerlink" href="#editor-agent-integration" title="Permanent link">&para;</a></h3>
+<p>The server speaks MCP over stdio. Configure it in the client's own config file — the shape differs per
+client, and getting it wrong is the most common reason a connection fails silently.</p>
+<h4 id="vscode-copilot-agent-mode">VSCode (Copilot agent mode)<a class="headerlink" href="#vscode-copilot-agent-mode" title="Permanent link">&para;</a></h4>
+<p>Create <code>.vscode/mcp.json</code> in your project (or add <code>mcp</code> to your user settings):</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"mcp"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">"servers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"immunopipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-m"</span><span class="p">,</span><span class="w"> </span><span class="s2">"immunopipe.mcp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--transport"</span><span class="p">,</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">]</span>
-<span class="w">      </span><span class="p">}</span>
+<span class="w">  </span><span class="nt">"servers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"immunopipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"immunopipe"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"mcp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--transport"</span><span class="p">,</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">]</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<h4 id="claude-desktop">Claude Desktop<a class="headerlink" href="#claude-desktop" title="Permanent link">&para;</a></h4>
+<p>Edit <code>claude_desktop_config.json</code> (macOS: <code>~/Library/Application Support/Claude/</code>;
+Windows: <code>%APPDATA%\Claude\</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"immunopipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"immunopipe"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"mcp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--transport"</span><span class="p">,</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="any-client-check-it-before-blaming-the-client">Any client — check it before blaming the client<a class="headerlink" href="#any-client-check-it-before-blaming-the-client" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>immunopipe<span class="w"> </span>mcp<span class="w"> </span>--transport<span class="w"> </span>stdio<span class="w">      </span><span class="c1"># then paste an initialize + tools/list frame</span>
+</code></pre></div>
+<p>Or run the bundled smoke test, which performs the handshake for you:</p>
+<div class="highlight"><pre><span></span><code>bash<span class="w"> </span>scripts/mcp_smoke.sh<span class="w">             </span><span class="c1"># from a clone of this repository</span>
+<span class="c1"># expected: a list of tool names, then "SMOKE OK"</span>
+</code></pre></div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Two mistakes account for nearly all failed connections:
+1. <strong>Wrong top-level key.</strong> VSCode uses <code>servers</code>; Claude Desktop uses <code>mcpServers</code>. Neither uses <code>mcp</code>.
+2. <strong><code>"command": "python"</code>.</strong> Resolve the console script (<code>immunopipe</code>) or an absolute interpreter path.
+   A bare <code>python</code> may not be the interpreter that has immunopipe installed — especially inside conda
+   environments, where GUI-launched clients do not inherit your activated environment.</p>
+</div>
 <h3 id="available-tools">Available Tools<a class="headerlink" href="#available-tools" title="Permanent link">&para;</a></h3>
 <h4 id="discovery-tools">Discovery Tools<a class="headerlink" href="#discovery-tools" title="Permanent link">&para;</a></h4>
 <h5 id="list_pipeline_options"><code>list_pipeline_options</code><a class="headerlink" href="#list_pipeline_options" title="Permanent link">&para;</a></h5>
@@ -457,16 +494,23 @@ immunopipe<span class="w"> </span>mcp<span class="w"> </span>--transport<span cl
 <h3 id="integration-with-claudeai-assistants">Integration with Claude/AI Assistants<a class="headerlink" href="#integration-with-claudeai-assistants" title="Permanent link">&para;</a></h3>
 <p>The MCP server is designed to work seamlessly with AI assistants. With <code>immunopipe</code> installed,
 you can add the MCP server to your Claude or VSCode setup to enable intelligent configuration generation:</p>
-<div class="highlight"><pre><span></span><code>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>immunopipe-mcp<span class="w"> </span>http://localhost:80000
+<div class="highlight"><pre><span></span><code><span class="c1"># Claude Code CLI — stdio transport</span>
+claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>immunopipe<span class="w"> </span>--<span class="w"> </span>immunopipe<span class="w"> </span>mcp<span class="w"> </span>--transport<span class="w"> </span>stdio
+
+<span class="c1"># Claude Code CLI — HTTP transport, against a server started with</span>
+<span class="c1"># `immunopipe mcp --transport http --port 8000`</span>
+claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>immunopipe-mcp<span class="w"> </span>http://localhost:8000
 </code></pre></div>
+<p>For Claude Desktop, edit <code>claude_desktop_config.json</code> exactly as in
+<a href="#claude-desktop">Claude Desktop</a> — the top-level key is <code>mcpServers</code>, and the server is launched with
+<code>immunopipe mcp --transport stdio</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"mcp"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">"servers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">"immunopipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-m"</span><span class="p">,</span><span class="w"> </span><span class="s2">"immunopipe"</span><span class="p">,</span><span class="w"> </span><span class="s2">"mcp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--transport"</span><span class="p">,</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">]</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"immunopipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"immunopipe"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"mcp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--transport"</span><span class="p">,</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">]</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Here are some example prompts that work well:</p>
@@ -532,7 +576,10 @@ immunopipe<span class="w"> </span>mcp<span class="w"> </span>--transport<span cl
 <li><strong>Process Not Found</strong>: Ensure immunopipe is properly installed and processes are available</li>
 <li><strong>Configuration Validation Errors</strong>: Check TOML syntax and parameter validity</li>
 <li><strong>Natural Language Analysis Failures</strong>: Use more specific descriptions or explicit process names</li>
-<li><strong>VSCode Integration Issues</strong>: Verify MCP server configuration in VSCode settings</li>
+<li><strong>VSCode Integration Issues</strong>: Verify that <code>.vscode/mcp.json</code> has a top-level <code>servers</code> key and the
+   server is started (see <a href="#editor--agent-integration">Editor / agent integration</a>), then run
+   <code>MCP: List Servers</code> → <strong>Show Output</strong> in VSCode. To prove the server itself is fine, run
+   <code>bash scripts/mcp_smoke.sh</code>.</li>
 </ol>
 <p>For additional help, open an issue on the <a href="https://github.com/pwwang/immunopipe">GitHub repository</a>.</p>
               

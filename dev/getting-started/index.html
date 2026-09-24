@@ -244,11 +244,14 @@ bash<span class="w"> </span>prepare-data.sh
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span>-v<span class="w"> </span>.:/workdir<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span>.:/workdir<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span>/tmp:/tmp<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--user<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span><span class="s2">:</span><span class="k">$(</span>id<span class="w"> </span>-g<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>justold/immunopipe:master<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>@ImmunopipeMinimal.config.toml
 </code></pre></div>
-<p>If you encounter permission issues when running the docker container, you can add <code>--user $(id -u):$(id -g)</code> to the command to run the container as the current user.</p>
+<p><code>-v /tmp:/tmp</code> is required: the pipeline stages intermediate files under the container's <code>/tmp</code>, which otherwise lives in the container's writable layer and can run out of space — the symptom is <code>No space left on device</code> (see the <a href="../faq/">FAQ</a>). <code>--user "$(id -u):$(id -g)"</code> makes the outputs owned by you rather than <code>root</code> — drop it only if you do not mind <code>sudo</code> to clean up. Memory: the example dataset needs ≥16 GB.</p>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>singularity<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
@@ -285,6 +288,7 @@ bash<span class="w"> </span>prepare-data.sh
 </div>
 <h3 id="check-the-results">Check the results<a class="headerlink" href="#check-the-results" title="Permanent link">&para;</a></h3>
 <p>With that "minimal" configuration file, only a subset of the processes will be run. See also <a href="../configurations/#enablingdisabling-processes">Enabling/Disabling processes</a>. The results will be saved in the <code>minimal</code> directory. You can also check the reports at <code>minimal/REPORTS/index.html</code> with a web browser.</p>
+<p>Report pages that contain both a data table and plots open on the <code>Table</code> tab; the figures are on the tabs beside it. See <a href="../faq/">Why do some report pages show only tables and no figures?</a>.</p>
 <p>You can also visit the following link to see the reports of the pipeline we just ran:</p>
 <p><a href="http://imp.pwwang.com/minimal/REPORTS/index.html">http://imp.pwwang.com/minimal/REPORTS/index.html</a></p>
 <h3 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h3>

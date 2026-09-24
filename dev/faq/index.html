@@ -385,6 +385,11 @@ apptainer<span class="w"> </span>pull<span class="w"> </span>justold/immunopipe:
 <summary>Does the pipeline work for mouse data?</summary>
 <p>Yes, the pipeline fully supports mouse data. To analyze mouse samples, specify the relevant mouse reference datasets in your configuration file. For example, set the appropriate mouse reference in the <code>SeuratMap2Ref</code> process. For pathway enrichment or GSEA analyses, provide mouse-specific gene sets from MSigDB or other compatible sources. Ensure all reference files and gene sets correspond to the mouse genome to achieve accurate results.</p>
 </details>
+<details>
+<summary>Why do some report pages show only tables and no figures?</summary>
+<p>The figures are not missing. On pages that contain both a data table and plots (for example <a href="../processes/ClusterMarkers/"><code>ClusterMarkers</code></a> and <a href="../processes/SeuratPreparing/"><code>SeuratPreparing</code></a>), each section is rendered as a tab group whose <strong>first</strong> tab is <code>Table</code>, and the first tab is the one displayed by default. The figures are on the remaining tabs - click the <code>Volcano Plot</code>, <code>Dot Plot</code>, etc. tabs to see them. Pages that contain only plots (for example <a href="../processes/SeuratClusterStats/"><code>SeuratClusterStats</code></a> and <a href="../processes/ClonalStats/"><code>ClonalStats</code></a>) show all of their figures immediately.</p>
+<p>If a page has no figures <em>and</em> no tab strip, then something else is wrong: check that the report frontend dependencies are installed (see <code>pipen report update</code> in the <a href="../installation/">installation instructions</a>). Without them the pipeline stops during start-up and produces no report pages at all.</p>
+</details>
 <p> </p>
               
             </div>

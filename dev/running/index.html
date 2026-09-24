@@ -354,7 +354,7 @@
 <p><code>immunopipe</code> has integrated with <a href="https://github.com/pwwang/pipen-cli-gbatch"><code>pipen-cli-gbatch</code></a> to provide a seamless way to run the pipeline using Google Cloud Batch Jobs. The entire pipeline is wrapped (like it is running locally) and submitted as a single job to Google Cloud Batch Jobs. You just need to run the following:</p>
 <div class="highlight"><pre><span></span><code>&gt;<span class="w"> </span>immunopipe<span class="w"> </span>gbatch<span class="w"> </span>@config.toml
 </code></pre></div>
-<p>To provide the scheduler options to run the wrapped job (daemon) on Google Cloud Batch Jobs, you can specify them by <code>--gbatch.machine-type</code>, <code>--gbatch.provisioning-model</code>, <code>--gbatch.disk-size-gb</code>, etc. See the help message of <code>immunopipe gbatch --help</code> for more details.</p>
+<p>To provide the scheduler options to run the wrapped job (daemon) on Google Cloud Batch Jobs, you can specify them by <code>--gbatch.machine-type</code>, <code>--gbatch.provisioning-model</code>, <code>--gbatch.service-account</code>, <code>--gbatch.mount</code>, etc. VM settings that do not have their own option, such as the disk size, can be passed through <code>--gbatch.allocationPolicy</code>, which takes a JSON string that is merged into the job's <code>allocationPolicy</code>. See the help message of <code>immunopipe gbatch --help</code> for more details.</p>
 <div class="highlight"><pre><span></span><code>&gt;<span class="w"> </span>immunopipe<span class="w"> </span>gbatch<span class="w"> </span>--help
 
 <span class="c1"># pipeline options</span>
