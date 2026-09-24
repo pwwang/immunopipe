@@ -277,6 +277,14 @@ Yes, the pipeline fully supports mouse data. To analyze mouse samples, specify t
 
 ///
 
+/// details | Why do some report pages show only tables and no figures?
+
+The figures are not missing. On pages that contain both a data table and plots (for example [`ClusterMarkers`](processes/ClusterMarkers.md) and [`SeuratPreparing`](processes/SeuratPreparing.md)), each section is rendered as a tab group whose **first** tab is `Table`, and the first tab is the one displayed by default. The figures are on the remaining tabs - click the `Volcano Plot`, `Dot Plot`, etc. tabs to see them. Pages that contain only plots (for example [`SeuratClusterStats`](processes/SeuratClusterStats.md) and [`ClonalStats`](processes/ClonalStats.md)) show all of their figures immediately.
+
+If a page has no figures *and* no tab strip, then something else is wrong: check that the report frontend dependencies are installed (see `pipen report update` in the [installation instructions](./installation.md)). Without them the pipeline stops during start-up and produces no report pages at all.
+
+///
+
 <p> </p>
 
 [1]: https://github.com/pwwang/biopipen

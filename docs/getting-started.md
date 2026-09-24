@@ -114,6 +114,8 @@ You may also need to decrease `ncores` of some processes to avoid running out of
 
 With that "minimal" configuration file, only a subset of the processes will be run. See also [Enabling/Disabling processes](./configurations.md#enablingdisabling-processes). The results will be saved in the `minimal` directory. You can also check the reports at `minimal/REPORTS/index.html` with a web browser.
 
+Report pages that contain both a data table and plots open on the `Table` tab; the figures are on the tabs beside it. See [Why do some report pages show only tables and no figures?](./faq.md).
+
 You can also visit the following link to see the reports of the pipeline we just ran:
 
 <http://imp.pwwang.com/minimal/REPORTS/index.html>
