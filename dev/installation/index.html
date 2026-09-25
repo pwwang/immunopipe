@@ -204,6 +204,19 @@
               
                 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <h3 id="install-the-pipline-and-the-dependencies-using-condamamba">Install the pipline and the dependencies using conda/mamba<a class="headerlink" href="#install-the-pipline-and-the-dependencies-using-condamamba" title="Permanent link">&para;</a></h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><strong>The conda/mamba route below is Linux-only.</strong> The R packages immunopipe depends on
+(<code>bioconductor-screpertoire</code>, <code>r-biopipen.utils</code>, <code>r-hitype</code>, <code>r-plotthis</code>,
+<code>r-scplotter</code>, <code>r-seuratdisk</code>, <code>r-seuratwrappers</code>) are published on the <code>pwwang</code>
+channel as <code>linux-64</code> builds only. On macOS the solve therefore fails with a list of
+packages that "does not exist (perhaps a typo or a missing channel)", regardless of
+whether the machine is Intel or Apple silicon. On macOS, install with <code>pip</code> and provide
+<code>R</code> separately, or use the <a href="#use-the-docker-image">docker image</a>.</p>
+<p>This is verified continuously: <code>.github/workflows/install-matrix.yml</code> performs the
+documented installation and then runs the pipeline on a minimal dataset on both
+<code>ubuntu-latest</code> and <code>macos-latest</code>.</p>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>If you plan to use the docker image to run the pipeline locally, you can skip this section.</p>
