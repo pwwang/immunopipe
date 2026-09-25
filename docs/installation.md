@@ -2,6 +2,20 @@
 
 ## Install the pipline and the dependencies using conda/mamba
 
+/// Attention
+**The conda/mamba route below is Linux-only.** The R packages immunopipe depends on
+(`bioconductor-screpertoire`, `r-biopipen.utils`, `r-hitype`, `r-plotthis`,
+`r-scplotter`, `r-seuratdisk`, `r-seuratwrappers`) are published on the `pwwang`
+channel as `linux-64` builds only. On macOS the solve therefore fails with a list of
+packages that "does not exist (perhaps a typo or a missing channel)", regardless of
+whether the machine is Intel or Apple silicon. On macOS, install with `pip` and provide
+`R` separately, or use the [docker image](#use-the-docker-image).
+
+This is verified continuously: `.github/workflows/install-matrix.yml` performs the
+documented installation and then runs the pipeline on a minimal dataset on both
+`ubuntu-latest` and `macos-latest`.
+///
+
 /// Tip
 If you plan to use the docker image to run the pipeline locally, you can skip this section.
 ///
