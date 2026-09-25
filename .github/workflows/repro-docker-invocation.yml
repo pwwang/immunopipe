@@ -25,8 +25,15 @@ on:
 
 jobs:
   as-documented:
+    # RED IS THE EXPECTED RESULT HERE. This job runs the docker command exactly as
+    # the docs used to give it; the failure is what reviewer R1.2 is about. The
+    # job-level continue-on-error below keeps the workflow run green.
+    name: as-documented (EXPECTED TO FAIL - the failure is the evidence)
     runs-on: ubuntu-latest
-    continue-on-error: true          # we EXPECT this to fail; the failure is the evidence
+    # This job is SUPPOSED to fail: it runs the docker command exactly as the docs had
+    # it, and that failure is what reviewer R1.2 is about. Job-level
+    # continue-on-error keeps the workflow run green; only this job shows red.
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
         with: { repository: pwwang/immunopipe-example }

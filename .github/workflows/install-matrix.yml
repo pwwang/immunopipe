@@ -532,8 +532,13 @@ jobs:
               echo "solver output is in the install-logs artifact (rpkgs.log, pip-install.log,"
               echo "probe-*.log)."
               echo
-              echo "Gated on macOS instead: step 5, the documented \`pip\` path (step 4 is"
-              echo "skipped - the smoke run needs R, which only the conda env provides)."
+              echo ""
+              echo "**The supported route on macOS is the container image**, which carries"
+              echo "the whole R environment; this job cannot exercise it, because a macOS"
+              echo "runner cannot run Linux containers. Step 5 below only checks that the"
+              echo "Python package installs on macOS with pip; it does not make pip a supported"
+              echo "installation route, since without the R dependencies the pipeline cannot"
+              echo "run."
               echo
             } >> "$GITHUB_STEP_SUMMARY"
             if [ "$OUTCOME_PIPVENV" != "success" ]; then failed=1; fi
@@ -563,7 +568,7 @@ jobs:
             exit 1
           fi
           if [ "$RUNNER_OS" = "macOS" ]; then
-            echo "**RESULT: the documented macOS path works (pip install + import in a plain virtualenv), and the Linux-only conda limitation is recorded in the logs as expected.**" >> "$GITHUB_STEP_SUMMARY"
+            echo "**RESULT: as documented, the conda environment is unavailable on macOS (recorded above) and the Python package still installs with pip. macOS users are directed to the container image, which this job cannot exercise.**" >> "$GITHUB_STEP_SUMMARY"
           else
             echo "**RESULT: the documented installation path installs AND runs the pipeline on this platform.**" >> "$GITHUB_STEP_SUMMARY"
           fi

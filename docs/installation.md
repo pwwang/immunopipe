@@ -3,17 +3,23 @@
 ## Install the pipline and the dependencies using conda/mamba
 
 /// Attention
-**The conda/mamba route below is Linux-only.** The R packages immunopipe depends on
-(`bioconductor-screpertoire`, `r-biopipen.utils`, `r-hitype`, `r-plotthis`,
-`r-scplotter`, `r-seuratdisk`, `r-seuratwrappers`) are published on the `pwwang`
-channel as `linux-64` builds only. On macOS the solve therefore fails with a list of
-packages that "does not exist (perhaps a typo or a missing channel)", regardless of
-whether the machine is Intel or Apple silicon. On macOS, install with `pip` and provide
-`R` separately, or use the [docker image](#use-the-docker-image).
+**This conda/mamba route is supported on Linux only - it is not supported on macOS.**
+The R packages immunopipe depends on (`bioconductor-screpertoire`, `r-biopipen.utils`,
+`r-hitype`, `r-plotthis`, `r-scplotter`, `r-seuratdisk`, `r-seuratwrappers`) are
+published on the `pwwang` channel as `linux-64` builds only, so on macOS the solve
+fails with a list of packages that "does not exist (perhaps a typo or a missing
+channel)" - on Intel and Apple silicon alike.
 
-This is verified continuously: `.github/workflows/install-matrix.yml` performs the
-documented installation and then runs the pipeline on a minimal dataset on both
-`ubuntu-latest` and `macos-latest`.
+**On macOS use the [docker image](#use-the-docker-image) instead.** It is the supported
+route there: the image carries the whole R environment, so nothing else has to be
+installed. `pip install immunopipe` also succeeds on macOS, but it installs the Python
+package alone - the R dependencies, and therefore every R-backed process, are missing
+and the pipeline will not run.
+
+This is checked continuously by `.github/workflows/install-matrix.yml`: on
+`ubuntu-latest` it performs the documented installation and runs the pipeline on a
+minimal dataset; on `macos-latest` it records the conda failure as the evidence for
+this limitation and confirms that the `pip` step still succeeds.
 ///
 
 /// Tip
