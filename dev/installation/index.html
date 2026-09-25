@@ -206,16 +206,21 @@
 <h3 id="install-the-pipline-and-the-dependencies-using-condamamba">Install the pipline and the dependencies using conda/mamba<a class="headerlink" href="#install-the-pipline-and-the-dependencies-using-condamamba" title="Permanent link">&para;</a></h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p><strong>The conda/mamba route below is Linux-only.</strong> The R packages immunopipe depends on
-(<code>bioconductor-screpertoire</code>, <code>r-biopipen.utils</code>, <code>r-hitype</code>, <code>r-plotthis</code>,
-<code>r-scplotter</code>, <code>r-seuratdisk</code>, <code>r-seuratwrappers</code>) are published on the <code>pwwang</code>
-channel as <code>linux-64</code> builds only. On macOS the solve therefore fails with a list of
-packages that "does not exist (perhaps a typo or a missing channel)", regardless of
-whether the machine is Intel or Apple silicon. On macOS, install with <code>pip</code> and provide
-<code>R</code> separately, or use the <a href="#use-the-docker-image">docker image</a>.</p>
-<p>This is verified continuously: <code>.github/workflows/install-matrix.yml</code> performs the
-documented installation and then runs the pipeline on a minimal dataset on both
-<code>ubuntu-latest</code> and <code>macos-latest</code>.</p>
+<p><strong>This conda/mamba route is supported on Linux only - it is not supported on macOS.</strong>
+The R packages immunopipe depends on (<code>bioconductor-screpertoire</code>, <code>r-biopipen.utils</code>,
+<code>r-hitype</code>, <code>r-plotthis</code>, <code>r-scplotter</code>, <code>r-seuratdisk</code>, <code>r-seuratwrappers</code>) are
+published on the <code>pwwang</code> channel as <code>linux-64</code> builds only, so on macOS the solve
+fails with a list of packages that "does not exist (perhaps a typo or a missing
+channel)" - on Intel and Apple silicon alike.</p>
+<p><strong>On macOS use the <a href="#use-the-docker-image">docker image</a> instead.</strong> It is the supported
+route there: the image carries the whole R environment, so nothing else has to be
+installed. <code>pip install immunopipe</code> also succeeds on macOS, but it installs the Python
+package alone - the R dependencies, and therefore every R-backed process, are missing
+and the pipeline will not run.</p>
+<p>This is checked continuously by <code>.github/workflows/install-matrix.yml</code>: on
+<code>ubuntu-latest</code> it performs the documented installation and runs the pipeline on a
+minimal dataset; on <code>macos-latest</code> it records the conda failure as the evidence for
+this limitation and confirms that the <code>pip</code> step still succeeds.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
