@@ -78,7 +78,10 @@ jobs:
       ENV_RPKGS: docker/environment_rpkgs.yml
       # the platform this leg runs on, as data rather than as text spliced into scripts
       MATRIX_OS: ${{ matrix.os }}
-      RUNNER_OS: ${{ runner.os }}
+      # RUNNER_OS is deliberately NOT set here: it is a built-in GitHub variable
+      # (Linux / macOS / Windows) already present in every step's environment, and
+      # the `runner` context is not available in a job-level `env:` block - using it
+      # made GitHub reject this whole workflow file, so the run produced zero jobs.
 
     defaults:
       run:
