@@ -187,19 +187,38 @@ jobs:
         id: install
         continue-on-error: true
         run: |
+          # set +e throughout: this step reports its own exit status, and errexit
+          # aborting mid-way would lose the report that is the point of the step.
+          set +e
           rc=0
-          {
-            if command -v micromamba >/dev/null 2>&1; then
-              micromamba run -n immunopipe python -m pip install --upgrade pip || rc=$?
-              micromamba run -n immunopipe python -m pip install -U immunopipe || rc=$?
-              micromamba run -n immunopipe immunopipe --version \
-                | tee "$LOGDIR/immunopipe-version.log" || rc=$?
-            else
-              echo "micromamba: not on PATH - the documented conda path cannot run on this platform"
-              rc=127
-            fi
-            echo "INSTALL_EXIT=$rc"
-          } > "$LOGDIR/pip-install.log" 2>&1
+          : > "$LOGDIR/pip-install.log"
+
+          # record each command's status separately, so a failure names the command
+          step_rc() {
+            echo "$1=$2" | tee -a "$LOGDIR/pip-install.log"
+            [ "$2" -eq 0 ] || rc="$2"
+          }
+
+          if command -v micromamba >/dev/null 2>&1; then
+            micromamba run -n immunopipe python -m pip install --upgrade pip \
+              >> "$LOGDIR/pip-install.log" 2>&1
+            step_rc PIP_UPGRADE_EXIT $?
+
+            micromamba run -n immunopipe python -m pip install -U immunopipe \
+              >> "$LOGDIR/pip-install.log" 2>&1
+            step_rc PIP_INSTALL_EXIT $?
+
+            micromamba run -n immunopipe immunopipe --version \
+              > "$LOGDIR/immunopipe-version.log" 2>&1
+            step_rc IMMUNOPIPE_VERSION_EXIT $?
+            cat "$LOGDIR/immunopipe-version.log" >> "$LOGDIR/pip-install.log"
+          else
+            echo "micromamba: not on PATH - the documented conda path cannot run here" \
+              >> "$LOGDIR/pip-install.log"
+            step_rc MICROMAMBA_MISSING 127
+          fi
+
+          echo "INSTALL_EXIT=$rc" | tee -a "$LOGDIR/pip-install.log"
           cat "$LOGDIR/pip-install.log"
           exit "$rc"
 
@@ -231,7 +250,10 @@ jobs:
       # `skipped`, not as a fake pass).
       - name: "Smoke run: immunopipe @smoke.config.toml on a tiny synthetic dataset"
         id: smoke
-        if: runner.os != 'macOS' && steps.install.outcome == 'success'
+        # not gated on steps.install.outcome: the smoke run IS the test, so a
+        # bookkeeping failure upstream must not suppress it - if the install
+        # really failed, this fails too and the verdict still catches it
+        if: runner.os != 'macOS'
         run: |
           # Deterministic, stdlib-only generator: 200 cells x 379 genes, 4 samples,
           # 3 expression programs, plus a local GMT so no web service is needed.
