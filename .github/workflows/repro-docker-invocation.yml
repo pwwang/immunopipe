@@ -13,7 +13,15 @@
 #   * the docker exit code is echoed before the step exits, so the log states the outcome
 #     explicitly; the step still fails when the command fails.
 name: repro-docker-invocation
-on: [workflow_dispatch]
+
+# `workflow_dispatch` alone could never run this: GitHub only offers dispatch for a
+# workflow that exists on the DEFAULT branch, and this file is only on dev, so the
+# API returned 404 and no run was ever created. It is a fragment by design (see the
+# header), so it rides the same trigger as install-matrix until it is folded in.
+on:
+  push:
+    branches: [dev, master, main]
+  workflow_dispatch:
 
 jobs:
   as-documented:

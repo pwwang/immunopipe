@@ -72,14 +72,20 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Diagnostic only, so it must never gate the run. micromamba is installed by
+      # the setup-micromamba step below, not present on a fresh runner; calling it
+      # here unconditionally exited 127 and skipped every subsequent step.
       - name: Platform fingerprint
         run: |
           mkdir -p "$LOGDIR"
           {
             echo "runner: ${{ matrix.os }}"
             uname -a
-            micromamba --version
-            micromamba info
+            if command -v micromamba >/dev/null 2>&1; then
+              micromamba --version
+            else
+              echo "micromamba: not on PATH yet (installed by the next setup step)"
+            fi
           } 2>&1 | tee "$LOGDIR/platform.log"
 
       - name: Documented environment files vs the URLs in docs/installation.md
@@ -114,6 +120,17 @@ jobs:
           cache-environment: ${{ !(github.event_name == 'workflow_dispatch' && inputs.cold) }}
           cache-downloads: true
           init-shell: none
+
+      # the rest of the platform fingerprint, now that micromamba exists
+      - name: Platform fingerprint (micromamba)
+        run: |
+          {
+            echo "micromamba --version:"
+            micromamba --version
+            echo
+            echo "micromamba info:"
+            micromamba info
+          } 2>&1 | tee -a "$LOGDIR/platform.log"
 
       - name: "Documented step 2: conda env update -f docker/environment_rpkgs.yml"
         id: rpkgs
