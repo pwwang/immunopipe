@@ -136,11 +136,14 @@ jobs:
         id: rpkgs
         continue-on-error: true
         run: |
+          # Redirect to the log rather than piping through tee: under `set -e` a
+          # failing `echo | tee` aborts the script with tee's status, which recorded a
+          # successful update (RPKGS_EXIT=0, "Transaction finished") as a failure.
           set +e
-          micromamba env update -n immunopipe -f "$ENV_RPKGS" 2>&1 | tee "$LOGDIR/rpkgs.log"
-          rc=${PIPESTATUS[0]}
-          set -e
-          echo "RPKGS_EXIT=$rc" | tee -a "$LOGDIR/rpkgs.log"
+          micromamba env update -n immunopipe -f "$ENV_RPKGS" > "$LOGDIR/rpkgs.log" 2>&1
+          rc=$?
+          set +e
+          echo "RPKGS_EXIT=$rc" >> "$LOGDIR/rpkgs.log" || true
           if [ "$rc" -ne 0 ]; then
             echo "::warning::documented step 2 failed (exit $rc) on this platform - the unresolved package list is in install-logs/rpkgs.log"
           fi
