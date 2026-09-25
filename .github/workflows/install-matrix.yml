@@ -22,12 +22,26 @@ name: install-matrix
 # branch under review), and an early step diffs them against the URLs the docs tell
 # users to download from, so a green run cannot be green because of a stale file.
 #
-# macos-latest is arm64, i.e. conda platform osx-arm64. The macOS leg is the
-# experiment: if R packages are unavailable for that platform, the failing step's
-# log names them and the "Availability probe" step repeats the solve with --dry-run
-# so the package list survives even when the real install aborts early. The verdict
-# step fails the job unless every documented step succeeded, so this workflow can
-# never be green by omission.
+# Platform claims (docs/installation.md): the conda/mamba route is documented as
+# LINUX-ONLY, because every R package immunopipe needs is published on the pwwang
+# channel as linux-64 builds only - so `conda env create -f environment_base.yml`
+# cannot solve on macOS, Intel or Apple silicon, by construction. macOS is documented as
+# a pip install instead. The two legs therefore verify two different claims:
+#
+#   ubuntu-latest  the documented conda path must work end to end: base + rpkgs + the
+#                  `pip install -U immunopipe` into that env + the smoke run. All four
+#                  are gated, exactly as before.
+#   macos-latest   the conda path is EXPECTED to fail. It is still attempted and its
+#                  solver output is still captured (install-logs/rpkgs.log,
+#                  install-logs/pip-install.log, install-logs/probe-*.log) as the
+#                  evidence for the documented limitation, but its outcome never fails
+#                  the job. What IS gated on macOS is the documented pip path: a plain
+#                  virtualenv + `pip install -U immunopipe` + importing the installed
+#                  package. The smoke run needs R from the conda env, so it stays skipped
+#                  on macOS rather than pretending to run.
+#
+# The verdict step is platform-aware and fails the job when the claim that applies to
+# that platform was not met, so this workflow can never be green by omission.
 on:
   push:
     branches: [dev, master, main]
@@ -62,6 +76,9 @@ jobs:
       PROBE_PLATFORM: ${{ inputs.probe_platform }}
       ENV_BASE: docker/environment_base.yml
       ENV_RPKGS: docker/environment_rpkgs.yml
+      # the platform this leg runs on, as data rather than as text spliced into scripts
+      MATRIX_OS: ${{ matrix.os }}
+      RUNNER_OS: ${{ runner.os }}
 
     defaults:
       run:
@@ -79,7 +96,7 @@ jobs:
         run: |
           mkdir -p "$LOGDIR"
           {
-            echo "runner: ${{ matrix.os }}"
+            echo "runner: $MATRIX_OS"
             uname -a
             if command -v micromamba >/dev/null 2>&1; then
               micromamba --version
@@ -121,15 +138,24 @@ jobs:
           cache-downloads: true
           init-shell: none
 
-      # the rest of the platform fingerprint, now that micromamba exists
+      # the rest of the platform fingerprint, now that micromamba exists. Diagnostic
+      # only: on macOS the documented conda path is expected to be unavailable and
+      # setup-micromamba can fail before it puts micromamba on PATH, so a missing
+      # micromamba is recorded here instead of aborting the step (127 used to skip every
+      # later step, including the macOS pip check that this workflow now gates on).
       - name: Platform fingerprint (micromamba)
+        continue-on-error: true
         run: |
           {
-            echo "micromamba --version:"
-            micromamba --version
-            echo
-            echo "micromamba info:"
-            micromamba info
+            if command -v micromamba >/dev/null 2>&1; then
+              echo "micromamba --version:"
+              micromamba --version
+              echo
+              echo "micromamba info:"
+              micromamba info
+            else
+              echo "micromamba: not on PATH - the documented conda path could not start here"
+            fi
           } 2>&1 | tee -a "$LOGDIR/platform.log"
 
       - name: "Documented step 2: conda env update -f docker/environment_rpkgs.yml"
@@ -149,12 +175,30 @@ jobs:
           fi
           exit "$rc"
 
+      # documented step 3, inside the conda environment the docs create. continue-on-error
+      # keeps a failure here from skipping the steps below (on macOS the env cannot exist,
+      # so this fails by design there); the Verdict reads the raw outcome and still gates
+      # it on Linux. The whole transcript is redirected into install-logs/pip-install.log,
+      # so the failure - or the proof it worked - survives in the artifact either way.
       - name: "Documented step 3: pip install -U immunopipe"
         id: install
+        continue-on-error: true
         run: |
-          micromamba run -n immunopipe python -m pip install --upgrade pip
-          micromamba run -n immunopipe python -m pip install -U immunopipe 2>&1 | tee "$LOGDIR/pip-install.log"
-          micromamba run -n immunopipe immunopipe --version | tee "$LOGDIR/immunopipe-version.log"
+          rc=0
+          {
+            if command -v micromamba >/dev/null 2>&1; then
+              micromamba run -n immunopipe python -m pip install --upgrade pip || rc=$?
+              micromamba run -n immunopipe python -m pip install -U immunopipe || rc=$?
+              micromamba run -n immunopipe immunopipe --version \
+                | tee "$LOGDIR/immunopipe-version.log" || rc=$?
+            else
+              echo "micromamba: not on PATH - the documented conda path cannot run on this platform"
+              rc=127
+            fi
+            echo "INSTALL_EXIT=$rc"
+          } > "$LOGDIR/pip-install.log" 2>&1
+          cat "$LOGDIR/pip-install.log"
+          exit "$rc"
 
       - name: "Documented step 3b: pipen report update"
         id: reportdeps
@@ -162,9 +206,29 @@ jobs:
         run: |
           micromamba run -n immunopipe pipen report update 2>&1 | tee "$LOGDIR/pipen-report-update.log"
 
+      # The macOS claim in docs/installation.md is the pip path ("On macOS, install with
+      # pip and provide R separately"). Verified here in a plain virtualenv - no conda, no
+      # micromamba - and gated: if this stops working, the documented macOS instruction is
+      # false and the job must go red. The venv lives outside $LOGDIR on purpose, so the
+      # uploaded artifact stays logs, not a hundred megabytes of site-packages.
+      - name: "Documented macOS path: python -m venv + pip install -U immunopipe"
+        id: pipvenv
+        if: runner.os == 'macOS'
+        run: |
+          VENVDIR="${RUNNER_TEMP:-/tmp}/immunopipe-pipvenv"
+          python3 --version 2>&1 | tee "$LOGDIR/pipvenv-install.log"
+          python3 -m venv "$VENVDIR"
+          VENV_PY="$VENVDIR/bin/python"
+          "$VENV_PY" -m pip install --upgrade pip 2>&1 | tee -a "$LOGDIR/pipvenv-install.log"
+          "$VENV_PY" -m pip install -U immunopipe 2>&1 | tee -a "$LOGDIR/pipvenv-install.log"
+          "$VENV_PY" -c "import immunopipe; print('immunopipe', immunopipe.__version__)" 2>&1 | tee "$LOGDIR/pipvenv-import.log"
+
+      # The smoke run needs the R packages that only the conda env provides, so on macOS
+      # it is skipped outright rather than attempted (and it lands in the verdict table as
+      # `skipped`, not as a fake pass).
       - name: "Smoke run: immunopipe @smoke.config.toml on a tiny synthetic dataset"
         id: smoke
-        if: steps.install.outcome == 'success'
+        if: runner.os != 'macOS' && steps.install.outcome == 'success'
         run: |
           # Deterministic, stdlib-only generator: 200 cells x 379 genes, 4 samples,
           # 3 expression programs, plus a local GMT so no web service is needed.
@@ -353,6 +417,33 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
+          # On macOS the documented conda path is expected to be unavailable, and
+          # setup-micromamba can fail before it puts micromamba on PATH. Without a
+          # micromamba this probe would only record "command not found", which proves
+          # nothing about the channel; so fetch a platform-native one, purely to run the
+          # dry-run solve and get the unresolved specs into the artifact.
+          if ! command -v micromamba >/dev/null 2>&1; then
+            case "$(uname -s)-$(uname -m)" in
+              Darwin-arm64)              mm_platform=osx-arm64 ;;
+              Darwin-*)                  mm_platform=osx-64 ;;
+              Linux-x86_64)              mm_platform=linux-64 ;;
+              Linux-aarch64|Linux-arm64) mm_platform=linux-aarch64 ;;
+              *)                         mm_platform="" ;;
+            esac
+            if [ -n "$mm_platform" ]; then
+              mm_bindir="${RUNNER_TEMP:-/tmp}/mm-probe"
+              mkdir -p "$mm_bindir"
+              echo "micromamba is not on PATH; fetching one ($mm_platform) for the probe"
+              curl -fLsS --max-time 120 "https://micro.mamba.pm/api/micromamba/$mm_platform/latest" \
+                | tar -xj -C "$mm_bindir" bin/micromamba || true
+              if [ -x "$mm_bindir/bin/micromamba" ]; then
+                export PATH="$mm_bindir/bin:$PATH"
+                micromamba --version
+              else
+                echo "::warning::no micromamba for the probe either - the 'Documented step 1' log is the remaining evidence on this platform"
+              fi
+            fi
+          fi
           probe() {
             envfile="$1"; platform="$2"; tag="$3"
             if [ -n "$platform" ]; then
@@ -377,46 +468,80 @@ jobs:
             done
           } 2>&1 | tee "$LOGDIR/probe-unresolved.log"
 
+      # Platform-aware, and the only place a job is allowed to go red. The raw outcomes
+      # come in through env: a step with `continue-on-error: true` is reported by GitHub as
+      # "success", but `steps.<id>.outcome` still says "failure", and that is what decides.
       - name: Verdict
         if: always()
+        env:
+          OUTCOME_BASE: ${{ steps.base.outcome }}
+          OUTCOME_RPKGS: ${{ steps.rpkgs.outcome }}
+          OUTCOME_INSTALL: ${{ steps.install.outcome }}
+          OUTCOME_REPORTDEPS: ${{ steps.reportdeps.outcome }}
+          OUTCOME_PIPVENV: ${{ steps.pipvenv.outcome }}
+          OUTCOME_SMOKE: ${{ steps.smoke.outcome }}
         run: |
           {
-            echo "## install-matrix verdict: ${{ matrix.os }}"
+            echo "## install-matrix verdict: $MATRIX_OS (runner.os=$RUNNER_OS)"
             echo
             echo "| documented step | outcome |"
             echo "| --- | --- |"
-            echo "| 1. conda env create -f $ENV_BASE | ${{ steps.base.outcome }} |"
-            echo "| 2. conda env update -f $ENV_RPKGS | ${{ steps.rpkgs.outcome }} |"
-            echo "| 3. pip install -U immunopipe | ${{ steps.install.outcome }} |"
-            echo "| 3b. pipen report update | ${{ steps.reportdeps.outcome }} |"
-            echo "| 4. immunopipe @smoke.config.toml | ${{ steps.smoke.outcome }} |"
-            echo
-            echo "A green job means the four gating steps (1, 2, 3, 4) succeeded on this"
-            echo "platform, i.e. the documented installation works and the pipeline runs."
-            echo "Step 3b is reported but not gated: the smoke run's own output check"
-            echo "(REPORTS/index.html) already fails the job if report generation is broken."
-            echo "Step 1 is served from the environment cache on warm runs - use"
-            echo "workflow_dispatch with \`cold: true\` for a from-scratch install."
+            echo "| 1. conda env create -f $ENV_BASE | $OUTCOME_BASE |"
+            echo "| 2. conda env update -f $ENV_RPKGS | $OUTCOME_RPKGS |"
+            echo "| 3. pip install -U immunopipe (into the conda env) | $OUTCOME_INSTALL |"
+            echo "| 3b. pipen report update | $OUTCOME_REPORTDEPS |"
+            echo "| 4. immunopipe @smoke.config.toml | $OUTCOME_SMOKE |"
+            echo "| 5. pip install -U immunopipe (plain venv, macOS only) | $OUTCOME_PIPVENV |"
             echo
           } >> "$GITHUB_STEP_SUMMARY"
           failed=0
-          for outcome in "${{ steps.base.outcome }}" "${{ steps.rpkgs.outcome }}" "${{ steps.install.outcome }}" "${{ steps.smoke.outcome }}"; do
-            if [ "$outcome" != "success" ]; then failed=1; fi
-          done
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            {
+              echo "### macOS: the conda route is expected to fail here and is not gated"
+              echo
+              echo "docs/installation.md documents the conda route as **Linux-only**: the R"
+              echo "packages immunopipe depends on are published on the pwwang channel as"
+              echo "linux-64 builds only, so \`conda env create -f $ENV_BASE\` cannot solve on"
+              echo "macOS (Intel or Apple silicon). This run recorded that: step 1 ="
+              echo "$OUTCOME_BASE, step 2 = $OUTCOME_RPKGS, step 3 = $OUTCOME_INSTALL, and the"
+              echo "solver output is in the install-logs artifact (rpkgs.log, pip-install.log,"
+              echo "probe-*.log)."
+              echo
+              echo "Gated on macOS instead: step 5, the documented \`pip\` path (step 4 is"
+              echo "skipped - the smoke run needs R, which only the conda env provides)."
+              echo
+            } >> "$GITHUB_STEP_SUMMARY"
+            if [ "$OUTCOME_PIPVENV" != "success" ]; then failed=1; fi
+          else
+            for outcome in "$OUTCOME_BASE" "$OUTCOME_RPKGS" "$OUTCOME_INSTALL" "$OUTCOME_SMOKE"; do
+              if [ "$outcome" != "success" ]; then failed=1; fi
+            done
+          fi
           if [ "$failed" -ne 0 ]; then
             {
-              echo "**RESULT: the documented installation + run does NOT work on this platform.**"
-              echo
-              echo "Unresolved specs reported by the availability probe:"
-              echo
-              echo '```'
-              cat "$LOGDIR/probe-unresolved.log" 2>/dev/null || echo "(probe log missing)"
-              echo '```'
+              if [ "$RUNNER_OS" = "macOS" ]; then
+                echo "**RESULT: the documented macOS path (\`pip install -U immunopipe\` in a plain virtualenv) does NOT work.**"
+                echo
+                echo "The conda failures listed above are expected and are not what failed this"
+                echo "job; step 5 is. See install-logs/pipvenv-install.log."
+              else
+                echo "**RESULT: the documented installation + run does NOT work on this platform.**"
+                echo
+                echo "Unresolved specs reported by the availability probe:"
+                echo
+                echo '```'
+                cat "$LOGDIR/probe-unresolved.log" 2>/dev/null || echo "(probe log missing)"
+                echo '```'
+              fi
             } >> "$GITHUB_STEP_SUMMARY"
-            echo "::error::install-matrix: the documented install/run failed on ${{ matrix.os }} - see the job summary and the install-logs artifact"
+            echo "::error::install-matrix: the claim for this platform ($RUNNER_OS) is not met on $MATRIX_OS - see the job summary and the install-logs artifact"
             exit 1
           fi
-          echo "**RESULT: the documented installation path installs AND runs the pipeline on this platform.**" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            echo "**RESULT: the documented macOS path works (pip install + import in a plain virtualenv), and the Linux-only conda limitation is recorded in the logs as expected.**" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "**RESULT: the documented installation path installs AND runs the pipeline on this platform.**" >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Upload logs and smoke-run reports
         if: always()

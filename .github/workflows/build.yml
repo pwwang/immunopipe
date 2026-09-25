@@ -13,13 +13,21 @@ jobs:
           fetch-depth: 2
       - name: Check if base files changed
         id: check_changes
+        # The ref name and the commit message are untrusted text. Interpolating them into
+        # the script (${{ ... }}) let a commit message containing backticks, double quotes,
+        # $(...) or parentheses inject code into this step - see run 36176158453, where
+        # "conditional binary operator expected" / exit code 2 killed build / docker-base.
+        # They arrive through env instead, so the shell only ever sees data.
+        env:
+          REF_NAME: ${{ github.ref_name }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
-          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(cleanup\.list|environment_base\.yml|Dockerfile\.base)$'; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-          elif [[ "${{ github.event.head_commit.message }}" == *"[force-base]"* ]]; then
-            echo "changed=true" >> $GITHUB_OUTPUT
+          if [[ "$REF_NAME" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(cleanup\.list|environment_base\.yml|Dockerfile\.base)$'; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          elif [[ "$COMMIT_MSG" == *"[force-base]"* ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           else
-            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
       - name: Set up QEMU
         if: steps.check_changes.outputs.changed == 'true'
@@ -50,13 +58,18 @@ jobs:
           fetch-depth: 2
       - name: Check if rpkgs files changed
         id: check_changes
+        # Same fix as "Check if base files changed": untrusted text goes through env, never
+        # through the script body.
+        env:
+          REF_NAME: ${{ github.ref_name }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
-          if [[ "${{ github.ref_name }}" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(cleanup\.list|environment_(base|rpkgs)\.yml|Dockerfile\.(base|rpkgs))$'; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-          elif [[ "${{ github.event.head_commit.message }}" == *"[force-rpkgs]"* ]]; then
-            echo "changed=true" >> $GITHUB_OUTPUT
+          if [[ "$REF_NAME" == "dev" ]] && git diff --name-only HEAD~1 HEAD | grep -qE '(cleanup\.list|environment_(base|rpkgs)\.yml|Dockerfile\.(base|rpkgs))$'; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          elif [[ "$COMMIT_MSG" == *"[force-rpkgs]"* ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           else
-            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
       - name: Set up QEMU
         if: steps.check_changes.outputs.changed == 'true'
