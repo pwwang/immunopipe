@@ -85,6 +85,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ai-chat/">AI chat on reports</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
@@ -104,6 +108,12 @@
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#seealso">SeeAlso</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
     </ul>
                   </li>
@@ -467,6 +477,21 @@ You can also fetch more dbs from <a href="https://maayanlab.cloud/Enrichr/#libra
 <li><a href="../MarkersFinder/">MarkersFinder</a></li>
 <li><a href="https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder">biopipen.ns.scrna.MarkersFinder</a></li>
 </ul>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>Finds the marker genes of every cluster found by
+<code>SeuratClusteringOfAllCells</code> and runs an enrichment analysis on them.<br />
+Markers are found by <code>Seurat::FindMarkers()</code> and the enrichment is done
+by <code>enrichr</code>.<br /></p>
+<h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
+<p><code>biopipen.ns.scrna.MarkersFinder</code></p>
+<h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
+<p>Four inherited parameters are changed. <code>sigmarkers</code> is set to
+<code>p_val_adj &lt; 0.05 &amp; avg_log2FC &gt; 0</code> instead of <code>p_val_adj &lt; 0.05</code>, so
+that only up-regulated markers are kept. <code>allmarker_plots</code> is set to a
+<code>heatmap</code> of the top 10 markers of all clusters.<br />
+<code>marker_plots_defaults</code> gains <code>order_by = "desc(avg_log2FC)"</code>. <code>cases</code>
+is empty in the base, so the base runs no marker-finding case by
+default; immunopipe defines the <code>Cluster</code> case with <code>group_by = None</code>.<br /></p>
               
             </div>
           </div><footer>

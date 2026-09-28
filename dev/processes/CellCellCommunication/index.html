@@ -85,6 +85,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ai-chat/">AI chat on reports</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
@@ -146,6 +150,12 @@
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#reference">Reference</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
     </ul>
                   </li>
@@ -513,6 +523,16 @@ proportion of cells within should express the genes.<br /></li>
 <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9184522/">Review</a>.<br /></li>
 <li><a href="https://www.biorxiv.org/content/10.1101/2023.08.19.553863v1">LIANA</a>.<br /></li>
 </ul>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>Infers cell-cell communication between the cell groups, based on the
+expression of ligand-receptor pairs. It is done by <code>LIANA</code> (Python),
+which offers a number of inference methods; <code>envs.method</code> selects the
+one to use and defaults to <code>cellchat</code>.<br /></p>
+<h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
+<p><code>biopipen.ns.scrna.CellCellCommunication</code></p>
+<h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
+<p>The parameters are passed through to <code>LIANA</code> unchanged: this process
+overrides no inherited parameter and adds none.<br /></p>
               
             </div>
           </div><footer>

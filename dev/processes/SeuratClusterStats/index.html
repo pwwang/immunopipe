@@ -85,6 +85,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ai-chat/">AI chat on reports</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
@@ -176,6 +180,12 @@
     <li class="toctree-l3"><a class="reference internal" href="#dimensional-reduction-plot-by-diagnosis">Dimensional reduction plot by Diagnosis</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
     </ul>
                   </li>
@@ -621,6 +631,21 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br /></p>
 <span class="n">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"theme_blank"</span>
 </code></pre></div>
 <p><img alt="Dimensional reduction plot by Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/dimplots/Dimensional-reduction-plot-by-Diagnosis.dim.png" width="80%" /></p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>Reports statistics of the clustering - the number and fraction of cells
+in each cluster, gene expression values and dimension reduction plots,
+and, when TCR/BCR data are configured, stats of the TCR clones/clusters
+per cluster. The statistics and plots are produced by <code>Seurat</code> and
+<code>scplotter</code> (R), and by <code>clustree</code> for the <code>clustrees</code> plots.<br /></p>
+<h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
+<p><code>biopipen.ns.scrna.SeuratClusterStats</code></p>
+<h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
+<p><code>dimplots</code> is overridden with the base's
+<code>{"Dimensional reduction plot": {"label": True}}</code> entry. When TCR/BCR
+data are configured, a second plot, <code>VDJ Presence</code> (grouped by
+<code>VDJ_Presence</code>), is added to it; the class body adds that entry only if
+VDJ data are present. <code>envs_depth</code> is also set to 3, so that the nested
+<code>envs</code> of the plots can be given in the configuration file.<br /></p>
               
             </div>
           </div><footer>

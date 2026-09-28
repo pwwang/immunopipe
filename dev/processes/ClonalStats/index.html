@@ -85,6 +85,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ai-chat/">AI chat on reports</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
@@ -182,6 +186,12 @@
     <li class="toctree-l3"><a class="reference internal" href="#rarefaction-curve">Rarefaction Curve</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
     </ul>
                   </li>
@@ -484,6 +494,15 @@ information.<br /></p>
 <span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"rarefaction"</span>
 </code></pre></div>
 <p><img alt="Rarefaction_Curve" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Rarefaction-Curve.png" width="80%" /></p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>Visualizes the clonal information of the TCR/BCR data - clonal volume,
+diversity, overlaps between groups and so on. The plots are drawn by
+<code>scplotter</code> (R).<br /></p>
+<h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
+<p><code>biopipen.ns.tcr.ClonalStats</code></p>
+<h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
+<p>The parameters are passed through to <code>scplotter</code> unchanged: this
+process overrides no inherited parameter and adds none.<br /></p>
               
             </div>
           </div><footer>

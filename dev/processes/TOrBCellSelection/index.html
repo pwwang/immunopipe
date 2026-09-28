@@ -85,6 +85,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ai-chat/">AI chat on reports</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
@@ -114,6 +118,12 @@
     <li class="toctree-l3"><a class="reference internal" href="#use-indicator-genes">Use indicator genes</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
     </ul>
                   </li>
@@ -435,6 +445,21 @@ the indicator genes, together with <code>Clonotype_Pct</code>, with K=2.<br /></
 (<code>is_selected = TRUE</code>), and sent to
 <a href="../SeuratClustering/"><code>SeuratClustering</code></a> for
 further clustering and downstream analysis.<br /></p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>Separates T from non-T cells (or B from non-B cells) and keeps the T/B
+cells for the downstream analysis. The selection uses the expression
+values of <code>envs.indicator_genes</code> and, unless <code>envs.ignore_vdj</code> is set,
+the clonotype percentage of the clusters; when no <code>envs.selector</code> is
+given, <code>stats::kmeans</code> (R, with K=2) separates the two groups. This is
+not a wrapper of an upstream analysis tool: the process is immunopipe's
+own, extending an immunopipe class and running immunopipe's own R script
+(<code>immunopipe/scripts/TOrBCellSelection.R</code>).<br /></p>
+<h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
+<p><code>immunopipe.inhouse.TOrBCellSelection</code> - an immunopipe class rather than
+a biopipen one.<br /></p>
+<h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
+<p>The four parameters are immunopipe's own and are used as the base class
+declares them; this process overrides none of them and adds none.<br /></p>
               
             </div>
           </div><footer>

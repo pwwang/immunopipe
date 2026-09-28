@@ -85,6 +85,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ai-chat/">AI chat on reports</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
@@ -156,6 +160,12 @@
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
     </ul>
                   </li>
@@ -596,6 +606,15 @@ in <code>envs.NormalizeData</code> or <code>envs.SCTransform</code> for this pro
 <p>The metadata of the <code>Seurat</code> object will be updated with the cluster
 assignments (column name determined by <code>envs.name</code>):<br /></p>
 <p><img alt="SeuratMap2Ref-metadata" src="../images/SeuratClustering-metadata.png" /></p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>Maps the object onto a reference <code>Seurat</code> object and transfers the
+reference labels to the query cells (supervised analysis), using
+<code>Seurat</code> (R): <code>FindTransferAnchors()</code> and <code>MapQuery()</code>.<br /></p>
+<h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
+<p><code>biopipen.ns.scrna.SeuratMap2Ref</code></p>
+<h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
+<p>The parameters are passed through to <code>Seurat</code> unchanged: this process
+overrides no inherited parameter and adds none.<br /></p>
               
             </div>
           </div><footer>

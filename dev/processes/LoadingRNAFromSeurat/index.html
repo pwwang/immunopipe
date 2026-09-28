@@ -85,6 +85,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ai-chat/">AI chat on reports</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
@@ -98,6 +102,12 @@
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#seealso">SeeAlso</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
     </ul>
                   </li>
@@ -242,6 +252,21 @@
 <li><a href="../../preparing-input/#single-cell-rna-seq-scrna-seq-data">Preparing the input</a>.<br /></li>
 <li><a href="../../introduction/#routes-of-the-pipeline">Routes of the pipeline</a>.<br /></li>
 </ul>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>Loads the RNA data from a pre-existing <code>Seurat</code> object (an RDS or
+qs/qs2 file) instead of the <code>RNAData</code> directories listed by
+<code>SampleInfo</code>. This is not a wrapper of an upstream analysis tool: the
+process is immunopipe's own and runs an R script that ships with
+immunopipe (<code>immunopipe/scripts/LoadingRNAFromSeurat.R</code>), which reads
+and writes the object with <code>tidyseurat</code> and <code>qs2</code>.<br /></p>
+<h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
+<p><code>biopipen.core.proc.Proc</code> - biopipen's bare process class, which
+declares no parameters of its own.<br /></p>
+<h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
+<p>All six options of this process are added by immunopipe, since the base
+class declares none: <code>prepared</code> (default <code>False</code>), <code>clustered</code>
+(default <code>False</code>), <code>sample</code> (default <code>Sample</code>), <code>mutaters</code>
+(default <code>{}</code>), <code>subset</code> (default <code>None</code>) and <code>ncores</code> (default <code>1</code>).<br /></p>
               
             </div>
           </div><footer>

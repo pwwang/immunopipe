@@ -85,6 +85,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ai-chat/">AI chat on reports</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
@@ -142,6 +146,12 @@
     <li class="toctree-l3"><a class="reference internal" href="#summary-plot-for-all-subsets-or-idents">Summary plot for all subsets or idents</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
     </ul>
                   </li>
@@ -372,6 +382,15 @@ make a summary plot for all subsets. Or if you don't specify <code>ident_1</code
 <span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
 </code></pre></div>
 <p><img alt="GSEA summary for all subsets" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/GSEA-all-seurat_clusters/all.Heatmap.png" width="80%" /></p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>Performs gene set enrichment analysis on the expression data for a
+variety of groupings, including ones taken from the metadata and from
+the TCR/BCR data. The testing is done by <code>fgsea</code> (R/Bioconductor).<br /></p>
+<h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
+<p><code>biopipen.ns.scrna.ScFGSEA</code></p>
+<h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
+<p>The parameters are passed through to <code>fgsea</code> unchanged: this process
+overrides no inherited parameter and adds none.<br /></p>
               
             </div>
           </div><footer>

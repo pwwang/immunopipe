@@ -85,6 +85,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ai-chat/">AI chat on reports</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
@@ -158,6 +162,12 @@
     <li class="toctree-l3"><a class="reference internal" href="#cell-cell-communication-interaction-box-plot">Cell-Cell Communication Interaction (Box Plot)</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
     </ul>
                   </li>
@@ -289,6 +299,15 @@
 <span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"interaction"</span>
 </code></pre></div>
 <p><img alt="Box Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Interaction-Box-Plot.png" width="80%" /></p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>Draws the plots of the cell-cell communication results produced by
+<code>CellCellCommunication</code>, using <code>scplotter</code> (R), through
+<code>scplotter::CCCPlot()</code>.<br /></p>
+<h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
+<p><code>biopipen.ns.scrna.CellCellCommunicationPlots</code></p>
+<h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
+<p>The parameters are passed through to <code>scplotter</code> unchanged: this
+process overrides no inherited parameter and adds none.<br /></p>
               
             </div>
           </div><footer>

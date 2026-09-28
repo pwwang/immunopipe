@@ -85,6 +85,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ai-chat/">AI chat on reports</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
@@ -126,6 +130,12 @@
     <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
     </ul>
                   </li>
@@ -1539,6 +1549,20 @@ data.frame for <code>sccatch</code>, etc.).<br /></p>
 <p>When <code>envs.tool</code> is <code>direct</code> and <code>envs.cell_types</code> is empty, the metadata of
 the <code>Seurat</code> object will be kept as is.<br /></p>
 <p><img alt="CellTypeAnnotation-metadata" src="../images/CellTypeAnnotation-metadata.png" /></p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>Annotates the cells or the clusters with the annotation backend chosen
+with <code>envs.tool</code>. <code>Seurat</code> holds the object; the annotation itself is
+done by the selected backend, such as <code>celltypist</code>, <code>SingleR</code> or
+<code>hitype</code>.<br /></p>
+<h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
+<p><code>biopipen.ns.scrna.CellTypeAnnotation</code></p>
+<h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
+<p><code>tool</code> is overridden: the base defaults to <code>hitype</code>, immunopipe sets it
+to <code>direct</code>, which assigns cell types without running any annotation
+tool. <code>sctype_db</code> (default <code>None</code>) is added; the base only offers the
+nested <code>envs.sctype.db</code>. immunopipe also overrides <code>input_data</code>
+(<code>lambda ch1: ch1.iloc[:, [0]]</code>) so that the <code>Seurat</code> object is taken
+from the first input channel.<br /></p>
               
             </div>
           </div><footer>

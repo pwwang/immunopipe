@@ -85,6 +85,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ai-chat/">AI chat on reports</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
@@ -114,6 +118,12 @@
     <li class="toctree-l2"><a class="reference internal" href="#seealso">SeeAlso</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
     </ul>
                   </li>
@@ -301,6 +311,15 @@ annotation processes won't overwrite each other.<br /></p>
 <p>The metadata of the <code>Seurat</code> object will be updated with the cluster
 assignments:<br /></p>
 <p><img alt="SeuratClustering-metadata" src="../images/SeuratClustering-metadata.png" /></p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>Clusters the cells to be analysed - all cells, or the T/B cells selected
+by <code>TOrBCellSelection</code> - using <code>Seurat</code> (R), with <code>FindNeighbors()</code>,
+<code>FindClusters()</code> and <code>RunUMAP()</code>.<br /></p>
+<h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
+<p><code>biopipen.ns.scrna.SeuratClustering</code></p>
+<h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
+<p>The parameters are passed through to <code>Seurat</code> unchanged: this process
+overrides no inherited parameter and adds none.<br /></p>
               
             </div>
           </div><footer>

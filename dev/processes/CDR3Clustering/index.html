@@ -85,6 +85,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ai-chat/">AI chat on reports</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
@@ -128,6 +132,12 @@
     <li class="toctree-l2"><a class="reference internal" href="#output">Output</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
     </ul>
                   </li>
@@ -310,6 +320,16 @@ CDR3 sequence may be shared by multiple cells.<br /></p>
 </ul>
 </li>
 </ul>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>Clusters the TCR/BCR clones by the similarity of their CDR3 sequences,
+so that clones with similar receptors end up in the same cluster. The
+clustering is done by <code>ClusTCR</code> (Python) or by <code>GIANA</code>, whichever is
+selected with <code>envs.tool</code>.<br /></p>
+<h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
+<p><code>biopipen.ns.tcr.CDR3Clustering</code></p>
+<h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
+<p>The parameters are passed through to the selected tool unchanged: this
+process overrides no inherited parameter and adds none.<br /></p>
               
             </div>
           </div><footer>

@@ -85,6 +85,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../mcp-server/">MCP Sever</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../ai-chat/">AI chat on reports</a>
+                </li>
+              </ul>
               <p class="caption"><span class="caption-text">Processes</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../SampleInfo/">SampleInfo</a>
@@ -140,6 +144,12 @@
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#seealso">SeeAlso</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
     </ul>
                   </li>
@@ -497,6 +507,15 @@ You can also fetch more dbs from <a href="https://maayanlab.cloud/Enrichr/#libra
 <li><a href="https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.PseudoBulkDEG">biopipen.ns.scrna.PseudoBulkDEG</a></li>
 <li><a href="../ClusterMarkers/">ClusterMarkers</a> for examples of marker and enrichment plots</li>
 </ul>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>Performs pseudo-bulk differential gene expression analysis between the
+groups of cells. The testing is done by <code>DESeq2</code> (R), the default of
+<code>envs.tool</code>, and the results are visualized with <code>plotthis</code>/<code>scplotter</code>.<br /></p>
+<h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
+<p><code>biopipen.ns.scrna.PseudoBulkDEG</code></p>
+<h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
+<p>The parameters are passed through unchanged: this process overrides no
+inherited parameter and adds none.<br /></p>
               
             </div>
           </div><footer>
