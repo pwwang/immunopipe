@@ -263,3 +263,20 @@ devpars = {height = 450}
 
 ![Age_distribution_per_Sex_in_each_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot.png)
 
+## Description
+
+This is the entrance of the pipeline: it lists the sample information
+given in the input file and performs descriptive statistics and plots on
+it (`envs.stats`). The statistics and plots are produced with `dplyr` and
+`plotthis` (R); no upstream analysis tool is wrapped.<br />
+
+## Base class
+
+`biopipen.ns.delim.SampleInfo`
+
+## Deviations
+
+`exclude_cols` is overridden: it is `None` in the base and is set to
+`TCRData,BCRData,RNAData` here, so the three data-path columns are kept
+out of the statistics and out of the report.<br />
+

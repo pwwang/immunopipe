@@ -90,3 +90,20 @@ for supervised clustering.<br />
 
 - [SeuratClustering](./SeuratClustering.md)
 
+## Description
+
+Clusters all the cells of the object - T cells together with non-T
+cells, or B cells together with non-B cells - so that
+`TOrBCellSelection` has a clustering of the whole dataset to select the
+T/B cells from. The clustering is done by `Seurat` (R), with
+`FindNeighbors()`, `FindClusters()` and `RunUMAP()`.<br />
+
+## Base class
+
+`biopipen.ns.scrna.SeuratClustering`
+
+## Deviations
+
+The parameters are passed through to `Seurat` unchanged: this process
+overrides no inherited parameter and adds none.<br />
+

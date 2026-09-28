@@ -260,6 +260,20 @@ class SampleInfo(SampleInfo_):
                 See also <https://satijalab.org/seurat/reference/read10x>.
             * Other columns are optional and will be treated as metadata for
                 each sample.
+
+    Description:
+        This is the entrance of the pipeline: it lists the sample information
+        given in the input file and performs descriptive statistics and plots on
+        it (`envs.stats`). The statistics and plots are produced with `dplyr` and
+        `plotthis` (R); no upstream analysis tool is wrapped.
+
+    Base class:
+        `biopipen.ns.delim.SampleInfo`
+
+    Deviations:
+        `exclude_cols` is overridden: it is `None` in the base and is set to
+        `TCRData,BCRData,RNAData` here, so the three data-path columns are kept
+        out of the statistics and out of the report.
     """ % {  # noqa: E501
         "required": " (required)" if "LoadingRNAFromSeurat" not in config else ""
     }
@@ -272,7 +286,21 @@ class SampleInfo(SampleInfo_):
 @when(SampleInfo and config.has_vdj, requires=SampleInfo)  # type: ignore
 @annotate.format_doc()
 class ScRepLoading(ScRepLoading_):
-    pass
+    """Load the single cell TCR/BCR data into a `scRepertoire` compatible object
+
+    Description:
+        Loads the TCR/BCR (VDJ) data of each sample into a `scRepertoire`
+        compatible object, so that `ScRepCombiningExpression` can later combine
+        the repertoire data with the expression data. The loading is done by
+        `scRepertoire` (R), through `scRepertoire::loadContigs()`.
+
+    Base class:
+        `biopipen.ns.tcr.ScRepLoading`
+
+    Deviations:
+        The parameters are passed through to `scRepertoire` unchanged: this
+        process overrides no inherited parameter and adds none.
+    """
 
 
 VDJInput = ScRepLoading
@@ -307,6 +335,24 @@ class LoadingRNAFromSeurat(Proc):
     SeeAlso:
         - [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-seq-data).
         - [Routes of the pipeline](../introduction.md#routes-of-the-pipeline).
+
+    Description:
+        Loads the RNA data from a pre-existing `Seurat` object (an RDS or
+        qs/qs2 file) instead of the `RNAData` directories listed by
+        `SampleInfo`. This is not a wrapper of an upstream analysis tool: the
+        process is immunopipe's own and runs an R script that ships with
+        immunopipe (`immunopipe/scripts/LoadingRNAFromSeurat.R`), which reads
+        and writes the object with `tidyseurat` and `qs2`.
+
+    Base class:
+        `biopipen.core.proc.Proc` - biopipen's bare process class, which
+        declares no parameters of its own.
+
+    Deviations:
+        All six options of this process are added by immunopipe, since the base
+        class declares none: `prepared` (default `False`), `clustered`
+        (default `False`), `sample` (default `Sample`), `mutaters`
+        (default `{}`), `subset` (default `None`) and `ncores` (default `1`).
     """  # noqa: E501
 
     input = "infile:file"
@@ -352,6 +398,19 @@ class SeuratPreparing(SeuratPreparing_):
         processes will use it and/or add more metadata to the `Seurat` object.
 
         ![SeuratPreparing-metadata](images/SeuratPreparing-metadata.png)
+
+    Description:
+        Loads the scRNA-seq data, prepares it (normalization and integration of
+        the samples) and applies quality control to it, using `Seurat` (R) -
+        `CreateSeuratObject()` and `Read10X()` for the loading, and the cell-
+        and gene-level filters given under `envs.cell_qc` and `envs.gene_qc`.
+
+    Base class:
+        `biopipen.ns.scrna.SeuratPreparing`
+
+    Deviations:
+        The parameters are passed through to `Seurat` unchanged: this process
+        overrides no inherited parameter and adds none.
     """  # noqa: E501
 
     # Don't export the RDS/qs file
@@ -386,6 +445,20 @@ class SeuratClusteringOfAllCells(SeuratClustering_):
 
     SeeAlso:
         - [SeuratClustering](./SeuratClustering.md)
+
+    Description:
+        Clusters all the cells of the object - T cells together with non-T
+        cells, or B cells together with non-B cells - so that
+        `TOrBCellSelection` has a clustering of the whole dataset to select the
+        T/B cells from. The clustering is done by `Seurat` (R), with
+        `FindNeighbors()`, `FindClusters()` and `RunUMAP()`.
+
+    Base class:
+        `biopipen.ns.scrna.SeuratClustering`
+
+    Deviations:
+        The parameters are passed through to `Seurat` unchanged: this process
+        overrides no inherited parameter and adds none.
     """
 
 
@@ -408,6 +481,24 @@ class ClusterMarkersOfAllCells(MarkersFinder_):
         ident_1 (hidden;readonly): {{Envs["ident_1"].help | indent: 12}}.
         ident_2 (hidden;readonly): {{Envs["ident_2"].help | indent: 12}}.
         mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
+
+    Description:
+        Finds the marker genes of every cluster found by
+        `SeuratClusteringOfAllCells` and runs an enrichment analysis on them.
+        Markers are found by `Seurat::FindMarkers()` and the enrichment is done
+        by `enrichr`.
+
+    Base class:
+        `biopipen.ns.scrna.MarkersFinder`
+
+    Deviations:
+        Four inherited parameters are changed. `sigmarkers` is set to
+        `p_val_adj < 0.05 & avg_log2FC > 0` instead of `p_val_adj < 0.05`, so
+        that only up-regulated markers are kept. `allmarker_plots` is set to a
+        `heatmap` of the top 10 markers of all clusters.
+        `marker_plots_defaults` gains `order_by = "desc(avg_log2FC)"`. `cases`
+        is empty in the base, so the base runs no marker-finding case by
+        default; immunopipe defines the `Cluster` case with `group_by = None`.
     """  # noqa: E501
 
     envs = {
@@ -440,6 +531,19 @@ class TopExpressingGenesOfAllCells(TopExpressingGenes_):
         group_by (hidden;readonly): {{Envs["group_by"].help | indent: 12}}.
         ident (hidden;readonly): {{Envs.ident.help | indent: 12}}.
         mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
+
+    Description:
+        Finds the top expressing genes of every cluster found by
+        `SeuratClusteringOfAllCells` and runs an enrichment analysis on them.
+        The top expressing genes are computed by `Seurat` and the enrichment is
+        done by `enrichr`.
+
+    Base class:
+        `biopipen.ns.scrna.TopExpressingGenes`
+
+    Deviations:
+        `cases` is empty in the base, so the base computes no case by default;
+        immunopipe defines the `Cluster` case explicitly.
     """
 
     envs = {"cases": {"Cluster": {}}}
@@ -452,7 +556,27 @@ class TopExpressingGenesOfAllCells(TopExpressingGenes_):
 )
 @annotate.format_doc()
 class TOrBCellSelection(TOrBCellSelection_):
-    pass
+    """Separate T and non-T cells and select T cells; or separate B and
+    non-B cells and select B cells.
+
+    Description:
+        Separates T from non-T cells (or B from non-B cells) and keeps the T/B
+        cells for the downstream analysis. The selection uses the expression
+        values of `envs.indicator_genes` and, unless `envs.ignore_vdj` is set,
+        the clonotype percentage of the clusters; when no `envs.selector` is
+        given, `stats::kmeans` (R, with K=2) separates the two groups. This is
+        not a wrapper of an upstream analysis tool: the process is immunopipe's
+        own, extending an immunopipe class and running immunopipe's own R script
+        (`immunopipe/scripts/TOrBCellSelection.R`).
+
+    Base class:
+        `immunopipe.inhouse.TOrBCellSelection` - an immunopipe class rather than
+        a biopipen one.
+
+    Deviations:
+        The four parameters are immunopipe's own and are used as the base class
+        declares them; this process overrides none of them and adds none.
+    """
 
 
 RNAInput = TOrBCellSelection or RNAInput
@@ -498,6 +622,18 @@ class SeuratClustering(SeuratClustering_):
         assignments:
 
         ![SeuratClustering-metadata](images/SeuratClustering-metadata.png)
+
+    Description:
+        Clusters the cells to be analysed - all cells, or the T/B cells selected
+        by `TOrBCellSelection` - using `Seurat` (R), with `FindNeighbors()`,
+        `FindClusters()` and `RunUMAP()`.
+
+    Base class:
+        `biopipen.ns.scrna.SeuratClustering`
+
+    Deviations:
+        The parameters are passed through to `Seurat` unchanged: this process
+        overrides no inherited parameter and adds none.
     """
 
     input_data = lambda ch1: ch1.iloc[:, [0]]
@@ -543,6 +679,22 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
         ![CellTypeAnnotation-metadata](images/CellTypeAnnotation-metadata.png)
 
+    Description:
+        Annotates the cells or the clusters with the annotation backend chosen
+        with `envs.tool`. `Seurat` holds the object; the annotation itself is
+        done by the selected backend, such as `celltypist`, `SingleR` or
+        `hitype`.
+
+    Base class:
+        `biopipen.ns.scrna.CellTypeAnnotation`
+
+    Deviations:
+        `tool` is overridden: the base defaults to `hitype`, immunopipe sets it
+        to `direct`, which assigns cell types without running any annotation
+        tool. `sctype_db` (default `None`) is added; the base only offers the
+        nested `envs.sctype.db`. immunopipe also overrides `input_data`
+        (`lambda ch1: ch1.iloc[:, [0]]`) so that the `Seurat` object is taken
+        from the first input channel.
     """  # noqa: E501
 
     # Change the default to direct, which doesn't do any annotation
@@ -572,6 +724,18 @@ class SeuratMap2Ref(SeuratMap2Ref_):
         assignments (column name determined by `envs.name`):
 
         ![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
+
+    Description:
+        Maps the object onto a reference `Seurat` object and transfers the
+        reference labels to the query cells (supervised analysis), using
+        `Seurat` (R): `FindTransferAnchors()` and `MapQuery()`.
+
+    Base class:
+        `biopipen.ns.scrna.SeuratMap2Ref`
+
+    Deviations:
+        The parameters are passed through to `Seurat` unchanged: this process
+        overrides no inherited parameter and adds none.
     """  # noqa: E501
 
     input_data = lambda ch1: ch1.iloc[:, [0]]
@@ -594,6 +758,17 @@ class SeuratSubClustering(SeuratSubClustering_):
         specified by names (keys) of `envs.cases`:
 
         ![SeuratSubClustering-metadata](images/SeuratSubClustering-metadata.png)
+
+    Description:
+        Sub-clusters the selected cells or clusters, using `Seurat` (R),
+        through `Seurat::FindSubCluster()`.
+
+    Base class:
+        `biopipen.ns.scrna.SeuratSubClustering`
+
+    Deviations:
+        The parameters are passed through to `Seurat` unchanged: this process
+        overrides no inherited parameter and adds none.
     """
 
     input_data = lambda ch1: ch1.iloc[:, [0]]
@@ -605,6 +780,20 @@ RNAInput = SeuratSubClustering or RNAInput
 @when("Slingshot" in config, requires=RNAInput)
 @annotate.format_doc()
 class Slingshot(Slingshot_):
+    """Trajectory inference using Slingshot
+
+    Description:
+        Infers the cell lineages and the pseudotime from the clustering, using
+        the `slingshot` package (R/Bioconductor).
+
+    Base class:
+        `biopipen.ns.scrna.Slingshot`
+
+    Deviations:
+        `outtype` (default `qs2`) is added, so that the trajectories are written
+        to a qs2 file; the base class has no such parameter.
+    """
+
     envs = {"outtype": "qs2"}
 
 
@@ -764,6 +953,23 @@ class ClusterMarkers(MarkersFinder_):
 
         ![Overlapping Markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers.png)
 
+    Description:
+        Finds the marker genes of every cluster of the T/B cells (or of all
+        cells) and runs an enrichment analysis on them. Markers are found by
+        `Seurat::FindMarkers()` and the enrichment is done by `enrichr`.
+
+    Base class:
+        `biopipen.ns.scrna.MarkersFinder`
+
+    Deviations:
+        Four inherited parameters are changed. `sigmarkers` is set to
+        `p_val_adj < 0.05 & avg_log2FC > 0` instead of `p_val_adj < 0.05`, so
+        that only up-regulated markers are kept. `allmarker_plots` is set to a
+        `heatmap_log2fc` of the top 5 markers of each cluster with
+        `cutoff = 0.05`. `marker_plots_defaults` gains
+        `order_by = "desc(avg_log2FC)"`. `cases` is empty in the base, so the
+        base runs no marker-finding case by default; immunopipe defines the
+        `Cluster` case with `group_by = None`.
     """  # noqa: E501
 
     requires = RNAInput  # type: ignore
@@ -818,6 +1024,18 @@ class TopExpressingGenes(TopExpressingGenes_):
         group_by (hidden;readonly): {{Envs["group_by"].help | indent: 12}}.
         ident (hidden;readonly): {{Envs.ident.help | indent: 12}}.
         mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
+
+    Description:
+        Finds the top expressing genes of every cluster of the T/B cells (or of
+        all cells) and runs an enrichment analysis on them. The top expressing
+        genes are computed by `Seurat` and the enrichment is done by `enrichr`.
+
+    Base class:
+        `biopipen.ns.scrna.TopExpressingGenes`
+
+    Deviations:
+        `cases` is empty in the base, so the base computes no case by default;
+        immunopipe defines the `Cluster` case explicitly.
     """  # noqa: E501
 
     envs = {"cases": {"Cluster": {}}}
@@ -833,6 +1051,17 @@ class ModuleScoreCalculator(ModuleScoreCalculator_):
         The metadata of the `Seurat` object will be updated with the module scores:
 
         ![ModuleScoreCalculator-metadata](images/ModuleScoreCalculator-metadata.png)
+
+    Description:
+        Calculates the module scores of each cell, using `Seurat` (R), through
+        `Seurat::AddModuleScore()` and `Seurat::CellCycleScoring()`.
+
+    Base class:
+        `biopipen.ns.scrna.ModuleScoreCalculator`
+
+    Deviations:
+        The parameters are passed through to `Seurat` unchanged: this process
+        overrides no inherited parameter and adds none.
     """  # noqa: E501
 
 
@@ -841,7 +1070,21 @@ RNAInput = ModuleScoreCalculator or RNAInput
 
 @when(VDJInput, requires=[VDJInput, RNAInput])  # type: ignore
 class ScRepCombiningExpression(ScRepCombiningExpression_):
-    pass
+    """Combine the scTCR/BCR data with the expression data
+
+    Description:
+        Combines the repertoire data with the expression data, so that the
+        clonotype information is available in the metadata of the `Seurat`
+        object. It is done by `scRepertoire` (R), through
+        `scRepertoire::combineExpression()`.
+
+    Base class:
+        `biopipen.ns.tcr.ScRepCombiningExpression`
+
+    Deviations:
+        The parameters are passed through to `scRepertoire` unchanged: this
+        process overrides no inherited parameter and adds none.
+    """
 
 
 CombinedInput = ScRepCombiningExpression or RNAInput
@@ -853,6 +1096,22 @@ CombinedInput = ScRepCombiningExpression or RNAInput
 )
 @annotate.format_doc()
 class CDR3Clustering(CDR3Clustering_):
+    """Cluster the TCR/BCR clones by their CDR3 sequences
+
+    Description:
+        Clusters the TCR/BCR clones by the similarity of their CDR3 sequences,
+        so that clones with similar receptors end up in the same cluster. The
+        clustering is done by `ClusTCR` (Python) or by `GIANA`, whichever is
+        selected with `envs.tool`.
+
+    Base class:
+        `biopipen.ns.tcr.CDR3Clustering`
+
+    Deviations:
+        The parameters are passed through to the selected tool unchanged: this
+        process overrides no inherited parameter and adds none.
+    """
+
     input_data = lambda ch1: ch1.iloc[:, [0]]
     order = 4
 
@@ -870,6 +1129,19 @@ class TESSA(TESSA_):
         and the cluster sizes:
 
         ![TESSA-metadata](images/TESSA-metadata.png)
+
+    Description:
+        Runs TESSA, a Bayesian model that integrates T cell receptor (TCR)
+        sequence profiling with transcriptomes to find phenotype-associated TCR
+        clusters. It is done by TESSA (Python), whose encoder and model are
+        shipped with `biopipen`.
+
+    Base class:
+        `biopipen.ns.tcr.TESSA`
+
+    Deviations:
+        The parameters are passed through to TESSA unchanged: this process
+        overrides no inherited parameter and adds none.
     """
 
     order = 5
@@ -883,6 +1155,22 @@ CombinedInput = TESSA or CombinedInput
     requires=CombinedInput,
 )
 class CellCellCommunication(CellCellCommunication_):
+    """Cell-cell communication inference
+
+    Description:
+        Infers cell-cell communication between the cell groups, based on the
+        expression of ligand-receptor pairs. It is done by `LIANA` (Python),
+        which offers a number of inference methods; `envs.method` selects the
+        one to use and defaults to `cellchat`.
+
+    Base class:
+        `biopipen.ns.scrna.CellCellCommunication`
+
+    Deviations:
+        The parameters are passed through to `LIANA` unchanged: this process
+        overrides no inherited parameter and adds none.
+    """
+
     order = 7
 
 
@@ -891,10 +1179,44 @@ class CellCellCommunication(CellCellCommunication_):
     requires=CellCellCommunication,
 )
 class CellCellCommunicationPlots(CellCellCommunicationPlots_):
-    pass
+    """Visualization for cell-cell communication inference.
+
+    Description:
+        Draws the plots of the cell-cell communication results produced by
+        `CellCellCommunication`, using `scplotter` (R), through
+        `scplotter::CCCPlot()`.
+
+    Base class:
+        `biopipen.ns.scrna.CellCellCommunicationPlots`
+
+    Deviations:
+        The parameters are passed through to `scplotter` unchanged: this
+        process overrides no inherited parameter and adds none.
+    """
 
 
 class SeuratClusterStats(SeuratClusterStats_):
+    """Statistics of the clustering.
+
+    Description:
+        Reports statistics of the clustering - the number and fraction of cells
+        in each cluster, gene expression values and dimension reduction plots,
+        and, when TCR/BCR data are configured, stats of the TCR clones/clusters
+        per cluster. The statistics and plots are produced by `Seurat` and
+        `scplotter` (R), and by `clustree` for the `clustrees` plots.
+
+    Base class:
+        `biopipen.ns.scrna.SeuratClusterStats`
+
+    Deviations:
+        `dimplots` is overridden with the base's
+        `{"Dimensional reduction plot": {"label": True}}` entry. When TCR/BCR
+        data are configured, a second plot, `VDJ Presence` (grouped by
+        `VDJ_Presence`), is added to it; the class body adds that entry only if
+        VDJ data are present. `envs_depth` is also set to 3, so that the nested
+        `envs` of the plots can be given in the configuration file.
+    """
+
     requires = CombinedInput  # type: ignore
     order = -1
     envs_depth = 3
@@ -913,12 +1235,42 @@ class SeuratClusterStats(SeuratClusterStats_):
 
 @when(VDJInput, requires=CombinedInput)  # type: ignore
 class ClonalStats(ClonalStats_):
+    """Visualize the clonal information.
+
+    Description:
+        Visualizes the clonal information of the TCR/BCR data - clonal volume,
+        diversity, overlaps between groups and so on. The plots are drawn by
+        `scplotter` (R).
+
+    Base class:
+        `biopipen.ns.tcr.ClonalStats`
+
+    Deviations:
+        The parameters are passed through to `scplotter` unchanged: this
+        process overrides no inherited parameter and adds none.
+    """
+
     envs_depth = 3
     order = 8
 
 
 @when("ScFGSEA" in config, requires=CombinedInput)
 class ScFGSEA(ScFGSEA_):
+    """Gene set enrichment analysis for cells in different groups using `fgsea`
+
+    Description:
+        Performs gene set enrichment analysis on the expression data for a
+        variety of groupings, including ones taken from the metadata and from
+        the TCR/BCR data. The testing is done by `fgsea` (R/Bioconductor).
+
+    Base class:
+        `biopipen.ns.scrna.ScFGSEA`
+
+    Deviations:
+        The parameters are passed through to `fgsea` unchanged: this process
+        overrides no inherited parameter and adds none.
+    """
+
     order = 9
 
 
@@ -930,6 +1282,18 @@ class PseudoBulkDEG(PseudoBulkDEG_):
     SeeAlso:
         - [biopipen.ns.scrna.PseudoBulkDEG](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.PseudoBulkDEG)
         - [ClusterMarkers](./ClusterMarkers.md) for examples of marker and enrichment plots
+
+    Description:
+        Performs pseudo-bulk differential gene expression analysis between the
+        groups of cells. The testing is done by `DESeq2` (R), the default of
+        `envs.tool`, and the results are visualized with `plotthis`/`scplotter`.
+
+    Base class:
+        `biopipen.ns.scrna.PseudoBulkDEG`
+
+    Deviations:
+        The parameters are passed through unchanged: this process overrides no
+        inherited parameter and adds none.
     """  # noqa: E501
 
     order = 10
@@ -1048,6 +1412,18 @@ class MarkersFinder(MarkersFinder_):
         The `DEFAULT` section name will be ignored in the report. You can specify
         a section name other than `DEFAULT` for each case to group them
         in the report.
+
+    Description:
+        Finds the markers between different groups of cells and runs an
+        enrichment analysis on them. Markers are found by
+        `Seurat::FindMarkers()` and the enrichment is done by `enrichr`.
+
+    Base class:
+        `biopipen.ns.scrna.MarkersFinder`
+
+    Deviations:
+        The parameters are passed through to `Seurat` unchanged: this process
+        overrides no inherited parameter and adds none.
     """  # noqa: E501
 
     order = 11
@@ -1055,6 +1431,22 @@ class MarkersFinder(MarkersFinder_):
 
 @when(VDJInput and "CDR3AAPhyschem" in config, requires=CombinedInput)  # type: ignore
 class CDR3AAPhyschem(CDR3AAPhyschem_):
+    """CDR3 AA physicochemical feature analysis
+
+    Description:
+        Runs a regression between two groups of cells (for example Treg vs
+        Tconv) at different lengths of CDR3 amino-acid sequences, for each
+        physicochemical feature of the amino acids (hydrophobicity, volume and
+        isoelectric point). The modelling is done by `glmnet` (R).
+
+    Base class:
+        `biopipen.ns.tcr.CDR3AAPhyschem`
+
+    Deviations:
+        The parameters are passed through to `glmnet` unchanged: this process
+        overrides no inherited parameter and adds none.
+    """
+
     order = 12
 
 

@@ -71,3 +71,19 @@ See also: <https://www.borch.dev/uploads/screpertoire/reference/combineexpressio
     Similar to `imm_cell_id_trans`, the function should take a vector of
     cell barcodes as input and return a vector of transformed cell barcodes.<br />
 
+## Description
+
+Combines the repertoire data with the expression data, so that the
+clonotype information is available in the metadata of the `Seurat`
+object. It is done by `scRepertoire` (R), through
+`scRepertoire::combineExpression()`.<br />
+
+## Base class
+
+`biopipen.ns.tcr.ScRepCombiningExpression`
+
+## Deviations
+
+The parameters are passed through to `scRepertoire` unchanged: this
+process overrides no inherited parameter and adds none.<br />
+

@@ -172,3 +172,17 @@ The metadata of the `Seurat` object will be updated with the module scores:<br /
 
 ![ModuleScoreCalculator-metadata](images/ModuleScoreCalculator-metadata.png)
 
+## Description
+
+Calculates the module scores of each cell, using `Seurat` (R), through
+`Seurat::AddModuleScore()` and `Seurat::CellCycleScoring()`.<br />
+
+## Base class
+
+`biopipen.ns.scrna.ModuleScoreCalculator`
+
+## Deviations
+
+The parameters are passed through to `Seurat` unchanged: this process
+overrides no inherited parameter and adds none.<br />
+

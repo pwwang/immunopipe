@@ -402,3 +402,18 @@ assignments (column name determined by `envs.name`):<br />
 
 ![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
 
+## Description
+
+Maps the object onto a reference `Seurat` object and transfers the
+reference labels to the query cells (supervised analysis), using
+`Seurat` (R): `FindTransferAnchors()` and `MapQuery()`.<br />
+
+## Base class
+
+`biopipen.ns.scrna.SeuratMap2Ref`
+
+## Deviations
+
+The parameters are passed through to `Seurat` unchanged: this process
+overrides no inherited parameter and adds none.<br />
+

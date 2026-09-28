@@ -63,3 +63,17 @@ This process is implemented based on the R package `slingshot`.<br />
     The default case will be added with the default values under `envs` with an empty prefix.<br />
 - `outtype`: *Default: `qs2`*. <br />
 
+## Description
+
+Infers the cell lineages and the pseudotime from the clustering, using
+the `slingshot` package (R/Bioconductor).<br />
+
+## Base class
+
+`biopipen.ns.scrna.Slingshot`
+
+## Deviations
+
+`outtype` (default `qs2`) is added, so that the trajectories are written
+to a qs2 file; the base class has no such parameter.<br />
+

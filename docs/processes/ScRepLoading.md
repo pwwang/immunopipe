@@ -96,3 +96,19 @@ Note that when the file name can not be recognized by `scRepertoire::loadContigs
         See also: <https://rdrr.io/github/ncborcherding/scRepertoire/man/loadContigs.html>
         If not provided, the format will be guessed from the file name by `scRepertoire::loadContigs()`.<br />
 
+## Description
+
+Loads the TCR/BCR (VDJ) data of each sample into a `scRepertoire`
+compatible object, so that `ScRepCombiningExpression` can later combine
+the repertoire data with the expression data. The loading is done by
+`scRepertoire` (R), through `scRepertoire::loadContigs()`.<br />
+
+## Base class
+
+`biopipen.ns.tcr.ScRepLoading`
+
+## Deviations
+
+The parameters are passed through to `scRepertoire` unchanged: this
+process overrides no inherited parameter and adds none.<br />
+

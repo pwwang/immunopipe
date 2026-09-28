@@ -56,3 +56,19 @@ AA (hydrophobicity, volume and isolectric point).<br />
 - [Handbook of chemistry & physics 72nd edition. (CRC Press, 1991).](https://books.google.com/books?hl=en&lr=&id=bNDMBQAAQBAJ&oi=fnd&pg=PP1&dq=Hdbk+of+chemistry+%26+physics&ots=H9fzwhwz-C&sig=EXHI9N3q4OW9TYEBWlldqkvADfM#v=onepage&q=Hdbk%20of%20chemistry%20%26%20physics&f=false)
 - [Zamyatnin, A. A. Protein volume in solution. Prog. Biophys. Mol. Biol. 24, 107-123 (1972).](https://www.sciencedirect.com/science/article/pii/0079610772900053)
 
+## Description
+
+Runs a regression between two groups of cells (for example Treg vs
+Tconv) at different lengths of CDR3 amino-acid sequences, for each
+physicochemical feature of the amino acids (hydrophobicity, volume and
+isoelectric point). The modelling is done by `glmnet` (R).<br />
+
+## Base class
+
+`biopipen.ns.tcr.CDR3AAPhyschem`
+
+## Deviations
+
+The parameters are passed through to `glmnet` unchanged: this process
+overrides no inherited parameter and adds none.<br />
+

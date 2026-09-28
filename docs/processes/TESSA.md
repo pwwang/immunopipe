@@ -77,3 +77,19 @@ and the cluster sizes:<br />
 
 ![TESSA-metadata](images/TESSA-metadata.png)
 
+## Description
+
+Runs TESSA, a Bayesian model that integrates T cell receptor (TCR)
+sequence profiling with transcriptomes to find phenotype-associated TCR
+clusters. It is done by TESSA (Python), whose encoder and model are
+shipped with `biopipen`.<br />
+
+## Base class
+
+`biopipen.ns.tcr.TESSA`
+
+## Deviations
+
+The parameters are passed through to TESSA unchanged: this process
+overrides no inherited parameter and adds none.<br />
+

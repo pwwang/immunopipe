@@ -236,3 +236,24 @@ column name in metadata. Follow `envs.cases` for more details.<br />
 - [MarkersFinder](./MarkersFinder.md)
 - [biopipen.ns.scrna.MarkersFinder](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.MarkersFinder)
 
+## Description
+
+Finds the marker genes of every cluster found by
+`SeuratClusteringOfAllCells` and runs an enrichment analysis on them.<br />
+Markers are found by `Seurat::FindMarkers()` and the enrichment is done
+by `enrichr`.<br />
+
+## Base class
+
+`biopipen.ns.scrna.MarkersFinder`
+
+## Deviations
+
+Four inherited parameters are changed. `sigmarkers` is set to
+`p_val_adj < 0.05 & avg_log2FC > 0` instead of `p_val_adj < 0.05`, so
+that only up-regulated markers are kept. `allmarker_plots` is set to a
+`heatmap` of the top 10 markers of all clusters.<br />
+`marker_plots_defaults` gains `order_by = "desc(avg_log2FC)"`. `cases`
+is empty in the base, so the base runs no marker-finding case by
+default; immunopipe defines the `Cluster` case with `group_by = None`.<br />
+

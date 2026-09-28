@@ -104,3 +104,17 @@ specified by names (keys) of `envs.cases`:<br />
 
 ![SeuratSubClustering-metadata](images/SeuratSubClustering-metadata.png)
 
+## Description
+
+Sub-clusters the selected cells or clusters, using `Seurat` (R),
+through `Seurat::FindSubCluster()`.<br />
+
+## Base class
+
+`biopipen.ns.scrna.SeuratSubClustering`
+
+## Deviations
+
+The parameters are passed through to `Seurat` unchanged: this process
+overrides no inherited parameter and adds none.<br />
+

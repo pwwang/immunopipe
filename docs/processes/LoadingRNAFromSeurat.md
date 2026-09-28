@@ -43,3 +43,24 @@ Load RNA data from a Seurat object, instead of RNAData from SampleInfo
 - [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-seq-data).<br />
 - [Routes of the pipeline](../introduction.md#routes-of-the-pipeline).<br />
 
+## Description
+
+Loads the RNA data from a pre-existing `Seurat` object (an RDS or
+qs/qs2 file) instead of the `RNAData` directories listed by
+`SampleInfo`. This is not a wrapper of an upstream analysis tool: the
+process is immunopipe's own and runs an R script that ships with
+immunopipe (`immunopipe/scripts/LoadingRNAFromSeurat.R`), which reads
+and writes the object with `tidyseurat` and `qs2`.<br />
+
+## Base class
+
+`biopipen.core.proc.Proc` - biopipen's bare process class, which
+declares no parameters of its own.<br />
+
+## Deviations
+
+All six options of this process are added by immunopipe, since the base
+class declares none: `prepared` (default `False`), `clustered`
+(default `False`), `sample` (default `Sample`), `mutaters`
+(default `{}`), `subset` (default `None`) and `ncores` (default `1`).<br />
+

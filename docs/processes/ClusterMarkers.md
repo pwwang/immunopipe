@@ -358,3 +358,24 @@ plot_type = "venn"
 
 ![Overlapping Markers](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers.png)
 
+## Description
+
+Finds the marker genes of every cluster of the T/B cells (or of all
+cells) and runs an enrichment analysis on them. Markers are found by
+`Seurat::FindMarkers()` and the enrichment is done by `enrichr`.<br />
+
+## Base class
+
+`biopipen.ns.scrna.MarkersFinder`
+
+## Deviations
+
+Four inherited parameters are changed. `sigmarkers` is set to
+`p_val_adj < 0.05 & avg_log2FC > 0` instead of `p_val_adj < 0.05`, so
+that only up-regulated markers are kept. `allmarker_plots` is set to a
+`heatmap_log2fc` of the top 5 markers of each cluster with
+`cutoff = 0.05`. `marker_plots_defaults` gains
+`order_by = "desc(avg_log2FC)"`. `cases` is empty in the base, so the
+base runs no marker-finding case by default; immunopipe defines the
+`Cluster` case with `group_by = None`.<br />
+

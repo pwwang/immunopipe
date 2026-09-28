@@ -438,3 +438,24 @@ theme = "theme_blank"
 
 ![Dimensional reduction plot by Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/dimplots/Dimensional-reduction-plot-by-Diagnosis.dim.png){: width="80%" }
 
+## Description
+
+Reports statistics of the clustering - the number and fraction of cells
+in each cluster, gene expression values and dimension reduction plots,
+and, when TCR/BCR data are configured, stats of the TCR clones/clusters
+per cluster. The statistics and plots are produced by `Seurat` and
+`scplotter` (R), and by `clustree` for the `clustrees` plots.<br />
+
+## Base class
+
+`biopipen.ns.scrna.SeuratClusterStats`
+
+## Deviations
+
+`dimplots` is overridden with the base's
+`{"Dimensional reduction plot": {"label": True}}` entry. When TCR/BCR
+data are configured, a second plot, `VDJ Presence` (grouped by
+`VDJ_Presence`), is added to it; the class body adds that entry only if
+VDJ data are present. `envs_depth` is also set to 3, so that the nested
+`envs` of the plots can be given in the configuration file.<br />
+
