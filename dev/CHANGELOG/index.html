@@ -168,6 +168,8 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Change log</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#262">2.6.2</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#261">2.6.1</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#260">2.6.0</a>
@@ -425,6 +427,25 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h2>
+<h3 id="262">2.6.2<a class="headerlink" href="#262" title="Permanent link">&para;</a></h3>
+<ul>
+<li>docs(processes): give every process a Description, Base class and Deviations section</li>
+<li>docs: the conda environment is Linux-only; macOS uses the container image</li>
+<li>ci: make the install step self-diagnosing, and stop it suppressing the smoke run</li>
+<li>ci: stop the job-level env from invalidating install-matrix</li>
+<li>ci: fix a script injection, and test the platform claim we now make</li>
+<li>ci: do not record a successful env update as a failure</li>
+<li>docs(installation): the conda route is Linux-only</li>
+<li>ci: fix two bugs that stopped the revision workflows producing evidence</li>
+<li>fix(mcp): three defects found by the configuration evaluation</li>
+<li>docs(running): drop --gbatch.disk-size-gb, which does not exist</li>
+<li>docs(faq): explain that report figures sit on the tabs after Table</li>
+<li>docs(installation): download the environment files instead of passing URLs</li>
+<li>fix(mcp): never answer a notification; correct the host configs</li>
+<li>docs(getting-started): mount /tmp in the docker command</li>
+<li>ci: reproduce the documented docker invocation as-written vs revised</li>
+<li>ci: verify the documented install and run the pipeline on ubuntu + macos</li>
+</ul>
 <h3 id="261">2.6.1<a class="headerlink" href="#261" title="Permanent link">&para;</a></h3>
 <ul>
 <li>feat: add more tools support for CellTypeAnnotation</li>
