@@ -1,6 +1,5 @@
 # Change Log
 
-
 ## 2.6.2
 
 - docs(processes): give every process a Description, Base class and Deviations section
