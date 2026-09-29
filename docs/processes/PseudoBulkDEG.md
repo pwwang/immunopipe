@@ -265,3 +265,18 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
 - [biopipen.ns.scrna.PseudoBulkDEG](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.PseudoBulkDEG)
 - [ClusterMarkers](./ClusterMarkers.md) for examples of marker and enrichment plots
 
+## Description
+
+Performs pseudo-bulk differential gene expression analysis between the
+groups of cells. The testing is done by `DESeq2` (R), the default of
+`envs.tool`, and the results are visualized with `plotthis`/`scplotter`.<br />
+
+## Base class
+
+`biopipen.ns.scrna.PseudoBulkDEG`
+
+## Deviations
+
+The parameters are passed through unchanged: this process overrides no
+inherited parameter and adds none.<br />
+

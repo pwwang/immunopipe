@@ -317,3 +317,18 @@ viz_type = "rarefaction"
 
 ![Rarefaction_Curve](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Rarefaction-Curve.png){: width="80%"}
 
+## Description
+
+Visualizes the clonal information of the TCR/BCR data - clonal volume,
+diversity, overlaps between groups and so on. The plots are drawn by
+`scplotter` (R).<br />
+
+## Base class
+
+`biopipen.ns.tcr.ClonalStats`
+
+## Deviations
+
+The parameters are passed through to `scplotter` unchanged: this
+process overrides no inherited parameter and adds none.<br />
+

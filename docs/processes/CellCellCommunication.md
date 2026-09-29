@@ -174,3 +174,19 @@ to visualize the results.<br />
 - [Review](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9184522/).<br />
 - [LIANA](https://www.biorxiv.org/content/10.1101/2023.08.19.553863v1).<br />
 
+## Description
+
+Infers cell-cell communication between the cell groups, based on the
+expression of ligand-receptor pairs. It is done by `LIANA` (Python),
+which offers a number of inference methods; `envs.method` selects the
+one to use and defaults to `cellchat`.<br />
+
+## Base class
+
+`biopipen.ns.scrna.CellCellCommunication`
+
+## Deviations
+
+The parameters are passed through to `LIANA` unchanged: this process
+overrides no inherited parameter and adds none.<br />
+

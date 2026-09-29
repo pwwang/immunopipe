@@ -357,3 +357,18 @@ The `DEFAULT` section name will be ignored in the report. You can specify
 a section name other than `DEFAULT` for each case to group them
 in the report.<br />
 
+## Description
+
+Finds the markers between different groups of cells and runs an
+enrichment analysis on them. Markers are found by
+`Seurat::FindMarkers()` and the enrichment is done by `enrichr`.<br />
+
+## Base class
+
+`biopipen.ns.scrna.MarkersFinder`
+
+## Deviations
+
+The parameters are passed through to `Seurat` unchanged: this process
+overrides no inherited parameter and adds none.<br />
+

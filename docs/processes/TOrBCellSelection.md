@@ -130,3 +130,24 @@ The cluster with higher clonoype percentage will be selected as T/B cells
 [`SeuratClustering`](SeuratClustering.md) for
 further clustering and downstream analysis.<br />
 
+## Description
+
+Separates T from non-T cells (or B from non-B cells) and keeps the T/B
+cells for the downstream analysis. The selection uses the expression
+values of `envs.indicator_genes` and, unless `envs.ignore_vdj` is set,
+the clonotype percentage of the clusters; when no `envs.selector` is
+given, `stats::kmeans` (R, with K=2) separates the two groups. This is
+not a wrapper of an upstream analysis tool: the process is immunopipe's
+own, extending an immunopipe class and running immunopipe's own R script
+(`immunopipe/scripts/TOrBCellSelection.R`).<br />
+
+## Base class
+
+`immunopipe.inhouse.TOrBCellSelection` - an immunopipe class rather than
+a biopipen one.<br />
+
+## Deviations
+
+The four parameters are immunopipe's own and are used as the base class
+declares them; this process overrides none of them and adds none.<br />
+

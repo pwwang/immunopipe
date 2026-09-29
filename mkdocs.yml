@@ -35,6 +35,7 @@ nav:
     - 'CLI utilities': 'cli-utils.md'
     - 'Agent Skills': 'agent-skills.md'
     - 'MCP Sever': 'mcp-server.md'
+    - 'AI chat on reports': 'ai-chat.md'
     - 'Processes':
       - 'SampleInfo': 'processes/SampleInfo.md'
       # scRNA-seq processes

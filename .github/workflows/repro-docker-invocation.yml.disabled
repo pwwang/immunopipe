@@ -1,0 +1,100 @@
+# Reproduces reviewer R1.2: the docker command as documented in
+# docs/getting-started.md vs the revised one.
+#
+# FRAGMENT — fold into install-matrix.yml as two extra jobs once both behave as expected.
+#
+# The command under test is the plan's, unchanged. Everything else around it is identical in
+# both jobs, so the only difference between the two runs is the docker invocation itself.
+# Added around the plan's sketch (all of it outside the command under test):
+#   * "prepare the tutorial data" — pwwang/immunopipe-example gitignores prepared-data/, so a
+#     fresh checkout has no input at all; without this step both jobs would fail on a missing
+#     file instead of on the invocation, and the comparison would prove nothing.
+#   * "free disk space" + df — the image is ~1.8 GB compressed and the tutorial data ~3 GB.
+#   * the docker exit code is echoed before the step exits, so the log states the outcome
+#     explicitly; the step still fails when the command fails.
+name: repro-docker-invocation
+
+# `workflow_dispatch` alone could never run this: GitHub only offers dispatch for a
+# workflow that exists on the DEFAULT branch, and this file is only on dev, so the
+# API returned 404 and no run was ever created. It is a fragment by design (see the
+# header), so it rides the same trigger as install-matrix until it is folded in.
+on:
+  push:
+    branches: [dev, master, main]
+  workflow_dispatch:
+
+jobs:
+  as-documented:
+    # RED IS THE EXPECTED RESULT HERE. This job runs the docker command exactly as
+    # the docs used to give it; the failure is what reviewer R1.2 is about. The
+    # job-level continue-on-error below keeps the workflow run green.
+    name: as-documented (EXPECTED TO FAIL - the failure is the evidence)
+    runs-on: ubuntu-latest
+    # This job is SUPPOSED to fail: it runs the docker command exactly as the docs had
+    # it, and that failure is what reviewer R1.2 is about. Job-level
+    # continue-on-error keeps the workflow run green; only this job shows red.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with: { repository: pwwang/immunopipe-example }
+
+      - name: free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/share/boost
+          df -h /
+
+      - name: prepare the tutorial data
+        run: |
+          set -euo pipefail
+          bash prepare-data.sh
+          check() { find "prepared-data/$1" -name "$2" -size +0c | grep -q . \
+                    || { echo "MISSING: prepared-data/$1/$2"; exit 1; }; }
+          for s in C1 C3 NC1 NC3 CT1 CT2; do
+            check "$s" 'barcodes*'
+            check "$s" 'filtered_contig_annotations.csv'
+          done
+          df -h /
+
+      - name: run docs/getting-started.md verbatim
+        run: |
+          docker --version
+          set +e
+          docker run --rm -w /workdir -v "$PWD":/workdir \
+            justold/immunopipe:master @ImmunopipeMinimal.config.toml
+          code=$?
+          echo "docker exit code: $code"
+          exit $code
+
+  as-revised:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { repository: pwwang/immunopipe-example }
+
+      - name: free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/share/boost
+          df -h /
+
+      - name: prepare the tutorial data
+        run: |
+          set -euo pipefail
+          bash prepare-data.sh
+          check() { find "prepared-data/$1" -name "$2" -size +0c | grep -q . \
+                    || { echo "MISSING: prepared-data/$1/$2"; exit 1; }; }
+          for s in C1 C3 NC1 NC3 CT1 CT2; do
+            check "$s" 'barcodes*'
+            check "$s" 'filtered_contig_annotations.csv'
+          done
+          df -h /
+
+      - name: run the revised command
+        run: |
+          docker --version
+          set +e
+          docker run --rm -w /workdir -v "$PWD":/workdir -v /tmp:/tmp \
+            --user "$(id -u):$(id -g)" \
+            justold/immunopipe:master @ImmunopipeMinimal.config.toml
+          code=$?
+          echo "docker exit code: $code"
+          exit $code

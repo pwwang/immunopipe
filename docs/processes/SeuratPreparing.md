@@ -349,3 +349,19 @@ processes will use it and/or add more metadata to the `Seurat` object.<br />
 
 ![SeuratPreparing-metadata](images/SeuratPreparing-metadata.png)
 
+## Description
+
+Loads the scRNA-seq data, prepares it (normalization and integration of
+the samples) and applies quality control to it, using `Seurat` (R) -
+`CreateSeuratObject()` and `Read10X()` for the loading, and the cell-
+and gene-level filters given under `envs.cell_qc` and `envs.gene_qc`.<br />
+
+## Base class
+
+`biopipen.ns.scrna.SeuratPreparing`
+
+## Deviations
+
+The parameters are passed through to `Seurat` unchanged: this process
+overrides no inherited parameter and adds none.<br />
+

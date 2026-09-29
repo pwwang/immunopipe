@@ -98,3 +98,18 @@ assignments:<br />
 
 ![SeuratClustering-metadata](images/SeuratClustering-metadata.png)
 
+## Description
+
+Clusters the cells to be analysed - all cells, or the T/B cells selected
+by `TOrBCellSelection` - using `Seurat` (R), with `FindNeighbors()`,
+`FindClusters()` and `RunUMAP()`.<br />
+
+## Base class
+
+`biopipen.ns.scrna.SeuratClustering`
+
+## Deviations
+
+The parameters are passed through to `Seurat` unchanged: this process
+overrides no inherited parameter and adds none.<br />
+

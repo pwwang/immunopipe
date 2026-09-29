@@ -111,3 +111,19 @@ CDR3 sequence may be shared by multiple cells.<br />
     - `both`:
         Both sequences from the heavy and light chains (CTaa column).<br />
 
+## Description
+
+Clusters the TCR/BCR clones by the similarity of their CDR3 sequences,
+so that clones with similar receptors end up in the same cluster. The
+clustering is done by `ClusTCR` (Python) or by `GIANA`, whichever is
+selected with `envs.tool`.<br />
+
+## Base class
+
+`biopipen.ns.tcr.CDR3Clustering`
+
+## Deviations
+
+The parameters are passed through to the selected tool unchanged: this
+process overrides no inherited parameter and adds none.<br />
+

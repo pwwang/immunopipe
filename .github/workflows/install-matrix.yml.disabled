@@ -1,0 +1,585 @@
+name: install-matrix
+
+# Verifies the DOCUMENTED installation path (docs/installation.md, section
+# "Install the pipline and the dependencies using conda/mamba") on the platforms
+# the manuscript claims to support, and then RUNS the pipeline on a tiny synthetic
+# dataset: installing is not the claim under test, executing is.
+#
+# Command mapping (docs -> this workflow). The documented commands are conda
+# commands and the published container uses micromamba; micromamba exposes the same
+# surface (`env update -f` included), so the documented commands are run here with
+# micromamba:
+#
+#   docs step 1   conda env create   -n immunopipe -f docker/environment_base.yml
+#            ->   micromamba create   -n immunopipe -f docker/environment_base.yml
+#   docs step 2   conda env update   -n immunopipe -f docker/environment_rpkgs.yml
+#            ->   micromamba env update -n immunopipe -f docker/environment_rpkgs.yml
+#   docs step 3   conda activate immunopipe; pip install -U immunopipe
+#            ->   micromamba run -n immunopipe python -m pip install -U immunopipe
+#   docs step 3   pipen report update            (unchanged)
+#
+# The environment files come from the checked-out commit (so the job tests the
+# branch under review), and an early step diffs them against the URLs the docs tell
+# users to download from, so a green run cannot be green because of a stale file.
+#
+# Platform claims (docs/installation.md): the conda/mamba route is documented as
+# LINUX-ONLY, because every R package immunopipe needs is published on the pwwang
+# channel as linux-64 builds only - so `conda env create -f environment_base.yml`
+# cannot solve on macOS, Intel or Apple silicon, by construction. macOS is documented as
+# a pip install instead. The two legs therefore verify two different claims:
+#
+#   ubuntu-latest  the documented conda path must work end to end: base + rpkgs + the
+#                  `pip install -U immunopipe` into that env + the smoke run. All four
+#                  are gated, exactly as before.
+#   macos-latest   the conda path is EXPECTED to fail. It is still attempted and its
+#                  solver output is still captured (install-logs/rpkgs.log,
+#                  install-logs/pip-install.log, install-logs/probe-*.log) as the
+#                  evidence for the documented limitation, but its outcome never fails
+#                  the job. What IS gated on macOS is the documented pip path: a plain
+#                  virtualenv + `pip install -U immunopipe` + importing the installed
+#                  package. The smoke run needs R from the conda env, so it stays skipped
+#                  on macOS rather than pretending to run.
+#
+# The verdict step is platform-aware and fails the job when the claim that applies to
+# that platform was not met, so this workflow can never be green by omission.
+on:
+  push:
+    branches: [dev, master, main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      cold:
+        description: "Ignore the cached environment and run the documented install from scratch"
+        type: boolean
+        default: false
+      probe_platform:
+        description: "Extra conda platform for the availability probe (e.g. osx-64); empty = native platform only"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  install-and-run:
+    name: documented install + smoke run (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    env:
+      LOGDIR: ${{ github.workspace }}/install-logs
+      SMOKEDIR: ${{ github.workspace }}/smoke
+      PROBE_PLATFORM: ${{ inputs.probe_platform }}
+      ENV_BASE: docker/environment_base.yml
+      ENV_RPKGS: docker/environment_rpkgs.yml
+      # the platform this leg runs on, as data rather than as text spliced into scripts
+      MATRIX_OS: ${{ matrix.os }}
+      # RUNNER_OS is deliberately NOT set here: it is a built-in GitHub variable
+      # (Linux / macOS / Windows) already present in every step's environment, and
+      # the `runner` context is not available in a job-level `env:` block - using it
+      # made GitHub reject this whole workflow file, so the run produced zero jobs.
+
+    defaults:
+      run:
+        shell: bash -elo pipefail {0}
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # Diagnostic only, so it must never gate the run. micromamba is installed by
+      # the setup-micromamba step below, not present on a fresh runner; calling it
+      # here unconditionally exited 127 and skipped every subsequent step.
+      - name: Platform fingerprint
+        run: |
+          mkdir -p "$LOGDIR"
+          {
+            echo "runner: $MATRIX_OS"
+            uname -a
+            if command -v micromamba >/dev/null 2>&1; then
+              micromamba --version
+            else
+              echo "micromamba: not on PATH yet (installed by the next setup step)"
+            fi
+          } 2>&1 | tee "$LOGDIR/platform.log"
+
+      - name: Documented environment files vs the URLs in docs/installation.md
+        continue-on-error: true
+        run: |
+          BASEURL=https://raw.githubusercontent.com/pwwang/immunopipe/master/docker
+          for f in environment_base.yml environment_rpkgs.yml; do
+            if curl -fsSL "$BASEURL/$f" -o "/tmp/documented-$f"; then
+              if diff -q "docker/$f" "/tmp/documented-$f" > /dev/null; then
+                echo "$f: IDENTICAL to the documented download ($BASEURL/$f)"
+              else
+                echo "$f: DIFFERS from the documented download - this run tests the checkout, not the URL:"
+                diff -u "docker/$f" "/tmp/documented-$f" | head -40 || true
+              fi
+            else
+              echo "$f: could not fetch the documented URL (network?) - informational only"
+            fi
+          done 2>&1 | tee "$LOGDIR/documented-vs-checkout.log"
+
+      # documented step 1: the action runs
+      # `micromamba create -n immunopipe -f docker/environment_base.yml` and caches
+      # the environment (cache key includes the environment file hash and the OS).
+      # `workflow_dispatch` with `cold: true` disables the cache so the documented
+      # command really runs from scratch.
+      - name: "Documented step 1: conda env create -f docker/environment_base.yml"
+        id: base
+        continue-on-error: true
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: docker/environment_base.yml
+          environment-name: immunopipe
+          cache-environment: ${{ !(github.event_name == 'workflow_dispatch' && inputs.cold) }}
+          cache-downloads: true
+          init-shell: none
+
+      # the rest of the platform fingerprint, now that micromamba exists. Diagnostic
+      # only: on macOS the documented conda path is expected to be unavailable and
+      # setup-micromamba can fail before it puts micromamba on PATH, so a missing
+      # micromamba is recorded here instead of aborting the step (127 used to skip every
+      # later step, including the macOS pip check that this workflow now gates on).
+      - name: Platform fingerprint (micromamba)
+        continue-on-error: true
+        run: |
+          {
+            if command -v micromamba >/dev/null 2>&1; then
+              echo "micromamba --version:"
+              micromamba --version
+              echo
+              echo "micromamba info:"
+              micromamba info
+            else
+              echo "micromamba: not on PATH - the documented conda path could not start here"
+            fi
+          } 2>&1 | tee -a "$LOGDIR/platform.log"
+
+      - name: "Documented step 2: conda env update -f docker/environment_rpkgs.yml"
+        id: rpkgs
+        continue-on-error: true
+        run: |
+          # Redirect to the log rather than piping through tee: under `set -e` a
+          # failing `echo | tee` aborts the script with tee's status, which recorded a
+          # successful update (RPKGS_EXIT=0, "Transaction finished") as a failure.
+          set +e
+          micromamba env update -n immunopipe -f "$ENV_RPKGS" > "$LOGDIR/rpkgs.log" 2>&1
+          rc=$?
+          set +e
+          echo "RPKGS_EXIT=$rc" >> "$LOGDIR/rpkgs.log" || true
+          if [ "$rc" -ne 0 ]; then
+            echo "::warning::documented step 2 failed (exit $rc) on this platform - the unresolved package list is in install-logs/rpkgs.log"
+          fi
+          exit "$rc"
+
+      # documented step 3, inside the conda environment the docs create. continue-on-error
+      # keeps a failure here from skipping the steps below (on macOS the env cannot exist,
+      # so this fails by design there); the Verdict reads the raw outcome and still gates
+      # it on Linux. The whole transcript is redirected into install-logs/pip-install.log,
+      # so the failure - or the proof it worked - survives in the artifact either way.
+      - name: "Documented step 3: pip install -U immunopipe"
+        id: install
+        continue-on-error: true
+        run: |
+          # set +e throughout: this step reports its own exit status, and errexit
+          # aborting mid-way would lose the report that is the point of the step.
+          set +e
+          rc=0
+          : > "$LOGDIR/pip-install.log"
+
+          # record each command's status separately, so a failure names the command
+          step_rc() {
+            echo "$1=$2" | tee -a "$LOGDIR/pip-install.log"
+            [ "$2" -eq 0 ] || rc="$2"
+          }
+
+          if command -v micromamba >/dev/null 2>&1; then
+            micromamba run -n immunopipe python -m pip install --upgrade pip \
+              >> "$LOGDIR/pip-install.log" 2>&1
+            step_rc PIP_UPGRADE_EXIT $?
+
+            micromamba run -n immunopipe python -m pip install -U immunopipe \
+              >> "$LOGDIR/pip-install.log" 2>&1
+            step_rc PIP_INSTALL_EXIT $?
+
+            micromamba run -n immunopipe immunopipe --version \
+              > "$LOGDIR/immunopipe-version.log" 2>&1
+            step_rc IMMUNOPIPE_VERSION_EXIT $?
+            cat "$LOGDIR/immunopipe-version.log" >> "$LOGDIR/pip-install.log"
+          else
+            echo "micromamba: not on PATH - the documented conda path cannot run here" \
+              >> "$LOGDIR/pip-install.log"
+            step_rc MICROMAMBA_MISSING 127
+          fi
+
+          echo "INSTALL_EXIT=$rc" | tee -a "$LOGDIR/pip-install.log"
+          cat "$LOGDIR/pip-install.log"
+          exit "$rc"
+
+      - name: "Documented step 3b: pipen report update"
+        id: reportdeps
+        continue-on-error: true
+        run: |
+          micromamba run -n immunopipe pipen report update 2>&1 | tee "$LOGDIR/pipen-report-update.log"
+
+      # The macOS claim in docs/installation.md is the pip path ("On macOS, install with
+      # pip and provide R separately"). Verified here in a plain virtualenv - no conda, no
+      # micromamba - and gated: if this stops working, the documented macOS instruction is
+      # false and the job must go red. The venv lives outside $LOGDIR on purpose, so the
+      # uploaded artifact stays logs, not a hundred megabytes of site-packages.
+      - name: "Documented macOS path: python -m venv + pip install -U immunopipe"
+        id: pipvenv
+        if: runner.os == 'macOS'
+        run: |
+          VENVDIR="${RUNNER_TEMP:-/tmp}/immunopipe-pipvenv"
+          python3 --version 2>&1 | tee "$LOGDIR/pipvenv-install.log"
+          python3 -m venv "$VENVDIR"
+          VENV_PY="$VENVDIR/bin/python"
+          "$VENV_PY" -m pip install --upgrade pip 2>&1 | tee -a "$LOGDIR/pipvenv-install.log"
+          "$VENV_PY" -m pip install -U immunopipe 2>&1 | tee -a "$LOGDIR/pipvenv-install.log"
+          "$VENV_PY" -c "import immunopipe; print('immunopipe', immunopipe.__version__)" 2>&1 | tee "$LOGDIR/pipvenv-import.log"
+
+      # The smoke run needs the R packages that only the conda env provides, so on macOS
+      # it is skipped outright rather than attempted (and it lands in the verdict table as
+      # `skipped`, not as a fake pass).
+      - name: "Smoke run: immunopipe @smoke.config.toml on a tiny synthetic dataset"
+        id: smoke
+        # not gated on steps.install.outcome: the smoke run IS the test, so a
+        # bookkeeping failure upstream must not suppress it - if the install
+        # really failed, this fails too and the verdict still catches it
+        if: runner.os != 'macOS'
+        run: |
+          # Deterministic, stdlib-only generator: 200 cells x 379 genes, 4 samples,
+          # 3 expression programs, plus a local GMT so no web service is needed.
+          cat > "$LOGDIR/gen_smoke_data.py" <<'PY'
+          #!/usr/bin/env python3
+          """Generate a tiny synthetic 10x (CellRanger v3) dataset for the CI smoke test.
+
+          Pure standard library (no numpy) so it can run inside any freshly created
+          conda environment. Deterministic: same seed -> same data.
+
+          Layout produced under <outdir>:
+              data/prepared/<sample>/{matrix.mtx.gz,barcodes.tsv.gz,features.tsv.gz}
+              data/samples.txt                (Sample, RNAData, Condition)
+              smoke.config.toml               (documented minimal configuration)
+          """
+
+          from __future__ import annotations
+
+          import gzip
+          import random
+          import sys
+          from pathlib import Path
+
+          SEED = 20260923
+          N_SAMPLES = 4
+          CELLS_PER_SAMPLE = 50
+          GENES_BG = 300
+          MARKERS_PER_CLUSTER = 25
+          N_CLUSTERS = 3
+          MT_GENES = ["MT-ND1", "MT-CO1", "MT-ATP6", "MT-CYB"]
+          LAMBDA_BG = 0.35
+          LAMBDA_MARKER = 3.0
+          LAMBDA_MT = 1.0
+
+          SAMPLES = [
+              ("C1", "Control"),
+              ("C2", "Control"),
+              ("T1", "Treated"),
+              ("T2", "Treated"),
+          ]
+
+
+          def poisson(rng: random.Random, lam: float) -> int:
+              """Knuth's algorithm; lambdas here are small (<10) so this is fine."""
+              limit = 2.718281828459045 ** (-lam)
+              k, p = 0, 1.0
+              while True:
+                  p *= rng.random()
+                  if p <= limit:
+                      return k
+                  k += 1
+
+
+          def write_gz(path: Path, text: str) -> None:
+              path.parent.mkdir(parents=True, exist_ok=True)
+              with gzip.open(path, "wt", newline="\n") as fh:
+                  fh.write(text)
+
+
+          def main() -> int:
+              outdir = Path(sys.argv[1] if len(sys.argv) > 1 else "smoke").resolve()
+              rng = random.Random(SEED)
+
+              genes = [f"GENE{i:04d}" for i in range(1, GENES_BG + 1)]
+              markers = [
+                  [f"CLU{k}_MARK{i:02d}" for i in range(1, MARKERS_PER_CLUSTER + 1)]
+                  for k in range(N_CLUSTERS)
+              ]
+              features = genes + [g for grp in markers for g in grp] + MT_GENES
+              n_genes = len(features)
+
+              total_cells = 0
+              for sample, condition in SAMPLES:
+                  sdir = outdir / "data" / "prepared" / sample
+                  barcodes = [f"{sample}_{i:04d}-1" for i in range(1, CELLS_PER_SAMPLE + 1)]
+                  entries: list[str] = []
+                  for cell_idx, _ in enumerate(barcodes):
+                      # every cell belongs to one of N_CLUSTERS expression programs
+                      cluster = cell_idx % N_CLUSTERS
+                      high = set(markers[cluster])
+                      for gene_idx, gene in enumerate(features, start=1):
+                          if gene in high:
+                              lam = LAMBDA_MARKER
+                          elif gene in MT_GENES:
+                              lam = LAMBDA_MT
+                          else:
+                              lam = LAMBDA_BG
+                          count = poisson(rng, lam)
+                          if count:
+                              # 10x mtx is gene(row) x cell(column), 1-based
+                              entries.append(f"{gene_idx} {cell_idx + 1} {count}")
+                  total_cells += len(barcodes)
+                  write_gz(
+                      sdir / "matrix.mtx.gz",
+                      "%%MatrixMarket matrix coordinate integer general\n"
+                      f"%\n{n_genes} {len(barcodes)} {len(entries)}\n"
+                      + "\n".join(entries)
+                      + "\n",
+                  )
+                  write_gz(sdir / "barcodes.tsv.gz", "\n".join(barcodes) + "\n")
+                  write_gz(
+                      sdir / "features.tsv.gz",
+                      "".join(f"{g}\t{g}\tGene Expression\n" for g in features),
+                  )
+
+              samples_txt = "Sample\tRNAData\tCondition\n" + "".join(
+                  f"{s}\tdata/prepared/{s}\t{cond}\n" for s, cond in SAMPLES
+              )
+              (outdir / "data").mkdir(parents=True, exist_ok=True)
+              (outdir / "data" / "samples.txt").write_text(samples_txt)
+
+              # A tiny local GMT keeps the marker-enrichment step (ClusterMarkers always
+              # runs it) offline and deterministic - no Enrichr web service involved.
+              gmt = outdir / "data" / "genesets.gmt"
+              gmt.write_text(
+                  "".join(
+                      f"SYNTH_CLU{k}\tsynthetic marker set {k}\t"
+                      + "\t".join(grp)
+                      + "\n"
+                      for k, grp in enumerate(markers)
+                  )
+              )
+
+              (outdir / "smoke.config.toml").write_text(
+                  "\n".join(
+                      [
+                          "# Minimal configuration, same shape as the documented",
+                          "# ImmunopipeMinimal.config.toml, pointed at the synthetic data.",
+                          'name = "ImmunopipeSmoke"',
+                          'outdir = "smoke-output"',
+                          "",
+                          "[SampleInfo.in]",
+                          'infile = ["data/samples.txt"]',
+                          "",
+                          "# Keep the smoke run small: 2 cores, and a local GMT instead of the",
+                          "# default Enrichr databases so the run needs no web service.",
+                          "[SeuratPreparing.envs]",
+                          "ncores = 2",
+                          "",
+                          "[SeuratClustering.envs]",
+                          "ncores = 2",
+                          "",
+                          "[ClusterMarkers.envs]",
+                          "ncores = 2",
+                          f'dbs = ["{gmt}"]',
+                          "",
+                          "[SeuratClusterStats.envs]",
+                          "ncores = 2",
+                          "",
+                      ]
+                  )
+              )
+
+              print(
+                  f"generated {total_cells} cells x {n_genes} genes across "
+                  f"{N_SAMPLES} samples in {outdir}"
+              )
+              return 0
+
+
+          if __name__ == "__main__":
+              raise SystemExit(main())
+          PY
+          micromamba run -n immunopipe python "$LOGDIR/gen_smoke_data.py" "$SMOKEDIR"
+          cd "$SMOKEDIR"
+          micromamba run -n immunopipe immunopipe @smoke.config.toml 2>&1 | tee "$LOGDIR/smoke-run.log"
+          # The documented minimal run leaves reports at <outdir>/REPORTS/index.html.
+          # pipen may override the configured `outdir`, so accept any directory
+          # directly under the run directory that holds REPORTS/index.html.
+          OUT=""
+          for d in "$SMOKEDIR"/*/; do
+            if [ -f "${d}REPORTS/index.html" ]; then OUT="${d%/}"; break; fi
+          done
+          if [ -z "$OUT" ]; then
+            echo "::error::the smoke run produced no <outdir>/REPORTS/index.html"
+            ls -la "$SMOKEDIR"
+            exit 1
+          fi
+          echo "smoke run output directory: $OUT"
+          find "$OUT" -maxdepth 1 | sort | head -40
+
+      # Diagnostic only: repeats the solve with --dry-run for both environment files
+      # so the unresolved specs are in one greppable place even when the real install
+      # aborted at step 1. Never fails the job.
+      - name: Availability probe (diagnostic)
+        if: always()
+        continue-on-error: true
+        run: |
+          # On macOS the documented conda path is expected to be unavailable, and
+          # setup-micromamba can fail before it puts micromamba on PATH. Without a
+          # micromamba this probe would only record "command not found", which proves
+          # nothing about the channel; so fetch a platform-native one, purely to run the
+          # dry-run solve and get the unresolved specs into the artifact.
+          if ! command -v micromamba >/dev/null 2>&1; then
+            case "$(uname -s)-$(uname -m)" in
+              Darwin-arm64)              mm_platform=osx-arm64 ;;
+              Darwin-*)                  mm_platform=osx-64 ;;
+              Linux-x86_64)              mm_platform=linux-64 ;;
+              Linux-aarch64|Linux-arm64) mm_platform=linux-aarch64 ;;
+              *)                         mm_platform="" ;;
+            esac
+            if [ -n "$mm_platform" ]; then
+              mm_bindir="${RUNNER_TEMP:-/tmp}/mm-probe"
+              mkdir -p "$mm_bindir"
+              echo "micromamba is not on PATH; fetching one ($mm_platform) for the probe"
+              curl -fLsS --max-time 120 "https://micro.mamba.pm/api/micromamba/$mm_platform/latest" \
+                | tar -xj -C "$mm_bindir" bin/micromamba || true
+              if [ -x "$mm_bindir/bin/micromamba" ]; then
+                export PATH="$mm_bindir/bin:$PATH"
+                micromamba --version
+              else
+                echo "::warning::no micromamba for the probe either - the 'Documented step 1' log is the remaining evidence on this platform"
+              fi
+            fi
+          fi
+          probe() {
+            envfile="$1"; platform="$2"; tag="$3"
+            if [ -n "$platform" ]; then
+              echo "### micromamba create -n probe-$tag --dry-run --platform $platform -f $envfile"
+              micromamba create -n "probe-$tag" --dry-run -y --platform "$platform" -f "$envfile" 2>&1 | tee "$LOGDIR/probe-$tag.log" || true
+            else
+              echo "### micromamba create -n probe-$tag --dry-run -f $envfile"
+              micromamba create -n "probe-$tag" --dry-run -y -f "$envfile" 2>&1 | tee "$LOGDIR/probe-$tag.log" || true
+            fi
+          }
+          probe "$ENV_BASE" "" "base-native"
+          probe "$ENV_RPKGS" "" "rpkgs-native"
+          if [ -n "$PROBE_PLATFORM" ]; then
+            probe "$ENV_BASE" "$PROBE_PLATFORM" "base-$PROBE_PLATFORM"
+            probe "$ENV_RPKGS" "$PROBE_PLATFORM" "rpkgs-$PROBE_PLATFORM"
+          fi
+          {
+            for f in "$LOGDIR"/probe-*.log; do
+              [ -f "$f" ] || continue
+              echo "===== $(basename "$f") ====="
+              grep -nE 'does not exist|not installable|cannot be installed|Could not solve|PackagesNotFound|nothing provides' "$f" | head -80 || echo "(no unresolved specs reported)"
+            done
+          } 2>&1 | tee "$LOGDIR/probe-unresolved.log"
+
+      # Platform-aware, and the only place a job is allowed to go red. The raw outcomes
+      # come in through env: a step with `continue-on-error: true` is reported by GitHub as
+      # "success", but `steps.<id>.outcome` still says "failure", and that is what decides.
+      - name: Verdict
+        if: always()
+        env:
+          OUTCOME_BASE: ${{ steps.base.outcome }}
+          OUTCOME_RPKGS: ${{ steps.rpkgs.outcome }}
+          OUTCOME_INSTALL: ${{ steps.install.outcome }}
+          OUTCOME_REPORTDEPS: ${{ steps.reportdeps.outcome }}
+          OUTCOME_PIPVENV: ${{ steps.pipvenv.outcome }}
+          OUTCOME_SMOKE: ${{ steps.smoke.outcome }}
+        run: |
+          {
+            echo "## install-matrix verdict: $MATRIX_OS (runner.os=$RUNNER_OS)"
+            echo
+            echo "| documented step | outcome |"
+            echo "| --- | --- |"
+            echo "| 1. conda env create -f $ENV_BASE | $OUTCOME_BASE |"
+            echo "| 2. conda env update -f $ENV_RPKGS | $OUTCOME_RPKGS |"
+            echo "| 3. pip install -U immunopipe (into the conda env) | $OUTCOME_INSTALL |"
+            echo "| 3b. pipen report update | $OUTCOME_REPORTDEPS |"
+            echo "| 4. immunopipe @smoke.config.toml | $OUTCOME_SMOKE |"
+            echo "| 5. pip install -U immunopipe (plain venv, macOS only) | $OUTCOME_PIPVENV |"
+            echo
+          } >> "$GITHUB_STEP_SUMMARY"
+          failed=0
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            {
+              echo "### macOS: the conda route is expected to fail here and is not gated"
+              echo
+              echo "docs/installation.md documents the conda route as **Linux-only**: the R"
+              echo "packages immunopipe depends on are published on the pwwang channel as"
+              echo "linux-64 builds only, so \`conda env create -f $ENV_BASE\` cannot solve on"
+              echo "macOS (Intel or Apple silicon). This run recorded that: step 1 ="
+              echo "$OUTCOME_BASE, step 2 = $OUTCOME_RPKGS, step 3 = $OUTCOME_INSTALL, and the"
+              echo "solver output is in the install-logs artifact (rpkgs.log, pip-install.log,"
+              echo "probe-*.log)."
+              echo
+              echo ""
+              echo "**The supported route on macOS is the container image**, which carries"
+              echo "the whole R environment; this job cannot exercise it, because a macOS"
+              echo "runner cannot run Linux containers. Step 5 below only checks that the"
+              echo "Python package installs on macOS with pip; it does not make pip a supported"
+              echo "installation route, since without the R dependencies the pipeline cannot"
+              echo "run."
+              echo
+            } >> "$GITHUB_STEP_SUMMARY"
+            if [ "$OUTCOME_PIPVENV" != "success" ]; then failed=1; fi
+          else
+            for outcome in "$OUTCOME_BASE" "$OUTCOME_RPKGS" "$OUTCOME_INSTALL" "$OUTCOME_SMOKE"; do
+              if [ "$outcome" != "success" ]; then failed=1; fi
+            done
+          fi
+          if [ "$failed" -ne 0 ]; then
+            {
+              if [ "$RUNNER_OS" = "macOS" ]; then
+                echo "**RESULT: the documented macOS path (\`pip install -U immunopipe\` in a plain virtualenv) does NOT work.**"
+                echo
+                echo "The conda failures listed above are expected and are not what failed this"
+                echo "job; step 5 is. See install-logs/pipvenv-install.log."
+              else
+                echo "**RESULT: the documented installation + run does NOT work on this platform.**"
+                echo
+                echo "Unresolved specs reported by the availability probe:"
+                echo
+                echo '```'
+                cat "$LOGDIR/probe-unresolved.log" 2>/dev/null || echo "(probe log missing)"
+                echo '```'
+              fi
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::error::install-matrix: the claim for this platform ($RUNNER_OS) is not met on $MATRIX_OS - see the job summary and the install-logs artifact"
+            exit 1
+          fi
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            echo "**RESULT: as documented, the conda environment is unavailable on macOS (recorded above) and the Python package still installs with pip. macOS users are directed to the container image, which this job cannot exercise.**" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "**RESULT: the documented installation path installs AND runs the pipeline on this platform.**" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload logs and smoke-run reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: install-logs-${{ matrix.os }}
+          path: |
+            install-logs/**
+            smoke/*/REPORTS/**
+          if-no-files-found: ignore
+          retention-days: 30

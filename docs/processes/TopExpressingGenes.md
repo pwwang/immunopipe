@@ -101,3 +101,18 @@ readonly.<br />
 - [TopExpressingGenesOfAllCells](./TopExpressingGenesOfAllCells.md)
 - [ClusterMarkers](./ClusterMarkers.md) for examples of enrichment plots
 
+## Description
+
+Finds the top expressing genes of every cluster of the T/B cells (or of
+all cells) and runs an enrichment analysis on them. The top expressing
+genes are computed by `Seurat` and the enrichment is done by `enrichr`.<br />
+
+## Base class
+
+`biopipen.ns.scrna.TopExpressingGenes`
+
+## Deviations
+
+`cases` is empty in the base, so the base computes no case by default;
+immunopipe defines the `Cluster` case explicitly.<br />
+

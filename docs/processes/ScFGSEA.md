@@ -166,3 +166,18 @@ group_by = "Diagnosis"
 
 ![GSEA summary for all subsets](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/scfgsea/ScFGSEA/sampleinfo.fgsea/GSEA-all-seurat_clusters/all.Heatmap.png){: width="80%"}
 
+## Description
+
+Performs gene set enrichment analysis on the expression data for a
+variety of groupings, including ones taken from the metadata and from
+the TCR/BCR data. The testing is done by `fgsea` (R/Bioconductor).<br />
+
+## Base class
+
+`biopipen.ns.scrna.ScFGSEA`
+
+## Deviations
+
+The parameters are passed through to `fgsea` unchanged: this process
+overrides no inherited parameter and adds none.<br />
+

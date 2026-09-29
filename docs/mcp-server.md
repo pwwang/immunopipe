@@ -23,22 +23,63 @@ immunopipe mcp --transport stdio
 immunopipe mcp --transport http --port 8000
 ```
 
-## VSCode Integration
+## Editor / agent integration
 
-To integrate with VSCode and Claude, add the following to your VSCode settings:
+The server speaks MCP over stdio. Configure it in the client's own config file — the shape differs per
+client, and getting it wrong is the most common reason a connection fails silently.
+
+### VSCode (Copilot agent mode)
+
+Create `.vscode/mcp.json` in your project (or add `mcp` to your user settings):
 
 ```json
 {
-  "mcp": {
-    "servers": {
-      "immunopipe": {
-        "command": "python",
-        "args": ["-m", "immunopipe.mcp", "--transport", "stdio"]
-      }
+  "servers": {
+    "immunopipe": {
+      "type": "stdio",
+      "command": "immunopipe",
+      "args": ["mcp", "--transport", "stdio"]
     }
   }
 }
 ```
+
+### Claude Desktop
+
+Edit `claude_desktop_config.json` (macOS: `~/Library/Application Support/Claude/`;
+Windows: `%APPDATA%\Claude\`):
+
+```json
+{
+  "mcpServers": {
+    "immunopipe": {
+      "command": "immunopipe",
+      "args": ["mcp", "--transport", "stdio"]
+    }
+  }
+}
+```
+
+### Any client — check it before blaming the client
+
+```bash
+immunopipe mcp --transport stdio      # then paste an initialize + tools/list frame
+```
+
+Or run the bundled smoke test, which performs the handshake for you:
+
+```bash
+bash scripts/mcp_smoke.sh             # from a clone of this repository
+# expected: a list of tool names, then "SMOKE OK"
+```
+
+/// Attention
+Two mistakes account for nearly all failed connections:
+1. **Wrong top-level key.** VSCode uses `servers`; Claude Desktop uses `mcpServers`. Neither uses `mcp`.
+2. **`"command": "python"`.** Resolve the console script (`immunopipe`) or an absolute interpreter path.
+   A bare `python` may not be the interpreter that has immunopipe installed — especially inside conda
+   environments, where GUI-launched clients do not inherit your activated environment.
+///
 
 ## Available Tools
 
@@ -252,18 +293,26 @@ The MCP server is designed to work seamlessly with AI assistants. With `immunopi
 you can add the MCP server to your Claude or VSCode setup to enable intelligent configuration generation:
 
 ```shell
-claude mcp add --transport http immunopipe-mcp http://localhost:80000
+# Claude Code CLI — stdio transport
+claude mcp add immunopipe -- immunopipe mcp --transport stdio
+
+# Claude Code CLI — HTTP transport, against a server started with
+# `immunopipe mcp --transport http --port 8000`
+claude mcp add --transport http immunopipe-mcp http://localhost:8000
 ```
+
+For Claude Desktop, edit `claude_desktop_config.json` exactly as in
+[Claude Desktop](#claude-desktop) — the top-level key is `mcpServers`, and the server is launched with
+`immunopipe mcp --transport stdio`:
 
 ```json
 {
-  "mcp": {
-    "servers": {
-        "immunopipe": {
-            "command": "python",
-            "args": ["-m", "immunopipe", "mcp", "--transport", "stdio"]
-        }
+  "mcpServers": {
+    "immunopipe": {
+      "command": "immunopipe",
+      "args": ["mcp", "--transport", "stdio"]
     }
+  }
 }
 ```
 
@@ -337,6 +386,9 @@ Common issues and solutions:
 1. **Process Not Found**: Ensure immunopipe is properly installed and processes are available
 2. **Configuration Validation Errors**: Check TOML syntax and parameter validity
 3. **Natural Language Analysis Failures**: Use more specific descriptions or explicit process names
-4. **VSCode Integration Issues**: Verify MCP server configuration in VSCode settings
+4. **VSCode Integration Issues**: Verify that `.vscode/mcp.json` has a top-level `servers` key and the
+   server is started (see [Editor / agent integration](#editor--agent-integration)), then run
+   `MCP: List Servers` → **Show Output** in VSCode. To prove the server itself is fine, run
+   `bash scripts/mcp_smoke.sh`.
 
 For additional help, open an issue on the [GitHub repository](https://github.com/pwwang/immunopipe).

@@ -1,11 +1,15 @@
 """Options discovery for immunopipe configuration."""
 
 import sys
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Set
 from dataclasses import dataclass
 import logging
 
+from pipen import Proc
+from pipen.defaults import CONFIG as PIPEN_CONFIG
 from pipen.utils import LOADING_ARGV0
+
+from .doc_extractor import ProcessDocumentationExtractor
 
 logger = logging.getLogger(__name__)
 
@@ -60,9 +64,15 @@ class PipelineOptionsDiscovery:
             self._pipeline_options = {}
 
     def _infer_type(self, option: Dict[str, Any]) -> str:
-        """Infer the type of an option."""
+        """Infer the type of an option.
+
+        The types in `PIPEN_ARGS` are not necessarily type objects, they can
+        also be strings (e.g. `"auto"`) or callables (e.g. `str.upper`).
+        """
         if "type" in option:
-            return str(option["type"].__name__)
+            option_type = option["type"]
+            # `str(...)` as a fallback for types that have no `__name__`
+            return getattr(option_type, "__name__", None) or str(option_type)
 
         default = option.get("default")
         if default is not None:
@@ -79,6 +89,7 @@ class ProcessDiscovery:
 
     def __init__(self):
         self._processes: Optional[Dict[str, Dict[str, Any]]] = None
+        self._config_surface: Optional[Dict[str, Dict[str, Set[str]]]] = None
 
     def get_processes(self) -> Dict[str, Dict[str, Any]]:
         """Get all available processes and their information."""
@@ -262,6 +273,103 @@ clustered = false
         except Exception as e:
             logger.error(f"Failed to discover processes: {e}")
             self._processes = {}
+
+    def get_config_surface(self) -> Dict[str, Dict[str, Set[str]]]:
+        """Get the real configuration surface of the installed pipeline.
+
+        Returns:
+            A mapping from process name to the names of the options that the
+            process accepts, so that configurations can be checked against
+            what the installed pipeline actually reads:
+
+                {
+                    "SampleInfo": {
+                        "envs": {"stats", "sep", ...},
+                        "inputs": {"infile"},
+                        "outputs": {"outfile", "outdir"},
+                    },
+                    ...
+                }
+        """
+        if self._config_surface is None:
+            self._discover_config_surface()
+        return self._config_surface
+
+    def _discover_config_surface(self) -> None:
+        """Discover the configuration surface from the pipeline and its docs.
+
+        Unlike `_discover_processes()`, the surface is read from a pipeline
+        with all of the conditional processes defined, so that any process
+        that can be enabled from a configuration file is included.
+        """
+        self._config_surface = {}
+
+        # Temporarily set LOADING_ARGV0 to notify immunopipe that we are
+        # only loading the structure, so that all of the conditional
+        # processes are defined
+        original_argv = sys.argv[:]
+        sys.argv = [LOADING_ARGV0]
+
+        try:
+            import importlib
+            import immunopipe.processes
+            import immunopipe.pipeline
+
+            # The processes are defined conditionally at import time, so
+            # both modules need to be reloaded for all of them to show up.
+            # `pipeline` is reloaded as well, because it snapshots
+            # `processes.start_processes`.
+            importlib.reload(immunopipe.processes)
+            importlib.reload(immunopipe.pipeline)
+
+            extractor = ProcessDocumentationExtractor()
+
+            try:
+                pipe = immunopipe.pipeline.Immunopipe()
+                pipe.build_proc_relationships()
+                for proc in pipe.procs:
+                    self._add_proc_to_surface(proc.__class__, proc.name, extractor)
+            except Exception as e:
+                logger.warning(f"Could not load all processes from the pipeline: {e}")
+
+            # Also scan the processes module for any additional process
+            # classes (e.g. the ones not triggered by the current pipeline).
+            # Only the classes defined by the module are considered, to skip
+            # the base classes imported from `biopipen`.
+            for attr in vars(immunopipe.processes).values():
+                if (
+                    isinstance(attr, type)
+                    and getattr(attr, "__module__", None)
+                    == immunopipe.processes.__name__
+                    and issubclass(attr, Proc)
+                ):
+                    self._add_proc_to_surface(attr, None, extractor)
+
+        except Exception as e:
+            logger.error(f"Failed to discover configuration surface: {e}")
+        finally:
+            sys.argv = original_argv
+
+    def _add_proc_to_surface(
+        self,
+        proc: Any,
+        name: Optional[str],
+        extractor: ProcessDocumentationExtractor,
+    ) -> None:
+        """Add the options of a process to the configuration surface."""
+        name = name or proc.__name__
+        surface = self._config_surface.setdefault(
+            name, {"envs": set(), "inputs": set(), "outputs": set()}
+        )
+
+        # The defaults defined by the process class ...
+        surface["envs"].update(getattr(proc, "envs", None) or {})
+
+        # ... and the ones documented by the process
+        annotations = extractor.get_process_annotations(proc)
+        surface["envs"].update(annotations.get("Envs", None) or {})
+        surface["inputs"].update(annotations.get("Input", None) or {})
+        surface["outputs"].update(annotations.get("Output", None) or {})
 
     def _extract_description(self, docstring: Optional[str]) -> str:
         """Extract a brief description from a docstring."""
@@ -484,3 +592,31 @@ class OptionsDiscovery:
     def get_gbatch_options(self) -> Dict[str, ConfigOption]:
         """Get gbatch options."""
         return self.gbatch_discovery.get_gbatch_options()
+
+
+_CONFIG_SURFACE: Optional[Dict[str, Any]] = None
+
+
+def get_config_surface() -> Dict[str, Any]:
+    """Get the configuration surface of the installed pipeline.
+
+    The result is cached, as building the pipeline is expensive.
+
+    Returns:
+        A mapping with:
+        - `pipeline_options`: the names of the pipeline-level options
+        - `processes`: a mapping of process name to the names of its `envs`,
+          `inputs` and `outputs`
+    """
+    global _CONFIG_SURFACE
+
+    if _CONFIG_SURFACE is None:
+        pipeline_options = set(PipelineOptionsDiscovery().get_pipeline_options())
+        # Some pipeline options are not exposed by `PIPEN_ARGS`
+        pipeline_options.update(PIPEN_CONFIG)
+        _CONFIG_SURFACE = {
+            "pipeline_options": pipeline_options,
+            "processes": ProcessDiscovery().get_config_surface(),
+        }
+
+    return _CONFIG_SURFACE

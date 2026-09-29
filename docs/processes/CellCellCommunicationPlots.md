@@ -91,3 +91,18 @@ method = "interaction"
 
 ![Box Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Interaction-Box-Plot.png){: width="80%"}
 
+## Description
+
+Draws the plots of the cell-cell communication results produced by
+`CellCellCommunication`, using `scplotter` (R), through
+`scplotter::CCCPlot()`.<br />
+
+## Base class
+
+`biopipen.ns.scrna.CellCellCommunicationPlots`
+
+## Deviations
+
+The parameters are passed through to `scplotter` unchanged: this
+process overrides no inherited parameter and adds none.<br />
+
