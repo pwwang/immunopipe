@@ -1,5 +1,25 @@
 # Change Log
 
+
+## 2.6.2
+
+- docs(processes): give every process a Description, Base class and Deviations section
+- docs: the conda environment is Linux-only; macOS uses the container image
+- ci: make the install step self-diagnosing, and stop it suppressing the smoke run
+- ci: stop the job-level env from invalidating install-matrix
+- ci: fix a script injection, and test the platform claim we now make
+- ci: do not record a successful env update as a failure
+- docs(installation): the conda route is Linux-only
+- ci: fix two bugs that stopped the revision workflows producing evidence
+- fix(mcp): three defects found by the configuration evaluation
+- docs(running): drop --gbatch.disk-size-gb, which does not exist
+- docs(faq): explain that report figures sit on the tabs after Table
+- docs(installation): download the environment files instead of passing URLs
+- fix(mcp): never answer a notification; correct the host configs
+- docs(getting-started): mount /tmp in the docker command
+- ci: reproduce the documented docker invocation as-written vs revised
+- ci: verify the documented install and run the pipeline on ubuntu + macos
+
 ## 2.6.1
 
 - feat: add more tools support for CellTypeAnnotation
