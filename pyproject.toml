@@ -55,6 +55,7 @@ junit_family = "xunit1"
 filterwarnings = [
    "ignore:.+may lead to deadlocks in the child:DeprecationWarning",
 ]
+asyncio_default_fixture_loop_scope = "function"
 
 [project.scripts]
 immunopipe = "immunopipe.router:run"
