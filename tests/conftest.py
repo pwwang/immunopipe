@@ -9,8 +9,23 @@ from importlib import reload
 from subprocess import Popen, PIPE
 
 import pytest
+import pytest_forked
 from pipen import Pipen, Proc
 from pipen.utils import LOADING_ARGV0
+
+# pytest 9 stores TestReport.nodeid as the NodeId dataclass `_id`, which
+# marshal cannot serialize; pytest <9 has plain `nodeid`.
+_orig_serialize_report = pytest_forked.serialize_report
+
+
+def _serialize_report(rep):
+    d = _orig_serialize_report(rep)
+    if "_id" in d:
+        d["nodeid"] = str(d.pop("_id"))
+    return d
+
+
+pytest_forked.serialize_report = _serialize_report
 
 RUNNINGDIR = Path(__file__).parent / "running"
 
