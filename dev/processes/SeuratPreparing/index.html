@@ -397,11 +397,26 @@ and <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html">https:/
 See <a href="https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis">https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis</a></p>
 </li>
 <li>
-<p><code>no_integration</code> <em>(<code>flag</code>)</em>:
+<p><code>min_cells_layer</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>3</code></em>. <br />
+    A counts layer (one per sample) with fewer cells than this after QC
+    counts as degenerate. <code>on_degenerate</code> decides what happens to it.<br />
+    Set to <code>0</code> to disable the check.<br />
+    Default: <code>3</code></p>
+</li>
+<li><code>on_degenerate</code> <em>(<code>choice</code>)</em>: <em>Default: <code>error</code></em>. <br />
+    What to do with degenerate counts layers.<br /><ul>
+<li><code>error</code>:
+    Fail with a message naming the degenerate samples.<br /></li>
+<li><code>drop</code>:
+    Remove those samples with a warning and let the preparation continue.<br /></li>
+<li><code>fault</code>:
+    <code>error</code></li>
+</ul>
+</li>
+<li><code>no_integration</code> <em>(<code>flag</code>)</em>:
     Whether to skip integration or not.<br />
     By default, if there are multiple samples, integration will be performed. If <code>no_integration</code> is <code>True</code>, the samples will be merged without integration.<br />
-    If there is only one sample, integration will be skipped regardless of the value of <code>no_integration</code>.<br /></p>
-</li>
+    If there is only one sample, integration will be skipped regardless of the value of <code>no_integration</code>.<br /></li>
 <li><code>NormalizeData</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/normalizedata"><code>NormalizeData()</code></a>.<br />
     <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br /><ul>

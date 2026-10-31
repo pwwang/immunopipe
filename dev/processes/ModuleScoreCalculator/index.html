@@ -232,6 +232,9 @@ multicellular ecosystem of metastatic melanoma by single-cell RNA-seq.<br />
 gene signature scoring. <em>Comput Struct Biotechnol J</em> 19:3796-3798.<br />
 <a href="https://doi.org/10.1016/j.csbj.2021.06.043">https://doi.org/10.1016/j.csbj.2021.06.043</a>). Missing genes are
 imputed with expression 0 (with a warning).<br /></li>
+<li><code>mean</code>: the per-cell mean of the module's features on the given layer,
+without control subtraction. Use it when the score should be the
+expression level itself (e.g. a transgene with <code>slot: counts</code>).<br /></li>
 <li><code>aucell</code>: <a href="https://bioconductor.org/packages/release/bioc/html/AUCell.html"><code>AUCell::AUCell_calcAUC()</code></a>
 (Aibar S, et al. 2017. SCENIC: single-cell regulatory network inference
 and clustering. <em>Nat Methods</em> 14:1083-1086.<br />
@@ -267,8 +270,8 @@ the column names are consistent.<br /></p>
     The default parameters for <code>modules</code>.<br /><ul>
 <li><code>method</code> <em>(<code>choice</code>)</em>: <em>Default: <code>seurat</code></em>. <br />
     The scoring method to use, one of <code>seurat</code>,
-    <code>ucell</code>, <code>aucell</code>, <code>ssgsea</code>, <code>jasmine</code>, <code>scse</code> or <code>scps</code>.<br />
-    Can be overridden per module.<br /></li>
+    <code>ucell</code>, <code>mean</code>, <code>aucell</code>, <code>ssgsea</code>, <code>jasmine</code>, <code>scse</code> or
+    <code>scps</code>. Can be overridden per module.<br /></li>
 <li><code>features</code>:
     The features (genes) to calculate the scores.<br />
     A comma-separated string of genes, e.g.<br />
@@ -310,7 +313,9 @@ the column names are consistent.<br /></p>
     <a href="https://satijalab.org/seurat/reference/addmodulescore">https://satijalab.org/seurat/reference/addmodulescore</a> and
     <a href="https://satijalab.org/seurat/reference/cellcyclescoring">https://satijalab.org/seurat/reference/cellcyclescoring</a>).<br />
     For <code>ucell</code>: <code>maxRank</code>, <code>w_neg</code> and <code>slot</code> (default
-    <code>"counts"</code>, not <code>layer</code>). For <code>aucell</code>: <code>aucMaxRank</code>,
+    <code>"counts"</code>, not <code>layer</code>). For <code>mean</code>: <code>layer</code> (alias <code>slot</code>,
+    default <code>"counts"</code>) selects the layer, and <code>assay</code> the assay.<br />
+    For <code>aucell</code>: <code>aucMaxRank</code>,
     <code>plotStats</code>. For <code>ssgsea</code>: <code>kcdf</code>, <code>verbose</code>, <code>min.sz</code>,
     <code>max.sz</code>, <code>tau</code>, etc. For <code>scse</code>/<code>scps</code>: <code>layer</code> (default
     <code>"data"</code>). <code>scps</code> uses the bundled scPS implementation, which
