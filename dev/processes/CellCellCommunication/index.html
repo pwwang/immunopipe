@@ -516,7 +516,10 @@ proportion of cells within should express the genes.<br /></li>
     Other arguments for the method.<br />
     The arguments are passed to the method directly.<br />
     See the method documentation for more details and also
-    <code>help(liana.mt.&lt;method&gt;.__call__)</code> in Python.<br /></li>
+    <code>help(liana.mt.&lt;method&gt;.__call__)</code> in Python.<br />
+    <code>use_raw</code> defaults to <code>True</code> when the input h5ad carries a <code>raw</code> matrix, because
+    <code>liana</code> &gt;= 2.0 rejects the scaled matrix that <code>Seurat2AnnData</code> writes to <code>X</code>.<br />
+    Set <code>use_raw = False</code> (or <code>layer = "..."</code>) in a case to override the default.<br /></li>
 </ul>
 <h3 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h3>
 <ul>
