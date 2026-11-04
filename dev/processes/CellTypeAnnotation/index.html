@@ -1399,7 +1399,14 @@ Prefix <code>file://</code> is optional.<br /></p>
 <li><code>sctransform</code> <em>(<code>ns</code>)</em>:
     The arguments for <code>Seurat::SCTransform()</code>.<br /></li>
 <li><code>normalize_data</code> <em>(<code>ns</code>)</em>:
-    The arguments for <code>Seurat::NormalizeData()</code>.<br /></li>
+    The arguments for <code>Seurat::NormalizeData()</code>.<br />
+    The reference projection (<code>ref.umap</code> by default, or the name given by
+    <code>map_query.projectumap.args.reduction.name</code>) is kept in the output
+    object's reductions; with several <code>mapquery</code> cases each projection is
+    prefixed with its case name (<code>&lt;case&gt;.ref.umap</code>, matching the
+    <code>&lt;case&gt;.&lt;reduction&gt;</code> convention of <code>SeuratSubClustering</code>) unless the case
+    sets <code>map_query.projectumap.args.reduction.name</code> explicitly. The
+    coordinates are <code>NA</code> for the cells outside the case's <code>subset</code>.<br /></li>
 </ul>
 </li>
 <li><code>scinfer</code> <em>(<code>ns</code>)</em>:
