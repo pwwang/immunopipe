@@ -518,7 +518,7 @@ wheels = [
 
 [[package]]
 name = "biopipen"
-version = "1.5.7"
+version = "1.5.8"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "datar", extra = ["pandas"] },
@@ -529,9 +529,9 @@ dependencies = [
     { name = "pipen-poplog" },
     { name = "pipen-verbose" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/92/a1/3ee954ae32a8dce6b57f6c697890bb9db88c45b927bc6c7bc13e52521c1d/biopipen-1.5.7.tar.gz", hash = "sha256:6b95d8e8674a7c86d9c7dea76124d1fe35d245328aa34f56b044cfc26ec8864e", size = 2763210, upload-time = "2026-11-04T20:22:54.948Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/48/ed/2d0a365f2bd09795e4d195f1bf4e55b0f9c3150044d79f0939c70d5204dc/biopipen-1.5.8.tar.gz", hash = "sha256:816dba82bd91db0ffa520aa90ff6398ad7703b6c47eecf4c84c78860e899ee06", size = 2763603, upload-time = "2026-11-05T06:10:30.655Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/04/6a/c14a1624c6b4f3aa1cc6cec1b306d80451bed9f2aacd370215aea187ebb0/biopipen-1.5.7-py3-none-any.whl", hash = "sha256:d51e3fd39fa5df32f550483e2df87aba71fade27f75c6419364d270352378fbb", size = 1026058, upload-time = "2026-11-04T20:22:53.225Z" },
+    { url = "https://files.pythonhosted.org/packages/7f/c3/5280c116240ea3edb16d4d8e5e0cbc1a6909452d652e00aacbe393eade3d/biopipen-1.5.8-py3-none-any.whl", hash = "sha256:0d9b8360e0e4728df0fe3b0541b391d093c7090aa495a2dcbbdbca4375b6054b", size = 1026319, upload-time = "2026-11-05T06:10:28.364Z" },
 ]
 
 [[package]]
@@ -1862,7 +1862,7 @@ wheels = [
 
 [[package]]
 name = "gcloud-aio-auth"
-version = "5.6.0"
+version = "5.6.1"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
@@ -1885,9 +1885,9 @@ dependencies = [
     { name = "pyjwt" },
     { name = "tenacity" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/da/f4/b29c5373a33169da8eeec4a497551b33f1be2db53751d981f2e55fd79bef/gcloud_aio_auth-5.6.0.tar.gz", hash = "sha256:c4bd6d2335ac5376d2f5e2f86830a35385c511412fa1c2e138333038b1346ff7", size = 16544, upload-time = "2026-10-20T12:51:49.618Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ab/23/7fe93f8aaf44916ea373946b605312f0c0685caf64de7f354d3251e384ce/gcloud_aio_auth-5.6.1.tar.gz", hash = "sha256:b21c5be3a9138c5a9f457a0f4e35fd4ed49f39f39f57fb0311c74d687290518c", size = 16678, upload-time = "2026-11-04T21:52:43.505Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8c/3e/f880727be0b085fb8427a100c9eea158e198bcf7c5a732541c4185036a02/gcloud_aio_auth-5.6.0-py3-none-any.whl", hash = "sha256:1bb42b92defbe2d71a14a4371c75914cb84a285a84f1e8b9bfb72e51ee233219", size = 19175, upload-time = "2026-10-20T12:51:47.061Z" },
+    { url = "https://files.pythonhosted.org/packages/2f/3e/9b1d8e3f5a83f962f4a4411b1940a7b7f2806248198c28b8b5d08eb587e6/gcloud_aio_auth-5.6.1-py3-none-any.whl", hash = "sha256:8fb1962784d50f93bf7db779afc27dc59f76bdf8e43f65cc8728c1ae07912ce1", size = 19290, upload-time = "2026-11-04T21:52:40.615Z" },
 ]
 
 [[package]]
@@ -1934,7 +1934,7 @@ dependencies = [
     { name = "aiofiles" },
     { name = "cryptography", version = "50.0.2", source = { registry = "https://pypi.org/simple" } },
     { name = "gcloud-aio-auth", version = "5.5.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11.3'" },
-    { name = "gcloud-aio-auth", version = "5.6.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11.3'" },
+    { name = "gcloud-aio-auth", version = "5.6.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11.3'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/15/be/528ac1d1506eaf4526c2c0039d68dec99b243d50a556cd688968d1498e1a/gcloud_aio_storage-9.6.5.tar.gz", hash = "sha256:44a9529e429d7460f1a55b49a0f77906d988ee68483513abb3c0d66dedf43abd", size = 14309, upload-time = "2026-10-02T12:59:14.278Z" }
 wheels = [
@@ -3814,7 +3814,7 @@ wheels = [
 
 [[package]]
 name = "pipen-board"
-version = "1.2.1"
+version = "1.2.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pipen-args" },
@@ -3829,9 +3829,9 @@ dependencies = [
     { name = "websocket-client", version = "1.9.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "websocket-client", version = "1.9.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/88/7e/abf68e3b9035c425ff84bb9480cf3e31f61774e9c1e3aca6b6a6453832fa/pipen_board-1.2.1.tar.gz", hash = "sha256:7d3db909be807c4481c070092e731b11531da7d43b7061744bee65dd4dacae11", size = 1021677, upload-time = "2026-10-09T05:14:05.088Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/90/6a/30e09bed7a81c30ae79d37ebdf371761a5ba183f087a3e0d01cb8773eaec/pipen_board-1.2.2.tar.gz", hash = "sha256:057d12c765b78f71c53613b14a7e7160dfa0225d35aba1c139eed5f995571fdb", size = 1039180, upload-time = "2026-11-05T05:50:02.262Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/fd/b5/bcd9990103450319e2be16febdc3d042ad5080d32eef23e24129837d50a5/pipen_board-1.2.1-py3-none-any.whl", hash = "sha256:4d71a01769072c5c418f05edf0b5856a53117863f952ea43d53429df517aff1e", size = 582871, upload-time = "2026-10-09T05:14:03.33Z" },
+    { url = "https://files.pythonhosted.org/packages/da/65/963e02a8e2499ebdc645b26c7fcc54a9167ad15048d7d65e5a6521c6fc49/pipen_board-1.2.2-py3-none-any.whl", hash = "sha256:4b29fa0c8283d06e7cb80c9e2aeddf0ae3876ee81ff514a87e8d640a0a08cce9", size = 582869, upload-time = "2026-11-05T05:50:00.447Z" },
 ]
 
 [package.optional-dependencies]
@@ -3968,7 +3968,7 @@ wheels = [
 
 [[package]]
 name = "pipen-report"
-version = "1.2.6"
+version = "1.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "copier", version = "9.10.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
@@ -3982,9 +3982,9 @@ dependencies = [
     { name = "python-slugify", version = "8.0.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "python-slugify", version = "9.1.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/57/c2/aba7204fc841eefa64322647167a848c8a4e9fd95ea7286f2f3e5fc17cca/pipen_report-1.2.6.tar.gz", hash = "sha256:811be28351ec56099e2e7fe2e16e26c621e4d20d02520c559065f522ab3ac9c9", size = 5981989, upload-time = "2026-09-07T20:37:09.642Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/5d/fc/865201fbf92898cc6bd849b439e0135a7bc86942391917bd80e9f043cd10/pipen_report-1.3.0.tar.gz", hash = "sha256:d34fd0dc0e299f9d1079c1351a54c80d62996900a8e6d095cb5096a8339e9eba", size = 7362746, upload-time = "2026-11-05T05:40:54.735Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/88/cc/38a530b6ca12ed22f998a638c53cec0e036bbff3251a5f3748b8682f29d6/pipen_report-1.2.6-py3-none-any.whl", hash = "sha256:10a41ff940f15073f1693496d5df6345aa6256706fd6a3b1e4a3ae19787f8cd9", size = 84812, upload-time = "2026-09-07T20:37:08.436Z" },
+    { url = "https://files.pythonhosted.org/packages/af/6f/01018d35599e9db08ea37007a85b57a120e8e01086c902476ba04cc686d0/pipen_report-1.3.0-py3-none-any.whl", hash = "sha256:04ad942e97f5abf779e11d39847065506f8d7243d8e82c3dfa0b2ea46934a519", size = 93726, upload-time = "2026-11-05T05:40:52.944Z" },
 ]
 
 [[package]]
