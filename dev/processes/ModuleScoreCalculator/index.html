@@ -374,9 +374,14 @@ and <a href="https://bioconductor.org/packages/release/bioc/html/destiny.html"><
 - <code>post_mutaters</code> <em>(<code>type=json</code>)</em>: <em>Default: <code>{}</code></em>. <br />
 The mutaters to mutate the metadata after
 calculating the module scores.<br />
-The mutaters will be applied in the order specified.<br />
+The mutaters will be applied in the order specified, so an entry may
+use a column an earlier entry created.<br />
 This is useful when you want to create new scores based on the
-calculated module scores.<br /></p>
+calculated module scores, or when a label has to be refined by a
+module score computed here (this process runs after
+<code>CellTypeAnnotation</code>).<br />
+A <code>&lt;column&gt;:ident</code> key sets <code>&lt;column&gt;</code> as the object identity after
+the mutation.<br /></p>
 </li>
 </ul>
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
