@@ -326,7 +326,7 @@
     },
     "seurat_clusters (All Markers)": {
       "#": {
-        "tabs": [
+        "tabs:5": [
           {
             "name": "Top 10 markers of all clusters",
             "contents": [
@@ -374,7 +374,7 @@
     },
     "seurat_clusters (All Enrichments)": {
       "Heatmap of enriched terms of all clusters": {
-        "tabs": [
+        "tabs:5": [
           {
             "name": "MSigDB_Hallmark_2020",
             "contents": [
