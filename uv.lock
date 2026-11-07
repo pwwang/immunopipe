@@ -518,7 +518,7 @@ wheels = [
 
 [[package]]
 name = "biopipen"
-version = "1.5.9"
+version = "1.5.10"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "datar", extra = ["pandas"] },
@@ -529,9 +529,9 @@ dependencies = [
     { name = "pipen-poplog" },
     { name = "pipen-verbose" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/15/ef/44cf7c379bcfd94d4014612d43d0c775307032c84e42508957b26e17bf03/biopipen-1.5.9.tar.gz", hash = "sha256:77bd71ddf08998e23af5228582eb7fe8d7c52d4dd168226bca126d84a1128c3c", size = 2763976, upload-time = "2026-11-06T03:38:11.096Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/bb/58/945969ec8d16dd60a190f830ed9cc9a31c45aa2ed0aadb1b162d18074e51/biopipen-1.5.10.tar.gz", hash = "sha256:ec7335e9a11858618c1af4abc6375bda236c1313046137c8e3dce0427bd31070", size = 2764012, upload-time = "2026-11-07T05:09:47.692Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/cf/3b/82f717e6ace17c40f799fb809cfedeeb4e29e2524ec0abb155b9474168bd/biopipen-1.5.9-py3-none-any.whl", hash = "sha256:bbcbd6990561a2e0146d80f2370469514ed519bb4fbabadf364af69190836034", size = 1026325, upload-time = "2026-11-06T03:38:09.464Z" },
+    { url = "https://files.pythonhosted.org/packages/93/3d/0188e44ba078c68d6a7d6b7a6d61b4693469566fb6589cba11c8a91ebf5e/biopipen-1.5.10-py3-none-any.whl", hash = "sha256:e92c85b6d8002b4106edf85a5827137eb202be2d5537f6bc45e3a5062cabd9fe", size = 1026345, upload-time = "2026-11-07T05:09:46.022Z" },
 ]
 
 [[package]]
@@ -882,7 +882,7 @@ wheels = [
 
 [[package]]
 name = "click"
-version = "8.5.0"
+version = "8.5.1"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
@@ -902,9 +902,9 @@ resolution-markers = [
     "python_full_version >= '3.11' and python_full_version < '3.11.3' and sys_platform != 'emscripten' and sys_platform != 'win32'",
     "python_full_version == '3.10.*'",
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c7/0e/7fa0ef50764b67090eca4114772a2abf8b6148198475e54c660b97caeee6/click-8.5.0.tar.gz", hash = "sha256:ba0d2089de75ea0310e2dde03160e6ca10009947fb95a182f9b54021bb272e34", size = 382235, upload-time = "2026-08-26T13:33:14.56Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/45/37/edbf1b0707709013c0cf2e8317e03d97ed29bf4cac709fe328904ae92a38/click-8.5.1.tar.gz", hash = "sha256:9bbfada76703fd1d784b83eea012e3e8c6a001a876543ef104fa56aaaeb072b4", size = 399151, upload-time = "2026-11-06T17:37:01.021Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl", hash = "sha256:255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360", size = 125251, upload-time = "2026-08-26T13:33:12.928Z" },
+    { url = "https://files.pythonhosted.org/packages/31/7d/164b7ffc8624fe9efb4221bf9af485d5c1e41b9ae118045d2b6dc5457d8b/click-8.5.1-py3-none-any.whl", hash = "sha256:8bb5376d2006950386f8c6427613334a2acadc5f559cb80e638d00b4df957e37", size = 126163, upload-time = "2026-11-06T17:36:59.287Z" },
 ]
 
 [[package]]
@@ -1661,7 +1661,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "blinker" },
     { name = "click", version = "8.1.8", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
-    { name = "click", version = "8.5.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "click", version = "8.5.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "importlib-metadata", marker = "python_full_version < '3.10'" },
     { name = "itsdangerous" },
     { name = "jinja2" },
@@ -2687,7 +2687,7 @@ version = "1.6.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click", version = "8.1.8", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
-    { name = "click", version = "8.5.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "click", version = "8.5.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "colorama", marker = "sys_platform == 'win32'" },
     { name = "ghp-import" },
     { name = "importlib-metadata", marker = "python_full_version < '3.10'" },
@@ -5408,7 +5408,7 @@ dependencies = [
     { name = "aiofiles" },
     { name = "blinker" },
     { name = "click", version = "8.1.8", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version != '3.10.*'" },
-    { name = "click", version = "8.5.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
+    { name = "click", version = "8.5.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
     { name = "flask" },
     { name = "hypercorn", version = "0.17.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version != '3.10.*'" },
     { name = "hypercorn", version = "0.18.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
@@ -5442,7 +5442,7 @@ resolution-markers = [
 dependencies = [
     { name = "aiofiles" },
     { name = "blinker" },
-    { name = "click", version = "8.5.0", source = { registry = "https://pypi.org/simple" } },
+    { name = "click", version = "8.5.1", source = { registry = "https://pypi.org/simple" } },
     { name = "flask" },
     { name = "hypercorn", version = "0.18.0", source = { registry = "https://pypi.org/simple" } },
     { name = "itsdangerous" },
@@ -5470,7 +5470,7 @@ resolution-markers = [
 dependencies = [
     { name = "aiofiles" },
     { name = "blinker" },
-    { name = "click", version = "8.5.0", source = { registry = "https://pypi.org/simple" } },
+    { name = "click", version = "8.5.1", source = { registry = "https://pypi.org/simple" } },
     { name = "flask" },
     { name = "hypercorn", version = "0.18.0", source = { registry = "https://pypi.org/simple" } },
     { name = "itsdangerous" },
