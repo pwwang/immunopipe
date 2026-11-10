@@ -661,18 +661,6 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
     ///
 
-    /// Attention
-
-    If you are running the pipeline with the Docker image, following tools are not available in the Docker image:
-
-    - Direct assignment: `direct`, `cell`
-    - Marker-based: `ScType`, `hitype`, `scSorter`, `SCINA`, `CelliD`, `UCell`, `AUCell`, `GSVA`, `singscore`, `SCSA`, `MACA`
-    - Model-based: `celltypist`, `SingleR`
-    - LLM-based: `LLMCelltype`, `mLLMCelltype`, `LICT`
-    - Reference-based: `scmap`, `CHETAH`, `scClassify`, `MapQuery`
-
-    ///
-
     Metadata:
         When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
         the `Seurat` object will be kept as is.

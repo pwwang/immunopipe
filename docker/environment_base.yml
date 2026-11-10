@@ -21,7 +21,7 @@ dependencies:
   - time  # for pipen-runinfo
   - wget
   - gcc_linux-64
-  - r-base=4.4
+  - r-base=4.5
   - pwwang::bioconductor-data-packages
   - bioconductor-fgsea
   - bioconductor-scater
@@ -72,7 +72,7 @@ dependencies:
   # Needed by r-scplotter
   - r-callr
   - r-seuratobject
-  - pwwang::bioconductor-screpertoire=2.2
+  - pwwang::bioconductor-screpertoire=2.7
   - r-gridgraphics
   - pwwang::r-metap
   - pwwang::r-tidyprompt
@@ -100,7 +100,10 @@ dependencies:
   - pwwang::r-scsorter
   - pwwang::r-scina
   - pwwang::r-cellid
-  - pwwang::r-gptcelltype
+  - pwwang::r-lict
+  - pwwang::r-mllmcelltype
+  - pwwang::r-scinfer
+  - pwwang::r-llmcelltype
   # singleR
   - conda-forge::r-snow
   - conda-forge::r-futile.logger
@@ -140,14 +143,11 @@ dependencies:
   - faiss-cpu=1.13  # supports numpy v2
   - clustcr=2025  # adopted to work with numpy v2
   - mscorefonts  # additional fonts for plots
-  - r-hitype  # sctype will also be supported
+  # - r-hitype  # sctype will also be supported
   - r-plotly
   - r-htmlwidgets
   # unable to load shared object: stringfish.so for the one from r channel
-  - pwwang::r-stringfish
-  - pwwang::r-llmcelltype
-  - pwwang::r-mllmcelltype
-  - pwwang::r-lict
+  # - pwwang::r-stringfish
   - r-scpred
   - pip:
     - liana
