@@ -1,11 +1,9 @@
 channels:
   - pwwang  # r-ggradar, r-seuratwrappers
   - conda-forge
-  - r
   - bioconda
   - nodefaults
   - pytorch  # for ClusTCR
-  - svalkiers  # for ClusTCR
 dependencies:
   - nodejs=22  # pipen-report
   - python=3.12
@@ -23,16 +21,13 @@ dependencies:
   - gcc_linux-64
   - r-base=4.5
   - pwwang::bioconductor-data-packages
-  - bioconductor-fgsea
-  - bioconductor-scater
-  - bioconductor-glmgampoi
+  - pwwang::bioconductor-glmgampoi
   - bioconductor-destiny  # ModuleScoreCalculator (diffusion map)
   - bioconda::bioconductor-deseq2
   - bioconda::bioconductor-edger
   - bioconda::bioconductor-slingshot
   - pwwang::r-hdf5r  # Read_10x_h5() by Seurat
   - r-laplacesdemon  # TESSA
-  - libgdal
   - r-logger
   - r-presto  # MarkersFinder
   - r-hash  # CDR3AAPhyschem
@@ -41,20 +36,11 @@ dependencies:
   - r-matrixstats  # useNames = NA  deprecated
   - r-broom.mixed  # CDR3AAPhyschem
   - r-seuratwrappers
-  - r-harmony
-  - r-future
   # needed by r-biopipen.utils
   - r-bracer
-  - r-digest
   - r-doubletfinder >=2.0.6
-  - r-jsonlite
-  - r-r6
-  - r-seurat
-  - r-systemfonts
   - r-testthat
-  - r-tibble
   - r-tidyseurat
-  - r-zip
   - bioconda::bioconductor-biocparallel
   - bioconda::bioconductor-celda
   - bioconda::bioconductor-mygene
@@ -70,30 +56,10 @@ dependencies:
   - pwwang::r-seuratdisk
   - r-qs2
   # Needed by r-scplotter
-  - r-callr
-  - r-seuratobject
-  - pwwang::bioconductor-screpertoire=2.7
-  - r-gridgraphics
+  - pwwang::bioconductor-screpertoire=2.9
   - pwwang::r-metap
   - pwwang::r-tidyprompt
-  ## Needed by r-plotthis
-  - r-circlize
   # - r-ggplot2 > 4  # required by biopipen.utils.R
-  - r-rlang
-  - r-dplyr
-  - r-tidyr
-  - r-glue
-  - r-forcats
-  - r-gtable
-  - r-reshape2
-  - r-stringr
-  - r-scales
-  - r-gridtext
-  - r-patchwork
-  - r-ggrepel
-  - r-ggnewscale
-  - r-cowplot
-  - r-zoo
   # Suggests
   - pwwang::r-sccatch
   - pwwang::r-sccdc
@@ -108,46 +74,21 @@ dependencies:
   - conda-forge::r-snow
   - conda-forge::r-futile.logger
   - bioconda::bioconductor-singler
-  - r-matrix
-  - r-alluvial
   - bioconda::bioconductor-complexheatmap
-  - r-cluster  # implictly required by bioconductor-complexheatmap
-  - r-clustree
-  - r-ggwordcloud
-  - r-ggalluvial
-  - r-ggvenndiagram
-  - r-ggupset
   - r-ggpubr >1.0.0  # https://github.com/kassambara/ggpubr/issues/751
-  - r-ggforce
-  - r-ggraph
-  - r-ggridges
   - pwwang::bioconductor-ggmanh
-  - r-qqplotr
-  - r-hexbin
-  - r-igraph
-  - r-inext
-  - r-scattermore
-  - r-sf
-  - r-terra
-  - r-concaveman
-  - r-plotroc
-  - r-optimalcutpoints
-  - r-proxyc
-  - r-metr
-  # Needed by r-enrichit
-  - r-httr
-  - bioconductor-qvalue
-  # Needed by r-gglogger
-  - r-cli
-  - r-s7
-  - faiss-cpu=1.13  # supports numpy v2
-  - clustcr=2025  # adopted to work with numpy v2
+  # - faiss-cpu  # =1.13  # supports numpy v2, required by clustcr
+  - clustcr=2026  # adopted to work with numpy v2
   - mscorefonts  # additional fonts for plots
   # - r-hitype  # sctype will also be supported
-  - r-plotly
-  - r-htmlwidgets
   # unable to load shared object: stringfish.so for the one from r channel
   # - pwwang::r-stringfish
+  - r-scplotter
+  - r-plotthis
+  - r-enrichit
+  - r-gglogger
+  - r-hitype
+  - r-biopipen.utils
   - r-scpred
   - pip:
     - liana
