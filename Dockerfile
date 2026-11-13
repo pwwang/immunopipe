@@ -27,6 +27,14 @@ COPY --from=builder --chown=$MAMBA_USER:$MAMBA_USER /immunopipe/docker /immunopi
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
+# Backport scverse/scanpy#4480 so scanpy works with umap-learn >= 0.6: 0.6.0 stopped
+# copying the knn arrays, which made pp.neighbors fail on >= 8192 cells with a numba
+# TypingError (lmcinnes/umap#1335) and killed CellTypeAnnotation's celltypist run.
+# This lives in the final stage because scanpy is installed by the builder stage
+# above. The script is idempotent and fails loudly if scanpy's code moved --
+# drop this step once the image ships scanpy >= 1.12.6.
+RUN python /immunopipe/docker/patch_scanpy_umap06.py
+
 # Redirect npm cache to a writable tmp location
 RUN echo "cache=/tmp/npm-cache" > /home/$MAMBA_USER/.npmrc
 
