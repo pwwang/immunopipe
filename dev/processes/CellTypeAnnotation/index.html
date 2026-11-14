@@ -1467,6 +1467,32 @@ Prefix <code>file://</code> is optional.<br /></p>
     identity, e.g. <code>CellType:ident = "coalesce(BM_CellType, PB_CellType)"</code>
     merges two per-case columns into <code>CellType</code> and makes it the identity.<br />
     Not inherited by the cases.<br /></li>
+<li><code>report</code> <em>(<code>ns</code>)</em>:
+    Options for the report of the annotation results (plots and purity).<br />
+    The report is generated after the Seurat object is saved, so a failing plot does not lose the object.<br />
+    A case whose tool returns a numeric score per cell (mapping probability, AUC,
+    enrichment, ...) gets its UMAP coloured by that score next to the annotation
+    panel; use <code>score_col</code> to override the column.<br /><ul>
+<li><code>reduction</code> <em>(<code>type=str</code>)</em>: <em>Default: <code>dim</code></em>. <br />
+    The dimensional reduction used for the UMAP plots. <code>dim</code> means the default reduction of the object. Default: <code>dim</code></li>
+<li><code>score_col</code> <em>(<code>type=str</code>)</em>:
+    The metadata column to colour the score UMAP by. By default the numeric column the tool added for the case is used (a column ending with <code>.score</code> is preferred); when the tool returned no score, only the annotation UMAP is plotted. Default: <code>None</code></li>
+<li><code>purity</code> <em>(<code>flag</code>)</em>: <em>Default: <code>True</code></em>. <br />
+    Whether to compute the purity of the cell-level annotations against the identity column of the input object, <code>seurat_clusters</code> from <code>SeuratClustering</code> for example. Default: <code>True</code></li>
+<li><code>devpars</code> <em>(<code>ns</code>)</em>:
+    The device parameters for the plots.<br /><ul>
+<li><code>width</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>1200</code></em>. <br />
+    Width of the plots. Default: <code>1200</code></li>
+<li><code>height</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>720</code></em>. <br />
+    Height of the plots. Default: <code>720</code></li>
+<li><code>res</code> <em>(<code>type=int</code>)</em>: <em>Default: <code>100</code></em>. <br />
+    Resolution of the plots. Default: <code>100</code></li>
+</ul>
+</li>
+<li><code>more_formats</code> <em>(<code>list</code>)</em>: <em>Default: <code>['pdf']</code></em>. <br />
+    More formats to save the plots in, besides <code>png</code>. Default: <code>["pdf"]</code></li>
+</ul>
+</li>
 <li><code>add_prefix</code> <em>(<code>flag</code>)</em>:
     Whether to add a prefix to the new column names in metadata.<br />
     Only used when in non-default cases. The prefix will be the case name followed by <code>_</code>.<br /></li>
