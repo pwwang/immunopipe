@@ -692,6 +692,17 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
     ///
 
+    /// Attention
+
+    If you are running the pipeline with the Docker image, the following tools are not available:<br />
+
+    - Marker-based: `MACA`, `scMapNet`
+    - Model-based: `garnett`, `cellassign`, `scHDeepInsight`, `scBERT`
+    - Reference-based: `Azimuth`
+    - LLM-based: `scAgentType`
+
+    ///
+
     Metadata:
         When `envs.tool` is `direct` and `envs.cell_types` is empty, the metadata of
         the `Seurat` object will be kept as is.
@@ -1079,6 +1090,9 @@ class TopExpressingGenes(TopExpressingGenes_):
 class ModuleScoreCalculator(ModuleScoreCalculator_):
     """{{Summary}}
 
+    Input:
+        srtobj: The `Seurat` object passed from the upstream process.
+
     Metadata:
         The metadata of the `Seurat` object will be updated with the module scores:
 
@@ -1229,6 +1243,9 @@ class CellCellCommunicationPlots(CellCellCommunicationPlots_):
 
 class SeuratClusterStats(SeuratClusterStats_):
     """Statistics of the clustering.
+
+    Input:
+        srtobj: The `Seurat` object passed from the upstream process.
 
     Description:
         Reports statistics of the clustering - the number and fraction of cells

@@ -9,7 +9,7 @@ TCR clones/clusters or other metadata for each T-cell cluster.<br />
 ## Input
 
 - `srtobj`:
-    The `Seurat` object passed from the upstream process.
+    The `Seurat` object passed from the upstream process.<br />
 
 ## Output
 

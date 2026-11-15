@@ -168,6 +168,9 @@ to visualize the results.<br />
     The arguments are passed to the method directly.<br />
     See the method documentation for more details and also
     `help(liana.mt.<method>.__call__)` in Python.<br />
+    `use_raw` defaults to `True` when the input h5ad carries a `raw` matrix, because
+    `liana` >= 2.0 rejects the scaled matrix that `Seurat2AnnData` writes to `X`.<br />
+    Set `use_raw = False` (or `layer = "..."`) in a case to override the default.<br />
 
 ## Reference
 

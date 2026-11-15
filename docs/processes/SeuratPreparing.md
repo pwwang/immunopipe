@@ -179,6 +179,19 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
     * [`SCTransform`](https://satijalab.org/seurat/reference/sctransform).<br />
     See <https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis>
 
+- `min_cells_layer` *(`type=int`)*: *Default: `3`*. <br />
+    A counts layer (one per sample) with fewer cells than this after QC
+    counts as degenerate. `on_degenerate` decides what happens to it.<br />
+    Set to `0` to disable the check.<br />
+    Default: `3`
+- `on_degenerate` *(`choice`)*: *Default: `error`*. <br />
+    What to do with degenerate counts layers.<br />
+    - `error`:
+        Fail with a message naming the degenerate samples.<br />
+    - `drop`:
+        Remove those samples with a warning and let the preparation continue.<br />
+    - `fault`:
+        `error`
 - `no_integration` *(`flag`)*:
     Whether to skip integration or not.<br />
     By default, if there are multiple samples, integration will be performed. If `no_integration` is `True`, the samples will be merged without integration.<br />
