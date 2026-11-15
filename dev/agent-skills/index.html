@@ -315,8 +315,8 @@
 <ul>
 <li><code>ClusterMarkers</code> - Differential expression per cluster</li>
 <li><code>ClusterMarkersOfAllCells</code> - Markers before selection</li>
-<li><code>CellTypeAnnotation</code> - Automated cell type annotation</li>
-<li><code>SeuratMap2Ref</code> - Reference-based annotation</li>
+<li><a href="https://github.com/pwwang/immunopipe/blob/dev/skills/celltypeannotation/SKILL.md"><code>CellTypeAnnotation</code></a> - Automated cell type annotation and reference mapping</li>
+<li><a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> (deprecated; compatibility-only for existing configurations) - For new reference mapping, use the <a href="https://github.com/pwwang/immunopipe/blob/dev/skills/celltypeannotation/SKILL.md">CellTypeAnnotation skill</a> with <code>tool = "mapquery"</code>; see the <a href="https://github.com/pwwang/immunopipe/blob/dev/skills/seuratmap2ref/SKILL.md">legacy SeuratMap2Ref skill</a> to maintain old configs</li>
 <li><code>MarkersFinder</code> - Custom group comparisons</li>
 <li><code>TopExpressingGenes</code> - Highly expressed genes</li>
 <li><code>TopExpressingGenesOfAllCells</code> - Top genes before selection</li>

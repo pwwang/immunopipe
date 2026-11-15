@@ -107,6 +107,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#seealso">SeeAlso</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
@@ -221,9 +223,13 @@ The clusters will then be used to select T/B cells by
 <p class="admonition-title">Note</p>
 <p>If all your cells are all T/B cells (<a href="../TOrBCellSelection/"><code>TOrBCellSelection</code></a>
 is not set in configuration), you should not use this process.<br />
-Instead, you should use <a href="../SeuratClustering/"><code>SeuratClustering</code></a> process
-for unsupervised clustering, or <a href="../SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> process
-for supervised clustering.<br /></p>
+Instead, use <a href="../SeuratClustering/"><code>SeuratClustering</code></a> for unsupervised
+clustering.<br />
+For reference-based cell type mapping, use
+<a href="../CellTypeAnnotation/"><code>CellTypeAnnotation</code></a> with
+<code>envs.tool = "mapquery"</code>.<br />
+Existing <a href="../SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> configurations remain supported;
+see its deprecation notice.<br /></p>
 </div>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>
@@ -304,6 +310,10 @@ for supervised clustering.<br /></p>
 <ul>
 <li><a href="../SeuratClustering/">SeuratClustering</a></li>
 </ul>
+<h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
+<p>The metadata of the <code>Seurat</code> object will be updated with the cluster
+assignments:<br /></p>
+<p><img alt="SeuratClusteringOfAllCells-metadata" src="../images/SeuratClustering-metadata.png" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Clusters all the cells of the object - T cells together with non-T
 cells, or B cells together with non-B cells - so that

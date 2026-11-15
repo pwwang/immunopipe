@@ -256,8 +256,8 @@
 <h4 id="clustering-of-t-cells">Clustering of T cells<a class="headerlink" href="#clustering-of-t-cells" title="Permanent link">&para;</a></h4>
 <ul>
 <li><a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a>: Perform clustering on all or T cells selected above.</li>
-<li><a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a>: Map the cells to a reference dataset.</li>
-<li><a href="../processes/CellTypeAnnotation/"><code>CellTypeAnnotation</code></a>: Annotate cell types for each T-cell cluster.</li>
+<li><a href="../processes/CellTypeAnnotation/"><code>CellTypeAnnotation</code></a>: Annotate cell types for each T-cell cluster, including reference-based mapping with <code>envs.tool = "mapquery"</code>.</li>
+<li><a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a>: Deprecated reference-mapping process that remains supported for existing configurations; new configurations should use <code>CellTypeAnnotation</code> with <code>envs.tool = "mapquery"</code>.</li>
 <li><a href="../processes/SeuratSubClustering/"><code>SeuratSubClustering</code></a>: Perform sub-clustering on subsets of cells.</li>
 <li><a href="../processes/ClusterMarkers/"><code>ClusterMarkers</code></a>: Find markers for each T-cell cluster and perform enrichment analysis.</li>
 <li><a href="../processes/TopExpressingGenes/"><code>TopExpressingGenes</code></a>: Find top expressing genes for each T-cell cluster and perform enrichment analysis.</li>
@@ -265,8 +265,8 @@
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You can have multiple annotation processes, including <a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a>, <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a>, <a href="../processes/CellTypeAnnotation/"><code>CellTypeAnnotation</code></a> enabled in the same run. Make sure you use a different name for each annotation. By default, the name all default to <code>seurat_clusters</code>.</p>
-<p>For <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a>, you can use <code>envs.ident</code> to specify a new column name to store the mapped cluster information. For <a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a>, you can use <code>envs.FindClusters.cluster-name</code> to specify a new column name. For <a href="../processes/CellTypeAnnotation/"><code>CellTypeAnnotation</code></a>, you can use <code>envs.newcol</code> to specify a new column name.</p>
+<p>You can use <a href="../processes/CellTypeAnnotation/"><code>CellTypeAnnotation</code></a> with <code>envs.tool = "mapquery"</code> alongside <a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a> in the same run. Existing <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> configurations remain supported; see its deprecation notice. Give each output column a distinct name to avoid overwriting results.</p>
+<p>For <code>CellTypeAnnotation</code> with MapQuery, use <code>envs.mapquery.ident_name</code> to name the transferred label column; for other tools, use <code>envs.anno_col</code>. For legacy <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a>, use <code>envs.ident</code>. For <a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a>, use <code>envs.FindClusters.cluster-name</code>.</p>
 <p>See the <code>Environment Variables</code> of each process for more details.</p>
 </div>
 <h4 id="clonotype-refinement">Clonotype refinement<a class="headerlink" href="#clonotype-refinement" title="Permanent link">&para;</a></h4>
@@ -306,7 +306,7 @@
 <li>tell the pipeline that scTCR-seq data is available by adding a column named <code>TCRData</code>/<code>BCRData</code> in the sample information file.</li>
 <li>put the path of the sample information file in the configuration file <code>[SampleInfo.in.infile]</code>, instead of passing it as a command line argument (<code>--Sample.in.infile</code>).</li>
 </ul>
-<p>Unsupervised clustering <code>[SeuratClustering]</code> on selected T cells is the default setting. If you want to perform supervised clustering, you need to add <code>[SeuratMap2Ref]</code> in the configuration file with necessary parameters. You can also assign cell types to clusters using <code>[CellTypeAnnotation]</code>.</p>
+<p>Unsupervised clustering <code>[SeuratClustering]</code> on selected T cells is the default setting. To annotate clusters directly, add <code>[CellTypeAnnotation]</code>; for reference-based cell type mapping, set <code>envs.tool = "mapquery"</code>. Existing <code>[SeuratMap2Ref]</code> configurations remain supported; see <a href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a> for its deprecation notice.</p>
 <p>If you need to select T/B cells from all cells available for later analyses, you need to add <code>[TOrBCellSelection]</code> in the configuration file. If so, the processes annotated as something like <code>For selected cells</code> will be added to the pipeline.</p>
 <p>This is the most common route of the pipeline:</p>
 <p><img alt="routes-tcr" src="../routes-tcr.png" /></p>
@@ -318,7 +318,7 @@
 <p class="admonition-title">Attention</p>
 <p>You need to specify the sample information file in the configuration file <code>[SampleInfo.in.infile]</code> to enable this route. Passing the sample information file as a command line argument (<code>--Sample.in.infile</code>) does not trigger this route if you don't have <code>SampleInfo</code> defined in your configuration file.</p>
 </div>
-<p>Unsupervised clustering <code>[SeuratClustering]</code> on selected T cells is the default setting. If you want to perform supervised clustering, you need to add <code>[SeuratMap2Ref]</code> in the configuration file with necessary parameters.</p>
+<p>Unsupervised clustering <code>[SeuratClustering]</code> on selected T cells is the default setting. To annotate clusters directly, add <code>[CellTypeAnnotation]</code>; for reference-based cell type mapping, set <code>envs.tool = "mapquery"</code>. Existing <code>[SeuratMap2Ref]</code> configurations remain supported; see <a href="../processes/SeuratMap2Ref/">SeuratMap2Ref</a> for its deprecation notice.</p>
 <p>Similar to the previous route, you can also load a processed <code>Seurat</code> object with scRNA-seq data using <code>LoadingRNAFromSeurat</code>.</p>
 <p><img alt="routes-notcr" src="../routes-notcr.png" /></p>
               

@@ -193,6 +193,12 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#notes">Notes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#more-plot-types-for-clonal-stats">More plot types for clonal stats</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../CDR3AAPhyschem/">CDR3AAPhyschem</a>
@@ -503,6 +509,75 @@ diversity, overlaps between groups and so on. The plots are drawn by
 <h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
 <p>The parameters are passed through to <code>scplotter</code> unchanged: this
 process overrides no inherited parameter and adds none.<br /></p>
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
+<h4 id="more-plot-types-for-clonal-stats">More plot types for clonal stats<a class="headerlink" href="#more-plot-types-for-clonal-stats" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">"Clonal Volume by Diagnosis (Box Plot)"</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"volume"</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"box"</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"seurat_clusters"</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
+<span class="n">comparisons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+<p><img alt="Clonal Volume by Diagnosis (Box Plot)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Number-of-Clones/Clonal-Volume-by-Diagnosis-Box-Plot.png" width="80%" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">"Clonal Abundance (Histogram)"</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"abundance"</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"histogram"</span>
+</code></pre></div>
+<p><img alt="Clonal Abundance (Histogram)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Abundance/Clonal-Abundance-Histogram.png" width="80%" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">"CDR3 Length by Diagnosis (Violin Plot)"</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"length"</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"violin"</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
+<span class="n">chain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"TRB"</span>
+<span class="n">comparisons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+<p><img alt="CDR3 Length by Diagnosis (Violin Plot)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Sequence-Length/CDR3-Length-by-Diagnosis-Violin-Plot.png" width="80%" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">"Clonal Residency (Venn Diagram)"</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"residency"</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"venn"</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
+<span class="n">chain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"TRB"</span>
+<span class="n">clone_call</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gene"</span>
+<span class="n">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"Colitis"</span><span class="p">,</span><span class="w"> </span><span class="s2">"NoColitis"</span><span class="p">]</span>
+</code></pre></div>
+<p><img alt="Clonal Residency (Venn Diagram)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Residency/Clonal-Residency-Venn-Diagram.png" width="80%" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">"Clonal Statistics (Chord Plot)"</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"stat"</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"chord"</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
+<span class="n">chain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"TRB"</span>
+<span class="n">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"Colitis"</span><span class="p">,</span><span class="w"> </span><span class="s2">"NoColitis"</span><span class="p">]</span>
+<span class="n">clones</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"top(5)"</span>
+</code></pre></div>
+<p><img alt="Clonal Statistics (Chord Plot)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Statistics/Clonal-Statistics-Chord-Plot.png" width="80%" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">"Clonal Composition (Ring Plot)"</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"composition"</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ring"</span>
+</code></pre></div>
+<p><img alt="Clonal Composition (Ring Plot)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Composition/Clonal-Composition-Ring-Plot.png" width="80%" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">"Clonal Overlapping (Jaccard)"</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"overlap"</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jaccard"</span>
+<span class="n">chain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"TRB"</span>
+<span class="n">clone_call</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gene"</span>
+</code></pre></div>
+<p><img alt="Clonal Overlapping (Jaccard)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Overlap/Clonal-Overlapping-Jaccard.png" width="80%" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">"Clonal Diversity (inverse Simpson, by Diagnosis)"</span><span class="k">]</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"inv.simpson"</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"diversity"</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"violin"</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
+<span class="n">comparisons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">height</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">600</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">600</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Clonal Diversity (inverse Simpson, by Diagnosis)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Diversity/Clonal-Diversity-inverse-Simpson-by-Diagnosis.png" width="80%" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">"Gene Usage Frequency (Heatmap)"</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"geneusage"</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"heatmap"</span>
+<span class="n">top</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Gene Usage Frequency (Heatmap)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Gene-Usage/Gene-Usage-Frequency-Heatmap.png" width="80%" /></p>
               
             </div>
           </div><footer>

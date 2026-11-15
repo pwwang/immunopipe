@@ -568,6 +568,14 @@ violin + boxplot?<br /></p>
 <span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">height</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">450</span><span class="p">}</span>
 </code></pre></div>
 <p><img alt="Age_distribution_per_Sex_in_each_Diagnosis" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot.png" /></p>
+<p>The <code>plot_type</code> can be any <code>plotthis</code> plot type. For example, a density
+plot:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[SampleInfo.envs.stats.</span><span class="s2">"Age_distribution_per_Diagnosis (density)"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"density"</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Age"</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
+</code></pre></div>
+<p><img alt="Age_distribution_per_Diagnosis (density)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-density.png" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This is the entrance of the pipeline: it lists the sample information
 given in the input file and performs descriptive statistics and plots on

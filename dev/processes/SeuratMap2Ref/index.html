@@ -255,6 +255,16 @@
 <p>Map the seurat object to reference</p>
 <p>See: <a href="https://satijalab.org/seurat/articles/integration_mapping.html">https://satijalab.org/seurat/articles/integration_mapping.html</a>
 and <a href="https://satijalab.org/seurat/articles/multimodal_reference_mapping.html">https://satijalab.org/seurat/articles/multimodal_reference_mapping.html</a></p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Deprecated: this process remains supported for existing configurations.<br />
+For new configurations, use <a href="../CellTypeAnnotation/"><code>CellTypeAnnotation</code></a>
+with <code>envs.tool = "mapquery"</code>. Use <code>envs.mapquery.db</code> for the reference
+specified by legacy <code>envs.ref</code>, and <code>envs.mapquery.use</code> for the reference
+metadata column specified by legacy <code>envs.use</code>. The options are not fully
+equivalent to all legacy options, and legacy settings are not automatically
+translated; review and set MapQuery-specific options as needed.<br /></p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you have other annotation processes, including <a href="../SeuratClustering/"><code>SeuratClustering</code></a>
@@ -604,8 +614,10 @@ in <code>envs.NormalizeData</code> or <code>envs.SCTransform</code> for this pro
 <p>The reference effectively acts as a <strong>pretrained cell atlas</strong> that new datasets can be projected onto.<br /></p>
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
 <p>The metadata of the <code>Seurat</code> object will be updated with the cluster
-assignments (column name determined by <code>envs.name</code>):<br /></p>
-<p><img alt="SeuratMap2Ref-metadata" src="../images/SeuratClustering-metadata.png" /></p>
+assignments transferred from the reference. The label column is named
+by <code>envs.ident</code> (default: <code>seurat_clusters</code>), and the mapping score is
+saved in <code>&lt;envs.ident&gt;.score</code>:<br /></p>
+<p><img alt="SeuratMap2Ref-metadata" src="../images/SeuratMap2Ref-metadata.png" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Maps the object onto a reference <code>Seurat</code> object and transfers the
 reference labels to the query cells (supervised analysis), using

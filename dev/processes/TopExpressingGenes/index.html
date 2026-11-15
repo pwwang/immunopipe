@@ -125,6 +125,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#seealso">SeeAlso</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
@@ -315,6 +317,24 @@ You can also fetch more dbs from <a href="https://maayanlab.cloud/Enrichr/#libra
 <li><a href="../TopExpressingGenesOfAllCells/">TopExpressingGenesOfAllCells</a></li>
 <li><a href="../ClusterMarkers/">ClusterMarkers</a> for examples of enrichment plots</li>
 </ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<p>The enrichment results can be visualized with different plot types:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[TopExpressingGenes.envs.enrich_plots.</span><span class="s2">"Bar Plot"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"bar"</span>
+<span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="n">top_term</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+
+<span class="k">[TopExpressingGenes.envs.enrich_plots.</span><span class="s2">"Dot Plot"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dot"</span>
+<span class="n">top_term</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+
+<span class="k">[TopExpressingGenes.envs.enrich_plots.</span><span class="s2">"Word Cloud"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"wordcloud"</span>
+<span class="n">top_term</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+</code></pre></div>
+<p><img alt="Bar Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/topexpressinggenes/TopExpressingGenes/sampleinfo.scRep.top_expressing_genes/Cluster/c1/enrich.MSigDB_Hallmark_2020.Bar-Plot.png" width="80%" />
+<img alt="Dot Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/topexpressinggenes/TopExpressingGenes/sampleinfo.scRep.top_expressing_genes/Cluster/c1/enrich.MSigDB_Hallmark_2020.Dot-Plot.png" width="80%" />
+<img alt="Word Cloud" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/topexpressinggenes/TopExpressingGenes/sampleinfo.scRep.top_expressing_genes/Cluster/c1/enrich.MSigDB_Hallmark_2020.Word-Cloud.png" width="80%" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Finds the top expressing genes of every cluster of the T/B cells (or of
 all cells) and runs an enrichment analysis on them. The top expressing

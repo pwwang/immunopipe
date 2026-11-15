@@ -169,6 +169,12 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#deviations">Deviations</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#notes">Notes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#more-plot-types-for-cell-cell-communication">More plot types for cell-cell communication</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                   </li>
               </ul>
@@ -308,6 +314,34 @@
 <h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
 <p>The parameters are passed through to <code>scplotter</code> unchanged: this
 process overrides no inherited parameter and adds none.<br /></p>
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
+<h4 id="more-plot-types-for-cell-cell-communication">More plot types for cell-cell communication<a class="headerlink" href="#more-plot-types-for-cell-cell-communication" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[CellCellCommunicationPlots.envs.cases.</span><span class="s2">"Cell-Cell Communication Dot Plot"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dot"</span>
+<span class="n">x_text_angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span>
+</code></pre></div>
+<p><img alt="Cell-Cell Communication Dot Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Dot-Plot.png" width="80%" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[CellCellCommunicationPlots.envs.cases.</span><span class="s2">"Cell-Cell Communication Chord Plot"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"chord"</span>
+</code></pre></div>
+<p><img alt="Cell-Cell Communication Chord Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Chord-Plot.png" width="80%" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[CellCellCommunicationPlots.envs.cases.</span><span class="s2">"Cell-Cell Communication Sankey Plot"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"sankey"</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">800</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Cell-Cell Communication Sankey Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Sankey-Plot.png" width="80%" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[CellCellCommunicationPlots.envs.cases.</span><span class="s2">"Cell-Cell Communication Interaction (Violin Plot)"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"violin"</span>
+<span class="n">x_text_angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span>
+<span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"interaction"</span>
+</code></pre></div>
+<p><img alt="Cell-Cell Communication Interaction (Violin Plot)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Interaction-Violin-Plot.png" width="80%" /></p>
+<p>A <code>table</code> case writes the data as a table instead of drawing a plot:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[CellCellCommunicationPlots.envs.cases.</span><span class="s2">"Cell-Cell Communication Table"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"table"</span>
+</code></pre></div>
+<p>The table is saved as <code>Cell-Cell-Communication-Table.txt</code> in the output
+directory of the case.<br /></p>
               
             </div>
           </div><footer>

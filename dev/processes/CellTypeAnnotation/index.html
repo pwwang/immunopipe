@@ -268,10 +268,33 @@ there is a published correction, doi:<a href="https://doi.org/10.1093/bib/bbaf33
 by default.<br /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>For reference-based cell type mapping, configure this process with
+<code>tool = "mapquery"</code>:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[CellTypeAnnotation.envs]</span>
+<span class="n">tool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"mapquery"</span>
+
+<span class="k">[CellTypeAnnotation.envs.mapquery]</span>
+<span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"reference.rds"</span>
+<span class="n">use</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"celltype"</span>
+<span class="n">ident_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"predicted.id"</span>
+</code></pre></div>
+<p>Here, <code>db</code> is the reference Seurat object file and <code>use</code> is the reference
+metadata column containing cell-type labels.<br /></p>
 <p>If you have other annotation processes, including <a href="../SeuratClustering/"><code>SeuratClustering</code></a>
-process or <a href="../SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> process enabled in the same run,
+process or the deprecated <a href="../SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> process enabled in the same run,
 you may want to specify a different name for the column to store the annotated cell types
-using <code>envs.anno_col</code>, so that the results from different annotation processes won't overwrite each other.<br /></p>
+using <code>envs.anno_col</code> (or <code>envs.mapquery.ident_name</code> for <code>mapquery</code>), so that the results
+from different annotation processes won't overwrite each other.<br /></p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you are running the pipeline with the Docker image, the following tools are not available:<br /></p>
+<ul>
+<li>Marker-based: <code>MACA</code>, <code>scMapNet</code></li>
+<li>Model-based: <code>garnett</code>, <code>cellassign</code>, <code>scHDeepInsight</code>, <code>scBERT</code></li>
+<li>Reference-based: <code>Azimuth</code></li>
+<li>LLM-based: <code>scAgentType</code></li>
+</ul>
 </div>
 <h3 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h3>
 <ul>

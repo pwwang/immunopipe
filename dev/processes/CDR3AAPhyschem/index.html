@@ -149,6 +149,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#reference">Reference</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
@@ -226,7 +228,7 @@ AA (hydrophobicity, volume and isolectric point).<br /></p>
 </ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>outdir</code>: <em>Default: <code>{{in.immdata | stem}}.cdr3aaphyschem</code></em>. <br />
+<li><code>outdir</code>: <em>Default: <code>{{in.scrfile | stem}}.cdr3aaphyschem</code></em>. <br />
     The output directory</li>
 </ul>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
@@ -265,6 +267,14 @@ AA (hydrophobicity, volume and isolectric point).<br /></p>
 <li><a href="https://books.google.com/books?hl=en&amp;lr=&amp;id=bNDMBQAAQBAJ&amp;oi=fnd&amp;pg=PP1&amp;dq=Hdbk+of+chemistry+%26+physics&amp;ots=H9fzwhwz-C&amp;sig=EXHI9N3q4OW9TYEBWlldqkvADfM#v=onepage&amp;q=Hdbk%20of%20chemistry%20%26%20physics&amp;f=false">Handbook of chemistry &amp; physics 72nd edition. (CRC Press, 1991).</a></li>
 <li><a href="https://www.sciencedirect.com/science/article/pii/0079610772900053">Zamyatnin, A. A. Protein volume in solution. Prog. Biophys. Mol. Biol. 24, 107-123 (1972).</a></li>
 </ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">[CDR3AAPhyschem.envs]</span>
+<span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
+<span class="n">comparison</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"Colitis"</span><span class="p">,</span><span class="w"> </span><span class="s2">"NoColitis"</span><span class="p">]</span>
+<span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Colitis"</span>
+</code></pre></div>
+<p><img alt="Estimated coefficients" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cdr3aaphyschem/CDR3AAPhyschem/sampleinfo.scRep.cdr3aaphyschem/ALL/estimated_coefficients.png" width="80%" />
+<img alt="Distribution" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cdr3aaphyschem/CDR3AAPhyschem/sampleinfo.scRep.cdr3aaphyschem/ALL/distribution.png" width="80%" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Runs a regression between two groups of cells (for example Treg vs
 Tconv) at different lengths of CDR3 amino-acid sequences, for each
@@ -273,8 +283,9 @@ isoelectric point). The modelling is done by <code>glmnet</code> (R).<br /></p>
 <h3 id="base-class">Base class<a class="headerlink" href="#base-class" title="Permanent link">&para;</a></h3>
 <p><code>biopipen.ns.tcr.CDR3AAPhyschem</code></p>
 <h3 id="deviations">Deviations<a class="headerlink" href="#deviations" title="Permanent link">&para;</a></h3>
-<p>The parameters are passed through to <code>glmnet</code> unchanged: this process
-overrides no inherited parameter and adds none.<br /></p>
+<p>The parameters are passed through to <code>glmnet</code> unchanged. <code>output</code> is
+overridden because the base class references the wrong input (<code>immdata</code>)
+in its output directory name.<br /></p>
               
             </div>
           </div><footer>

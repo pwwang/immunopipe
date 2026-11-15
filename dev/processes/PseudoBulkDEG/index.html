@@ -145,6 +145,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#seealso">SeeAlso</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#base-class">Base class</a>
@@ -507,6 +509,55 @@ You can also fetch more dbs from <a href="https://maayanlab.cloud/Enrichr/#libra
 <li><a href="https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.PseudoBulkDEG">biopipen.ns.scrna.PseudoBulkDEG</a></li>
 <li><a href="../ClusterMarkers/">ClusterMarkers</a> for examples of marker and enrichment plots</li>
 </ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">[PseudoBulkDEG.envs]</span>
+<span class="n">aggregate_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Sample"</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
+<span class="n">ident_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Colitis"</span>
+<span class="n">ident_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"NoColitis"</span>
+
+<span class="k">[PseudoBulkDEG.envs.marker_plots.</span><span class="s2">"Volcano Plot"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"volcano"</span>
+
+<span class="k">[PseudoBulkDEG.envs.marker_plots.</span><span class="s2">"Heatmap of Top DEGs"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"heatmap"</span>
+<span class="n">genes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span>
+
+<span class="k">[PseudoBulkDEG.envs.marker_plots.</span><span class="s2">"Violin Plots of Top DEGs"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"violin"</span>
+<span class="n">genes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span>
+
+<span class="k">[PseudoBulkDEG.envs.marker_plots.</span><span class="s2">"Box Plots of Top DEGs"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"box"</span>
+<span class="n">genes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span>
+</code></pre></div>
+<p><img alt="Volcano Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Volcano-Plot.png" width="80%" />
+<img alt="Heatmap of Top DEGs" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Heatmap-of-Top-DEGs.png" width="80%" />
+<img alt="Violin Plots of Top DEGs" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Violin-Plots-of-Top-DEGs.png" width="80%" />
+<img alt="Box Plots of Top DEGs" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Box-Plots-of-Top-DEGs.png" width="80%" /></p>
+<p>The enrichment plots can also use different types:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[PseudoBulkDEG.envs.enrich_plots.</span><span class="s2">"Bar Plot"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"bar"</span>
+<span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="n">top_term</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+
+<span class="k">[PseudoBulkDEG.envs.enrich_plots.</span><span class="s2">"Dot Plot"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dot"</span>
+<span class="n">top_term</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+</code></pre></div>
+<p><img alt="Bar Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/enrich.MSigDB_Hallmark_2020.Bar-Plot.png" width="80%" />
+<img alt="Dot Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/enrich.MSigDB_Hallmark_2020.Dot-Plot.png" width="80%" /></p>
+<p>Use <code>tool = "edgeR"</code> to use <code>edgeR</code> instead of <code>DESeq2</code>:<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[PseudoBulkDEG.envs]</span>
+<span class="n">tool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"edgeR"</span>
+<span class="n">aggregate_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Sample"</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
+<span class="n">ident_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Colitis"</span>
+<span class="n">ident_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"NoColitis"</span>
+</code></pre></div>
+<p><img alt="edgeR Volcano Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Volcano-Plot.png" width="80%" />
+<img alt="edgeR Heatmap of Top DEGs" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Heatmap-of-Top-DEGs.png" width="80%" />
+<img alt="edgeR Enrichment Bar Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/enrich.MSigDB_Hallmark_2020.Bar-Plot.png" width="80%" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Performs pseudo-bulk differential gene expression analysis between the
 groups of cells. The testing is done by <code>DESeq2</code> (R), the default of

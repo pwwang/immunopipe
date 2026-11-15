@@ -147,6 +147,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#overlapping-markers">Overlapping markers</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#more-marker-and-enrichment-plot-types">More marker and enrichment plot types</a>
+    </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
@@ -579,6 +581,30 @@ You can also fetch more dbs from <a href="https://maayanlab.cloud/Enrichr/#libra
 <span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"venn"</span>
 </code></pre></div>
 <p><img alt="Overlapping Markers" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers.png" /></p>
+<h4 id="more-marker-and-enrichment-plot-types">More marker and enrichment plot types<a class="headerlink" href="#more-marker-and-enrichment-plot-types" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.marker_plots.</span><span class="s2">"Box Plots for Top Markers"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"box"</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">640</span><span class="p">}</span>
+
+<span class="k">[ClusterMarkers.envs.marker_plots.</span><span class="s2">"Bar Plots of Mean Expressions"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"bar"</span>
+<span class="n">order_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"desc(avg_log2FC)"</span>
+</code></pre></div>
+<p><img alt="Box Plots for Top Markers" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Box-Plots-for-Top-Markers.png" />
+<img alt="Bar Plots of Mean Expressions" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Bar-Plots-of-Mean-Expressions.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.enrich_plots.</span><span class="s2">"Dot Plot"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dot"</span>
+
+<span class="k">[ClusterMarkers.envs.enrich_plots.</span><span class="s2">"Lollipop"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lollipop"</span>
+</code></pre></div>
+<p><img alt="Dot Plot" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Dot-Plot.png" />
+<img alt="Lollipop" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Lollipop.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[ClusterMarkers.envs.overlaps.</span><span class="s2">"Overlapping Markers (UpSet Plot)"</span><span class="k">]</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"upset"</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">800</span><span class="p">}</span>
+</code></pre></div>
+<p><img alt="Overlapping Markers (UpSet Plot)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers-UpSet-Plot.png" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Finds the marker genes of every cluster of the T/B cells (or of all
 cells) and runs an enrichment analysis on them. Markers are found by

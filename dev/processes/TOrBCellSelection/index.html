@@ -117,6 +117,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#use-indicator-genes">Use indicator genes</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#details-of-the-selection">Details of the selection</a>
+    </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
@@ -445,6 +447,19 @@ the indicator genes, together with <code>Clonotype_Pct</code>, with K=2.<br /></
 (<code>is_selected = TRUE</code>), and sent to
 <a href="../SeuratClustering/"><code>SeuratClustering</code></a> for
 further clustering and downstream analysis.<br /></p>
+<h4 id="details-of-the-selection">Details of the selection<a class="headerlink" href="#details-of-the-selection" title="Permanent link">&para;</a></h4>
+<p>More details are saved in the <code>details</code> output directory, for example
+the indicator gene expression plots and the selected cells:<br /></p>
+<p><img alt="feature plots" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection/TOrBCellSelection/details/feature-plots.png" width="80%" />
+<img alt="selected cells" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection/TOrBCellSelection/details/selected-cells.png" width="80%" />
+<img alt="selected cell fractions" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection/TOrBCellSelection/details/selected_cells_pie.png" width="80%" />
+<img alt="CD3D vs CD3E" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection/TOrBCellSelection/details/CD3D-vs-CD3E.png" width="80%" />
+<img alt="CD3G vs CD3E" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection/TOrBCellSelection/details/CD3G-vs-CD3E.png" width="80%" /></p>
+<p>The same plots are available when the cells are selected from a file of
+cell barcodes:<br /></p>
+<p><img alt="feature plots (cell barcodes)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection_with_cellbarcodes/TOrBCellSelection/details/feature-plots.png" width="80%" />
+<img alt="selected cells (cell barcodes)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection_with_cellbarcodes/TOrBCellSelection/details/selected_cells_per_sample.png" width="80%" />
+<img alt="selected cell fractions (cell barcodes)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection_with_cellbarcodes/TOrBCellSelection/details/selected_cells_pie.png" width="80%" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Separates T from non-T cells (or B from non-B cells) and keeps the T/B
 cells for the downstream analysis. The selection uses the expression

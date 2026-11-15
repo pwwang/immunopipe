@@ -86,7 +86,7 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#metabolic-pathway-for-metabolic-landscape-analysis">Metabolic pathway for Metabolic Landscape Analysis</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#reference-for-seurat-mapping-if-you-want-to-perform-supervised-clustering">Reference for Seurat mapping if you want to perform supervised clustering</a>
+    <li class="toctree-l3"><a class="reference internal" href="#reference-for-cell-type-mapping">Reference for cell type mapping</a>
     </li>
         </ul>
     </li>
@@ -309,9 +309,9 @@ See also: <a href="https://rdrr.io/github/ncborcherding/scRepertoire/man/loadCon
 <h4 id="metabolic-pathway-for-metabolic-landscape-analysis">Metabolic pathway for Metabolic Landscape Analysis<a class="headerlink" href="#metabolic-pathway-for-metabolic-landscape-analysis" title="Permanent link">&para;</a></h4>
 <p>Similarly, if you want to perform metabolic landscape analysis, you need to provide a file containing the metabolic pathways. The file should be in the <a href="https://docs.gsea-msigdb.org/#GSEA/Data_Formats/#gmt-gene-matrix-transposed-file-format-gmt">GMT format</a>. You can provide the file to <code>ScMetabolicLandscape.envs.gmtfile</code>. This file can also be used for GSEA. A pathway file for KEGG metabolism is provided <a href="https://github.com/pwwang/biopipen/blob/master/tests/data/scrna_metabolic/KEGG_metabolism.gmt">here</a>.</p>
 <p>See <a href="../processes/ScrnaMetabolicLandscape/"><code>ScrnaMetabolicLandscape</code></a> for more details.</p>
-<h4 id="reference-for-seurat-mapping-if-you-want-to-perform-supervised-clustering">Reference for Seurat mapping if you want to perform supervised clustering<a class="headerlink" href="#reference-for-seurat-mapping-if-you-want-to-perform-supervised-clustering" title="Permanent link">&para;</a></h4>
-<p>If you want to perform supervised clustering, you need to provide a reference for <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a>. The reference should be a <code>Seurat</code> object in <code>RDS</code> or <code>h5seurat</code> file. You can provide the reference to <code>SeuratMap2Ref.envs.ref</code>.</p>
-<p>See <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> for more details.</p>
+<h4 id="reference-for-cell-type-mapping">Reference for cell type mapping<a class="headerlink" href="#reference-for-cell-type-mapping" title="Permanent link">&para;</a></h4>
+<p>For reference-based cell type mapping, provide a reference <code>Seurat</code> object to <a href="../processes/CellTypeAnnotation/"><code>CellTypeAnnotation</code></a> via <code>CellTypeAnnotation.envs.mapquery.db</code>, with <code>CellTypeAnnotation.envs.tool = "mapquery"</code>. Set <code>CellTypeAnnotation.envs.mapquery.use</code> to the reference metadata column containing the cell-type labels.</p>
+<p>Existing <a href="../processes/SeuratMap2Ref/"><code>SeuratMap2Ref</code></a> configurations remain supported; see its deprecation notice. The legacy <code>SeuratMap2Ref.envs.ref</code> and <code>SeuratMap2Ref.envs.use</code> correspond to <code>mapquery.db</code> and <code>mapquery.use</code>, but the options are not fully equivalent or automatically translated.</p>
               
             </div>
           </div><footer>
