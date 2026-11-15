@@ -63,6 +63,24 @@
                 "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Violin-Plots-for-Top-Markers.png"
               }
             ]
+          },
+          {
+            "name": "Box Plots for Top Markers",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Box-Plots-for-Top-Markers.png"
+              }
+            ]
+          },
+          {
+            "name": "Bar Plots of Mean Expressions",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Bar-Plots-of-Mean-Expressions.png"
+              }
+            ]
           }
         ]
       },
@@ -102,6 +120,14 @@
               {
                 "kind": "image",
                 "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Word-Cloud.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Dot-Plot.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Lollipop.png"
               }
             ]
           }
@@ -171,6 +197,24 @@
                 "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/markers.Violin-Plots-for-Top-Markers.png"
               }
             ]
+          },
+          {
+            "name": "Box Plots for Top Markers",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/markers.Box-Plots-for-Top-Markers.png"
+              }
+            ]
+          },
+          {
+            "name": "Bar Plots of Mean Expressions",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/markers.Bar-Plots-of-Mean-Expressions.png"
+              }
+            ]
           }
         ]
       },
@@ -210,6 +254,14 @@
               {
                 "kind": "image",
                 "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/enrich.MSigDB_Hallmark_2020.Word-Cloud.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/enrich.MSigDB_Hallmark_2020.Dot-Plot.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c2/enrich.MSigDB_Hallmark_2020.Lollipop.png"
               }
             ]
           }
@@ -279,6 +331,24 @@
                 "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/markers.Violin-Plots-for-Top-Markers.png"
               }
             ]
+          },
+          {
+            "name": "Box Plots for Top Markers",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/markers.Box-Plots-for-Top-Markers.png"
+              }
+            ]
+          },
+          {
+            "name": "Bar Plots of Mean Expressions",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/markers.Bar-Plots-of-Mean-Expressions.png"
+              }
+            ]
           }
         ]
       },
@@ -318,6 +388,14 @@
               {
                 "kind": "image",
                 "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/enrich.MSigDB_Hallmark_2020.Word-Cloud.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/enrich.MSigDB_Hallmark_2020.Dot-Plot.png"
+              },
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c3/enrich.MSigDB_Hallmark_2020.Lollipop.png"
               }
             ]
           }
@@ -366,6 +444,15 @@
               {
                 "kind": "image",
                 "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers.png"
+              }
+            ]
+          },
+          {
+            "name": "Overlapping Markers (UpSet Plot)",
+            "contents": [
+              {
+                "kind": "image",
+                "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers-UpSet-Plot.png"
               }
             ]
           }

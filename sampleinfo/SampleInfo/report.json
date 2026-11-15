@@ -52,6 +52,14 @@
           },
           {
             "kind": "table_image",
+            "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-density.png",
+            "download": [
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-density.png",
+              "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-density.png"
+            ]
+          },
+          {
+            "kind": "table_image",
             "src": "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot.png",
             "download": [
               "/home/runner/work/immunopipe/immunopipe/tests/running/output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-violin-boxplot.png",
