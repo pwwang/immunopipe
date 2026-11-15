@@ -323,6 +323,8 @@ ident_2 = "NoColitis"
 ```
 
 ![edgeR Volcano Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Volcano-Plot.png){: width="80%" }
+![edgeR Heatmap of Top DEGs](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Heatmap-of-Top-DEGs.png){: width="80%" }
+![edgeR Enrichment Bar Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/enrich.MSigDB_Hallmark_2020.Bar-Plot.png){: width="80%" }
 
 ## Description
 

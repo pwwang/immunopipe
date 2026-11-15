@@ -442,6 +442,7 @@ class SeuratPreparing(SeuratPreparing_):
 
         ![Doublet dimension plot]({{output_baseurl}}/seuratpreparing/SeuratPreparing/doublets/doublets_dim.png){: width="80%" }
         ![Doublet pie]({{output_baseurl}}/seuratpreparing/SeuratPreparing/doublets/doublets_pie.png){: width="80%" }
+        ![DoubletFinder parameter tuning]({{output_baseurl}}/seuratpreparing/SeuratPreparing/doublets/doubletfinder_pk.png){: width="80%" }
 
     Description:
         Loads the scRNA-seq data, prepares it (normalization and integration of
@@ -1738,6 +1739,8 @@ class PseudoBulkDEG(PseudoBulkDEG_):
         ```
 
         ![edgeR Volcano Plot]({{output_baseurl}}/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Volcano-Plot.png){: width="80%" }
+        ![edgeR Heatmap of Top DEGs]({{output_baseurl}}/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Heatmap-of-Top-DEGs.png){: width="80%" }
+        ![edgeR Enrichment Bar Plot]({{output_baseurl}}/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/enrich.MSigDB_Hallmark_2020.Bar-Plot.png){: width="80%" }
 
     Description:
         Performs pseudo-bulk differential gene expression analysis between the

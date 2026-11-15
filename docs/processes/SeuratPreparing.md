@@ -391,6 +391,7 @@ doublet_detector = "DoubletFinder"
 
 ![Doublet dimension plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/doublets/doublets_dim.png){: width="80%" }
 ![Doublet pie](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/doublets/doublets_pie.png){: width="80%" }
+![DoubletFinder parameter tuning](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/doublets/doubletfinder_pk.png){: width="80%" }
 
 ## Description
 

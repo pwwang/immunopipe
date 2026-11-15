@@ -88,13 +88,16 @@ class TOrBCellSelection(Proc):
 
         ![feature plots]({{output_baseurl}}/torbcellselection/TOrBCellSelection/details/feature-plots.png){: width="80%" }
         ![selected cells]({{output_baseurl}}/torbcellselection/TOrBCellSelection/details/selected-cells.png){: width="80%" }
+        ![selected cell fractions]({{output_baseurl}}/torbcellselection/TOrBCellSelection/details/selected_cells_pie.png){: width="80%" }
         ![CD3D vs CD3E]({{output_baseurl}}/torbcellselection/TOrBCellSelection/details/CD3D-vs-CD3E.png){: width="80%" }
+        ![CD3G vs CD3E]({{output_baseurl}}/torbcellselection/TOrBCellSelection/details/CD3G-vs-CD3E.png){: width="80%" }
 
         The same plots are available when the cells are selected from a file of
         cell barcodes:
 
         ![feature plots (cell barcodes)]({{output_baseurl}}/torbcellselection_with_cellbarcodes/TOrBCellSelection/details/feature-plots.png){: width="80%" }
         ![selected cells (cell barcodes)]({{output_baseurl}}/torbcellselection_with_cellbarcodes/TOrBCellSelection/details/selected_cells_per_sample.png){: width="80%" }
+        ![selected cell fractions (cell barcodes)]({{output_baseurl}}/torbcellselection_with_cellbarcodes/TOrBCellSelection/details/selected_cells_pie.png){: width="80%" }
 
     Input:
         srtobj: Seurat object file in RDS/qs2
