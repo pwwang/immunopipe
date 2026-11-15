@@ -494,6 +494,12 @@ class SeuratClusteringOfAllCells(SeuratClustering_):
     SeeAlso:
         - [SeuratClustering](./SeuratClustering.md)
 
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the cluster
+        assignments:
+
+        ![SeuratClusteringOfAllCells-metadata](images/SeuratClustering-metadata.png)
+
     Description:
         Clusters all the cells of the object - T cells together with non-T
         cells, or B cells together with non-B cells - so that
@@ -805,9 +811,11 @@ class SeuratMap2Ref(SeuratMap2Ref_):
 
     Metadata:
         The metadata of the `Seurat` object will be updated with the cluster
-        assignments (column name determined by `envs.name`):
+        assignments transferred from the reference. The label column is named
+        by `envs.ident` (default: `seurat_clusters`), and the mapping score is
+        saved in `<envs.ident>.score`:
 
-        ![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
+        ![SeuratMap2Ref-metadata](images/SeuratMap2Ref-metadata.png)
 
     Description:
         Maps the object onto a reference `Seurat` object and transfers the
@@ -1214,6 +1222,14 @@ RNAInput = ModuleScoreCalculator or RNAInput
 @when(VDJInput, requires=[VDJInput, RNAInput])  # type: ignore
 class ScRepCombiningExpression(ScRepCombiningExpression_):
     """Combine the scTCR/BCR data with the expression data
+
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the
+        clonotype information transferred from the TCR/BCR data by
+        `scRepertoire::combineExpression()`, plus a `VDJ_Presence` column
+        indicating whether a cell has a TCR/BCR sequence:
+
+        ![ScRepCombiningExpression-metadata](images/ScRepCombiningExpression-metadata.png)
 
     Description:
         Combines the repertoire data with the expression data, so that the

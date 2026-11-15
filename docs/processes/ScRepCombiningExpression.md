@@ -71,6 +71,15 @@ See also: <https://www.borch.dev/uploads/screpertoire/reference/combineexpressio
     Similar to `imm_cell_id_trans`, the function should take a vector of
     cell barcodes as input and return a vector of transformed cell barcodes.<br />
 
+## Metadata
+
+The metadata of the `Seurat` object will be updated with the
+clonotype information transferred from the TCR/BCR data by
+`scRepertoire::combineExpression()`, plus a `VDJ_Presence` column
+indicating whether a cell has a TCR/BCR sequence:<br />
+
+![ScRepCombiningExpression-metadata](images/ScRepCombiningExpression-metadata.png)
+
 ## Description
 
 Combines the repertoire data with the expression data, so that the

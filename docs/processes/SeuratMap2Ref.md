@@ -410,9 +410,11 @@ The reference effectively acts as a **pretrained cell atlas** that new datasets 
 ## Metadata
 
 The metadata of the `Seurat` object will be updated with the cluster
-assignments (column name determined by `envs.name`):<br />
+assignments transferred from the reference. The label column is named
+by `envs.ident` (default: `seurat_clusters`), and the mapping score is
+saved in `<envs.ident>.score`:<br />
 
-![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
+![SeuratMap2Ref-metadata](images/SeuratMap2Ref-metadata.png)
 
 ## Description
 

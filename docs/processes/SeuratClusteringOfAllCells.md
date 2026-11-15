@@ -94,6 +94,13 @@ see its deprecation notice.<br />
 
 - [SeuratClustering](./SeuratClustering.md)
 
+## Metadata
+
+The metadata of the `Seurat` object will be updated with the cluster
+assignments:<br />
+
+![SeuratClusteringOfAllCells-metadata](images/SeuratClustering-metadata.png)
+
 ## Description
 
 Clusters all the cells of the object - T cells together with non-T
