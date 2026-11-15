@@ -26,6 +26,14 @@ order_by = "desc(avg_log2FC)"
 plot_type = "violin"
 devpars = {width = 640}
 
+[ClusterMarkers.envs.marker_plots."Box Plots for Top Markers"]
+plot_type = "box"
+devpars = {width = 640}
+
+[ClusterMarkers.envs.marker_plots."Bar Plots of Mean Expressions"]
+plot_type = "bar"
+order_by = "desc(avg_log2FC)"
+
 # Visualize enrichment of markers
 [ClusterMarkers.envs.enrich_plots."Bar Plot"]  # Default
 plot_type = "bar"
@@ -38,6 +46,12 @@ plot_type = "enrichmap"
 
 [ClusterMarkers.envs.enrich_plots."Word Cloud"]
 plot_type = "wordcloud"
+
+[ClusterMarkers.envs.enrich_plots."Dot Plot"]
+plot_type = "dot"
+
+[ClusterMarkers.envs.enrich_plots."Lollipop"]
+plot_type = "lollipop"
 
 # Visualize all markers together of all clusters together
 [ClusterMarkers.envs.allmarker_plots."Top 10 markers of all clusters"]
@@ -59,3 +73,7 @@ plot_type = "heatmap"
 # Find overlapping markers among clusters
 [ClusterMarkers.envs.overlaps."Overlapping Markers"]
 plot_type = "venn"
+
+[ClusterMarkers.envs.overlaps."Overlapping Markers (UpSet Plot)"]
+plot_type = "upset"
+devpars = {width = 800}

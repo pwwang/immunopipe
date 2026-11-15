@@ -1,0 +1,7 @@
+[CDR3AAPhyschem.in]
+scrfile = "tests/running/intermediate/screpcombiningexpression/ScRepCombiningExpression/sampleinfo.scRep.qs"
+
+[CDR3AAPhyschem.envs]
+group = "Diagnosis"
+comparison = ["Colitis", "NoColitis"]
+target = "Colitis"

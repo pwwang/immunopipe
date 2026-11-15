@@ -459,3 +459,95 @@ data are configured, a second plot, `VDJ Presence` (grouped by
 VDJ data are present. `envs_depth` is also set to 3, so that the nested
 `envs` of the plots can be given in the configuration file.<br />
 
+## Notes
+
+### More plot types for cell statistics
+
+The `stats` cases accept all `plot_type`s supported by
+`scplotter::CellStatPlot()`.<br />
+
+```toml
+[SeuratClusterStats.envs.stats."Number of cells in each cluster (Pie Chart)"]
+plot_type = "pie"
+```
+
+![Number of cells in each cluster (Pie Chart)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-Pie-Chart.png){: width="80%" }
+
+```toml
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Ring Plot)"]
+plot_type = "ring"
+group_by = "Diagnosis"
+```
+
+![Number of cells in each cluster by Diagnosis (Ring Plot)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Diagnosis-Ring-Plot.png){: width="80%" }
+
+```toml
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Trend Plot)"]
+plot_type = "trend"
+group_by = "Diagnosis"
+frac = "group"
+```
+
+![Number of cells in each cluster by Diagnosis (Trend Plot)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Diagnosis-Trend-Plot.png){: width="80%" }
+
+```toml
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Heatmap)"]
+plot_type = "heatmap"
+group_by = "Diagnosis"
+frac = "group"
+```
+
+![Number of cells in each cluster by Diagnosis (Heatmap)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Diagnosis-Heatmap.png){: width="80%" }
+
+```toml
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Violin Plot)"]
+plot_type = "violin"
+group_by = "Diagnosis"
+```
+
+![Number of cells in each cluster by Diagnosis (Violin Plot)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Diagnosis-Violin-Plot.png){: width="80%" }
+
+```toml
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Radar Plot)"]
+plot_type = "radar"
+group_by = "Diagnosis"
+```
+
+![Number of cells in each cluster by Diagnosis (Radar Plot)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Diagnosis-Radar-Plot.png){: width="80%" }
+
+### More plot types for feature expression
+
+```toml
+[SeuratClusterStats.envs.features."Feature Expression in Clusters (Box Plots)"]
+plot_type = "box"
+ident = "seurat_clusters"
+```
+
+![Feature Expression in Clusters (Box Plots)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/features/Feature-Expression-in-Clusters-Box-Plots.png){: width="80%" }
+
+```toml
+[SeuratClusterStats.envs.features."Feature Expression in Clusters (Bar Plots)"]
+plot_type = "bar"
+ident = "seurat_clusters"
+```
+
+![Feature Expression in Clusters (Bar Plots)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/features/Feature-Expression-in-Clusters-Bar-Plots.png){: width="80%" }
+
+```toml
+[SeuratClusterStats.envs.features."Feature Correlation in Clusters"]
+plot_type = "cor"
+ident = "seurat_clusters"
+features = ["CD3D", "CD4", "CD8A", "MS4A1", "CD14"]
+```
+
+![Feature Correlation in Clusters](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/features/Feature-Correlation-in-Clusters.png){: width="80%" }
+
+### Split dimensional reduction plot
+
+```toml
+[SeuratClusterStats.envs.dimplots."Dimensional reduction plot split by Diagnosis"]
+split_by = "Diagnosis"
+```
+
+![Dimensional reduction plot split by Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/dimplots/Dimensional-reduction-plot-split-by-Diagnosis.dim.png){: width="80%" }
+

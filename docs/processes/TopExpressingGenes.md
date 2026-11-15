@@ -101,6 +101,29 @@ readonly.<br />
 - [TopExpressingGenesOfAllCells](./TopExpressingGenesOfAllCells.md)
 - [ClusterMarkers](./ClusterMarkers.md) for examples of enrichment plots
 
+## Examples
+
+The enrichment results can be visualized with different plot types:<br />
+
+```toml
+[TopExpressingGenes.envs.enrich_plots."Bar Plot"]
+plot_type = "bar"
+ncol = 1
+top_term = 10
+
+[TopExpressingGenes.envs.enrich_plots."Dot Plot"]
+plot_type = "dot"
+top_term = 10
+
+[TopExpressingGenes.envs.enrich_plots."Word Cloud"]
+plot_type = "wordcloud"
+top_term = 10
+```
+
+![Bar Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/topexpressinggenes/TopExpressingGenes/sampleinfo.scRep.top_expressing_genes/Cluster/c1/enrich.MSigDB_Hallmark_2020.Bar-Plot.png){: width="80%" }
+![Dot Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/topexpressinggenes/TopExpressingGenes/sampleinfo.scRep.top_expressing_genes/Cluster/c1/enrich.MSigDB_Hallmark_2020.Dot-Plot.png){: width="80%" }
+![Word Cloud](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/topexpressinggenes/TopExpressingGenes/sampleinfo.scRep.top_expressing_genes/Cluster/c1/enrich.MSigDB_Hallmark_2020.Word-Cloud.png){: width="80%" }
+
 ## Description
 
 Finds the top expressing genes of every cluster of the T/B cells (or of

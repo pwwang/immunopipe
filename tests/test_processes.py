@@ -189,3 +189,56 @@ def test_cccplots(request):
     assert outdir.joinpath(
         "sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Circos-Plot.png"
     ).is_file()
+
+
+@pytest.mark.forked
+def test_topexpressinggenes(request):
+    outdir = run_process(
+        "TopExpressingGenes",
+        "TopExpressingGenes.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath(
+        "sampleinfo.scRep.top_expressing_genes/Cluster/c1/"
+        "enrich.MSigDB_Hallmark_2020.Bar-Plot.png"
+    ).is_file()
+
+
+@pytest.mark.forked
+def test_pseudobulkdeg(request):
+    outdir = run_process(
+        "PseudoBulkDEG",
+        "PseudoBulkDEG.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath(
+        "sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Volcano-Plot.png"
+    ).is_file()
+
+
+@pytest.mark.forked
+def test_pseudobulkdeg_edger(request):
+    outdir = run_process(
+        "PseudoBulkDEG",
+        "PseudoBulkDEG_edgeR.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath(
+        "sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Volcano-Plot.png"
+    ).is_file()
+
+
+@pytest.mark.forked
+def test_cdr3aaphyschem(request):
+    outdir = run_process(
+        "CDR3AAPhyschem",
+        "CDR3AAPhyschem.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath(
+        "sampleinfo.scRep.cdr3aaphyschem/ALL/estimated_coefficients.png"
+    ).is_file()

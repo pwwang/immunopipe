@@ -362,6 +362,36 @@ processes will use it and/or add more metadata to the `Seurat` object.<br />
 
 ![SeuratPreparing-metadata](images/SeuratPreparing-metadata.png)
 
+## Notes
+
+### Quality control plots
+
+The cell- and gene-level QC results are visualized in the `qc` output
+directory:<br />
+
+```toml
+[SeuratPreparing.envs]
+cell_qc = "nFeature_RNA > 200 & percent.mt < 5 & runif(n()) < 0.1"
+cell_qc_per_sample = true
+gene_qc = { min_cells = 3 }
+```
+
+![Violin Plots](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/qc/Violin-Plots.cell_qc.png){: width="80%" }
+![Ridge Plots](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/qc/Ridge-Plots.cell_qc.png){: width="80%" }
+![Scatter Plots](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/qc/Scatter-Plots.cell_qc.png){: width="80%" }
+![Gene QC](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/qc/Distribution-of-number-of-cells-a-gene-is-expressed-in.gene_qc.png){: width="80%" }
+
+When a doublet detector is configured, the doublet results are also
+visualized:<br />
+
+```toml
+[SeuratPreparing.envs]
+doublet_detector = "DoubletFinder"
+```
+
+![Doublet dimension plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/doublets/doublets_dim.png){: width="80%" }
+![Doublet pie](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/doublets/doublets_pie.png){: width="80%" }
+
 ## Description
 
 Loads the scRNA-seq data, prepares it (normalization and integration of

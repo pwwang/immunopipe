@@ -106,3 +106,49 @@ Draws the plots of the cell-cell communication results produced by
 The parameters are passed through to `scplotter` unchanged: this
 process overrides no inherited parameter and adds none.<br />
 
+## Notes
+
+### More plot types for cell-cell communication
+
+```toml
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Dot Plot"]
+plot_type = "dot"
+x_text_angle = 90
+```
+
+![Cell-Cell Communication Dot Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Dot-Plot.png){: width="80%" }
+
+```toml
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Chord Plot"]
+plot_type = "chord"
+```
+
+![Cell-Cell Communication Chord Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Chord-Plot.png){: width="80%" }
+
+```toml
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Sankey Plot"]
+plot_type = "sankey"
+devpars = {width = 800}
+```
+
+![Cell-Cell Communication Sankey Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Sankey-Plot.png){: width="80%" }
+
+```toml
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Interaction (Violin Plot)"]
+plot_type = "violin"
+x_text_angle = 90
+method = "interaction"
+```
+
+![Cell-Cell Communication Interaction (Violin Plot)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Interaction-Violin-Plot.png){: width="80%" }
+
+A `table` case writes the data as a table instead of drawing a plot:<br />
+
+```toml
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Table"]
+plot_type = "table"
+```
+
+The table is saved as `Cell-Cell-Communication-Table.txt` in the output
+directory of the case.<br />
+

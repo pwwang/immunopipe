@@ -11,6 +11,13 @@ x = "seurat_clusters"
 group_by = "Diagnosis"
 comparisons = true
 
+[ClonalStats.envs.cases."Clonal Volume by Diagnosis (Box Plot)"]
+viz_type = "volume"
+plot_type = "box"
+x = "seurat_clusters"
+group_by = "Diagnosis"
+comparisons = true
+
 [ClonalStats.envs.cases."Clonal Abundance"]
 viz_type = "abundance"
 
@@ -18,12 +25,23 @@ viz_type = "abundance"
 viz_type = "abundance"
 plot_type = "density"
 
+[ClonalStats.envs.cases."Clonal Abundance (Histogram)"]
+viz_type = "abundance"
+plot_type = "histogram"
+
 [ClonalStats.envs.cases."CDR3 Length"]
 viz_type = "length"
 
 [ClonalStats.envs.cases."CDR3 Length (Beta Chain)"]
 viz_type = "length"
 chain = "TRB"
+
+[ClonalStats.envs.cases."CDR3 Length by Diagnosis (Violin Plot)"]
+viz_type = "length"
+plot_type = "violin"
+group_by = "Diagnosis"
+chain = "TRB"
+comparisons = true
 
 [ClonalStats.envs.cases."Clonal Residency"]
 viz_type = "residency"
@@ -40,6 +58,14 @@ chain = "TRB"
 clone_call = "gene"
 groups = ["Colitis", "NoColitis"]
 devpars = {width = 800}
+
+[ClonalStats.envs.cases."Clonal Residency (Venn Diagram)"]
+viz_type = "residency"
+plot_type = "venn"
+group_by = "Diagnosis"
+chain = "TRB"
+clone_call = "gene"
+groups = ["Colitis", "NoColitis"]
 
 [ClonalStats.envs.cases."Clonal Statistics with Expanded Clones"]
 viz_type = "stat"
@@ -69,12 +95,30 @@ devpars = {width = 800}
 "Hyper-Expanded Clones In Colitis" = "sel(Colitis > 5, group_by = 'Diagnosis')"
 "Hyper-Expanded Clones In NoColitis" = "sel(NoColitis > 5, group_by = 'Diagnosis')"
 
+[ClonalStats.envs.cases."Clonal Statistics (Chord Plot)"]
+viz_type = "stat"
+plot_type = "chord"
+group_by = "Diagnosis"
+chain = "TRB"
+groups = ["Colitis", "NoColitis"]
+clones = "top(5)"
+
 [ClonalStats.envs.cases."Clonal Composition"]
 viz_type = "composition"
 x_text_angle = 45
 
+[ClonalStats.envs.cases."Clonal Composition (Ring Plot)"]
+viz_type = "composition"
+plot_type = "ring"
+
 [ClonalStats.envs.cases."Clonal Overlapping"]
 viz_type = "overlap"
+chain = "TRB"
+clone_call = "gene"
+
+[ClonalStats.envs.cases."Clonal Overlapping (Jaccard)"]
+viz_type = "overlap"
+method = "jaccard"
 chain = "TRB"
 clone_call = "gene"
 
@@ -91,9 +135,23 @@ group_by = "Diagnosis"
 comparisons = true
 devpars = {height = 600, width = 600}
 
+[ClonalStats.envs.cases."Clonal Diversity (inverse Simpson, by Diagnosis)"]
+method = "inv.simpson"
+viz_type = "diversity"
+plot_type = "violin"
+group_by = "Diagnosis"
+comparisons = true
+devpars = {height = 600, width = 600}
+
 [ClonalStats.envs.cases."Gene Usage Frequency"]
 viz_type = "geneusage"
 devpars = {width = 1200}
+
+[ClonalStats.envs.cases."Gene Usage Frequency (Heatmap)"]
+viz_type = "geneusage"
+plot_type = "heatmap"
+top = 15
+devpars = {width = 1000}
 
 [ClonalStats.envs.cases."Positional amino acid frequency"]
 viz_type = "positional"

@@ -1,0 +1,21 @@
+[TopExpressingGenes.in]
+srtobj = "tests/running/intermediate/screpcombiningexpression/ScRepCombiningExpression/sampleinfo.scRep.qs"
+
+[TopExpressingGenes.envs]
+# Keep the demo small: one database and three clusters
+subset = "seurat_clusters %in% c('c1', 'c2', 'c3')"
+dbs = ["MSigDB_Hallmark_2020"]
+n = 100
+
+[TopExpressingGenes.envs.enrich_plots."Bar Plot"]
+plot_type = "bar"
+ncol = 1
+top_term = 10
+
+[TopExpressingGenes.envs.enrich_plots."Dot Plot"]
+plot_type = "dot"
+top_term = 10
+
+[TopExpressingGenes.envs.enrich_plots."Word Cloud"]
+plot_type = "wordcloud"
+top_term = 10

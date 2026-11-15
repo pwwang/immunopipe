@@ -263,6 +263,18 @@ devpars = {height = 450}
 
 ![Age_distribution_per_Sex_in_each_Diagnosis](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot.png)
 
+The `plot_type` can be any `plotthis` plot type. For example, a density
+plot:<br />
+
+```toml
+[SampleInfo.envs.stats."Age_distribution_per_Diagnosis (density)"]
+plot_type = "density"
+x = "Age"
+group_by = "Diagnosis"
+```
+
+![Age_distribution_per_Diagnosis (density)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-density.png)
+
 ## Description
 
 This is the entrance of the pipeline: it lists the sample information

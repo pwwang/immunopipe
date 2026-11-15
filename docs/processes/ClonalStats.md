@@ -332,3 +332,101 @@ diversity, overlaps between groups and so on. The plots are drawn by
 The parameters are passed through to `scplotter` unchanged: this
 process overrides no inherited parameter and adds none.<br />
 
+## Notes
+
+### More plot types for clonal stats
+
+```toml
+[ClonalStats.envs.cases."Clonal Volume by Diagnosis (Box Plot)"]
+viz_type = "volume"
+plot_type = "box"
+x = "seurat_clusters"
+group_by = "Diagnosis"
+comparisons = true
+```
+
+![Clonal Volume by Diagnosis (Box Plot)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Number-of-Clones/Clonal-Volume-by-Diagnosis-Box-Plot.png){: width="80%" }
+
+```toml
+[ClonalStats.envs.cases."Clonal Abundance (Histogram)"]
+viz_type = "abundance"
+plot_type = "histogram"
+```
+
+![Clonal Abundance (Histogram)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Abundance/Clonal-Abundance-Histogram.png){: width="80%" }
+
+```toml
+[ClonalStats.envs.cases."CDR3 Length by Diagnosis (Violin Plot)"]
+viz_type = "length"
+plot_type = "violin"
+group_by = "Diagnosis"
+chain = "TRB"
+comparisons = true
+```
+
+![CDR3 Length by Diagnosis (Violin Plot)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Sequence-Length/CDR3-Length-by-Diagnosis-Violin-Plot.png){: width="80%" }
+
+```toml
+[ClonalStats.envs.cases."Clonal Residency (Venn Diagram)"]
+viz_type = "residency"
+plot_type = "venn"
+group_by = "Diagnosis"
+chain = "TRB"
+clone_call = "gene"
+groups = ["Colitis", "NoColitis"]
+```
+
+![Clonal Residency (Venn Diagram)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Residency/Clonal-Residency-Venn-Diagram.png){: width="80%" }
+
+```toml
+[ClonalStats.envs.cases."Clonal Statistics (Chord Plot)"]
+viz_type = "stat"
+plot_type = "chord"
+group_by = "Diagnosis"
+chain = "TRB"
+groups = ["Colitis", "NoColitis"]
+clones = "top(5)"
+```
+
+![Clonal Statistics (Chord Plot)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Statistics/Clonal-Statistics-Chord-Plot.png){: width="80%" }
+
+```toml
+[ClonalStats.envs.cases."Clonal Composition (Ring Plot)"]
+viz_type = "composition"
+plot_type = "ring"
+```
+
+![Clonal Composition (Ring Plot)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Composition/Clonal-Composition-Ring-Plot.png){: width="80%" }
+
+```toml
+[ClonalStats.envs.cases."Clonal Overlapping (Jaccard)"]
+viz_type = "overlap"
+method = "jaccard"
+chain = "TRB"
+clone_call = "gene"
+```
+
+![Clonal Overlapping (Jaccard)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Overlap/Clonal-Overlapping-Jaccard.png){: width="80%" }
+
+```toml
+[ClonalStats.envs.cases."Clonal Diversity (inverse Simpson, by Diagnosis)"]
+method = "inv.simpson"
+viz_type = "diversity"
+plot_type = "violin"
+group_by = "Diagnosis"
+comparisons = true
+devpars = {height = 600, width = 600}
+```
+
+![Clonal Diversity (inverse Simpson, by Diagnosis)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Diversity/Clonal-Diversity-inverse-Simpson-by-Diagnosis.png){: width="80%" }
+
+```toml
+[ClonalStats.envs.cases."Gene Usage Frequency (Heatmap)"]
+viz_type = "geneusage"
+plot_type = "heatmap"
+top = 15
+devpars = {width = 1000}
+```
+
+![Gene Usage Frequency (Heatmap)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Gene-Usage/Gene-Usage-Frequency-Heatmap.png){: width="80%" }
+

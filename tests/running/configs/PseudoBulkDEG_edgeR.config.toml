@@ -1,0 +1,26 @@
+[PseudoBulkDEG.in]
+sobjfile = "tests/running/intermediate/screpcombiningexpression/ScRepCombiningExpression/sampleinfo.scRep.qs"
+
+[PseudoBulkDEG.envs]
+# Same comparison as PseudoBulkDEG.config.toml, but using edgeR instead of DESeq2
+subset = "seurat_clusters %in% c('c1', 'c2', 'c3')"
+aggregate_by = "Sample"
+group_by = "Diagnosis"
+ident_1 = "Colitis"
+ident_2 = "NoColitis"
+tool = "edgeR"
+dbs = ["MSigDB_Hallmark_2020"]
+sigmarkers = "p_val_adj < 0.05 & abs(log2FC) > 1"
+error = false
+
+[PseudoBulkDEG.envs.marker_plots."Volcano Plot"]
+plot_type = "volcano"
+
+[PseudoBulkDEG.envs.marker_plots."Heatmap of Top DEGs"]
+plot_type = "heatmap"
+genes = 20
+
+[PseudoBulkDEG.envs.enrich_plots."Bar Plot"]
+plot_type = "bar"
+ncol = 1
+top_term = 10
