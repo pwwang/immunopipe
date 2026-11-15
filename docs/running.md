@@ -33,7 +33,7 @@ If you want to run the pipeline on a cluster, see [How to run the pipeline on a 
 ///
 
 /// Attention
-For settings that determine the routes (a set of processes) of the pipeline, you should define them in the configuration file. For example, if you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters. If you just pass the section as a command line argument (`--SeuratMap2Ref`), it will not trigger the corresponding processes.
+For settings that determine the routes (a set of processes) of the pipeline, you should define them in the configuration file. For example, to perform reference-based cell type mapping, add `[CellTypeAnnotation.envs]` with `tool = "mapquery"` in the configuration file with the necessary `[CellTypeAnnotation.envs.mapquery]` parameters. If you just pass the section as a command line argument, it will not trigger the corresponding processes. Existing `[SeuratMap2Ref]` configurations remain supported; see its [deprecation notice](./processes/SeuratMap2Ref.md).
 
 To indicate whether the scTCR-/scBCR-seq data is available or not, you also need to specify the sample information file in the configuration file `[SampleInfo.in.infile]`. Passing the sample information file as a command line argument (`--Sample.in.infile`) does not trigger the corresponding processes.
 

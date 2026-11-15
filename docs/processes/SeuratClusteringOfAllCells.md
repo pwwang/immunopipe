@@ -12,9 +12,13 @@ The clusters will then be used to select T/B cells by
 /// Note
 If all your cells are all T/B cells ([`TOrBCellSelection`](TOrBCellSelection.md)
 is not set in configuration), you should not use this process.<br />
-Instead, you should use [`SeuratClustering`](./SeuratClustering.md) process
-for unsupervised clustering, or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process
-for supervised clustering.<br />
+Instead, use [`SeuratClustering`](./SeuratClustering.md) for unsupervised
+clustering.<br />
+For reference-based cell type mapping, use
+[`CellTypeAnnotation`](./CellTypeAnnotation.md) with
+`envs.tool = "mapquery"`.<br />
+Existing [`SeuratMap2Ref`](./SeuratMap2Ref.md) configurations remain supported;
+see its deprecation notice.<br />
 ///
 
 ## Input

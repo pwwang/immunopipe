@@ -1,20 +1,20 @@
 ---
 name: celltypeannotation
-description: Annotates cell clusters with biological cell type labels using multiple methods: direct assignment, ScType, scCATCH, hitype, or CellTypist. This process is essential for interpreting clustering results by assigning meaningful biological identities to each cluster.
+description: Annotates cell clusters with biological cell type labels using direct assignment, ScType, scCATCH, hitype, CellTypist, or MapQuery reference mapping.
 ---
 
 # CellTypeAnnotation Process Configuration
 
 ## Purpose
-Annotates cell clusters with biological cell type labels using multiple methods: direct assignment, ScType, scCATCH, hitype, or CellTypist. This process is essential for interpreting clustering results by assigning meaningful biological identities to each cluster.
+Annotates cell clusters with biological cell type labels using direct assignment, ScType, scCATCH, hitype, CellTypist, or MapQuery reference mapping.
 
 ## When to Use
 - **After clustering**: When you have cluster assignments but need biological cell type labels
 - **Automated annotation**: When manual annotation is too time-consuming or subjective
 - **Consistent nomenclature**: When you need standardized cell type names across multiple samples
-- **Reference-based annotation**: When you have well-characterized reference datasets or marker databases
+- **Marker-database annotation**: When you have well-characterized cell type marker databases
 - **Cross-sample comparison**: When analyzing multiple samples with the same cell type definitions
-- **Alternative to SeuratMap2Ref**: When you prefer database-based annotation over reference dataset mapping
+- **Reference-based annotation**: For new reference mapping, use `tool = "mapquery"`. `SeuratMap2Ref` is deprecated but still supported for existing configurations (see the [legacy skill](../seuratmap2ref/SKILL.md)).
 
 ## Configuration Structure
 
@@ -36,7 +36,7 @@ sobjfile = ["SeuratClustering"]  # Path or reference to Seurat object
 ```toml
 [CellTypeAnnotation.envs]
 # Annotation method selection
-tool = "direct"  # Options: "direct", "sctype", "hitype", "sccatch", "celltypist"
+tool = "direct"  # Options: "direct", "sctype", "hitype", "sccatch", "celltypist", "mapquery"
 
 # Cluster identity column (required for h5ad input, optional for Seurat objects)
 ident = "seurat_clusters"  # Column name in metadata representing clusters
@@ -272,6 +272,21 @@ Machine learning-based annotation using pre-trained models. Requires Python envi
 - When ScType/hitype annotation is insufficient
 - High-throughput annotation
 
+### 6. MapQuery
+MapQuery performs cell-level mapping using a Seurat reference.
+
+```toml
+[CellTypeAnnotation.envs]
+tool = "mapquery"
+
+[CellTypeAnnotation.envs.mapquery]
+db = "/path/to/reference.rds"
+use = "celltype"
+ident_name = "predicted.id"
+```
+
+`db` is the reference Seurat object file, `use` is the metadata column with cell-type labels, and `ident_name` names the transferred label column.
+
 ## Configuration Examples
 
 ### Example 1: Minimal Configuration (No Annotation)
@@ -496,7 +511,6 @@ merge = true
 ### Upstream Processes
 - **Required**: `SeuratClustering` (or process that produces Seurat object with clusters)
 - **Optional**: `SeuratClusteringOfAllCells` (if using T/B cell selection)
-- **Optional**: `SeuratMap2Ref` (can combine multiple annotation methods)
 - **Optional**: `TOrBCellSelection` (T/B-specific annotation)
 
 ### Downstream Processes
@@ -509,6 +523,9 @@ merge = true
 - **PseudoBulkDEG**: DE analysis by cell type
 - **ScrnaMetabolicLandscape**: Metabolic analysis by cell type
 - **ScRepCombiningExpression**: Integrates with TCR/BCR data
+
+### Legacy Compatibility
+`SeuratMap2Ref` is deprecated but remains supported for existing configurations; see the [legacy skill](../seuratmap2ref/SKILL.md).
 
 ### External Dependencies
 - **ScType**: Requires `sctype` R package
@@ -595,7 +612,7 @@ merge = true
 **Cause**: Invalid `tool` value specified.
 
 **Solutions**:
-1. Check valid options: `direct`, `sctype`, `hitype`, `sccatch`, `celltypist`
+1. Check valid options: `direct`, `sctype`, `hitype`, `sccatch`, `celltypist`, `mapquery`
 2. Verify spelling is correct (case-sensitive)
 3. Check tool is installed in environment
 
@@ -720,6 +737,6 @@ After annotation, verify:
 
 ### Related Processes
 - `SeuratClustering`: Clustering before annotation
-- `SeuratMap2Ref`: Reference-based annotation (alternative)
+- `SeuratMap2Ref` (deprecated; compatibility-only for existing configurations): See the [legacy skill](../seuratmap2ref/SKILL.md).
 - `ClusterMarkers`: Find markers for each cell type
 - `SeuratClusterStats`: Visualize annotated clusters

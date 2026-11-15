@@ -123,11 +123,11 @@ Similarly, if you want to perform metabolic landscape analysis, you need to prov
 
 See [`ScrnaMetabolicLandscape`](./processes/ScrnaMetabolicLandscape.md) for more details.
 
-### Reference for Seurat mapping if you want to perform supervised clustering
+### Reference for cell type mapping
 
-If you want to perform supervised clustering, you need to provide a reference for [`SeuratMap2Ref`](./processes/SeuratMap2Ref.md). The reference should be a `Seurat` object in `RDS` or `h5seurat` file. You can provide the reference to `SeuratMap2Ref.envs.ref`.
+For reference-based cell type mapping, provide a reference `Seurat` object to [`CellTypeAnnotation`](./processes/CellTypeAnnotation.md) via `CellTypeAnnotation.envs.mapquery.db`, with `CellTypeAnnotation.envs.tool = "mapquery"`. Set `CellTypeAnnotation.envs.mapquery.use` to the reference metadata column containing the cell-type labels.
 
-See [`SeuratMap2Ref`](./processes/SeuratMap2Ref.md) for more details.
+Existing [`SeuratMap2Ref`](./processes/SeuratMap2Ref.md) configurations remain supported; see its deprecation notice. The legacy `SeuratMap2Ref.envs.ref` and `SeuratMap2Ref.envs.use` correspond to `mapquery.db` and `mapquery.use`, but the options are not fully equivalent or automatically translated.
 
 [1]: https://docs.gsea-msigdb.org/#GSEA/Data_Formats/#gmt-gene-matrix-transposed-file-format-gmt
 [2]: https://github.com/pwwang/biopipen/blob/master/tests/data/scrna_metabolic/KEGG_metabolism.gmt

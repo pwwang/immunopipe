@@ -35,15 +35,30 @@ Annotate the cell clusters. Currently, the following ways are supported:<br />
 29. Use [`LICT`](https://github.com/Glowworm-cell/LICT) (cluster-level, LLM-based, a modernized fork should be used, https://github.com/pwwang/LICT/tree/modernize)
 30. Use [`MapQuery`](https://satijalab.org/seurat/reference/mapquery) (cell-level, reference-based)
 
+For reference-based cell type mapping, configure `CellTypeAnnotation` with `tool = "mapquery"`:
+
+```toml
+[CellTypeAnnotation.envs]
+tool = "mapquery"
+
+[CellTypeAnnotation.envs.mapquery]
+db = "reference.rds"
+use = "celltype"
+ident_name = "predicted.id"
+```
+
+Here, `db` is the reference Seurat object file and `use` is the reference metadata column containing cell-type labels.
+
 The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
 by default.<br />
 
 /// Note
 
 If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
-process or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run,
+process or the deprecated [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run,
 you may want to specify a different name for the column to store the annotated cell types
-using `envs.anno_col`, so that the results from different annotation processes won't overwrite each other.<br />
+using `envs.anno_col` (or `envs.mapquery.ident_name` for `mapquery`), so that the results
+from different annotation processes won't overwrite each other.<br />
 
 ///
 
@@ -55,7 +70,7 @@ If you are running the pipeline with the Docker image, following tools are not a
 - Marker-based: `ScType`, `hitype`, `scSorter`, `SCINA`, `CelliD`, `UCell`, `AUCell`, `GSVA`, `singscore`, `SCSA`, `MACA`
 - Model-based: `celltypist`, `SingleR`
 - LLM-based: `LLMCelltype`, `mLLMCelltype`, `LICT`
-- Reference-based: `scmap`, `CHETAH`, `scClassify`, `MapQuery`
+- Reference-based: `scmap`, `CHETAH`, `scClassify`
 
 ///
 

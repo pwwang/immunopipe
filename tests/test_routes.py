@@ -179,6 +179,79 @@ def test_route_loadingrnafromseurat_only_clustered(tmp_path):
 
 
 @pytest.mark.forked
+def test_route_loadingrnafromseurat_clustered_celltypeannotation(tmp_path):
+    """Pre-clustered input with CellTypeAnnotation must not re-cluster."""
+    config = tmp_path / "route_loadingrnafromseurat_clustered_celltypeannotation.toml"
+    seuratfile = tmp_path / "seurat_object.rds"
+    seuratfile.write_text("MOCK SEURAT OBJECT CONTENT")
+    config.write_text(
+        f"""
+        workdir = "{tmp_path}/workdir"
+        outdir = "{tmp_path}/outdir"
+
+        [LoadingRNAFromSeurat]
+        in.infile = "{seuratfile}"
+
+        [LoadingRNAFromSeurat.envs]
+        clustered = true
+
+        [CellTypeAnnotation.envs]
+        tool = "mapquery"
+
+        [CellTypeAnnotation.envs.mapquery]
+        db = "{seuratfile}"
+        use = "celltype"
+    """
+    )
+
+    output = dry_run(f"@{config}")
+    assert "SeuratClustering:" not in output
+    assert "CellTypeAnnotation: <<< ['LoadingRNAFromSeurat']" in output
+    assert "LoadingRNAFromSeurat: >>> ['CellTypeAnnotation']" in output
+
+
+@pytest.mark.forked
+def test_route_loadingrnafromseurat_clustered_celltypeannotation_seuratmap2ref(
+    tmp_path,
+):
+    """Pre-clustered input with both annotation processes must not re-cluster."""
+    config = (
+        tmp_path
+        / "route_loadingrnafromseurat_clustered_celltypeannotation_seuratmap2ref.toml"
+    )
+    seuratfile = tmp_path / "seurat_object.rds"
+    seuratfile.write_text("MOCK SEURAT OBJECT CONTENT")
+    config.write_text(
+        f"""
+        workdir = "{tmp_path}/workdir"
+        outdir = "{tmp_path}/outdir"
+
+        [LoadingRNAFromSeurat]
+        in.infile = "{seuratfile}"
+
+        [LoadingRNAFromSeurat.envs]
+        clustered = true
+
+        [CellTypeAnnotation.envs]
+        tool = "mapquery"
+
+        [CellTypeAnnotation.envs.mapquery]
+        db = "{seuratfile}"
+        use = "celltype"
+
+        [SeuratMap2Ref]
+    """
+    )
+
+    output = dry_run(f"@{config}")
+    assert "SeuratClustering:" not in output
+    assert "CellTypeAnnotation: <<< ['LoadingRNAFromSeurat']" in output
+    assert "CellTypeAnnotation: >>> ['SeuratMap2Ref']" in output
+    assert "SeuratMap2Ref: <<< ['CellTypeAnnotation']" in output
+    assert "SeuratMap2Ref: >>> ['ClusterMarkers', 'SeuratClusterStats']" in output
+
+
+@pytest.mark.forked
 def test_route_loadingrnafromseurat_torbselection(tmp_path):
     """Test route when LoadingRNAFromSeurat with TCR/BCR data is provided."""
     config = tmp_path / "route_loadingrnafromseurat_torbselection.config.toml"

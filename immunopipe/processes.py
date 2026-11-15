@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Type, Sequence, Callable
 
-from pipen.utils import is_loading_pipeline
+from pipen.utils import is_loading_pipeline, mark
 from pipen_annotate import annotate
 from pipen_filters.filters import FILTERS
 
@@ -322,6 +322,9 @@ class LoadingRNAFromSeurat(Proc):
             `SeuratClustering` (`SeuratClusteringOfAllCells`) process or
             `SeuratMap2Ref` is not needed.
             Force `prepared` to be `True` if this is `True`.
+            Reference-based mapping with `CellTypeAnnotation`
+            (`envs.tool = "mapquery"`) also runs without `SeuratClustering`
+            when this is `True`.
         sample: The column name in the metadata of the Seurat object that
             indicates the sample name.
             Multiple columns will be concatenated with `_` to form the sample name.
@@ -438,9 +441,13 @@ class SeuratClusteringOfAllCells(SeuratClustering_):
     /// Note
     If all your cells are all T/B cells ([`TOrBCellSelection`](TOrBCellSelection.md)
     is not set in configuration), you should not use this process.
-    Instead, you should use [`SeuratClustering`](./SeuratClustering.md) process
-    for unsupervised clustering, or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process
-    for supervised clustering.
+    Instead, use [`SeuratClustering`](./SeuratClustering.md) for unsupervised
+    clustering.
+    For reference-based cell type mapping, use
+    [`CellTypeAnnotation`](./CellTypeAnnotation.md) with
+    `envs.tool = "mapquery"`.
+    Existing [`SeuratMap2Ref`](./SeuratMap2Ref.md) configurations remain supported;
+    see its deprecation notice.
     ///
 
     SeeAlso:
@@ -584,7 +591,13 @@ RNAInput = TOrBCellSelection or RNAInput
 
 @when(
     "SeuratClustering" in config
-    or "CellTypeAnnotation" in config
+    or (
+        "CellTypeAnnotation" in config
+        and (
+            "LoadingRNAFromSeurat" not in config
+            or not config.LoadingRNAFromSeurat.envs.clustered  # type: ignore
+        )
+    )
     or (
         "SeuratMap2Ref" not in config
         and (
@@ -605,12 +618,13 @@ class SeuratClustering(SeuratClustering_):
 
     /// Note
 
-    If you have other annotation processes, including
-    [`SeuratMap2Ref`](./SeuratMap2Ref.md) process or
-    [`CellTypeAnnotation`](./CellTypeAnnotation.md) process enabled in the same run,
-    you can specify a different name for the column to store the cluster information
-    using `envs.ident`, so that the results from different
-    annotation processes won't overwrite each other.
+    For new reference-based cell type mapping, use
+    [`CellTypeAnnotation`](./CellTypeAnnotation.md) with
+    `envs.tool = "mapquery"`.
+    Existing [`SeuratMap2Ref`](./SeuratMap2Ref.md) configurations remain supported;
+    see its deprecation notice. If another annotation process runs in the same
+    pipeline, set `envs.ident` to a distinct name for this process's cluster
+    column so the results do not overwrite each other.
 
     ///
 
@@ -654,10 +668,27 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
     /// Note
 
+    For reference-based cell type mapping, configure this process with
+    `tool = "mapquery"`:
+
+    ```toml
+    [CellTypeAnnotation.envs]
+    tool = "mapquery"
+
+    [CellTypeAnnotation.envs.mapquery]
+    db = "reference.rds"
+    use = "celltype"
+    ident_name = "predicted.id"
+    ```
+
+    Here, `db` is the reference Seurat object file and `use` is the reference
+    metadata column containing cell-type labels.
+
     If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
-    process or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run,
+    process or the deprecated [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run,
     you may want to specify a different name for the column to store the annotated cell types
-    using `envs.anno_col`, so that the results from different annotation processes won't overwrite each other.
+    using `envs.anno_col` (or `envs.mapquery.ident_name` for `mapquery`), so that the results
+    from different annotation processes won't overwrite each other.
 
     ///
 
@@ -694,9 +725,22 @@ RNAInput = CellTypeAnnotation or RNAInput
 
 
 @when("SeuratMap2Ref" in config, requires=RNAInput)
+@mark(deprecated="Use CellTypeAnnotation with envs.tool = 'mapquery' instead.")
 @annotate.format_doc()
 class SeuratMap2Ref(SeuratMap2Ref_):
     """{{Summary}}
+
+    /// Attention
+
+    Deprecated: this process remains supported for existing configurations.
+    For new configurations, use [`CellTypeAnnotation`](./CellTypeAnnotation.md)
+    with `envs.tool = "mapquery"`. Use `envs.mapquery.db` for the reference
+    specified by legacy `envs.ref`, and `envs.mapquery.use` for the reference
+    metadata column specified by legacy `envs.use`. The options are not fully
+    equivalent to all legacy options, and legacy settings are not automatically
+    translated; review and set MapQuery-specific options as needed.
+
+    ///
 
     /// Note
 

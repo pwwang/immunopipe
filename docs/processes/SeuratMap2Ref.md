@@ -5,6 +5,18 @@ Map the seurat object to reference
 See: <https://satijalab.org/seurat/articles/integration_mapping.html>
 and <https://satijalab.org/seurat/articles/multimodal_reference_mapping.html>
 
+/// Attention
+
+Deprecated: this process remains supported for existing configurations.<br />
+For new configurations, use [`CellTypeAnnotation`](./CellTypeAnnotation.md)
+with `envs.tool = "mapquery"`. Use `envs.mapquery.db` for the reference
+specified by legacy `envs.ref`, and `envs.mapquery.use` for the reference
+metadata column specified by legacy `envs.use`. The options are not fully
+equivalent to all legacy options, and legacy settings are not automatically
+translated; review and set MapQuery-specific options as needed.<br />
+
+///
+
 /// Note
 
 If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)

@@ -41,8 +41,8 @@ As shown in the figure above, `immunopipe` includes a set of processes for scRNA
 ### Clustering of T cells
 
 - [`SeuratClustering`](processes/SeuratClustering.md): Perform clustering on all or T cells selected above.
-- [`SeuratMap2Ref`](processes/SeuratMap2Ref.md): Map the cells to a reference dataset.
-- [`CellTypeAnnotation`](processes/CellTypeAnnotation.md): Annotate cell types for each T-cell cluster.
+- [`CellTypeAnnotation`](processes/CellTypeAnnotation.md): Annotate cell types for each T-cell cluster, including reference-based mapping with `envs.tool = "mapquery"`.
+- [`SeuratMap2Ref`](processes/SeuratMap2Ref.md): Deprecated reference-mapping process that remains supported for existing configurations; new configurations should use `CellTypeAnnotation` with `envs.tool = "mapquery"`.
 - [`SeuratSubClustering`](processes/SeuratSubClustering.md): Perform sub-clustering on subsets of cells.
 - [`ClusterMarkers`](processes/ClusterMarkers.md): Find markers for each T-cell cluster and perform enrichment analysis.
 - [`TopExpressingGenes`](processes/TopExpressingGenes.md): Find top expressing genes for each T-cell cluster and perform enrichment analysis.
@@ -50,9 +50,9 @@ As shown in the figure above, `immunopipe` includes a set of processes for scRNA
 
 /// Note
 
-You can have multiple annotation processes, including [`SeuratClustering`](processes/SeuratClustering.md), [`SeuratMap2Ref`](processes/SeuratMap2Ref.md), [`CellTypeAnnotation`](processes/CellTypeAnnotation.md) enabled in the same run. Make sure you use a different name for each annotation. By default, the name all default to `seurat_clusters`.
+You can use [`CellTypeAnnotation`](processes/CellTypeAnnotation.md) with `envs.tool = "mapquery"` alongside [`SeuratClustering`](processes/SeuratClustering.md) in the same run. Existing [`SeuratMap2Ref`](processes/SeuratMap2Ref.md) configurations remain supported; see its deprecation notice. Give each output column a distinct name to avoid overwriting results.
 
-For [`SeuratMap2Ref`](processes/SeuratMap2Ref.md), you can use `envs.ident` to specify a new column name to store the mapped cluster information. For [`SeuratClustering`](processes/SeuratClustering.md), you can use `envs.FindClusters.cluster-name` to specify a new column name. For [`CellTypeAnnotation`](processes/CellTypeAnnotation.md), you can use `envs.newcol` to specify a new column name.
+For `CellTypeAnnotation` with MapQuery, use `envs.mapquery.ident_name` to name the transferred label column; for other tools, use `envs.anno_col`. For legacy [`SeuratMap2Ref`](processes/SeuratMap2Ref.md), use `envs.ident`. For [`SeuratClustering`](processes/SeuratClustering.md), use `envs.FindClusters.cluster-name`.
 
 See the `Environment Variables` of each process for more details.
 
@@ -98,7 +98,7 @@ To enable this route, you need to:
 - tell the pipeline that scTCR-seq data is available by adding a column named `TCRData`/`BCRData` in the sample information file.
 - put the path of the sample information file in the configuration file `[SampleInfo.in.infile]`, instead of passing it as a command line argument (`--Sample.in.infile`).
 
-Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. If you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters. You can also assign cell types to clusters using `[CellTypeAnnotation]`.
+Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. To annotate clusters directly, add `[CellTypeAnnotation]`; for reference-based cell type mapping, set `envs.tool = "mapquery"`. Existing `[SeuratMap2Ref]` configurations remain supported; see [SeuratMap2Ref](processes/SeuratMap2Ref.md) for its deprecation notice.
 
 If you need to select T/B cells from all cells available for later analyses, you need to add `[TOrBCellSelection]` in the configuration file. If so, the processes annotated as something like `For selected cells` will be added to the pipeline.
 
@@ -118,7 +118,7 @@ When you have only scRNA-seq data, you just don't need to add the `TCRData`/`BCR
 You need to specify the sample information file in the configuration file `[SampleInfo.in.infile]` to enable this route. Passing the sample information file as a command line argument (`--Sample.in.infile`) does not trigger this route if you don't have `SampleInfo` defined in your configuration file.
 ///
 
-Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. If you want to perform supervised clustering, you need to add `[SeuratMap2Ref]` in the configuration file with necessary parameters.
+Unsupervised clustering `[SeuratClustering]` on selected T cells is the default setting. To annotate clusters directly, add `[CellTypeAnnotation]`; for reference-based cell type mapping, set `envs.tool = "mapquery"`. Existing `[SeuratMap2Ref]` configurations remain supported; see [SeuratMap2Ref](processes/SeuratMap2Ref.md) for its deprecation notice.
 
 Similar to the previous route, you can also load a processed `Seurat` object with scRNA-seq data using `LoadingRNAFromSeurat`.
 

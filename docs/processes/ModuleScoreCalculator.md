@@ -44,7 +44,7 @@ the column names are consistent.<br />
 ## Input
 
 - `srtobj`:
-    The seurat object loaded by `SeuratClustering`
+    The `Seurat` object passed from the upstream process.
 
 ## Output
 

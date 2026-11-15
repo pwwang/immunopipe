@@ -70,8 +70,8 @@ Each process has a dedicated skill documenting:
 #### Marker & Annotation (7 processes)
 - `ClusterMarkers` - Differential expression per cluster
 - `ClusterMarkersOfAllCells` - Markers before selection
-- `CellTypeAnnotation` - Automated cell type annotation
-- `SeuratMap2Ref` - Reference-based annotation
+- [`CellTypeAnnotation`](https://github.com/pwwang/immunopipe/blob/dev/skills/celltypeannotation/SKILL.md) - Automated cell type annotation and reference mapping
+- [`SeuratMap2Ref`](processes/SeuratMap2Ref.md) (deprecated; compatibility-only for existing configurations) - For new reference mapping, use the [CellTypeAnnotation skill](https://github.com/pwwang/immunopipe/blob/dev/skills/celltypeannotation/SKILL.md) with `tool = "mapquery"`; see the [legacy SeuratMap2Ref skill](https://github.com/pwwang/immunopipe/blob/dev/skills/seuratmap2ref/SKILL.md) to maintain old configs
 - `MarkersFinder` - Custom group comparisons
 - `TopExpressingGenes` - Highly expressed genes
 - `TopExpressingGenesOfAllCells` - Top genes before selection

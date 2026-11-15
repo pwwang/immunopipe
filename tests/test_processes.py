@@ -1,6 +1,37 @@
 import pytest  # noqa: F401
 
-from .conftest import run_process
+from .conftest import CONFIGDIR, run_process, with_argv
+
+
+def test_seuratmap2ref_is_marked_deprecated():
+    from pipen.utils import LOADING_ARGV0
+
+    with with_argv(
+        [
+            LOADING_ARGV0,
+            f"@{CONFIGDIR / 'celltypeannotation_seuratmap2ref.config.toml'}",
+        ]
+    ):
+        from importlib import reload
+        from immunopipe import processes
+
+        reload(processes)
+        SeuratMap2Ref = processes.SeuratMap2Ref
+
+    assert SeuratMap2Ref.__meta__["deprecated"] == (
+        "Use CellTypeAnnotation with envs.tool = 'mapquery' instead."
+    )
+
+
+def test_seuratmap2ref_can_be_disabled(tmp_path):
+    configfile = tmp_path / "config.toml"
+    configfile.write_text("[SampleInfo]\n")
+    with with_argv(["immunopipe", f"@{configfile}"]):
+        from importlib import reload
+        from immunopipe import processes
+
+        reload(processes)
+        assert processes.SeuratMap2Ref is None
 
 
 @pytest.mark.forked

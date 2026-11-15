@@ -9,12 +9,13 @@ this process will be run on the selected T/B cells by
 
 /// Note
 
-If you have other annotation processes, including
-[`SeuratMap2Ref`](./SeuratMap2Ref.md) process or
-[`CellTypeAnnotation`](./CellTypeAnnotation.md) process enabled in the same run,
-you can specify a different name for the column to store the cluster information
-using `envs.ident`, so that the results from different
-annotation processes won't overwrite each other.<br />
+For new reference-based cell type mapping, use
+[`CellTypeAnnotation`](./CellTypeAnnotation.md) with
+`envs.tool = "mapquery"`.<br />
+Existing [`SeuratMap2Ref`](./SeuratMap2Ref.md) configurations remain supported;
+see its deprecation notice. If another annotation process runs in the same
+pipeline, set `envs.ident` to a distinct name for this process's cluster
+column so the results do not overwrite each other.<br />
 
 ///
 
