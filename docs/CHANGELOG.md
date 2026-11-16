@@ -1,5 +1,76 @@
 # Change Log
 
+## 2.7.0
+
+- deps: use R 4.5 in the docker images
+- chore: clean up the base environment — drop the explicit Seurat/Object and harmony pins plus the plot-library list, which now resolve through the R 4.5 `rpkgs` layer; add `r-lict`, `r-mllmcelltype`, `r-scinfer` and `r-llmcelltype`, and remove `r-gptcelltype`
+- chore: specify `pwwang::r-hdf5r` and `pwwang::bioconductor-glmgampoi` in the base environment; drop `bioconductor-fgsea`, `bioconductor-scater` and the `svalkiers` channel
+- fix(docker): backport the scanpy compatibility patch for `umap-learn >= 0.6`, which broke every scanpy `pp.neighbors` call on >= 8192 cells
+
+### Dependency Updates
+
+- r-scplotter to 0.10.0-2
+    - BREAKING: drop support for R 4.4
+    - feat(CellStatPlot): add `":expand"` modifier for `group_by` in sankey/alluvial plots, expanding a column into one x-axis node per value
+    - feat(EnrichmentPlot): support `metric = "color:sig"` (e.g. `"zScore:p.adjust"`) so cells are colored by one column while `cutoff`/marking is governed by another; drop terms failing the cutoff in every group; rank `top_term` by the coloring column; grey out via plotthis' `fill_cutoff_by`
+    - feat(EnrichmentPlot): heatmap `*` marks for `cutoff` now come with a legend entry
+    - fix(FeatureStatPlot): plot features taken from meta.data for objects without a dimensional reduction; fix `group_by` for ridge plots; fix default layer handling (scale.data for heatmap/dot, data otherwise); change the colorbar centering error to a warning
+    - fix(MarkersPlot): default `order_by` to `desc(abs(avg_log2FC))`; improve gene selection for heatmap and dot plots
+    - fix: R 4.5 dependency resolution; export the Seurat spatial plot methods
+- r-plotthis to 0.14.2-1
+    - fix(VelocityPlot): scale linewidth, not size, for stream plot types
+- r-biopipen.utils to 0.5.0-1
+    - feat(RunCellTypeAnnotation): return the per-cell score of the assigned label; add `return_object` and attach the mapped object
+    - feat(RunSeuratMap2Ref): handle missing `VariableFeatures` for SCT references
+    - feat: guard `RunSeuratTransformation` against degenerate counts layers
+    - feat(RunModuleScoring): add method `mean`
+    - feat: add `subset` to `RunSeuratCellTypeAnnotation`/`EmbedSeuratCellTypeAnnotation` for cell filtering, and to `VizDEGs` for filtering the markers data frame
+    - feat(ConvertAnnDataToSeurat): read the nullable string columns of `anndata >= 0.13` h5ad files
+    - fix(sctype_score): use `utils::tail` for a safer tail operation on usable levels
+- r-gglogger to 0.1.9-1
+    - fix: preserve logged expressions and update the S7 (v0.2.2.9000) package hooks
+- r-hitype to 0.2.0-1
+    - feat(sets): additive label-set (multi-label) scoring mode; directional sibling contrast; gated per-cell refinement; dependence-aware source fusion as an opt-in (`dependence = "independent"` by default, `"estimated"` fuses on an estimated source-dependence matrix)
+    - feat(sets): data-derived exclusivity — a marker the table declares exclusive but which is not concentrated in any one cluster is reclassified as shared (`exclusive_from_data`, `min_concentration`)
+    - fix(sets): mutual exclusion no longer empties a cluster's accepted set; one total order for top1, the accepted set and mutual exclusion; require source corroboration for per-cell flips
+    - fix(reliability): map stability on an absolute scale; stop zeroing the least-agreeing source
+    - fix(gate): make `pass` mean what the manuscript says, and stop one bad panel killing a run
+    - perf(sets): re-orient the expression matrix once so panel scoring stops scanning it
+- bioconductor-screpertoire to 2.9
+    - the R 4.5 build of scRepertoire (Bioconductor 3.24), replacing 2.2 for `ScRepLoading`, `ScRepCombiningExpression` and `ClonalStats`
+- clustcr to 2026
+    - the numpy v2 build; `faiss-cpu` is no longer required by it
+- biopipen to 1.6.0
+    - feat(scrna.CellTypeAnnotation): report the annotations, the tool score UMAPs and the cluster purity
+    - feat(scrna.CellTypeAnnotation): support cell subsetting and post-mutation, add the ScInfeR tool, and route the post processing through `biopipen.utils::EmbedSeuratCellTypeAnnotation`; improve error handling for failed cases; enhance handling of multiple mapquery cases and reference projections
+    - feat(scrna.ModuleScoreCalculator): support `:ident` in `post_mutaters`; add method `mean`
+    - feat(scrna.SeuratPreparing): handle degenerate counts layers after QC
+    - feat(scrna.CellCellCommunication): add `use_raw` for liana v2.1.0
+    - fix(scrna.SeuratClusterStats): fix the `:expand` modifier for `group_by` in sankey/alluvial stats
+    - chore(scrna.MarkersFinder): use `tabs:5` for all-markers and all-enrichment reporting, which turns into a dropdown above 5 tabs; move the report onto the common report structure
+    - chore: require R 4.5; bump pipen-report to 1.3.1 and pipen-board to 1.2.2
+- pipen to 1.2.4
+    - chore: relicense from Apache-2.0 to MIT
+    - docs: correct the cache description and drop two options that were never implemented
+    - chore: comment out the prerelease option
+- pipen-report to 1.3.1
+    - feat(frontend): add paper and nocturne themes; redesign the process table of contents; use list markers for grouped processes in the header panel; unify the main-area block shells; quiet the table toolbar
+    - feat(filters): add a max tab count to the tabs UI with a dropdown fallback
+    - refactor(frontend): use the ccs components instead of local copies
+    - fix(preprocess): improve path handling for a mounted output directory in `_path_to_url`
+- pipen-cli-gbatch to 1.2.1
+    - fix: fix the `--view-logs` action
+- xqute to 2.2.1
+    - fix: handle never-mounted paths in `SpecPath.mounted`
+    - chore: bump up dependencies
+- pipen-args to 1.3.2
+    - fix: honor `--out.<key>` arguments instead of silently ignoring them
+    - fix: escape percent signs in help text to prevent rendering issues
+- pipen-board to 1.2.2
+    - feat: refactor `PipenCliBoardPlugin` to use `AsyncCLIPlugin` and add async command execution
+    - fix: support reloader behavior for `quart >= 0.23`
+    - chore: bump pipen-report to 1.3.0
+
 ## 2.6.2
 
 - docs(processes): give every process a Description, Base class and Deviations section
