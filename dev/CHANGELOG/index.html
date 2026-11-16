@@ -168,13 +168,19 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Change log</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#270">2.7.0</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#dependency-updates">Dependency Updates</a>
+    </li>
+        </ul>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#262">2.6.2</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#261">2.6.1</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#260">2.6.0</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#dependency-updates">Dependency Updates</a>
+    <li class="toctree-l3"><a class="reference internal" href="#dependency-updates_1">Dependency Updates</a>
     </li>
         </ul>
     </li>
@@ -427,6 +433,105 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h2>
+<h3 id="270">2.7.0<a class="headerlink" href="#270" title="Permanent link">&para;</a></h3>
+<ul>
+<li>deps: use R 4.5 in the docker images</li>
+<li>chore: clean up the base environment — drop the explicit Seurat/Object and harmony pins plus the plot-library list, which now resolve through the R 4.5 <code>rpkgs</code> layer; add <code>r-lict</code>, <code>r-mllmcelltype</code>, <code>r-scinfer</code> and <code>r-llmcelltype</code>, and remove <code>r-gptcelltype</code></li>
+<li>chore: specify <code>pwwang::r-hdf5r</code> and <code>pwwang::bioconductor-glmgampoi</code> in the base environment; drop <code>bioconductor-fgsea</code>, <code>bioconductor-scater</code> and the <code>svalkiers</code> channel</li>
+<li>fix(docker): backport the scanpy compatibility patch for <code>umap-learn &gt;= 0.6</code>, which broke every scanpy <code>pp.neighbors</code> call on &gt;= 8192 cells</li>
+</ul>
+<h4 id="dependency-updates">Dependency Updates<a class="headerlink" href="#dependency-updates" title="Permanent link">&para;</a></h4>
+<ul>
+<li>r-scplotter to 0.10.0-2<ul>
+<li>BREAKING: drop support for R 4.4</li>
+<li>feat(CellStatPlot): add <code>":expand"</code> modifier for <code>group_by</code> in sankey/alluvial plots, expanding a column into one x-axis node per value</li>
+<li>feat(EnrichmentPlot): support <code>metric = "color:sig"</code> (e.g. <code>"zScore:p.adjust"</code>) so cells are colored by one column while <code>cutoff</code>/marking is governed by another; drop terms failing the cutoff in every group; rank <code>top_term</code> by the coloring column; grey out via plotthis' <code>fill_cutoff_by</code></li>
+<li>feat(EnrichmentPlot): heatmap <code>*</code> marks for <code>cutoff</code> now come with a legend entry</li>
+<li>fix(FeatureStatPlot): plot features taken from meta.data for objects without a dimensional reduction; fix <code>group_by</code> for ridge plots; fix default layer handling (scale.data for heatmap/dot, data otherwise); change the colorbar centering error to a warning</li>
+<li>fix(MarkersPlot): default <code>order_by</code> to <code>desc(abs(avg_log2FC))</code>; improve gene selection for heatmap and dot plots</li>
+<li>fix: R 4.5 dependency resolution; export the Seurat spatial plot methods</li>
+</ul>
+</li>
+<li>r-plotthis to 0.14.2-1<ul>
+<li>fix(VelocityPlot): scale linewidth, not size, for stream plot types</li>
+</ul>
+</li>
+<li>r-biopipen.utils to 0.5.0-1<ul>
+<li>feat(RunCellTypeAnnotation): return the per-cell score of the assigned label; add <code>return_object</code> and attach the mapped object</li>
+<li>feat(RunSeuratMap2Ref): handle missing <code>VariableFeatures</code> for SCT references</li>
+<li>feat: guard <code>RunSeuratTransformation</code> against degenerate counts layers</li>
+<li>feat(RunModuleScoring): add method <code>mean</code></li>
+<li>feat: add <code>subset</code> to <code>RunSeuratCellTypeAnnotation</code>/<code>EmbedSeuratCellTypeAnnotation</code> for cell filtering, and to <code>VizDEGs</code> for filtering the markers data frame</li>
+<li>feat(ConvertAnnDataToSeurat): read the nullable string columns of <code>anndata &gt;= 0.13</code> h5ad files</li>
+<li>fix(sctype_score): use <code>utils::tail</code> for a safer tail operation on usable levels</li>
+</ul>
+</li>
+<li>r-gglogger to 0.1.9-1<ul>
+<li>fix: preserve logged expressions and update the S7 (v0.2.2.9000) package hooks</li>
+</ul>
+</li>
+<li>r-hitype to 0.2.0-1<ul>
+<li>feat(sets): additive label-set (multi-label) scoring mode; directional sibling contrast; gated per-cell refinement; dependence-aware source fusion as an opt-in (<code>dependence = "independent"</code> by default, <code>"estimated"</code> fuses on an estimated source-dependence matrix)</li>
+<li>feat(sets): data-derived exclusivity — a marker the table declares exclusive but which is not concentrated in any one cluster is reclassified as shared (<code>exclusive_from_data</code>, <code>min_concentration</code>)</li>
+<li>fix(sets): mutual exclusion no longer empties a cluster's accepted set; one total order for top1, the accepted set and mutual exclusion; require source corroboration for per-cell flips</li>
+<li>fix(reliability): map stability on an absolute scale; stop zeroing the least-agreeing source</li>
+<li>fix(gate): make <code>pass</code> mean what the manuscript says, and stop one bad panel killing a run</li>
+<li>perf(sets): re-orient the expression matrix once so panel scoring stops scanning it</li>
+</ul>
+</li>
+<li>bioconductor-screpertoire to 2.9<ul>
+<li>the R 4.5 build of scRepertoire (Bioconductor 3.24), replacing 2.2 for <code>ScRepLoading</code>, <code>ScRepCombiningExpression</code> and <code>ClonalStats</code></li>
+</ul>
+</li>
+<li>clustcr to 2026<ul>
+<li>the numpy v2 build; <code>faiss-cpu</code> is no longer required by it</li>
+</ul>
+</li>
+<li>biopipen to 1.6.0<ul>
+<li>feat(scrna.CellTypeAnnotation): report the annotations, the tool score UMAPs and the cluster purity</li>
+<li>feat(scrna.CellTypeAnnotation): support cell subsetting and post-mutation, add the ScInfeR tool, and route the post processing through <code>biopipen.utils::EmbedSeuratCellTypeAnnotation</code>; improve error handling for failed cases; enhance handling of multiple mapquery cases and reference projections</li>
+<li>feat(scrna.ModuleScoreCalculator): support <code>:ident</code> in <code>post_mutaters</code>; add method <code>mean</code></li>
+<li>feat(scrna.SeuratPreparing): handle degenerate counts layers after QC</li>
+<li>feat(scrna.CellCellCommunication): add <code>use_raw</code> for liana v2.1.0</li>
+<li>fix(scrna.SeuratClusterStats): fix the <code>:expand</code> modifier for <code>group_by</code> in sankey/alluvial stats</li>
+<li>chore(scrna.MarkersFinder): use <code>tabs:5</code> for all-markers and all-enrichment reporting, which turns into a dropdown above 5 tabs; move the report onto the common report structure</li>
+<li>chore: require R 4.5; bump pipen-report to 1.3.1 and pipen-board to 1.2.2</li>
+</ul>
+</li>
+<li>pipen to 1.2.4<ul>
+<li>chore: relicense from Apache-2.0 to MIT</li>
+<li>docs: correct the cache description and drop two options that were never implemented</li>
+<li>chore: comment out the prerelease option</li>
+</ul>
+</li>
+<li>pipen-report to 1.3.1<ul>
+<li>feat(frontend): add paper and nocturne themes; redesign the process table of contents; use list markers for grouped processes in the header panel; unify the main-area block shells; quiet the table toolbar</li>
+<li>feat(filters): add a max tab count to the tabs UI with a dropdown fallback</li>
+<li>refactor(frontend): use the ccs components instead of local copies</li>
+<li>fix(preprocess): improve path handling for a mounted output directory in <code>_path_to_url</code></li>
+</ul>
+</li>
+<li>pipen-cli-gbatch to 1.2.1<ul>
+<li>fix: fix the <code>--view-logs</code> action</li>
+</ul>
+</li>
+<li>xqute to 2.2.1<ul>
+<li>fix: handle never-mounted paths in <code>SpecPath.mounted</code></li>
+<li>chore: bump up dependencies</li>
+</ul>
+</li>
+<li>pipen-args to 1.3.2<ul>
+<li>fix: honor <code>--out.&lt;key&gt;</code> arguments instead of silently ignoring them</li>
+<li>fix: escape percent signs in help text to prevent rendering issues</li>
+</ul>
+</li>
+<li>pipen-board to 1.2.2<ul>
+<li>feat: refactor <code>PipenCliBoardPlugin</code> to use <code>AsyncCLIPlugin</code> and add async command execution</li>
+<li>fix: support reloader behavior for <code>quart &gt;= 0.23</code></li>
+<li>chore: bump pipen-report to 1.3.0</li>
+</ul>
+</li>
+</ul>
 <h3 id="262">2.6.2<a class="headerlink" href="#262" title="Permanent link">&para;</a></h3>
 <ul>
 <li>docs(processes): give every process a Description, Base class and Deviations section</li>
@@ -478,7 +583,7 @@
 <li>docs: add CLI utilities documentation for utility commands and options</li>
 <li>docs(gallery): add dataset YostKE-2019 to gallery</li>
 </ul>
-<h4 id="dependency-updates">Dependency Updates<a class="headerlink" href="#dependency-updates" title="Permanent link">&para;</a></h4>
+<h4 id="dependency-updates_1">Dependency Updates<a class="headerlink" href="#dependency-updates_1" title="Permanent link">&para;</a></h4>
 <ul>
 <li>r-plotthis to 0.13.3-5<ul>
 <li>feat(Heatmap): overhaul annotation arguments into structured list params; add <code>name</code> sub-key in annotation entries to alias the displayed annotation name and legend title (<code>name = FALSE</code> hides it); support rownames/colnames split annotations with concatenated names and display modes for row/column names and split titles</li>
