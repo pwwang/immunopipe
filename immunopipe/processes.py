@@ -1608,6 +1608,32 @@ class ClonalStats(ClonalStats_):
 
         ![Clonal Statistics (Chord Plot)]({{output_baseurl}}/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Statistics/Clonal-Statistics-Chord-Plot.png){: width="80%" }
 
+        ### TRB gene-call combinations across diagnoses
+
+        The clone-level hyperexpanded Sankey has no shared TRB amino-acid clonotypes
+        between Colitis and NoColitis in this test data. Setting `clone_call` to
+        `gene` instead shows shared TRB gene-call combinations. These links are
+        weighted by the relative abundance of cells with each combination, not
+        clonotype transitions: different CDR3 sequences can share the same gene calls.
+
+        ```toml
+        [ClonalStats.envs.cases."TRB Gene-Call Combinations Across Diagnoses"]
+        viz_type = "stat"
+        plot_type = "sankey"
+        group_by = "Diagnosis"
+        chain = "TRB"
+        clone_call = "gene"
+        groups = ["Colitis", "NoColitis"]
+        values_by = "fraction"
+        devpars = {width = 800}
+
+        [ClonalStats.envs.cases."TRB Gene-Call Combinations Across Diagnoses".clones]
+        "Gene Calls Frequent in Colitis" = "sel(Colitis > 5, group_by = 'Diagnosis')"
+        "Gene Calls Frequent in NoColitis" = "sel(NoColitis > 5, group_by = 'Diagnosis')"
+        ```
+
+        ![TRB Gene-Call Combinations Across Diagnoses]({{output_baseurl}}/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Statistics/TRB-Gene-Call-Combinations-Across-Diagnoses.png){: width="80%" }
+
         ```toml
         [ClonalStats.envs.cases."Clonal Composition (Ring Plot)"]
         viz_type = "composition"

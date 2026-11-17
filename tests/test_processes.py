@@ -154,6 +154,10 @@ def test_clonalstats(request):
         request=request,
     )
     assert outdir.joinpath("sampleinfo.scRep.clonalstats").is_dir()
+    assert outdir.joinpath(
+        "sampleinfo.scRep.clonalstats/Clonal-Statistics/"
+        "TRB-Gene-Call-Combinations-Across-Diagnoses.png"
+    ).is_file()
 
 
 @pytest.mark.forked

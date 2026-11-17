@@ -77,7 +77,7 @@ pie_size = "sqrt"
 values_fill = 0
 show_row_names = true
 show_column_names = true
-devpars = {width = 720}
+devpars = {width = 720, height = 720}
 
 [ClonalStats.envs.cases."Clonal Statistics with Expanded Clones".clones]
 "Expanded Clones In Colitis" = "sel(Colitis > 2, group_by = 'Diagnosis')"
@@ -94,6 +94,20 @@ devpars = {width = 800}
 [ClonalStats.envs.cases."Hyperexpanded Clonal Dynamics".clones]
 "Hyper-Expanded Clones In Colitis" = "sel(Colitis > 5, group_by = 'Diagnosis')"
 "Hyper-Expanded Clones In NoColitis" = "sel(NoColitis > 5, group_by = 'Diagnosis')"
+
+[ClonalStats.envs.cases."TRB Gene-Call Combinations Across Diagnoses"]
+viz_type = "stat"
+plot_type = "sankey"
+group_by = "Diagnosis"
+chain = "TRB"
+clone_call = "gene"
+groups = ["Colitis", "NoColitis"]
+values_by = "fraction"
+devpars = {width = 800}
+
+[ClonalStats.envs.cases."TRB Gene-Call Combinations Across Diagnoses".clones]
+"Gene Calls Frequent in Colitis" = "sel(Colitis > 5, group_by = 'Diagnosis')"
+"Gene Calls Frequent in NoColitis" = "sel(NoColitis > 5, group_by = 'Diagnosis')"
 
 [ClonalStats.envs.cases."Clonal Statistics (Chord Plot)"]
 viz_type = "stat"
