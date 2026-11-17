@@ -1,0 +1,31 @@
+
+/** faq **/
+#faq ~ details {
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+}
+
+#faq ~ details > summary {
+    cursor: pointer;
+    font-weight: bold;
+    text-indent: -1rem;
+    margin-bottom: 1rem;
+    line-height: 1.2rem;
+    font-size: 108%;
+}
+
+#faq ~ details > p {
+    font-size: 96%;
+    margin-bottom: 1rem;
+}
+
+button.ns-fold {
+    font-size: 0.6rem;
+    padding: 0.16rem 0.24rem;
+    margin-left: 0.36rem;
+    background-color: #e5f7ff;
+    border: 1px solid #a2c7df;
+    color: #6b99b8;
+    border-radius: 0.2rem;
+    vertical-align: middle;
+}
