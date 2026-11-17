@@ -40,13 +40,26 @@ Ask what analyses they want to perform:
 |------|-------------------|---------|
 | Basic clustering & visualization | `SampleInfo`, `SeuratPreparing`, `SeuratClustering`, `SeuratClusterStats` | Use `sampleinfo`, `seuratpreparing`, `seuratclustering`, `seuratclusterstats` skills |
 | T/B cell selection | Add `TOrBCellSelection` | Use `torbcellselection` skill |
-| Cell type annotation | Add `CellTypeAnnotation` or `SeuratMap2Ref` | Use `celltypeannotation` or `seuratmap2ref` skills |
+| Cell type annotation | Add `CellTypeAnnotation`; use `tool = "mapquery"` for reference-based mapping | Use the [celltypeannotation](../celltypeannotation/SKILL.md) skill for new configs; `SeuratMap2Ref` is deprecated and compatibility-only for existing configs |
 | Marker finding | Add `ClusterMarkers` or `MarkersFinder` | Use `clustermarkers` or `markersfinder` skills |
 | TCR clonotype analysis | Add `CDR3Clustering`, `TESSA`, `ClonalStats` | Use `cdr3clustering`, `tessa`, `clonalstats` skills |
 | Cell-cell communication | Add `CellCellCommunication` | Use `cellcellcommunication` skill |
 | Pathway enrichment | Add `ScFGSEA` | Use `scfgsea` skill |
 | Metabolic analysis | Add `ScrnaMetabolicLandscape` | Use `scrnametaboliclandscape` skill |
 | Differential expression | Add `PseudoBulkDEG` | Use `pseudobulkdeg` skill |
+
+For reference-based mapping, configure:
+
+```toml
+[CellTypeAnnotation.envs]
+tool = "mapquery"
+
+[CellTypeAnnotation.envs.mapquery]
+db = "reference.rds"
+use = "celltype"
+```
+
+`SeuratMap2Ref` remains supported only for existing configurations; see the [legacy skill](../seuratmap2ref/SKILL.md).
 
 ### Step 3: Essential vs Optional Processes
 
@@ -69,7 +82,7 @@ Ask what analyses they want to perform:
 - `ClusterMarkersOfAllCells` - Markers before T/B selection
 - `TopExpressingGenesOfAllCells` - Top genes before T/B selection
 - `CellTypeAnnotation` - Automated cell type annotation
-- `SeuratMap2Ref` - Reference-based annotation
+- `SeuratMap2Ref` - Deprecated; compatibility-only for existing configurations
 - `SeuratSubClustering` - Sub-clustering analysis
 - `ClusterMarkers` - Differential expression between clusters
 - `TopExpressingGenes` - Top expressed genes per cluster
@@ -161,7 +174,7 @@ When user needs specific process configuration, route to the appropriate skill:
 
 ### Annotation Processes
 - **CellTypeAnnotation**: Use `celltypeannotation` skill
-- **SeuratMap2Ref**: Use `seuratmap2ref` skill
+- **SeuratMap2Ref** (deprecated; compatibility-only): Use the [seuratmap2ref](../seuratmap2ref/SKILL.md) skill only to maintain existing configurations.
 
 ### Marker Analysis
 - **ClusterMarkers**: Use `clustermarkers` skill
@@ -273,7 +286,7 @@ When a process has dependencies, the input will be inferred from its dependencie
 
 - Use EITHER `SampleInfo` OR `LoadingRNAFromSeurat` as entry point (not both)
 - If using `TOrBCellSelection`, typically enable `SeuratClusteringOfAllCells` first
-- `CellTypeAnnotation` and `SeuratMap2Ref` serve similar purposes (can use both, but one usually sufficient)
+- For new cell-type or reference-based annotation, use `CellTypeAnnotation` (`tool = "mapquery"` for reference mapping). `SeuratMap2Ref` is deprecated but remains supported only for existing configurations.
 
 ### Cache Strategy
 

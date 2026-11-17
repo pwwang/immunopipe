@@ -37,6 +37,31 @@ plot_type = "spider"
 group_by = "Diagnosis"
 palette = "Set1"
 
+[SeuratClusterStats.envs.stats."Number of cells in each cluster (Pie Chart)"]
+plot_type = "pie"
+
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Ring Plot)"]
+plot_type = "ring"
+group_by = "Diagnosis"
+
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Trend Plot)"]
+plot_type = "trend"
+group_by = "Diagnosis"
+frac = "group"
+
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Heatmap)"]
+plot_type = "heatmap"
+group_by = "Diagnosis"
+frac = "group"
+
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Violin Plot)"]
+plot_type = "violin"
+group_by = "Diagnosis"
+
+[SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Radar Plot)"]
+plot_type = "radar"
+group_by = "Diagnosis"
+
 [SeuratClusterStats.envs.ngenes."Number of genes detected in each cluster"]
 plot_type = "violin"
 add_box = true
@@ -53,6 +78,19 @@ ident = "seurat_clusters"
 plot_type = "ridge"
 ident = "seurat_clusters"
 flip = true
+
+[SeuratClusterStats.envs.features."Feature Expression in Clusters (Box Plots)"]
+plot_type = "box"
+ident = "seurat_clusters"
+
+[SeuratClusterStats.envs.features."Feature Expression in Clusters (Bar Plots)"]
+plot_type = "bar"
+ident = "seurat_clusters"
+
+[SeuratClusterStats.envs.features."Feature Correlation in Clusters"]
+plot_type = "cor"
+ident = "seurat_clusters"
+features = ["CD3D", "CD4", "CD8A", "MS4A1", "CD14"]
 
 [SeuratClusterStats.envs.features."Feature Expression in Clusters by Diagnosis"]
 plot_type = "violin"
@@ -119,3 +157,6 @@ stat_plot_size = 0.15
 facet_by = "Diagnosis"
 highlight = true
 theme = "theme_blank"
+
+[SeuratClusterStats.envs.dimplots."Dimensional reduction plot split by Diagnosis"]
+split_by = "Diagnosis"

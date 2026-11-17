@@ -1,6 +1,37 @@
 import pytest  # noqa: F401
 
-from .conftest import run_process
+from .conftest import CONFIGDIR, run_process, with_argv
+
+
+def test_seuratmap2ref_is_marked_deprecated():
+    from pipen.utils import LOADING_ARGV0
+
+    with with_argv(
+        [
+            LOADING_ARGV0,
+            f"@{CONFIGDIR / 'celltypeannotation_seuratmap2ref.config.toml'}",
+        ]
+    ):
+        from importlib import reload
+        from immunopipe import processes
+
+        reload(processes)
+        SeuratMap2Ref = processes.SeuratMap2Ref
+
+    assert SeuratMap2Ref.__meta__["deprecated"] == (
+        "Use CellTypeAnnotation with envs.tool = 'mapquery' instead."
+    )
+
+
+def test_seuratmap2ref_can_be_disabled(tmp_path):
+    configfile = tmp_path / "config.toml"
+    configfile.write_text("[SampleInfo]\n")
+    with with_argv(["immunopipe", f"@{configfile}"]):
+        from importlib import reload
+        from immunopipe import processes
+
+        reload(processes)
+        assert processes.SeuratMap2Ref is None
 
 
 @pytest.mark.forked
@@ -123,6 +154,10 @@ def test_clonalstats(request):
         request=request,
     )
     assert outdir.joinpath("sampleinfo.scRep.clonalstats").is_dir()
+    assert outdir.joinpath(
+        "sampleinfo.scRep.clonalstats/Clonal-Statistics/"
+        "TRB-Gene-Call-Combinations-Across-Diagnoses.png"
+    ).is_file()
 
 
 @pytest.mark.forked
@@ -157,4 +192,57 @@ def test_cccplots(request):
     )
     assert outdir.joinpath(
         "sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Circos-Plot.png"
+    ).is_file()
+
+
+@pytest.mark.forked
+def test_topexpressinggenes(request):
+    outdir = run_process(
+        "TopExpressingGenes",
+        "TopExpressingGenes.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath(
+        "sampleinfo.scRep.top_expressing_genes/Cluster/c1/"
+        "enrich.MSigDB_Hallmark_2020.Bar-Plot.png"
+    ).is_file()
+
+
+@pytest.mark.forked
+def test_pseudobulkdeg(request):
+    outdir = run_process(
+        "PseudoBulkDEG",
+        "PseudoBulkDEG.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath(
+        "sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Volcano-Plot.png"
+    ).is_file()
+
+
+@pytest.mark.forked
+def test_pseudobulkdeg_edger(request):
+    outdir = run_process(
+        "PseudoBulkDEG",
+        "PseudoBulkDEG_edgeR.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath(
+        "sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Volcano-Plot.png"
+    ).is_file()
+
+
+@pytest.mark.forked
+def test_cdr3aaphyschem(request):
+    outdir = run_process(
+        "CDR3AAPhyschem",
+        "CDR3AAPhyschem.config.toml",
+        export=True,
+        request=request,
+    )
+    assert outdir.joinpath(
+        "sampleinfo.scRep.cdr3aaphyschem/ALL/estimated_coefficients.png"
     ).is_file()

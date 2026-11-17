@@ -179,6 +179,19 @@ See also [Preparing the input](../preparing-input.md#single-cell-rna-seq-scrna-s
     * [`SCTransform`](https://satijalab.org/seurat/reference/sctransform).<br />
     See <https://satijalab.org/seurat/articles/seurat5_integration#perform-streamlined-one-line-integrative-analysis>
 
+- `min_cells_layer` *(`type=int`)*: *Default: `3`*. <br />
+    A counts layer (one per sample) with fewer cells than this after QC
+    counts as degenerate. `on_degenerate` decides what happens to it.<br />
+    Set to `0` to disable the check.<br />
+    Default: `3`
+- `on_degenerate` *(`choice`)*: *Default: `error`*. <br />
+    What to do with degenerate counts layers.<br />
+    - `error`:
+        Fail with a message naming the degenerate samples.<br />
+    - `drop`:
+        Remove those samples with a warning and let the preparation continue.<br />
+    - `fault`:
+        `error`
 - `no_integration` *(`flag`)*:
     Whether to skip integration or not.<br />
     By default, if there are multiple samples, integration will be performed. If `no_integration` is `True`, the samples will be merged without integration.<br />
@@ -348,6 +361,37 @@ Here is the demonstration of basic metadata for the `Seurat` object. Future
 processes will use it and/or add more metadata to the `Seurat` object.<br />
 
 ![SeuratPreparing-metadata](images/SeuratPreparing-metadata.png)
+
+## Notes
+
+### Quality control plots
+
+The cell- and gene-level QC results are visualized in the `qc` output
+directory:<br />
+
+```toml
+[SeuratPreparing.envs]
+cell_qc = "nFeature_RNA > 200 & percent.mt < 5 & runif(n()) < 0.1"
+cell_qc_per_sample = true
+gene_qc = { min_cells = 3 }
+```
+
+![Violin Plots](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/qc/Violin-Plots.cell_qc.png){: width="80%" }
+![Ridge Plots](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/qc/Ridge-Plots.cell_qc.png){: width="80%" }
+![Scatter Plots](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/qc/Scatter-Plots.cell_qc.png){: width="80%" }
+![Gene QC](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/qc/Distribution-of-number-of-cells-a-gene-is-expressed-in.gene_qc.png){: width="80%" }
+
+When a doublet detector is configured, the doublet results are also
+visualized:<br />
+
+```toml
+[SeuratPreparing.envs]
+doublet_detector = "DoubletFinder"
+```
+
+![Doublet dimension plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/doublets/doublets_dim.png){: width="80%" }
+![Doublet pie](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/doublets/doublets_pie.png){: width="80%" }
+![DoubletFinder parameter tuning](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/seuratpreparing/SeuratPreparing/doublets/doubletfinder_pk.png){: width="80%" }
 
 ## Description
 

@@ -16,7 +16,7 @@ AA (hydrophobicity, volume and isolectric point).<br />
 
 ## Output
 
-- `outdir`: *Default: `{{in.immdata | stem}}.cdr3aaphyschem`*. <br />
+- `outdir`: *Default: `{{in.scrfile | stem}}.cdr3aaphyschem`*. <br />
     The output directory
 
 ## Environment Variables
@@ -56,6 +56,18 @@ AA (hydrophobicity, volume and isolectric point).<br />
 - [Handbook of chemistry & physics 72nd edition. (CRC Press, 1991).](https://books.google.com/books?hl=en&lr=&id=bNDMBQAAQBAJ&oi=fnd&pg=PP1&dq=Hdbk+of+chemistry+%26+physics&ots=H9fzwhwz-C&sig=EXHI9N3q4OW9TYEBWlldqkvADfM#v=onepage&q=Hdbk%20of%20chemistry%20%26%20physics&f=false)
 - [Zamyatnin, A. A. Protein volume in solution. Prog. Biophys. Mol. Biol. 24, 107-123 (1972).](https://www.sciencedirect.com/science/article/pii/0079610772900053)
 
+## Examples
+
+```toml
+[CDR3AAPhyschem.envs]
+group = "Diagnosis"
+comparison = ["Colitis", "NoColitis"]
+target = "Colitis"
+```
+
+![Estimated coefficients](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cdr3aaphyschem/CDR3AAPhyschem/sampleinfo.scRep.cdr3aaphyschem/ALL/estimated_coefficients.png){: width="80%" }
+![Distribution](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/cdr3aaphyschem/CDR3AAPhyschem/sampleinfo.scRep.cdr3aaphyschem/ALL/distribution.png){: width="80%" }
+
 ## Description
 
 Runs a regression between two groups of cells (for example Treg vs
@@ -69,6 +81,7 @@ isoelectric point). The modelling is done by `glmnet` (R).<br />
 
 ## Deviations
 
-The parameters are passed through to `glmnet` unchanged: this process
-overrides no inherited parameter and adds none.<br />
+The parameters are passed through to `glmnet` unchanged. `output` is
+overridden because the base class references the wrong input (`immdata`)
+in its output directory name.<br />
 

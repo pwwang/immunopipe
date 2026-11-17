@@ -16,6 +16,11 @@ split_by = "Diagnosis"
 plot_type = "histogram"
 x = "Age"
 
+[SampleInfo.envs.stats."Age_distribution_per_Diagnosis (density)"]
+plot_type = "density"
+x = "Age"
+group_by = "Diagnosis"
+
 [SampleInfo.envs.stats."Age_distribution_per_Diagnosis (violin + boxplot)"]
 y = "Age"
 x = "Diagnosis"

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Type, Sequence, Callable
 
-from pipen.utils import is_loading_pipeline
+from pipen.utils import is_loading_pipeline, mark
 from pipen_annotate import annotate
 from pipen_filters.filters import FILTERS
 
@@ -240,6 +240,18 @@ class SampleInfo(SampleInfo_):
 
         ![Age_distribution_per_Sex_in_each_Diagnosis]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Sex_in_each_Diagnosis-boxplot.png)
 
+        The `plot_type` can be any `plotthis` plot type. For example, a density
+        plot:
+
+        ```toml
+        [SampleInfo.envs.stats."Age_distribution_per_Diagnosis (density)"]
+        plot_type = "density"
+        x = "Age"
+        group_by = "Diagnosis"
+        ```
+
+        ![Age_distribution_per_Diagnosis (density)]({{output_baseurl}}/sampleinfo/SampleInfo/Age_distribution_per_Diagnosis-density.png)
+
     Input:
         infile%(required)s: {{Input.infile.help | indent: 8}}.
             **Required when [`LoadingRNAFromSeurat`](LoadingRNAFromSeurat.md) is not
@@ -322,6 +334,9 @@ class LoadingRNAFromSeurat(Proc):
             `SeuratClustering` (`SeuratClusteringOfAllCells`) process or
             `SeuratMap2Ref` is not needed.
             Force `prepared` to be `True` if this is `True`.
+            Reference-based mapping with `CellTypeAnnotation`
+            (`envs.tool = "mapquery"`) also runs without `SeuratClustering`
+            when this is `True`.
         sample: The column name in the metadata of the Seurat object that
             indicates the sample name.
             Multiple columns will be concatenated with `_` to form the sample name.
@@ -387,7 +402,7 @@ RNAInput = LoadingRNAFromSeurat or SampleInfo
     ),
     requires=RNAInput,
 )
-@annotate.format_doc()
+@annotate.format_doc(vars={"output_baseurl": TEST_OUTPUT_BASEURL})
 class SeuratPreparing(SeuratPreparing_):
     """{{Summary}}
 
@@ -398,6 +413,36 @@ class SeuratPreparing(SeuratPreparing_):
         processes will use it and/or add more metadata to the `Seurat` object.
 
         ![SeuratPreparing-metadata](images/SeuratPreparing-metadata.png)
+
+    Notes:
+        ### Quality control plots
+
+        The cell- and gene-level QC results are visualized in the `qc` output
+        directory:
+
+        ```toml
+        [SeuratPreparing.envs]
+        cell_qc = "nFeature_RNA > 200 & percent.mt < 5 & runif(n()) < 0.1"
+        cell_qc_per_sample = true
+        gene_qc = { min_cells = 3 }
+        ```
+
+        ![Violin Plots]({{output_baseurl}}/seuratpreparing/SeuratPreparing/qc/Violin-Plots.cell_qc.png){: width="80%" }
+        ![Ridge Plots]({{output_baseurl}}/seuratpreparing/SeuratPreparing/qc/Ridge-Plots.cell_qc.png){: width="80%" }
+        ![Scatter Plots]({{output_baseurl}}/seuratpreparing/SeuratPreparing/qc/Scatter-Plots.cell_qc.png){: width="80%" }
+        ![Gene QC]({{output_baseurl}}/seuratpreparing/SeuratPreparing/qc/Distribution-of-number-of-cells-a-gene-is-expressed-in.gene_qc.png){: width="80%" }
+
+        When a doublet detector is configured, the doublet results are also
+        visualized:
+
+        ```toml
+        [SeuratPreparing.envs]
+        doublet_detector = "DoubletFinder"
+        ```
+
+        ![Doublet dimension plot]({{output_baseurl}}/seuratpreparing/SeuratPreparing/doublets/doublets_dim.png){: width="80%" }
+        ![Doublet pie]({{output_baseurl}}/seuratpreparing/SeuratPreparing/doublets/doublets_pie.png){: width="80%" }
+        ![DoubletFinder parameter tuning]({{output_baseurl}}/seuratpreparing/SeuratPreparing/doublets/doubletfinder_pk.png){: width="80%" }
 
     Description:
         Loads the scRNA-seq data, prepares it (normalization and integration of
@@ -438,13 +483,23 @@ class SeuratClusteringOfAllCells(SeuratClustering_):
     /// Note
     If all your cells are all T/B cells ([`TOrBCellSelection`](TOrBCellSelection.md)
     is not set in configuration), you should not use this process.
-    Instead, you should use [`SeuratClustering`](./SeuratClustering.md) process
-    for unsupervised clustering, or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process
-    for supervised clustering.
+    Instead, use [`SeuratClustering`](./SeuratClustering.md) for unsupervised
+    clustering.
+    For reference-based cell type mapping, use
+    [`CellTypeAnnotation`](./CellTypeAnnotation.md) with
+    `envs.tool = "mapquery"`.
+    Existing [`SeuratMap2Ref`](./SeuratMap2Ref.md) configurations remain supported;
+    see its deprecation notice.
     ///
 
     SeeAlso:
         - [SeuratClustering](./SeuratClustering.md)
+
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the cluster
+        assignments:
+
+        ![SeuratClusteringOfAllCells-metadata](images/SeuratClustering-metadata.png)
 
     Description:
         Clusters all the cells of the object - T cells together with non-T
@@ -584,7 +639,13 @@ RNAInput = TOrBCellSelection or RNAInput
 
 @when(
     "SeuratClustering" in config
-    or "CellTypeAnnotation" in config
+    or (
+        "CellTypeAnnotation" in config
+        and (
+            "LoadingRNAFromSeurat" not in config
+            or not config.LoadingRNAFromSeurat.envs.clustered  # type: ignore
+        )
+    )
     or (
         "SeuratMap2Ref" not in config
         and (
@@ -605,12 +666,13 @@ class SeuratClustering(SeuratClustering_):
 
     /// Note
 
-    If you have other annotation processes, including
-    [`SeuratMap2Ref`](./SeuratMap2Ref.md) process or
-    [`CellTypeAnnotation`](./CellTypeAnnotation.md) process enabled in the same run,
-    you can specify a different name for the column to store the cluster information
-    using `envs.ident`, so that the results from different
-    annotation processes won't overwrite each other.
+    For new reference-based cell type mapping, use
+    [`CellTypeAnnotation`](./CellTypeAnnotation.md) with
+    `envs.tool = "mapquery"`.
+    Existing [`SeuratMap2Ref`](./SeuratMap2Ref.md) configurations remain supported;
+    see its deprecation notice. If another annotation process runs in the same
+    pipeline, set `envs.ident` to a distinct name for this process's cluster
+    column so the results do not overwrite each other.
 
     ///
 
@@ -654,22 +716,38 @@ class CellTypeAnnotation(CellTypeAnnotation_):
 
     /// Note
 
+    For reference-based cell type mapping, configure this process with
+    `tool = "mapquery"`:
+
+    ```toml
+    [CellTypeAnnotation.envs]
+    tool = "mapquery"
+
+    [CellTypeAnnotation.envs.mapquery]
+    db = "reference.rds"
+    use = "celltype"
+    ident_name = "predicted.id"
+    ```
+
+    Here, `db` is the reference Seurat object file and `use` is the reference
+    metadata column containing cell-type labels.
+
     If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
-    process or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run,
+    process or the deprecated [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run,
     you may want to specify a different name for the column to store the annotated cell types
-    using `envs.anno_col`, so that the results from different annotation processes won't overwrite each other.
+    using `envs.anno_col` (or `envs.mapquery.ident_name` for `mapquery`), so that the results
+    from different annotation processes won't overwrite each other.
 
     ///
 
     /// Attention
 
-    If you are running the pipeline with the Docker image, following tools are not available in the Docker image:
+    If you are running the pipeline with the Docker image, the following tools are not available:<br />
 
-    - Direct assignment: `direct`, `cell`
-    - Marker-based: `ScType`, `hitype`, `scSorter`, `SCINA`, `CelliD`, `UCell`, `AUCell`, `GSVA`, `singscore`, `SCSA`, `MACA`
-    - Model-based: `celltypist`, `SingleR`
-    - LLM-based: `LLMCelltype`, `mLLMCelltype`, `LICT`
-    - Reference-based: `scmap`, `CHETAH`, `scClassify`, `MapQuery`
+    - Marker-based: `MACA`, `scMapNet`
+    - Model-based: `garnett`, `cellassign`, `scHDeepInsight`, `scBERT`
+    - Reference-based: `Azimuth`
+    - LLM-based: `scAgentType`
 
     ///
 
@@ -706,9 +784,22 @@ RNAInput = CellTypeAnnotation or RNAInput
 
 
 @when("SeuratMap2Ref" in config, requires=RNAInput)
+@mark(deprecated="Use CellTypeAnnotation with envs.tool = 'mapquery' instead.")
 @annotate.format_doc()
 class SeuratMap2Ref(SeuratMap2Ref_):
     """{{Summary}}
+
+    /// Attention
+
+    Deprecated: this process remains supported for existing configurations.
+    For new configurations, use [`CellTypeAnnotation`](./CellTypeAnnotation.md)
+    with `envs.tool = "mapquery"`. Use `envs.mapquery.db` for the reference
+    specified by legacy `envs.ref`, and `envs.mapquery.use` for the reference
+    metadata column specified by legacy `envs.use`. The options are not fully
+    equivalent to all legacy options, and legacy settings are not automatically
+    translated; review and set MapQuery-specific options as needed.
+
+    ///
 
     /// Note
 
@@ -721,9 +812,11 @@ class SeuratMap2Ref(SeuratMap2Ref_):
 
     Metadata:
         The metadata of the `Seurat` object will be updated with the cluster
-        assignments (column name determined by `envs.name`):
+        assignments transferred from the reference. The label column is named
+        by `envs.ident` (default: `seurat_clusters`), and the mapping score is
+        saved in `<envs.ident>.score`:
 
-        ![SeuratMap2Ref-metadata](images/SeuratClustering-metadata.png)
+        ![SeuratMap2Ref-metadata](images/SeuratMap2Ref-metadata.png)
 
     Description:
         Maps the object onto a reference `Seurat` object and transfers the
@@ -953,6 +1046,40 @@ class ClusterMarkers(MarkersFinder_):
 
         ![Overlapping Markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers.png)
 
+        ### More marker and enrichment plot types
+
+        ```toml
+        [ClusterMarkers.envs.marker_plots."Box Plots for Top Markers"]
+        plot_type = "box"
+        devpars = {width = 640}
+
+        [ClusterMarkers.envs.marker_plots."Bar Plots of Mean Expressions"]
+        plot_type = "bar"
+        order_by = "desc(avg_log2FC)"
+        ```
+
+        ![Box Plots for Top Markers]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Box-Plots-for-Top-Markers.png)
+        ![Bar Plots of Mean Expressions]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Bar-Plots-of-Mean-Expressions.png)
+
+        ```toml
+        [ClusterMarkers.envs.enrich_plots."Dot Plot"]
+        plot_type = "dot"
+
+        [ClusterMarkers.envs.enrich_plots."Lollipop"]
+        plot_type = "lollipop"
+        ```
+
+        ![Dot Plot]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Dot-Plot.png)
+        ![Lollipop]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Lollipop.png)
+
+        ```toml
+        [ClusterMarkers.envs.overlaps."Overlapping Markers (UpSet Plot)"]
+        plot_type = "upset"
+        devpars = {width = 800}
+        ```
+
+        ![Overlapping Markers (UpSet Plot)]({{output_baseurl}}/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers-UpSet-Plot.png)
+
     Description:
         Finds the marker genes of every cluster of the T/B cells (or of all
         cells) and runs an enrichment analysis on them. Markers are found by
@@ -989,7 +1116,7 @@ class ClusterMarkers(MarkersFinder_):
 
 
 @when("TopExpressingGenes" in config, requires=RNAInput)
-@annotate.format_doc()
+@annotate.format_doc(vars={"output_baseurl": TEST_OUTPUT_BASEURL})
 class TopExpressingGenes(TopExpressingGenes_):
     """Top expressing genes for clusters of all or selected T/B cells.
 
@@ -1025,6 +1152,28 @@ class TopExpressingGenes(TopExpressingGenes_):
         ident (hidden;readonly): {{Envs.ident.help | indent: 12}}.
         mutaters (hidden;readonly): {{Envs.mutaters.help | indent: 12}}.
 
+    Examples:
+        The enrichment results can be visualized with different plot types:
+
+        ```toml
+        [TopExpressingGenes.envs.enrich_plots."Bar Plot"]
+        plot_type = "bar"
+        ncol = 1
+        top_term = 10
+
+        [TopExpressingGenes.envs.enrich_plots."Dot Plot"]
+        plot_type = "dot"
+        top_term = 10
+
+        [TopExpressingGenes.envs.enrich_plots."Word Cloud"]
+        plot_type = "wordcloud"
+        top_term = 10
+        ```
+
+        ![Bar Plot]({{output_baseurl}}/topexpressinggenes/TopExpressingGenes/sampleinfo.scRep.top_expressing_genes/Cluster/c1/enrich.MSigDB_Hallmark_2020.Bar-Plot.png){: width="80%" }
+        ![Dot Plot]({{output_baseurl}}/topexpressinggenes/TopExpressingGenes/sampleinfo.scRep.top_expressing_genes/Cluster/c1/enrich.MSigDB_Hallmark_2020.Dot-Plot.png){: width="80%" }
+        ![Word Cloud]({{output_baseurl}}/topexpressinggenes/TopExpressingGenes/sampleinfo.scRep.top_expressing_genes/Cluster/c1/enrich.MSigDB_Hallmark_2020.Word-Cloud.png){: width="80%" }
+
     Description:
         Finds the top expressing genes of every cluster of the T/B cells (or of
         all cells) and runs an enrichment analysis on them. The top expressing
@@ -1046,6 +1195,9 @@ class TopExpressingGenes(TopExpressingGenes_):
 @annotate.format_doc()
 class ModuleScoreCalculator(ModuleScoreCalculator_):
     """{{Summary}}
+
+    Input:
+        srtobj: The `Seurat` object passed from the upstream process.
 
     Metadata:
         The metadata of the `Seurat` object will be updated with the module scores:
@@ -1071,6 +1223,14 @@ RNAInput = ModuleScoreCalculator or RNAInput
 @when(VDJInput, requires=[VDJInput, RNAInput])  # type: ignore
 class ScRepCombiningExpression(ScRepCombiningExpression_):
     """Combine the scTCR/BCR data with the expression data
+
+    Metadata:
+        The metadata of the `Seurat` object will be updated with the
+        clonotype information transferred from the TCR/BCR data by
+        `scRepertoire::combineExpression()`, plus a `VDJ_Presence` column
+        indicating whether a cell has a TCR/BCR sequence:
+
+        ![ScRepCombiningExpression-metadata](images/ScRepCombiningExpression-metadata.png)
 
     Description:
         Combines the repertoire data with the expression data, so that the
@@ -1178,6 +1338,7 @@ class CellCellCommunication(CellCellCommunication_):
     "CellCellCommunication" in config or "CellCellCommunicationPlots" in config,
     requires=CellCellCommunication,
 )
+@annotate.format_doc(vars={"output_baseurl": TEST_OUTPUT_BASEURL})
 class CellCellCommunicationPlots(CellCellCommunicationPlots_):
     """Visualization for cell-cell communication inference.
 
@@ -1192,11 +1353,60 @@ class CellCellCommunicationPlots(CellCellCommunicationPlots_):
     Deviations:
         The parameters are passed through to `scplotter` unchanged: this
         process overrides no inherited parameter and adds none.
-    """
+
+    Notes:
+        ### More plot types for cell-cell communication
+
+        ```toml
+        [CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Dot Plot"]
+        plot_type = "dot"
+        x_text_angle = 90
+        ```
+
+        ![Cell-Cell Communication Dot Plot]({{output_baseurl}}/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Dot-Plot.png){: width="80%" }
+
+        ```toml
+        [CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Chord Plot"]
+        plot_type = "chord"
+        ```
+
+        ![Cell-Cell Communication Chord Plot]({{output_baseurl}}/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Chord-Plot.png){: width="80%" }
+
+        ```toml
+        [CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Sankey Plot"]
+        plot_type = "sankey"
+        devpars = {width = 800}
+        ```
+
+        ![Cell-Cell Communication Sankey Plot]({{output_baseurl}}/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Sankey-Plot.png){: width="80%" }
+
+        ```toml
+        [CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Interaction (Violin Plot)"]
+        plot_type = "violin"
+        x_text_angle = 90
+        method = "interaction"
+        ```
+
+        ![Cell-Cell Communication Interaction (Violin Plot)]({{output_baseurl}}/cccplots/CellCellCommunicationPlots/sampleinfo.scRep-ccc_plots/Cell-Cell-Communication-Interaction-Violin-Plot.png){: width="80%" }
+
+        A `table` case writes the data as a table instead of drawing a plot:
+
+        ```toml
+        [CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Table"]
+        plot_type = "table"
+        ```
+
+        The table is saved as `Cell-Cell-Communication-Table.txt` in the output
+        directory of the case.
+    """  # noqa: E501
 
 
+@annotate.format_doc(vars={"output_baseurl": TEST_OUTPUT_BASEURL})
 class SeuratClusterStats(SeuratClusterStats_):
     """Statistics of the clustering.
+
+    Input:
+        srtobj: The `Seurat` object passed from the upstream process.
 
     Description:
         Reports statistics of the clustering - the number and fraction of cells
@@ -1215,7 +1425,98 @@ class SeuratClusterStats(SeuratClusterStats_):
         `VDJ_Presence`), is added to it; the class body adds that entry only if
         VDJ data are present. `envs_depth` is also set to 3, so that the nested
         `envs` of the plots can be given in the configuration file.
-    """
+
+    Notes:
+        ### More plot types for cell statistics
+
+        The `stats` cases accept all `plot_type`s supported by
+        `scplotter::CellStatPlot()`.
+
+        ```toml
+        [SeuratClusterStats.envs.stats."Number of cells in each cluster (Pie Chart)"]
+        plot_type = "pie"
+        ```
+
+        ![Number of cells in each cluster (Pie Chart)]({{output_baseurl}}/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-Pie-Chart.png){: width="80%" }
+
+        ```toml
+        [SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Ring Plot)"]
+        plot_type = "ring"
+        group_by = "Diagnosis"
+        ```
+
+        ![Number of cells in each cluster by Diagnosis (Ring Plot)]({{output_baseurl}}/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Diagnosis-Ring-Plot.png){: width="80%" }
+
+        ```toml
+        [SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Trend Plot)"]
+        plot_type = "trend"
+        group_by = "Diagnosis"
+        frac = "group"
+        ```
+
+        ![Number of cells in each cluster by Diagnosis (Trend Plot)]({{output_baseurl}}/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Diagnosis-Trend-Plot.png){: width="80%" }
+
+        ```toml
+        [SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Heatmap)"]
+        plot_type = "heatmap"
+        group_by = "Diagnosis"
+        frac = "group"
+        ```
+
+        ![Number of cells in each cluster by Diagnosis (Heatmap)]({{output_baseurl}}/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Diagnosis-Heatmap.png){: width="80%" }
+
+        ```toml
+        [SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Violin Plot)"]
+        plot_type = "violin"
+        group_by = "Diagnosis"
+        ```
+
+        ![Number of cells in each cluster by Diagnosis (Violin Plot)]({{output_baseurl}}/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Diagnosis-Violin-Plot.png){: width="80%" }
+
+        ```toml
+        [SeuratClusterStats.envs.stats."Number of cells in each cluster by Diagnosis (Radar Plot)"]
+        plot_type = "radar"
+        group_by = "Diagnosis"
+        ```
+
+        ![Number of cells in each cluster by Diagnosis (Radar Plot)]({{output_baseurl}}/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/stats/Number-of-cells-in-each-cluster-by-Diagnosis-Radar-Plot.png){: width="80%" }
+
+        ### More plot types for feature expression
+
+        ```toml
+        [SeuratClusterStats.envs.features."Feature Expression in Clusters (Box Plots)"]
+        plot_type = "box"
+        ident = "seurat_clusters"
+        ```
+
+        ![Feature Expression in Clusters (Box Plots)]({{output_baseurl}}/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/features/Feature-Expression-in-Clusters-Box-Plots.png){: width="80%" }
+
+        ```toml
+        [SeuratClusterStats.envs.features."Feature Expression in Clusters (Bar Plots)"]
+        plot_type = "bar"
+        ident = "seurat_clusters"
+        ```
+
+        ![Feature Expression in Clusters (Bar Plots)]({{output_baseurl}}/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/features/Feature-Expression-in-Clusters-Bar-Plots.png){: width="80%" }
+
+        ```toml
+        [SeuratClusterStats.envs.features."Feature Correlation in Clusters"]
+        plot_type = "cor"
+        ident = "seurat_clusters"
+        features = ["CD3D", "CD4", "CD8A", "MS4A1", "CD14"]
+        ```
+
+        ![Feature Correlation in Clusters]({{output_baseurl}}/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/features/Feature-Correlation-in-Clusters.png){: width="80%" }
+
+        ### Split dimensional reduction plot
+
+        ```toml
+        [SeuratClusterStats.envs.dimplots."Dimensional reduction plot split by Diagnosis"]
+        split_by = "Diagnosis"
+        ```
+
+        ![Dimensional reduction plot split by Diagnosis]({{output_baseurl}}/seuratclusterstats/SeuratClusterStats/sampleinfo.scRep.cluster_stats/dimplots/Dimensional-reduction-plot-split-by-Diagnosis.dim.png){: width="80%" }
+    """  # noqa: E501
 
     requires = CombinedInput  # type: ignore
     order = -1
@@ -1234,6 +1535,7 @@ class SeuratClusterStats(SeuratClusterStats_):
 
 
 @when(VDJInput, requires=CombinedInput)  # type: ignore
+@annotate.format_doc(vars={"output_baseurl": TEST_OUTPUT_BASEURL})
 class ClonalStats(ClonalStats_):
     """Visualize the clonal information.
 
@@ -1248,7 +1550,130 @@ class ClonalStats(ClonalStats_):
     Deviations:
         The parameters are passed through to `scplotter` unchanged: this
         process overrides no inherited parameter and adds none.
-    """
+
+    Notes:
+        ### More plot types for clonal stats
+
+        ```toml
+        [ClonalStats.envs.cases."Clonal Volume by Diagnosis (Box Plot)"]
+        viz_type = "volume"
+        plot_type = "box"
+        x = "seurat_clusters"
+        group_by = "Diagnosis"
+        comparisons = true
+        ```
+
+        ![Clonal Volume by Diagnosis (Box Plot)]({{output_baseurl}}/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Number-of-Clones/Clonal-Volume-by-Diagnosis-Box-Plot.png){: width="80%" }
+
+        ```toml
+        [ClonalStats.envs.cases."Clonal Abundance (Histogram)"]
+        viz_type = "abundance"
+        plot_type = "histogram"
+        ```
+
+        ![Clonal Abundance (Histogram)]({{output_baseurl}}/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Abundance/Clonal-Abundance-Histogram.png){: width="80%" }
+
+        ```toml
+        [ClonalStats.envs.cases."CDR3 Length by Diagnosis (Violin Plot)"]
+        viz_type = "length"
+        plot_type = "violin"
+        group_by = "Diagnosis"
+        chain = "TRB"
+        comparisons = true
+        ```
+
+        ![CDR3 Length by Diagnosis (Violin Plot)]({{output_baseurl}}/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Sequence-Length/CDR3-Length-by-Diagnosis-Violin-Plot.png){: width="80%" }
+
+        ```toml
+        [ClonalStats.envs.cases."Clonal Residency (Venn Diagram)"]
+        viz_type = "residency"
+        plot_type = "venn"
+        group_by = "Diagnosis"
+        chain = "TRB"
+        clone_call = "gene"
+        groups = ["Colitis", "NoColitis"]
+        ```
+
+        ![Clonal Residency (Venn Diagram)]({{output_baseurl}}/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Residency/Clonal-Residency-Venn-Diagram.png){: width="80%" }
+
+        ```toml
+        [ClonalStats.envs.cases."Clonal Statistics (Chord Plot)"]
+        viz_type = "stat"
+        plot_type = "chord"
+        group_by = "Diagnosis"
+        chain = "TRB"
+        groups = ["Colitis", "NoColitis"]
+        clones = "top(5)"
+        ```
+
+        ![Clonal Statistics (Chord Plot)]({{output_baseurl}}/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Statistics/Clonal-Statistics-Chord-Plot.png){: width="80%" }
+
+        ### TRB gene-call combinations across diagnoses
+
+        The clone-level hyperexpanded Sankey has no shared TRB amino-acid clonotypes
+        between Colitis and NoColitis in this test data. Setting `clone_call` to
+        `gene` instead shows shared TRB gene-call combinations. These links are
+        weighted by the relative abundance of cells with each combination, not
+        clonotype transitions: different CDR3 sequences can share the same gene calls.
+
+        ```toml
+        [ClonalStats.envs.cases."TRB Gene-Call Combinations Across Diagnoses"]
+        viz_type = "stat"
+        plot_type = "sankey"
+        group_by = "Diagnosis"
+        chain = "TRB"
+        clone_call = "gene"
+        groups = ["Colitis", "NoColitis"]
+        values_by = "fraction"
+        devpars = {width = 800}
+
+        [ClonalStats.envs.cases."TRB Gene-Call Combinations Across Diagnoses".clones]
+        "Gene Calls Frequent in Colitis" = "sel(Colitis > 5, group_by = 'Diagnosis')"
+        "Gene Calls Frequent in NoColitis" = "sel(NoColitis > 5, group_by = 'Diagnosis')"
+        ```
+
+        ![TRB Gene-Call Combinations Across Diagnoses]({{output_baseurl}}/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Statistics/TRB-Gene-Call-Combinations-Across-Diagnoses.png){: width="80%" }
+
+        ```toml
+        [ClonalStats.envs.cases."Clonal Composition (Ring Plot)"]
+        viz_type = "composition"
+        plot_type = "ring"
+        ```
+
+        ![Clonal Composition (Ring Plot)]({{output_baseurl}}/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Composition/Clonal-Composition-Ring-Plot.png){: width="80%" }
+
+        ```toml
+        [ClonalStats.envs.cases."Clonal Overlapping (Jaccard)"]
+        viz_type = "overlap"
+        method = "jaccard"
+        chain = "TRB"
+        clone_call = "gene"
+        ```
+
+        ![Clonal Overlapping (Jaccard)]({{output_baseurl}}/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Overlap/Clonal-Overlapping-Jaccard.png){: width="80%" }
+
+        ```toml
+        [ClonalStats.envs.cases."Clonal Diversity (inverse Simpson, by Diagnosis)"]
+        method = "inv.simpson"
+        viz_type = "diversity"
+        plot_type = "violin"
+        group_by = "Diagnosis"
+        comparisons = true
+        devpars = {height = 600, width = 600}
+        ```
+
+        ![Clonal Diversity (inverse Simpson, by Diagnosis)]({{output_baseurl}}/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Diversity/Clonal-Diversity-inverse-Simpson-by-Diagnosis.png){: width="80%" }
+
+        ```toml
+        [ClonalStats.envs.cases."Gene Usage Frequency (Heatmap)"]
+        viz_type = "geneusage"
+        plot_type = "heatmap"
+        top = 15
+        devpars = {width = 1000}
+        ```
+
+        ![Gene Usage Frequency (Heatmap)]({{output_baseurl}}/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Gene-Usage/Gene-Usage-Frequency-Heatmap.png){: width="80%" }
+    """  # noqa: E501
 
     envs_depth = 3
     order = 8
@@ -1275,13 +1700,73 @@ class ScFGSEA(ScFGSEA_):
 
 
 @when("PseudoBulkDEG" in config, requires=CombinedInput)
-@annotate.format_doc()
+@annotate.format_doc(vars={"output_baseurl": TEST_OUTPUT_BASEURL})
 class PseudoBulkDEG(PseudoBulkDEG_):
     """{{Summary}}
 
     SeeAlso:
         - [biopipen.ns.scrna.PseudoBulkDEG](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.PseudoBulkDEG)
         - [ClusterMarkers](./ClusterMarkers.md) for examples of marker and enrichment plots
+
+    Examples:
+        ```toml
+        [PseudoBulkDEG.envs]
+        aggregate_by = "Sample"
+        group_by = "Diagnosis"
+        ident_1 = "Colitis"
+        ident_2 = "NoColitis"
+
+        [PseudoBulkDEG.envs.marker_plots."Volcano Plot"]
+        plot_type = "volcano"
+
+        [PseudoBulkDEG.envs.marker_plots."Heatmap of Top DEGs"]
+        plot_type = "heatmap"
+        genes = 20
+
+        [PseudoBulkDEG.envs.marker_plots."Violin Plots of Top DEGs"]
+        plot_type = "violin"
+        genes = 6
+
+        [PseudoBulkDEG.envs.marker_plots."Box Plots of Top DEGs"]
+        plot_type = "box"
+        genes = 6
+        ```
+
+        ![Volcano Plot]({{output_baseurl}}/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Volcano-Plot.png){: width="80%" }
+        ![Heatmap of Top DEGs]({{output_baseurl}}/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Heatmap-of-Top-DEGs.png){: width="80%" }
+        ![Violin Plots of Top DEGs]({{output_baseurl}}/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Violin-Plots-of-Top-DEGs.png){: width="80%" }
+        ![Box Plots of Top DEGs]({{output_baseurl}}/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Box-Plots-of-Top-DEGs.png){: width="80%" }
+
+        The enrichment plots can also use different types:
+
+        ```toml
+        [PseudoBulkDEG.envs.enrich_plots."Bar Plot"]
+        plot_type = "bar"
+        ncol = 1
+        top_term = 10
+
+        [PseudoBulkDEG.envs.enrich_plots."Dot Plot"]
+        plot_type = "dot"
+        top_term = 10
+        ```
+
+        ![Bar Plot]({{output_baseurl}}/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/enrich.MSigDB_Hallmark_2020.Bar-Plot.png){: width="80%" }
+        ![Dot Plot]({{output_baseurl}}/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/enrich.MSigDB_Hallmark_2020.Dot-Plot.png){: width="80%" }
+
+        Use `tool = "edgeR"` to use `edgeR` instead of `DESeq2`:
+
+        ```toml
+        [PseudoBulkDEG.envs]
+        tool = "edgeR"
+        aggregate_by = "Sample"
+        group_by = "Diagnosis"
+        ident_1 = "Colitis"
+        ident_2 = "NoColitis"
+        ```
+
+        ![edgeR Volcano Plot]({{output_baseurl}}/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Volcano-Plot.png){: width="80%" }
+        ![edgeR Heatmap of Top DEGs]({{output_baseurl}}/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Heatmap-of-Top-DEGs.png){: width="80%" }
+        ![edgeR Enrichment Bar Plot]({{output_baseurl}}/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/enrich.MSigDB_Hallmark_2020.Bar-Plot.png){: width="80%" }
 
     Description:
         Performs pseudo-bulk differential gene expression analysis between the
@@ -1430,8 +1915,20 @@ class MarkersFinder(MarkersFinder_):
 
 
 @when(VDJInput and "CDR3AAPhyschem" in config, requires=CombinedInput)  # type: ignore
+@annotate.format_doc(vars={"output_baseurl": TEST_OUTPUT_BASEURL})
 class CDR3AAPhyschem(CDR3AAPhyschem_):
     """CDR3 AA physicochemical feature analysis
+
+    Examples:
+        ```toml
+        [CDR3AAPhyschem.envs]
+        group = "Diagnosis"
+        comparison = ["Colitis", "NoColitis"]
+        target = "Colitis"
+        ```
+
+        ![Estimated coefficients]({{output_baseurl}}/cdr3aaphyschem/CDR3AAPhyschem/sampleinfo.scRep.cdr3aaphyschem/ALL/estimated_coefficients.png){: width="80%" }
+        ![Distribution]({{output_baseurl}}/cdr3aaphyschem/CDR3AAPhyschem/sampleinfo.scRep.cdr3aaphyschem/ALL/distribution.png){: width="80%" }
 
     Description:
         Runs a regression between two groups of cells (for example Treg vs
@@ -1443,10 +1940,12 @@ class CDR3AAPhyschem(CDR3AAPhyschem_):
         `biopipen.ns.tcr.CDR3AAPhyschem`
 
     Deviations:
-        The parameters are passed through to `glmnet` unchanged: this process
-        overrides no inherited parameter and adds none.
-    """
+        The parameters are passed through to `glmnet` unchanged. `output` is
+        overridden because the base class references the wrong input (`immdata`)
+        in its output directory name.
+    """  # noqa: E501
 
+    output = "outdir:dir:{{in.scrfile | stem}}.cdr3aaphyschem"
     order = 12
 
 

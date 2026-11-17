@@ -1,18 +1,19 @@
 ---
 name: seuratmap2ref
-description: Map query single-cell datasets to high-quality reference atlases using Seurat's reference mapping workflow. Performs label transfer, UMAP projection, and integration with reference annotations without modifying query expression data. Enables transfer learning from curated atlases like Azimuth PBMC or custom tissue-specific references.
+description: Maintain existing [SeuratMap2Ref] configurations and troubleshoot legacy reference mapping. For new configurations, use the celltypeannotation skill with tool = "mapquery".
 ---
 
 # SeuratMap2Ref Process Configuration
+
+> **Deprecated:** For new configurations, use the [celltypeannotation skill](../celltypeannotation/SKILL.md) with `tool = "mapquery"`. This skill documents the still-supported legacy `[SeuratMap2Ref]` process.
 
 ## Purpose
 Map query single-cell datasets to high-quality reference atlases using Seurat's reference mapping workflow. Performs label transfer, UMAP projection, and integration with reference annotations without modifying query expression data. Enables transfer learning from curated atlases like Azimuth PBMC or custom tissue-specific references.
 
 ## When to Use
-- **Reference-based annotation**: Well-curated reference atlas available for your tissue/cell type
-- **Transfer learning**: Leverage existing annotations from large-scale atlases (Azimuth, HCA)
-- **UMAP projection**: Visualize query cells on reference UMAP structure
-- **Label transfer**: Propagate cell type labels, gene scores, metadata from reference
+- Maintain or troubleshoot an existing `[SeuratMap2Ref]` configuration
+- Understand legacy settings and outputs for an existing run
+- For new reference-mapping configurations, use the [celltypeannotation skill](../celltypeannotation/SKILL.md) with `tool = "mapquery"`
 
 ## Configuration Structure
 

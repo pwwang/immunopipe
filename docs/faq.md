@@ -273,7 +273,18 @@ With the docker image, in additional to the default system fonts, we also have i
 
 /// details | Does the pipeline work for mouse data?
 
-Yes, the pipeline fully supports mouse data. To analyze mouse samples, specify the relevant mouse reference datasets in your configuration file. For example, set the appropriate mouse reference in the `SeuratMap2Ref` process. For pathway enrichment or GSEA analyses, provide mouse-specific gene sets from MSigDB or other compatible sources. Ensure all reference files and gene sets correspond to the mouse genome to achieve accurate results.
+Yes, the pipeline fully supports mouse data. To analyze mouse samples, specify the relevant mouse reference datasets in your configuration file. For example, for reference-based cell type mapping, provide the mouse reference Seurat object to [`CellTypeAnnotation`](processes/CellTypeAnnotation.md):
+
+```toml
+[CellTypeAnnotation.envs]
+tool = "mapquery"
+
+[CellTypeAnnotation.envs.mapquery]
+db = "path/to/mouse_reference.rds"
+use = "celltype"
+```
+
+The legacy [`SeuratMap2Ref`](processes/SeuratMap2Ref.md) process remains supported for existing configurations, but it is deprecated. For pathway enrichment or GSEA analyses, provide mouse-specific gene sets from MSigDB or other compatible sources. Ensure all reference files and gene sets correspond to the mouse genome to achieve accurate results.
 
 ///
 

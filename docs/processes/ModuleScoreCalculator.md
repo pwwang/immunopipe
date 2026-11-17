@@ -21,6 +21,9 @@ multicellular ecosystem of metastatic melanoma by single-cell RNA-seq.<br />
 gene signature scoring. *Comput Struct Biotechnol J* 19:3796-3798.<br />
 <https://doi.org/10.1016/j.csbj.2021.06.043>). Missing genes are
 imputed with expression 0 (with a warning).<br />
+- `mean`: the per-cell mean of the module's features on the given layer,
+without control subtraction. Use it when the score should be the
+expression level itself (e.g. a transgene with `slot: counts`).<br />
 - `aucell`: [`AUCell::AUCell_calcAUC()`](https://bioconductor.org/packages/release/bioc/html/AUCell.html)
 (Aibar S, et al. 2017. SCENIC: single-cell regulatory network inference
 and clustering. *Nat Methods* 14:1083-1086.<br />
@@ -44,7 +47,7 @@ the column names are consistent.<br />
 ## Input
 
 - `srtobj`:
-    The seurat object loaded by `SeuratClustering`
+    The `Seurat` object passed from the upstream process.<br />
 
 ## Output
 
@@ -57,8 +60,8 @@ the column names are consistent.<br />
     The default parameters for `modules`.<br />
     - `method` *(`choice`)*: *Default: `seurat`*. <br />
         The scoring method to use, one of `seurat`,
-        `ucell`, `aucell`, `ssgsea`, `jasmine`, `scse` or `scps`.<br />
-        Can be overridden per module.<br />
+        `ucell`, `mean`, `aucell`, `ssgsea`, `jasmine`, `scse` or
+        `scps`. Can be overridden per module.<br />
     - `features`:
         The features (genes) to calculate the scores.<br />
         A comma-separated string of genes, e.g.<br />
@@ -100,7 +103,9 @@ the column names are consistent.<br />
         <https://satijalab.org/seurat/reference/addmodulescore> and
         <https://satijalab.org/seurat/reference/cellcyclescoring>).<br />
         For `ucell`: `maxRank`, `w_neg` and `slot` (default
-        `"counts"`, not `layer`). For `aucell`: `aucMaxRank`,
+        `"counts"`, not `layer`). For `mean`: `layer` (alias `slot`,
+        default `"counts"`) selects the layer, and `assay` the assay.<br />
+        For `aucell`: `aucMaxRank`,
         `plotStats`. For `ssgsea`: `kcdf`, `verbose`, `min.sz`,
         `max.sz`, `tau`, etc. For `scse`/`scps`: `layer` (default
         `"data"`). `scps` uses the bundled scPS implementation, which
@@ -162,9 +167,14 @@ the column names are consistent.<br />
 - `post_mutaters` *(`type=json`)*: *Default: `{}`*. <br />
     The mutaters to mutate the metadata after
     calculating the module scores.<br />
-    The mutaters will be applied in the order specified.<br />
+    The mutaters will be applied in the order specified, so an entry may
+    use a column an earlier entry created.<br />
     This is useful when you want to create new scores based on the
-    calculated module scores.<br />
+    calculated module scores, or when a label has to be refined by a
+    module score computed here (this process runs after
+    `CellTypeAnnotation`).<br />
+    A `<column>:ident` key sets `<column>` as the object identity after
+    the mutation.<br />
 
 ## Metadata
 

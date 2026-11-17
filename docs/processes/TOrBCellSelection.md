@@ -130,6 +130,24 @@ The cluster with higher clonoype percentage will be selected as T/B cells
 [`SeuratClustering`](SeuratClustering.md) for
 further clustering and downstream analysis.<br />
 
+### Details of the selection
+
+More details are saved in the `details` output directory, for example
+the indicator gene expression plots and the selected cells:<br />
+
+![feature plots](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection/TOrBCellSelection/details/feature-plots.png){: width="80%" }
+![selected cells](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection/TOrBCellSelection/details/selected-cells.png){: width="80%" }
+![selected cell fractions](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection/TOrBCellSelection/details/selected_cells_pie.png){: width="80%" }
+![CD3D vs CD3E](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection/TOrBCellSelection/details/CD3D-vs-CD3E.png){: width="80%" }
+![CD3G vs CD3E](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection/TOrBCellSelection/details/CD3G-vs-CD3E.png){: width="80%" }
+
+The same plots are available when the cells are selected from a file of
+cell barcodes:<br />
+
+![feature plots (cell barcodes)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection_with_cellbarcodes/TOrBCellSelection/details/feature-plots.png){: width="80%" }
+![selected cells (cell barcodes)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection_with_cellbarcodes/TOrBCellSelection/details/selected_cells_per_sample.png){: width="80%" }
+![selected cell fractions (cell barcodes)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/torbcellselection_with_cellbarcodes/TOrBCellSelection/details/selected_cells_pie.png){: width="80%" }
+
 ## Description
 
 Separates T from non-T cells (or B from non-B cells) and keeps the T/B

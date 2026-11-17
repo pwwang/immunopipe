@@ -11,7 +11,7 @@ Performs unsupervised clustering on single-cell RNA-seq data using Seurat. This 
 ## When to Use
 - **After SeuratPreparing**: Standard workflow after QC and normalization
 - **T/B cell selection**: After SeuratClusteringOfAllCells (if TOrBCellSelection enabled)
-- **Reference-based annotation**: Alternative to SeuratMap2Ref or CellTypeAnnotation
+- **Reference-based annotation**: Use `CellTypeAnnotation` with `tool = "mapquery"`; `SeuratMap2Ref` is deprecated and compatibility-only for existing configurations.
 - **Standard clustering**: When you need unsupervised cell type discovery
 - **Multi-resolution exploration**: When unsure of optimal cluster granularity
 
@@ -301,6 +301,7 @@ features = {order = "desc(abs(avg_log2FC))", n = 30}
 ```
 
 ### Multi-Process with Custom Cluster Names
+
 ```toml
 [SeuratClustering]
 [SeuratClustering.envs]
@@ -308,11 +309,12 @@ ident = "my_clusters"  # Custom column name
 
 [CellTypeAnnotation]
 [CellTypeAnnotation.envs]
-newcol = "cell_types"  # Different column to avoid overwriting
+tool = "mapquery"
 
-[SeuratMap2Ref]
-[SeuratMap2Ref.envs]
-name = "ref_clusters"  # Another clustering method
+[CellTypeAnnotation.envs.mapquery]
+db = "reference.rds"
+use = "celltype"
+ident_name = "ref_clusters"
 ```
 
 ## Common Patterns
@@ -521,5 +523,5 @@ integration_method = "CCA"  # Ensure integration is performed
 
 - **SeuratClusteringOfAllCells**: Clustering before T/B cell selection
 - **SeuratSubClustering**: Re-clustering within specific clusters
-- **SeuratMap2Ref**: Reference-based supervised clustering
-- **CellTypeAnnotation**: Automated cell type annotation
+- **SeuratMap2Ref** (deprecated; compatibility-only for existing configurations): See the [legacy skill](../seuratmap2ref/SKILL.md)
+- **CellTypeAnnotation**: Automated annotation and reference mapping; use `tool = "mapquery"` for reference-based mapping.

@@ -24,6 +24,9 @@ Load RNA data from a Seurat object, instead of RNAData from SampleInfo
     `SeuratClustering` (`SeuratClusteringOfAllCells`) process or
     `SeuratMap2Ref` is not needed.<br />
     Force `prepared` to be `True` if this is `True`.<br />
+    Reference-based mapping with `CellTypeAnnotation`
+    (`envs.tool = "mapquery"`) also runs without `SeuratClustering`
+    when this is `True`.<br />
 - `sample`: *Default: `Sample`*. <br />
     The column name in the metadata of the Seurat object that
     indicates the sample name.<br />

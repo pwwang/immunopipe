@@ -19,7 +19,26 @@ plot_type = "circos"
 [CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Heatmap"]
 plot_type = "heatmap"
 
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Dot Plot"]
+plot_type = "dot"
+x_text_angle = 90
+
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Chord Plot"]
+plot_type = "chord"
+
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Sankey Plot"]
+plot_type = "sankey"
+devpars = {width = 800}
+
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Table"]
+plot_type = "table"
+
 [CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Interaction (Box Plot)"]
 plot_type = "box"
+x_text_angle = 90
+method = "interaction"
+
+[CellCellCommunicationPlots.envs.cases."Cell-Cell Communication Interaction (Violin Plot)"]
+plot_type = "violin"
 x_text_angle = 90
 method = "interaction"

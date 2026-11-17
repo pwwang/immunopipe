@@ -413,7 +413,9 @@
 # # This process will perform clustering on all cells using Seurat package.
 # # The clusters will then be used to select T/B cells by TOrBCellSelection process.
 # # If all your cells are T/B cells (TOrBCellSelection is not set in configuration), you should not use this process.
-# # Instead, you should use SeuratClustering process for unsupervised clustering, or SeuratMap2Ref process for supervised clustering.
+# # Instead, use SeuratClustering for unsupervised clustering. For reference-based cell type
+# # mapping, use CellTypeAnnotation with tool = "mapquery". Existing SeuratMap2Ref
+# # configurations remain supported; see the SeuratMap2Ref documentation.
 
 # [SeuratClusteringOfAllCells.envs]
 # # Number of cores to use.
@@ -707,8 +709,15 @@
 
 # [CellTypeAnnotation.envs]
 # # The tool to use for cell type annotation.
-# # Options: sctype, hitype, sccatch, celltypist, direct
+# # Options include sctype, hitype, sccatch, celltypist, direct, mapquery
 # tool = "direct"
+
+# # For reference-based cell type mapping, comment out the line above and use:
+# tool = "mapquery"
+# [CellTypeAnnotation.envs.mapquery]
+# db = "reference.rds"
+# use = "celltype"
+# ident_name = "predicted.id"
 
 # # The tissue type for sctype. Required when tool is sctype.
 # # sctype_tissue = ""
@@ -766,6 +775,11 @@
 # outtype = "input"
 
 # # ----------------------- Process: SeuratMap2Ref -----------------------
+# # Deprecated: retained for existing configurations.
+# # For new configurations, use CellTypeAnnotation with tool = "mapquery".
+# # https://pwwang.github.io/immunopipe/latest/processes/CellTypeAnnotation/
+# # Legacy envs.ref and envs.use correspond to envs.mapquery.db and envs.mapquery.use,
+# # but MapQuery options are not identical or automatically translated.
 # # See: https://pwwang.github.io/immunopipe/latest/processes/SeuratMap2Ref/
 # # Map query cells to reference dataset and transfer cell type labels.
 

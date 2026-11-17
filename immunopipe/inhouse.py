@@ -1,8 +1,12 @@
 """In house processes"""
 from biopipen.core.proc import Proc
 from biopipen.core.config import config
+from pipen_annotate import annotate
+
+TEST_OUTPUT_BASEURL = "https://raw.githubusercontent.com/pwwang/immunopipe/tests-output"
 
 
+@annotate.format_doc(vars={"output_baseurl": TEST_OUTPUT_BASEURL})
 class TOrBCellSelection(Proc):
     """Separate T and non-T cells and select T cells; or
     separate B and non-B cells and select B cells.
@@ -77,6 +81,24 @@ class TOrBCellSelection(Proc):
         [`SeuratClustering`](SeuratClustering.md) for
         further clustering and downstream analysis.
 
+        ### Details of the selection
+
+        More details are saved in the `details` output directory, for example
+        the indicator gene expression plots and the selected cells:
+
+        ![feature plots]({{output_baseurl}}/torbcellselection/TOrBCellSelection/details/feature-plots.png){: width="80%" }
+        ![selected cells]({{output_baseurl}}/torbcellselection/TOrBCellSelection/details/selected-cells.png){: width="80%" }
+        ![selected cell fractions]({{output_baseurl}}/torbcellselection/TOrBCellSelection/details/selected_cells_pie.png){: width="80%" }
+        ![CD3D vs CD3E]({{output_baseurl}}/torbcellselection/TOrBCellSelection/details/CD3D-vs-CD3E.png){: width="80%" }
+        ![CD3G vs CD3E]({{output_baseurl}}/torbcellselection/TOrBCellSelection/details/CD3G-vs-CD3E.png){: width="80%" }
+
+        The same plots are available when the cells are selected from a file of
+        cell barcodes:
+
+        ![feature plots (cell barcodes)]({{output_baseurl}}/torbcellselection_with_cellbarcodes/TOrBCellSelection/details/feature-plots.png){: width="80%" }
+        ![selected cells (cell barcodes)]({{output_baseurl}}/torbcellselection_with_cellbarcodes/TOrBCellSelection/details/selected_cells_per_sample.png){: width="80%" }
+        ![selected cell fractions (cell barcodes)]({{output_baseurl}}/torbcellselection_with_cellbarcodes/TOrBCellSelection/details/selected_cells_pie.png){: width="80%" }
+
     Input:
         srtobj: Seurat object file in RDS/qs2
         immdata: Immune repertoire data file in RDS/qs2
@@ -122,7 +144,7 @@ class TOrBCellSelection(Proc):
             Other arguments for [`stats::kmeans`](https://rdrr.io/r/stats/kmeans.html)
             can be provided here. If there are dots in the argument names, replace them
             with `-`.
-    """
+    """  # noqa: E501
     input = "srtobj:file, immdata:file"
     output = "outfile:file:{{in.srtobj | stem}}.qs, outdir:dir:details"
     envs = {

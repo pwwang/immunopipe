@@ -34,28 +34,50 @@ Annotate the cell clusters. Currently, the following ways are supported:<br />
 28. Use [`mLLMCelltype`](https://github.com/cafferychen777/mLLMCelltype) (cluster-level, LLM-based)
 29. Use [`LICT`](https://github.com/Glowworm-cell/LICT) (cluster-level, LLM-based, a modernized fork should be used, https://github.com/pwwang/LICT/tree/modernize)
 30. Use [`MapQuery`](https://satijalab.org/seurat/reference/mapquery) (cell-level, reference-based)
+31. Use [`ScInfeR`](https://github.com/swainasish/ScInfeR) (cluster-level, marker-based; graph-based,
+in two rounds: it calls the clusters from the marker table first, then the cells within a cluster
+when two cell types score within 0.1 of each other; the marker table is either a universal one
+in `envs.scinfer.db`, or one of ScInfeR's own ScInfeRDB tissues in `envs.scinfer.tissue`)
+(Swain, Shekhawat & Yadav, 2025, doi:[10.1093/bib/bbaf253](https://doi.org/10.1093/bib/bbaf253);
+there is a published correction, doi:[10.1093/bib/bbaf337](https://doi.org/10.1093/bib/bbaf337))
 
 The `<workdir>` is typically `./.pipen` and the `<pipline_name>` is `Immunopipe`
 by default.<br />
 
 /// Note
 
+For reference-based cell type mapping, configure this process with
+`tool = "mapquery"`:<br />
+
+```toml
+[CellTypeAnnotation.envs]
+tool = "mapquery"
+
+[CellTypeAnnotation.envs.mapquery]
+db = "reference.rds"
+use = "celltype"
+ident_name = "predicted.id"
+```
+
+Here, `db` is the reference Seurat object file and `use` is the reference
+metadata column containing cell-type labels.<br />
+
 If you have other annotation processes, including [`SeuratClustering`](./SeuratClustering.md)
-process or [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run,
+process or the deprecated [`SeuratMap2Ref`](./SeuratMap2Ref.md) process enabled in the same run,
 you may want to specify a different name for the column to store the annotated cell types
-using `envs.anno_col`, so that the results from different annotation processes won't overwrite each other.<br />
+using `envs.anno_col` (or `envs.mapquery.ident_name` for `mapquery`), so that the results
+from different annotation processes won't overwrite each other.<br />
 
 ///
 
 /// Attention
 
-If you are running the pipeline with the Docker image, following tools are not available in the Docker image:<br />
+If you are running the pipeline with the Docker image, the following tools are not available:<br />
 
-- Direct assignment: `direct`, `cell`
-- Marker-based: `ScType`, `hitype`, `scSorter`, `SCINA`, `CelliD`, `UCell`, `AUCell`, `GSVA`, `singscore`, `SCSA`, `MACA`
-- Model-based: `celltypist`, `SingleR`
-- LLM-based: `LLMCelltype`, `mLLMCelltype`, `LICT`
-- Reference-based: `scmap`, `CHETAH`, `scClassify`, `MapQuery`
+- Marker-based: `MACA`, `scMapNet`
+- Model-based: `garnett`, `cellassign`, `scHDeepInsight`, `scBERT`
+- Reference-based: `Azimuth`
+- LLM-based: `scAgentType`
 
 ///
 
@@ -229,6 +251,15 @@ If you are running the pipeline with the Docker image, following tools are not a
     If all cases have `set_ident` set to `False`, the original identity is kept.<br />
     If multiple cases have `set_ident` set to `True`, a warning is given and the last case wins.<br />
     Can be set per case via `envs.cases.X.set_ident` (default: True).<br />
+- `subset` *(`type=str`)*:
+    An expression to subset the cells for each case.<br />
+    It is passed to `tidyrseurat::filter()` on the metadata of the Seurat object.<br />
+    When set, the tool only receives the cells in the subset, and the annotation
+    columns of the case are `NA` for the cells outside it. This makes
+    complementary cases cover all cells (e.g., two `mapquery` runs on the
+    bone-marrow and blood cells), which can be merged back with
+    `envs.post_mutaters`.<br />
+    Can be set per case via `envs.cases.X.subset`.<br />
 - `sctype` *(`ns`)*:
     The arguments for `sctype` if `tool` is `sctype`.<br />
     - `tissue`:
@@ -1095,16 +1126,109 @@ If you are running the pipeline with the Docker image, following tools are not a
         The arguments for `Seurat::SCTransform()`.<br />
     - `normalize_data` *(`ns`)*:
         The arguments for `Seurat::NormalizeData()`.<br />
+        The reference projection (`ref.umap` by default, or the name given by
+        `map_query.projectumap.args.reduction.name`) is kept in the output
+        object's reductions; with several `mapquery` cases each projection is
+        prefixed with its case name (`<case>.ref.umap`, matching the
+        `<case>.<reduction>` convention of `SeuratSubClustering`) unless the case
+        sets `map_query.projectumap.args.reduction.name` explicitly. The
+        coordinates are `NA` for the cells outside the case's `subset`.<br />
+- `scinfer` *(`ns`)*:
+    The arguments for `ScInfeR::predict_celltype_scRNA_seurat()`
+    if `tool` is `scinfer`. ScInfeR is a graph-based annotator (GPL-3,
+    GitHub-only, not on CRAN): it scores the cell types of the marker table
+    against the top cluster markers, and resolves a cluster cell by cell
+    (over the reduction's neighborhood graph) when a second cell type scores
+    within 0.1 of the best, so the per-cell labels are saved to
+    `cell2celltype.tsv` along with the cluster mapping.<br />
+    One of `db` and `tissue` is required, and the `tissue` route needs
+    network access.<br />
+    - `db` *(`type=str`)*:
+        The path to the marker table (required, unless
+        `tissue` is set). Must be a universal marker table (see the note
+        above); a `weight` column is used as the marker weight
+        (default: 1), and the negative-direction markers are dropped
+        (ScInfeR has no direction, so a negative marker would be counted
+        as a marker of the cell type).<br />
+    - `tissue` *(`type=str`)*:
+        The tissue of the cells. With `db`, it filters
+        the marker table by its `tissue` column (see the note above).<br />
+        Without `db`, it selects one of ScInfeR's own tissues: `Bladder`,
+        `Bone marrow`, `Brain`, `Breast`, `Eye`, `Heart`, `Intestine`,
+        `Kidney`, `Liver`, `Lungs`, `Pancreas`, `PBMC`, or `Skin`.<br />
+        ScInfeRDB is not part of the package, so the sheet of the tissue
+        is downloaded from GitHub at call time -- this route needs
+        network access, and an unknown tissue is an error.<br />
+    - `subtype_present` *(`flag`)*: *Default: `False`*. <br />
+        Whether the marker table carries subtypes,
+        i.e. whether the cell types of `envs.scinfer.subtype_info` are
+        rows of the marker table as well (default: FALSE). They are then
+        held out of the round-1 scoring of their parent cell type, and
+        each cell gets its subtype in the second round.<br />
+    - `subtype_info` *(`type=json`)*: *Default: `False`*. <br />
+        The subtypes of each cell type, as a named
+        list mapping a cell type of the marker table to its subtypes,
+        e.g. `{ "T-cell": ["CD8+ T-cell", "CD4+ T-cell"], "B cell": ["Naive B cell", "Memory B cell"] }`.<br />
+        Only read when `subtype_present` is `True`; a cell type without an
+        entry (or without the list at all) keeps its round-1 label.<br />
+    - `assay` *(`type=str`)*: *Default: `RNA`*. <br />
+        The assay of the object to annotate
+        (default: `RNA`).<br />
+    - `slot` *(`type=str`)*: *Default: `counts`*. <br />
+        The slot of the assay (default: `counts`).<br />
+        Ignored by ScInfeR in this version: it reads the default layer of
+        the assay whichever slot is asked for.<br />
+    - `reduction` *(`type=str`)*: *Default: `umap`*. <br />
+        The reduction ScInfeR walks to resolve the
+        cells of a mixed cluster (default: `umap`). The object must carry
+        it; the run stops if it does not.<br />
+    - `own_weightage` *(`type=float`)*: *Default: `0.5`*. <br />
+        The weight of a cell's own expression
+        (against that of its neighbors) in the per-cell prediction, from
+        0 to 1 (default: 0.5).<br />
+    - `n_neighbor` *(`type=int`)*: *Default: `10`*. <br />
+        The number of neighbors whose expression is
+        averaged in the per-cell prediction, from 5 to 30 (default: 10).<br />
 - `merge` *(`flag`)*: *Default: `False`*. <br />
     Whether to merge the clusters with the same cell types.<br />
     Otherwise, a suffix will be added to the cell types (ie. `.1`, `.2`, etc).<br />
+- `post_mutaters` *(`type=json`)*: *Default: `{}`*. <br />
+    Mutaters to apply to the metadata after all cases
+    are embedded and after the identity is set (see `envs.set_ident`).<br />
+    They are applied via `biopipen.utils::MutateSeuratMeta()`.<br />
+    The key with the `:ident` suffix creates the column and sets it as the
+    identity, e.g. `CellType:ident = "coalesce(BM_CellType, PB_CellType)"`
+    merges two per-case columns into `CellType` and makes it the identity.<br />
+    Not inherited by the cases.<br />
+- `report` *(`ns`)*:
+    Options for the report of the annotation results (plots and purity).<br />
+    The report is generated after the Seurat object is saved, so a failing plot does not lose the object.<br />
+    A case whose tool returns a numeric score per cell (mapping probability, AUC,
+    enrichment, ...) gets its UMAP coloured by that score next to the annotation
+    panel; use `score_col` to override the column.<br />
+    - `reduction` *(`type=str`)*: *Default: `dim`*. <br />
+        The dimensional reduction used for the UMAP plots. `dim` means the default reduction of the object. Default: `dim`
+    - `score_col` *(`type=str`)*:
+        The metadata column to colour the score UMAP by. By default the numeric column the tool added for the case is used (a column ending with `.score` is preferred); when the tool returned no score, only the annotation UMAP is plotted. Default: `None`
+    - `purity` *(`flag`)*: *Default: `True`*. <br />
+        Whether to compute the purity of the cell-level annotations against the identity column of the input object, `seurat_clusters` from `SeuratClustering` for example. Default: `True`
+    - `devpars` *(`ns`)*:
+        The device parameters for the plots.<br />
+        - `width` *(`type=int`)*: *Default: `1200`*. <br />
+            Width of the plots. Default: `1200`
+        - `height` *(`type=int`)*: *Default: `720`*. <br />
+            Height of the plots. Default: `720`
+        - `res` *(`type=int`)*: *Default: `100`*. <br />
+            Resolution of the plots. Default: `100`
+    - `more_formats` *(`list`)*: *Default: `['pdf']`*. <br />
+        More formats to save the plots in, besides `png`. Default: `["pdf"]`
 - `add_prefix` *(`flag`)*:
     Whether to add a prefix to the new column names in metadata.<br />
     Only used when in non-default cases. The prefix will be the case name followed by `_`.<br />
 - `cases` *(`type=json`)*: *Default: `{}`*. <br />
     Run multiple cases of cell type annotation on the same Seurat object.<br />
     The keys are the prefix of column names added to the metadata (unless `add_prefix` is `False`),
-    and the values will inherit the above options.<br />
+    and the values will inherit the above options (including `subset`).<br />
     The default case is `DEFAULT`, meaning no prefix will be added to the column names.<br />
     The identity of the output Seurat object will be set according to `envs.set_ident` of each case
     (see `envs.set_ident`).<br />
@@ -1133,7 +1257,7 @@ If you are running the pipeline with the Docker image, following tools are not a
 
 - Cluster-level tools: annotate the clusters, each cluster being assigned one cell type.<br />
   These include `sctype`, `sccatch`, `scsorter`, `singler`, `azimuth`, `llmcelltype`,
-  `mllmcelltype`, `lict`, `scagenttype`, `scsa`, and `direct`.<br />
+  `mllmcelltype`, `lict`, `scagenttype`, `scsa`, `scinfer`, and `direct`.<br />
 - Cell-level tools: annotate the cells, each cell being assigned one cell type.<br />
   These include `scina`, `hitype`, `cellassign`, `cellid`, `scbert`, `schdeepinsight`,
   `llmcelltype`, `cell`, `garnett`, `ucell`, `aucell`, `gsva`, `singscore`, `scmap`,
@@ -1158,6 +1282,10 @@ the cluster labels back onto the cells, so a per-cell column is produced as well
 - Marker-based tools: take marker genes for the cell types, including
   `sctype`, `hitype`, `sccatch`, `scsorter`, `scina`, `cellassign`, and `cellid`.<br />
   They all accept the universal marker format (see the note below).<br />
+  `scinfer` is marker-based as well: it takes the universal marker table through
+  `envs.scinfer.db`, or, like `sctype` and `sccatch` with their bundled databases,
+  a database of its own through `envs.scinfer.tissue` (ScInfeRDB: ScInfeR's own
+  per-tissue cell type → marker → weight set, fetched at call time).<br />
   The scorer family (`ucell`, `aucell`, `gsva`, and `singscore`) is also
   marker-based: it scores the *same* marker table for every cell with equal
   weights (no learned weights), and assigns each cell the cell type with the

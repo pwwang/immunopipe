@@ -358,6 +358,40 @@ plot_type = "venn"
 
 ![Overlapping Markers](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers.png)
 
+### More marker and enrichment plot types
+
+```toml
+[ClusterMarkers.envs.marker_plots."Box Plots for Top Markers"]
+plot_type = "box"
+devpars = {width = 640}
+
+[ClusterMarkers.envs.marker_plots."Bar Plots of Mean Expressions"]
+plot_type = "bar"
+order_by = "desc(avg_log2FC)"
+```
+
+![Box Plots for Top Markers](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Box-Plots-for-Top-Markers.png)
+![Bar Plots of Mean Expressions](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/markers.Bar-Plots-of-Mean-Expressions.png)
+
+```toml
+[ClusterMarkers.envs.enrich_plots."Dot Plot"]
+plot_type = "dot"
+
+[ClusterMarkers.envs.enrich_plots."Lollipop"]
+plot_type = "lollipop"
+```
+
+![Dot Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Dot-Plot.png)
+![Lollipop](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-c1/enrich.MSigDB_Hallmark_2020.Lollipop.png)
+
+```toml
+[ClusterMarkers.envs.overlaps."Overlapping Markers (UpSet Plot)"]
+plot_type = "upset"
+devpars = {width = 800}
+```
+
+![Overlapping Markers (UpSet Plot)](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clustermarkers/ClusterMarkers/sampleinfo.markers/Cluster/seurat_clusters-Overlaps/Overlapping-Markers-UpSet-Plot.png)
+
 ## Description
 
 Finds the marker genes of every cluster of the T/B cells (or of all

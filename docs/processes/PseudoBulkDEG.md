@@ -265,6 +265,67 @@ on single-cell level, on the pseudo-bulk data, aggregated from the single-cell d
 - [biopipen.ns.scrna.PseudoBulkDEG](https://pwwang.github.io/biopipen/api/biopipen.ns.scrna/#biopipen.ns.scrna.PseudoBulkDEG)
 - [ClusterMarkers](./ClusterMarkers.md) for examples of marker and enrichment plots
 
+## Examples
+
+```toml
+[PseudoBulkDEG.envs]
+aggregate_by = "Sample"
+group_by = "Diagnosis"
+ident_1 = "Colitis"
+ident_2 = "NoColitis"
+
+[PseudoBulkDEG.envs.marker_plots."Volcano Plot"]
+plot_type = "volcano"
+
+[PseudoBulkDEG.envs.marker_plots."Heatmap of Top DEGs"]
+plot_type = "heatmap"
+genes = 20
+
+[PseudoBulkDEG.envs.marker_plots."Violin Plots of Top DEGs"]
+plot_type = "violin"
+genes = 6
+
+[PseudoBulkDEG.envs.marker_plots."Box Plots of Top DEGs"]
+plot_type = "box"
+genes = 6
+```
+
+![Volcano Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Volcano-Plot.png){: width="80%" }
+![Heatmap of Top DEGs](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Heatmap-of-Top-DEGs.png){: width="80%" }
+![Violin Plots of Top DEGs](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Violin-Plots-of-Top-DEGs.png){: width="80%" }
+![Box Plots of Top DEGs](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Box-Plots-of-Top-DEGs.png){: width="80%" }
+
+The enrichment plots can also use different types:<br />
+
+```toml
+[PseudoBulkDEG.envs.enrich_plots."Bar Plot"]
+plot_type = "bar"
+ncol = 1
+top_term = 10
+
+[PseudoBulkDEG.envs.enrich_plots."Dot Plot"]
+plot_type = "dot"
+top_term = 10
+```
+
+![Bar Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/enrich.MSigDB_Hallmark_2020.Bar-Plot.png){: width="80%" }
+![Dot Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/enrich.MSigDB_Hallmark_2020.Dot-Plot.png){: width="80%" }
+
+Use `tool = "edgeR"` to use `edgeR` instead of `DESeq2`:<br />
+
+```toml
+[PseudoBulkDEG.envs]
+tool = "edgeR"
+aggregate_by = "Sample"
+group_by = "Diagnosis"
+ident_1 = "Colitis"
+ident_2 = "NoColitis"
+```
+
+![edgeR Volcano Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Volcano-Plot.png){: width="80%" }
+![edgeR Heatmap of Top DEGs](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/degs.Heatmap-of-Top-DEGs.png){: width="80%" }
+![edgeR Enrichment Bar Plot](https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/pseudobulkdeg_edger/PseudoBulkDEG/sampleinfo.scRep.pseudobulk_deg/DEG-Analysis/enrich.MSigDB_Hallmark_2020.Bar-Plot.png){: width="80%" }
+
 ## Description
 
 Performs pseudo-bulk differential gene expression analysis between the

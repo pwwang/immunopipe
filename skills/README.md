@@ -79,8 +79,8 @@ Processes for cell type identification and marker analysis:
 |-----------------|---------|---------|
 | `clustermarkers/` | ClusterMarkers | Differential expression per cluster |
 | `clustermarkersofallcells/` | ClusterMarkersOfAllCells | Markers before T/B selection |
-| `celltypeannotation/` | CellTypeAnnotation | Automated cell type annotation |
-| `seuratmap2ref/` | SeuratMap2Ref | Reference-based annotation |
+| `celltypeannotation/` | CellTypeAnnotation | Automated cell type annotation and reference mapping |
+| [`seuratmap2ref/`](seuratmap2ref/SKILL.md) | SeuratMap2Ref (deprecated) | Compatibility-only for existing configurations; for new mapping, use [celltypeannotation](celltypeannotation/SKILL.md) with `tool = "mapquery"` |
 | `markersfinder/` | MarkersFinder | Custom group comparisons |
 | `topexpressinggenes/` | TopExpressingGenes | Highly expressed genes per cluster |
 | `topexpressinggenesofallcells/` | TopExpressingGenesOfAllCells | Top genes before selection |

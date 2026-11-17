@@ -12,7 +12,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
     # pipen-report and pipen-board are required by biopipen
-    "biopipen>=1.4,<2",
+    "biopipen>=1.5,<2",
     # "biopipen @ ./biopipen",
 ]
 
@@ -55,6 +55,7 @@ junit_family = "xunit1"
 filterwarnings = [
    "ignore:.+may lead to deadlocks in the child:DeprecationWarning",
 ]
+asyncio_default_fixture_loop_scope = "function"
 
 [project.scripts]
 immunopipe = "immunopipe.router:run"
