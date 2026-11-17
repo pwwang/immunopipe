@@ -197,6 +197,8 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#more-plot-types-for-clonal-stats">More plot types for clonal stats</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#trb-gene-call-combinations-across-diagnoses">TRB gene-call combinations across diagnoses</a>
+    </li>
         </ul>
     </li>
     </ul>
@@ -550,6 +552,27 @@ process overrides no inherited parameter and adds none.<br /></p>
 <span class="n">clones</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"top(5)"</span>
 </code></pre></div>
 <p><img alt="Clonal Statistics (Chord Plot)" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Statistics/Clonal-Statistics-Chord-Plot.png" width="80%" /></p>
+<h4 id="trb-gene-call-combinations-across-diagnoses">TRB gene-call combinations across diagnoses<a class="headerlink" href="#trb-gene-call-combinations-across-diagnoses" title="Permanent link">&para;</a></h4>
+<p>The clone-level hyperexpanded Sankey has no shared TRB amino-acid clonotypes
+between Colitis and NoColitis in this test data. Setting <code>clone_call</code> to
+<code>gene</code> instead shows shared TRB gene-call combinations. These links are
+weighted by the relative abundance of cells with each combination, not
+clonotype transitions: different CDR3 sequences can share the same gene calls.<br /></p>
+<div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">"TRB Gene-Call Combinations Across Diagnoses"</span><span class="k">]</span>
+<span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"stat"</span>
+<span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"sankey"</span>
+<span class="n">group_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Diagnosis"</span>
+<span class="n">chain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"TRB"</span>
+<span class="n">clone_call</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gene"</span>
+<span class="n">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"Colitis"</span><span class="p">,</span><span class="w"> </span><span class="s2">"NoColitis"</span><span class="p">]</span>
+<span class="n">values_by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"fraction"</span>
+<span class="n">devpars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">width</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">800</span><span class="p">}</span>
+
+<span class="k">[ClonalStats.envs.cases.</span><span class="s2">"TRB Gene-Call Combinations Across Diagnoses"</span><span class="k">.clones]</span>
+<span class="s2">"Gene Calls Frequent in Colitis"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"sel(Colitis &gt; 5, group_by = 'Diagnosis')"</span>
+<span class="s2">"Gene Calls Frequent in NoColitis"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"sel(NoColitis &gt; 5, group_by = 'Diagnosis')"</span>
+</code></pre></div>
+<p><img alt="TRB Gene-Call Combinations Across Diagnoses" src="https://raw.githubusercontent.com/pwwang/immunopipe/tests-output/clonalstats/ClonalStats/sampleinfo.scRep.clonalstats/Clonal-Statistics/TRB-Gene-Call-Combinations-Across-Diagnoses.png" width="80%" /></p>
 <div class="highlight"><pre><span></span><code><span class="k">[ClonalStats.envs.cases.</span><span class="s2">"Clonal Composition (Ring Plot)"</span><span class="k">]</span>
 <span class="n">viz_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"composition"</span>
 <span class="n">plot_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ring"</span>
