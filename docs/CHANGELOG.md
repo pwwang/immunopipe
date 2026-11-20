@@ -1,5 +1,9 @@
 # Change Log
 
+## Unreleased
+
+- docs: add macOS Docker guidance (`--platform linux/amd64` and Apple silicon emulation, ≥16 GB memory / `envs.ncores`, and `/tmp` mount)
+
 ## 2.7.0
 
 - deps: use R 4.5 in the docker images
