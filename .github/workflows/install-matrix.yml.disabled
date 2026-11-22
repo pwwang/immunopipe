@@ -374,9 +374,11 @@ jobs:
               echo
               echo ""
               echo "**The supported route on macOS is the container image**, which carries"
-              echo "the whole R environment; this job cannot exercise it, because a macOS"
-              echo "runner cannot run Linux containers. Step 5 below only checks that the"
-              echo "Python package installs on macOS with pip; it does not make pip a supported"
+              echo "the whole R environment. The separate `docker-macos` workflow exercises it"
+              echo "on x64 `macos-15-intel` via Colima. This install-matrix job does not run"
+              echo "the image; GitHub arm64 macOS runners cannot boot the Linux VM needed to"
+              echo "run Linux containers. Step 5 below only checks that the Python package"
+              echo "installs on macOS with pip; it does not make pip a supported"
               echo "installation route, since without the R dependencies the pipeline cannot"
               echo "run."
               echo
