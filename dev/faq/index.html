@@ -236,6 +236,24 @@
 </div>
 </details>
 <details>
+<summary>Docker on macOS</summary>
+<p>Running <code>justold/immunopipe</code> with Docker Desktop on macOS has three common caveats:</p>
+<ul>
+<li><strong>Platform and emulation (<code>linux/amd64</code> only):</strong> Every <code>justold/immunopipe</code> tag (and its <code>justold/immunopipe-rpkgs</code> base image) is built for <code>linux/amd64</code> only. Intel macOS runs the image natively, while Apple silicon runs it under <code>amd64</code> emulation, which works but is slower (most noticeably during clustering). Pass <code>--platform linux/amd64</code> explicitly when pulling or running the image.</li>
+<li><strong>Memory allocation:</strong> The example dataset needs ≥16 GB of memory, whereas Docker Desktop's default limit is often lower. Increase Docker Desktop's memory allocation to at least 16 GB, and lower <code>envs.ncores</code> for memory-intensive processes (such as <code>SeuratClusteringOfAllCells</code> or <code>SeuratClustering</code>) to reduce peak memory usage.</li>
+<li><strong>Temporary directory (<code>/tmp</code> mount):</strong> Always include <code>-v /tmp:/tmp</code> (or bind a host directory with sufficient free space to <code>/tmp</code>). Without this mount, intermediate files accumulate in the container's writable layer and can fail with <code>No space left on device</code> (see the entry above).</li>
+</ul>
+<p>Recommended invocation on macOS:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--platform<span class="w"> </span>linux/amd64<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--rm<span class="w"> </span>-w<span class="w"> </span>/workdir<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span>.:/workdir<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span>/tmp:/tmp<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--user<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span><span class="s2">:</span><span class="k">$(</span>id<span class="w"> </span>-g<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>justold/immunopipe:&lt;tag&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>@config.toml
+</code></pre></div>
+</details>
+<details>
 <summary>Why does the pipeline stop at <a href="../processes/SeuratClusteringOfAllCells/"><code>SeuratClusteringOfAllCells</code></a> and family without a clear error message?</summary>
 <p>This is likely because that the pipeline is running out of memory. The <a href="../processes/SeuratClusteringOfAllCells/"><code>SeuratClusteringOfAllCells</code></a> and family processes (e.g. <a href="../processes/SeuratClustering/"><code>SeuratClustering</code></a>) will run the a series of <code>Seurat</code> functions to perform the clustering, especially the <a href="https://satijalab.org/seurat/reference/integratedata"><code>IntegrateData</code></a> and <a href="https://satijalab.org/seurat/reference/findintegrationanchors"><code>FindIntegrationAnchors</code></a> functions, and <a href="https://satijalab.org/seurat/reference/integratelayers"><code>IntegrateLayers</code></a> with <code>Seurat</code> v5.</p>
 <p>Please see the following issues for more details:</p>
