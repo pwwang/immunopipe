@@ -1,0 +1,421 @@
+# Runs the published justold/immunopipe Linux container image on a real macOS host
+# (macos-15-intel) via Colima + Docker and fails unless a smoke run produces a report.
+# Why macos-15-intel, not macos-latest: GitHub arm64 macOS runners (macos-latest,
+# macos-15, macos-26) block nested hardware virtualization (HV_UNSUPPORTED), so Colima
+# and Docker Desktop cannot boot a Linux VM there. Intel macOS runners expose Apple
+# Virtualization.framework (vz), letting Colima boot an Ubuntu guest and run
+# linux/amd64 containers natively (verified live in abiosoft/colima CI).
+# What this proves beyond Linux CI: pulling and running the published image on macOS
+# with host bind mounts (-v "$PWD":/workdir), VM-side /tmp (-v /tmp:/tmp), and macOS
+# uid:gid mapping (--user "$(id -u):$(id -g)", uid 501 vs 1000 on Linux). Scope limit:
+# Intel runs amd64 natively, so this does not test Apple silicon Rosetta emulation.
+# Why the synthetic dataset: macos-15-intel has 4 vCPU, 14 GB RAM, and 14 GB free SSD;
+# ImmunopipeMinimal is 3.2 GB and needs >=16 GB RAM, so CI uses tests/ci/gen_smoke_data.py.
+name: docker-macos
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Docker Hub tag of justold/immunopipe to test (default: master)"
+        type: string
+        default: master
+  push:
+    branches: [dev, master, main]
+    paths:
+      - 'docker/**'
+      - 'Dockerfile'
+      - 'Dockerfile.*'
+      - 'tests/ci/**'
+      - '.github/workflows/docker-macos.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  docker-macos:
+    name: macOS Docker smoke run
+    # macos-26-intel is the intended successor label and needs no other change.
+    runs-on: macos-15-intel
+    timeout-minutes: 90
+
+    env:
+      LOGDIR: ${{ github.workspace }}/docker-macos-logs
+      SMOKEDIR: ${{ github.workspace }}/smoke
+      IMAGE: justold/immunopipe:${{ inputs.image_tag || 'master' }}
+
+    defaults:
+      run:
+        shell: bash -elo pipefail {0}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      # Free disk space before pulling anything: macos-15-intel starts with ~14 GB
+      # free SSD while the unpacked image (~7 GB) plus VM rootfs needs much more.
+      # Keep /Library/Developer/CommandLineTools intact so Homebrew and git work.
+      - name: Free disk space
+        id: disk_cleanup
+        run: |
+          mkdir -p "$LOGDIR"
+          {
+            echo "=== Disk usage BEFORE cleanup ==="
+            df -h /
+            echo
+            if [ -d /Library/Developer/CommandLineTools ]; then
+              sudo xcode-select --switch /Library/Developer/CommandLineTools || true
+            fi
+            for bundle in /Applications/Xcode_*.app; do
+              if [ -e "$bundle" ] || [ -L "$bundle" ]; then
+                echo "Removing $bundle"
+                sudo rm -rf "$bundle" || true
+              fi
+            done
+            for sim_path in \
+              /Library/Developer/CoreSimulator/Images \
+              /Library/Developer/CoreSimulator/Profiles/Runtimes \
+              /Library/Developer/CoreSimulator/Caches \
+              /Library/Developer/CoreSimulator/Cryptex \
+              "$HOME/Library/Developer/CoreSimulator/Devices" \
+              "$HOME/Library/Developer/CoreSimulator/Caches"; do
+              if [ -e "$sim_path" ]; then
+                echo "Removing $sim_path"
+                sudo rm -rf "$sim_path" || true
+              fi
+            done
+            echo "Active developer dir: $(xcode-select -p 2>&1 || true)"
+            echo
+            echo "=== Disk usage AFTER cleanup ==="
+            df -h /
+          } > "$LOGDIR/disk-space.log" 2>&1
+          cat "$LOGDIR/disk-space.log"
+
+      # Diagnostic only: must never gate the run. Tools installed in the next step
+      # are guarded so missing binaries do not abort the job.
+      - name: Platform fingerprint (diagnostic)
+        id: fingerprint
+        continue-on-error: true
+        run: |
+          mkdir -p "$LOGDIR"
+          {
+            echo "=== uname -a ==="
+            uname -a
+            echo
+            echo "=== sw_vers ==="
+            if command -v sw_vers >/dev/null 2>&1; then
+              sw_vers
+            else
+              echo "(sw_vers unavailable)"
+            fi
+            echo
+            echo "=== CPU brand ==="
+            sysctl -n machdep.cpu.brand_string 2>/dev/null || echo "(machdep.cpu.brand_string unavailable)"
+            echo
+            echo "=== Host user identity ==="
+            id
+            echo
+            echo "=== Python ==="
+            if command -v python3 >/dev/null 2>&1; then
+              python3 --version
+            else
+              echo "(python3 unavailable)"
+            fi
+            echo
+            echo "=== Container tools (pre-install) ==="
+            if command -v colima >/dev/null 2>&1; then
+              colima version
+            else
+              echo "colima: not installed yet"
+            fi
+            if command -v docker >/dev/null 2>&1; then
+              docker --version
+            else
+              echo "docker: not installed yet"
+            fi
+            echo
+            echo "=== df -h / ==="
+            df -h /
+          } > "$LOGDIR/platform.log" 2>&1
+          cat "$LOGDIR/platform.log"
+
+      - name: Install and start Colima + Docker runtime
+        id: runtime
+        run: |
+          mkdir -p "$LOGDIR"
+          brew install colima docker lima
+          {
+            echo "=== Container runtime versions ==="
+            colima version
+            docker --version
+            limactl --version
+          } > "$LOGDIR/runtime-versions.log" 2>&1
+          cat "$LOGDIR/runtime-versions.log"
+          cat "$LOGDIR/runtime-versions.log" >> "$LOGDIR/platform.log" || true
+
+          # Leave --disk at Colima's default: Colima's sparse VM disk resizes itself
+          # on demand, so leaving it unset avoids pre-allocating scarce host SSD while
+          # keeping enough virtual capacity for the ~7 GB unpacked image and /tmp.
+          colima start --runtime docker --cpu 4 --memory 6
+
+          if docker context inspect colima >/dev/null 2>&1; then
+            docker context use colima
+          fi
+
+          ready=0
+          for attempt in 1 2 3 4 5 6; do
+            if docker info > "$LOGDIR/docker-info.log" 2>&1; then
+              ready=1
+              break
+            fi
+            echo "Waiting for Docker daemon (attempt $attempt/6)..."
+            sleep 5
+          done
+          if [ "$ready" -ne 1 ]; then
+            cat "$LOGDIR/docker-info.log" || true
+            echo "::error::Docker daemon did not become ready after colima start"
+            exit 1
+          fi
+
+          {
+            echo "=== colima status ==="
+            colima status || true
+            echo
+            echo "=== docker info (key evidence) ==="
+            docker info --format 'Server Version: {{.ServerVersion}}'
+            docker info --format 'Operating System: {{.OperatingSystem}}'
+            docker info --format 'Architecture: {{.Architecture}}'
+            docker info --format 'CPUs: {{.NCPU}}'
+            docker info --format 'Total Memory: {{.MemTotal}}'
+            echo
+            echo "=== docker info (full) ==="
+            cat "$LOGDIR/docker-info.log"
+            echo
+            echo "=== Disk usage after Colima start ==="
+            df -h /
+          } > "$LOGDIR/runtime.log" 2>&1
+          cat "$LOGDIR/runtime.log"
+
+      - name: Generate synthetic smoke dataset
+        id: gendata
+        run: |
+          mkdir -p "$LOGDIR" "$SMOKEDIR"
+          python3 tests/ci/gen_smoke_data.py "$SMOKEDIR" > "$LOGDIR/gen-smoke-data.log" 2>&1
+          cat "$LOGDIR/gen-smoke-data.log"
+
+          # gen_smoke_data.py writes the host-resolved path for ClusterMarkers.envs.dbs
+          # so host-native runs work from any pipen process workdir. Inside the container
+          # $SMOKEDIR is bind-mounted at /workdir, so remap that host path to
+          # /workdir/data/genesets.gmt while keeping the shared generator untouched.
+          python3 - "$SMOKEDIR" <<'PY'
+          import pathlib, sys
+
+          smoke_dir = pathlib.Path(sys.argv[1]).resolve()
+          cfg = smoke_dir / "smoke.config.toml"
+          host_gmt = str(smoke_dir / "data" / "genesets.gmt")
+          text = cfg.read_text(encoding="utf-8")
+          if host_gmt not in text:
+              raise SystemExit(f"expected {host_gmt!r} in {cfg}")
+          cfg.write_text(text.replace(host_gmt, "/workdir/data/genesets.gmt", 1), encoding="utf-8")
+          PY
+
+          cp "$SMOKEDIR/smoke.config.toml" "$LOGDIR/smoke.config.toml"
+          echo "=== smoke.config.toml (for container run) ==="
+          cat "$SMOKEDIR/smoke.config.toml"
+
+      - name: Run immunopipe container
+        id: run_container
+        run: |
+          cd "$SMOKEDIR"
+
+          # Note on -v /tmp:/tmp: under Colima, /tmp resolves inside the Colima Linux VM
+          # rather than the macOS host - the same behaviour as Docker Desktop - and still
+          # keeps pipeline intermediates off the container's writable layer. Keep the
+          # documented -v /tmp:/tmp flag verbatim and do not add custom --mount flags.
+          run_variant() {
+            local mode="$1"
+            local logfile="$2"
+            local rc=0
+
+            echo "=== Running container variant: $mode ($IMAGE) ==="
+            set +e
+            if [ "$mode" = "documented" ]; then
+              docker run --rm --platform linux/amd64 -w /workdir \
+                -v "$PWD":/workdir -v /tmp:/tmp \
+                --user "$(id -u):$(id -g)" \
+                "$IMAGE" @smoke.config.toml > "$logfile" 2>&1
+              rc=$?
+            else
+              docker run --rm --platform linux/amd64 -w /workdir \
+                -v "$PWD":/workdir -v /tmp:/tmp \
+                "$IMAGE" @smoke.config.toml > "$logfile" 2>&1
+              rc=$?
+            fi
+            set -e
+
+            cat "$logfile"
+            echo "docker exit code: $rc"
+            printf 'DOCKER_EXIT=%s\n' "$rc" >> "$logfile" || true
+            LAST_EXIT="$rc"
+          }
+
+          find_report_dir() {
+            local d
+            for d in "$SMOKEDIR"/*/; do
+              if [ -f "${d}REPORTS/index.html" ]; then
+                printf '%s\n' "${d%/}"
+                return 0
+              fi
+            done
+            return 1
+          }
+
+          DOC_EXIT="not-run"
+          FALLBACK_EXIT="not-run"
+          WORKING_VARIANT="none"
+
+          run_variant "documented" "$LOGDIR/docker-documented.log"
+          DOC_EXIT="$LAST_EXIT"
+
+          # Record the resolved digest because moving tags (e.g. :master) shift over time.
+          IMAGE_DIGEST="$(docker image inspect --format '{{index .RepoDigests 0}}' "$IMAGE" 2>/dev/null | tr -d '\r\n' || true)"
+          if [ -z "$IMAGE_DIGEST" ]; then
+            IMAGE_DIGEST="$(docker inspect --format '{{.Id}}' "$IMAGE" 2>/dev/null | tr -d '\r\n' || true)"
+          fi
+          if [ -z "$IMAGE_DIGEST" ]; then
+            IMAGE_DIGEST="(unavailable)"
+          fi
+          IMAGE_ID="$(docker inspect --format '{{.Id}}' "$IMAGE" 2>/dev/null | tr -d '\r\n' || true)"
+          {
+            echo "image: $IMAGE"
+            echo "resolved_digest: $IMAGE_DIGEST"
+            echo "image_id: ${IMAGE_ID:-(unavailable)}"
+          } > "$LOGDIR/image-digest.log"
+          cat "$LOGDIR/image-digest.log"
+
+          DOC_REPORT="$(find_report_dir || true)"
+          if [ "$DOC_EXIT" -eq 0 ] && [ -n "$DOC_REPORT" ]; then
+            WORKING_VARIANT="documented"
+            echo "Working variant: documented (with --user); report at $DOC_REPORT/REPORTS/index.html"
+          else
+            # On macOS host uid is 501 (not in the image's /etc/passwd), so --user is the
+            # one flag whose behaviour can differ from Linux. Retry once without --user so
+            # the run pinpoints whether --user was the cause.
+            echo "::warning::Documented invocation did not produce a passing report (exit=$DOC_EXIT); retrying once without --user"
+            ls -la "$SMOKEDIR" > "$LOGDIR/smokedir-after-documented.log" 2>&1 || true
+
+            # Clear partial outputs from the failed first attempt before retrying.
+            rm -rf "$SMOKEDIR/.pipen"
+            for entry in "$SMOKEDIR"/*/; do
+              [ -d "$entry" ] || continue
+              base="$(basename "${entry%/}")"
+              if [ "$base" != "data" ]; then
+                rm -rf "$entry"
+              fi
+            done
+
+            run_variant "without-user" "$LOGDIR/docker-without-user.log"
+            FALLBACK_EXIT="$LAST_EXIT"
+            FALLBACK_REPORT="$(find_report_dir || true)"
+            if [ "$FALLBACK_EXIT" -eq 0 ] && [ -n "$FALLBACK_REPORT" ]; then
+              WORKING_VARIANT="without-user"
+              echo "Working variant: without-user (documented exit=$DOC_EXIT, fallback exit=$FALLBACK_EXIT); report at $FALLBACK_REPORT/REPORTS/index.html"
+            else
+              echo "::error::Neither container variant produced a passing report (documented exit=$DOC_EXIT, without-user exit=$FALLBACK_EXIT)"
+            fi
+          fi
+
+          {
+            echo "image_digest=$IMAGE_DIGEST"
+            echo "doc_exit=$DOC_EXIT"
+            echo "fallback_exit=$FALLBACK_EXIT"
+            echo "working_variant=$WORKING_VARIANT"
+          } >> "$GITHUB_OUTPUT"
+
+          if [ "$WORKING_VARIANT" = "none" ]; then
+            exit 1
+          fi
+
+      - name: Assert smoke run produced a report
+        id: check_report
+        run: |
+          # The documented minimal run leaves reports at <outdir>/REPORTS/index.html.
+          # pipen may override the configured `outdir`, so accept any directory
+          # directly under the run directory that holds REPORTS/index.html.
+          OUT=""
+          for d in "$SMOKEDIR"/*/; do
+            if [ -f "${d}REPORTS/index.html" ]; then OUT="${d%/}"; break; fi
+          done
+          if [ -z "$OUT" ]; then
+            echo "::error::the smoke run produced no <outdir>/REPORTS/index.html"
+            ls -la "$SMOKEDIR"
+            exit 1
+          fi
+          echo "smoke run output directory: $OUT"
+          find "$OUT" -maxdepth 1 | sort > "$LOGDIR/report-dir-listing.log"
+          head -40 "$LOGDIR/report-dir-listing.log"
+          echo "report_dir=$OUT" >> "$GITHUB_OUTPUT"
+
+      - name: Upload logs and smoke-run reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-macos-logs
+          path: |
+            docker-macos-logs/**
+            smoke/*/REPORTS/**
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Verdict
+        id: verdict
+        if: always()
+        env:
+          OUTCOME_RUNTIME: ${{ steps.runtime.outcome }}
+          OUTCOME_GENDATA: ${{ steps.gendata.outcome }}
+          OUTCOME_RUN: ${{ steps.run_container.outcome }}
+          OUTCOME_REPORT: ${{ steps.check_report.outcome }}
+          IMAGE_DIGEST: ${{ steps.run_container.outputs.image_digest }}
+          DOC_EXIT: ${{ steps.run_container.outputs.doc_exit }}
+          FALLBACK_EXIT: ${{ steps.run_container.outputs.fallback_exit }}
+          WORKING_VARIANT: ${{ steps.run_container.outputs.working_variant }}
+        run: |
+          REPORT_DIR=""
+          for d in "$SMOKEDIR"/*/; do
+            if [ -f "${d}REPORTS/index.html" ]; then REPORT_DIR="${d%/}"; break; fi
+          done
+          if [ -n "$REPORT_DIR" ]; then
+            REPORT_PRODUCED="yes (${REPORT_DIR}/REPORTS/index.html)"
+          else
+            REPORT_PRODUCED="no"
+          fi
+
+          {
+            echo "## docker-macos verdict"
+            echo
+            echo "| check | result |"
+            echo "| --- | --- |"
+            echo "| Runtime setup (Colima + Docker) | ${OUTCOME_RUNTIME:-unknown} |"
+            echo "| Image | \`$IMAGE\` |"
+            echo "| Resolved image digest | \`${IMAGE_DIGEST:-(unavailable)}\` |"
+            echo "| Documented invocation (\`--user\`) exit code | \`${DOC_EXIT:-not-run}\` |"
+            echo "| Fallback (no \`--user\`) exit code | \`${FALLBACK_EXIT:-not-run}\` |"
+            echo "| Working variant | \`${WORKING_VARIANT:-none}\` |"
+            echo "| Report produced | $REPORT_PRODUCED |"
+            echo
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          failed=0
+          if [ -z "$REPORT_DIR" ]; then
+            echo "::error::docker-macos verdict: no <outdir>/REPORTS/index.html found under $SMOKEDIR"
+            failed=1
+          fi
+          for outcome in "$OUTCOME_RUNTIME" "$OUTCOME_GENDATA" "$OUTCOME_RUN" "$OUTCOME_REPORT"; do
+            if [ "$outcome" != "success" ]; then
+              failed=1
+            fi
+          done
+          if [ "$failed" -ne 0 ]; then
+            echo "**RESULT: FAIL - macOS Docker smoke run did not produce a verified report.**" >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          echo "**RESULT: PASS - published image produced a report on macOS (variant: \`${WORKING_VARIANT:-unknown}\`).**" >> "$GITHUB_STEP_SUMMARY"
