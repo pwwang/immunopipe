@@ -1,8 +1,19 @@
 # Change Log
 
-## Unreleased
+## 2.7.1
 
+- docs: add TRB gene-call combinations visualization and update config
+- chore: bump pipen-report to 1.3.2
+- chore: remove patch for scanpy compatibility with umap-learn >= 0.6 (scanpy adopted it)
 - docs: add macOS Docker guidance (`--platform linux/amd64` and Apple silicon emulation, ≥16 GB memory / `envs.ncores`, and `/tmp` mount)
+- ci: run the published container image on a macOS host through Colima, gated to this release, and wait for the image tag before pulling it
+- test: move the CI smoke dataset generator to `tests/ci/gen_smoke_data.py` so both workflows share one copy
+
+### Dependency Updates
+
+- r-biopipen.utils to 0.5.2-1
+    - fix(RunSeuratUMAP): pass the resolved reduction to `RunUMAP`, so an integrated reduction now reaches the embedding instead of silently falling back to `pca`
+    - feat(RunSeuratIntegration): enhance integration method resolution and add support for Harmony integration with group.by.vars
 
 ## 2.7.0
 
