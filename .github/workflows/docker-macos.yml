@@ -9,25 +9,35 @@
 # with host bind mounts (-v "$PWD":/workdir), VM-side /tmp (-v /tmp:/tmp), and macOS
 # uid:gid mapping (--user "$(id -u):$(id -g)", uid 501 vs 1000 on Linux). Scope limit:
 # Intel runs amd64 natively, so this does not test Apple silicon Rosetta emulation.
+# Trigger: release-gated, not per push. macOS runner minutes cost roughly 10x Linux minutes,
+# so this job runs on `release: published` only for the one version hard-coded in its
+# job-level `if:`; every other release skips it. Bump that literal (and the
+# workflow_dispatch default) when the next release needs the same proof. workflow_dispatch is
+# kept deliberately: without it there is no way to exercise this job before the release
+# exists, and no way to re-run it if the release-day attempt fails.
+# Image timing: the image is NOT built by the release event (deploy.yml publishes to PyPI
+# only). The tag push runs test.yml -> build.yml, whose last job tags the image with
+# github.ref_name; Docker Hub showed 2.7.0 appearing ~11 min after its release was published.
+# A wait-for-image step therefore polls for the tag before the smoke run rather than racing it.
 # Why the synthetic dataset: macos-15-intel has 4 vCPU, 14 GB RAM, and 14 GB free SSD;
 # ImmunopipeMinimal is 3.2 GB and needs >=16 GB RAM, so CI uses tests/ci/gen_smoke_data.py.
 name: docker-macos
 
 on:
+  # No push trigger and no path filter: a path filter only made sense while this ran on branch
+  # pushes, and ordinary pushes must not spend macOS minutes. The release event plus the
+  # job-level `if:` below is the whole gate. macOS minutes cost ~10x Linux minutes, so nothing
+  # here may fire on an ordinary push.
+  release:
+    types: [published]
+  # Manual entry point, kept deliberately (see the header): it is the only way to exercise
+  # this job before the release exists and the only way to re-run a failed release-day attempt.
   workflow_dispatch:
     inputs:
       image_tag:
-        description: "Docker Hub tag of justold/immunopipe to test (default: master)"
+        description: "Docker Hub tag of justold/immunopipe to test (default: 2.7.1)"
         type: string
-        default: master
-  push:
-    branches: [dev, master, main]
-    paths:
-      - 'docker/**'
-      - 'Dockerfile'
-      - 'Dockerfile.*'
-      - 'tests/ci/**'
-      - '.github/workflows/docker-macos.yml'
+        default: "2.7.1"
 
 permissions:
   contents: read
@@ -37,12 +47,28 @@ jobs:
     name: macOS Docker smoke run
     # macos-26-intel is the intended successor label and needs no other change.
     runs-on: macos-15-intel
-    timeout-minutes: 90
+    # Must cover the bounded wait for the released image tag (up to 60 min, see the wait step)
+    # plus two full smoke runs (~27 min each if the documented variant fails and the fallback
+    # runs) plus Colima setup. The wait step's own budget bounds a missing image; this timeout
+    # is the outer kill switch so no wedged step can hold a macOS runner indefinitely.
+    timeout-minutes: 180
+
+    # Release gate. A job-level `if:` cannot read the `env` context, so the version is
+    # hard-coded here instead of being derived from IMAGE.
+    # >>> This literal is the ONE place to bump when the next release needs the same proof
+    #     (along with the workflow_dispatch image_tag default above). If it is left unchanged,
+    #     this job simply stops running automatically - a deliberate choice, not an oversight.
+    # workflow_dispatch is in the condition so a manual run is never skipped by the gate.
+    if: github.event_name == 'workflow_dispatch' || github.event.release.tag_name == '2.7.1'
 
     env:
       LOGDIR: ${{ github.workspace }}/docker-macos-logs
       SMOKEDIR: ${{ github.workspace }}/smoke
-      IMAGE: justold/immunopipe:${{ inputs.image_tag || 'master' }}
+      # Job-level env may use the `github` and `inputs` contexts. On a release the released tag
+      # wins, so the job proves the released image rather than `master`; on workflow_dispatch
+      # there is no release payload, so the left side is empty and `inputs.image_tag` applies -
+      # and `inputs.image_tag` already resolves to its default (2.7.1) when no input is given.
+      IMAGE: justold/immunopipe:${{ github.event.release.tag_name || inputs.image_tag }}
 
     defaults:
       run:
@@ -222,6 +248,97 @@ jobs:
           echo "=== smoke.config.toml (for container run) ==="
           cat "$SMOKEDIR/smoke.config.toml"
 
+      # The image is published by the tag push, not by the release event, so it does not exist
+      # yet when this job starts (~11 min late for 2.7.0). Poll until the tag is listed, then
+      # pull it once so the smoke run reuses the layers instead of racing the build.
+      # Bounds: at most 60 attempts, 60 minutes wall clock, 60 s apart; a tag that never
+      # appears fails this step (and therefore the job) instead of letting `docker run` fail
+      # with a confusing "manifest unknown".
+      - name: Wait for the released image tag on Docker Hub
+        id: wait_image
+        run: |
+          mkdir -p "$LOGDIR"
+          MAX_WAIT_SECONDS=$(( 60 * 60 ))
+          INTERVAL_SECONDS=60
+          start_epoch="$(date +%s)"
+          deadline_epoch=$(( start_epoch + MAX_WAIT_SECONDS ))
+          # IMAGE is always repo:tag here (never digest-pinned), so this split is safe.
+          repo="${IMAGE%:*}"
+          tag="${IMAGE##*:}"
+          tags_api="https://hub.docker.com/v2/repositories/${repo}/tags/${tag}"
+          attempt=0
+          present=0
+
+          image_exists() {
+            # Cheapest proof first: an anonymous manifest request, no local image-store churn.
+            if docker manifest inspect "$IMAGE" >/dev/null 2>&1; then
+              echo "docker manifest inspect: tag found"
+              return 0
+            fi
+            # Fallback for registry/CLI skew (schema-1 manifests, manifest-list quirks): ask
+            # Docker Hub's public API. HTTP 200 means the tag is listed.
+            if command -v curl >/dev/null 2>&1; then
+              http_code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "$tags_api" 2>/dev/null || true)"
+              echo "Docker Hub tags API: HTTP ${http_code:-none}"
+              if [ "$http_code" = "200" ]; then
+                return 0
+              fi
+            else
+              echo "curl unavailable; skipping the Docker Hub tags API fallback"
+            fi
+            return 1
+          }
+
+          while [ "$(date +%s)" -lt "$deadline_epoch" ]; do
+            attempt=$(( attempt + 1 ))
+            echo "=== attempt ${attempt} at $(date -u '+%Y-%m-%dT%H:%M:%SZ') ($(( $(date +%s) - start_epoch ))s elapsed): ${IMAGE} ==="
+            if image_exists; then
+              present=1
+              break
+            fi
+            remaining=$(( deadline_epoch - $(date +%s) ))
+            if [ "$remaining" -le 0 ]; then
+              break
+            fi
+            sleep_for="$INTERVAL_SECONDS"
+            if [ "$sleep_for" -gt "$remaining" ]; then
+              sleep_for="$remaining"
+            fi
+            echo "not on Docker Hub yet; sleeping ${sleep_for}s (${remaining}s of the wait budget left)"
+            sleep "$sleep_for"
+          done
+
+          if [ "$present" -ne 1 ]; then
+            echo "::error::${IMAGE} was not on Docker Hub after $(( MAX_WAIT_SECONDS / 60 )) minutes and ${attempt} attempts; the tag push that builds it likely failed - check the 'test' workflow run for tag ${tag}"
+            exit 1
+          fi
+
+          # Pull now, bounded, so the smoke run starts with warm layers instead of pulling ~7 GB
+          # inside its own step where a slow pull would look like a container failure.
+          pulled=0
+          for pull_attempt in 1 2 3; do
+            if docker pull --quiet "$IMAGE"; then
+              pulled=1
+              break
+            fi
+            echo "docker pull attempt ${pull_attempt}/3 failed; retrying in 15s"
+            sleep 15
+          done
+          if [ "$pulled" -ne 1 ]; then
+            echo "::error::${IMAGE} is listed on Docker Hub but could not be pulled after 3 attempts"
+            exit 1
+          fi
+
+          RESOLVED_DIGEST="$(docker image inspect --format '{{index .RepoDigests 0}}' "$IMAGE" 2>/dev/null | tr -d '\r\n' || true)"
+          {
+            echo "image: $IMAGE"
+            echo "waited_seconds: $(( $(date +%s) - start_epoch ))"
+            echo "attempts: $attempt"
+            echo "resolved_digest: ${RESOLVED_DIGEST:-(unavailable)}"
+          } > "$LOGDIR/wait-for-image.log"
+          cat "$LOGDIR/wait-for-image.log"
+          echo "::notice::${IMAGE} available after $(( $(date +%s) - start_epoch ))s (attempt ${attempt})"
+
       - name: Run immunopipe container
         id: run_container
         run: |
@@ -371,6 +488,7 @@ jobs:
         if: always()
         env:
           OUTCOME_RUNTIME: ${{ steps.runtime.outcome }}
+          OUTCOME_WAIT: ${{ steps.wait_image.outcome }}
           OUTCOME_GENDATA: ${{ steps.gendata.outcome }}
           OUTCOME_RUN: ${{ steps.run_container.outcome }}
           OUTCOME_REPORT: ${{ steps.check_report.outcome }}
@@ -395,6 +513,7 @@ jobs:
             echo "| check | result |"
             echo "| --- | --- |"
             echo "| Runtime setup (Colima + Docker) | ${OUTCOME_RUNTIME:-unknown} |"
+            echo "| Image present on Docker Hub | ${OUTCOME_WAIT:-unknown} |"
             echo "| Image | \`$IMAGE\` |"
             echo "| Resolved image digest | \`${IMAGE_DIGEST:-(unavailable)}\` |"
             echo "| Documented invocation (\`--user\`) exit code | \`${DOC_EXIT:-not-run}\` |"
@@ -409,7 +528,7 @@ jobs:
             echo "::error::docker-macos verdict: no <outdir>/REPORTS/index.html found under $SMOKEDIR"
             failed=1
           fi
-          for outcome in "$OUTCOME_RUNTIME" "$OUTCOME_GENDATA" "$OUTCOME_RUN" "$OUTCOME_REPORT"; do
+          for outcome in "$OUTCOME_RUNTIME" "$OUTCOME_WAIT" "$OUTCOME_GENDATA" "$OUTCOME_RUN" "$OUTCOME_REPORT"; do
             if [ "$outcome" != "success" ]; then
               failed=1
             fi
