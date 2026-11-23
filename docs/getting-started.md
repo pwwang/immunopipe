@@ -65,6 +65,8 @@ docker run \
 ```
 
 `-v /tmp:/tmp` is required: the pipeline stages intermediate files under the container's `/tmp`, which otherwise lives in the container's writable layer and can run out of space — the symptom is `No space left on device` (see the [FAQ](./faq.md)). `--user "$(id -u):$(id -g)"` makes the outputs owned by you rather than `root` — drop it only if you do not mind `sudo` to clean up. Memory: the example dataset needs ≥16 GB.
+
+**macOS:** The container image is `linux/amd64` only, so macOS users (especially on Apple silicon) may need `--platform linux/amd64` in `docker run` and should ensure Docker Desktop is allocated at least 16 GB of memory (see [Installation](./installation.md#use-the-docker-image) and the [FAQ](./faq.md)).
 ///
 
 /// tab | Using singularity

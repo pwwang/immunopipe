@@ -12,14 +12,28 @@ channel)" - on Intel and Apple silicon alike.
 
 **On macOS use the [docker image](#use-the-docker-image) instead.** It is the supported
 route there: the image carries the whole R environment, so nothing else has to be
-installed. `pip install immunopipe` also succeeds on macOS, but it installs the Python
+installed. Note that the container image is published for `linux/amd64` only: Intel
+macOS runs it natively, while Apple silicon runs it under `amd64` emulation (which
+works, though CPU-intensive steps such as clustering are slower). The example dataset
+needs ≥16 GB of memory (Docker Desktop's default allocation is often lower), and
+lowering `envs.ncores` for memory-heavy processes reduces peak memory usage. Pass
+`--platform linux/amd64` when pulling or running on Apple silicon:
+
+```shell
+$ docker pull --platform linux/amd64 justold/immunopipe:<tag>
+$ docker run --platform linux/amd64 --rm -w /workdir -v .:/workdir -v /tmp:/tmp --user "$(id -u):$(id -g)" justold/immunopipe:<tag> @config.toml
+```
+
+`pip install immunopipe` also succeeds on macOS, but it installs the Python
 package alone - the R dependencies, and therefore every R-backed process, are missing
 and the pipeline will not run.
 
-This is checked continuously by `.github/workflows/install-matrix.yml`: on
-`ubuntu-latest` it performs the documented installation and runs the pipeline on a
-minimal dataset; on `macos-latest` it records the conda failure as the evidence for
-this limitation and confirms that the `pip` step still succeeds.
+This was verified on demand by `.github/workflows/install-matrix.yml.disabled`
+(disabled after verification to conserve CI minutes on a public repository; it can be
+re-enabled unchanged to reproduce the runs): on `ubuntu-latest` it performed the
+documented installation and ran the pipeline on a minimal dataset; on `macos-latest` it
+recorded the conda failure as the evidence for this limitation and confirmed that the
+`pip` step still succeeded.
 ///
 
 /// Tip
@@ -78,6 +92,12 @@ To pull the image:
 /// tab | Using docker
 ```shell
 $ docker pull justold/immunopipe:<tag>
+```
+
+On macOS (especially Apple silicon, where the `linux/amd64` image runs under emulation):
+
+```shell
+$ docker pull --platform linux/amd64 justold/immunopipe:<tag>
 ```
 ///
 

@@ -51,6 +51,28 @@ apptainer run \
 ///
 ////
 
+/// details | Docker on macOS
+
+Running `justold/immunopipe` with Docker Desktop on macOS has three common caveats:
+
+- **Platform and emulation (`linux/amd64` only):** Every `justold/immunopipe` tag (and its `justold/immunopipe-rpkgs` base image) is built for `linux/amd64` only. Intel macOS runs the image natively, while Apple silicon runs it under `amd64` emulation, which works but is slower (most noticeably during clustering). Pass `--platform linux/amd64` explicitly when pulling or running the image.
+- **Memory allocation:** The example dataset needs ≥16 GB of memory, whereas Docker Desktop's default limit is often lower. Increase Docker Desktop's memory allocation to at least 16 GB, and lower `envs.ncores` for memory-intensive processes (such as `SeuratClusteringOfAllCells` or `SeuratClustering`) to reduce peak memory usage.
+- **Temporary directory (`/tmp` mount):** Always include `-v /tmp:/tmp` (or bind a host directory with sufficient free space to `/tmp`). Without this mount, intermediate files accumulate in the container's writable layer and can fail with `No space left on device` (see the entry above).
+
+Recommended invocation on macOS:
+
+```shell
+$ docker run --platform linux/amd64 \
+    --rm -w /workdir \
+    -v .:/workdir \
+    -v /tmp:/tmp \
+    --user "$(id -u):$(id -g)" \
+    justold/immunopipe:<tag> \
+    @config.toml
+```
+
+///
+
 //// details | Why does the pipeline stop at [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md) and family without a clear error message?
 
 This is likely because that the pipeline is running out of memory. The [`SeuratClusteringOfAllCells`](processes/SeuratClusteringOfAllCells.md) and family processes (e.g. [`SeuratClustering`](processes/SeuratClustering.md)) will run the a series of `Seurat` functions to perform the clustering, especially the [`IntegrateData`](https://satijalab.org/seurat/reference/integratedata) and [`FindIntegrationAnchors`](https://satijalab.org/seurat/reference/findintegrationanchors) functions, and [`IntegrateLayers`](https://satijalab.org/seurat/reference/integratelayers) with `Seurat` v5.
