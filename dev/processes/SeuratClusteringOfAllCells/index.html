@@ -275,6 +275,24 @@ see its deprecation notice.<br /></p>
     See <a href="https://satijalab.org/seurat/reference/runumap">https://satijalab.org/seurat/reference/runumap</a></li>
 </ul>
 </li>
+<li><code>RunTSNE</code> <em>(<code>ns</code>)</em>:
+    Arguments for <a href="https://satijalab.org/seurat/reference/runtsne"><code>RunTSNE()</code></a>.<br />
+    t-SNE is skipped unless this table is non-empty.<br />
+    <code>object</code> is specified internally, and <code>-</code> in the key will be replaced with <code>.</code>.<br />
+    <code>dims=N</code> will be expanded to <code>dims=1:N</code>.<br />
+    <code>features</code> may be a character vector, a numeric <code>n</code>, or a list with <code>order</code> and <code>n</code>
+    (markers selected through <code>biopipen.utils::RunSeuratDEAnalysis</code>, as for <code>RunUMAP</code>).<br />
+    Note that <code>Seurat::RunTSNE()</code> has no <code>assay</code> argument, so the <code>features</code> path always
+    reads the default assay.<br />
+    <code>perplexity</code> defaults to <code>max(1, min(30, floor((ncells - 1) / 3)))</code>.<br /><ul>
+<li><code>dims</code> <em>(<code>type=int</code>)</em>:
+    The number of dimensions to use</li>
+<li><code>reduction</code>:
+    The reduction to use. Defaults to <code>sobj@misc$integrated_new_reduction</code>, else <code>"pca"</code>.<br /></li>
+<li><code>&lt;more&gt;</code>:
+    See <a href="https://satijalab.org/seurat/reference/runtsne">https://satijalab.org/seurat/reference/runtsne</a></li>
+</ul>
+</li>
 <li><code>RunPCA</code> <em>(<code>ns</code>)</em>:
     Arguments for <a href="https://satijalab.org/seurat/reference/runpca"><code>RunPCA()</code></a>.<br /></li>
 <li><code>FindNeighbors</code> <em>(<code>ns</code>)</em>:
