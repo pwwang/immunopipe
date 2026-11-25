@@ -63,6 +63,25 @@ as the column name.<br />
         If not provided, `sobj@misc$integrated_new_reduction` will be used.<br />
     - `<more>`:
         See <https://satijalab.org/seurat/reference/runumap>
+- `RunTSNE` *(`ns`)*:
+    Arguments for [`RunTSNE()`](https://satijalab.org/seurat/reference/runtsne).<br />
+    t-SNE is skipped unless this table is non-empty.<br />
+    `object` is specified internally as the subset object, and `-` in the key will be replaced with `.`.<br />
+    `dims=N` will be expanded to `dims=1:N`.<br />
+    `features` may be a character vector, a numeric `n`, or a list with `order` and `n`
+    (markers selected through `biopipen.utils::RunSeuratDEAnalysis`, as for `RunUMAP`).<br />
+    Note that `Seurat::RunTSNE()` has no `assay` argument, so the `features` path always
+    reads the default assay.<br />
+    `perplexity` defaults to `max(1, min(30, floor((ncells - 1) / 3)))`.<br />
+    The embedding is stored as `<case>.<reduction.name>` (default `<case>.tsne`) on the
+    returned object, keyed `<CASE>TSNE_`, so it cannot collide with a t-SNE produced by
+    `SeuratClustering`.<br />
+    - `dims` *(`type=int`)*:
+        The number of dimensions to use
+    - `reduction`:
+        The reduction to use. Defaults to `sobj@misc$integrated_new_reduction`, else `"pca"`.<br />
+    - `<more>`:
+        See <https://satijalab.org/seurat/reference/runtsne>
 - `FindNeighbors` *(`ns`)*:
     Arguments for [`FindNeighbors()`](https://satijalab.org/seurat/reference/findneighbors).<br />
     `object` is specified internally, and `-` in the key will be replaced with `.`.<br />

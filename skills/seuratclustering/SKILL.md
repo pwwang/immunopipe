@@ -135,6 +135,75 @@ seed.use = 42  # int
 - `reduction.name` (str): Name for UMAP reduction (default: "umap")
 - `verbose` (bool): Print output (default: TRUE)
 
+#### RunTSNE Parameters
+```toml
+[SeuratClustering.envs.RunTSNE]
+# Reduction to use for the t-SNE embedding
+reduction = "pca"  # Defaults to sobj@misc$integrated_new_reduction, else "pca"
+
+# Dimensions to use
+dims = 30  # int; Automatically expanded to 1:dims
+
+# Use specific features instead of dimensions
+# The features path always reads the DEFAULT assay, because
+# Seurat::RunTSNE() has no assay argument (RunUMAP does).
+features = 30  # or list: {order = "desc(abs(avg_log2FC))", n = 30}
+
+# Perplexity — the effective neighbourhood size
+# Default: max(1, min(30, floor((ncells - 1) / 3)))
+perplexity = 30
+
+# Name to store the embedding under in the Seurat object
+reduction.name = "tsne"  # Columns become tSNE_1, tSNE_2
+
+# Random seed for reproducibility
+seed.use = 1
+
+# t-SNE implementation
+tsne.method = "Rtsne"  # or "FIt-SNE"
+```
+
+**Full RunTSNE Parameter List:**
+- `dims` (int/range): Dimensions of the input reduction (default: `1:min(30, ceiling(ncells/3), ncol)`)
+- `reduction` (str): Reduction to use (default: `integrated_new_reduction`, else `"pca"`)
+- `features` (list/int/character): Features to use instead of dims; forces `dims = NULL`
+- `perplexity` (float): Neighbourhood size; must satisfy `3 * perplexity < ncells - 1`
+- `reduction.name` (str): Name for the t-SNE reduction (default: `"tsne"`)
+- `reduction.key` (str): Column prefix (default: `"tSNE_"`)
+- `dim.embed` (int): Embedding dimensions (default: 2)
+- `seed.use` (int): Random seed (default: 1)
+- `tsne.method` (str): `"Rtsne"` (default) or `"FIt-SNE"`
+- `cells` (character): Restrict the embedding to these cells
+- `check_duplicates`, `max_iter`, `theta`, … : passed through to `Rtsne`
+
+**How to get both embeddings in one run:**
+
+```toml
+[SeuratClustering.envs.RunUMAP]
+dims = 30
+reduction = "harmony"
+
+[SeuratClustering.envs.RunTSNE]
+dims = 30
+reduction = "harmony"
+perplexity = 30
+reduction.name = "tsne"
+
+[SeuratClusterStats.envs.dimplots.UMAP]
+reduction = "umap"
+
+[SeuratClusterStats.envs.dimplots.tSNE]
+reduction = "tsne"
+```
+
+Notes:
+- `RunTSNE` is opt-in: an absent or empty table means no t-SNE, so existing configurations keep
+  their current output and caches.
+- The clustering (`seurat_clusters`) is computed from the shared neighbour graph; the t-SNE is added
+  after the UMAP and never changes cluster assignment.
+- `SeuratSubClustering` accepts the same `RunTSNE` table (process-level or per case) and stores the
+  result as `<case>.tsne`, keyed `<CASE>TSNE_`.
+
 #### FindClusters Parameters
 ```toml
 [SeuratClustering.envs.FindClusters]

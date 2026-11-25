@@ -442,6 +442,25 @@
 # # reduction = ""
 # # See more options in https://satijalab.org/seurat/reference/runumap
 
+# # Arguments for RunTSNE().
+# # See: https://satijalab.org/seurat/reference/runtsne
+# # t-SNE is skipped unless this table is non-empty, so it can be added to any
+# # existing configuration without changing the current results.
+# # The object is specified internally, and - in the key will be replaced with .
+# # dims=N will be expanded to dims=1:N.
+# # You can also specify features instead of dims; the features path always reads
+# # the default assay, because Seurat::RunTSNE() has no assay argument.
+# # perplexity defaults to max(1, min(30, floor((ncells - 1) / 3))).
+# [SeuratClusteringOfAllCells.envs.RunTSNE]
+# # The number of dimensions to use
+# # dims = 30
+# # The reduction to use for t-SNE.
+# # If not provided, sobj@misc$integrated_new_reduction will be used.
+# # reduction = ""
+# # The name to store the embedding under in the Seurat object.
+# # reduction.name = "tsne"
+# # See more options in https://satijalab.org/seurat/reference/runtsne
+
 # # Arguments for RunPCA().
 # # See: https://satijalab.org/seurat/reference/runpca
 # [SeuratClusteringOfAllCells.envs.RunPCA]
@@ -688,6 +707,17 @@
 # # dims = 30
 # # reduction = ""
 # # See https://satijalab.org/seurat/reference/runumap
+
+# # Arguments for RunTSNE().
+# # See https://satijalab.org/seurat/reference/runtsne
+# # t-SNE is skipped unless this table is non-empty; the UMAP above keeps running either way.
+# # dims=N will be expanded to dims=1:N.
+# # perplexity defaults to max(1, min(30, floor((ncells - 1) / 3))).
+# [SeuratClustering.envs.RunTSNE]
+# # dims = 30
+# # reduction = ""
+# # reduction.name = "tsne"
+# # See https://satijalab.org/seurat/reference/runtsne
 
 # # Arguments for RunPCA().
 # [SeuratClustering.envs.RunPCA]
@@ -952,6 +982,18 @@
 # # Arguments for RunUMAP().
 # [SeuratSubClustering.envs.RunUMAP]
 # # See https://satijalab.org/seurat/reference/runumap
+
+# # Arguments for RunTSNE().
+# # See https://satijalab.org/seurat/reference/runtsne
+# # t-SNE is skipped unless this table is non-empty. It can be set here (all cases)
+# # or per case under [SeuratSubClustering.envs.cases.<case>].
+# # The embedding is stored as <case>.<reduction.name> (default <case>.tsne) on the
+# # returned object, keyed <CASE>TSNE_ so it cannot collide with the main t-SNE.
+# [SeuratSubClustering.envs.RunTSNE]
+# # dims = 30
+# # reduction = ""
+# # reduction.name = "tsne"
+# # See https://satijalab.org/seurat/reference/runtsne
 
 # # Arguments for FindNeighbors().
 # [SeuratSubClustering.envs.FindNeighbors]
